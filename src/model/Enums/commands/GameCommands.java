@@ -4,15 +4,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum GameCommands implements Commands {
+
+    //Execute Commands
     exitGame(""),
     nextTurn(""),
+    buildGreenHouse(""),
+    // Show Commands
     showTime(""),
     showDate(""),
     showDateTime(""),
     showDayOfWeek(""),
-    cheatAdvancedTime(""),
+    showSeason(""),
+    showWeather(""),
+    showTomorrowWeather(""),
+    //Cheat Commands
+    cheatThor(""),
     cheatAdvancedDate(""),
-    showSeason("");
+    cheatAdvancedTime(""),
+    cheatWeather(""),
+    ;
 
     private final String pattern;
 

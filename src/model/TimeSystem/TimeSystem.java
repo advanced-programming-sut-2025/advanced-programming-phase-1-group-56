@@ -3,7 +3,7 @@ package model.TimeSystem;
 import java.util.ArrayList;
 
 public class TimeSystem {
-    private final ArrayList<Observer> observers = new ArrayList<>();
+    private final ArrayList<TimeObserver> observers = new ArrayList<>();
     private DateTime time;
 
 
@@ -11,13 +11,8 @@ public class TimeSystem {
         time = new DateTime(day,hour);
     }
     public void notifyObservers(boolean newDay) {
-        for (Observer o : observers) {
-            if(newDay) {
-                o.onDayChanged(time);
-            }
-            else {
-                o.onHourChanged(time);
-            }
+        for (TimeObserver o : observers) {
+            o.onHourChanged(time, newDay);
         }
     }
 
@@ -32,9 +27,9 @@ public class TimeSystem {
         }
     }
 
-    public void addObserver(Observer o) { observers.add(o); }
+    public void addObserver(TimeObserver o) { observers.add(o); }
 
-    public ArrayList<Observer> getObservers() { return observers; }
+    public ArrayList<TimeObserver> getObservers() { return observers; }
 
     public DateTime getDateTime() { return time; }
 
