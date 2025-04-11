@@ -1,4 +1,4 @@
-package TimeSystem;
+package model.TimeSystem;
 
 public class TimeSystem {
 }

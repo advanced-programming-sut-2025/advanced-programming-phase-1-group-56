@@ -1,4 +1,4 @@
-package model.Enums;
+package model.Enums.commands;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public enum PreGameMenuCommands implements Commands {
     newGameRegex(""),
     chooseMap(""),
-    loadGame(""),
+    loadGame("");
 
     private final String regex;
 

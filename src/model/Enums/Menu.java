@@ -1,10 +1,13 @@
 package model.Enums;
 
-import view.AppMenu;
-import view.LoginMenu;
+import view.*;
 
 public enum Menu {
-    LoginMenu(new LoginMenu());
+    loginMenu(new LoginMenu()),
+    mainMenu(new MainMenu()),
+    profileMenu(new ProfileMenu()),
+    avatarMenu(new AvatarMenu()),
+    gameMenu(new GameMenu());
 
     private final AppMenu menu;
     Menu(AppMenu appMenu) {
