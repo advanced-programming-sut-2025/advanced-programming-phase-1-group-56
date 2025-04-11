@@ -1,4 +1,8 @@
 package view;
 
-public class ProfileMenu {
+public class ProfileMenu implements AppMenu {
+    @Override
+    public void check() {
+
+    }
 }

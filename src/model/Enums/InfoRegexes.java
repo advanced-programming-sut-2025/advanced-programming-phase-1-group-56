@@ -9,7 +9,7 @@ public enum InfoRegexes {
     password(""),
     usersName(""),
     gender(""),
-    answer(""),
+    answer("");
 
     private final String pattern;
 

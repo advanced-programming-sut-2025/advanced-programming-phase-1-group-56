@@ -1,4 +1,4 @@
-package model.Enums;
+package model.Enums.commands;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +12,7 @@ public enum GameCommands implements Commands {
     showDayOfWeek(""),
     cheatAdvancedTime(""),
     cheatAdvancedDate(""),
+    showSeason("");
 
     private final String pattern;
 

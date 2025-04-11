@@ -1,4 +1,8 @@
 package view;
 
-public class MainMenu {
+public class MainMenu implements AppMenu {
+    @Override
+    public void check() {
+
+    }
 }
