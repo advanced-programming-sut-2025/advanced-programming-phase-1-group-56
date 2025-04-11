@@ -1,5 +1,6 @@
 package model.TimeSystem;
 
 public interface Observer {
-    public void onTimeChanged(DateTime time);
+    public void onHourChanged(DateTime time);
+    public void onDayChanged(DateTime time);
 }
