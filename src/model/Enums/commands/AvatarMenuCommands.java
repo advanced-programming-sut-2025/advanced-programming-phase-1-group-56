@@ -3,20 +3,11 @@ package model.Enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum LoginMenuCommand implements Commands {
-    goToMenu(""),
-    menuExit(""),
-    showCurrentMenu(""),
-    register(""),
-    safetyQuestion(""),
-    login(""),
-    forgotPassword(""),
-    answerRegex(""),
-    
+public enum AvatarMenuCommands implements Commands {
 
     private final String regex;
 
-    LoginMenuCommand(String regex) {
+    AvatarMenuCommands(String regex) {
         this.regex = regex;
     }
 
@@ -28,4 +19,4 @@ public enum LoginMenuCommand implements Commands {
         }
         return null;
     }
-    }
+}
