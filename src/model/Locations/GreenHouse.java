@@ -1,8 +1,15 @@
 package model.Locations;
 
 public class GreenHouse extends Building {
-    GreenHouse(int x, int y) {
-        super(x, y, 7, 8,5,6);
+
+
+    public GreenHouse(String name,int posX, int posY) {
+        super(name, 6,8, posX, posY,5,6);
+    }
+
+    @Override
+    public void interact() {
+
     }
 
     //TODO add tiles and field to this after adding items
