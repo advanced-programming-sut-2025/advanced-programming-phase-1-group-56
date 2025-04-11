@@ -7,9 +7,9 @@ public class DateTime {
     private int hour;
     private int day;
 
-    DateTime(int hour, int day) {
-        this.hour = hour;
+    DateTime( int day,int hour) {
         this.day = day;
+        this.hour = hour;
     }
 
     public int getHour() {
