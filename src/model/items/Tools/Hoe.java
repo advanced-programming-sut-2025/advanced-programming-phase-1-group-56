@@ -1,11 +1,13 @@
-package model.items;
+package model.items.Tools;
 
 import model.Enums.ToolMaterial;
 import model.Locations.Tile;
+import model.items.Tool;
+import model.items.ToolBehavior;
 
-public class FishingPole extends Tool{
+public class Hoe extends Tool {
 
-    public FishingPole(ToolBehavior toolBehavior, ToolMaterial toolMaterial) {
+    public Hoe(ToolBehavior toolBehavior, ToolMaterial toolMaterial) {
         super(toolBehavior , toolMaterial);
     }
 

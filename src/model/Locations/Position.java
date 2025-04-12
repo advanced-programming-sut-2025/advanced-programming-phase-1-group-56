@@ -1,4 +1,4 @@
-package model.GameMap;
+package model.Locations;
 
 public class Position {
     private int x;
