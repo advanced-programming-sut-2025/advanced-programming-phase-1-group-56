@@ -22,6 +22,7 @@ public enum GameCommands implements Commands {
     cheatAdvancedDate(""),
     cheatAdvancedTime(""),
     cheatWeather(""),
+    //Tool commands
     toolsEquip(""),
     toolsShowCurrent(""),
     toolsShowAvailable(""),
