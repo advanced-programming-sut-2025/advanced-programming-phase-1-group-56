@@ -1,8 +1,6 @@
 package model.Locations;
 
-import model.GameMap.Position;
 import model.GameObject.GameObject;
-import model.GameObject.Movable;
 
 public abstract class Building extends GameObject {
     protected String name;
