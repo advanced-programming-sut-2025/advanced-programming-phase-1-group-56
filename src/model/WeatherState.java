@@ -3,7 +3,7 @@ import model.Enums.WeatherType;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 
-public class WeatherState implements TimeObserver {
+public class WeatherState {
     private WeatherType todayWeather;
     private WeatherType tomorrowWeather;
 
@@ -15,9 +15,11 @@ public class WeatherState implements TimeObserver {
         return todayWeather == WeatherType.Rainy || todayWeather == WeatherType.Storm;
     }
 
-    public void StrikeThunder(){
+    public boolean shouldStrikeThunder(){
         ;;;;
-    }
+        //if storm and chance of 50%;
+        return true;//TODO
+    }//TODO move this to farm class
 
     public double getEnergyMultiplier(String season) {
 
@@ -34,14 +36,6 @@ public class WeatherState implements TimeObserver {
 //        return 1.0;
 
         return "OMG WOW".length();
-    }
-
-    @Override
-    public void onHourChanged(DateTime time,boolean newDay) {
-        if(newDay) {
-            todayWeather = tomorrowWeather;
-            //TODO tomorrow weather = random generate
-        }
     }
 
     public WeatherType getTodayWeather() {
