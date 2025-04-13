@@ -1,7 +1,7 @@
 package model.items;
 
-import model.Enums.ToolMaterial;
-import model.Enums.ToolType;
+import model.Enums.Items.ToolMaterial;
+import model.Enums.Items.ToolType;
 import model.Locations.Tile;
 import model.Player;
 

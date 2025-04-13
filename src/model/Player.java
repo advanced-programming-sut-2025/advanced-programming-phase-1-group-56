@@ -1,15 +1,24 @@
 package model;
 
-import model.Enums.BackPackType;
-import model.Enums.TrashcanType;
+import model.Activities.CookFood;
+import model.Activities.CraftTool;
+import model.Enums.Items.BackPackType;
+import model.Enums.Items.TrashcanType;
+import model.GameObject.LivingEntity;
+import model.Locations.Building;
+import model.States.Energy;
+import model.items.Inventory;
 import model.skills.Skill;
 
 import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Skill> skills;
-    private ArrayList<ToolRecipes> toolRecipes;
-    private ArrayList<FoodRecipes> foodRecipes;
+    private ArrayList<CraftTool> toolRecipes;
+    private ArrayList<CookFood> foodRecipes;
+    private ArrayList<Building> building;
+    private Building defaultHome;
+    private ArrayList<LivingEntity> livingEntities;
     private Inventory inventory;
     private Energy energy;
     private BackPackType currentBackpack;
@@ -65,19 +74,36 @@ public class Player {
         this.playerInventory = playerInventory;
     }
 
-    public ArrayList<ToolRecipes> getToolRecipes() {
+    public ArrayList<CraftTool> getToolRecipes() {
         return toolRecipes;
     }
 
-    public void addToolRecipes(ToolRecipes toolRecipes) {
+    public void addToolRecipes(CraftTool toolRecipes) {
         this.toolRecipes.add(toolRecipes);
     }
 
-    public ArrayList<FoodRecipes> getFoodRecipes() {
+    public ArrayList<CookFood> getFoodRecipes() {
         return foodRecipes;
     }
 
-    public void setFoodRecipes(FoodRecipes foodRecipes) {
+    public void addFoodRecipes(CookFood foodRecipes) {
         this.foodRecipes.add(foodRecipes);
+    }
+
+
+    public ArrayList<LivingEntity> getLivingEntities() {
+        return livingEntities;
+    }
+
+    public void addLivingEntities(LivingEntity livingEntities) {
+        this.livingEntities.add(livingEntities);
+    }
+
+    public ArrayList<Building> getBuilding() {
+        return building;
+    }
+
+    public void addBuilding(Building building) {
+        this.building.add(building);
     }
 }

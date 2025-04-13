@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Enums.ToolMaterial;
+import model.Enums.Items.ToolMaterial;
 import model.Locations.Tile;
 
 public abstract class Tool extends Item {
