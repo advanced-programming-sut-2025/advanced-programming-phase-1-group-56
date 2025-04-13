@@ -1,7 +1,7 @@
 package model.TimeSystem;
 
-import model.Enums.DayOfWeek;
-import model.Enums.Seasons;
+import model.Enums.WeatherAndTime.DayOfWeek;
+import model.Enums.WeatherAndTime.Seasons;
 
 public class DateTime {
     private int hour;

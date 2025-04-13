@@ -1,15 +1,20 @@
-package model.Enums.commands;
+package model.Enums.commands.GameCommands;
+
+import model.Enums.commands.Commands;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum AvatarMenuCommands implements Commands {
-    showWeather(""),
-    showTomorrowWeather(""),
-    ;
+public enum TimeAndDateCommands implements Commands {
+    showTime(""),
+    showDate(""),
+    showDateTime(""),
+    showDayOfWeek(""),
+    showSeason("");
+
     private final String regex;
 
-    AvatarMenuCommands(String regex) {
+    TimeAndDateCommands(String regex) {
         this.regex = regex;
     }
 
@@ -21,4 +26,5 @@ public enum AvatarMenuCommands implements Commands {
         }
         return null;
     }
+
 }

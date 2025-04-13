@@ -3,11 +3,10 @@ package model.Locations;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Farm implements TimeObserver {
-    Tile [][] tiles;
+    Tile[][] tiles;
     ArrayList<Building> buildings;
 
 
