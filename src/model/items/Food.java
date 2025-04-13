@@ -7,7 +7,8 @@ public class Food extends Item {
     private int energy;
     private int price;
 
-    protected Food(String name, HashMap<Item, Integer> ingredients,int energy, int price) {
+    public Food(String name, int maxStackSize,HashMap<Item, Integer> ingredients,int energy, int price) {
+        super(name,maxStackSize,true);
         this.name = name;
         this.energy = energy;
         this.price = price;

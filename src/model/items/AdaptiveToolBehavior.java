@@ -23,4 +23,28 @@ public class AdaptiveToolBehavior implements ToolBehavior {
             // if
                 // if
     }
+
+    public ToolMaterial getToolMaterial() {
+        return toolMaterial;
+    }
+
+    public void setToolMaterial(ToolMaterial toolMaterial) {
+        this.toolMaterial = toolMaterial;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public ToolType getToolType() {
+        return toolType;
+    }
+
+    public void setToolType(ToolType toolType) {
+        this.toolType = toolType;
+    }
 }
