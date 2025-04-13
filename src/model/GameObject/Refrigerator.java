@@ -1,9 +1,8 @@
 package model.GameObject;
 
-import model.Locations.Position;
+import model.locations.Position;
 import model.items.Item;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Refrigerator extends GameObject {

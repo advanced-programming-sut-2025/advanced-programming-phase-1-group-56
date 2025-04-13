@@ -1,6 +1,6 @@
 package model.GameObject;
 
-import model.Locations.Position;
+import model.locations.Position;
 
 public abstract class GameObject {
     protected Position position;

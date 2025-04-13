@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Locations.Tile;
+import model.locations.Tile;
 
 public interface ToolBehavior {
     public void useOn(Tile tile);
