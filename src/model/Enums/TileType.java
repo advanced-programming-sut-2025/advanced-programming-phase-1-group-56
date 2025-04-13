@@ -5,5 +5,6 @@ public enum TileType {
     Soil,
     FarmableSoil,
     PlowedSoil,
+    WaterPlowedSoil,
     Default;
 }

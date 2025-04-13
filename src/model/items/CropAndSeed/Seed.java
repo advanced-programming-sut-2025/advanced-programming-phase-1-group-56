@@ -1,0 +1,28 @@
+package model.items.CropAndSeed;
+
+import model.Enums.WeatherAndTime.Seasons;
+import model.GameObject.GameObject;
+import model.Locations.Tile;
+import model.States.Energy;
+import model.items.Item;
+
+import java.util.ArrayList;
+
+public class Seed  extends Item implements Plantable {
+    private final GameObject platingObject;
+
+
+    public Seed(String name, GameObject platingObject) {
+        super(name,99,true);//TODO
+        this.platingObject = platingObject;
+    }
+
+    @Override
+    public void plant(Tile tile) {
+
+    }
+
+    public GameObject getPlatingObject() {
+        return platingObject;
+    }
+}
