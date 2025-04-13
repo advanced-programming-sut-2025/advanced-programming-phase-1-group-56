@@ -1,6 +1,6 @@
 package model.Locations;
 
-import model.GameMap.Position;
+import model.Locations.Position;
 import model.GameObject.NPC.NPC;
 import model.items.Item;
 
@@ -13,7 +13,7 @@ public class Store extends Building {
     private int closingHour;
     private HashMap<Item,Integer> products;
     public Store(String name, Position position, int width, int height, int insideWidth, int insideHeight,
-                 ,boolean[][] walkable,NPC owner,int openingHour,int closingHour) {
+                 boolean[][] walkable,NPC owner,int openingHour,int closingHour) {
         super(name, position, width, height, insideWidth, insideHeight, walkable);
         this.name = name;
         this.owner = owner;
