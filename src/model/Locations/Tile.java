@@ -1,17 +1,20 @@
 package model.Locations;
 
+import model.Enums.TileType;
 import model.GameObject.GameObject;
 import model.GameObject.LivingEntity;
 import model.GameObject.Movable;
 
 public class Tile {
     private Position position;
+    private TileType tileType;
     private boolean isWalkable; // این به‌صورت دستی باید مقداردهی بشه یا از objectها گرفته بشه
     private GameObject fixedObject;
     private LivingEntity livingEntity;
 
-    public Tile(Position position, GameObject fixedObject, LivingEntity livingEntity) {
+    public Tile(Position position, TileType tileType ,GameObject fixedObject, LivingEntity livingEntity) {
         this.position = position;
+        this.tileType = tileType;
         this.fixedObject = fixedObject;
         this.livingEntity = livingEntity;
         this.isWalkable = calculateWalkable();
@@ -56,5 +59,13 @@ public class Tile {
     public void setFixedObject(GameObject fixedObject) {
         this.fixedObject = fixedObject;
         this.isWalkable = calculateWalkable();
+    }
+
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    public void setTileType(TileType tileType) {
+        this.tileType = tileType;
     }
 }
