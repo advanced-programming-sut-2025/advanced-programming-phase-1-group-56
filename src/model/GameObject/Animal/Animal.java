@@ -2,7 +2,7 @@ package model.GameObject.Animal;
 
 import model.Enums.Animals.AnimalType;
 import model.GameObject.LivingEntity;
-import model.Locations.Position;
+import model.locations.Position;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,11 @@ public class Animal extends LivingEntity {
     private Position position;
     private int width;
     private int height;
-    private int health ;//TODO
+    private int health;//TODO
     private int hungaryBar;//TODO
     private ArrayList<AnimalProduct> products;
 
-    public Animal(Position position, int width, int height, boolean[][] walkable,String name, AnimalType type) {
+    public Animal(Position position, int width, int height, boolean[][] walkable, String name, AnimalType type) {
         super(position, width, height, walkable);
         this.name = name;
         this.type = type;

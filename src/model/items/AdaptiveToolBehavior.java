@@ -2,7 +2,7 @@ package model.items;
 
 import model.Enums.Items.ToolMaterial;
 import model.Enums.Items.ToolType;
-import model.Locations.Tile;
+import model.locations.Tile;
 import model.Player;
 
 public class AdaptiveToolBehavior implements ToolBehavior {

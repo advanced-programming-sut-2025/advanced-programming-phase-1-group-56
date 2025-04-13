@@ -1,9 +1,8 @@
 package model.GameObject.NPC;
 
-import model.Locations.Position;
-import model.GameObject.GameObject;
+import model.locations.Position;
 import model.GameObject.LivingEntity;
-import model.Locations.Building;
+import model.locations.Building;
 import model.items.Item;
 
 import java.util.ArrayList;
