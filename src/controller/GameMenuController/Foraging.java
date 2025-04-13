@@ -8,7 +8,7 @@ public class Foraging extends CommandController {
 
 
     }
-    public static Result getArtisan{
+    public static Result getArtisan(){
 
 
     }
