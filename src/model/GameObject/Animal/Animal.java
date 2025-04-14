@@ -2,7 +2,7 @@ package model.GameObject.Animal;
 
 import model.Enums.Animals.AnimalType;
 import model.GameObject.LivingEntity;
-import model.locations.Position;
+import model.Locations.Position;
 
 import java.util.ArrayList;
 

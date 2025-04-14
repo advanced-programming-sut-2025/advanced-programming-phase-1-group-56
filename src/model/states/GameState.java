@@ -1,6 +1,6 @@
 package model.states;
 
-import model.timeSystem.TimeSystem;
+import model.TimeSystem.TimeSystem;
 
 public class GameState {
     private WeatherState weatherState;

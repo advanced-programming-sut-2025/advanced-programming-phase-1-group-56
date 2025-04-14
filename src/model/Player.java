@@ -5,7 +5,7 @@ import model.Activities.CraftTool;
 import model.Enums.Items.BackPackType;
 import model.Enums.Items.TrashcanType;
 import model.GameObject.LivingEntity;
-import model.locations.Building;
+import model.Locations.Building;
 import model.states.Energy;
 import model.items.Inventory;
 import model.skills.Skill;

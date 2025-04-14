@@ -1,7 +1,7 @@
 package model.GameObject;
 
 import model.Enums.Direction;
-import model.locations.Position;
+import model.Locations.Position;
 
 public class LivingEntity extends GameObject implements Movable {
     public LivingEntity(Position position, int width, int height, boolean[][] walkable) {
