@@ -3,8 +3,8 @@ package model.Locations;
 public class GreenHouse extends Building {
 
 
-    public GreenHouse(String name,Position position) {
-        super(name,  position,8, 7, 5,4,new boolean[5][4]);
+    public GreenHouse(String name,int posX, int posY) {
+        super(name, new Position(posX, posY),6, 8, 6,5,new boolean[6][8]);
     }
 
     @Override

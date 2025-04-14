@@ -6,8 +6,8 @@ import model.TimeSystem.TimeObserver;
 import java.util.ArrayList;
 
 public class Farm implements TimeObserver {
-    Tile[][] tiles;
-    ArrayList<Building> buildings;
+    private Tile[][] tiles;
+    private ArrayList<Building> buildings;
 
 
 

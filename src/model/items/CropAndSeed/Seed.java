@@ -1,12 +1,9 @@
 package model.items.CropAndSeed;
 
-import model.Enums.WeatherAndTime.Seasons;
 import model.GameObject.GameObject;
 import model.Locations.Tile;
 import model.States.Energy;
 import model.items.Item;
-
-import java.util.ArrayList;
 
 public class Seed  extends Item implements Plantable {
     private final GameObject platingObject;

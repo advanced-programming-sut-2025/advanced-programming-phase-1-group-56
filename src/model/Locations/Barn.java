@@ -37,7 +37,7 @@ public class Barn extends Building {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    public List<Animal> getAnimals() {
+    public ArrayList<Animal> getAnimals() {
         return animals;
     }
 

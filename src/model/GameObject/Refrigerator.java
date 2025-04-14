@@ -1,6 +1,6 @@
 package model.GameObject;
 
-import model.locations.Position;
+import model.Locations.Position;
 import model.items.Item;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package model.GameObject;
 
-import model.locations.Position;
+import model.Locations.Position;
 
 public abstract class GameObject {
     protected Position position;
@@ -8,7 +8,7 @@ public abstract class GameObject {
     protected int width;
     protected int height;
 
-    public GameObject(Position position, int width, int height) {
+    public GameObject(Position position, int width, int height , boolean [][] walkable) {
         this.position = position;
         this.width = width;
         this.height = height;

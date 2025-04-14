@@ -1,32 +1,29 @@
 package model.Locations;
 
-import model.GameObject.Animal.Animal;
-import model.GameObject.NPC.NPC;
-
 import java.util.ArrayList;
 
 public class Map {
-    private final ArrayList<Farm> farms;
-    private final Tile[][] tiles;
+    private ArrayList<Farm> farms;
+    private model.Locations.Tile[][] tiles;
 
-    private final ArrayList<NPC> NPCs;
-    //private final ArrayList<Animal> animals = new ArrayList<Animal>();
 
-    public Map(ArrayList<Farm> farms,Tile[][] map, ArrayList<NPC> NPCs) {
-        this.NPCs = NPCs;
+    public Map(ArrayList<Farm> farms) {
         this.farms = farms;
-        tiles = map;
     }
 
     public ArrayList<Farm> getFarms() {
         return farms;
     }
 
+    public void setFarms(ArrayList<Farm> farms) {
+        this.farms = farms;
+    }
+
     public Tile[][] getTiles() {
         return tiles;
     }
 
-    public ArrayList<NPC> getNPCs() {
-        return NPCs;
+    public void setTiles(Tile[][] tiles) {
+        this.tiles = tiles;
     }
 }
