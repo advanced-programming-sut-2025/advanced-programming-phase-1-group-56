@@ -1,4 +1,4 @@
-package model.states;
+package model.States;
 
 public class Energy {
 
