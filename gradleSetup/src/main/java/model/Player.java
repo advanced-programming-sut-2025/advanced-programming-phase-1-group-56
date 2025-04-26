@@ -2,11 +2,13 @@ package model;
 
 import model.Activities.CookFood;
 import model.Activities.CraftTool;
+import model.Activities.Friendship;
 import model.Enums.Items.BackPackType;
 import model.Enums.Items.TrashcanType;
 import model.GameObject.LivingEntity;
 import model.Locations.Building;
-import model.states.Energy;
+import model.Locations.Farm;
+import model.States.Energy;
 import model.items.Inventory;
 import model.skills.Skill;
 
@@ -24,6 +26,9 @@ public class Player {
     private BackPackType currentBackpack;
     private TrashcanType currentTrashcan;
     private Inventory playerInventory;
+    private Farm playerFarm;
+    private ArrayList<Friendship> friendShips;
+
 
 
     public ArrayList<Skill> getSkills() {

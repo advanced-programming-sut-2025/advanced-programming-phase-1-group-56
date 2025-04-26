@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 
 public class User {
@@ -6,15 +7,16 @@ public class User {
     private String name;
     private String password;
     private String email;
-    private String securityQuestion;
+    private int securityQuestion;
     private String answer;
     private Boolean gender;//True = male  false = female
     private Game currentGame;
     private final ArrayList<Game> games = new ArrayList<>();
     private int numOfGames;
     private int highScore;
+    private Player player;
 
-    public User(String username, String name, String password, String email, String securityQuestion,
+    public User(String username, String name, String password, String email, int securityQuestion,
                 String answer, Boolean gender) {
         this.username = username;
         this.name = name;
@@ -26,6 +28,7 @@ public class User {
         this.numOfGames = 0;
         this.highScore = 0;
         this.currentGame = null;
+        this.player = null;
     }
 
     public String getUsername() {
@@ -60,11 +63,11 @@ public class User {
         this.email = email;
     }
 
-    public String getSecurityQuestion() {
+    public int getSecurityQuestion() {
         return securityQuestion;
     }
 
-    public void setSecurityQuestion(String securityQuestion) {
+    public void setSecurityQuestion(int securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
 
@@ -110,5 +113,13 @@ public class User {
 
     public ArrayList<Game> getGames() {
         return games;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
