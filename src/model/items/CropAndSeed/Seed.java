@@ -2,7 +2,6 @@ package model.items.CropAndSeed;
 
 import model.GameObject.GameObject;
 import model.Locations.Tile;
-import model.States.Energy;
 import model.items.Item;
 
 public class Seed  extends Item implements Plantable {
