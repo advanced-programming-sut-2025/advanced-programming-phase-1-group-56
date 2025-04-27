@@ -16,9 +16,9 @@ public class Tree extends GameObject {
     private final HashMap<Item,Integer> itemsGiven;
 
     public Tree (Position position, int width, int height, ArrayList<Integer> stages, boolean recollectable,
-                 int recollectDuration, ArrayList<Seasons> seasons,HashMap<Item,Integer> itemsGiven)
+                 int recollectDuration, ArrayList<Seasons> seasons,HashMap<Item,Integer> itemsGiven, boolean walkable[][])
     {
-        super(position,width,height);
+        super(position,width,height,walkable);
         this.stages = stages;
         this.recollectable = recollectable;
         this.recollectDuration = recollectDuration;

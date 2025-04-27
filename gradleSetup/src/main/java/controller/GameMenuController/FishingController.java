@@ -6,7 +6,7 @@ import model.Result;
 public class FishingController extends CommandController {
     public static Result fishing() {
 
-
+        return null;
     }
 
 }

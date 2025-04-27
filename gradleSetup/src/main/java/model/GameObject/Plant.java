@@ -11,9 +11,9 @@ public class Plant extends GameObject {
     private final boolean CanBecomeGiant;
     private int currentStage;
 
-    public Plant (Position position, int width, int height, ArrayList<Integer> stages, boolean recollectable, int recollectDuration, ArrayList<Seasons> seasons, boolean canBecomeGiant)
+    public Plant (Position position, int width, int height, ArrayList<Integer> stages, boolean recollectable, int recollectDuration, ArrayList<Seasons> seasons, boolean canBecomeGiant, boolean walkable[][])
     {
-        super(position,width,height);
+        super(position,width,height, walkable);
         this.stages = stages;
         this.recollectable = recollectable;
         this.recollectDuration = recollectDuration;

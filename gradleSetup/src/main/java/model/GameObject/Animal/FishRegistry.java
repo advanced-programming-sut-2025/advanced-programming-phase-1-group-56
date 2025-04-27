@@ -40,10 +40,11 @@ public class FishRegistry {
 
     public static List<Fish> getFishBySeason(Seasons seasons) {
         //TODO
-        
+        return null;
     }
 
     public static List<Fish> getLegendaryFish() {
         //TODO
+        return null;
     }
 }

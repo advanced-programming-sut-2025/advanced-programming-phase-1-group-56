@@ -14,7 +14,7 @@ public class ProfileMenu implements AppMenu {
         String input = scanner.nextLine();
         Matcher matcher;
         if(ProfileMenuRegexes.ShowCurrentMenu.getMatcher(input) != null) {
-
+            System.out.println("you are in profile menu");
         } else if((matcher = ProfileMenuRegexes.changeEmail.getMatcher(input)) != null) {
             System.out.println(ProfileMenuController.manageChangeEmail(matcher.group(1)).getMessage());
         } else if((matcher = ProfileMenuRegexes.changePassword.getMatcher(input)) != null) {
