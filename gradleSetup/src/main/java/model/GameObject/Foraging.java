@@ -11,9 +11,9 @@ public class Foraging extends GameObject {
     private int sellPrice;
     HashMap<Item,Integer> itemsGiven;
 
-    public Foraging(Position position,int width,int height,String name,String description,int sellPrice,HashMap<Item,Integer> itemsGiven)
+    public Foraging(Position position,int width,int height,String name,String description,int sellPrice,HashMap<Item,Integer> itemsGiven, boolean walkable[][])
     {
-        super(position,width,height);
+        super(position,width,height,walkable);
         this.sellPrice=sellPrice;
         this.name=name;
         this.description=description;

@@ -33,10 +33,10 @@ public class DateTime {
     }
     //TODO
     public Seasons getSeason(){
-
+        return null;
     }
     //TODO
     public DayOfWeek getDayOfWeek(){
-
+        return null;
     }
 }

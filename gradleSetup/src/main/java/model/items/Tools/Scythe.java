@@ -7,8 +7,8 @@ import model.items.ToolBehavior;
 
 public class Scythe extends Tool {
 
-    public Scythe(ToolBehavior toolBehavior, ToolMaterial toolMaterial) {
-        super(toolBehavior , toolMaterial);
+    public Scythe(ToolBehavior toolBehavior, ToolMaterial toolMaterial, String name, int maxStackSize, boolean Stackable) {
+        super(toolBehavior , toolMaterial,  name, maxStackSize, Stackable);
     }
     @Override
     public void use(Tile tile) {

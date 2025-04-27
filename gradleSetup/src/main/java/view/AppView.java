@@ -1,5 +1,8 @@
 package view;
 
+import model.App;
+import model.Enums.Menu;
+
 import java.util.Scanner;
 
 public class AppView {

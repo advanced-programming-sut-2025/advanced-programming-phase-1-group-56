@@ -7,8 +7,8 @@ import model.items.ToolBehavior;
 
 public class Shear extends Tool {
 
-    public Shear(ToolBehavior toolBehavior, ToolMaterial toolMaterial) {
-        super(toolBehavior , toolMaterial);
+    public Shear(ToolBehavior toolBehavior, ToolMaterial toolMaterial , String name, int maxStackSize, boolean Stackable) {
+        super(toolBehavior , toolMaterial, name, maxStackSize, Stackable);
     }
 
     @Override

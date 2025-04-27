@@ -3,6 +3,10 @@ package model.items;
 public class Backpack extends Item {
     private int capacity;
 
+    public Backpack(String name, int maxStackSize, boolean Stackable) {
+        super(name, maxStackSize, Stackable);
+    }
+
     public int getCapacity() {
         return capacity;
     }
