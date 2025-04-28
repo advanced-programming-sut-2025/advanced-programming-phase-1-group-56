@@ -6,6 +6,7 @@ public class User {
     private String username;
     private String name;
     private String password;
+    private String salt;
     private String email;
     private int securityQuestion;
     private String answer;
@@ -16,11 +17,13 @@ public class User {
     private int highScore;
     private Player player;
 
-    public User(String username, String name, String password, String email, int securityQuestion,
+
+    public User(String username, String name, String password, String salt, String email, int securityQuestion,
                 String answer, Boolean gender) {
         this.username = username;
         this.name = name;
         this.password = password;
+        this.salt = salt;
         this.email = email;
         this.securityQuestion = securityQuestion;
         this.answer = answer;
@@ -121,5 +124,13 @@ public class User {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

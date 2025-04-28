@@ -3,6 +3,7 @@ package controller.MenuController;
 import controller.CommandController;
 import model.App;
 import model.Enums.InfoRegexes;
+import model.MakePasswordSHA_256;
 import model.Result;
 import model.User;
 
@@ -16,9 +17,14 @@ public class ProfileMenuController extends CommandController {
             return new Result(false, "dadash password jadid hamun ghablie ke");
         } else if(!InfoRegexes.password.isValid(newPassword)) {
             return new Result(false, "password jadidet be dard khodet mikore x_x ");
-        } else if(!(newPassword.length() <8)) {
-            return new Result(false, "password istoo short");
+        } else if(!InfoRegexes.strongPassword.isValid(newPassword)) {
+            return new Result(false, "please only use special character and letter and number for password!");
+        } else if (newPassword.length() < 8 ) {
+            return new Result(false, "password is too short!");
         }
+        String salt = MakePasswordSHA_256.generateSalt();
+        String hashPassword = MakePasswordSHA_256.hashPassword(newPassword, salt);
+        App.getCurrentUser().setSalt(salt);
         App.getCurrentUser().setPassword(newPassword);
         return new Result(true,"az in be baad mituni ba password : '" + newPassword + "' login koni..(:");
     }

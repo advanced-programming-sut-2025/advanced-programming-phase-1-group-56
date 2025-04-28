@@ -10,7 +10,7 @@ public enum ProfileMenuCommands implements Commands {
     changePassword("\\s*change password\\s*-p\\s+(?<newPassword>.+)\\s+-o\\s+(?<old_password>.+)\\s*"),
     showUserInformation("\\s*user\\s+info\\s*"),
     ShowCurrentMenu("\\s*show\\s+current\\s+menu\\s*"),
-    BackToMainMenu("\\s*back\\s*");
+    Back("\\s*back\\s*");
 
     private final String regex;
 
