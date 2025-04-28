@@ -3,7 +3,7 @@ package view;
 import controller.MenuController.LoginMenuController;
 import model.App;
 import model.Enums.Menu;
-import model.Enums.commands.LoginMenuCommands;
+import model.Enums.MenusRegexes.LoginMenuCommands;
 
 
 import java.util.Scanner;
