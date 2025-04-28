@@ -1,9 +1,9 @@
-package model.Enums.MenusRegexes;
+package model.Enums.commands;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum LoginMenuRegexes {
+public enum LoginMenuCommands implements Commands {
     exit("menu exit"),
     ShowCurrentMenu("show current menu"),
     register("register.+-u\\s+(.+)\\s+-p\\s+(.+)\\s+(.+)\\s+-n\\s+(.+)\\s+-e\\s+(.+)\\s+-g\\s+(.+)"),
@@ -15,12 +15,12 @@ public enum LoginMenuRegexes {
     answerSecurityQuestion("answer\\s+-a\\s+(.+)");
 
     private final String regex;
-    LoginMenuRegexes(String regex) {
+    LoginMenuCommands(String regex) {
         this.regex = regex;
     }
-
+    @Override
     public Matcher getMatcher(String input) {
-        Pattern compiledPattern = java.util.regex.Pattern.compile(this.regex);
+        Pattern compiledPattern = Pattern.compile(this.regex);
         return compiledPattern.matcher(input);
     }
 }
