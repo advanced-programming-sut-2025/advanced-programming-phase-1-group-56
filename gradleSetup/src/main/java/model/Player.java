@@ -15,19 +15,19 @@ import model.skills.Skill;
 import java.util.ArrayList;
 
 public class Player {
-    private ArrayList<Skill> skills;
-    private ArrayList<CraftTool> toolRecipes;
-    private ArrayList<CookFood> foodRecipes;
-    private ArrayList<Building> building;
+    private ArrayList<Skill> skills = new ArrayList<>();
+    private ArrayList<CraftTool> toolRecipes = new ArrayList<>();
+    private ArrayList<CookFood> foodRecipes = new ArrayList<>();
+    private ArrayList<Building> building = new ArrayList<>();
     private Building defaultHome;
-    private ArrayList<LivingEntity> livingEntities;
+    private ArrayList<LivingEntity> livingEntities =new ArrayList<>();
     private Inventory inventory;
     private Energy energy;
     private BackPackType currentBackpack;
     private TrashcanType currentTrashcan;
     private Inventory playerInventory;
     private Farm playerFarm;
-    private ArrayList<Friendship> friendShips;
+    private ArrayList<Friendship> friendShips =new ArrayList<>();
 
 
 
@@ -110,5 +110,13 @@ public class Player {
 
     public void addBuilding(Building building) {
         this.building.add(building);
+    }
+
+    public ArrayList<Friendship> getFriendShips() {
+        return friendShips;
+    }
+
+    public void addFriendShips(Friendship friendShip) {
+        this.friendShips.add(friendShip);
     }
 }
