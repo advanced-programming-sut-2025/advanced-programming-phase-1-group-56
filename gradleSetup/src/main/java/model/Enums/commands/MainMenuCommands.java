@@ -4,19 +4,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum MainMenuCommands implements Commands {
-    logout("");
+    ShowCurrentMenu("show current menu"),
+    goMenu("menu Enter (.+)"),
+    logout("user logout");
+
     private final String regex;
 
     MainMenuCommands(String regex) {
         this.regex = regex;
     }
-
     @Override
     public Matcher getMatcher(String input) {
-        Matcher matcher = Pattern.compile(regex).matcher(input);
-        if (matcher.matches()) {
-            return matcher;
-        }
-        return null;
+        Pattern compiledPattern = Pattern.compile(this.regex);
+        return compiledPattern.matcher(input);
     }
 }
