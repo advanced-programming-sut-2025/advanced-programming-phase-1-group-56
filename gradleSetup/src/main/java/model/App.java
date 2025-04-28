@@ -5,9 +5,9 @@ import model.Enums.Menu;
 
 public class App {
     //TODO
-    private static ArrayList<User> users;
-    private static User currentUser;
-    private static Menu currentMenu;
+    private static ArrayList<User> users = new ArrayList<>();
+    private static User currentUser = null;
+    private static Menu currentMenu = Menu.loginMenu;
 
 
 
