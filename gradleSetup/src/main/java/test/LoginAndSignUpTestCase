@@ -22,6 +22,7 @@ menu enter main menu
 user logout
 menu enter main menu
 login -u Mohsen -p MohsenZare12?
+menu enter profile menu
 change username -u mohsen` //check like login menu
 change username -u mohsen
 change username -u mohsenZare

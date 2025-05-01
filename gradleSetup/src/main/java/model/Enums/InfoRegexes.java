@@ -5,12 +5,9 @@ import java.util.regex.Pattern;
 
 public enum InfoRegexes {
     email("(?!.*\\.\\.)[A-Za-z0-9._-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*\\.[A-Za-z]{2,}"),
-    nickname(""),
     password("[A-Za-z0-9?><,\"';:\\\\/|\\]\\[}{+=)(*&^%$#!]*"),
     strongPassword("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[?><,\"';:\\\\/|\\]\\[\\}\\{\\+=\\)\\(\\*&\\^%\\$#!])[a-zA-Z\\d?><,\"';:\\\\/|\\]\\[\\}\\{\\+=\\)\\(\\*&\\^%\\$#!]{1,}"),
-    usersName("[a-zA-Z0-9-]+"),
-    gender(""),
-    answer("");
+    usersName("[a-zA-Z0-9-]+");
 
     private final String pattern;
 
