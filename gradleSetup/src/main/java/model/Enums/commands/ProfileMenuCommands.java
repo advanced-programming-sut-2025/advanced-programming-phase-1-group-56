@@ -4,13 +4,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum ProfileMenuCommands implements Commands {
-    changeUserName("\\s*change\\s+username\\s+-u\\s+(?<username>.+)\\s*"),
-    changeNickName("\\s*change\\s+nickname\\s+-u\\s+(?<name>.+)\\s*"),
-    changeEmail("\\s*change\\s+email\\s+-e\\s+<email>.+)\\s*"),
-    changePassword("\\s*change password\\s*-p\\s+(?<newPassword>.+)\\s+-o\\s+(?<old_password>.+)\\s*"),
+    changeUserName("\\s*change\\s+username\\s+-u\\s+(.+)\\s*"),
+    changeNickName("\\s*change\\s+nickname\\s+-u\\s+(.+)\\s*"),
+    changeEmail("\\s*change\\s+email\\s+-e\\s+(.+)\\s*"),
+    changePassword("\\s*change\\s+password\\s+-p\\s+(.+)\\s+-o\\s+(.+)\\s*"),
     showUserInformation("\\s*user\\s+info\\s*"),
     ShowCurrentMenu("\\s*show\\s+current\\s+menu\\s*"),
-    BackToMainMenu("\\s*back\\s*");
+    Back("\\s*back\\s*");
 
     private final String regex;
 

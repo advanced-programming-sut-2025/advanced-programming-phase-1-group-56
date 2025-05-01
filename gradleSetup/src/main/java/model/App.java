@@ -1,26 +1,53 @@
 package model;
+
+import java.io.*;
 import java.util.ArrayList;
 
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import model.Enums.Menu;
 
+
 public class App {
+    private static final String FILE_PATH = "users.json";
     //TODO
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
 
 
-
     public static ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public static void setUsers(ArrayList<User> users) {
-        App.users = users;
+        Gson gson = new Gson();
+        ArrayList<User> tmpUsers = new ArrayList<>();
+        try (Reader reader = new FileReader(FILE_PATH)) {
+            tmpUsers = gson.fromJson(reader, new TypeToken<ArrayList<User>>() {
+            }.getType());
+        } catch (FileNotFoundException e) {
+            tmpUsers = new ArrayList<>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tmpUsers;
     }
 
     public static void addUser(User user) {
-        users.add(user);
+        Gson gson = new Gson();
+        ArrayList<User> tmpUsers = new ArrayList<>();
+        try (Reader reader = new FileReader(FILE_PATH)) {
+            tmpUsers = gson.fromJson(reader, new TypeToken<ArrayList<User>>() {
+            }.getType());
+        } catch (FileNotFoundException e) {
+            tmpUsers = new ArrayList<>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tmpUsers.add(user);
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            gson.toJson(tmpUsers, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static User getCurrentUser() {
@@ -39,4 +66,12 @@ public class App {
         App.currentMenu = currentMenu;
     }
 
+    public static User getUserByUsername(String username) {
+        for(User user : users){
+            if(user.getUsername().equals(username)){
+                return user;
+            }
+        }
+        return null;
+    }
 }

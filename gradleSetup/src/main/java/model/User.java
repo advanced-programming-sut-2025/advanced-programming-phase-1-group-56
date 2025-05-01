@@ -1,26 +1,32 @@
 package model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 
 public class User {
+    private String userId;
     private String username;
     private String name;
     private String password;
+    private String salt;
     private String email;
     private int securityQuestion;
     private String answer;
     private Boolean gender;//True = male  false = female
+    private String gameId;
+    @Expose(serialize = false, deserialize = false)
     private Game currentGame;
-    private final ArrayList<Game> games = new ArrayList<>();
     private int numOfGames;
     private int highScore;
-    private Player player;
+    private final ArrayList<String> allGamesId = new ArrayList<>();
 
-    public User(String username, String name, String password, String email, int securityQuestion,
+    public User(String username, String name, String password, String salt, String email, int securityQuestion,
                 String answer, Boolean gender) {
         this.username = username;
         this.name = name;
         this.password = password;
+        this.salt = salt;
         this.email = email;
         this.securityQuestion = securityQuestion;
         this.answer = answer;
@@ -28,7 +34,7 @@ public class User {
         this.numOfGames = 0;
         this.highScore = 0;
         this.currentGame = null;
-        this.player = null;
+        this.gameId = null;
     }
 
     public String getUsername() {
@@ -111,15 +117,31 @@ public class User {
         this.highScore = highScore;
     }
 
-    public ArrayList<Game> getGames() {
-        return games;
+    public String getSalt() {
+        return salt;
     }
 
-    public Player getPlayer() {
-        return player;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
+
+    public ArrayList<String> getAllGamesId() {
+        return allGamesId;
     }
 }

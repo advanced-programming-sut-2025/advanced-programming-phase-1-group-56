@@ -1,6 +1,8 @@
 package view;
 
 import controller.MenuController.MainMenuController;
+import model.App;
+import model.Enums.Menu;
 import model.Enums.commands.MainMenuCommands;
 
 
@@ -19,7 +21,10 @@ public class MainMenu implements AppMenu {
             System.out.println(MainMenuController.goToMenu(menu));
         } else if ((matcher = MainMenuCommands.logout.getMatcher(input)).find()) {
             System.out.println(MainMenuController.manageUserLogout());
-        }else {
+        } else if ((matcher = MainMenuCommands.back.getMatcher(input)).find()) {
+            App.setCurrentMenu(Menu.loginMenu);
+            System.out.println("you are in login menu now!");
+        } else {
             System.out.println("invalid command bro!..");
         }
     }
