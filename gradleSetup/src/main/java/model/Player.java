@@ -3,32 +3,64 @@ package model;
 import model.Activities.CookFood;
 import model.Activities.CraftTool;
 import model.Activities.Friendship;
+import model.Enums.FarmPosition;
 import model.Enums.Items.BackPackType;
 import model.Enums.Items.TrashcanType;
+import model.GameObject.Animal.Animal;
 import model.GameObject.LivingEntity;
 import model.Locations.Building;
 import model.Locations.Farm;
 import model.States.Energy;
 import model.items.Inventory;
-import model.skills.Skill;
+import model.items.Item;
+import model.skills.*;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Player {
+    private String name;
     private ArrayList<Skill> skills = new ArrayList<>();
-    private ArrayList<CraftTool> toolRecipes = new ArrayList<>();
-    private ArrayList<CookFood> foodRecipes = new ArrayList<>();
-    private ArrayList<Building> building = new ArrayList<>();
+    private final ArrayList<CraftTool> toolRecipes = new ArrayList<>();
+    private final ArrayList<CookFood> foodRecipes = new ArrayList<>();
+    private final ArrayList<Building> building = new ArrayList<>();
+    private final ArrayList<Friendship> friendShips =new ArrayList<>();
+    private final ArrayList<Animal> Animals =new ArrayList<>();
+    private final ArrayList<LivingEntity> livingEntities =new ArrayList<>();
     private Building defaultHome;
-    private ArrayList<LivingEntity> livingEntities =new ArrayList<>();
     private Inventory inventory;
+    private Item currentItem;
     private Energy energy;
     private BackPackType currentBackpack;
     private TrashcanType currentTrashcan;
-    private Inventory playerInventory;
+    private boolean fainted;
+    private FarmPosition farmPosition;
+    private String userId;
+    @Expose(serialize = false, deserialize = false)
     private Farm playerFarm;
-    private ArrayList<Friendship> friendShips =new ArrayList<>();
+    @Expose(serialize = false, deserialize = false)
+    private User user;
 
+    public Player(User user) {
+        FarmingSkill farmingSkill = new FarmingSkill(0);
+        ForagingSkill foragingSkill = new ForagingSkill(0);
+        MiningSkill miningSkill = new MiningSkill(0);
+        FishingSkill fishingSkill = new FishingSkill(0);
+        skills.add(farmingSkill);
+        skills.add(foragingSkill);
+        skills.add(miningSkill);
+        skills.add(fishingSkill);
+        energy = new Energy(150);
+        currentBackpack = BackPackType.InitialBackpack;
+        inventory = new Inventory(currentBackpack.getCapacity());
+        currentTrashcan = TrashcanType.initialTrashcan;
+        this.user = user;
+        this.userId = user.getUserId();
+        this.fainted = false;
+        this.currentItem = null;
+    }
 
 
     public ArrayList<Skill> getSkills() {
@@ -71,13 +103,6 @@ public class Player {
         this.currentTrashcan = currentTrashcan;
     }
 
-    public Inventory getPlayerInventory() {
-        return playerInventory;
-    }
-
-    public void setPlayerInventory(Inventory playerInventory) {
-        this.playerInventory = playerInventory;
-    }
 
     public ArrayList<CraftTool> getToolRecipes() {
         return toolRecipes;
@@ -118,5 +143,65 @@ public class Player {
 
     public void addFriendShips(Friendship friendShip) {
         this.friendShips.add(friendShip);
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Farm getPlayerFarm() {
+        return playerFarm;
+    }
+
+    public void setPlayerFarm(Farm playerFarm) {
+        this.playerFarm = playerFarm;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isFainted() {
+        return fainted;
+    }
+
+    public void setFainted(boolean fainted) {
+        this.fainted = fainted;
+    }
+
+    public Item getCurrentItem() {
+        return currentItem;
+    }
+
+    public void setCurrentItem(Item currentItem) {
+        this.currentItem = currentItem;
+    }
+
+    public Building getDefaultHome() {
+        return defaultHome;
+    }
+
+    public void setDefaultHome(Building defaultHome) {
+        this.defaultHome = defaultHome;
+    }
+
+    public ArrayList<Animal> getAnimals() {
+        return Animals;
+    }
+
+    public FarmPosition getFarmPosition() {
+        return farmPosition;
+    }
+
+    public void setFarmPosition(FarmPosition farmPosition) {
+        this.farmPosition = farmPosition;
     }
 }

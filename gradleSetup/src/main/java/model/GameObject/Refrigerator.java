@@ -1,19 +1,26 @@
 package model.GameObject;
 
 import model.Locations.Position;
+import model.items.Inventory;
 import model.items.Item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Refrigerator extends GameObject {
-    private HashMap<Item,Integer> foods = new HashMap<>();
+    private Inventory inventory;
 
-    public Refrigerator(Position position, int width, int height, boolean[][] walkable) {
+    public Refrigerator(Position position, int width, int height, boolean[][] walkable,Inventory inventory) {
         super(position, width, height, walkable);
+        this.inventory = inventory;
     }
 
-    public void addItems(Item food, int quantity) {
-        //TODO
-        foods.put(food, quantity);
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }

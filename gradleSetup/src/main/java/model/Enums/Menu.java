@@ -10,7 +10,9 @@ public enum Menu {
     profileMenu(new ProfileMenu()),
     avatarMenu(new AvatarMenu()),
     gameMenu(new GameMenu()),
+    HouseMenu(new HouseMenu()),
     exitMenu(new ExitMenu());
+
 
     private final AppMenu menu;
     Menu(AppMenu appMenu) {
