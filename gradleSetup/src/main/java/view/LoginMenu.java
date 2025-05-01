@@ -24,7 +24,9 @@ public class LoginMenu implements AppMenu {
         try (Reader reader = new FileReader(FILE_PATH_FOR_STAY_LOGGED);) {
             tmpUser = gson.fromJson(reader, User.class);
             App.setCurrentUser(tmpUser);
-            System.out.println("hello " + tmpUser.getUsername());
+            if(!App.getCurrentUser().equals(tmpUser)) {
+                System.out.println("hello " + tmpUser.getUsername());
+            }
         } catch (FileNotFoundException e) {
             App.setCurrentUser(null);
         } catch (IOException e) {
@@ -44,10 +46,10 @@ public class LoginMenu implements AppMenu {
         } else if ((matcher = LoginMenuCommands.goMenu.getMatcher(input)).find()) {
             String menu = matcher.group(1);
             System.out.println(LoginMenuController.goToMenu(menu));
-        } else if ((matcher = LoginMenuCommands.login.getMatcher(input)).find()) {
-            System.out.println(LoginMenuController.manageLoginUser(matcher, false));
         } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher, true));
+        } else if ((matcher = LoginMenuCommands.login.getMatcher(input)).find()) {
+            System.out.println(LoginMenuController.manageLoginUser(matcher, false));
         } else if ((matcher = LoginMenuCommands.forgetPassword.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageForgotPassword(matcher));
             if (LoginMenuController.manageForgotPassword(matcher).isSuccess()) {

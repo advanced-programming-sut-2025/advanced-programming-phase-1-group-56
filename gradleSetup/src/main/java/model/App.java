@@ -24,7 +24,7 @@ public class App {
             tmpUsers = gson.fromJson(reader, new TypeToken<ArrayList<User>>() {
             }.getType());
         } catch (FileNotFoundException e) {
-            System.out.println("there is no user in file");
+            tmpUsers = new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ public class ProfileMenu implements AppMenu {
             System.out.println(ProfileMenuController.manageChangePassword(matcher.group(1), matcher.group(2)).getMessage());
         } else if ((matcher = ProfileMenuCommands.changeUserName.getMatcher(input)) != null) {
             System.out.println(ProfileMenuController.manageChangeUsername(matcher.group(1)).getMessage());
-        } else if (ProfileMenuCommands.changeNickName.getMatcher(input) != null) {
+        } else if ((matcher = ProfileMenuCommands.changeNickName.getMatcher(input)) != null) {
             System.out.println(ProfileMenuController.manageChangeNickName(matcher.group(1)).getMessage());
         } else if (ProfileMenuCommands.showUserInformation.getMatcher(input) != null) {
             System.out.println(ProfileMenuController.UserInfo().getMessage());
