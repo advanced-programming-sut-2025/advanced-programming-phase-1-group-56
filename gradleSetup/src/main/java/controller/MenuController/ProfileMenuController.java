@@ -55,8 +55,6 @@ public class ProfileMenuController extends CommandController {
         newNickName= newNickName.trim();
         if(App.getCurrentUser().getName().equals(newNickName)) {
             return new Result(false, "dadash esm jadid hamun ghablie ke");
-        } else if(!InfoRegexes.nickname.isValid(newNickName)) {
-            return new Result(false, "in che esmie dige dadash?? x_x ");
         }
         App.getCurrentUser().setName(newNickName);
         return new Result(true,"chaker dash '" + newNickName + "'");

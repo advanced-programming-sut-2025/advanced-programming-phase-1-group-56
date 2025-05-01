@@ -1,16 +1,17 @@
 package model.Enums.commands.GameCommands;
-
 import model.Enums.commands.Commands;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum TimeAndDateCommands implements Commands {
-    showTime(""),
-    showDate(""),
-    showDateTime(""),
-    showDayOfWeek(""),
-    showSeason("");
+    showTime("\\s*time\\s*"),
+    showDate("\\*date\\s*"),
+    showDateTime("\\s*date\\s+time\\s*"),
+    showDayOfWeek("\\s*day\\s+of\\s+the\\s+week\\s*"),
+    showSeason("\\s*season\\s*"),
+    cheatAdvancedDate("\\s*cheat\\s+advance\\s+date\\s+([0-9]+))d\\s+"),
+    cheatAdvancedTime("\\s*cheat\\s+advance\\s+time\\s+([0-9]+))h\\s+"),
+    ;
 
     private final String regex;
 

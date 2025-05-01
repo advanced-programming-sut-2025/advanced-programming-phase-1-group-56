@@ -31,6 +31,10 @@ public class DateTime {
     public void addHour(int hour) {
         this.hour += hour;
     }
+
+    public void addDay(int day) {
+        this.day += day;
+    }
     //TODO
     public Seasons getSeason(){
         return null;

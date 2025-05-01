@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Farm implements TimeObserver {
     private Tile[][] tiles;
-    private ArrayList<Building> buildings;
+    private Home myHome;
 
 
 
@@ -22,5 +22,13 @@ public class Farm implements TimeObserver {
             //TODO
         }
     }
-    //TODO
+
+    public Home getMyHome() {
+        return myHome;
+    }
+
+    public void setMyHome(Home myHome) {
+        this.myHome = myHome;
+    }
+
 }

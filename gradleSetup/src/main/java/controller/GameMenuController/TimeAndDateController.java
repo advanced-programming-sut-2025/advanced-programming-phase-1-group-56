@@ -1,43 +1,61 @@
 package controller.GameMenuController;
 
 import controller.CommandController;
+import model.App;
+import model.Enums.WeatherAndTime.DayOfWeek;
+import model.Enums.WeatherAndTime.Seasons;
 import model.Result;
 
 public class TimeAndDateController extends CommandController {
     public static Result manageShowTime() {
-
-        return null;
+        int hour = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour();
+        String hour24 = (hour > 12) ? String.format("%02d", hour)+"PM":  String.format("%02d", hour)+"AM";
+        return new Result(true,"Current Hour:" + hour24);
     }
 
     public static Result manageShowDate() {
-
-        return null;
+        int day = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDay();
+        return new Result(true,"Emshow showhe " + day + " om mibashad");
     }
 
     public static Result manageShowDateAndTime() {
-
-        return null;
+        int hour = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour();
+        String hour24 = (hour > 12) ? String.format("%02d", hour)+"PM":  String.format("%02d", hour)+"AM";
+        int day = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDay();
+        return new Result(true, "Day: " + day + "\nHour: " + hour24 );
     }
 
     public static Result dayOfTheWeek() {
-
-        return null;
+        DayOfWeek dow = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDayOfWeek();
+        return new Result(true,"Day Of Week = " + dow);
     }
     public static Result showCurrentSeason() {
-
-        return null;
+        Seasons season = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
+        return new Result(true,"Day Of Week = " + season);
     }
 
     //CHEAT
 
-    public static Result cheatAdvanceTime() {
-
-        return null;
+    public static Result cheatAdvanceTime(String newTime) {
+        newTime = newTime.trim();
+        try{
+            int newHour = Integer.parseInt(newTime);
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().setHour(newHour);
+            return new Result(true,"Time successfully changed to " + newTime);
+        }catch(NumberFormatException e){
+            return new Result(true,"Invalid time format");
+        }
     }
 
-    public static Result cheatAdvanceDate() {
-
-        return null;
+    public static Result cheatAdvanceDate(String newDate) {
+        newDate = newDate.trim();
+        try{
+            int newDay = Integer.parseInt(newDate);
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().setDay(newDay);
+            return new Result(true,"Date successfully changed to " + newDate);
+        }catch(NumberFormatException e){
+            return new Result(true,"Invalid time format");
+        }
     }
 
 

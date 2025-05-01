@@ -3,6 +3,11 @@ package model.skills;
 public abstract class Skill {
     private int xp;
 
+
+    public Skill(int xp) {
+        this.xp = xp;
+    }
+
     public abstract int calculateLevel();
 
     public int getXp() {
