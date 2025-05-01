@@ -4,46 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94bdf633-9f7b-4835-bdfa-ed582211b989" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/FarmPosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/HouseMenuCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/PreGameMenuCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/TradeCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Locations/Home.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/view/HouseMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/view/TradeMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/TimeAndDateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/TimeAndDateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/WeatherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/WeatherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/MenuController/ProfileMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/MenuController/ProfileMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/CookFood.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/CookFood.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/CookingCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/GameCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/GameCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/TimeAndDateCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/TimeAndDateCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/WeatherCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/WeatherCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Refrigerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Refrigerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Locations/Farm.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Locations/Farm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Slot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/Energy.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/Energy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/DateTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/DateTime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/FarmingSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/FarmingSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/FishingSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/FishingSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/ForagingSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/ForagingSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/MiningSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/MiningSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/Skill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenu.java" afterDir="false" />
-    </list>
+    <list default="true" id="94bdf633-9f7b-4835-bdfa-ed582211b989" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,6 +160,15 @@
       <workItem from="1746098711413" duration="27516000" />
       <workItem from="1746133706136" duration="1364000" />
     </task>
+    <task id="LOCAL-00001" summary="nothing">
+      <option name="closed" value="true" />
+      <created>1746135888715</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746135888715</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,5 +184,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="nothing" />
+    <option name="LAST_COMMIT_MESSAGE" value="nothing" />
   </component>
 </project>
