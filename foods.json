@@ -1,0 +1,188 @@
+{
+  "foods": [
+    {
+      "name": "Fried egg",
+      "ingridient": "1 egg",
+      "energy": 50,
+      "buff": "",
+      "source": "Starter",
+      "price": "35g"
+    },
+    {
+      "name": "Baked Fish",
+      "ingridient": "1 Sardine + 1 Salmon + 1 wheat",
+      "energy": 75,
+      "buff": "",
+      "source": "Starter",
+      "price": "100g"
+    },
+    {
+      "name": "Salad",
+      "ingridient": "1 leek + 1 dandelion",
+      "energy": 113,
+      "buff": "",
+      "source": "Starter",
+      "price": "110g"
+    },
+    {
+      "name": "Olmelet",
+      "ingridient": " 1 egg + 1 milk",
+      "energy": 100,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "125g"
+    },
+    {
+      "name": "pumpkin pie",
+      "ingridient": "1 pumpking + 1 wheat flour + \r\n1 milk + 1 sugar",
+      "energy": 225,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "385g"
+    },
+    {
+      "name": "spaghetti",
+      "ingridient": "1 wheat flour + 1 tomato",
+      "energy": 75,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "120g"
+    },
+    {
+      "name": "pizza",
+      "ingridient": "1 wheat flour + 1 tomato + \r\n1 cheese",
+      "energy": 150,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "300g"
+    },
+    {
+      "name": "Tortilla",
+      "ingridient": "1 corn",
+      "energy": 50,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "50g"
+    },
+    {
+      "name": "Maki Roll",
+      "ingridient": "1 any fish + 1 rice + 1 fiber",
+      "energy": 100,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "220g"
+    },
+    {
+      "name": "Triple Shot Espresso",
+      "ingridient": "3 coffee",
+      "energy": 200,
+      "buff": "Max energy + 100 (5 hours)",
+      "source": "Stardrop Saloon",
+      "price": "450g"
+    },
+    {
+      "name": "Cookie",
+      "ingridient": "1 wheat flour + 1 sugar + 1 egg",
+      "energy": 90,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "140g"
+    },
+    {
+      "name": "hash browns",
+      "ingridient": "1 potato + 1 oil",
+      "energy": 90,
+      "buff": "Farming (5 hours)",
+      "source": "Stardrop Saloon",
+      "price": "120g"
+    },
+    {
+      "name": "pancakes",
+      "ingridient": "1 wheat flour + 1 egg",
+      "energy": 90,
+      "buff": "Foraging (11 hours)",
+      "source": "Stardrop Saloon",
+      "price": "80g"
+    },
+    {
+      "name": "fruit salad",
+      "ingridient": "1 blueberry + 1 melon + 1 apricot",
+      "energy": 263,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "450g"
+    },
+    {
+      "name": "red plate",
+      "ingridient": "1 red cabbage + 1 radish ",
+      "energy": 240,
+      "buff": "max energy +50 (3 hours)",
+      "source": "Stardrop Saloon",
+      "price": "400g"
+    },
+    {
+      "name": "bread",
+      "ingridient": "1 wheat flour",
+      "energy": 50,
+      "buff": "",
+      "source": "Stardrop Saloon",
+      "price": "60g"
+    },
+    {
+      "name": "salmon dinner",
+      "ingridient": "1 salmon + 1 Amaranth + 1 Kale",
+      "energy": 125,
+      "buff": "",
+      "source": "Leah reward",
+      "price": "300g"
+    },
+    {
+      "name": "vegetable medley ",
+      "ingridient": "1 tomato + 1 beet",
+      "energy": 165,
+      "buff": "",
+      "source": "Foraging Level 2",
+      "price": "120g"
+    },
+    {
+      "name": "farmer's lunch",
+      "ingridient": "1 omelet + 1 parsnip",
+      "energy": 200,
+      "buff": "Farming (5 hours)",
+      "source": "Farming level 1",
+      "price": "150g"
+    },
+    {
+      "name": "survival burger",
+      "ingridient": "1 bread + 1 carrot + 1 eggplant",
+      "energy": 125,
+      "buff": "Foraging (5 hours)",
+      "source": "Foraging level 3",
+      "price": "180g"
+    },
+    {
+      "name": "dish O' the Sea",
+      "ingridient": "2 sardines + 1 hash browns",
+      "energy": 150,
+      "buff": "Fishing (5 hours)",
+      "source": "Fishing level 2",
+      "price": "220g"
+    },
+    {
+      "name": "seaform Pudding",
+      "ingridient": "1 Flounder + 1 midnight carp ",
+      "energy": 175,
+      "buff": "Fishing (10 hours)",
+      "source": "Fishing level 3",
+      "price": "300g"
+    },
+    {
+      "name": "miner's treat",
+      "ingridient": "2 carrot + 1 suger +. 1 milk",
+      "energy": 125,
+      "buff": "Mining (5 hours)",
+      "source": "Mining level 1",
+      "price": "200g"
+    }
+  ]
+}

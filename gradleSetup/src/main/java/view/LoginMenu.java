@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import controller.MenuController.LoginMenuController;
 import model.App;
 import model.Enums.Menu;
+import model.Enums.commands.LoginMenuCommands;
 import model.User;
-import model.Enums.MenusRegexes.LoginMenuCommands;
+
 
 import java.io.*;
 import java.util.Scanner;
@@ -45,7 +46,7 @@ public class LoginMenu implements AppMenu {
         } else if ((matcher = LoginMenuCommands.goMenu.getMatcher(input)).find()) {
             String menu = matcher.group(1);
             System.out.println(LoginMenuController.goToMenu(menu));
-        } else if ((matcher = LoginMenuCommands.loginWithStayLoggedOut.getMatcher(input)).find()) {
+        } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher, true));
         } else if ((matcher = LoginMenuCommands.login.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher, false));

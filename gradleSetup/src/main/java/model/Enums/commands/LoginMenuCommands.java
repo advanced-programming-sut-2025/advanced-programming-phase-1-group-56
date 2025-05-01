@@ -7,13 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum LoginMenuCommands implements Commands {
-    exit("menu exit"),
+    back("back"),
+    exit("exit"),
     ShowCurrentMenu("show current menu"),
     register("register.+-u\\s+(.+)\\s+-p\\s+(.+)\\s+(.+)\\s+-n\\s+(.+)\\s+-e\\s+(.+)\\s+-g\\s+(.+)"),
     pickSecurityQuestion("pick\\s+question\\s+-q\\s+(.+)\\s+-a\\s+(.+)\\s+-c\\s+(.+)"),
-    goMenu("menu Enter (.+)"),
+    goMenu("menu enter (.+)"),
     login("login -u (.+) -p (.+)"),
-    loginWithStayLoggedOut("login\\s+-u\\s+(.+)\\s+-p\\s+(.+)\\s+–stay-logged-in"),
+    loginWithStayLoggedin("login\\s+-u\\s+(.+)\\s+-p\\s+(\\S+) –stay-logged-in"),
     forgetPassword("forget\\s+password\\s+-u\\s+(.+)"),
     answerSecurityQuestion("answer\\s+-a\\s+(.+)");
 

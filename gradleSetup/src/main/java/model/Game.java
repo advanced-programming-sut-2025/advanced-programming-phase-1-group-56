@@ -1,15 +1,34 @@
 package model;
 
+import com.google.gson.annotations.Expose;
+import model.States.WeatherState;
+import model.TimeSystem.TimeSystem;
+
 import java.util.ArrayList;
-import java.util.Map;
+import model.Locations.Map;
 
 public class Game {
+    private String gameId;
+    private ArrayList<String> usersId = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
-    private Map map;
+    private final Map map;
+    private final TimeSystem timeSystem;
+    private final WeatherState weatherState;
+    private String starterPlayerUserId;
+    private String currentPlayerUserId;
+    @Expose(serialize = false, deserialize = false)
+    private Player starterPlayer;
+    @Expose(serialize = false, deserialize = false)
+    private Player currentPlayer;
+    private boolean PendingDelete;
 
-    Game(ArrayList<Player> players, Map map) {
+    public Game(ArrayList<Player> players, Map map, TimeSystem timeSystem, WeatherState weatherState) {
         this.players = players;
         this.map = map;
+        this.timeSystem = timeSystem;
+        this.weatherState = weatherState;
+
+        //TODO HANDLE GAME ID SYSTEM
     }
     public ArrayList<Player> getPlayers() {
         return players;
@@ -23,7 +42,60 @@ public class Game {
         return map;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public TimeSystem getTimeSystem() {
+        return timeSystem;
+    }
+
+    public WeatherState getWeatherState() {
+        return weatherState;
+    }
+
+    public ArrayList<String> getUsersId() {
+        return usersId;
+    }
+
+    public void setUsersId(ArrayList<String> usersId) {
+        this.usersId = usersId;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public boolean isPendingDelete() {
+        return PendingDelete;
+    }
+
+    public void setPendingDelete(boolean pendingDelete) {
+        PendingDelete = pendingDelete;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
+
+    public Player getPlayerByUser(User user) {
+        for (Player player : players) {
+            if (player.getUser().equals(user)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public Player getStarterPlayer() {
+        return starterPlayer;
+    }
+
+    public void setStarterPlayer(Player starterPlayer) {
+        this.starterPlayer = starterPlayer;
     }
 }

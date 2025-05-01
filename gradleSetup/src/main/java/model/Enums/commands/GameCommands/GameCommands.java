@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 public enum GameCommands implements Commands {
 
     //Execute Commands
-    exitGame(""),
-    nextTurn(""),
+    exitGame("\\s*exit\\s+\\s*"),//TODO think about the algorithms
+    nextTurn("\\s*next\\s+turn\\s*"),
     buildGreenHouse("")
     ;
 
