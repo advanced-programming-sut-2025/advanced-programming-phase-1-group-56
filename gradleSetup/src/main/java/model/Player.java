@@ -7,7 +7,7 @@ import model.Enums.FarmPosition;
 import model.Enums.Items.BackPackType;
 import model.Enums.Items.TrashcanType;
 import model.GameObject.Animal.Animal;
-import model.GameObject.LivingEntity;
+import model.GameObject.NPC.NPC;
 import model.Locations.Building;
 import model.Locations.Farm;
 import model.States.Energy;
@@ -17,33 +17,51 @@ import model.skills.*;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Player {
+    //identities
+    private final UUID playerID;
     private String name;
+
+    //ArrayLists
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftTool> toolRecipes = new ArrayList<>();
     private final ArrayList<CookFood> foodRecipes = new ArrayList<>();
     private final ArrayList<Building> building = new ArrayList<>();
     private final ArrayList<Friendship> friendShips =new ArrayList<>();
-    private final ArrayList<Animal> Animals =new ArrayList<>();
-    private final ArrayList<LivingEntity> livingEntities =new ArrayList<>();
-    private Building defaultHome;
+    private final ArrayList<Animal> animals =new ArrayList<>();
+    private final ArrayList<NPC> npc =new ArrayList<>();
+
+    //inventories:
     private Inventory inventory;
     private Item currentItem;
-    private Energy energy;
     private BackPackType currentBackpack;
     private TrashcanType currentTrashcan;
+    private int gold = 0;
+
+
+    //status
+    private Energy energy;
     private boolean fainted;
+
+    //gameStatus
     private FarmPosition farmPosition;
+    private Building defaultHome;
     private String userId;
     @Expose(serialize = false, deserialize = false)
     private Farm playerFarm;
     @Expose(serialize = false, deserialize = false)
     private User user;
 
+
+    //Trades
+    private final ArrayList<UUID> myTrades= new ArrayList<>();
+    private final ArrayList<UUID> receivedTrades= new ArrayList<>();
+    private final ArrayList<UUID> endedTradesHistory= new ArrayList<>();
+
     public Player(User user) {
+        this.playerID = UUID.randomUUID();
         FarmingSkill farmingSkill = new FarmingSkill(0);
         ForagingSkill foragingSkill = new ForagingSkill(0);
         MiningSkill miningSkill = new MiningSkill(0);
@@ -121,12 +139,12 @@ public class Player {
     }
 
 
-    public ArrayList<LivingEntity> getLivingEntities() {
-        return livingEntities;
+    public ArrayList<NPC> getNpc() {
+        return npc;
     }
 
-    public void addLivingEntities(LivingEntity livingEntities) {
-        this.livingEntities.add(livingEntities);
+    public void addNpc(NPC npc) {
+        this.npc.add(npc);
     }
 
     public ArrayList<Building> getBuilding() {
@@ -194,14 +212,40 @@ public class Player {
     }
 
     public ArrayList<Animal> getAnimals() {
-        return Animals;
+        return animals;
     }
-
+    public void addAnimals(Animal animals) {
+        this.animals.add(animals);
+    }
     public FarmPosition getFarmPosition() {
         return farmPosition;
     }
 
     public void setFarmPosition(FarmPosition farmPosition) {
         this.farmPosition = farmPosition;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void addGold(int gold) {
+        this.gold += gold;
+    }
+
+    public void subtractGold(int gold) {
+        this.gold -= gold;
+    }
+
+    public UUID getPlayerID() {
+        return playerID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

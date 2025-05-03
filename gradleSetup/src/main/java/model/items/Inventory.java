@@ -76,6 +76,22 @@ public class Inventory {
             }
         }
     }
+
+    public int countItem(Item item){
+        int sum = 0;
+        for (Slot slot : slots) {
+            if (slot.getItem().equals(item)) {
+                sum += slot.getQuantity();
+            }
+        }
+        return sum;
+    }
+
+    public boolean hasItem(Item item){
+        return countItem(item)!=0;
+    }
+
+
     public ArrayList<Slot> getSlots(){
         return slots;
     }
