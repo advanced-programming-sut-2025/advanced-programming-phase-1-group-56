@@ -1,6 +1,7 @@
 package model.GameObject.Animal;
 
 import model.Enums.Animals.AnimalType;
+import model.Enums.Registery.AnimalInfo;
 import model.GameObject.LivingEntity;
 import model.Locations.Position;
 
@@ -8,19 +9,19 @@ import java.util.ArrayList;
 
 public class Animal extends LivingEntity {
     private String name;
-    private AnimalType type;
+    private AnimalInfo animalInfo;
     private int friendship = 0;
-    private Position position;
-    private int width;
-    private int height;
     private int health;//TODO
     private int hungaryBar;//TODO
     private ArrayList<AnimalProduct> products;
+    private boolean isFed = false;
+    private boolean isCaressed = false;
+    private String nickName;
 
-    public Animal(Position position, int width, int height, boolean[][] walkable, String name, AnimalType type) {
+    public Animal(Position position, int width, int height, boolean[][] walkable, String name, AnimalInfo animalInfo) {
         super(position, width, height, walkable);
         this.name = name;
-        this.type = type;
+        this.animalInfo = animalInfo;
     }
 
     public void pet() {
@@ -31,6 +32,9 @@ public class Animal extends LivingEntity {
         return friendship;
     }
 
+    public void addFriendShip(int countFriendShip) {
+        friendship += countFriendShip;
+    }
 
     public String getName() {
         return name;
@@ -40,19 +44,55 @@ public class Animal extends LivingEntity {
         this.name = name;
     }
 
-    public AnimalType getType() {
-        return type;
-    }
-
-    public void setType(AnimalType type) {
-        this.type = type;
-    }
-
     public ArrayList<AnimalProduct> getProducts() {
         return products;
     }
 
     public void addProducts(AnimalProduct products) {
         this.products.add(products);
+    }
+
+    public boolean getIsFed() {
+        return isFed;
+    }
+
+    public void setFed(boolean fed) {
+        isFed = fed;
+    }
+
+    public boolean getIsCaressed() {
+        return isCaressed;
+    }
+
+    public void setCaressed(boolean caressed) {
+        isCaressed = caressed;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void produceProductOnDay(){//TODO
+
+    }
+
+    public AnimalInfo getAnimalInfo() {
+        return animalInfo;
+    }
+
+    public void setAnimalInfo(AnimalInfo animalInfo) {
+        this.animalInfo = animalInfo;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

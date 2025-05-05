@@ -8,6 +8,7 @@ import model.Enums.Items.BackPackType;
 import model.Enums.Items.TrashcanType;
 import model.GameObject.Animal.Animal;
 import model.GameObject.LivingEntity;
+import model.GameObject.NPC.NPC;
 import model.Locations.Building;
 import model.Locations.Farm;
 import model.States.Energy;
@@ -27,8 +28,8 @@ public class Player {
     private final ArrayList<CookFood> foodRecipes = new ArrayList<>();
     private final ArrayList<Building> building = new ArrayList<>();
     private final ArrayList<Friendship> friendShips =new ArrayList<>();
-    private final ArrayList<Animal> Animals =new ArrayList<>();
-    private final ArrayList<LivingEntity> livingEntities =new ArrayList<>();
+    private final ArrayList<Animal> animals =new ArrayList<>();
+    private final ArrayList<NPC> npc =new ArrayList<>();
     private Building defaultHome;
     private Inventory inventory;
     private Item currentItem;
@@ -42,6 +43,7 @@ public class Player {
     private Farm playerFarm;
     @Expose(serialize = false, deserialize = false)
     private User user;
+    private int gold = 0;
 
     public Player(User user) {
         FarmingSkill farmingSkill = new FarmingSkill(0);
@@ -196,12 +198,26 @@ public class Player {
     public ArrayList<Animal> getAnimals() {
         return Animals;
     }
-
+    public void addAnimals(Animal animals) {
+        this.Animals.add(animals);
+    }
     public FarmPosition getFarmPosition() {
         return farmPosition;
     }
 
     public void setFarmPosition(FarmPosition farmPosition) {
         this.farmPosition = farmPosition;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void addGold(int gold) {
+        this.gold += gold;
+    }
+
+    public void subtractGold(int gold) {
+        this.gold -= gold;
     }
 }

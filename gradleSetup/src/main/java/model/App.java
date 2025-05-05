@@ -45,6 +45,7 @@ public class App {
         tmpUsers.add(user);
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(tmpUsers, writer);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

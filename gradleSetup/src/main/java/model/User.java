@@ -20,9 +20,10 @@ public class User {
     private int numOfGames;
     private int highScore;
     private final ArrayList<String> allGamesId = new ArrayList<>();
+    private int gold = 0;
 
     public User(String username, String name, String password, String salt, String email, int securityQuestion,
-                String answer, Boolean gender) {
+                String answer, Boolean gender ) {
         this.username = username;
         this.name = name;
         this.password = password;
@@ -143,5 +144,13 @@ public class User {
 
     public ArrayList<String> getAllGamesId() {
         return allGamesId;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }
