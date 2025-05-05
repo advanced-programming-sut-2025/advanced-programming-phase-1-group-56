@@ -116,8 +116,13 @@ public class CookingController extends CommandController {
                     .remove(item, quantity);
         }
         Food food = new Food(cookFood.getName(), 20, cookFood.getEnergy(), cookFood.getPrice(),cookFood.getBuff());
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(food, 1);
-        return new Result(true, "");
+        App.getCurrentUser()
+                .getCurrentGame()
+                .getCurrentPlayer()
+                .getInventory()
+                .add(food, 1);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractGold(cookFood.getPrice());
+        return new Result(true, "your food is ready!");
     }
 
     public static Result eatFood(Matcher matcher) {
@@ -139,7 +144,7 @@ public class CookingController extends CommandController {
                         .getEnergy()
                         .getEnergy()+food.getEnergy()));
         if(food.getBuff().equals("1")){}
-
+        //TODO
         return new Result(true, "you eat "+item.getName());
     }
 

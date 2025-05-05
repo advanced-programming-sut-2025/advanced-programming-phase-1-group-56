@@ -1,10 +1,13 @@
 package model;
 
 import com.google.gson.annotations.Expose;
+import model.Activities.Trade;
 import model.States.WeatherState;
 import model.TimeSystem.TimeSystem;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
 import model.Locations.Map;
 
 public class Game {
@@ -21,6 +24,8 @@ public class Game {
     @Expose(serialize = false, deserialize = false)
     private Player currentPlayer;
     private boolean PendingDelete;
+
+    private final ArrayList<Trade> allTrades = new ArrayList<>();
 
     public Game(ArrayList<Player> players, Map map, TimeSystem timeSystem, WeatherState weatherState) {
         this.players = players;
@@ -97,5 +102,27 @@ public class Game {
 
     public void setStarterPlayer(Player starterPlayer) {
         this.starterPlayer = starterPlayer;
+    }
+
+    public ArrayList<Trade> getAllTrades() {
+        return allTrades;
+    }
+
+    public Trade findTradeById(UUID id) {
+        for (Trade trade : allTrades) {
+            if(id.equals(trade.getTradeID()))
+            {
+                return trade;
+            }
+        }
+        return null;
+    }
+
+    public Player findPlayerById(UUID playerID) {
+        for (Player player : players) {
+            if(player.getPlayerID().equals(playerID))
+                return player;
+        }
+        return null;
     }
 }

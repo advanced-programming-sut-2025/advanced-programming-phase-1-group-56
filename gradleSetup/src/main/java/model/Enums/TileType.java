@@ -1,7 +1,7 @@
 package model.Enums;
 
 public enum TileType {
-     Water,
+    Water,
     Soil,
     FarmableSoil,
     PlowedSoil,

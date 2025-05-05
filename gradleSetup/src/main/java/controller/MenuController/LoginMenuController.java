@@ -131,6 +131,7 @@ public class LoginMenuController extends CommandController {
             Gson gson = new Gson();
             try (Writer writer = new FileWriter("StayLoggedIn.json")) {
                 gson.toJson(user, writer);
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

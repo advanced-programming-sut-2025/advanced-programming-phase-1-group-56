@@ -1,17 +1,20 @@
 package model.GameObject.Animal;
 
+import model.Enums.Animals.AnimalProductQuality;
+
 public class AnimalProduct {
-    private String name;
-    private int price;
-    private int productionInterval;
-    private int chance;
+    private final String name;
+    private final int price;
+    private final int productionInterval;
+    private final int chance;
+    private final AnimalProductQuality quality;
 
-
-    public AnimalProduct(String name, int price, int productionInterval, int chance) {
+    public AnimalProduct(String name, int price, int productionInterval, int chance, AnimalProductQuality quality) {
         this.name = name;
         this.price = price;
         this.productionInterval = productionInterval;
         this.chance = chance;
+        this.quality = quality;
     }
 
     public String getName() {
@@ -26,4 +29,11 @@ public class AnimalProduct {
         return productionInterval;
     }
 
+    public int getChance() {
+        return chance;
+    }
+
+    public AnimalProductQuality getQuality() {
+        return quality;
+    }
 }

@@ -7,10 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum CraftingCommand implements Commands {
-    ShowRecipe(""),
-    craftItem(""),
-    dropItem(""),
-    cheatCode("");
+    ShowRecipe("crafting show recipes"),
+    craftItem("crafting craft (.+)"),
+    dropItem("place item -n (.+) -d (.+)"),
+    cheatCode("cheat add item -n (.+) -c (.+)");
 
     private final String command;
 
