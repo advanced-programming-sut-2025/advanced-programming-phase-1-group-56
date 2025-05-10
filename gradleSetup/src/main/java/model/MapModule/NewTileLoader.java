@@ -1,0 +1,218 @@
+package model.MapModule;
+
+import com.google.gson.*;
+import model.Enums.Registery.GrassType;
+import model.Enums.Registery.TreeType;
+import model.Enums.TileType;
+import model.GameObject.*;
+import model.MapModule.Buildings.GreenHouse;
+import model.MapModule.Buildings.Home;
+import model.MapModule.Position;
+import model.MapModule.Tile;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
+
+public class NewTileLoader {
+    private static final int tileSize = 16;
+
+    public static Tile[][] load(String jsonPath) throws FileNotFoundException {
+        JsonObject map = JsonParser
+                .parseReader(new FileReader(jsonPath))
+                .getAsJsonObject();
+
+        int width = map.get("width").getAsInt();
+        int height = map.get("height").getAsInt();
+
+        JsonArray layers = map.getAsJsonArray("layers");
+        JsonArray data = null;
+        for (JsonElement lyrEl : layers) {
+            JsonObject lyr = lyrEl.getAsJsonObject();
+            if ("tilelayer".equals(lyr.get("type").getAsString())) {
+                data = lyr.getAsJsonArray("data");
+                break;
+            }
+        }
+        Tile[][] tiles = new Tile[height][width];
+
+        JsonArray tilesets = map.getAsJsonArray("tilesets");
+        JsonObject ts = tilesets.get(0).getAsJsonObject();
+        int firstGid = ts.get("firstgid").getAsInt();
+        JsonArray defs = ts.getAsJsonArray("tiles");
+        for (int i = 0; i < defs.size(); i++) {
+            JsonObject def = defs.get(i).getAsJsonObject();
+            int gid = def.get("id").getAsInt() + firstGid;
+            int x = i % width, y = i / width;
+            JsonArray props = def.getAsJsonArray("properties");
+            TileType type = null;
+            boolean isWalkable = false;
+            if (props != null) {
+                for (JsonElement pEl : props) {
+                    JsonObject p = pEl.getAsJsonObject();
+                    if ("tileType".equals(p.get("name").getAsString())) {
+                        String v = p.get("value").getAsString().toLowerCase();
+                        try {
+                            type = switch (v) {
+                                case "vanity" -> TileType.Vanity;
+                                case "water" -> TileType.Water;
+                                case "grass" -> TileType.Grass;
+                                case "stone" -> TileType.Stone;
+                                case "soil" -> TileType.Soil;
+                                case "farmingsoil" -> TileType.FarmingSoil;
+                                case "plowedsoil" -> TileType.PlowedSoil;
+                                case "waterplowedsoil" -> TileType.WaterPlowedSoil;
+                                case "wrapper" -> TileType.Wrapper;
+                                case "default" -> TileType.Default;
+                                default -> TileType.Default;
+                            };
+                        } catch (IllegalArgumentException ignored) {
+                        }
+                    } else if ("walkability".equals(p.get("name").getAsString())) {
+                        String w = p.get("value").getAsString().toUpperCase();
+                        isWalkable = w.equals("TRUE");
+                    }
+                }
+            }
+            tiles[y][x] = new Tile(
+                    new Position(x, y),
+                    isWalkable,
+                    type
+            );
+
+        }
+
+        for (JsonElement lyrEl : layers) {
+            JsonObject layer = lyrEl.getAsJsonObject();
+            if ("objectgroup".equals(layer.get("type").getAsString())) {
+                for (JsonElement objEl : layer.getAsJsonArray("objects")) {
+                    JsonObject obj = objEl.getAsJsonObject();
+                    int tx = obj.get("x").getAsInt() / tileSize;
+                    int ty = obj.get("y").getAsInt() / tileSize;
+                    int objWidth = obj.get("width").getAsInt() / tileSize;
+                    int objHeight = obj.get("height").getAsInt() / tileSize;
+                    String typeName = obj.get("name").getAsString().toLowerCase();
+
+                    GameObject go;
+                    switch (typeName) {
+                        case "playerhome" -> {
+                            JsonArray props = obj.getAsJsonArray("properties");
+                            int doorX = 0;
+                            int doorY = 0;
+                            for (JsonElement pEl : props) {
+                                JsonObject p = pEl.getAsJsonObject();
+                                if ("doorX".equals(p.get("name").getAsString())) {
+                                    doorX = Integer.parseInt(p.get("value").getAsString());
+                                } else if ("doorY".equals(p.get("name").getAsString())) {
+                                    doorY = Integer.parseInt(p.get("value").getAsString());
+                                }
+                            }
+                            go = new Home(false, "PlayerHome", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                        }
+                        case "greenhouse" -> {
+                            JsonArray props = obj.getAsJsonArray("properties");
+                            int doorX = 0;
+                            int doorY = 0;
+                            for (JsonElement pEl : props) {
+                                JsonObject p = pEl.getAsJsonObject();
+                                if ("doorX".equals(p.get("name").getAsString())) {
+                                    doorX = p.get("value").getAsInt();
+                                } else if ("doorY".equals(p.get("name").getAsString())) {
+                                    doorY = p.get("value").getAsInt();
+                                }
+                            }
+                            go = new GreenHouse(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                        }
+                        case "shippingbar" -> go = new Refrigerator(true, null);
+                        case "mailbox" -> go = new Refrigerator(false, null);
+                        case "grass" -> go = new Grass(true, GrassType.NormalGrass);
+                        case "fibergrass" -> go = new Grass(true, GrassType.FiberGrass);
+                        case "wood" -> go = new Wood(false);
+                        case "stone" -> go = new Stone(false);
+                        case "tree" -> go = new Tree(false, TreeType.APPLE);
+                        case "stick" -> go = new Stick(false);
+                        case "bigstone" -> go = new BigStone(false);
+                        default -> go = null;
+                    }
+                    ;
+
+                    if (go != null
+                            && ty >= 0 && ty + objHeight < height
+                            && tx >= 0 && tx + objWidth < width) {
+                        for (int i = ty; i < ty + objHeight; i++) {
+                            for (int j = tx; j < tx + objWidth; j++) {
+                                System.out.println(i);
+                                System.out.println(j);
+                                tiles[i][j].setFixedObject(go);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return tiles;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Tile[][] farm = load("Farm1.tmj");
+        System.out.println("Loaded "
+                + farm.length + "×" + farm[0].length + " tiles.");
+        for (int i = 0; i < 65; i++) {
+            for (int j = 0; j < 80; j++) {
+                char toPrint;
+                toPrint = farm[i][j].isWalkable() ? ' ' : 'x';
+                System.out.print(toPrint);
+            }
+            System.out.println();
+        }
+    }
+
+
+//    public static void main(String[] args) throws Exception {
+//        Tile[][] farm = load("hello3.tmj");
+//        System.out.println("Loaded " + farm.length + "×" + farm[0].length + " tiles.");
+//
+//        // ANSI colors
+//        final String RESET = "\u001B[0m";
+//        final String RED = "\u001B[41m";     // background red
+//        final String GREEN = "\u001B[42m";   // background green
+//        final String BLUE = "\u001B[44m";    // background blue
+//        final String YELLOW = "\u001B[43m";  // background yellow
+//        final String GRAY = "\u001B[100m";   // background gray
+//        char toPrint;
+//        for (int i = 0; i < 65; i++) {
+//            for (int j = 0; j < 80; j++) {
+//                GameObject go = farm[i][j].getFixedObject();
+//                String color = GRAY; // default background
+//
+//                if (go != null) {
+//                    String name = go.getClass().getSimpleName();
+//                    switch (name) {
+//                        case "Tree":
+//                            color = GREEN;
+//                            break;
+//                        case "Rock":
+//                            color = RED;
+//                            break;
+//                        case "Water":
+//                            color = BLUE;
+//                            break;
+//                        case "Home":
+//                            color = YELLOW;
+//                            break;
+//                        default:
+//                            color = GRAY;
+//                    }
+//                    if (name.isEmpty()) {
+//                        name =" ";
+//                    }
+//                    System.out.print(color + name.charAt(0) + RESET); // two spaces colored
+//                } else {
+//                    System.out.print("  "); // empty space
+//                }
+//            }
+//            System.out.println();
+//        }
+//    }
+
+}

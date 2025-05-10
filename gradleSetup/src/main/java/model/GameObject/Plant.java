@@ -1,6 +1,5 @@
 package model.GameObject;
 import model.Enums.WeatherAndTime.Seasons;
-import model.Locations.Position;
 import java.util.ArrayList;
 
 public class Plant extends GameObject {
@@ -11,9 +10,9 @@ public class Plant extends GameObject {
     private final boolean CanBecomeGiant;
     private int currentStage;
 
-    public Plant (Position position, int width, int height, ArrayList<Integer> stages, boolean recollectable, int recollectDuration, ArrayList<Seasons> seasons, boolean canBecomeGiant, boolean walkable[][])
+    public Plant (ArrayList<Integer> stages, boolean recollectable, int recollectDuration, ArrayList<Seasons> seasons, boolean canBecomeGiant, boolean walkable)
     {
-        super(position,width,height, walkable);
+        super(walkable);
         this.stages = stages;
         this.recollectable = recollectable;
         this.recollectDuration = recollectDuration;

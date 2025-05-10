@@ -1,10 +1,10 @@
 package model.items.CropAndSeed;
 
 import model.GameObject.GameObject;
-import model.Locations.Tile;
+import model.MapModule.Tile;
 import model.items.Item;
 
-public class Seed  extends Item implements Plantable {
+public class Seed extends Item implements Plantable {
     private final GameObject platingObject;
 
 

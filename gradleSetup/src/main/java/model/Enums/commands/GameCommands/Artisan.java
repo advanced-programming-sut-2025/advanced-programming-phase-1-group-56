@@ -1,0 +1,25 @@
+package model.Enums.commands.GameCommands;
+
+import model.Enums.commands.Commands;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public enum Artisan implements Commands {
+    use("artisan use (.+) (.+)"),
+    get("artisan get (.+)");
+    private final String regex;
+
+    Artisan(String regex) {
+        this.regex = regex;
+    }
+
+    @Override
+    public Matcher getMatcher(String input) {
+        Matcher matcher = Pattern.compile(regex).matcher(input);
+        if (matcher.matches()) {
+            return matcher;
+        }
+        return null;
+    }
+}

@@ -1,7 +1,7 @@
 package model.items;
 
 import model.Enums.Items.ToolMaterial;
-import model.Locations.Tile;
+import model.MapModule.Tile;
 
 public abstract class Tool extends Item {
     protected ToolBehavior toolBehavior;

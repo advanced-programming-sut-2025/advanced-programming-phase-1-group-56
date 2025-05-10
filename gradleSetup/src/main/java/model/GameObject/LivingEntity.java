@@ -1,11 +1,13 @@
 package model.GameObject;
 
 import model.Enums.Direction;
-import model.Locations.Position;
+import model.MapModule.Position;
 
 public class LivingEntity extends GameObject implements Movable {
-    public LivingEntity(Position position, int width, int height, boolean[][] walkable) {
-        super(position, width, height, walkable);
+    protected Position position;
+    public LivingEntity(Position position,boolean walkable) {
+        super(walkable);
+        this.position = position;
     }
 
     @Override
