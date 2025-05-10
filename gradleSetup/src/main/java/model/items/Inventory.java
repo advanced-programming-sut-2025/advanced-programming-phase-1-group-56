@@ -116,7 +116,7 @@ public class Inventory {
         int max = 0;
         max +=  (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
         for (Slot slot : slots) {// for semi full slots of same item
-            if (slot.getItem().equals(item)) {
+            if (slot.getItem().getName().equals(item.getName())) {
                 max += item.maxStackSize - slot.getQuantity();
             }
         }

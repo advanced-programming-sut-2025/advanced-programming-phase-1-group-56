@@ -3,10 +3,15 @@ package controller.GameMenuController;
 import controller.CommandController;
 import model.Activities.CraftTool;
 import model.App;
+import model.Enums.Direction;
 import model.Enums.Registery.CraftingRecipesList;
 import model.Enums.commands.GameCommands.CraftingCommand;
+import model.GameObject.DroppedItem;
 import model.Ingredient;
+import model.MapModule.Position;
+import model.MapModule.Tile;
 import model.Result;
+import model.Slot;
 import model.items.CraftingTool;
 import model.items.Item;
 
@@ -21,70 +26,201 @@ public class CraftingController extends CommandController {
         return new Result(true, tmpString);
     }
 
-    public static Result craftingCraft(Matcher matcher) {
+    public static Result craftingItem(Matcher matcher) {
+        String ItemName = matcher.group(1);
+        CraftTool recipe = returnCraftingRecipe(ItemName);
+        if (recipe != null) {
+            return new Result(true, "you can't Craft this Recipe!");
+        } else if (!havaIngredient(recipe)) {
+            return new Result(false, "you have not enough ingredients!");
+        }
         StringBuilder tmpString = new StringBuilder();
         tmpString.append("you can Craft this Recipes:").append("\n").append(RecipeList());
-        CraftingRecipesList[] craftingRecipesLists  = CraftingRecipesList.values();
-        for(CraftTool c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
-            boolean correct = false;
-             for(CraftingRecipesList cr : craftingRecipesLists) {
-                 if(cr.name.equals(c.getName())) {
-                     correct = true;
-                     break;
-                 }
-             }
-             if(!correct) {
-
-             }
+        CraftingRecipesList[] craftingRecipesLists = CraftingRecipesList.values();
+        tmpString.append("You don't know these recipes yet:\n");
+        for (CraftingRecipesList cr : craftingRecipesLists) {
+            boolean known = false;
+            for (CraftTool c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
+                if (cr.name.equals(c.getName())) {
+                    known = true;
+                    break;
+                }
+            }
+            if (!known) {
+                tmpString.append("- Recipe Name:  ").append(cr.name).append("\n");
+                tmpString.append("- Description : ").append(cr.description).append("\n");
+                tmpString.append("- Ingredients : \n");
+                int count = 0;
+                for (Ingredient i : cr.ingredients) {
+                    count += 1;
+                    tmpString.append(count + ".").append("  name : ").append(i.name);
+                    tmpString.append("   quantity : ").append(i.quantity).append("\n");
+                }
+                tmpString.append("-------------------------------");
+            }
         }
+        Item craftingTool = new CraftingTool(recipe.getName(), recipe.getDescription(), recipe.getSellPrice());
+        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(craftingTool, 1);
+        } else {
+            return new Result(false, "you don't have enough space!");
+        }
+        for (Ingredient i : recipe.getIngredients()) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(returnInventoryItemByName(i.name), i.getQuantity());
+        }
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractEnergy(2);
 
-        String ItemName = matcher.group(1);
-        CraftingRecipesList recipesList = returnCraftingRecipe(ItemName);
-
-
-        return null;
+        return new  Result(true, tmpString.toString());
     }
 
-    public static Result placeItem() {
-
-        return null;
+    public static Result placeItem(Matcher matcher) {
+        String itemName = matcher.group(1);
+        String direction = matcher.group(2);
+        Direction dir;
+        Item item = returnInventoryItemByName(itemName);
+        if (item == null) {
+            return new Result(false, "this item does not exist!");
+        } else if ((dir = getDirectionFromString(direction)) == null) {
+            return new Result(false, "this direction does not exist!");
+        }
+        Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
+        int x = position.getX();
+        int y = position.getY();
+        switch (dir) {
+            case UP:
+                y -= 1;
+                break;
+            case DOWN:
+                y += 1;
+                break;
+            case LEFT:
+                x -= 1;
+                break;
+            case RIGHT:
+                x += 1;
+                break;
+            case UPLEFT:
+                x -= 1;
+                y -= 1;
+                break;
+            case UPRIGHT:
+                x += 1;
+                y -= 1;
+                break;
+            case DOWNLEFT:
+                x -= 1;
+                y += 1;
+                break;
+            case DOWNRIGHT:
+                x += 1;
+                y += 1;
+                break;
+            default:
+                break;
+        }
+        Tile tile = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y);
+        DroppedItem droppedItem = new DroppedItem(new Slot(item,1));
+        tile.setFixedObject(droppedItem);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
+        return new Result(true,"you placed a item!");
     }
 
 
     //CHEAT
 
-    public static Result cheatAddItem() {
+    public static Result cheatAddItem(Matcher matcher) {
+        String itemName = matcher.group(1);
+        int count = Integer.parseInt(matcher.group(2));
+        //TODO kol item hai bazi
 
         return null;
     }
 
-    private static String RecipeList(){
+    private static String RecipeList() {
         ArrayList<CraftTool> craftToolsRecipe = App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getToolRecipes();
         StringBuilder tmpString = new StringBuilder();
-        for(CraftTool craftTool : craftToolsRecipe) {
+        for (CraftTool craftTool : craftToolsRecipe) {
             tmpString.append("Tools Name : ").append(craftTool.getName()).append("\n");
             tmpString.append("Description : ").append(craftTool.getDescription()).append("\n");
             tmpString.append("Ingredients : \n");
-            for(Map.Entry<Item,Integer> map : craftTool.getIngredients().entrySet()){
-                tmpString.append(map.getKey().getName()).append("(").append(map.getValue()).append(")\n");
+            for (Ingredient ingredient :  craftTool.getIngredients()) {
+                tmpString.append("Name : ").append(ingredient.getName()).append("\n");
+                tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n----\n");
             }
             tmpString.append("Sell Price : ").append(craftTool.getSellPrice()).append("\n");
+            tmpString.append("----------------------------------");
+
         }
         return tmpString.toString();
     }
 
-
-
-
-    public static CraftingRecipesList returnCraftingRecipe(String ItemName) {
-        for(CraftingRecipesList recipesList : CraftingRecipesList.values()) {
-            if(recipesList.name.equals(ItemName)) {
-                return recipesList;
+    private static CraftTool returnCraftingRecipe(String ItemName) {
+        for (CraftTool craftTool : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
+            if (craftTool.getName().equals(ItemName)) {
+                return craftTool;
             }
         }
         return null;
     }
+
+    private static boolean havaIngredient(CraftTool craftTool) {
+        for (Ingredient ingredient : craftTool.getIngredients()) {
+            boolean isExist = false;
+            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if (slot.getItem().getName().equals(ingredient.getName())) {
+                    isExist = true;
+                }
+            }
+            if (!isExist) {
+                return false;
+            }
+        }
+        for(Ingredient ingredient : craftTool.getIngredients()) {
+            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if (ingredient.getName().equals(slot.getItem().getName())) {
+                    int sum = 0;
+                    for (Slot slot1 : App.getCurrentUser()
+                            .getCurrentGame()
+                            .getCurrentPlayer()
+                            .getInventory()
+                            .getSlots()) {
+                        if (slot1.getItem().getName().equals(ingredient.getName())) {
+                            sum += slot1.getQuantity();
+                        }
+                    }
+                    if (sum < ingredient.getQuantity()) {
+                        return false;
+                    }
+
+                }
+            }
+        }
+        return true;
+    }
+
+    private static Item returnInventoryItemByName(String itemName) {
+        for (Slot slot : App.getCurrentUser()
+                .getCurrentGame()
+                .getCurrentPlayer()
+                .getInventory()
+                .getSlots()) {
+            Item item = slot.getItem();
+            if (item.getName().equals(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public static Direction getDirectionFromString(String input) {
+        try {
+            return Direction.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
 }
