@@ -4,9 +4,9 @@ import controller.CommandController;
 import model.*;
 import model.Enums.FarmPosition;
 import model.Enums.Menu;
-import model.Locations.Farm;
-import model.Locations.Map;
-import model.Locations.Position;
+import model.MapModule.GameLocations.Farm;
+import model.MapModule.GameMap;
+import model.MapModule.Position;
 import model.States.WeatherState;
 import model.TimeSystem.TimeSystem;
 import model.items.Item;
@@ -76,14 +76,15 @@ public class PreGameMenuController extends CommandController {
         }
 
         //TODO MakingInitialMap should call chooseMap;
-        Map map = MakeInitialMap(positions);
+//        TODO
+//        Map map = MakeInitialMap(positions);
         //TODO set default home for each player
         //TODO SetEachPlayerFarm
         //TODO give player starter pack
         TimeSystem timeSystem = new TimeSystem(1,9);
         WeatherState weatherState = new WeatherState();
         Game newGame = new Game(playersToPlay,map,timeSystem,weatherState);
-        GivePlayersInitialItem(newGame);
+//        GivePlayersInitialItem(newGame);
         App.getCurrentUser().setCurrentGame(newGame);
         App.getCurrentUser().setGameId(newGame.getGameId());
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames()+1);
@@ -95,7 +96,7 @@ public class PreGameMenuController extends CommandController {
 
     public static Result loadGame() {
         String gameId = App.getCurrentUser().getGameId();
-        Game gameToLoad= somthing .... ;
+//        Game gameToLoad= somthing .... ;
         //TODO
         gameToLoad.setStarterPlayer(gameToLoad.getPlayerByUser(App.getCurrentUser()));
     }

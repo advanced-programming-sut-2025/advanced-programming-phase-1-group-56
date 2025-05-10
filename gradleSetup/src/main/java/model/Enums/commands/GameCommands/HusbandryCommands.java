@@ -6,18 +6,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum HusbandryCommands implements Commands {
-    buildBarnOrCoop(""),
-    buyAnimal(""),
-    pettingAnimal(""),
-    showInfoAnimals(""),
-    shepherdAnimals(""),
-    feedHay(""),
-    dontCollectProducts(""),
-    collectProduce(""),
-    sellAnimal(""),
-    fishing(""),
+    buildBarnOrCoop("build\\s+-a\\s+(.+)\\s+-l\\s+(\\S+) , (\\S+)"),
+    buyAnimal("buy\\s+animal\\s+-a\\s+(.+)\\s+-n\\s+(.+)"),
+    pettingAnimal("pet -n (\\S+)"),
+    showInfoAnimals("animals"),
+    shepherdAnimals("shepherd animals -n (.+) -l (\\S+), (\\S+)"),
+    feedHay("feed hay -n (\\S+)"),
+    produces("produces"),
+    collectProduce("collect produce -n (\\S+)"),
+    sellAnimal("sell animal -n (\\S+)"),
+    fishing("fishing -p (.+)"),
     //cheatCode
-    cheatSetFriendship("");
+    cheatSetFriendship("cheat set friendship -n (.+) -c (.+)");
 
     private final String regex;
 
