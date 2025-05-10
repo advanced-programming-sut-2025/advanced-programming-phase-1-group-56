@@ -5,7 +5,7 @@ import model.App;
 import model.Enums.WeatherAndTime.WeatherType;
 import model.GameObject.Animal.Animal;
 import model.GameObject.Animal.AnimalProduct;
-import model.Locations.Position;
+import model.MapModule.Position;
 import model.Result;
 
 import java.util.regex.Matcher;

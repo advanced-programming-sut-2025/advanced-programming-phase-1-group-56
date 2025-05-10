@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 public class TradeController extends CommandController {
 
     public static Result startTrade(Player player) {
-        App.setCurrentMenu(Menu.tradeMenu);
+        App.setCurrentMenu(Menu.TradeMenu);
         return new Result(true, "you are now in trade menu");
     }
 
@@ -155,7 +155,7 @@ public class TradeController extends CommandController {
         builder.append("My Pending Trades:\n");
         builder.append("\n-------------------------------\n");
         Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        ArrayList<UUID> myTrades = me.getMyTradesID();
+        ArrayList<UUID> myTrades = me.getMyTrades();
         Game thisGame = App.getCurrentUser().getCurrentGame();
         for (UUID uuid : myTrades) {
             Trade trade = thisGame.findTradeById(uuid);
@@ -165,7 +165,7 @@ public class TradeController extends CommandController {
             builder.append(trade.toString());
             builder.append("\n-------------------------------\n");
         }
-        ArrayList<UUID> receivedTradesID = me.getReceivedTradesID();
+        ArrayList<UUID> receivedTradesID = me.getReceivedTrades();
         for (UUID uuid : receivedTradesID) {
             Trade trade = thisGame.findTradeById(uuid);
             if (trade == null) {
@@ -196,22 +196,112 @@ public class TradeController extends CommandController {
 
 
         if (resp.equals("-accept")) {
-            boolean successful = false;
             switch (tradeToDo.getType()) {
                 case TradeType.MONEY_REQUEST: {
-
+                    Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
+                    //counterParty gets the money so I loose money
+                    if(me.getGold()> tradeToDo.getMoneyGets()){//I have such money
+                        me.addGold(-tradeToDo.getMoneyGets());
+                        counterParty.addGold(tradeToDo.getMoneyGets());
+                    }
+                    else{
+                        return new  Result(false, "you dont have enough money to give!");
+                    }
                 }
                 break;
                 case TradeType.PRODUCT_REQUEST: {
-
+                    Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
+                    //counterParty gets the item so I loose item
+                    Slot tradeSlot = tradeToDo.getItemsGets();
+                    if(me.getInventory().countItem(tradeSlot.getItem())>tradeSlot.getQuantity()){//I have such item
+                        if(counterParty.getInventory().canAddItem(tradeSlot.getItem(), tradeSlot.getQuantity())){
+                            me.getInventory().remove(tradeSlot.getItem(),tradeSlot.getQuantity());
+                            counterParty.getInventory().add(tradeSlot.getItem(),tradeSlot.getQuantity());
+                        }
+                        else {
+                            return new Result(false,"your counterParty Inventory is full!\n"+
+                                    "you can reject request or either wait...");
+                        }
+                    }
+                    else{
+                        return new  Result(false, "you dont have such item to give!");
+                    }
                 }
                 break;
                 case TradeType.PRODUCT_TO_PRODUCT_OFFER: {
+                    Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
+                    Slot givingSlot = tradeToDo.getItemsGets();
+                    Slot gettingSlot = tradeToDo.getItemsToGive();
+                    // why its reverse? because trade is made from the counterParties POV
+                    if(me.getInventory().countItem(givingSlot.getItem())>givingSlot.getQuantity()){//I have such item
+                        if(counterParty.getInventory().countItem(gettingSlot.getItem())>gettingSlot.getQuantity()){//cp also has such item
 
+                            //Temp remove
+                            me.getInventory().remove(givingSlot.getItem(),givingSlot.getQuantity());
+                            counterParty.getInventory().remove(gettingSlot.getItem(),gettingSlot.getQuantity());
+
+                            if(!me.getInventory().canAddItem(gettingSlot.getItem(), gettingSlot.getQuantity())) {
+                                //Temp remove cancellation
+                                me.getInventory().add(givingSlot.getItem(),givingSlot.getQuantity());
+                                counterParty.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
+                                return new Result(false,"your inventory doesn't have enough space RN!" +
+                                        "you can reject the trade or respond later..." );
+                            }
+                            else if(!counterParty.getInventory().canAddItem(
+                                    givingSlot.getItem(), givingSlot.getQuantity())) {
+                                //Temp remove cancellation
+                                me.getInventory().add(givingSlot.getItem(),givingSlot.getQuantity());
+                                counterParty.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
+                                return new Result(false,"your counterParty inventory is full RN!!" +
+                                        "you can reject the trade or respond later..." );
+                            }else {
+                                counterParty.getInventory().add(givingSlot.getItem(),givingSlot.getQuantity());
+                                me.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
+                            }
+                        }
+                        else{
+                            return new  Result(false, "your counterParty doesn't have such"+
+                                    " item in his inventory RN!\n you can reject trade or wait for your counterParty");
+                        }
+                    }
+                    else{
+                        return new  Result(false, "you dont have such item to give!");
+                    }
                 }
                 break;
                 case TradeType.PRODUCT_TO_MONEY_OFFER: {
+                    Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
+                    int moneyToPay = tradeToDo.getMoneyGets();
+                    Slot gettingSlot = tradeToDo.getItemsToGive();
+                    // why its reverse? because trade is made from the counterParties POV
+                    if(me.getGold()>moneyToPay){//I have such money
+                        if(counterParty.getInventory().countItem(gettingSlot.getItem())>gettingSlot.getQuantity()){//CP has such item
+                            //Temp remove
+                            me.addGold(-moneyToPay);
+                            counterParty.getInventory().remove(gettingSlot.getItem(),gettingSlot.getQuantity());
 
+                            if(!me.getInventory().canAddItem(gettingSlot.getItem(), gettingSlot.getQuantity())) {//inventory of me is full
+                                //Temp remove cancellation
+                                me.addGold(+moneyToPay);
+                                counterParty.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
+                                return new Result(false,"your inventory doesn't have enough space RN!" +
+                                        "you can reject the trade or respond later..." );
+                            }else {//trade is done
+                                me.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
+                            }
+                        }
+                        else{
+                            return new  Result(false, "your counterParty doesn't have such"+
+                                    " item in his inventory RN!\n you can reject trade or wait for your counterParty");
+                        }
+                    }
+                    else{
+                        return new  Result(false, "you dont have such money to give!");
+                    }
                 }
                 break;
                 default: {
@@ -220,29 +310,29 @@ public class TradeController extends CommandController {
             }
 
 
-            if (successful) {
-                tradeToDo.setStatus(TradeStatus.ACCEPTED);
-                Player player2 = thisGame.findPlayerById(tradeToDo.getCounterPartyId());
-                Player player1 = thisGame.findPlayerById(tradeToDo.getPlayerID());
-                player1.getEndedTradesHistoryID().add(tradeToDo.getTradeID());
-                player1.getMyTradesID().remove(tradeToDo.getTradeID());
-                player2.getEndedTradesHistoryID().add(tradeToDo.getTradeID());
-                player2.getReceivedTradesID().remove(tradeToDo.getTradeID());
-                return new Result(true, "trade done successfully...");
-            }
+            //IF WE GET HERE MEANS SUCCESSFUL = TRUE
+            tradeToDo.setStatus(TradeStatus.ACCEPTED);
+            Player player2 = thisGame.findPlayerById(tradeToDo.getCounterPartyId());
+            Player player1 = thisGame.findPlayerById(tradeToDo.getPlayerID());
+            player1.getEndedTradesHistory().add(tradeToDo.getTradeID());
+            player1.getMyTrades().remove(tradeToDo.getTradeID());
+            player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
+            player2.getReceivedTrades().remove(tradeToDo.getTradeID());
+            return new Result(true, "trade done successfully...");
+
+
         } else if (resp.equals("-reject")) {
             tradeToDo.setStatus(TradeStatus.REJECTED);
             Player player1 = thisGame.findPlayerById(tradeToDo.getPlayerID());
             Player player2 = thisGame.findPlayerById(tradeToDo.getCounterPartyId());
-            player1.getMyTradesID().remove(tradeToDo.getTradeID());
-            player1.getEndedTradesHistoryID().add(tradeToDo.getTradeID());
-            player2.getReceivedTradesID().remove(tradeToDo.getTradeID());
-            player2.getEndedTradesHistoryID().add(tradeToDo.getTradeID());
+            player1.getMyTrades().remove(tradeToDo.getTradeID());
+            player1.getEndedTradesHistory().add(tradeToDo.getTradeID());
+            player2.getReceivedTrades().remove(tradeToDo.getTradeID());
+            player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
             return new Result(true, "trade rejected successfully...");
         } else {
             return new Result(false, "taklifet chie da?");
         }
-        return new Result(true, "trade added successfully...");
     }
 
 

@@ -9,8 +9,9 @@ import model.Enums.Items.TrashcanType;
 import model.GameObject.Animal.Animal;
 import model.GameObject.LivingEntity;
 import model.GameObject.NPC.NPC;
-import model.Locations.Building;
-import model.Locations.Farm;
+
+import model.MapModule.Buildings.Building;
+import model.MapModule.GameLocations.Farm;
 import model.States.Energy;
 import model.items.Inventory;
 import model.items.Item;
@@ -38,12 +39,19 @@ public class Player {
     private TrashcanType currentTrashcan;
     private boolean fainted;
     private FarmPosition farmPosition;
-    private String userId;
+    private UUID userId;
     @Expose(serialize = false, deserialize = false)
     private Farm playerFarm;
     @Expose(serialize = false, deserialize = false)
     private User user;
     private int gold = 0;
+//    private int playerId;
+
+    private final ArrayList<UUID> myTrades= new ArrayList<>();
+    private final ArrayList<UUID> receivedTrades= new ArrayList<>();
+    private final ArrayList<UUID> endedTradesHistory= new ArrayList<>();
+
+
 
     public Player(User user) {
         FarmingSkill farmingSkill = new FarmingSkill(0);
@@ -56,7 +64,7 @@ public class Player {
         skills.add(fishingSkill);
         energy = new Energy(150);
         currentBackpack = BackPackType.InitialBackpack;
-        inventory = new Inventory(currentBackpack.getCapacity());
+        inventory = new Inventory(currentBackpack);
         currentTrashcan = TrashcanType.initialTrashcan;
         this.user = user;
         this.userId = user.getUserId();
@@ -123,14 +131,6 @@ public class Player {
     }
 
 
-    public ArrayList<LivingEntity> getLivingEntities() {
-        return livingEntities;
-    }
-
-    public void addLivingEntities(LivingEntity livingEntities) {
-        this.livingEntities.add(livingEntities);
-    }
-
     public ArrayList<Building> getBuilding() {
         return building;
     }
@@ -147,13 +147,6 @@ public class Player {
         this.friendShips.add(friendShip);
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public Farm getPlayerFarm() {
         return playerFarm;
@@ -195,12 +188,14 @@ public class Player {
         this.defaultHome = defaultHome;
     }
 
-    public ArrayList<Animal> getAnimals() {
-        return Animals;
-    }
     public void addAnimals(Animal animals) {
-        this.Animals.add(animals);
+        this.animals.add(animals);
     }
+
+    public ArrayList<Animal> getAnimals() {
+        return animals;
+    }
+
     public FarmPosition getFarmPosition() {
         return farmPosition;
     }
@@ -219,5 +214,21 @@ public class Player {
 
     public void subtractGold(int gold) {
         this.gold -= gold;
+    }
+
+    public UUID getPlayerID(){
+        return userId;
+    }
+
+    public ArrayList<UUID> getEndedTradesHistory() {
+        return endedTradesHistory;
+    }
+
+    public ArrayList<UUID> getReceivedTrades() {
+        return receivedTrades;
+    }
+
+    public ArrayList<UUID> getMyTrades() {
+        return myTrades;
     }
 }

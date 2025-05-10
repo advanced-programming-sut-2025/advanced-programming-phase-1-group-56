@@ -1,8 +1,8 @@
 package model.GameObject.NPC;
 
-import model.Locations.Position;
+import model.MapModule.Position;
 import model.GameObject.LivingEntity;
-import model.Locations.Building;
+import model.MapModule.Buildings.Building;
 import model.items.Item;
 
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class NPC extends LivingEntity {
     private final Job job;
     private int lastActiveRequest;
 
-    public NPC(Position position, int width, int height, boolean[][] walkable, String name, Building workingBuilding, Job job, int lastActiveRequest) {
-        super(position, width, height, walkable);
+    public NPC(Position position, boolean walkable, String name, Building workingBuilding, Job job, int lastActiveRequest) {
+        super(position,walkable);
         this.name = name;
         this.workingBuilding = workingBuilding;
         this.job = job;

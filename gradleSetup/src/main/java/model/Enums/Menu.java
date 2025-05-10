@@ -11,8 +11,8 @@ public enum Menu {
     avatarMenu(new AvatarMenu()),
     gameMenu(new GameMenu()),
     HouseMenu(new HouseMenu()),
-    exitMenu(new ExitMenu());
-
+    exitMenu(new ExitMenu()),
+    TradeMenu(new TradeMenu());
 
     private final AppMenu menu;
     Menu(AppMenu appMenu) {
