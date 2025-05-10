@@ -137,7 +137,7 @@ public class Trade {
                 "\nitemsToGet=" + ((itemsGets==null)?"null":itemsGets.getItem().getName()) +
                 "\ncount : " + ((itemsGets==null)?"null":itemsGets.getQuantity()) +
                 "\nmoneyGets : " + moneyGets +
-                "status" + status.toString() +
+                "status" + status +
                 "\nseenByReceiver : " + seenByReceiver + "\n";
     }
 }

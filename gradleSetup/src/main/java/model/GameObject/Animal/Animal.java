@@ -3,7 +3,7 @@ package model.GameObject.Animal;
 import model.Enums.Animals.AnimalType;
 import model.Enums.Registery.AnimalInfo;
 import model.GameObject.LivingEntity;
-import model.Locations.Position;
+import model.MapModule.Position;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,8 @@ public class Animal extends LivingEntity {
     private boolean isCaressed = false;
     private String nickName;
 
-    public Animal(Position position, int width, int height, boolean[][] walkable, String name, AnimalInfo animalInfo) {
-        super(position, width, height, walkable);
+    public Animal(Position position, boolean walkable, String name, AnimalInfo animalInfo) {
+        super(position,walkable);
         this.name = name;
         this.animalInfo = animalInfo;
     }
@@ -88,11 +88,4 @@ public class Animal extends LivingEntity {
         this.animalInfo = animalInfo;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }
