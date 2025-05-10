@@ -12,6 +12,8 @@ import model.GameObject.NPC.NPC;
 
 import model.MapModule.Buildings.Building;
 import model.MapModule.GameLocations.Farm;
+import model.MapModule.GameLocations.GameLocation;
+import model.MapModule.Position;
 import model.States.Energy;
 import model.items.Inventory;
 import model.items.Item;
@@ -23,29 +25,44 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Player {
-    private String name;
+    //Identity
+//    private String name;
+    private final UUID userId;
+    @Expose(serialize = false, deserialize = false)
+    private User user;
+
+    //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftTool> toolRecipes = new ArrayList<>();
     private final ArrayList<CookFood> foodRecipes = new ArrayList<>();
-    private final ArrayList<Building> building = new ArrayList<>();
-    private final ArrayList<Friendship> friendShips =new ArrayList<>();
-    private final ArrayList<Animal> animals =new ArrayList<>();
-    private final ArrayList<NPC> npc =new ArrayList<>();
+
+    //Map Authorities
+    private FarmPosition farmPosition;//TODO
+
+    @Expose(serialize = false, deserialize = false)
+    private Farm playerFarm;//TODO
+    @Expose(serialize = false, deserialize = false)
     private Building defaultHome;
+    private final ArrayList<Friendship> friendShips =new ArrayList<>();
+    @Expose(serialize = false, deserialize = false)
+    private final ArrayList<NPC> npc =new ArrayList<>();
+    @Expose(serialize = false, deserialize = false)
+    private final ArrayList<Animal> animals =new ArrayList<>();
+//    private final ArrayList<Building> building = new ArrayList<>();
+
+    //Authorities
     private Inventory inventory;
     private Item currentItem;
-    private Energy energy;
     private BackPackType currentBackpack;
     private TrashcanType currentTrashcan;
+
+    //status
     private boolean fainted;
-    private FarmPosition farmPosition;
-    private UUID userId;
-    @Expose(serialize = false, deserialize = false)
-    private Farm playerFarm;
-    @Expose(serialize = false, deserialize = false)
-    private User user;
-    private int gold = 0;
-//    private int playerId;
+    private Energy energy;
+    private int gold;
+    private Position position;
+    private GameLocation currentGameLocation;
+
 
     private final ArrayList<UUID> myTrades= new ArrayList<>();
     private final ArrayList<UUID> receivedTrades= new ArrayList<>();
@@ -54,6 +71,9 @@ public class Player {
 
 
     public Player(User user) {
+        this.user = user;
+        this.userId = user.getUserId();
+        //id ok
         FarmingSkill farmingSkill = new FarmingSkill(0);
         ForagingSkill foragingSkill = new ForagingSkill(0);
         MiningSkill miningSkill = new MiningSkill(0);
@@ -62,14 +82,22 @@ public class Player {
         skills.add(foragingSkill);
         skills.add(miningSkill);
         skills.add(fishingSkill);
-        energy = new Energy(150);
-        currentBackpack = BackPackType.InitialBackpack;
+        //skill ok
+        //map auth should add with setters
+        //ok
+
         inventory = new Inventory(currentBackpack);
         currentTrashcan = TrashcanType.initialTrashcan;
-        this.user = user;
-        this.userId = user.getUserId();
-        this.fainted = false;
+        currentBackpack = BackPackType.InitialBackpack;
         this.currentItem = null;
+        //auth ok
+
+        this.energy = new Energy(200);
+        this.fainted = false;
+        this.gold = 0;
+        this.position = new Position(0, 0);
+        //TODO set current GL with setter
+        //status ok
     }
 
 
@@ -95,6 +123,10 @@ public class Player {
 
     public void setEnergy(Energy energy) {
         this.energy = energy;
+    }
+
+    public void subtractEnergy(int energy) {
+        this.energy.setEnergy(this.energy.getEnergy() - energy);
     }
 
     public BackPackType getCurrentBackpack() {
@@ -128,15 +160,6 @@ public class Player {
 
     public void addFoodRecipes(CookFood foodRecipes) {
         this.foodRecipes.add(foodRecipes);
-    }
-
-
-    public ArrayList<Building> getBuilding() {
-        return building;
-    }
-
-    public void addBuilding(Building building) {
-        this.building.add(building);
     }
 
     public ArrayList<Friendship> getFriendShips() {
@@ -230,5 +253,25 @@ public class Player {
 
     public ArrayList<UUID> getMyTrades() {
         return myTrades;
+    }
+
+    public ArrayList<NPC> getNpc() {
+        return npc;
+    }
+
+    public GameLocation getCurrentGameLocation() {
+        return currentGameLocation;
+    }
+
+    public void setCurrentGameLocation(GameLocation currentGameLocation) {
+        this.currentGameLocation = currentGameLocation;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

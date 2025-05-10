@@ -5,64 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_10_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_5_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_api_5_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_engine_5_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_jupiter_junit_jupiter_params_5_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_commons_1_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_junit_platform_junit_platform_engine_1_10_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_opentest4j_opentest4j_1_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/gradleSetup.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/gradleSetup.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_07_PM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_23_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_23_PM_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_28_2025_12_23_PM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_09_AM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_09_AM_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_09_AM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_10_AM_[Changes]/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_10_AM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_10_AM_[Changes]2/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_10_AM_[Changes]2/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_10_AM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_10_AM__Changes_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_11_AM_[Changes]/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_11_AM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_11_AM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_13_AM_[Changes]/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_13_AM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_13_AM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_14_AM_[Changes]/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_14_AM_[Changes]2/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_15_AM_[Changes]2/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_15_AM_[Changes]2/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_15_AM__Changes_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM_[Changes]/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM_[Changes]/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM_[Changes]/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM_[Changes]1/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_2_2025_1_24_AM__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/DroppedItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CraftingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CraftingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/CookFood.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/CookFood.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/CraftTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/CraftTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Barn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Blacksmith.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Building.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/CarpentersShop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Coop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/FishShop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/GreenHouse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Home.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/JojaMart.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/MarniesRanch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/PierresGeneralStore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Store.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/TheSaloonStardrop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Coast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Farm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/GameLocation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Pier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Town.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/NewTileLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Position.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Tile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/TownLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/preGameLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/CraftingTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/CraftingTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/HouseMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/HouseMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/TradeMenu.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,14 +71,29 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2wuGyOj3RRvgMI5Zmu0vwh640AO" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -109,10 +104,32 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "mohsen",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="stardew valley" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="stardew valley" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -135,5 +152,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/PreGameMenuController.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

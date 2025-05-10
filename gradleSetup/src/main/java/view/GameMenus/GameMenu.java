@@ -1,14 +1,12 @@
-package view;
+package view.GameMenus;
 
 import controller.GameMenuController.FishingController;
 import controller.GameMenuController.HusbandryController;
-import model.Enums.Registery.ArtisanMachine;
 import model.Enums.commands.GameCommands.Artisan;
 import model.Enums.commands.GameCommands.GameCommands;
-import model.Enums.commands.GameCommands.HouseMenuCommands;
 import model.Enums.commands.GameCommands.HusbandryCommands;
+import view.AppMenu;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 

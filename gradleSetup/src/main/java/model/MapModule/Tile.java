@@ -2,9 +2,11 @@ package model.MapModule;
 
 import model.Enums.TileType;
 import model.GameObject.GameObject;
-import model.GameObject.LivingEntity;
+import model.MapModule.GameLocations.GameLocation;
 
-public class Tile {
+import java.util.ArrayList;
+
+public class Tile extends Node{
     private Position position;
     private boolean isWalkable; // این به‌صورت دستی باید مقداردهی بشه یا از objectها گرفته بشه
     private GameObject fixedObject;
@@ -16,21 +18,6 @@ public class Tile {
         this.isWalkable = isWalkable;
         this.tileType = tileType;
     }
-
-//    private boolean calculateWalkable() {
-////        if (livingEntity != null) return false;
-////
-////        if (fixedObject instanceof Movable mto) {
-////            int dx = position.getX() - mto.getOriginTileX();
-////            int dy = position.getY() - mto.getOriginTileY();
-////            return mto.isTileWalkable(dx, dy);
-////        }
-////
-////        if (fixedObject != null && !fixedObject.isWalkable()) return false;
-////
-////        // fallback در صورتی که نه موجودی هست، نه fixedObject
-//        return true;
-//    }
 
     public boolean isWalkable() {
         return isWalkable;
@@ -60,5 +47,62 @@ public class Tile {
 
     public TileType getTileType() {
         return tileType;
+    }
+
+    @Override
+    public void calculateNeighbours(Network network) {
+        GameLocation grid = (GameLocation) network;
+
+        ArrayList<Node> nodes = new ArrayList<>();
+
+        int minX = 0;
+        int minY = 0;
+        int maxX = grid.getTiles().length-1;
+        int maxY = grid.getTiles()[0].length - 1;
+
+        if (position.getX() > minX) {
+            nodes.add(grid.getTileByPosition(position.getX() - 1 , position.getY())); //west
+        }
+
+        if (position.getX() < maxX) {
+            nodes.add(grid.getTileByPosition(position.getX()+1, position.getY())); //east
+        }
+
+        if (position.getY() > minY) {
+            nodes.add(grid.getTileByPosition(position.getX(), position.getY() -1)); //north
+        }
+
+        if (position.getY() < maxY) {
+            nodes.add(grid.getTileByPosition(position.getX(), position.getY() + 1)); //south
+        }
+
+        if (position.getX() > minX && position.getY() > minY) {
+            nodes.add(grid.getTileByPosition(position.getX() - 1 , position.getY()- 1)); //northwest
+        }
+
+        if (position.getX() < maxX && position.getY() < maxY) {
+            nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY() + 1)); //southeast
+        }
+
+        if(position.getX() < maxX && position.getY() > minY){
+            nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY() - 1)); //northeast
+        }
+
+        if(position.getX() > minY && position.getY() < maxY){
+            nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY() + 1)); //southwest
+        }
+
+        setNeighbours(nodes);
+    }
+
+    @Override
+    public double heuristic(Node dest) {
+        return distanceTo(dest);
+    }
+
+    @Override
+    public double distanceTo(Node dest) {
+        Tile d = (Tile) dest;
+        return Math.sqrt(Math.pow(d.position.getX() - position.getX() , 2) + Math.pow(d.position.getY() - position.getY() , 2));
     }
 }

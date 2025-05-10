@@ -1,6 +1,8 @@
 package model.Enums;
 
 import view.*;
+import view.GameMenus.GameMenu;
+import view.GameMenus.HouseMenu;
 
 import java.util.Scanner;
 
