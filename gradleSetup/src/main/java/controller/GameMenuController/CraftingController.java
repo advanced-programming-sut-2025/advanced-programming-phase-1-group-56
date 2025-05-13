@@ -4,8 +4,7 @@ import controller.CommandController;
 import model.Activities.CraftTool;
 import model.App;
 import model.Enums.Direction;
-import model.Enums.Registery.CraftingRecipesList;
-import model.Enums.commands.GameCommands.CraftingCommand;
+import model.Enums.Items.CraftingRecipesList;
 import model.GameObject.DroppedItem;
 import model.Ingredient;
 import model.MapModule.Position;
@@ -15,9 +14,7 @@ import model.Slot;
 import model.items.CraftingTool;
 import model.items.Item;
 
-import javax.net.ssl.CertPathTrustManagerParameters;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.regex.Matcher;
 
 public class CraftingController extends CommandController {
@@ -70,7 +67,7 @@ public class CraftingController extends CommandController {
         }
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractEnergy(2);
 
-        return new  Result(true, tmpString.toString());
+        return new Result(true, tmpString.toString());
     }
 
     public static Result placeItem(Matcher matcher) {
@@ -119,10 +116,10 @@ public class CraftingController extends CommandController {
                 break;
         }
         Tile tile = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y);
-        DroppedItem droppedItem = new DroppedItem(new Slot(item,1));
+        DroppedItem droppedItem = new DroppedItem(item);
         tile.setFixedObject(droppedItem);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
-        return new Result(true,"you placed a item!");
+        return new Result(true, "you placed a item!");
     }
 
 
@@ -146,7 +143,7 @@ public class CraftingController extends CommandController {
             tmpString.append("Tools Name : ").append(craftTool.getName()).append("\n");
             tmpString.append("Description : ").append(craftTool.getDescription()).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient :  craftTool.getIngredients()) {
+            for (Ingredient ingredient : craftTool.getIngredients()) {
                 tmpString.append("Name : ").append(ingredient.getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n----\n");
             }
@@ -178,7 +175,7 @@ public class CraftingController extends CommandController {
                 return false;
             }
         }
-        for(Ingredient ingredient : craftTool.getIngredients()) {
+        for (Ingredient ingredient : craftTool.getIngredients()) {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (ingredient.getName().equals(slot.getItem().getName())) {
                     int sum = 0;

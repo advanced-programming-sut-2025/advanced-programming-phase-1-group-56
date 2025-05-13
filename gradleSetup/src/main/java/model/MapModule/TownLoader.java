@@ -1,16 +1,12 @@
 package model.MapModule;
 
 import com.google.gson.*;
-import model.Enums.Registery.GrassType;
-import model.Enums.Registery.TreeType;
 import model.Enums.TileType;
 import model.GameObject.*;
 import model.MapModule.Buildings.*;
-import model.MapModule.GameLocations.Farm;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Scanner;
 
 public class TownLoader {
     private static final int tileSize = 16;

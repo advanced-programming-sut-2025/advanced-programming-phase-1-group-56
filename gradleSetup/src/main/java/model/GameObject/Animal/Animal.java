@@ -1,15 +1,15 @@
 package model.GameObject.Animal;
 
 import model.Enums.Animals.AnimalType;
-import model.Enums.Registery.AnimalInfo;
 import model.GameObject.LivingEntity;
 import model.MapModule.Position;
+import model.items.AnimalProduct;
 
 import java.util.ArrayList;
 
 public class Animal extends LivingEntity {
     private String name;
-    private AnimalInfo animalInfo;
+    private AnimalType animalInfo;
     private int friendship = 0;
     private int health;//TODO
     private int hungaryBar;//TODO
@@ -18,7 +18,7 @@ public class Animal extends LivingEntity {
     private boolean isCaressed = false;
     private String nickName;
 
-    public Animal(Position position, boolean walkable, String name, AnimalInfo animalInfo) {
+    public Animal(Position position, boolean walkable, String name, AnimalType animalInfo) {
         super(position,walkable);
         this.name = name;
         this.animalInfo = animalInfo;
@@ -80,11 +80,11 @@ public class Animal extends LivingEntity {
 
     }
 
-    public AnimalInfo getAnimalInfo() {
+    public AnimalType getAnimalInfo() {
         return animalInfo;
     }
 
-    public void setAnimalInfo(AnimalInfo animalInfo) {
+    public void setAnimalInfo(AnimalType animalInfo) {
         this.animalInfo = animalInfo;
     }
 

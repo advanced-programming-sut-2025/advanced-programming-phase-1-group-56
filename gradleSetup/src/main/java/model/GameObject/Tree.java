@@ -1,6 +1,6 @@
 package model.GameObject;
 
-import model.Enums.Registery.TreeType;
+import model.Enums.Items.TreeType;
 
 public class Tree extends GameObject {
     //    private final ArrayList<Integer> stages;
@@ -57,4 +57,8 @@ public class Tree extends GameObject {
 //    public HashMap<Item, Integer> getItemsGiven() {
 //        return itemsGiven;
 //    }
+
+    public DroppedItem getProductAfterCut(){
+        return new DroppedItem(new Wood(true));
+    }
 }

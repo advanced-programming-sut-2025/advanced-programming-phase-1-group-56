@@ -3,7 +3,6 @@ package model.items;
 import java.util.HashMap;
 
 public class Food extends Item {
-    private String name;
     private int energy;
     private int price;
     private String buff;

@@ -4,10 +4,9 @@ import model.Activities.CookFood;
 import model.Activities.CraftTool;
 import model.Activities.Friendship;
 import model.Enums.FarmPosition;
-import model.Enums.Items.BackPackType;
+import model.Enums.BackPackType;
 import model.Enums.Items.TrashcanType;
 import model.GameObject.Animal.Animal;
-import model.GameObject.LivingEntity;
 import model.GameObject.NPC.NPC;
 
 import model.MapModule.Buildings.Building;
@@ -21,7 +20,6 @@ import model.skills.*;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Player {
@@ -43,11 +41,11 @@ public class Player {
     private Farm playerFarm;//TODO
     @Expose(serialize = false, deserialize = false)
     private Building defaultHome;
-    private final ArrayList<Friendship> friendShips =new ArrayList<>();
+    private final ArrayList<Friendship> friendShips = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<NPC> npc =new ArrayList<>();
+    private final ArrayList<NPC> npc = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<Animal> animals =new ArrayList<>();
+    private final ArrayList<Animal> animals = new ArrayList<>();
 //    private final ArrayList<Building> building = new ArrayList<>();
 
     //Authorities
@@ -64,10 +62,9 @@ public class Player {
     private GameLocation currentGameLocation;
 
 
-    private final ArrayList<UUID> myTrades= new ArrayList<>();
-    private final ArrayList<UUID> receivedTrades= new ArrayList<>();
-    private final ArrayList<UUID> endedTradesHistory= new ArrayList<>();
-
+    private final ArrayList<UUID> myTrades = new ArrayList<>();
+    private final ArrayList<UUID> receivedTrades = new ArrayList<>();
+    private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
 
 
     public Player(User user) {
@@ -239,7 +236,7 @@ public class Player {
         this.gold -= gold;
     }
 
-    public UUID getPlayerID(){
+    public UUID getPlayerID() {
         return userId;
     }
 
@@ -274,4 +271,13 @@ public class Player {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+//    public Skill getSkillByName(String name) {
+//        for (Skill skill : skills) {
+//            if (skill.getName().equals(name)) {
+//                return skill;
+//            }
+//        }
+//        return null;
+//    }
 }
