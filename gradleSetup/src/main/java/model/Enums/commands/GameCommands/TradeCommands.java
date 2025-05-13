@@ -5,11 +5,12 @@ import java.util.regex.Matcher;
 
 public enum TradeCommands implements Commands {
     startTrade("\\s*start\\s+trade\\s*"),
-    tradeWithPlayer("\\s*trade\\s+-u\\s+(.+)\\s+-t\\s+(.+)\\s+-i\\s+(.+)\\s+-a\\s+(.+)\\s+"+
-            "\\[-p\\s+(.+)\\]\\s+\\[-ti\\s+(.+)\\s+-ta\\s+(.+)\\]\\s*"),
+    tradeWithPlayer("trade\\s+-u\\s+(?<username>.+)\\s+-t\\s+(?<type>.+)\\s+-i\\s+(?<item>.+)"+
+                           "\\s+-a\\s+(?<amount>.+)(\\s+-p\\s+(?<price>\\S+))?(\\s+-ti\\s+"+
+                            "(?<targetItem>\\S+)\\s+-ta\\s+(?<targetAmount>\\S+))?\\s*"),
     tradeList("\\s*trade\\s+list\\s*"),
     tradeHistory("\\s*trade\\s+history\\s*"),
-    tradeResponse("\\s*trade\\s+response\\s+\\((.+)\\)\\s+-i\\s+(.+)\\s*")
+    tradeResponse("\\s*trade\\s+response\\s+(.+)-i\\s+(.+)\\s*")
     ;
     final String regex;
     TradeCommands(String regex){
