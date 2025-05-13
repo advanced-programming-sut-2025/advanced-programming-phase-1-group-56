@@ -19,8 +19,8 @@ public class ArtisanGood extends Item {
     public void setEnergy(int energy) {
         this.energy = energy;
     }
-
-    public int getSellPrice() {
+    @Override
+    public int getPrice() {
         return sellPrice;
     }
 
@@ -31,4 +31,6 @@ public class ArtisanGood extends Item {
     public ArtisanGoodType getArtisanGoodType() {
         return artisanGoodType;
     }
+
+
 }

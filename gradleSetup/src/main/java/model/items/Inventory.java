@@ -1,18 +1,20 @@
 package model.items;
 
+
 import model.Enums.BackPackType;
 import model.Slot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Inventory {
     private final ArrayList<Slot> slots = new ArrayList<>();
     private BackPackType backPackType;
     private int capacity;
 
-//    public Inventory(int capacity) {
-//        this.capacity = capacity;
-//    }
+    public Inventory(int capacity) {
+        this.capacity = capacity;
+    }
 
     public Inventory(BackPackType backPackType) {
         this.backPackType = backPackType;
@@ -30,7 +32,7 @@ public class Inventory {
 
     public void add(Item item, int quantity) {
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equals(item.getName())) {
+            if (slot.getItem().equals(item)) {
                 if (slot.getQuantity() + quantity < item.getMaxStackSize())
                     slot.setQuantity(slot.getQuantity() + quantity);
                 else if (slot.getQuantity() + quantity > item.getMaxStackSize()) {
@@ -72,7 +74,7 @@ public class Inventory {
     public void remove(Item item, int quantity) {
         int tmpQuantity = quantity;
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equals(item.getName())) {
+            if (slot.getItem().equals(item)) {
                 if(slot.getQuantity() >= tmpQuantity) {
                     slot.setQuantity(slot.getQuantity() - tmpQuantity);
                     if(slot.getQuantity()==0){
@@ -80,8 +82,8 @@ public class Inventory {
                     }
                     return;
                 } else if(slot.getQuantity() < tmpQuantity) {
-                   tmpQuantity -= slot.getQuantity();
-                   slots.remove(slot);
+                    tmpQuantity -= slot.getQuantity();
+                    slots.remove(slot);
                 }
             }
         }
@@ -90,7 +92,7 @@ public class Inventory {
     public int countItem(Item item){
         int sum = 0;
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equals(item.getName())) {
+            if (slot.getItem().equals(item)) {
                 sum += slot.getQuantity();
             }
         }
@@ -115,7 +117,7 @@ public class Inventory {
         int max = 0;
         max +=  (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
         for (Slot slot : slots) {// for semi full slots of same item
-            if (slot.getItem().getName().equals(item.getName())) {
+            if (slot.getItem().equals(item)) {
                 max += item.maxStackSize - slot.getQuantity();
             }
         }
@@ -123,5 +125,14 @@ public class Inventory {
     }
     public boolean canAddItem(Item item, int quantity) {
         return quantity <=  maxItemMayBeAdded(item);
+    }
+
+    public Item findItemByName(String itemName) {
+        for (Slot slot : slots) {
+            if (slot.getItem().getName().equals(itemName)) {
+                return slot.getItem();
+            }
+        }
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package model.GameObject;
 
+import model.MapModule.Position;
 import model.items.Inventory;
 import model.items.Item;
 
@@ -9,8 +10,8 @@ import java.util.HashMap;
 public class Refrigerator extends GameObject {
     private Inventory inventory;
 
-    public Refrigerator(boolean walkable,Inventory inventory) {
-        super(walkable);
+    public Refrigerator(boolean walkable, Position position,Inventory inventory) {
+        super(walkable, position);
         this.inventory = inventory;
     }
 

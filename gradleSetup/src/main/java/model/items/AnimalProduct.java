@@ -17,11 +17,12 @@ public class AnimalProduct extends Item{
         return name;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public AnimalProductQuality getQuality() {
         return quality;
+    }
+
+    @Override
+    public int getPrice(){
+        return price;
     }
 }

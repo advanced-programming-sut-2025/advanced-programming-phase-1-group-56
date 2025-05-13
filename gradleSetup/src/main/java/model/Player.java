@@ -1,19 +1,23 @@
 package model;
 
-import model.Activities.CookFood;
-import model.Activities.CraftTool;
-import model.Activities.Friendship;
-import model.Enums.FarmPosition;
+import model.Activities.*;
 import model.Enums.BackPackType;
+import model.Enums.FarmPosition;
+
 import model.Enums.Items.TrashcanType;
-import model.GameObject.Animal.Animal;
+
+import model.Enums.Skills;
+import model.GameObject.Animal;
 import model.GameObject.NPC.NPC;
 
 import model.MapModule.Buildings.Building;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Position;
+
 import model.States.Energy;
+import model.TimeSystem.DateTime;
+import model.TimeSystem.TimeObserver;
 import model.items.Inventory;
 import model.items.Item;
 import model.skills.*;
@@ -22,12 +26,13 @@ import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Player {
+public class Player implements TimeObserver {
     //Identity
 //    private String name;
     private final UUID userId;
     @Expose(serialize = false, deserialize = false)
     private User user;
+    private boolean gender;
 
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
@@ -41,18 +46,14 @@ public class Player {
     private Farm playerFarm;//TODO
     @Expose(serialize = false, deserialize = false)
     private Building defaultHome;
-    private final ArrayList<Friendship> friendShips = new ArrayList<>();
-    @Expose(serialize = false, deserialize = false)
-    private final ArrayList<NPC> npc = new ArrayList<>();
-    @Expose(serialize = false, deserialize = false)
-    private final ArrayList<Animal> animals = new ArrayList<>();
 //    private final ArrayList<Building> building = new ArrayList<>();
 
     //Authorities
     private Inventory inventory;
-    private Item currentItem;
     private BackPackType currentBackpack;
     private TrashcanType currentTrashcan;
+    private Item currentItem;
+
 
     //status
     private boolean fainted;
@@ -60,21 +61,36 @@ public class Player {
     private int gold;
     private Position position;
     private GameLocation currentGameLocation;
+    private Buff currentBuff= null;
+    private Buff foodBuff =null;
+    private boolean interactWithPartnerToday;
 
+    //connections
+    private final ArrayList<UUID> myTrades= new ArrayList<>();
+    private final ArrayList<UUID> receivedTrades= new ArrayList<>();
+    private final ArrayList<UUID> endedTradesHistory= new ArrayList<>();
 
-    private final ArrayList<UUID> myTrades = new ArrayList<>();
-    private final ArrayList<UUID> receivedTrades = new ArrayList<>();
-    private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
+    @Expose(serialize = false, deserialize = false)
+    private final ArrayList<NPC> npc =new ArrayList<>();
+    @Expose(serialize = false, deserialize = false)
+    private final ArrayList<Animal> animals =new ArrayList<>();
 
+    //doesn't need expose because duplicate won't make any trouble
+    private final ArrayList<Friendship> friendShips =new ArrayList<>();
+    private final ArrayList<Message> messages = new ArrayList<>();
+    private final ArrayList<Gift> gifts = new ArrayList<>();
+    private final ArrayList<Gift> marryRequests = new ArrayList<>();
+
+    private Player partner = null;
 
     public Player(User user) {
         this.user = user;
         this.userId = user.getUserId();
         //id ok
-        FarmingSkill farmingSkill = new FarmingSkill(0);
-        ForagingSkill foragingSkill = new ForagingSkill(0);
-        MiningSkill miningSkill = new MiningSkill(0);
-        FishingSkill fishingSkill = new FishingSkill(0);
+        FarmingSkill farmingSkill = new FarmingSkill(Skills.Farming,0);
+        ForagingSkill foragingSkill = new ForagingSkill(Skills.Foraging,0);
+        MiningSkill miningSkill = new MiningSkill(Skills.Mining,0);
+        FishingSkill fishingSkill = new FishingSkill(Skills.Fishing,0);
         skills.add(farmingSkill);
         skills.add(foragingSkill);
         skills.add(miningSkill);
@@ -95,6 +111,9 @@ public class Player {
         this.position = new Position(0, 0);
         //TODO set current GL with setter
         //status ok
+        this.gender = user.getGender();
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+        interactWithPartnerToday = false;
     }
 
 
@@ -122,8 +141,8 @@ public class Player {
         this.energy = energy;
     }
 
-    public void subtractEnergy(int energy) {
-        this.energy.setEnergy(this.energy.getEnergy() - energy);
+    public void toggleUnlimitedEnergy(){
+        energy.toggleUnlimited();
     }
 
     public BackPackType getCurrentBackpack() {
@@ -236,7 +255,7 @@ public class Player {
         this.gold -= gold;
     }
 
-    public UUID getPlayerID() {
+    public UUID getPlayerID(){
         return userId;
     }
 
@@ -272,12 +291,107 @@ public class Player {
         this.position = position;
     }
 
-//    public Skill getSkillByName(String name) {
-//        for (Skill skill : skills) {
-//            if (skill.getName().equals(name)) {
-//                return skill;
-//            }
-//        }
-//        return null;
-//    }
+
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+
+    public Friendship findFriendshipByPlayer(Player player) {
+        for (Friendship friendship : friendShips) {
+            if (friendship.getPlayer().equals(player)) {
+                return friendship;
+            }
+        }
+        return null;
+    }
+
+    public Gift findGiftById(String id){
+        for (Gift gift: gifts) {
+            if(gift.getGiftID().equals(UUID.fromString(id))){
+                return gift;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Gift> getGifts() {
+        return gifts;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+
+    public ArrayList<Gift> getMarryRequests() {
+        return marryRequests;
+    }
+
+    public Player getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Player partner) {
+        this.partner = partner;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public Buff getCurrentBuff() {
+        return currentBuff;
+    }
+
+    public void setCurrentBuff(Buff currentBuff) {
+        this.currentBuff = currentBuff;
+    }
+
+    @Override
+    public void onHourChanged(DateTime time, boolean newDay) {
+        if(newDay){
+            //TODO lot things
+            interactWithPartnerToday = false;
+        }
+        else{
+
+        }
+    }
+
+    public boolean isInteractWithPartnerToday() {
+        return interactWithPartnerToday;
+    }
+
+    public void setInteractWithPartnerToday(boolean interactWithPartnerToday) {
+        this.interactWithPartnerToday = interactWithPartnerToday;
+    }
+
+    public Buff getFoodBuff() {
+        return foodBuff;
+    }
+
+    public void setFoodBuff(Buff foodBuff) {
+        this.foodBuff = foodBuff;
+    }
+
+    public void addEnergy(int amount) {
+        energy.setEnergy(energy.getEnergy() + amount);
+    }
+
+    public void subtractEnergy(int amount) {
+        energy.setEnergy(energy.getEnergy() - amount);
+    }
+
+    public Skill getSkillByName(String skillName){
+        for (Skill skill : skills) {
+            if(skill.getName().equals(skillName)){
+                return skill;
+            }
+        }
+        return null;
+    }
 }

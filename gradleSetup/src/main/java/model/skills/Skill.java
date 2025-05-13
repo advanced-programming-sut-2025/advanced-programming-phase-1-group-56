@@ -1,14 +1,20 @@
 package model.skills;
 
+import model.Enums.Skills;
+
 public abstract class Skill {
     private int xp;
-    private int level;
+    private Skills name;
 
 
-    public Skill(int xp) {
+    public Skill(Skills name ,int xp) {
+        this.name = name;
         this.xp = xp;
     }
 
+    public Skills getName(){
+        return name;
+    }
     public abstract int calculateLevel();
 
     public int getXp() {

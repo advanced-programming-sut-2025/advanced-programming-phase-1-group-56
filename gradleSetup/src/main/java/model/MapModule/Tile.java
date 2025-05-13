@@ -1,5 +1,6 @@
 package model.MapModule;
 
+import com.google.gson.annotations.Expose;
 import model.Enums.TileType;
 import model.GameObject.GameObject;
 import model.MapModule.GameLocations.GameLocation;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class Tile extends Node{
     private Position position;
     private boolean isWalkable; // این به‌صورت دستی باید مقداردهی بشه یا از objectها گرفته بشه
+    @Expose(deserialize = false, serialize = false)
     private GameObject fixedObject;
     private TileType tileType;
 

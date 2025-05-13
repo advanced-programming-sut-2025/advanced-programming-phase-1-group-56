@@ -25,8 +25,8 @@ public class CraftingTool extends Item {
     public String getDescription() {
         return description;
     }
-
-    public int getSellPrice() {
+    @Override
+    public int getPrice() {
         return sellPrice;
     }
 

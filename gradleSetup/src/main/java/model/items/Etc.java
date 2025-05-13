@@ -1,6 +1,7 @@
 package model.items;
 
 import model.Enums.Items.EtcType;
+import model.Enums.Items.SeedType;
 
 public class Etc extends Item {
     private EtcType etcType;
@@ -13,5 +14,10 @@ public class Etc extends Item {
 
     public EtcType getEtcType() {
         return etcType;
+    }
+
+    @Override
+    public int getPrice() {
+        return etcType.value;
     }
 }

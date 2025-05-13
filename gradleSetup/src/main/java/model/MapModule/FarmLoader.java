@@ -1,20 +1,22 @@
 package model.MapModule;
 
 import com.google.gson.*;
+import model.Enums.GameObjects.TreeType;
 import model.Enums.Items.GrassType;
-import model.Enums.Items.TreeType;
 import model.Enums.TileType;
 import model.GameObject.*;
+import model.MapModule.Buildings.Building;
 import model.MapModule.Buildings.GreenHouse;
 import model.MapModule.Buildings.Home;
+import model.MapModule.GameLocations.Farm;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class NewTileLoader {
+public class FarmLoader {
     private static final int tileSize = 16;
 
-    public static Tile[][] load(String jsonPath) throws FileNotFoundException {
+    public static Tile[][] load(String jsonPath,Farm farm) throws FileNotFoundException {
         JsonObject map = JsonParser
                 .parseReader(new FileReader(jsonPath))
                 .getAsJsonObject();
@@ -104,7 +106,8 @@ public class NewTileLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new Home(false, "PlayerHome", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new Home( new Position(tx, ty),false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
+
                         }
                         case "greenhouse" -> {
                             JsonArray props = obj.getAsJsonArray("properties");
@@ -118,17 +121,19 @@ public class NewTileLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new GreenHouse( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            farm.getBuildings().add((Building) go);
                         }
-                        case "shippingbar" -> go = new Refrigerator(true, null);
-                        case "mailbox" -> go = new Refrigerator(false, null);
-                        case "grass" -> go = new Grass(true, GrassType.NormalGrass);
-                        case "fibergrass" -> go = new Grass(true, GrassType.FiberGrass);
-                        case "wood" -> go = new Wood(false);
-                        case "stone" -> go = new Stone(false);
-                        case "tree" -> go = new Tree(false, TreeType.APPLE);
-                        case "stick" -> go = new Stick(false);
-                        case "bigstone" -> go = new BigStone(false);
+                        //TODO
+                        case "shippingbar" -> go = new ShippingBar(new Position(tx,ty),farm);
+                        case "mailbox" -> go = new MailBox(new Position(tx,ty));
+                        case "grass" -> go = new Grass(true, GrassType.NormalGrass,new Position(tx,ty));
+                        case "fibergrass" -> go = new Grass(true, GrassType.FiberGrass,new Position(tx,ty));
+                        case "wood" -> go = new Wood(false,new Position(tx,ty));//TODO
+                        case "stone" -> go = new Stone(false,new Position(tx,ty));//TODO
+                        case "tree" -> go = new Tree(false, TreeType.APPLE,new Position(tx,ty));
+                        case "stick" -> go = new Stick(false,new Position(tx,ty));
+                        case "bigstone" -> go = new BigStone(false,new Position(tx,ty));
                         default -> go = null;
                     }
                     ;
@@ -150,18 +155,10 @@ public class NewTileLoader {
         return tiles;
     }
 
-    public static void main(String[] args) throws Exception {
-        Tile[][] farm = load("Farm1.tmj");
-        System.out.println("Loaded "
-                + farm.length + "×" + farm[0].length + " tiles.");
-        for (int i = 0; i < 65; i++) {
-            for (int j = 0; j < 80; j++) {
-                char toPrint;
-                toPrint = farm[i][j].isWalkable() ? ' ' : 'x';
-                System.out.print(toPrint);
-            }
-            System.out.println();
-        }
+    public static Farm loadTheFarm(String farmName) throws Exception {
+        Farm farm = new Farm();
+        Tile[][] farmTileSet = load(farmName + ".tmj",farm);
+        return farm;
     }
 
 
