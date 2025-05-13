@@ -14,7 +14,7 @@ public class Tool extends Item {
     private ToolType toolType;
 
     public Tool(String name, ToolType toolType ,int maxStackSize, boolean Stackable) {
-        super(name,maxStackSize,Stackable);
+        super(name,maxStackSize,Stackable,-1);
         this.toolType = toolType;
 //        this.toolBehavior = toolBehavior;
 //        this.toolBehavior.setToolType();
@@ -54,7 +54,7 @@ public class Tool extends Item {
                 } else if (tile.getFixedObject() == null && tile.getTileType() == TileType.PlowedSoil) {
                     tile.setTileType(TileType.Soil);
                 }
-                player.setEnergy(player.getEnergy() - toolType.getUsedEnergy());
+                player.setEnergy(player.getEnergy().getEnergy() - toolType.getUsedEnergy());
                 break;
             }
         }
@@ -63,5 +63,7 @@ public class Tool extends Item {
     public ToolType getToolType() {
         return toolType;
     }
+
+
 
 }

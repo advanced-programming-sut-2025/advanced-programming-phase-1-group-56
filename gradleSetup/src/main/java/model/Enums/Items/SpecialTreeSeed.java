@@ -2,7 +2,7 @@ package model.Enums.Items;
 
 import model.Enums.WeatherAndTime.Seasons;
 
-public enum SpecialTreeSeed {
+public enum SpecialTreeSeed implements ItemType {
     ACORN("Acorns", new Seasons[]{Seasons.Spring, Seasons.Summer, Seasons.Winter, Seasons.Fall}),
     MAPLE_SEED("Maple Seeds", new Seasons[]{Seasons.Spring, Seasons.Summer, Seasons.Winter, Seasons.Fall}),
     PINE_CONE("Pine Cones", new Seasons[]{Seasons.Spring, Seasons.Summer, Seasons.Winter, Seasons.Fall}),

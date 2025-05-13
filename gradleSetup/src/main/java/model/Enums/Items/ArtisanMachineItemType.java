@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum ArtisanMachineItemType {
+public enum ArtisanMachineItemType implements ItemType {
 
     CHARCOAL_KLIN("Charcoal Klin",true, true),
     FURNACE("Furnace",true, true),

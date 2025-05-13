@@ -3,7 +3,7 @@ package model.Enums.Items;
 
 import model.Ingredient;
 
-public enum ArtisanGoodType {
+public enum ArtisanGoodType implements  ItemType {
     HONEY("Honey", "It's a sweet syrup produced by bees.", "75", 96, null, "350"),
     CHEESE("Cheese", "It's your basic cheese.", "100", 3, new Ingredient[]{new Ingredient("Milk", 1)}, "230"),
     BIG_CHEESE("Cheese", "It's your basic cheese.", "100", 3, new Ingredient[]{new Ingredient("LargeMilk", 1)}, "345"),

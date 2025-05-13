@@ -6,8 +6,9 @@ public class ArtisanGood extends Item {
     private ArtisanGoodType artisanGoodType;
     private int energy;
     private int sellPrice;
-    public ArtisanGood(ArtisanGoodType artesianGoodType, int energy , int sellPrice) {
-        super(artesianGoodType.getName(), 100, true);
+
+    public ArtisanGood(ArtisanGoodType artesianGoodType, int energy, int sellPrice) {
+        super(artesianGoodType.getName(), 100, true, sellPrice);
         this.energy = energy;
         this.sellPrice = sellPrice;
     }
@@ -19,7 +20,7 @@ public class ArtisanGood extends Item {
     public void setEnergy(int energy) {
         this.energy = energy;
     }
-    @Override
+
     public int getPrice() {
         return sellPrice;
     }

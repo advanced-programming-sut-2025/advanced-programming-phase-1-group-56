@@ -3,7 +3,7 @@ package model.Enums.Items;
 import model.Enums.BuffType;
 import model.items.Food;
 
-public enum FoodType {
+public enum FoodType implements ItemType {
 
     //food that make with recepie
     FRIED_EGG("Fried Egg", 50,35 , null),
@@ -151,7 +151,4 @@ public enum FoodType {
         return buffType;
     }
 
-    public Food getFood(){
-        return new Food(name , energy , price , buffType);
-    }
 }

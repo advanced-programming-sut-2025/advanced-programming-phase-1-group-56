@@ -5,8 +5,8 @@ import model.Enums.Items.ArtisanMachineItemType;
 public class Artesian extends Item {
     private ArtisanMachineItemType artisanMachineItemType;
 
-    public Artesian(ArtisanMachineItemType itemType,int maxStackSize, boolean Stackable) {
-        super(itemType.name, maxStackSize, Stackable);
+    public Artesian(ArtisanMachineItemType itemType) {
+        super(itemType.name,100, true,-1);
         this.artisanMachineItemType = itemType;
     }
 
@@ -15,7 +15,6 @@ public class Artesian extends Item {
         return artisanMachineItemType;
     }
 
-    @Override
     public int getPrice(){
         return -1 ;
     }

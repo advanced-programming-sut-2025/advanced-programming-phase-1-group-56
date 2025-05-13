@@ -5,6 +5,7 @@ import model.Activities.CookFood;
 import model.Activities.CraftTool;
 import model.App;
 
+import model.Enums.Items.FoodType;
 import model.Enums.Recepies.FoodRecipesList;
 import model.Ingredient;
 import model.Result;
@@ -25,7 +26,7 @@ public class CookingController extends CommandController {
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
-                .getPlayerFarm().getHome()
+                .getPlayerFarm().getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .remove(item, 1);
@@ -49,7 +50,7 @@ public class CookingController extends CommandController {
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getPlayerFarm()
-                .getHome()
+                .getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .add(item, 1);
@@ -107,7 +108,13 @@ public class CookingController extends CommandController {
             Item item = returnInventoryItemByName(ingredient.name);
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, ingredient.quantity);
         }
-        Food food = new Food(cookFood.getName(), 20, cookFood.getEnergy(), cookFood.getPrice(), cookFood.getBuff());
+        Food food = null;
+        for(FoodType foodType : FoodType.values()){
+            if(foodType.getName().equals(cookFood.getName())){
+                food = new Food(foodType);
+            }
+        }
+
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
@@ -147,7 +154,7 @@ public class CookingController extends CommandController {
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getPlayerFarm()
-                .getHome()
+                .getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .getSlots()) {

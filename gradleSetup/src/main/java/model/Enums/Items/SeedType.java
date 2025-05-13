@@ -3,7 +3,7 @@ package model.Enums.Items;
 import model.Enums.GameObjects.CropType;
 import model.Enums.WeatherAndTime.Seasons;
 
-public enum SeedType {
+public enum SeedType implements ItemType {
     JAZZ("Jazz Seeds", new Seasons[]{Seasons.Spring} , CropType.BLUE_JAZZ),
     CARROT("Carrot Seeds", new Seasons[]{Seasons.Spring} , CropType.CARROT),
     CAULIFLOWER("Cauliflower Seeds", new Seasons[]{Seasons.Spring} , CropType.CAULIFLOWER),

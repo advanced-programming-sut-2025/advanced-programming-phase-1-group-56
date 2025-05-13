@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum UpgradeTool {
+public enum UpgradeTool implements ItemType{
     COPPER_TOOL("Copper Tool", "Copper Bar (5)", 2000, 1),
     STEEL_TOOL("Steel Tool", "Iron Bar (5)", 5000, 1),
     GOLD_TOOL("Gold Tool", "Gold Bar (5)", 10000, 1),
