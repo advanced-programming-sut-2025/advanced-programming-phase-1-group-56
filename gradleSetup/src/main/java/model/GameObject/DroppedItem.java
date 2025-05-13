@@ -1,20 +1,21 @@
 package model.GameObject;
 
 import model.Slot;
+import model.items.Item;
 
-public class DroppedItem extends GameObject{
-    private Slot slot;
+public class DroppedItem extends GameObject {
+    private Item item;
 
-    public DroppedItem(Slot slot) {
+    public DroppedItem(Item item) {
         super(true);
-        this.slot = slot;
+        this.item = item;
     }
 
-    public Slot getSlot() {
-        return slot;
+    public Item getItem() {
+        return item;
     }
 
-    public void setSlot(Slot slot) {
-        this.slot = slot;
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

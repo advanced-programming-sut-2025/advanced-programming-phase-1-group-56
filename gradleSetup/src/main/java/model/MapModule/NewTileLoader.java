@@ -1,18 +1,15 @@
 package model.MapModule;
 
 import com.google.gson.*;
-import model.Enums.Registery.GrassType;
-import model.Enums.Registery.TreeType;
+import model.Enums.Items.GrassType;
+import model.Enums.Items.TreeType;
 import model.Enums.TileType;
 import model.GameObject.*;
 import model.MapModule.Buildings.GreenHouse;
 import model.MapModule.Buildings.Home;
-import model.MapModule.Position;
-import model.MapModule.Tile;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.*;
 
 public class NewTileLoader {
     private static final int tileSize = 16;

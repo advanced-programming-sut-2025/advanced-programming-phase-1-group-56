@@ -1,6 +1,6 @@
 package model.GameObject;
 
-import model.Enums.Registery.GrassType;
+import model.Enums.Items.GrassType;
 
 public class Grass extends GameObject{
     private final GrassType grassType;

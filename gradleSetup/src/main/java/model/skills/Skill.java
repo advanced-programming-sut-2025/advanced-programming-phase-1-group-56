@@ -2,6 +2,7 @@ package model.skills;
 
 public abstract class Skill {
     private int xp;
+    private int level;
 
 
     public Skill(int xp) {
