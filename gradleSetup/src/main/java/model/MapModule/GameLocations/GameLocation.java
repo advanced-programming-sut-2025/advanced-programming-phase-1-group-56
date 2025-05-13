@@ -1,16 +1,39 @@
 package model.MapModule.GameLocations;
 
-import model.GameObject.NPC.NPC;
-import model.MapModule.Buildings.Building;
+import model.MapModule.Network;
+import model.MapModule.Node;
 import model.MapModule.Tile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class GameLocation {
+public class GameLocation extends Network {
 //    ArrayList<Tile> tiles = new ArrayList<>();
     Tile[][] tiles;
-    ArrayList<Building> buildings;
-    ArrayList<NPC> NPcs = new ArrayList<>();////
+//    ArrayList<Building> buildings;
+//    ArrayList<NPC> NPcs = new ArrayList<>();////
 
-    
+
+    public Tile getTileByPosition(int x, int y){
+        for(Tile[] tx : tiles){
+            for (Tile ty : tx){
+                if(ty.getPosition().getX() == x && ty.getPosition().getY() == y)
+                    return ty;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Node> getNodes() {
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Tile[] tx : tiles) {
+            nodes.addAll(Arrays.asList(tx));
+        }
+        return nodes;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
 }
