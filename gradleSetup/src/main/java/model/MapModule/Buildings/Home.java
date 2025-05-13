@@ -7,8 +7,8 @@ import model.MapModule.Position;
 public class Home extends Building {
     private Refrigerator myRefrigerator;
 
-    public Home(boolean walkable,String name,Position doorPosition,Position startingPosition,int height,int width) {
-        super(walkable,name,doorPosition,startingPosition,height,width);
+    public Home(Position startingPosition,boolean walkable,String name,Position doorPosition,int height,int width) {
+        super(startingPosition,walkable,name,doorPosition,height,width);
         this.myRefrigerator = null;
     }
 

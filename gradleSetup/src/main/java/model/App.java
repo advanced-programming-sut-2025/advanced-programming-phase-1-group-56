@@ -74,6 +74,7 @@ public class App {
         }
         return null;
     }
-
-
+    public static Player getMe(){
+        return App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+    }
 }
