@@ -58,12 +58,11 @@ public abstract class Building extends GameObject {
 
 //    protected boolean [][] walkable;
 
-    public Building(boolean walkable,String name/*,GameLocation indoor*/,Position doorPosition,Position startPosition,int height,int width) {
-        super(walkable);
+    public Building(Position position ,boolean walkable,String name/*,GameLocation indoor*/,Position doorPosition,int height,int width) {
+        super(walkable,position);
         this.name = name;
         this.indoor = null;
         this.doorPosition = doorPosition;
-        this.startPosition = startPosition;
         this.height = height;
         this.width = width;
     }

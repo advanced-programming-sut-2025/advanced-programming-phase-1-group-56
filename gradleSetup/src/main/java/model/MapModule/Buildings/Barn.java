@@ -1,6 +1,7 @@
 package model.MapModule.Buildings;
 
-import model.GameObject.Animal.Animal;
+
+import model.GameObject.Animal;
 import model.MapModule.Position;
 
 import java.util.ArrayList;

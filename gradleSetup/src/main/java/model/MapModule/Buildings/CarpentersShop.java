@@ -1,14 +1,20 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Registery.StoreType;
 import model.MapModule.Position;
 
 public class CarpentersShop extends Store{
-    public CarpentersShop(boolean walkable, String name, Position doorPosition, Position startingPosition, int height, int width) {
-        super(walkable,name,doorPosition,startingPosition,height,width);
+    private final StoreType storeType = StoreType.CARPENTER;
+    public CarpentersShop(Position startingPosition,boolean walkable, String name, Position doorPosition,  int height, int width) {
+        super(startingPosition,walkable,name,doorPosition,height,width);
     }
 
     @Override
     public void interact() {
 
+    }
+
+    public StoreType getStoreType() {
+        return storeType;
     }
 }

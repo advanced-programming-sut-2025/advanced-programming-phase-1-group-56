@@ -1,12 +1,12 @@
 package model.MapModule;
 
 import com.google.gson.*;
-import model.Enums.Registery.GrassType;
-import model.Enums.Registery.TreeType;
 import model.Enums.TileType;
 import model.GameObject.*;
 import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Farm;
+import model.MapModule.GameLocations.Town;
+import model.items.Etc;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TownLoader {
     private static final int tileSize = 16;
 
-    public static Tile[][] load(String jsonPath) throws FileNotFoundException {
+    public static Tile[][] load(Town town,String jsonPath) throws FileNotFoundException {
         JsonObject map = JsonParser
                 .parseReader(new FileReader(jsonPath))
                 .getAsJsonObject();
@@ -106,7 +106,8 @@ public class TownLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new PierresGeneralStore(false, "PlayerHome", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new PierresGeneralStore( new Position(tx, ty),false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
 
                         case "thestardropsaloon" -> {
@@ -121,7 +122,8 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new TheSaloonStardrop(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new TheSaloonStardrop( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
 
                         case "blacksmith" -> {
@@ -136,7 +138,8 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new GreenHouse( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
 
                         case "jojamart" -> {
@@ -151,7 +154,8 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new JojaMart(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new JojaMart( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
 
                         case "carpentersshop" -> {
@@ -166,7 +170,8 @@ public class TownLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new CarpentersShop(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new CarpentersShop( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
 
                         case "fishshop" -> {
@@ -181,7 +186,8 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new FishShop(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new FishShop( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
 
                         case "marniesranch" -> {
@@ -196,9 +202,10 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new MarniesRanch(false, "GreenHouse", new Position(doorX, doorY), new Position(tx, ty), objHeight, objWidth);
+                            go = new MarniesRanch( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            town.getStores().add((Store) go);
                         }
-                        case "wood" -> go = new Wood(false);
+                        case "wood" -> go = new Etc(false,new Position(tx,ty));//TODO
                         default -> go = null;
                     }
                     ;
@@ -224,28 +231,38 @@ public class TownLoader {
         return rotated;
     }
 
-    public static void main(String[] args) throws Exception {
-        Tile[][] farm = load("Town4.tmj");
-        System.out.println("Loaded "
-                + farm.length + "x" + farm[0].length + " tiles.");
-        for (int i = 0; i < farm.length; i++) {
-            for (int j = 0; j < farm[i].length; j++) {
-                char toPrint= ' ';
-                GameObject go = farm[i][j].getFixedObject();
-                if (go != null) {
-                    toPrint = farm[i][j].getFixedObject().getClass().getSimpleName().charAt(0);
-                }
-                else{
-                    toPrint = farm[i][j].getTileType().toString().charAt(0);
-                    if(toPrint != 'W'&&toPrint != 'V'){
-                        toPrint = ' ';
-                    }
-                }
+//    public static void main(String[] args) throws Exception {
+//        Tile[][] farm = load("Town4.tmj");
+//        System.out.println("Loaded "
+//                + farm.length + "x" + farm[0].length + " tiles.");
+//        for (int i = 0; i < farm.length; i++) {
+//            for (int j = 0; j < farm[i].length; j++) {
+//                char toPrint= ' ';
+//                GameObject go = farm[i][j].getFixedObject();
+//                if (go != null) {
+//                    toPrint = farm[i][j].getFixedObject().getClass().getSimpleName().charAt(0);
+//                }
+//                else{
+//                    toPrint = farm[i][j].getTileType().toString().charAt(0);
+//                    if(toPrint != 'W'&&toPrint != 'V'){
+//                        toPrint = ' ';
+//                    }
+//                }
+//
+//                System.out.print(toPrint);
+//            }
+//            System.out.println();
+//        }
+//    }
 
-                System.out.print(toPrint);
-            }
-            System.out.println();
-        }
+
+    public static Town loadTheTown() throws Exception
+    {
+        Town town = new Town();
+        Tile[][] townTileSet = load(town,"Town4.tmj");
+        town.setTiles(townTileSet);
+        //TODO npc registry
+        return town;
     }
 
 

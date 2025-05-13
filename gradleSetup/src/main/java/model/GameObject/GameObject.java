@@ -2,10 +2,17 @@ package model.GameObject;
 
 import model.MapModule.Position;
 
-public abstract class GameObject {
-    protected boolean walkable;
+import java.util.UUID;
 
-    public GameObject(boolean walkable) {
+public abstract class GameObject {
+    //    public UUID objectId;
+    protected boolean walkable;
+    protected Position position;
+
+    public GameObject(boolean walkable, Position position)
+    {
+//        this.objectId = UUID.randomUUID();
+        this.position = position;
         this.walkable = walkable;
     }
 
@@ -44,5 +51,4 @@ public abstract class GameObject {
 //    public void setPosition(Position position) {
 //        this.position = position;
 //    }
-
 }

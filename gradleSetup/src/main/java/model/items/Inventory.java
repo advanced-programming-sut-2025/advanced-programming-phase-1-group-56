@@ -1,6 +1,7 @@
 package model.items;
 
-import model.Enums.Items.BackPackType;
+
+import model.Enums.BackPackType;
 import model.Slot;
 
 import java.util.ArrayList;
@@ -11,9 +12,9 @@ public class Inventory {
     private BackPackType backPackType;
     private int capacity;
 
-//    public Inventory(int capacity) {
-//        this.capacity = capacity;
-//    }
+    public Inventory(int capacity) {
+        this.capacity = capacity;
+    }
 
     public Inventory(BackPackType backPackType) {
         this.backPackType = backPackType;
@@ -81,8 +82,8 @@ public class Inventory {
                     }
                     return;
                 } else if(slot.getQuantity() < tmpQuantity) {
-                   tmpQuantity -= slot.getQuantity();
-                   slots.remove(slot);
+                    tmpQuantity -= slot.getQuantity();
+                    slots.remove(slot);
                 }
             }
         }
@@ -124,5 +125,14 @@ public class Inventory {
     }
     public boolean canAddItem(Item item, int quantity) {
         return quantity <=  maxItemMayBeAdded(item);
+    }
+
+    public Item findItemByName(String itemName) {
+        for (Slot slot : slots) {
+            if (slot.getItem().getName().equals(itemName)) {
+                return slot.getItem();
+            }
+        }
+        return null;
     }
 }
