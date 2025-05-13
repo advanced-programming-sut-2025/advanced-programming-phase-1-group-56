@@ -1,4 +1,9 @@
 package model.GameObject;
 
-public class ForagingMineral {
+import model.MapModule.Position;
+
+public class ForagingMineral extends  GameObject {
+    public ForagingMineral(boolean walkable, Position position) {
+        super(walkable, position);
+    }
 }

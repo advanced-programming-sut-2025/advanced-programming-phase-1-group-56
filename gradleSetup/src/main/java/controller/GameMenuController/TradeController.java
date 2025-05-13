@@ -6,6 +6,8 @@ import model.Activities.Trade;
 import model.Enums.Activity.TradeStatus;
 import model.Enums.Activity.TradeType;
 import model.Enums.Menu;
+import model.GameObject.ShippingBar;
+import model.MapModule.GameLocations.Farm;
 import model.items.Item;
 
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class TradeController extends CommandController {
         counterParty = App.getCurrentUser().getCurrentGame().getPlayerByUser(user);
         if (counterParty == null) {
             return new Result(false, "there is no player with such username in this game");
+        }
+        if(counterParty.equals(App.getCurrentUser().getCurrentGame().getCurrentPlayer())) {
+            return new Result(false, "you can't make trade with yourself");
         }
 
         if (type.equals("offer")) {
@@ -318,6 +323,8 @@ public class TradeController extends CommandController {
             player1.getMyTrades().remove(tradeToDo.getTradeID());
             player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
             player2.getReceivedTrades().remove(tradeToDo.getTradeID());
+            //friendship
+            player1.findFriendshipByPlayer(player2).changeTwoWayXp(+50);
             return new Result(true, "trade done successfully...");
 
 
@@ -329,37 +336,91 @@ public class TradeController extends CommandController {
             player1.getEndedTradesHistory().add(tradeToDo.getTradeID());
             player2.getReceivedTrades().remove(tradeToDo.getTradeID());
             player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
+            //friendship
+            player1.findFriendshipByPlayer(player2).changeTwoWayXp(+50);
             return new Result(true, "trade rejected successfully...");
         } else {
             return new Result(false, "taklifet chie da?");
         }
     }
 
-
-    public static Result showAllProducts() {
-
-        return null;
+    public static Result showTradeHistory(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("History Trades:\n");
+        builder.append("\n-------------------------------\n");
+        Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+        ArrayList<UUID> myTrades = me.getEndedTradesHistory();
+        Game thisGame = App.getCurrentUser().getCurrentGame();
+        for (UUID uuid : myTrades) {
+            Trade trade = thisGame.findTradeById(uuid);
+            if (trade == null) {
+                continue;
+            }
+            builder.append(trade.toString());
+            builder.append("\n-------------------------------\n");
+        }
+        return new Result(true,builder.toString());
     }
 
-    public static Result showAllAvailableProducts() {
+    public static Result sellProducts(Matcher matcher) {
+        String item = matcher.group(1);
+        String quantity = matcher.group(2);
+        int amount;
+        ShippingBar shippingBar;
+        if(quantity== null) {
+            amount = 1;
+        }
+        else{
+            try{
+                amount = Integer.parseInt(quantity);
+            }catch(NumberFormatException e){
+                return new Result(false,e.getMessage());
+            }
+        }
+        Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+        Item itemToSell = findItemInPlayerInventoryByName(me, item);
+        if(itemToSell == null) {
+            return new Result(false, "you dont have such item");
+        }
+        else if(amount <= 0) {
+            return new Result(false, "wtf brother amount should be greater than 0");
+        }
+        else if(amount> me.getInventory().countItem(itemToSell)) {
+            return new Result(false, "you dont have as much you want to sell");
+        }
+        else if ((shippingBar = getShippingBarNearby(me))==null){
+            return new Result(false, "doesn't Find shipping bar nearby...");
+        }
 
-        return null;
+        me.getInventory().remove(itemToSell, amount);
+        shippingBar.getInventory().add(itemToSell, amount);
+        return new Result(true, "sold the product successfully...");
     }
 
-    public static Result purchase() {
+    private static ShippingBar getShippingBarNearby(Player me) {
+        ShippingBar shippingBar= null;
+        if(me.getCurrentGameLocation() instanceof Farm farm){
+            for (int i = me.getPosition().getX()-1; i <= me.getPosition().getX()+1 ; i++) {
+                for(int j = me.getPosition().getY()-1; j <= me.getPosition().getY()+1; j++){
+                    if(farm.getTiles()[i][j].getFixedObject() instanceof ShippingBar ship){
+                        shippingBar = ship;
+                    }
+                }
 
-        return null;
+            }
+        }
+        return shippingBar;
     }
 
-    public static Result sellProducts() {
 
-        return null;
-    }
-    //CHEAT
-
-    public static Result cheatBuyProducts() {
-
-        return null;
+    public static Result cheatAddMoney(String amountStr) {
+        try{
+            int amount = Integer.parseInt(amountStr.trim());
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(amount);
+        }catch (NumberFormatException e){
+            return new Result(false, "invalid amount");
+        }
+        return new Result(true, "money added successfully...");
     }
 
     public static Item findItemInPlayerInventoryByName(Player player, String itemName) {

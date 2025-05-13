@@ -14,4 +14,8 @@ public class Backpack extends Item {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public int getPrice(){
+        return -1 ;
+    }
 }

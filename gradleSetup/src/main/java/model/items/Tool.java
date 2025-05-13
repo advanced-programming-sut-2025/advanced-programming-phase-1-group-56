@@ -27,7 +27,7 @@ public class Tool extends Item {
             case "Axe" : {
                 if (tile.getFixedObject().getClass() == Tree.class || tile.getFixedObject().getClass() == Wood.class){
                     tile.setFixedObject(null);
-                    player.getInventory().add(new TreeWood());
+                    player.getInventory().add(new TreeWood());//TODO
                     Skill playerSkill = player.getSkillByName("farming");
                     if (playerSkill!=null){
                         playerSkill.setXp(playerSkill.getXp() + 5);

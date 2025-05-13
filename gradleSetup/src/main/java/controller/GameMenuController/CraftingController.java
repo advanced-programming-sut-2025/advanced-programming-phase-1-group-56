@@ -4,7 +4,7 @@ import controller.CommandController;
 import model.Activities.CraftTool;
 import model.App;
 import model.Enums.Direction;
-import model.Enums.Items.CraftingRecipesList;
+import model.Enums.Recepies.CraftingRecipesList;
 import model.GameObject.DroppedItem;
 import model.Ingredient;
 import model.MapModule.Position;
@@ -116,7 +116,7 @@ public class CraftingController extends CommandController {
                 break;
         }
         Tile tile = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y);
-        DroppedItem droppedItem = new DroppedItem(item);
+        DroppedItem droppedItem = new DroppedItem(item,new Position(x,y));
         tile.setFixedObject(droppedItem);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
         return new Result(true, "you placed a item!");

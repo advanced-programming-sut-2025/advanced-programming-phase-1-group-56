@@ -9,7 +9,8 @@ public enum BuffType {
     ForagingBuff11(11 , 1),
     MaxEnergy50(3 , 50),
     MaxEnergy100(5 , 100),
-    Depression(120 , 2);
+    Depression(120 , 2),
+    Depression(91,2);
 
 
     private int duration;

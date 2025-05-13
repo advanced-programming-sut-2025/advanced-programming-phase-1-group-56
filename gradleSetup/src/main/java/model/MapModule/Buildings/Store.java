@@ -1,17 +1,14 @@
 package model.MapModule.Buildings;
 
 import model.GameObject.NPC.NPC;
-import model.GameObject.NPC.NpcGift;
 import model.GameObject.NPC.NpcProduct;
-import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Position;
-import model.Slot;
-import model.items.Item;
+import model.TimeSystem.DateTime;
+import model.TimeSystem.TimeObserver;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public abstract class Store extends Building {
+public abstract class Store extends Building implements TimeObserver {
     private NPC owner;
     private int openingHour;
     private int closingHour;
@@ -30,11 +27,11 @@ public abstract class Store extends Building {
         this.openingHour = openingHour;
     }
 
-    public Store(boolean walkable, String name, Position doorPosition, Position startingPosition, int height, int width) {
-        super(walkable,name,doorPosition,startingPosition,height,width);
+    public Store(Position position ,boolean walkable, String name, Position doorPosition, int height, int width) {
+        super(position,walkable,name,doorPosition,height,width);
     }
-    public Store(String name, Position position,Position doorPosition, int width, int height, boolean walkable, NPC owner, int openingHour, int closingHour, ArrayList<NpcProduct> products) {
-        super(walkable,name, doorPosition,position, height,width);
+    public Store(Position position, String name,Position doorPosition, int width, int height, boolean walkable, NPC owner, int openingHour, int closingHour, ArrayList<NpcProduct> products) {
+        super(position, walkable,name, doorPosition, height,width);
         this.products = products;
         this.name = name;
         this.owner = owner;
@@ -60,5 +57,10 @@ public abstract class Store extends Building {
 
     public void setProducts(ArrayList<NpcProduct> products) {
         this.products = products;
+    }
+
+    @Override
+    public void onHourChanged(DateTime time, boolean newDay) {
+        //TODO
     }
 }

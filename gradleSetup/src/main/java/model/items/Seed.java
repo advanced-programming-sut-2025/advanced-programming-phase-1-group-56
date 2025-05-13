@@ -3,15 +3,20 @@ package model.items;
 import model.Enums.Items.SeedType;
 
 public class Seed extends Item {
-    private SeedType SeedType;
+    private SeedType seedType;
 
-    public Seed(String name, int maxStackSize, boolean Stackable, SeedType SeedType) {
-        super(name, maxStackSize, Stackable);
-        this.SeedType = SeedType;
+    public Seed( SeedType seedType,int maxStackSize, boolean Stackable) {
+        super(seedType.name, maxStackSize, Stackable);
+        this.seedType = seedType;
     }
 
-    public  SeedType getSeedType() {
-        return SeedType;
+    public SeedType getSeedType() {
+        return seedType;
+    }
+
+    @Override
+    public int getPrice() {
+        return -1;
     }
 
 }

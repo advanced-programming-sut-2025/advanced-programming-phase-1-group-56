@@ -1,4 +1,4 @@
-package model.GameObject.Animal;
+package model.GameObject;
 
 import model.Enums.Animals.AnimalType;
 import model.GameObject.LivingEntity;
