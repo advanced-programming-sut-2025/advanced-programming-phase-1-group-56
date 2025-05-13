@@ -56,7 +56,13 @@ public class CraftingController extends CommandController {
                 tmpString.append("-------------------------------");
             }
         }
-        Item craftingTool = new CraftingTool(recipe.getName(), recipe.getDescription(), recipe.getSellPrice());
+        CraftingRecipesList craftingRecipesList = null;
+        for(CraftingRecipesList cr : craftingRecipesLists) {
+            if(cr.name.equals(recipe.getName())) {
+                craftingRecipesList = cr;
+            }
+        }
+        Item craftingTool = new CraftingTool(craftingRecipesList);
         if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(craftingTool, 1);
         } else {

@@ -6,8 +6,8 @@ import model.Enums.Items.SeedType;
 public class Etc extends Item {
     private EtcType etcType;
 
-    public Etc(int maxStackSize, boolean Stackable,  EtcType etcType) {
-        super(etcType.name, maxStackSize, Stackable);
+    public Etc( EtcType etcType) {
+        super(etcType.name, 100, true, etcType.value);
         this.etcType = etcType;
     }
 
@@ -16,7 +16,6 @@ public class Etc extends Item {
         return etcType;
     }
 
-    @Override
     public int getPrice() {
         return etcType.value;
     }

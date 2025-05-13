@@ -1,27 +1,27 @@
 package model.items;
 
 import model.Enums.Animals.AnimalProductQuality;
+import model.Enums.Items.EtcType;
 
 public class AnimalProduct extends Item{
-    private final int price;
+    private final EtcType etcType;
     private final AnimalProductQuality quality;
 
-    public AnimalProduct(String name, int maxStackSize, boolean Stackable, int price, AnimalProductQuality quality) {
-        super(name, maxStackSize, Stackable);
-        this.price = price;
+    public AnimalProduct(EtcType etcType, AnimalProductQuality quality) {
+        super(etcType.name, 100, true, etcType.value);
         this.quality = quality;
+        this.etcType = etcType;
     }
 
 
-    public String getName() {
-        return name;
+    public EtcType getEtcType(){
+        return this.etcType;
     }
 
     public AnimalProductQuality getQuality() {
         return quality;
     }
 
-    @Override
     public int getPrice(){
         return price;
     }

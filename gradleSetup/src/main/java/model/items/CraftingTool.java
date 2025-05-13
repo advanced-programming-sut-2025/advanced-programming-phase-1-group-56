@@ -1,20 +1,18 @@
 package model.items;
 
 import model.Activities.ArtesianRecepie;
+import model.Enums.Recepies.CraftingRecipesList;
 import model.Ingredient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CraftingTool extends Item {
-    private final String description;
-    private final int sellPrice;
-    private ArrayList<ArtesianRecepie> craftingRecepie = new ArrayList<>();
+    private final CraftingRecipesList recipesList;
 
-    public CraftingTool(String name, String description, int sellPrice) {
-        super(name,1,false);
-        this.description = description;
-        this.sellPrice = sellPrice;
+    public CraftingTool(CraftingRecipesList recipesList) {
+        super(recipesList.name,100,false, recipesList.sellPrice);
+        this.recipesList = recipesList;
     }
 
 
@@ -22,19 +20,8 @@ public class CraftingTool extends Item {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-    @Override
-    public int getPrice() {
-        return sellPrice;
-    }
 
-    public ArrayList<ArtesianRecepie> getCraftingRecepie() {
-        return craftingRecepie;
-    }
-
-    public void setCraftingRecepie(ArrayList<ArtesianRecepie> craftingRecepie) {
-        this.craftingRecepie = craftingRecepie;
+    public CraftingRecipesList getRecipesList() {
+        return recipesList;
     }
 }
