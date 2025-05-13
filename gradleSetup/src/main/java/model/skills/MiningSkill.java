@@ -1,8 +1,11 @@
 package model.skills;
 
+import model.Enums.Skills;
+
 public class MiningSkill extends Skill {
-    public MiningSkill(int xp) {
-        super(xp);
+    public MiningSkill(Skills name , int xp) {
+
+        super(name,xp);
     }
 
     @Override

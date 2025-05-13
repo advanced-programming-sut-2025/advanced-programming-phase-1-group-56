@@ -4,9 +4,8 @@ import model.Enums.Direction;
 import model.MapModule.Position;
 
 public class LivingEntity extends GameObject implements Movable {
-    protected Position position;
     public LivingEntity(Position position,boolean walkable) {
-        super(walkable);
+        super(walkable,position);
         this.position = position;
     }
 
@@ -22,6 +21,14 @@ public class LivingEntity extends GameObject implements Movable {
         } else if (direction == Direction.DOWNLEFT) {
         }
         //TODO
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
 }

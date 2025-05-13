@@ -1,6 +1,8 @@
 package model.GameObject;
 
-import model.Enums.Registery.TreeType;
+
+import model.Enums.GameObjects.TreeType;
+import model.MapModule.Position;
 
 public class Tree extends GameObject {
     //    private final ArrayList<Integer> stages;
@@ -13,9 +15,9 @@ public class Tree extends GameObject {
     //    private final HashMap<Item,Integer> itemsGiven;
     public boolean isWateredToday;
 
-    public Tree (boolean walkable , TreeType treeType)
+    public Tree (boolean walkable , TreeType treeType, Position position)
     {
-        super(walkable);
+        super(walkable,position);
         this.treeType = treeType;
         this.isWateredToday = false;
         this.currentStage = 0;
