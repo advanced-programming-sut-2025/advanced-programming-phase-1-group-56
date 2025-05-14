@@ -16,4 +16,8 @@ public enum BackPackType {
     public int getCapacity() {
         return capacity;
     }
+
+    public int getPrice() {
+        return price;
+    }
 }

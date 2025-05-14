@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum ToolType {
+public enum ToolType  implements ItemType{
     // Hoe variants (capacity = 0)
     HOE_WOODEN   (ToolMaterial.Wooden, 5, 0),
     HOE_CUPRIC   (ToolMaterial.Cupric, 4, 0),

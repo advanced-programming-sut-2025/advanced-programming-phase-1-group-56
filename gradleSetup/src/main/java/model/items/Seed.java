@@ -5,8 +5,8 @@ import model.Enums.Items.SeedType;
 public class Seed extends Item {
     private SeedType seedType;
 
-    public Seed( SeedType seedType,int maxStackSize, boolean Stackable) {
-        super(seedType.name, maxStackSize, Stackable);
+    public Seed( SeedType seedType) {
+        super(seedType.name, 100, true,-1);
         this.seedType = seedType;
     }
 

@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum EtcType {
+public enum EtcType implements ItemType{
 
     WOOD("Wood", 2),
     FIBER("Fiber", 1),

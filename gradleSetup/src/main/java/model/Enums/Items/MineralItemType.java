@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum MineralItemType {
+public enum MineralItemType implements ItemType{
     QUARTZ("Quartz", "A clear crystal commonly found in caves and mines.", 25),
     EARTH_CRYSTAL("Earth Crystal", "A resinous substance found near the surface.", 50),
     FROZEN_TEAR("Frozen Tear", "A crystal fabled to be the frozen tears of a yeti.", 75),

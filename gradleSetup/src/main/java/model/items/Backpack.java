@@ -1,18 +1,17 @@
 package model.items;
 
-public class Backpack extends Item {
-    private int capacity;
+import model.Enums.BackPackType;
 
-    public Backpack(String name, int maxStackSize, boolean Stackable) {
-        super(name, maxStackSize, Stackable);
+public class Backpack extends Item {
+    private BackPackType backPackType;
+
+    public Backpack(BackPackType backPackType) {
+
+        super(backPackType.toString(),1,false,backPackType.getPrice());
     }
 
     public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+        return backPackType.getCapacity();
     }
 
     public int getPrice(){

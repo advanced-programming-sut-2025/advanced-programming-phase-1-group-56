@@ -14,7 +14,7 @@ public class Barn extends Building {
 
 
     public Barn(boolean walkable,String name, Position position,Position doorPosition, int width, int height, int insideWidth, int insideHeight, int capacity, int price) {
-        super(walkable,name,doorPosition, position, height,width);
+        super(position,walkable,name,doorPosition, height,width);
         this.capacity = capacity;
         this.price = price;
     }
