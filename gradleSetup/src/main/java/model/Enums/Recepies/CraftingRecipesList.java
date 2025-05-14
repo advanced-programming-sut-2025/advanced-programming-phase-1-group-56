@@ -1,8 +1,10 @@
 package model.Enums.Recepies;
 
 import model.Ingredient;
+import model.items.CraftingTool;
+import model.items.Saleable;
 
-public enum CraftingRecipesList {
+public enum CraftingRecipesList implements Saleable {
     CherryBomb("Cherry Bomb", "Destroys everything in a 3-tile radius",
             new Ingredient[]{new Ingredient("Copper Ore", 4), new Ingredient("Coal", 1)},
             "Mining Level 1", 50),
@@ -99,5 +101,10 @@ public enum CraftingRecipesList {
         this.ingredients = ingredients;
         this.source = source;
         this.sellPrice = sellPrice;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }
