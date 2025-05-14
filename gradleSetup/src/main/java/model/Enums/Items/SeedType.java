@@ -1,6 +1,8 @@
 package model.Enums.Items;
 
 import model.Enums.GameObjects.CropType;
+import model.Enums.GameObjects.TreeType;
+import model.Enums.GameObjects.initialPlant;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum SeedType implements ItemType {
@@ -49,13 +51,28 @@ public enum SeedType implements ItemType {
     POWDERMELON("Powdermelon Seeds", new Seasons[]{Seasons.Winter} , CropType.POWDERMELON),
 
     ANCIENT("Ancient Seeds", new Seasons[]{Seasons.Winter,Seasons.Summer,Seasons.Spring,Seasons.Fall} , CropType.ANCIENT_FRUIT),
-    MIXED("Mixed Seeds", new Seasons[]{Seasons.Winter,Seasons.Summer,Seasons.Spring,Seasons.Fall} , null);
+    MIXED("Mixed Seeds", new Seasons[]{Seasons.Winter,Seasons.Summer,Seasons.Spring,Seasons.Fall} , null),
 
+    APRICOT_SAPLING("Apricot Sapling", new Seasons[]{Seasons.Spring}, TreeType.APRICOT_TREE),
+    CHERRY_SAPLING("Cherry Sapling", new Seasons[]{Seasons.Spring}, TreeType.CHERRY_TREE),
+    BANANA_SAPLING("Banana Sapling", new Seasons[]{Seasons.Summer}, TreeType.BANANA_TREE),
+    MANGO_SAPLING("Mango Sapling", new Seasons[]{Seasons.Summer}, TreeType.MANGO_TREE),
+    ORANGE_SAPLING("Orange Sapling", new Seasons[]{Seasons.Summer}, TreeType.ORANGE_TREE),
+    PEACH_SAPLING("Peach Sapling", new Seasons[]{Seasons.Summer}, TreeType.PEACH_TREE),
+    APPLE_SAPLING("Apple Sapling", new Seasons[]{Seasons.Fall}, TreeType.APPLE_TREE),
+    POMEGRANATE_SAPLING("Pomegranate Sapling", new Seasons[]{Seasons.Fall}, TreeType.POMEGRANATE_TREE),
+
+    OAK_SEED("Acorns", Seasons.values(), TreeType.OAK_TREE),
+    MAPLE_SEED("Maple Seeds", Seasons.values(), TreeType.MAPLE_TREE),
+    PINE_SEED("Pine Cones", Seasons.values(), TreeType.PINE_TREE),
+    MAHOGANY_SEED("Mahogany Seeds", Seasons.values(), TreeType.MAHOGANY_TREE),
+    MUSHROOM_SEED("Mushroom Tree Seeds", Seasons.values(), TreeType.MUSHROOM_TREE),
+    MYSTIC_SEED("Mystic Tree Seeds", Seasons.values(), TreeType.MYSTIC_TREE);
     public final String name;
     public final Seasons[] season;
-    public final CropType cropType;
+    public final initialPlant cropType;
 
-    SeedType(String name, Seasons[] season, CropType cropType) {
+    SeedType(String name, Seasons[] season, initialPlant cropType) {
         this.name = name;
         this.season = season;
         this.cropType = cropType;
