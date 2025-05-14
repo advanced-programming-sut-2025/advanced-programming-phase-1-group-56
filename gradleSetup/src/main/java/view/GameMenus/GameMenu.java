@@ -1,8 +1,10 @@
 package view.GameMenus;
 
+import controller.GameMenuController.FarmingController;
 import controller.GameMenuController.FishingController;
 import controller.GameMenuController.HusbandryController;
 import model.Enums.commands.GameCommands.Artisan;
+import model.Enums.commands.GameCommands.FarmingCommands;
 import model.Enums.commands.GameCommands.GameCommands;
 import model.Enums.commands.GameCommands.HusbandryCommands;
 import view.AppMenu;
@@ -90,7 +92,11 @@ public class GameMenu implements AppMenu {
 
     public boolean FarmingCheck(String input) {
         Matcher matcher;
-        if()
+        if((matcher = FarmingCommands.CRAFT_INFO.getMatcher(input)).find()){
+            System.out.println(FarmingController.craftInfo(matcher));
+            return true;
+        }
+        return false;
     }
 
 }
