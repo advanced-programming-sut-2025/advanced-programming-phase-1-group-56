@@ -1,16 +1,18 @@
 package controller.GameMenuController;
 
 import controller.CommandController;
-import model.Activities.CookFood;
 import model.App;
+
+import model.Enums.Items.FoodType;
+import model.Enums.Recepies.CraftingRecipesList;
+import model.Enums.Recepies.FoodRecipesList;
+import model.Ingredient;
 import model.Result;
 import model.Slot;
 import model.States.Energy;
 import model.items.Food;
 import model.items.Item;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class CookingController extends CommandController {
@@ -23,7 +25,7 @@ public class CookingController extends CommandController {
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
-                .getPlayerFarm().getMyHome()
+                .getPlayerFarm().getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .remove(item, 1);
@@ -47,7 +49,7 @@ public class CookingController extends CommandController {
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getPlayerFarm()
-                .getMyHome()
+                .getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .add(item, 1);
@@ -56,68 +58,68 @@ public class CookingController extends CommandController {
                 .getCurrentPlayer()
                 .getInventory()
                 .remove(item, 1);
-        return new Result(true, "you put Food!");
+        return new Result(true, "you put Food in refrigerator!");
     }
 
     public static Result showRecipes() {
-        StringBuilder tmpString = new StringBuilder();
-        for (CookFood cookFood : App.
-                getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getFoodRecipes()) {
-            tmpString.append("foodName : ").append(cookFood.getName()).append("\n").append("Ingredients : ").append(cookFood.getIngredients());
-            tmpString.append("-----------------------------------------");
-        }
-        return new Result(true, tmpString.toString());
+        String tmpString = FoodList();
+        return new Result(true, tmpString);
     }
 
     public static Result prepareCooking(Matcher matcher) {
         String recipeName = matcher.group(1).trim();
-        CookFood cookFood = returnCookFoodByName(recipeName);
+        FoodRecipesList cookFood = returnCookFoodByName(recipeName);
         if (cookFood == null) {
             return new Result(false, "you are not allowed to use this recipe");
+        } else if (!havaIngredient(cookFood)) {
+            return new Result(false, "you don't have enough ingredients!");
         }
-        for (Slot slot : App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getInventory()
-                .getSlots()) {
-            Item item = slot.getItem();
-            int amount = slot.getQuantity();
-            boolean exist = false;
-            for (Item item1 : cookFood.getIngredients().keySet()) {
-                int amount1 = cookFood.getIngredients().get(item1);
-                if (amount1 > amount) {
-                    return new Result(false, "you dont have enough ingredients ->>> " + item1.getName() + " about " + (amount1 - amount));
-                }
-                if (item1.getName().equals(item.getName())) {
-                    exist = true;
+        StringBuilder tmpString = new StringBuilder();
+        tmpString.append("you can cook these foods :\n").append(FoodList());
+        FoodRecipesList[] foodRecipesList = FoodRecipesList.values();
+        tmpString.append("You don't know these recipes yet:\n");
+        for (FoodRecipesList cr : foodRecipesList) {
+            boolean known = false;
+            for (FoodRecipesList c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getFoodRecipes()) {
+                if (cr.name().equals(c.name)) {
+                    known = true;
+                    break;
                 }
             }
-            if (!exist) {
-                return new Result(false, "you don't hava all the materials.");
+            if (!known) {
+                tmpString.append("- Recipe Name :  ").append(cr.name()).append("\n");
+                tmpString.append("- Add Energy : ").append(cr.energy).append("\n");
+                tmpString.append("- Ingredients : \n");
+                int count = 0;
+                for (Ingredient i : cr.ingredients) {
+                    count += 1;
+                    tmpString.append(count + ".").append("  name : ").append(i.name);
+                    tmpString.append("   quantity : ").append(i.quantity).append("\n");
+                }
+                tmpString.append("-------------------------------");
             }
         }
         App.getCurrentUser().
                 getCurrentGame()
                 .getCurrentPlayer()
-                .setEnergy(new Energy(App.getCurrentUser()
+                .subtractEnergy(3);
+        for (Ingredient ingredient : cookFood.ingredients) {
+            Item item = returnInventoryItemByName(ingredient.name);
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, ingredient.quantity);
+        }
+        Food food = null;
+        for(FoodType foodType : FoodType.values()){
+            if(foodType.getName().equals(cookFood.name)){
+                food = new Food(foodType);
+            }
+        }
+
+        App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
-                .getEnergy()
-                .getEnergy() - 3));
-        for (Item item : cookFood.getIngredients().keySet()) {
-            int quantity = cookFood.getIngredients().get(item);
-            App.getCurrentUser()
-                    .getCurrentGame()
-                    .getCurrentPlayer()
-                    .getInventory()
-                    .remove(item, quantity);
-        }
-        Food food = new Food(cookFood.getName(), 20, cookFood.getEnergy(), cookFood.getPrice(),cookFood.getBuff());
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(food, 1);
-        return new Result(true, "");
+                .getInventory()
+                .add(food, 1);
+        return new Result(true, "your food is ready!");
     }
 
     public static Result eatFood(Matcher matcher) {
@@ -125,7 +127,7 @@ public class CookingController extends CommandController {
         Item item = returnInventoryItemByName(foodName);
         if (item == null) {
             return new Result(false, "there is no `" + item.getName() + " in your inventory!");
-        }else if (!(item instanceof Food)) {
+        } else if (!(item instanceof Food)) {
             return new Result(false, "this item is not Food!");
         }
         Food food = (Food) item;
@@ -137,10 +139,11 @@ public class CookingController extends CommandController {
                         .getCurrentGame()
                         .getCurrentPlayer()
                         .getEnergy()
-                        .getEnergy()+food.getEnergy()));
-        if(food.getBuff().equals("1")){}
-
-        return new Result(true, "you eat "+item.getName());
+                        .getEnergy() + food.getEnergy()));
+        if (food.getBuff().equals("1")) {
+        }
+        //TODO need time observer
+        return new Result(true, "you eat " + item.getName());
     }
 
     private static Item returnRefrigeratorItemByName(String itemName) {
@@ -149,7 +152,7 @@ public class CookingController extends CommandController {
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getPlayerFarm()
-                .getMyHome()
+                .getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .getSlots()) {
@@ -175,15 +178,96 @@ public class CookingController extends CommandController {
         return null;
     }
 
-    private static CookFood returnCookFoodByName(String itemName) {
-        for (CookFood cookFood : App.getCurrentUser()
+    private static FoodRecipesList returnCookFoodByName(String itemName) {
+        for (FoodRecipesList cookFood : App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getFoodRecipes()) {
-            if (cookFood.getName().equals(itemName)) {
+            if (cookFood.name.equals(itemName)) {
                 return cookFood;
             }
         }
         return null;
+    }
+
+    private static String FoodsList() {
+        StringBuilder tmpString = new StringBuilder();
+        int count = 0;
+        for (FoodRecipesList cookFood : App.
+                getCurrentUser()
+                .getCurrentGame()
+                .getCurrentPlayer()
+                .getFoodRecipes()) {
+            count++;
+            tmpString.append(count).append(". \n");
+            tmpString.append("FoodName : ").append(cookFood.name).append("\n");
+            tmpString.append("Ingredients : \n");
+            for (Ingredient ingredient : cookFood.ingredients) {
+                tmpString.append("  ");
+                tmpString.append("Ingridient Name :").append(ingredient.getName()).append("\n");
+                tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n").append("----\n");
+            }
+            tmpString.append("Sell Price :").append(cookFood.sellPrice).append("g\n");
+            tmpString.append("-----------------------------------------");
+        }
+        return tmpString.toString();
+    }
+
+    private static boolean havaIngredient(FoodRecipesList cookFood) {
+        for (Ingredient ingredient : cookFood.ingredients) {
+            boolean isExist = false;
+            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if (slot.getItem().getName().equals(ingredient.getName())) {
+                    isExist = true;
+                }
+            }
+            if (!isExist) {
+                return false;
+            }
+        }
+        for (Ingredient ingredient : cookFood.ingredients) {
+            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if (ingredient.getName().equals(slot.getItem().getName())) {
+                    int sum = 0;
+                    for (Slot slot1 : App.getCurrentUser()
+                            .getCurrentGame()
+                            .getCurrentPlayer()
+                            .getInventory()
+                            .getSlots()) {
+                        if (slot1.getItem().getName().equals(ingredient.getName())) {
+                            sum += slot1.getQuantity();
+                        }
+                    }
+                    if (sum < ingredient.getQuantity()) {
+                        return false;
+                    }
+
+                }
+            }
+        }
+        return true;
+    }
+
+    private static String FoodList() {
+        StringBuilder tmpString = new StringBuilder();
+        int count = 0;
+        for (FoodRecipesList cookFood : App.
+                getCurrentUser()
+                .getCurrentGame()
+                .getCurrentPlayer()
+                .getFoodRecipes()) {
+            count++;
+            tmpString.append(count).append(". \n");
+            tmpString.append("FoodName : ").append(cookFood.name).append("\n");
+            tmpString.append("Ingredients : \n");
+            for (Ingredient ingredient : cookFood.ingredients) {
+                tmpString.append("  ");
+                tmpString.append("Ingridient Name :").append(ingredient.getName()).append("\n");
+                tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n").append("----\n");
+            }
+            tmpString.append("Sell Price :").append(cookFood.sellPrice).append("g\n");
+            tmpString.append("-----------------------------------------");
+        }
+        return tmpString.toString();
     }
 }

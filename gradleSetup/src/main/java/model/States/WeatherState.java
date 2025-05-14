@@ -44,7 +44,7 @@ public class WeatherState {
         return tomorrowWeather;
     }
 
-    public void setTodayWeather(WeatherType todayWeather) {
-        this.todayWeather = todayWeather;
+    public void setTomorrowWeather(WeatherType tomorrowWeather) {
+        this.tomorrowWeather = tomorrowWeather;
     }
 }

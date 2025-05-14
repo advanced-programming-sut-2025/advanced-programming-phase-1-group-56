@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum TrashcanType {
+public enum TrashcanType implements  ItemType {
     initialTrashcan(0),
     copperTrashcan(15),
     ironTrashcan(30),

@@ -1,10 +1,15 @@
 package model.Enums;
 
 public enum TileType {
-     Water,
+    Mine,
+    Vanity,
+    Water,
+    Grass,
+    Stone,//SangFresh
     Soil,
-    FarmableSoil,
+    FarmingSoil,
     PlowedSoil,
     WaterPlowedSoil,
+    Wrapper,
     Default;
 }

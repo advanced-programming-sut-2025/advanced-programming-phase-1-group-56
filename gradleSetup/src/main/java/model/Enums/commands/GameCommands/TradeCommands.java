@@ -9,7 +9,9 @@ public enum TradeCommands implements Commands {
             "\\[-p\\s+(.+)\\]\\s+\\[-ti\\s+(.+)\\s+-ta\\s+(.+)\\]\\s*"),
     tradeList("\\s*trade\\s+list\\s*"),
     tradeHistory("\\s*trade\\s+history\\s*"),
-    tradeResponse("\\s*trade\\s+response\\s+\\((.+)\\)\\s+-i\\s+(.+)\\s*")
+    tradeResponse("\\s*trade\\s+response\\s+\\((.+)\\)\\s+-i\\s+(.+)\\s*"),
+    cheatAddMoney("\\s*cheat\\s+add\\s+(\\d+)\\s+dollars\\s*"),
+    sell("\\s*sell\\s+(.+)\\s*(?:\\s+-n\\s+(\\d+))?\\s*"),
     ;
     final String regex;
     TradeCommands(String regex){

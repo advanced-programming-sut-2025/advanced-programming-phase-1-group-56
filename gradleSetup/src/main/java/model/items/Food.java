@@ -1,38 +1,34 @@
 package model.items;
 
+import model.Enums.BuffType;
+import model.Enums.Items.FoodType;
+
 import java.util.HashMap;
 
 public class Food extends Item {
-    private String name;
-    private int energy;
-    private int price;
-    private String buff;
+    private FoodType foodType;
 
-    public Food(String name, int maxStackSize,int energy, int price, String buff) {
-        super(name,maxStackSize,true);
-        this.name = name;
-        this.energy = energy;
-        this.price = price;
-        this.buff = buff;
+    public Food(FoodType foodType) {
+        super(foodType.getName(), 100, true,foodType.getPrice());
+        this.foodType = foodType;
     }
 
+
     public String getName() {
-        return name;
+        return foodType.getName();
     }
 
     public int getEnergy() {
-        return energy;
+        return foodType.getEnergy();
     }
 
     public int getPrice() {
         return price;
     }
 
-    public String getBuff() {
-        return buff;
+    public BuffType getBuff() {
+        return foodType.getBuffType();
     }
 
-    public void setBuff(String buff) {
-        this.buff = buff;
-    }
+
 }
