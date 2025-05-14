@@ -1,3 +1,6 @@
+package model.Enums.Stores;
+
+import model.Enums.Buildings.BuildingType;
 import model.Enums.Items.EtcType;
 import model.Enums.Items.MineralItemType;
 import model.Enums.WeatherAndTime.Seasons;
@@ -34,7 +37,7 @@ public enum CarpenterShopProducts {
     BARN(
             new NpcProduct(
                     "BARN",
-                    null,
+                    BuildingType.BARN,
                     "Houses 4 barn-dwelling animals.",
                     6000,
                     -1,
@@ -45,7 +48,7 @@ public enum CarpenterShopProducts {
     BIG_BARN(
             new NpcProduct(
                     "BIG_BARN",
-                    null,
+                    BuildingType.BIG_BARN,
                     "Houses 8 barn-dwelling animals. Unlocks goats.",
                     12000,
                     -1,
@@ -56,7 +59,7 @@ public enum CarpenterShopProducts {
     DELUXE_BARN(
             new NpcProduct(
                     "DELUXE_BARN",
-                    null,
+                    BuildingType.DELUXE_BARN,
                     "Houses 12 barn-dwelling animals. Unlocks sheep and pigs.",
                     25000,
                     -1,
@@ -67,7 +70,7 @@ public enum CarpenterShopProducts {
     COOP(
             new NpcProduct(
                     "COOP",
-                    null,
+                    BuildingType.COOP,
                     "Houses 4 coop-dwelling animals.",
                     4000,
                     -1,
@@ -78,7 +81,7 @@ public enum CarpenterShopProducts {
     BIG_COOP(
             new NpcProduct(
                     "BIG_COOP",
-                    null,
+                    BuildingType.BIG_COOP,
                     "Houses 8 coop-dwelling animals. Unlocks ducks.",
                     10000,
                     -1,
@@ -89,7 +92,7 @@ public enum CarpenterShopProducts {
     DELUXE_COOP(
             new NpcProduct(
                     "DELUXE_COOP",
-                    null,
+                    BuildingType.DELUXE_COOP,
                     "Houses 12 coop-dwelling animals. Unlocks rabbits.",
                     20000,
                     -1,
@@ -100,7 +103,7 @@ public enum CarpenterShopProducts {
     WELL(
             new NpcProduct(
                     "WELL",
-                    null,
+                    BuildingType.WELL,
                     "Provides a place for you to refill your watering can.",
                     1000,
                     -1,
@@ -111,7 +114,7 @@ public enum CarpenterShopProducts {
     SHIPPING_BIN(
             new NpcProduct(
                     "SHIPPING_BIN",
-                    null,
+                    BuildingType.SHIPPING_BIN,
                     "Items placed in it will be included in the nightly shipment.",
                     250,
                     -1,

@@ -1,6 +1,8 @@
 package model.Enums;
 
-public enum BackPackType {
+import model.items.Saleable;
+
+public enum BackPackType implements Saleable {
     InitialBackpack(12),
     BigBackpack(24),
     DeluxeBackpack(Integer.MAX_VALUE);
@@ -17,5 +19,10 @@ public enum BackPackType {
 
     public int getPrice() {
         return price;
+    }
+
+    @Override
+    public String getName() {
+        return this.toString();
     }
 }
