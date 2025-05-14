@@ -1,37 +1,41 @@
 package model.Enums.GameObjects;
 
-public enum ForagingCropType {
-    COMMON_MUSHROOM("Common Mushroom", "Special", 40, 38),
-    DAFFODIL("Daffodil", "Spring", 30, 0),
-    DANDELION("Dandelion", "Spring", 40, 25),
-    LEEK("Leek", "Spring", 60, 40),
-    MOREL("Morel", "Spring", 150, 20),
-    SALMONBERRY("Salmonberry", "Spring", 5, 25),
-    SPRING_ONION("Spring Onion", "Spring", 8, 13),
-    WILD_HORSERADISH("Wild Horseradish", "Spring", 50, 13),
-    FIDDLEHEAD_FERN("Fiddlehead Fern", "Summer", 90, 25),
-    GRAPE("Grape", "Summer", 80, 38),
-    RED_MUSHROOM("Red Mushroom", "Summer", 75, -50),
-    SPICE_BERRY("Spice Berry", "Summer", 80, 25),
-    SWEET_PEA("Sweet Pea", "Summer", 50, 0),
-    BLACKBERRY("Blackberry", "Fall", 25, 25),
-    CHANTERELLE("Chanterelle", "Fall", 160, 75),
-    HAZELNUT("Hazelnut", "Fall", 40, 38),
-    PURPLE_MUSHROOM("Purple Mushroom", "Fall", 90, 30),
-    WILD_PLUM("Wild Plum", "Fall", 80, 25),
-    CROCUS("Crocus", "Winter", 60, 0),
-    CRYSTAL_FRUIT("Crystal Fruit", "Winter", 150, 63),
-    HOLLY("Holly", "Winter", 80, -37),
-    SNOW_YAM("Snow Yam", "Winter", 100, 30),
-    WINTER_ROOT("Winter Root", "Winter", 70, 25);
+import model.Enums.Items.FoodType;
+import model.Enums.Items.FruitType;
+import model.Enums.Items.ItemType;
 
-    public final String name;
+public enum ForagingCropType {
+    COMMON_MUSHROOM(FoodType.COMMON_MUSHROOM, "Special", 40, 38),
+    DAFFODIL(FoodType.DAFFODIL, "Spring", 30, 0),
+    DANDELION(FoodType.DANDELION, "Spring", 40, 25),
+    LEEK(FoodType.LEEK, "Spring", 60, 40),
+    MOREL(FoodType.MOREL, "Spring", 150, 20),
+    SALMONBERRY(FoodType.SALMON_BERRY, "Spring", 5, 25),
+    SPRING_ONION(FoodType.SPRING_ONION, "Spring", 8, 13),
+    WILD_HORSERADISH(FoodType.WILD_HORSERADISH, "Spring", 50, 13),
+    FIDDLEHEAD_FERN(FoodType.FIDDLE_HEAD_FERN, "Summer", 90, 25),
+    GRAPE(FoodType.GRAPE, "Summer", 80, 38),
+    RED_MUSHROOM(FoodType.RED_MUSHROOM, "Summer", 75, -50),
+    SPICE_BERRY(FoodType.SPICE_BERRY, "Summer", 80, 25),
+    SWEET_PEA(FoodType.SWEET_PEA, "Summer", 50, 0),
+    BLACKBERRY(FoodType.BLACKBERRY, "Fall", 25, 25),
+    CHANTERELLE(FoodType.CHANTERELLE, "Fall", 160, 75),
+    HAZELNUT(FoodType.HAZELNUT, "Fall", 40, 38),
+    PURPLE_MUSHROOM(FoodType.PURPLE_MUSHROOM, "Fall", 90, 30),
+    WILD_PLUM(FoodType.WILD_PLUM, "Fall", 80, 25),
+    CROCUS(FoodType.CROCUS, "Winter", 60, 0),
+    CRYSTAL_FRUIT(FoodType.CRYSTAL_FRUIT, "Winter", 150, 63),
+    HOLLY(FoodType.HOLLY, "Winter", 80, -37),
+    SNOW_YAM(FoodType.SNOW_YAM, "Winter", 100, 30),
+    WINTER_ROOT(FoodType.WINTER_ROOT, "Winter", 70, 25);
+
+    public final FoodType cropItem;
     public final String season;
     public final int baseSellPrice;
     public final int energy;
 
-    ForagingCropType(String name, String season, int baseSellPrice, int energy) {
-        this.name = name;
+    ForagingCropType(FoodType name, String season, int baseSellPrice, int energy) {
+        this.cropItem = name;
         this.season = season;
         this.baseSellPrice = baseSellPrice;
         this.energy = energy;

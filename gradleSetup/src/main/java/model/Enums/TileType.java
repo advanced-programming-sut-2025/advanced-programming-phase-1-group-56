@@ -1,6 +1,7 @@
 package model.Enums;
 
 public enum TileType {
+    Mine,
     Vanity,
     Water,
     Grass,

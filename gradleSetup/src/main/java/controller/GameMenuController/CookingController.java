@@ -1,11 +1,10 @@
 package controller.GameMenuController;
 
 import controller.CommandController;
-import model.Activities.CookFood;
-import model.Activities.CraftTool;
 import model.App;
 
 import model.Enums.Items.FoodType;
+import model.Enums.Recepies.CraftingRecipesList;
 import model.Enums.Recepies.FoodRecipesList;
 import model.Ingredient;
 import model.Result;
@@ -69,7 +68,7 @@ public class CookingController extends CommandController {
 
     public static Result prepareCooking(Matcher matcher) {
         String recipeName = matcher.group(1).trim();
-        CookFood cookFood = returnCookFoodByName(recipeName);
+        FoodRecipesList cookFood = returnCookFoodByName(recipeName);
         if (cookFood == null) {
             return new Result(false, "you are not allowed to use this recipe");
         } else if (!havaIngredient(cookFood)) {
@@ -81,8 +80,8 @@ public class CookingController extends CommandController {
         tmpString.append("You don't know these recipes yet:\n");
         for (FoodRecipesList cr : foodRecipesList) {
             boolean known = false;
-            for (CraftTool c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
-                if (cr.name().equals(c.getName())) {
+            for (FoodRecipesList c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getFoodRecipes()) {
+                if (cr.name().equals(c.name)) {
                     known = true;
                     break;
                 }
@@ -104,13 +103,13 @@ public class CookingController extends CommandController {
                 getCurrentGame()
                 .getCurrentPlayer()
                 .subtractEnergy(3);
-        for (Ingredient ingredient : cookFood.getIngredients()) {
+        for (Ingredient ingredient : cookFood.ingredients) {
             Item item = returnInventoryItemByName(ingredient.name);
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, ingredient.quantity);
         }
         Food food = null;
         for(FoodType foodType : FoodType.values()){
-            if(foodType.getName().equals(cookFood.getName())){
+            if(foodType.getName().equals(cookFood.name)){
                 food = new Food(foodType);
             }
         }
@@ -120,7 +119,6 @@ public class CookingController extends CommandController {
                 .getCurrentPlayer()
                 .getInventory()
                 .add(food, 1);
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractGold(cookFood.getPrice());
         return new Result(true, "your food is ready!");
     }
 
@@ -180,12 +178,12 @@ public class CookingController extends CommandController {
         return null;
     }
 
-    private static CookFood returnCookFoodByName(String itemName) {
-        for (CookFood cookFood : App.getCurrentUser()
+    private static FoodRecipesList returnCookFoodByName(String itemName) {
+        for (FoodRecipesList cookFood : App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getFoodRecipes()) {
-            if (cookFood.getName().equals(itemName)) {
+            if (cookFood.name.equals(itemName)) {
                 return cookFood;
             }
         }
@@ -195,28 +193,28 @@ public class CookingController extends CommandController {
     private static String FoodsList() {
         StringBuilder tmpString = new StringBuilder();
         int count = 0;
-        for (CookFood cookFood : App.
+        for (FoodRecipesList cookFood : App.
                 getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getFoodRecipes()) {
             count++;
             tmpString.append(count).append(". \n");
-            tmpString.append("FoodName : ").append(cookFood.getName()).append("\n");
+            tmpString.append("FoodName : ").append(cookFood.name).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient : cookFood.getIngredients()) {
+            for (Ingredient ingredient : cookFood.ingredients) {
                 tmpString.append("  ");
                 tmpString.append("Ingridient Name :").append(ingredient.getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n").append("----\n");
             }
-            tmpString.append("Sell Price :").append(cookFood.getPrice()).append("g\n");
+            tmpString.append("Sell Price :").append(cookFood.sellPrice).append("g\n");
             tmpString.append("-----------------------------------------");
         }
         return tmpString.toString();
     }
 
-    private static boolean havaIngredient(CookFood cookFood) {
-        for (Ingredient ingredient : cookFood.getIngredients()) {
+    private static boolean havaIngredient(FoodRecipesList cookFood) {
+        for (Ingredient ingredient : cookFood.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (slot.getItem().getName().equals(ingredient.getName())) {
@@ -227,7 +225,7 @@ public class CookingController extends CommandController {
                 return false;
             }
         }
-        for (Ingredient ingredient : cookFood.getIngredients()) {
+        for (Ingredient ingredient : cookFood.ingredients) {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (ingredient.getName().equals(slot.getItem().getName())) {
                     int sum = 0;
@@ -253,21 +251,21 @@ public class CookingController extends CommandController {
     private static String FoodList() {
         StringBuilder tmpString = new StringBuilder();
         int count = 0;
-        for (CookFood cookFood : App.
+        for (FoodRecipesList cookFood : App.
                 getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getFoodRecipes()) {
             count++;
             tmpString.append(count).append(". \n");
-            tmpString.append("FoodName : ").append(cookFood.getName()).append("\n");
+            tmpString.append("FoodName : ").append(cookFood.name).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient : cookFood.getIngredients()) {
+            for (Ingredient ingredient : cookFood.ingredients) {
                 tmpString.append("  ");
                 tmpString.append("Ingridient Name :").append(ingredient.getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n").append("----\n");
             }
-            tmpString.append("Sell Price :").append(cookFood.getPrice()).append("g\n");
+            tmpString.append("Sell Price :").append(cookFood.sellPrice).append("g\n");
             tmpString.append("-----------------------------------------");
         }
         return tmpString.toString();

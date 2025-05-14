@@ -13,4 +13,6 @@ public class ForagingMineral extends  GameObject {
         return foragingMineralType;
     }
 
+
+
 }

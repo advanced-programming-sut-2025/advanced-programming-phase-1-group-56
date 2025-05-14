@@ -59,4 +59,7 @@ public class Tree extends GameObject {
 //    public HashMap<Item, Integer> getItemsGiven() {
 //        return itemsGiven;
 //    }
+    public void setWateredToday(boolean wateredToday) {
+        isWateredToday = wateredToday;
+    }
 }
