@@ -17,10 +17,6 @@ public enum BackPackType implements Saleable {
         return capacity;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     @Override
     public String getName() {
         return this.toString();

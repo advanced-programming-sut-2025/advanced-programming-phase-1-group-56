@@ -10,7 +10,9 @@ import model.items.Saleable;
 import model.items.Mineral;
 import model.items.Tool;
 
-public enum BlackSmithProducts {
+import java.util.ArrayList;
+
+public enum BlackSmithProducts implements Store {
     // --- Ores ---
     COPPER_ORE(
             new NpcProduct(
@@ -155,7 +157,16 @@ public enum BlackSmithProducts {
         this.product = product;
     }
 
+    @Override
     public NpcProduct getProduct() {
         return product;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
     }
 }

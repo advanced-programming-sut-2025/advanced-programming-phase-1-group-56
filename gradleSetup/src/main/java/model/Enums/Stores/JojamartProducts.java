@@ -13,7 +13,9 @@ import model.items.Food;
 import model.items.Item;
 import model.items.Seed;
 
-public enum JojamartProducts {
+import java.util.ArrayList;
+
+public enum JojamartProducts implements Store {
     // --- Permanent Stock ---
     JOJA_COLA(
             new NpcProduct(
@@ -223,7 +225,16 @@ public enum JojamartProducts {
         this.product = product;
     }
 
+    @Override
     public NpcProduct getProduct() {
         return product;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
     }
 }

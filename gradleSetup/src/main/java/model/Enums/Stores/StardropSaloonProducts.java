@@ -8,7 +8,9 @@ import model.items.Etc;
 import model.items.Food;
 import model.items.Item;
 
-public enum StardropSaloonProducts {
+import java.util.ArrayList;
+
+public enum StardropSaloonProducts implements Store {
     BEER(
             new NpcProduct(
                     "BEER",
@@ -182,7 +184,16 @@ public enum StardropSaloonProducts {
         this.product = product;
     }
 
+    @Override
     public NpcProduct getProduct() {
         return product;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
     }
 }

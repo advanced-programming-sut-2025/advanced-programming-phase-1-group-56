@@ -33,6 +33,10 @@ public class NpcProduct{
         this.remainingStock = remainingStock;
     }
 
+    public void changeRemainingStock(int amount) {
+        this.remainingStock += amount;
+    }
+
     public int getDailyStock() {
         return dailyStock;
     }
