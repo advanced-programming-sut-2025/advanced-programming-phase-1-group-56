@@ -2,6 +2,8 @@ package model.Enums.Items;
 
 import model.Enums.WeatherAndTime.Seasons;
 
+import java.util.ArrayList;
+
 public enum FishType implements ItemType {
     Salmon("Salmon", 75, Seasons.Fall, false),
     Sardine("Sardine", 40, Seasons.Fall, false),
@@ -51,5 +53,27 @@ public enum FishType implements ItemType {
 
     public boolean isLegendary() {
         return legendary;
+    }
+
+    public static ArrayList<FishType> getSeasonFishes(Seasons season){
+        ArrayList<FishType> seasonFishes = new ArrayList<>();
+        for (FishType fishType : FishType.values()) {
+            if (fishType.getSeason() == season){
+                seasonFishes.add(fishType);
+            }
+        }
+        return seasonFishes;
+    }
+
+    public static FishType getCheapestFishOfSeason(Seasons season) {
+        FishType cheapestFish = null;
+        for (FishType fishType : FishType.values()) {
+            if (fishType.getSeason() == season && !fishType.isLegendary()) { // حذف ماهی افسانه‌ای
+                if (cheapestFish == null || fishType.getPrice() < cheapestFish.getPrice()) {
+                    cheapestFish = fishType;
+                }
+            }
+        }
+        return cheapestFish;
     }
 }

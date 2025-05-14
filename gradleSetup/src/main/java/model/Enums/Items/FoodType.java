@@ -32,6 +32,7 @@ public enum FoodType implements ItemType {
 
 
     //crop
+    COMMON_MUSHROOM("Common Mushroom", 38,40 , null),
     BLUE_JAZZ("Blue Jazz", 45, 50,null),
     CARROT("Carrot", 75, 35 , null),
     CAULIFLOWER("Cauliflower", 75,175 , null),
