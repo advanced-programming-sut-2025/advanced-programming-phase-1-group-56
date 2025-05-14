@@ -1,18 +1,30 @@
 package model.items;
 
+
+import model.Enums.BackPackType;
 import model.Slot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventory {
-    private ArrayList<Slot> slots;
+    private final ArrayList<Slot> slots = new ArrayList<>();
+    private BackPackType backPackType;
     private int capacity;
 
     public Inventory(int capacity) {
         this.capacity = capacity;
     }
 
+    public Inventory(BackPackType backPackType) {
+        this.backPackType = backPackType;
+        this.capacity = backPackType.getCapacity();
+    }
+
+    public void setBackPackType(BackPackType backPackType) {
+        this.backPackType = backPackType;
+        this.capacity = backPackType.getCapacity();
+    }
 
     public void updateCapacity(int capacity) {
         this.capacity = capacity;
@@ -70,15 +82,57 @@ public class Inventory {
                     }
                     return;
                 } else if(slot.getQuantity() < tmpQuantity) {
-                   tmpQuantity -= slot.getQuantity();
-                   slots.remove(slot);
+                    tmpQuantity -= slot.getQuantity();
+                    slots.remove(slot);
                 }
             }
         }
     }
+
+    public int countItem(Item item){
+        int sum = 0;
+        for (Slot slot : slots) {
+            if (slot.getItem().equals(item)) {
+                sum += slot.getQuantity();
+            }
+        }
+        return sum;
+    }
+
+    public boolean hasItem(Item item){
+        return countItem(item)!=0;
+    }
+
+
     public ArrayList<Slot> getSlots(){
         return slots;
     }
 
 
+    public BackPackType getBackPackType() {
+        return backPackType;
+    }
+
+    public int maxItemMayBeAdded(Item item){
+        int max = 0;
+        max +=  (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
+        for (Slot slot : slots) {// for semi full slots of same item
+            if (slot.getItem().equals(item)) {
+                max += item.maxStackSize - slot.getQuantity();
+            }
+        }
+        return max;
+    }
+    public boolean canAddItem(Item item, int quantity) {
+        return quantity <=  maxItemMayBeAdded(item);
+    }
+
+    public Item findItemByName(String itemName) {
+        for (Slot slot : slots) {
+            if (slot.getItem().getName().equals(itemName)) {
+                return slot.getItem();
+            }
+        }
+        return null;
+    }
 }

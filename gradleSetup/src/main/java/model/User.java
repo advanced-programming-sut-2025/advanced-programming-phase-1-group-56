@@ -3,9 +3,10 @@ package model;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class User {
-    private String userId;
+    private UUID userId;
     private String username;
     private String name;
     private String password;
@@ -20,6 +21,7 @@ public class User {
     private int numOfGames;
     private int highScore;
     private final ArrayList<String> allGamesId = new ArrayList<>();
+    private int gold = 0;
 
     public User(String username, String name, String password, String salt, String email, int securityQuestion,
                 String answer, Boolean gender) {
@@ -125,11 +127,11 @@ public class User {
         this.salt = salt;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
@@ -143,5 +145,12 @@ public class User {
 
     public ArrayList<String> getAllGamesId() {
         return allGamesId;
+    }
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }

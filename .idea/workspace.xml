@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94bdf633-9f7b-4835-bdfa-ed582211b989" name="Changes" comment="stabelize intellij" />
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,9 +25,6 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$/gradleSetup">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -43,7 +47,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
       </list>
@@ -56,12 +59,12 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2vaoijaTh1pWXsFkrXYqqK45KZY" />
+  <component name="ProjectId" id="2wuGyOj3RRvgMI5Zmu0vwh640AO" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -71,48 +74,50 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.Building Gradle Dependencies.executor": "Run",
-    "Gradle.gradleSetup [:Main.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "mehdi",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/HP/OneDrive/Desktop/Stardew Valley/gradleSetup/src/main/java/model/Enums/commands",
+    "last_opened_file_path": "C:/Users/HP/OneDrive/Desktop/tiledMap/gradleSetup/src/main/java/model/States",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\States" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\GameObject" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Activities" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\HP\OneDrive\Desktop\Stardew Valley\gradleSetup\src\main\java\view" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\Stardew Valley\gradleSetup\src\main\java\model\Enums" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\Stardew Valley\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
-      <recent name="C:\Users\USER\Desktop\Ap\Java program\stradew valley project\gradleSetup\src\main\java\model" />
-      <recent name="C:\Users\USER\Desktop\Ap\Java program\stradew valley project\gradleSetup\src\main\java\controller\MenuController" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="model.items" />
+      <recent name="model.GameObject" />
+      <recent name="model.Enums.Buildings" />
+      <recent name="model.Enums" />
+      <recent name="model.Enums.Animals" />
     </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
-      <module name="stradew valley project" />
+      <module name="stardew valley" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="stradew valley project" />
+      <module name="stardew valley" />
       <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <method v="2" />
     </configuration>
   </component>
   <component name="SharedIndexes">
@@ -126,69 +131,26 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="94bdf633-9f7b-4835-bdfa-ed582211b989" name="Changes" comment="" />
-      <created>1744392674952</created>
+      <changelist id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="" />
+      <created>1746884299828</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1744392674952</updated>
-      <workItem from="1744392676010" duration="16106000" />
-      <workItem from="1744413532320" duration="34000" />
-      <workItem from="1744457028230" duration="16578000" />
-      <workItem from="1744543275806" duration="9944000" />
-      <workItem from="1744625175158" duration="7873000" />
-      <workItem from="1745179304368" duration="1214000" />
-      <workItem from="1745420621016" duration="646000" />
-      <workItem from="1745489096151" duration="4262000" />
-      <workItem from="1745503869792" duration="9461000" />
-      <workItem from="1745694013298" duration="666000" />
-      <workItem from="1745710477159" duration="1244000" />
-      <workItem from="1745737930424" duration="118000" />
-      <workItem from="1745750984361" duration="6274000" />
-      <workItem from="1745757842158" duration="598000" />
-      <workItem from="1745759244486" duration="345000" />
-      <workItem from="1745760140123" duration="1260000" />
-      <workItem from="1745784332592" duration="2241000" />
-      <workItem from="1745826905410" duration="793000" />
-      <workItem from="1745827719168" duration="21000" />
-      <workItem from="1745827994224" duration="1775000" />
-      <workItem from="1745873156652" duration="881000" />
-      <workItem from="1745934497222" duration="1126000" />
-      <workItem from="1745935650055" duration="2954000" />
-      <workItem from="1746012919440" duration="1000" />
-      <workItem from="1746013060266" duration="434000" />
-      <workItem from="1746089429529" duration="4387000" />
-      <workItem from="1746098711413" duration="27516000" />
-      <workItem from="1746133706136" duration="1364000" />
-      <workItem from="1746136677613" duration="26000" />
-      <workItem from="1746136783153" duration="50000" />
+      <updated>1746884299828</updated>
+      <workItem from="1746884301117" duration="22000" />
+      <workItem from="1746954958205" duration="6884000" />
+      <workItem from="1746987294025" duration="22000" />
+      <workItem from="1746987349849" duration="18270000" />
+      <workItem from="1747044758638" duration="6306000" />
+      <workItem from="1747086359062" duration="365000" />
+      <workItem from="1747086791410" duration="10742000" />
+      <workItem from="1747151837233" duration="10040000" />
     </task>
-    <task id="LOCAL-00001" summary="nothing">
-      <option name="closed" value="true" />
-      <created>1746135888715</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1746135888715</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="stabelize intellij" />
-    <option name="LAST_COMMIT_MESSAGE" value="stabelize intellij" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

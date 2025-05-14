@@ -4,10 +4,15 @@ import controller.CommandController;
 import model.App;
 import model.Enums.Menu;
 import model.Game;
+import model.MapModule.AStarPathFinding;
+import model.MapModule.Buildings.MarniesRanch;
+import model.MapModule.Node;
+import model.MapModule.Tile;
 import model.Player;
 import model.Result;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameController extends CommandController {
@@ -67,12 +72,39 @@ public class GameController extends CommandController {
         }
         //TODO add every thing that should be done
         return new Result(true,currentPlayer.getUser().getName() +" turn ended.. its now turn of :" +
-                game.getCurrentPlayer().getUser().getName() );
+                game.getCurrentPlayer().getUser().getName());
     }
 
     public Result skipTurn(){
         System.out.println("Skipping turn...");
         return manageNextTurn();
+    }
+
+    public Result calculateMoveEnergy(int x , int y){
+        Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+
+        ArrayList<Node> path = new AStarPathFinding(player.getCurrentGameLocation() ,
+                player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() ,
+                        player.getPosition().getY()) , player.getCurrentGameLocation().getTiles()[x][y]).solve();
+
+        if (path == null || path.size() == 0) {
+            return new Result(false,"No path found");
+        } else {
+            double neededEnergy = (double) path.size() /20;
+            return new Result(true , String.format("you need %f energy to go to tile<%d , %d>. Are you sure that you want to go?" , neededEnergy , x , y));
+        }
+//        App.getCurrentUser().getCurrentGame().getCurrentPlayer()
+    }
+
+    public Result movePlayer(int x , int y , int neededEnergy , ArrayList<Node> path){
+        Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+        double availableDistance = player.getEnergy().getEnergy()*20;
+        player.setPosition(((Tile)path.get((int) Math.floor(path.size() - availableDistance))).getPosition());
+        if (player.getEnergy().getEnergy() < neededEnergy) {
+            return new Result(false , String.format("you faint at Tile <%d , %d>" , player.getPosition().getX() , player.getPosition().getY()));
+        } else {
+            return new Result(true , String.format("you are at Tile <%d , %d>" , player.getPosition().getX() , player.getPosition().getY()));
+        }
     }
 
 }

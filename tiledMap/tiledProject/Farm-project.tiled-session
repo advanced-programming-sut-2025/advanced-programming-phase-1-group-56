@@ -1,0 +1,73 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "pelicanTownTile.tsx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "FarmTile.tsx": {
+            "scaleInEditor": 1
+        },
+        "FarmTile2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "TreeTile1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "pelicanTownTile.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "untitled.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 315.25,
+                "y": 607.75
+            }
+        },
+        "untitled2.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 618,
+                "y": 291.33333333333326
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/USER/Desktop/project_copy/tiledMap/tiledProject",
+    "last.imagePath": "C:/Users/USER/Desktop/project_copy/tiledMap/imagesAndassets",
+    "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "untitled.tmx",
+        "FarmTile2.tsx",
+        "untitled2.tmx",
+        "pelicanTownTile.tsx"
+    ],
+    "project": "Farm-project.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "untitled.tmx",
+        "FarmTile2.tsx",
+        "untitled2.tmx",
+        "pelicanTownTile.tsx",
+        "TreeTile1.tsx",
+        "FarmTile.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
