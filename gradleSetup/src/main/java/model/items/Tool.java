@@ -9,16 +9,11 @@ import model.Player;
 import model.skills.Skill;
 
 public class Tool extends Item {
-    //    protected ToolBehavior toolBehavior;
-//    protected ToolMaterial toolMaterial;
     private ToolType toolType;
 
-    public Tool(String name, ToolType toolType ,int maxStackSize, boolean Stackable) {
-        super(name,maxStackSize,Stackable);
+    public Tool(ToolType toolType) {
+        super(toolType.name(),1,false,-1);
         this.toolType = toolType;
-//        this.toolBehavior = toolBehavior;
-//        this.toolBehavior.setToolType();
-//        this.toolMaterial = toolMaterial;
     }
 
     public void use(Tile tile){
@@ -32,7 +27,7 @@ public class Tool extends Item {
                     if (playerSkill!=null){
                         playerSkill.setXp(playerSkill.getXp() + 5);
                     }
-                    player.setEnergy(player.getEnergy() - toolType.getUsedEnergy());
+                    player.addEnergy(-toolType.getUsedEnergy());
                 }
                 break;
             }

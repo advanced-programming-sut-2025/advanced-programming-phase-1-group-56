@@ -36,4 +36,8 @@ public class GameLocation extends Network {
     public Tile[][] getTiles() {
         return tiles;
     }
+
+    public void setTiles(Tile[][] tiles) {
+        this.tiles = tiles;
+    }
 }

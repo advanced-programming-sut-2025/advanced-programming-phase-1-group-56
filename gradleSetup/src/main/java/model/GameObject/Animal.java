@@ -4,10 +4,11 @@ import model.Enums.Animals.AnimalType;
 import model.GameObject.LivingEntity;
 import model.MapModule.Position;
 import model.items.AnimalProduct;
+import model.items.Saleable;
 
 import java.util.ArrayList;
 
-public class Animal extends LivingEntity {
+public class Animal extends LivingEntity implements Saleable {
     private String name;
     private AnimalType animalInfo;
     private int friendship = 0;
@@ -34,10 +35,6 @@ public class Animal extends LivingEntity {
 
     public void addFriendShip(int countFriendShip) {
         friendship += countFriendShip;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {
@@ -88,4 +85,8 @@ public class Animal extends LivingEntity {
         this.animalInfo = animalInfo;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
 }

@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum GrassType {
+public enum GrassType implements ItemType{
     NormalGrass,
     FiberGrass;
 }

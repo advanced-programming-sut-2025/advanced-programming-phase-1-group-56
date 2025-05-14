@@ -3,6 +3,7 @@ package model.MapModule;
 import com.google.gson.*;
 import model.Enums.GameObjects.TreeType;
 import model.Enums.Items.GrassType;
+import model.Enums.Items.MineralItemType;
 import model.Enums.TileType;
 import model.GameObject.*;
 import model.MapModule.Buildings.Building;
@@ -127,17 +128,17 @@ public class FarmLoader {
                         //TODO
                         case "shippingbar" -> go = new ShippingBar(new Position(tx,ty),farm);
                         case "mailbox" -> go = new MailBox(new Position(tx,ty));
-                        case "grass" -> go = new Grass(true, GrassType.NormalGrass,new Position(tx,ty));
-                        case "fibergrass" -> go = new Grass(true, GrassType.FiberGrass,new Position(tx,ty));
-                        case "wood" -> go = new Wood(false,new Position(tx,ty));//TODO
-                        case "stone" -> go = new Stone(false,new Position(tx,ty));//TODO
-                        case "tree" -> go = new Tree(false, TreeType.APPLE,new Position(tx,ty));
-                        case "stick" -> go = new Stick(false,new Position(tx,ty));
-                        case "bigstone" -> go = new BigStone(false,new Position(tx,ty));
+                        case "grass" -> go = new Grass(true, new Position(tx,ty),GrassType.NormalGrass);
+                        case "fibergrass" -> go = new Grass(true, new Position(tx,ty),GrassType.FiberGrass);
+                        case "wood" -> go = new Tree(false,TreeType.TREE_BARK,new Position(tx,ty));//TODO
+                        case "stone" -> go = new ForagingMineral(false, MineralItemType.Stone,new Position(tx,ty));//TODO
+                        case "tree" -> go = new Tree(false, TreeType.values()
+                                [(int)(Math.random()*(TreeType.values().length))],new Position(tx,ty));
+                        case "stick" -> go = new Tree(false,TreeType.TREE_BARK,new Position(tx,ty));
+                        case "bigstone" -> go = new ForagingMineral(false,new Position(tx,ty));
                         default -> go = null;
                     }
                     ;
-
                     if (go != null
                             && ty >= 0 && ty + objHeight < height
                             && tx >= 0 && tx + objWidth < width) {

@@ -14,7 +14,6 @@ public abstract class Store extends Building implements TimeObserver {
     private int closingHour;
     private ArrayList<NpcProduct> products;
 
-
     public void setOwner(NPC owner) {
         this.owner = owner;
     }
@@ -32,7 +31,6 @@ public abstract class Store extends Building implements TimeObserver {
     }
     public Store(Position position, String name,Position doorPosition, int width, int height, boolean walkable, NPC owner, int openingHour, int closingHour, ArrayList<NpcProduct> products) {
         super(position, walkable,name, doorPosition, height,width);
-        this.products = products;
         this.name = name;
         this.owner = owner;
         this.openingHour = openingHour;
@@ -53,10 +51,6 @@ public abstract class Store extends Building implements TimeObserver {
 
     public ArrayList<NpcProduct> getProducts() {
         return products;
-    }
-
-    public void setProducts(ArrayList<NpcProduct> products) {
-        this.products = products;
     }
 
     @Override

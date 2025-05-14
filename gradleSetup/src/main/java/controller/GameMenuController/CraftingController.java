@@ -26,8 +26,8 @@ public class CraftingController extends CommandController {
     public static Result craftingItem(Matcher matcher) {
         String ItemName = matcher.group(1);
         CraftTool recipe = returnCraftingRecipe(ItemName);
-        if (recipe != null) {
-            return new Result(true, "you can't Craft this Recipe!");
+        if (recipe == null) {
+            return new Result(false, "you can't Craft this Recipe!");
         } else if (!havaIngredient(recipe)) {
             return new Result(false, "you have not enough ingredients!");
         }

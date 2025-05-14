@@ -12,7 +12,7 @@ public class CraftingTool extends Item {
     private ArrayList<ArtesianRecepie> craftingRecepie = new ArrayList<>();
 
     public CraftingTool(String name, String description, int sellPrice) {
-        super(name,1,false);
+        super(name,1,false,sellPrice);
         this.description = description;
         this.sellPrice = sellPrice;
     }

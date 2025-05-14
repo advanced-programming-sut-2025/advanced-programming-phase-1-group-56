@@ -3,7 +3,7 @@ package controller.GameMenuController;
 import controller.CommandController;
 import model.App;
 import model.Enums.WeatherAndTime.WeatherType;
-import model.GameObject.Animal.Animal;
+import model.GameObject.Animal;
 import model.items.AnimalProduct;
 import model.MapModule.Position;
 import model.Result;

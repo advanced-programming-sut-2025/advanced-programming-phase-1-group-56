@@ -25,7 +25,7 @@ public class CookingController extends CommandController {
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
-                .getPlayerFarm().getHome()
+                .getPlayerFarm().getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .remove(item, 1);
@@ -49,7 +49,7 @@ public class CookingController extends CommandController {
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getPlayerFarm()
-                .getHome()
+                .getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .add(item, 1);
@@ -147,7 +147,7 @@ public class CookingController extends CommandController {
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getPlayerFarm()
-                .getHome()
+                .getDefaultHome()
                 .getMyRefrigerator()
                 .getInventory()
                 .getSlots()) {

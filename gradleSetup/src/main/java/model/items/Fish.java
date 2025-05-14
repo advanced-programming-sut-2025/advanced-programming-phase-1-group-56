@@ -4,16 +4,16 @@ import model.Enums.Items.FishType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public class Fish extends Item {
-    private FishType fishType;
+    private final FishType fishType;
 
-    public Fish(int maxStackSize, boolean Stackable, FishType fishType) {
-        super(fishType.getName(), maxStackSize, Stackable);
-        fishType = fishType;
+    public Fish(FishType fishType) {
+        super(fishType.getName(),100, false, fishType.getPrice());
+        this.fishType = fishType;
     }
 
 
     public String getName() {
-        return name;
+        return fishType.getName();
     }
 
     public int getBasePrice() {

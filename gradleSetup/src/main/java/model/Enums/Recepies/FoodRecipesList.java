@@ -2,8 +2,9 @@ package model.Enums.Recepies;
 
 import model.Enums.Items.FoodType;
 import model.Ingredient;
+import model.items.Saleable;
 
-public enum FoodRecipesList {
+public enum FoodRecipesList implements Saleable {
     FRIED_EGG("Fried Egg", FoodType.FRIED_EGG ,new Ingredient[]{new Ingredient("Egg", 1)}, 50, null, "Starter", 35),
     BAKED_FISH("Baked Fish", FoodType.BAKED_FISH ,new Ingredient[]{new Ingredient("Sardine", 1), new Ingredient("Salmon", 1), new Ingredient("Wheat", 1)}, 75, null, "Starter", 100),
     SALAD("Salad", FoodType.SALAD ,new Ingredient[]{new Ingredient("Leek", 1), new Ingredient("Dandelion", 1)}, 113, null, "Starter", 110),
@@ -45,5 +46,10 @@ public enum FoodRecipesList {
         this.effect = effect;
         this.source = source;
         this.sellPrice = sellPrice;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

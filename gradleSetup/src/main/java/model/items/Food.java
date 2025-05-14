@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class Food extends Item {
     private FoodType foodType;
 
-    public Food(String name, int maxStackSize, boolean Stackable, FoodType foodType) {
-        super(name, maxStackSize, Stackable);
+    public Food( FoodType foodType) {
+        super(foodType.getName(), 100, true, foodType.getPrice());
         this.foodType = foodType;
     }
 

@@ -7,7 +7,7 @@ public class Coop extends Building {
     private int price;
 
     public Coop(String name, Position position,Position doorPosition, int width, int height, boolean walkable, int capacity, int price) {
-        super(walkable,name, doorPosition,position, height,width);
+        super(position,walkable,name, doorPosition, height,width);
         this.capacity = capacity;
         this.price = price;
     }
