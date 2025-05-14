@@ -16,7 +16,9 @@ import model.items.Food;
 import model.items.Item;
 import model.items.Seed;
 
-public enum PierreGeneralStoreProducts {
+import java.util.ArrayList;
+
+public enum PierreGeneralStoreProducts implements Store {
     // --- Year-Round Stock (from provided list) ---
     RICE(
             new NpcProduct(
@@ -632,4 +634,18 @@ public enum PierreGeneralStoreProducts {
     PierreGeneralStoreProducts(NpcProduct npcProduct) {
         this.npcProduct = npcProduct;
     }
+
+    @Override
+    public NpcProduct getProduct() {
+        return null;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
+    }
+
 }

@@ -9,7 +9,9 @@ import model.GameObject.NPC.NpcProduct;
 import model.items.Etc;
 import model.items.Tool;
 
-public enum MarniesRanchProducts {
+import java.util.ArrayList;
+
+public enum MarniesRanchProducts implements Store {
     // --- General Items ---
     HAY(
             new NpcProduct(
@@ -141,7 +143,16 @@ public enum MarniesRanchProducts {
         this.product = product;
     }
 
+    @Override
     public NpcProduct getProduct() {
         return product;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
     }
 }

@@ -8,7 +8,9 @@ import model.GameObject.NPC.NpcProduct;
 import model.items.Etc;
 import model.items.Mineral;
 
-public enum CarpenterShopProducts {
+import java.util.ArrayList;
+
+public enum CarpenterShopProducts implements Store {
     // --- Permanent Stock ---
     WOOD(
             new NpcProduct(
@@ -125,11 +127,21 @@ public enum CarpenterShopProducts {
 
     private final NpcProduct product;
 
+
     CarpenterShopProducts(NpcProduct product) {
         this.product = product;
     }
 
+    @Override
     public NpcProduct getProduct() {
         return product;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
     }
 }

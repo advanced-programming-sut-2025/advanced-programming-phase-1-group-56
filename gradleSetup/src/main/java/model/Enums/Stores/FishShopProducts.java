@@ -11,7 +11,9 @@ import model.GameObject.NPC.NpcProduct;
 import model.items.Food;
 import model.items.Tool;
 
-public enum FishShopProducts {
+import java.util.ArrayList;
+
+public enum FishShopProducts implements Store{
     FISH_SMOKER_RECIPE(
             new NpcProduct(
                     "FISH_SMOKER_RECIPE",
@@ -83,5 +85,18 @@ public enum FishShopProducts {
 
     FishShopProducts(NpcProduct npcProduct) {
         this.npcProduct = npcProduct;
+    }
+
+    @Override
+    public NpcProduct getProduct() {
+        return npcProduct;
+    }
+
+    public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
+        ArrayList<NpcProduct> products = new ArrayList<>();
+        for (T product : enumClass.getEnumConstants()) {
+            products.add(product.getProduct());
+        }
+        return products;
     }
 }
