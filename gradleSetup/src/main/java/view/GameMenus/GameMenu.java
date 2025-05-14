@@ -22,7 +22,6 @@ public class GameMenu implements AppMenu {
                 EnergyAndSkillsCheck(input) ||
                 ToolsCheck(input) ||
                 FarmingCheck(input) ||
-                CraftingCheck(input) ||
                 HusbandryCheck(input) ||
                 ArtisanCheck(input) ||
                 TradeCheck(input) ||
@@ -38,9 +37,7 @@ public class GameMenu implements AppMenu {
 
     public boolean GameCheck(String input) {
         Matcher matcher;
-        if ((matcher = GameCommands.eat.getMatcher(input)).find()) {
-            System.out.println(matcher);
-        }
+
     }
 
 
@@ -89,6 +86,11 @@ public class GameMenu implements AppMenu {
             return true;
         }
         return false;
+    }
+
+    public boolean FarmingCheck(String input) {
+        Matcher matcher;
+        if()
     }
 
 }

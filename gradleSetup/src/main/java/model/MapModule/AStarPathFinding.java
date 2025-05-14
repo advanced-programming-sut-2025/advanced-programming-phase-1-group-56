@@ -14,19 +14,22 @@ public class AStarPathFinding {
     private ArrayList<Node> openList;
     private ArrayList<Node> closedList;
 
-    public AStarPathFinding(Network network) {
+    public AStarPathFinding(Network network , Node start, Node end) {
         this.network = network;
+        this.path = null;
+        this.openList = null;
+        this.closedList = null;
     }
 
-    public void solve() {
+    public ArrayList<Node> solve() {
 
         if (start == null && end == null) {
-            return;
+            return null;
         }
 
         if (start.equals(end)) {
             this.path = new ArrayList<>();
-            return;
+            return path;
         }
 
         this.path = new ArrayList<>();
@@ -72,6 +75,7 @@ public class AStarPathFinding {
             }
 
         }
+        return this.path;
     }
 
     public void reset() {

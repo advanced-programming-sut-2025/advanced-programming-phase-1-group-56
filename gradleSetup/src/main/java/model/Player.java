@@ -6,6 +6,8 @@ import model.Enums.FarmPosition;
 
 import model.Enums.Items.TrashcanType;
 
+import model.Enums.Recepies.CraftingRecipesList;
+import model.Enums.Recepies.FoodRecipesList;
 import model.Enums.Skills;
 import model.GameObject.Animal;
 import model.GameObject.NPC.NPC;
@@ -36,8 +38,8 @@ public class Player implements TimeObserver {
 
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
-    private final ArrayList<CraftTool> toolRecipes = new ArrayList<>();
-    private final ArrayList<CookFood> foodRecipes = new ArrayList<>();
+    private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
+    private final ArrayList<FoodRecipesList> foodRecipes = new ArrayList<>();
 
     //Map Authorities
     private FarmPosition farmPosition;//TODO
@@ -162,19 +164,19 @@ public class Player implements TimeObserver {
     }
 
 
-    public ArrayList<CraftTool> getToolRecipes() {
+    public ArrayList<CraftingRecipesList> getToolRecipes() {
         return toolRecipes;
     }
 
-    public void addToolRecipes(CraftTool toolRecipes) {
+    public void addToolRecipes(CraftingRecipesList toolRecipes) {
         this.toolRecipes.add(toolRecipes);
     }
 
-    public ArrayList<CookFood> getFoodRecipes() {
+    public ArrayList<FoodRecipesList> getFoodRecipes() {
         return foodRecipes;
     }
 
-    public void addFoodRecipes(CookFood foodRecipes) {
+    public void addFoodRecipes(FoodRecipesList foodRecipes) {
         this.foodRecipes.add(foodRecipes);
     }
 

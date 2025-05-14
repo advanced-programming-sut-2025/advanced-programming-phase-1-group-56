@@ -2,7 +2,7 @@ package model.Enums.Items;
 
 import model.Enums.BuffType;
 
-public enum FruitType implements ItemType{
+public enum FruitType implements ItemType {
     APRICOT("Apricot", 38, 59 ,null),
     CHERRY("Cherry", 38,80 , null),
     BANANA("Banana", 75,150 , null),

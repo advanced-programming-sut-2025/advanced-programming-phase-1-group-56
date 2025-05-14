@@ -13,8 +13,6 @@ public abstract class Item implements Saleable {
         this.price = price;
     }
 
-
-
     public void deleteItem() {
     }
 
@@ -31,4 +29,5 @@ public abstract class Item implements Saleable {
     public int getPrice() {
         return price;
     }
+
 }

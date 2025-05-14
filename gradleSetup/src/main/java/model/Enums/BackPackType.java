@@ -1,16 +1,14 @@
 package model.Enums;
 
 public enum BackPackType {
-    InitialBackpack(12,0),//TODO
-    BigBackpack(24,0),//TODO
-    DeluxeBackpack(Integer.MAX_VALUE,0);//TODO
+    InitialBackpack(12),
+    BigBackpack(24),
+    DeluxeBackpack(Integer.MAX_VALUE);
 
     private final int capacity;
-    private final int price;
 
-    BackPackType(int capacity,int price) {
+    BackPackType(int capacity) {
         this.capacity = capacity;
-        this.price = price;
     }
 
     public int getCapacity() {
