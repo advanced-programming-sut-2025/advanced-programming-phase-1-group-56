@@ -1,7 +1,6 @@
 package controller.GameMenuController;
 
 import controller.CommandController;
-import model.Activities.CraftTool;
 import model.App;
 import model.Enums.Direction;
 import model.Enums.Recepies.CraftingRecipesList;
@@ -25,9 +24,9 @@ public class CraftingController extends CommandController {
 
     public static Result craftingItem(Matcher matcher) {
         String ItemName = matcher.group(1);
-        CraftTool recipe = returnCraftingRecipe(ItemName);
-        if (recipe == null) {
-            return new Result(false, "you can't Craft this Recipe!");
+        CraftingRecipesList recipe = returnCraftingRecipe(ItemName);
+        if (recipe != null) {
+            return new Result(true, "you can't Craft this Recipe!");
         } else if (!havaIngredient(recipe)) {
             return new Result(false, "you have not enough ingredients!");
         }
@@ -37,8 +36,8 @@ public class CraftingController extends CommandController {
         tmpString.append("You don't know these recipes yet:\n");
         for (CraftingRecipesList cr : craftingRecipesLists) {
             boolean known = false;
-            for (CraftTool c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
-                if (cr.name.equals(c.getName())) {
+            for (CraftingRecipesList c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
+                if (cr.name.equals(c.name)) {
                     known = true;
                     break;
                 }
@@ -56,13 +55,19 @@ public class CraftingController extends CommandController {
                 tmpString.append("-------------------------------");
             }
         }
-        Item craftingTool = new CraftingTool(recipe.getName(), recipe.getDescription(), recipe.getSellPrice());
+        CraftingRecipesList craftingRecipesList = null;
+        for(CraftingRecipesList cr : craftingRecipesLists) {
+            if(cr.name.equals(recipe.name)) {
+                craftingRecipesList = cr;
+            }
+        }
+        Item craftingTool = new CraftingTool(craftingRecipesList);
         if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(craftingTool, 1);
         } else {
             return new Result(false, "you don't have enough space!");
         }
-        for (Ingredient i : recipe.getIngredients()) {
+        for (Ingredient i : recipe.ingredients) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(returnInventoryItemByName(i.name), i.getQuantity());
         }
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractEnergy(2);
@@ -134,37 +139,37 @@ public class CraftingController extends CommandController {
     }
 
     private static String RecipeList() {
-        ArrayList<CraftTool> craftToolsRecipe = App.getCurrentUser()
+        ArrayList<CraftingRecipesList> craftToolsRecipe = App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
                 .getToolRecipes();
         StringBuilder tmpString = new StringBuilder();
-        for (CraftTool craftTool : craftToolsRecipe) {
-            tmpString.append("Tools Name : ").append(craftTool.getName()).append("\n");
-            tmpString.append("Description : ").append(craftTool.getDescription()).append("\n");
+        for (CraftingRecipesList craftTool : craftToolsRecipe) {
+            tmpString.append("Tools Name : ").append(craftTool.name).append("\n");
+            tmpString.append("Description : ").append(craftTool.description).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient : craftTool.getIngredients()) {
+            for (Ingredient ingredient : craftTool.ingredients) {
                 tmpString.append("Name : ").append(ingredient.getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n----\n");
             }
-            tmpString.append("Sell Price : ").append(craftTool.getSellPrice()).append("\n");
+            tmpString.append("Sell Price : ").append(craftTool.sellPrice).append("\n");
             tmpString.append("----------------------------------");
 
         }
         return tmpString.toString();
     }
 
-    private static CraftTool returnCraftingRecipe(String ItemName) {
-        for (CraftTool craftTool : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
-            if (craftTool.getName().equals(ItemName)) {
+    private static CraftingRecipesList returnCraftingRecipe(String ItemName) {
+        for (CraftingRecipesList craftTool : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
+            if (craftTool.name.equals(ItemName)) {
                 return craftTool;
             }
         }
         return null;
     }
 
-    private static boolean havaIngredient(CraftTool craftTool) {
-        for (Ingredient ingredient : craftTool.getIngredients()) {
+    private static boolean havaIngredient(CraftingRecipesList craftTool) {
+        for (Ingredient ingredient : craftTool.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (slot.getItem().getName().equals(ingredient.getName())) {
@@ -175,7 +180,7 @@ public class CraftingController extends CommandController {
                 return false;
             }
         }
-        for (Ingredient ingredient : craftTool.getIngredients()) {
+        for (Ingredient ingredient : craftTool.ingredients) {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (ingredient.getName().equals(slot.getItem().getName())) {
                     int sum = 0;

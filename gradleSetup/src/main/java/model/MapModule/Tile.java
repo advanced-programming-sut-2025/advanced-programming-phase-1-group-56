@@ -107,4 +107,8 @@ public class Tile extends Node{
         Tile d = (Tile) dest;
         return Math.sqrt(Math.pow(d.position.getX() - position.getX() , 2) + Math.pow(d.position.getY() - position.getY() , 2));
     }
+
+    public void setTileType(TileType tileType) {
+        this.tileType = tileType;
+    }
 }

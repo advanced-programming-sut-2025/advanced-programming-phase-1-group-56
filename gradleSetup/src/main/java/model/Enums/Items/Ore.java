@@ -1,6 +1,6 @@
 package model.Enums.Items;
 
-public enum Ore implements ItemType{
+public enum Ore implements ItemType {
     COPPER_ORE("Copper Ore", "A common ore that can be smelted into bars.", 75, -1),
     IRON_ORE("Iron Ore", "A fairly common ore that can be smelted into bars.", 150, -1),
     COAL("Coal", "A combustible rock that is useful for crafting and smelting.", 150, -1),

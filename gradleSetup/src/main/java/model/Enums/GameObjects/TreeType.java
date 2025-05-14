@@ -7,14 +7,13 @@ import model.Enums.Items.MineralItemType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum TreeType {
-
-    TREE_BARK("Tree Bark", "alaki", -1, EtcType.WOOD, -1 , -1, -1, false, -1, 0 , null),
-    BURNT_TREE("Burnt Tree", "alaki", -1, MineralItemType.COAL, -1 , -1, -1, false, -1, 0 , null),
-    NORMAL_TREE("Normal Tree", "alaki", -1, EtcType.WOOD, -1 ,0  , -1, false, -1, 0 , null),
+    TREE_BARK("Tree Bark", "nothing", -1, EtcType.WOOD, -1 , -1, -1, false, -1, 0 , null),
+    BURNT_TREE("Burnt Tree", "nothing", -1,MineralItemType.COAL, -1 , -1, -1, false, -1, 0 , null),
+    NORMAL_TREE("Normal Tree", "nothing", -1, EtcType.WOOD, -1 ,0  , -1, false, -1, 0 , null),
     // source
     APRICOT_TREE("Apricot Tree", "Apricot Sapling", 7, FruitType.APRICOT, 28 , 1, 59, true, 38, 0 , new Seasons[]{Seasons.Spring}),
     CHERRY_TREE("Cherry Tree", "Cherry Sapling", 7, FruitType.CHERRY, 28 , 1, 80, true, 38, 0 , new Seasons[]{Seasons.Spring}),
-    BANANA_TREE("Banana Tree", "Banana Sapling", 7, FruitType.BANANA, 28 , 1, 150, true, 75, 0 , new Seasons[]{Seasons.Summer}),
+    BANANA_TREE("Banana Tree", "Banana Sapling", 7,FruitType.BANANA, 28 , 1, 150, true, 75, 0 , new Seasons[]{Seasons.Summer}),
     MANGO_TREE("Mango Tree", "Mango Sapling", 7, FruitType.MANGO, 28 , 1, 130, true, 100, 0 , new Seasons[]{Seasons.Summer}),
     ORANGE_TREE("Orange Tree", "Orange Sapling", 7, FruitType.ORANGE, 28 , 1, 100, true, 38, 0 , new Seasons[]{Seasons.Summer}),
     PEACH_TREE("Peach Tree", "Peach Sapling", 7, FruitType.PEACH, 28 , 1, 140, true, 38, 0 , new Seasons[]{Seasons.Summer}),
@@ -40,14 +39,13 @@ public enum TreeType {
     public final int fruitHealth;
     public final Seasons[] season;
 
-
-    TreeType(String name, String source ,int stages,ItemType fruit, int totalHarvestTime, int fruitHarvestCycle,
+    TreeType(String name, String source ,int stages, ItemType fruit, int totalHarvestTime, int fruitHarvestCycle,
              int fruitBaseSellPrice, boolean isFruitEdible, int fruitEnergy, int fruitHealth, Seasons[] season) {
         this.name = name;
-        this.stages = stages;
         this.source = source;
-        this.totalHarvestTime = totalHarvestTime;
+        this.stages = stages;
         this.fruit = fruit;
+        this.totalHarvestTime = totalHarvestTime;
         this.fruitHarvestCycle = fruitHarvestCycle;
         this.fruitBaseSellPrice = fruitBaseSellPrice;
         this.isFruitEdible = isFruitEdible;
@@ -55,4 +53,5 @@ public enum TreeType {
         this.fruitHealth = fruitHealth;
         this.season = season;
     }
+
 }
