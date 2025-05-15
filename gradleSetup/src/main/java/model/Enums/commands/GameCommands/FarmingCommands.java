@@ -6,7 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum FarmingCommands implements Commands {
-    CRAFT_INFO("craftinfo -n (.+)");
+    CRAFT_INFO("craftinfo -n (.+)"),
+    PLANT("plant -s (.+) -d (.+)"),
+    showPlant("showplant -l <(\\d+),(\\d+)>"),
+    feritilize("fertilize -f (.+) -d (.+)");
 
     private final String pattern;
     FarmingCommands(String pattern) {
