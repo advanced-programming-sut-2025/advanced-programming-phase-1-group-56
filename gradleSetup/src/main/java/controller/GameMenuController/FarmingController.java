@@ -76,7 +76,7 @@ public class FarmingController extends CommandController {
                 tmpString.append("Base Sell Price: ").append(cropType.baseSellPrice).append("\n");
                 tmpString.append("Is Edible: ").append(cropType.isEdible).append("\n");
                 tmpString.append("Base Energy: ").append(cropType.energy).append("\n");
-                tmpString.append("Season: ").append(cropType.season.toString()).append("\n");
+                tmpString.append("Season: ").append(Arrays.toString(cropType.season)).append("\n");
                 tmpString.append("Can Become Giant: ").append(cropType.canBecomeGiant).append("\n");
 
             } else {
@@ -119,7 +119,7 @@ public class FarmingController extends CommandController {
                         }
                         if (foragingCropType != null) {
                             tmpString.append("Name: ").append(foragingCropType.cropItem.getName()).append("\n");
-                            tmpString.append("Season: ").append(foragingCropType.season).append("\n");
+                            tmpString.append("Season: ").append(Arrays.toString(foragingCropType.season)).append("\n");
                             tmpString.append("Base Sell Price: ").append(foragingCropType.baseSellPrice).append("\n");
                             tmpString.append("Energy: ").append(foragingCropType.energy).append("\n");
                         } else {
