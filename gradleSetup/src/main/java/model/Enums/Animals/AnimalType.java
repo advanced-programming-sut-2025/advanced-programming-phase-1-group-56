@@ -74,11 +74,26 @@ public enum AnimalType implements Saleable {
     }
 
     public Animal createAnimal(Position position, String name) {
-        return new Animal(position, false, name, this);
+        return new Animal(position, name, this);
     }
 
     @Override
     public String getName() {
         return name;
     }
+
+    public BuildingType getRequiredBuildingType() {
+        return requiredBuilding;
+    }
+
+    public static AnimalType findAnimalTypeByName(String name) {
+        for (AnimalType animalType : AnimalType.values()) {
+            if (animalType.name.equals(name)) {
+                return animalType;
+            }
+        }
+        return null;
+    }
+
+
 }

@@ -12,7 +12,7 @@ public abstract class Store extends Building implements TimeObserver {
     private NPC owner;
     private int openingHour;
     private int closingHour;
-    private ArrayList<NpcProduct> products;
+    protected ArrayList<NpcProduct> dailyProductList;
 
     public void setOwner(NPC owner) {
         this.owner = owner;
@@ -26,11 +26,12 @@ public abstract class Store extends Building implements TimeObserver {
         this.openingHour = openingHour;
     }
 
-    public Store(Position position ,boolean walkable, String name, Position doorPosition, int height, int width) {
-        super(position,walkable,name,doorPosition,height,width);
+    public Store(Position position, boolean walkable, String name, Position doorPosition, int height, int width) {
+        super(position, walkable, name, doorPosition, height, width);
     }
-    public Store(Position position, String name,Position doorPosition, int width, int height, boolean walkable, NPC owner, int openingHour, int closingHour, ArrayList<NpcProduct> products) {
-        super(position, walkable,name, doorPosition, height,width);
+
+    public Store(Position position, String name, Position doorPosition, int width, int height, boolean walkable, NPC owner, int openingHour, int closingHour, ArrayList<NpcProduct> products) {
+        super(position, walkable, name, doorPosition, height, width);
         this.name = name;
         this.owner = owner;
         this.openingHour = openingHour;
@@ -49,12 +50,20 @@ public abstract class Store extends Building implements TimeObserver {
         return owner;
     }
 
-    public ArrayList<NpcProduct> getProducts() {
-        return products;
+    public ArrayList<NpcProduct> getDailyProductList() {
+        return dailyProductList;
     }
 
-    @Override
-    public void onHourChanged(DateTime time, boolean newDay) {
-        //TODO
+    public void setDailyProductList(ArrayList<NpcProduct> dailyProductList) {
+        this.dailyProductList = dailyProductList;
+    }
+
+    public NpcProduct getProductByName(String name) {
+        for (NpcProduct product : dailyProductList) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
     }
 }

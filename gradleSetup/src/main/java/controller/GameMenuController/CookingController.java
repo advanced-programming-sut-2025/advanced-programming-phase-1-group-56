@@ -20,7 +20,7 @@ public class CookingController extends CommandController {
         String input = matcher.group(1).trim();
         Item item = returnRefrigeratorItemByName(input);
         if (item == null) {
-            return new Result(false, "there is no " + item.getName() + " in refrigerator");
+            return new Result(false, "there is no " + input + " in refrigerator");
         }
         App.getCurrentUser()
                 .getCurrentGame()

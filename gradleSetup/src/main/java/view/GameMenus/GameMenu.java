@@ -15,19 +15,21 @@ public class GameMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
 
-        if (!(GameCheck(input) ||
-                DateTimeCheck(input) ||
-                WeatherCheck(input) ||
-                MapCheck(input) ||
-                EnergyAndSkillsCheck(input) ||
-                ToolsCheck(input) ||
-                FarmingCheck(input) ||
-                HusbandryCheck(input) ||
-                ArtisanCheck(input) ||
-                TradeCheck(input) ||
-                RelationShipCheck(input) ||
-                NPCCheck(input))
-        ) {
+        if (!(GameCheck(input)
+//                ||
+//                DateTimeCheck(input) ||
+//                WeatherCheck(input) ||
+//                MapCheck(input) ||
+//                EnergyAndSkillsCheck(input) ||
+//                ToolsCheck(input) ||
+//                FarmingCheck(input) ||
+//                HusbandryCheck(input) ||
+//                ArtisanCheck(input) ||
+//                TradeCheck(input) ||
+//                RelationShipCheck(input) ||
+//                NPCCheck(input)
+
+        )) {
 
             System.out.println("invalid command");
         }
@@ -78,10 +80,10 @@ public class GameMenu implements AppMenu {
 
     public boolean ArtisanCheck(String input) {
         Matcher matcher;
-        if ((matcher = Artisan.use.getMatcher(input)) != null){
+        if ((matcher = Artisan.use.getMatcher(input)) != null) {
 
             return true;
-        } else if((matcher = Artisan.get.getMatcher(input)) != null){
+        } else if ((matcher = Artisan.get.getMatcher(input)) != null) {
 
             return true;
         }
@@ -90,7 +92,7 @@ public class GameMenu implements AppMenu {
 
     public boolean FarmingCheck(String input) {
         Matcher matcher;
-        if()
+        if ()
     }
 
 }

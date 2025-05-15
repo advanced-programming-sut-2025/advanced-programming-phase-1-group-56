@@ -97,4 +97,13 @@ public class Farm extends GameLocation implements TimeObserver {
     public void PlaceAllGameObjectsFromArrayList() {
         //TODO add this if needed
     }
+
+    public GreenHouse getGreenHouse(){
+        for (Building building: buildings) {
+            if (building instanceof GreenHouse) {
+                return (GreenHouse) building;
+            }
+        }
+        return null;
+    }
 }

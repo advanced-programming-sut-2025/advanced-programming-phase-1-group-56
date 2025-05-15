@@ -2,6 +2,7 @@ package model;
 
 import com.google.gson.annotations.Expose;
 import model.Activities.Trade;
+import model.MapModule.Buildings.Store;
 import model.MapModule.GameMap;
 import model.States.WeatherState;
 import model.TimeSystem.TimeSystem;
@@ -186,4 +187,12 @@ public class Game {
         return null;
     }
 
+    public <T extends Store> T findStoreByClass(Class<T> storeClass) {
+        for (Store store : gameMap.getPelikanTown().getStores()) {
+            if (storeClass.isInstance(store)) {
+                return storeClass.cast(store);
+            }
+        }
+        return null; // یا throw new IllegalArgumentException(...)
+    }
 }

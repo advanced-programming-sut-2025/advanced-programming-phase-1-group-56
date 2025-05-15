@@ -1,4 +1,6 @@
 package model.States;
+
+import model.App;
 import model.Enums.WeatherAndTime.WeatherType;
 
 public class WeatherState {
@@ -13,27 +15,21 @@ public class WeatherState {
         return todayWeather == WeatherType.Rainy || todayWeather == WeatherType.Storm;
     }
 
-    public boolean shouldStrikeThunder(){
-        ;;;;
-        //if storm and chance of 50%;
-        return true;//TODO
-    }//TODO move this to farm class
+    public boolean shouldStrikeThunder() {
+        int random = (int) (Math.random() * 100);
+        return App.getCurrentUser().getCurrentGame().getWeatherState().todayWeather == WeatherType.Storm && random < 30;
+    }
 
-    public double getEnergyMultiplier(String season) {
-
-        //TODO
-//        switch (todayWeather) {
-//            case Rainy:
-//            case Storm:
-//                if (!season.equalsIgnoreCase("winter")) return 1.5;
-//                break;
-//            case Snow:
-//                if (season.equalsIgnoreCase("winter")) return 2.0;
-//                break;
-//        }
-//        return 1.0;
-
-        return "OMG WOW".length();
+    public double getEnergyMultiplier() {
+        switch (todayWeather) {
+            case Rainy:
+                return 1.2;
+            case Storm:
+                return 0.5;
+            case Sunny:
+                return 1.5;
+        }
+        return 1.0;
     }
 
     public WeatherType getTodayWeather() {
