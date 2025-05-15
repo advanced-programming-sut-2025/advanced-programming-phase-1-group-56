@@ -5,6 +5,7 @@ import model.App;
 import model.Enums.WeatherAndTime.WeatherType;
 
 import model.GameObject.Animal;
+import model.MapModule.Tile;
 import model.items.AnimalProduct;
 import model.MapModule.Position;
 import model.Result;
@@ -12,49 +13,34 @@ import model.Result;
 import java.util.regex.Matcher;
 
 public class HusbandryController extends CommandController {
-    public static Result buildCoopOrBarn(Matcher matcher) {
-        String buildingName = matcher.group(1);
-        int x = Integer.parseInt(matcher.group(2));
-        int y = Integer.parseInt(matcher.group(3));
-
-        //TODO check to can it build in this place
-        if(buildingName.equals("Barn")){
-            //TODO check have ingredients
-            //TODO check have player money to purchase
-        }else if(buildingName.equals("Coop")){
-            //TODO check have ingredients
-            //TODO check have player money to purchase
-
-        }
-        return new Result(true,"this building has been built");
-    }
-
-    public static Result manageBuyAnimal(Matcher matcher) {
-        String animalName = matcher.group(1);
-        String nickName = matcher.group(2);
-        Animal animal = returnAnimal(animalName);
-        //TODO hava space in Coop or Barn
-        if(!isUniqueAnimalNickName(nickName)){
-            return new Result(false,"you have already built this animal with that name");
-        }
-        App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getAnimals()
-                .add(animal);
-        return new Result(true,"you buy this animal");
-    }
 
     public static Result petting(Matcher matcher) {
         String name = matcher.group(1);
-
         Animal animal = returnAnimal(name);
+        if(animal == null) {
+            return new Result(false, "Animal not found");
+        }
+        Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
+        boolean isExist = false;
+        for(int i = -1 ; i < 2 ; i++){
+            for(int j = -1 ; j < 2 ; j++){
+                if(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(position.getX()+i, position.getY()+j).getFixedObject() instanceof Animal) {
+                    if(((Animal)(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(position.getX()+i, position.getY()+j).getFixedObject())).getNickName().equals(name)){
+                        isExist = true;
+                    }
+                }
+            }
+        }
+        if(!isExist){
+            return new Result(false, "Animal is not around u!");
+        }
         for(Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()){
             if(animal2.getName().equals(name)){
                 animal2.addFriendShip(15);
             }
         }
         return new  Result(true,"you petting "+ animal.getName());
+
     }
 
     public static Result showInfoOfAnimal() {
