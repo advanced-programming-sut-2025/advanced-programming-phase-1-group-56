@@ -7,10 +7,9 @@ import model.MapModule.Position;
 import model.items.ArtisanGood;
 
 public class ArtesianMachine extends GameObject {
-    private ArtisanMachineType artesianMachineType;
+    private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
-
     private int processTime;
 
     public ArtesianMachine(boolean walkable, Position position, ArtisanGoodType artisanGoodType) {
@@ -29,7 +28,12 @@ public class ArtesianMachine extends GameObject {
         return artisanGood;
     }
 
+
     public void setArtisanGood(ArtisanGood artisanGood) {
         this.artisanGood = artisanGood;
+    }
+
+    public ArtisanMachineType getArtisanMachineType() {
+        return artisanMachineType;
     }
 }

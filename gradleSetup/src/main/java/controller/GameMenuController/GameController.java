@@ -60,51 +60,26 @@ public class GameController extends CommandController {
         boolean isEndOfCycle = indexOfCurrent+1>=game.getPlayers().size();
         int indexOfNext = (isEndOfCycle)?0:indexOfCurrent+1;
         game.setCurrentPlayer(game.getPlayers().get(indexOfNext));
-        //TODO hour ++
         if(isEndOfCycle){
-            game.getTimeSystem().getDateTime().addHour(1);
-            boolean newDay = game.getTimeSystem().getDateTime().getHour() >= 23;
-            if(newDay){
-                game.getTimeSystem().getDateTime().setHour(9);
-                game.getTimeSystem().getDateTime().addDay(1);
-            }
-            game.getTimeSystem().notifyObservers(newDay);
+            App.getCurrentUser().getCurrentGame().getTimeSystem().nextHour();
         }
+
         //TODO add every thing that should be done
+        //Here is the start of the next player turn do every thing needed
+        if(App.getMe().isFainted())
+        {
+            skipTurn();
+        }
+
         return new Result(true,currentPlayer.getUser().getName() +" turn ended.. its now turn of :" +
                 game.getCurrentPlayer().getUser().getName());
     }
 
-    public Result skipTurn(){
+    public static Result skipTurn(){
         System.out.println("Skipping turn...");
         return manageNextTurn();
     }
 
-    public Result calculateMoveEnergy(int x , int y){
-        Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
 
-        ArrayList<Node> path = new AStarPathFinding(player.getCurrentGameLocation() ,
-                player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() ,
-                        player.getPosition().getY()) , player.getCurrentGameLocation().getTiles()[x][y]).solve();
-
-        if (path == null || path.size() == 0) {
-            return new Result(false,"No path found");
-        } else {
-            double neededEnergy = (double) path.size() /20;
-            return new Result(true , String.format("you need %f energy to go to tile<%d , %d>. Are you sure that you want to go?" , neededEnergy , x , y));
-        }
-//        App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-    }
-
-    public Result movePlayer(int x , int y , int neededEnergy , ArrayList<Node> path){
-        Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        double availableDistance = player.getEnergy().getEnergy()*20;
-        player.setPosition(((Tile)path.get((int) Math.floor(path.size() - availableDistance))).getPosition());
-        if (player.getEnergy().getEnergy() < neededEnergy) {
-            return new Result(false , String.format("you faint at Tile <%d , %d>" , player.getPosition().getX() , player.getPosition().getY()));
-        } else {
-            return new Result(true , String.format("you are at Tile <%d , %d>" , player.getPosition().getX() , player.getPosition().getY()));
-        }
-    }
 
 }

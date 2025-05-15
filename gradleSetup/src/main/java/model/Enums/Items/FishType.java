@@ -24,7 +24,9 @@ public enum FishType implements ItemType {
     Legend("Legend", 5000, Seasons.Spring, true),
     Glacierfish("Glacierfish", 1000, Seasons.Winter, true),
     Angler("Angler", 900, Seasons.Fall, true),
-    Crimsonfish("Crimsonfish", 1500, Seasons.Summer, true);
+    Crimsonfish("Crimsonfish", 1500, Seasons.Summer, true),
+
+    ANY_FISH("Any Fish", 1500, Seasons.Summer, true),;
 
 
     private final String name;

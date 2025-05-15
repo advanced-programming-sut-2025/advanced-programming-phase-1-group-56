@@ -1,6 +1,6 @@
 package model.items;
 
-import model.Activities.ArtesianRecepie;
+//import model.Activities.ArtesianRecepie;
 import model.Enums.Recepies.CraftingRecipesList;
 import model.Ingredient;
 
