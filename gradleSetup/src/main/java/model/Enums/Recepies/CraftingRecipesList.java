@@ -90,7 +90,7 @@ public enum CraftingRecipesList {
             "Fish Shop", 0),
 
     MysticTreeSeed("Mystic Tree Seed", "Can be planted to grow a mystic tree",
-            new Slot[]{new Slot(new Seed(SpecialTreeSeed.MAPLE_SEED), 5), new Slot(new Seed(SpecialTreeSeed.MAPLE_SEED), 5), new Slot(SpecialTreeSeed.PINE_CONE, 5), new Slot(new Seed(SpecialTreeSeed.MAHOGANY_SEED), 5)},
+            new Slot[]{new Slot(new Seed(SeedType.MAPLE_SEED), 5), new Slot(new Seed(SeedType.MAPLE_SEED), 5), new Slot(new Seed(SeedType.PINE_SEED), 5), new Slot(new Seed(SeedType.MAHOGANY_SEED), 5)},
             "Foraging Level 4", 100);
 
     public final String name;
