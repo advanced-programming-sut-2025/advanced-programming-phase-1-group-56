@@ -11,8 +11,6 @@ public class Animal extends LivingEntity {
     private String name;
     private AnimalType animalInfo;
     private int friendship = 0;
-    private int health;//TODO
-    private int hungaryBar;//TODO
     private ArrayList<AnimalProduct> products;
     private boolean isFed = false;
     private boolean isCaressed = false;

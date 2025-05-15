@@ -63,6 +63,7 @@ public class FarmLoader {
                                 case "plowedsoil" -> TileType.PlowedSoil;
                                 case "waterplowedsoil" -> TileType.WaterPlowedSoil;
                                 case "wrapper" -> TileType.Wrapper;
+                                case "mine" -> TileType.Mine;
                                 case "default" -> TileType.Default;
                                 default -> TileType.Default;
                             };

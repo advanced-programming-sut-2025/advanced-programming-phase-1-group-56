@@ -120,9 +120,9 @@ public class CraftingController extends CommandController {
             default:
                 break;
         }
-        Tile tile = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y);
+
         DroppedItem droppedItem = new DroppedItem(item,new Position(x,y));
-        tile.setFixedObject(droppedItem);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(droppedItem);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
         return new Result(true, "you placed a item!");
     }
@@ -217,7 +217,7 @@ public class CraftingController extends CommandController {
         return null;
     }
 
-    public static Direction getDirectionFromString(String input) {
+    private static Direction getDirectionFromString(String input) {
         try {
             return Direction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
