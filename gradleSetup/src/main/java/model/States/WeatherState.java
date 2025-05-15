@@ -21,15 +21,12 @@ public class WeatherState {
     }
 
     public double getEnergyMultiplier() {
-        switch (todayWeather) {
-            case Rainy:
-                return 1.2;
-            case Storm:
-                return 0.5;
-            case Sunny:
-                return 1.5;
-        }
-        return 1.0;
+        return switch (todayWeather) {
+            case Rainy -> 1.2;
+            case Storm -> 0.5;
+            case Sunny -> 1.5;
+            default -> 1.0;
+        };
     }
 
     public WeatherType getTodayWeather() {

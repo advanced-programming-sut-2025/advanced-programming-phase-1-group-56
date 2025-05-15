@@ -1,10 +1,14 @@
 package view.GameMenus;
 
+import controller.GameMenuController.FarmingController;
 import controller.GameMenuController.FishingController;
 import controller.GameMenuController.HusbandryController;
+import model.App;
 import model.Enums.commands.GameCommands.Artisan;
+import model.Enums.commands.GameCommands.FarmingCommands;
 import model.Enums.commands.GameCommands.GameCommands;
 import model.Enums.commands.GameCommands.HusbandryCommands;
+import model.MapModule.GameLocations.Farm;
 import view.AppMenu;
 
 import java.util.Scanner;
@@ -15,21 +19,19 @@ public class GameMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
 
-        if (!(GameCheck(input)
-//                ||
-//                DateTimeCheck(input) ||
-//                WeatherCheck(input) ||
-//                MapCheck(input) ||
-//                EnergyAndSkillsCheck(input) ||
-//                ToolsCheck(input) ||
-//                FarmingCheck(input) ||
-//                HusbandryCheck(input) ||
-//                ArtisanCheck(input) ||
-//                TradeCheck(input) ||
-//                RelationShipCheck(input) ||
-//                NPCCheck(input)
-
-        )) {
+        if (!(GameCheck(input) ||
+                DateTimeCheck(input) ||
+                WeatherCheck(input) ||
+                MapCheck(input) ||
+                EnergyAndSkillsCheck(input) ||
+                ToolsCheck(input) ||
+                FarmingCheck(input) ||
+                HusbandryCheck(input) ||
+                ArtisanCheck(input) ||
+                TradeCheck(input) ||
+                RelationShipCheck(input) ||
+                NPCCheck(input))
+        ) {
 
             System.out.println("invalid command");
         }
@@ -92,7 +94,36 @@ public class GameMenu implements AppMenu {
 
     public boolean FarmingCheck(String input) {
         Matcher matcher;
-        if ()
+        if ((matcher = FarmingCommands.CRAFT_INFO.getMatcher(input)).find()) {
+            if(!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)){
+                System.out.println("you are not in the farm!");
+                return false;
+            }
+            System.out.println(FarmingController.craftInfo(matcher));
+            return true;
+        } else if ((matcher = FarmingCommands.PLANT.getMatcher(input)).find()) {
+            if(!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)){
+                System.out.println("you are not in the farm!");
+                return false;
+            }
+            System.out.println(FarmingController.managePlantSeed(matcher));
+            return true;
+        } else if ((matcher = FarmingCommands.showPlant.getMatcher(input)).find()) {
+            if(!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)){
+                System.out.println("you are not in the farm!");
+                return false;
+            }
+            System.out.println(FarmingController.showPlant(matcher));
+            return true;
+        } else if((matcher = FarmingCommands.feritilize.getMatcher(input)).find()) {
+            if(!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)){
+                System.out.println("you are not in the farm!");
+                return false;
+            }
+            System.out.println(FarmingController.manageFertilize(matcher));
+            return true;
+        }
+            return false;
     }
 
 }
