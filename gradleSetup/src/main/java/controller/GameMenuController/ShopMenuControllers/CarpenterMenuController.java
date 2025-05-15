@@ -1,89 +1,161 @@
 package controller.GameMenuController.ShopMenuControllers;
 
 import model.App;
+import model.Enums.Buildings.BuildingType;
+import model.Enums.Items.EtcType;
+import model.Enums.Items.MineralItemType;
 import model.Enums.Stores.BlackSmithProducts;
 import model.Enums.Stores.CarpenterShopProducts;
+import model.Game;
 import model.GameObject.NPC.NpcProduct;
+import model.GameObject.ShippingBar;
+import model.GameObject.Well;
+import model.MapModule.Buildings.Barn;
+import model.MapModule.Buildings.Building;
+import model.MapModule.Buildings.CarpentersShop;
+import model.MapModule.Buildings.Coop;
+import model.MapModule.GameLocations.Farm;
+import model.MapModule.GameLocations.GameLocation;
+import model.MapModule.Position;
 import model.Player;
 import model.Result;
+import model.items.Etc;
 import model.items.Item;
+import model.items.Mineral;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class CarpenterMenuController implements ShopController {
-    @Override
-    public Result showAllProducts() {
-        StringBuilder builder = new StringBuilder();
-        for (CarpenterShopProducts products : CarpenterShopProducts.values()) {
-            NpcProduct product = products.getProduct();
-            builder.append("Name :\t'").append(product.getName())
-                    .append((product.getSaleable() instanceof Item) ? "' (item)" : "' house")
-                    .append("\n\tDescription : '").append(product.getDescription())
-                    .append("'\n\tPrice: ").append(product.getPrice())
-                    .append("\n----------------------\n");
-        }
-        return new Result(true, builder.toString());
+    public static Result showAllProducts() {
+        return ShopController.showAllProducts(
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(CarpentersShop.class).getDailyProductList());
     }
 
-    @Override
-    public Result ShowAllAvailableProducts() {
-        StringBuilder builder = new StringBuilder();
-        for (CarpenterShopProducts products : CarpenterShopProducts.values()) {
-            NpcProduct product = products.getProduct();
-            if (product.getRemainingStock() > 0) {
-                if (product.getSaleable() instanceof Item) {
+    public static Result showAllAvailableProducts() {
+        return ShopController.showAllAvailableProducts(
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(CarpentersShop.class).getDailyProductList());
+    }
 
-                    builder.append("name :\t'").append(product.getName())
-                            .append("'\n\tprice: ").append(product.getPrice())
-                            .append("\n\tstock: ").append(product.getRemainingStock())
-                            .append("out of ").append(product.getDailyStock()).append("remained.")
-                            .append("\n----------------------\n");
+    public static Result PurchaseProduct(Matcher matcher) {
+        return ShopController.purchaseProductFromList(matcher,
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(CarpentersShop.class).getDailyProductList());
+    }
+
+    public static Result BuildABuilding(Matcher matcher) {
+        String name = matcher.group(1).toUpperCase();
+        String[] coords = matcher.group(2).split(",");
+        int x, y;
+        try {
+            x = Integer.parseInt(coords[0].trim());
+            y = Integer.parseInt(coords[1].trim());
+        } catch (Exception e) {
+            return new Result(false, "Coordinates must be integers (x,y).");
+        }
+
+        Farm farm = App.getMe().getPlayerFarm();
+
+        // 2. lookup type
+        BuildingType type = BuildingType.getTypeByName(name);
+
+        if (type == null) {
+            return new Result(false, "Unknown Building Type: " + name);
+        }
+
+
+        if (!farm.isWithinBounds(x, y, type.getWidth(), type.getHeight())) {
+            return new Result(false, "Position (" + x + "," + y + ") is outside the farm.");
+        }
+
+        // 3. collision check
+        for (int dx = 0; dx < type.getWidth(); dx++) {
+            for (int dy = 0; dy < type.getHeight(); dy++) {
+                if (!farm.getTileByPosition(x + dx, y + dy).isWalkable() ||
+                        farm.getTileByPosition(x + dx, y + dy).getFixedObject() != null) {
+                    return new Result(false, "Cannot build: space occupied at (" + (x + dx) + "," + (y + dy) + ").");
                 }
             }
         }
-        return new Result(true, builder.toString());
-    }
+        Game thisGame = App.getCurrentUser().getCurrentGame();
+        Player me = App.getMe();
+        NpcProduct product = thisGame.findStoreByClass(CarpentersShop.class).findBuildingByType(type);
+        if (product == null) {
+            return new Result(false, "Shop doesn't has this type of building type ");
+        }
+        if (product.getRemainingStock() == 0) {
+            return new Result(false, "this building is out of stock today");
+        }
 
-    @Override
-    public Result PurchaseProduct(Matcher matcher) {
-        String productName = matcher.group(1);
-        String amountStr = matcher.group(2);
-        int amount;
-        if (amountStr == null) {
-            amount = 1;
-        } else {
-            try {
-                amount = Integer.parseInt(amountStr.trim());
-            } catch (NumberFormatException e) {
-                return new Result(false, e.getMessage());
+        // 4. resources check
+        int needWood = type.getWoodCount();
+        int needStone = type.getStoneCount();
+        if (me.getInventory().countItem(new Etc(EtcType.WOOD)) < needWood ||
+                me.getInventory().countItem(new Mineral(MineralItemType.STONE)) < needStone) {
+            return new Result(false, "Not enough materials: need " +
+                    needWood + " wood, " + needStone + " stone.");
+        }
+        if (me.getGold() < product.getPrice()) {
+            return new Result(false, "Not enough gold: need " + product.getPrice() + "g.");
+        }
+
+        // 5. construct & place
+        switch (type) {
+            case BuildingType.BARN:
+            case BuildingType.BIG_BARN:
+            case BuildingType.DELUXE_BARN: {
+                Barn newBarn = new Barn(new Position(x, y), type);
+                for (int i = x; i < x + type.getWidth(); i++) {
+                    for (int j = y; j < y + type.getHeight(); j++) {
+                        farm.getTileByPosition(i, j).setFixedObject(newBarn);
+                    }
+                }
+                App.getMe().getPlayerFarm().getBuildings().add(newBarn);
             }
-        }
-        ArrayList<NpcProduct> list = CarpenterShopProducts.getProducts(CarpenterShopProducts.class);
-        NpcProduct productToBuy = ShopController.findProductByName(list, productName);
-        Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        if (productToBuy == null) {
-            return new Result(false, productName + " does not exist in the store");
-        }
-        if (productToBuy.getSaleable() instanceof Item item) {
-            if (productToBuy.getRemainingStock() == 0) {
-                return new Result(false, productName + " is ran out of stock,comeback tomorrow...");
-            } else if (productToBuy.getRemainingStock() < amount) {
-                return new Result(false, " only " + productToBuy.getRemainingStock() + "of " + productName
-                        + " has remained..there is not enough amount you want..");
-            } else if (productToBuy.getPrice() * amount > me.getGold()) {
-                return new Result(false, "you can't afford buy this\n" +
-                        "you have :" + me.getGold() + " gold,but you need: " + productToBuy.getPrice() * amount);
+            break;
+            case BuildingType.COOP:
+            case BuildingType.BIG_COOP:
+            case BuildingType.DELUXE_COOP: {
+                Coop newCoop = new Coop(new Position(x, y), type);
+                for (int i = x; i < x + type.getWidth(); i++) {
+                    for (int j = y; j < y + type.getHeight(); j++) {
+                        farm.getTileByPosition(i, j).setFixedObject(newCoop);
+                    }
+                }
+                App.getMe().getPlayerFarm().getBuildings().add(newCoop);
             }
-            productToBuy.setRemainingStock(-amount);
-            me.getInventory().add(item, amount);
-            me.addGold(-amount * productToBuy.getPrice());
-            return new Result(true, "purchase successful..");
+            break;
+            case BuildingType.WELL: {
+                Well newWell = new Well(new Position(x, y));
+                for (int i = x; i < x + type.getWidth(); i++) {
+                    for (int j = y; j < y + type.getHeight(); j++) {
+                        farm.getTileByPosition(i, j).setFixedObject(newWell);
+                    }
+                }
+//                                App.getMe().getPlayerFarm().getBuildings().add(newBin);
+            }
+            break;
+            case BuildingType.SHIPPING_BIN: {
+                ShippingBar newBin = new ShippingBar(new Position(x, y), farm);
+                for (int i = x; i < x + type.getWidth(); i++) {
+                    for (int j = y; j < y + type.getHeight(); j++) {
+                        farm.getTileByPosition(i, j).setFixedObject(newBin);
+                    }
+                }
+//                App.getMe().getPlayerFarm().getBuildings().add(newBin);
+            }
+            break;
         }
-        //upgrading tool
-        else {
-            return new Result(false, "you can only buy items with this command for upgrading tools" +
-                    " you should try Command 'tools upgrade <tool_name>'\n");
-        }
+
+        me.getInventory().remove(new Etc(EtcType.WOOD), needWood);
+        me.getInventory().remove(new Mineral(MineralItemType.STONE), needStone);
+        me.addGold(-product.getPrice());
+        product.setRemainingStock(product.getRemainingStock() - 1);
+
+
+        return new Result(true, name + " built at (" + x + "," + y + ").");
     }
 }
+

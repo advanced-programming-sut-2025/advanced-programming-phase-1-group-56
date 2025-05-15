@@ -9,12 +9,12 @@ public class NpcProduct{
     private final Saleable saleable;
     private final String description;
     private final int price;
-    private final double outOfSeasonPrice;
+    private final int outOfSeasonPrice;
     private final Seasons[] seasons;
     private final int dailyStock;
     private int remainingStock;
 
-    public NpcProduct(String name,Saleable saleable, String description, int price, double outOfSeasonPrice, Seasons[] seasons, int dailyStock) {
+    public NpcProduct(String name,Saleable saleable, String description, int price, int outOfSeasonPrice, Seasons[] seasons, int dailyStock) {
         this.name = name;
         this.saleable = saleable;
         this.description = description;
@@ -45,7 +45,7 @@ public class NpcProduct{
         return seasons;
     }
 
-    public double getOutOfSeasonPrice() {
+    public int getOutOfSeasonPrice() {
         return outOfSeasonPrice;
     }
 

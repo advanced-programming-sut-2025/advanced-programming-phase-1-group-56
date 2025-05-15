@@ -1,32 +1,29 @@
 package controller.GameMenuController.ShopMenuControllers;
 
-import model.GameObject.NPC.NpcProduct;
+import model.App;
+import model.MapModule.Buildings.FishShop;
+import model.MapModule.Buildings.PierresGeneralStore;
 import model.Result;
+import model.items.Fish;
+
+import java.util.regex.Matcher;
 
 public class FishShopMenuController implements ShopController {
-    @Override
-    public Result showAllProducts(){
-        StringBuilder builder = new StringBuilder();
-        for (NpcProduct product : StoreType.FISH_SHOP.getProducts()) {
-            builder.append("name :\t'").append(product.getItem().getName()).append("'\tprice:")
-                    .append(product.getPrice())
-                    .append("\n----------------------\n");
-        }
-        return new Result(true, builder.toString());
+    public static Result showAllProducts() {
+        return ShopController.showAllProducts(
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(FishShop.class).getDailyProductList());
     }
 
-    @Override
-    public Result ShowAllAvailableProducts() {
-        StringBuilder builder = new StringBuilder();
-        for (NpcProduct product : StoreType.FISH_SHOP.getProducts()) {
-            if(product.getRemainingStock() > 0){
-                builder.append("name :\t'").append(product.getItem().getName()).append("'\tprice:")
-                        .append(product.getPrice()).append("\nstock: ")
-                        .append(product.getRemainingStock()).append("out of ")
-                        .append(product.getDailyStock()).append("remained.")
-                        .append("\n----------------------\n");
-            }
-        }
-        return new Result(true, builder.toString());
+    public static Result showAllAvailableProducts() {
+        return ShopController.showAllAvailableProducts(
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(FishShop.class).getDailyProductList());
+    }
+
+    public static Result PurchaseProduct(Matcher matcher) {
+        return ShopController.purchaseProductFromList(matcher,
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(FishShop.class).getDailyProductList());
     }
 }

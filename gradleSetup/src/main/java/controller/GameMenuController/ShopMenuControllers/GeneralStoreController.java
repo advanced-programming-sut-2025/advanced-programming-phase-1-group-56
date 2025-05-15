@@ -1,33 +1,29 @@
 package controller.GameMenuController.ShopMenuControllers;
 
-import model.Enums.Registery.StoreType;
+import model.App;
 import model.GameObject.NPC.NpcProduct;
+import model.MapModule.Buildings.JojaMart;
+import model.MapModule.Buildings.PierresGeneralStore;
 import model.Result;
 
+import java.util.regex.Matcher;
+
 public class GeneralStoreController implements ShopController {
-    @Override
-    public Result showAllProducts(){
-        StringBuilder builder = new StringBuilder();
-        for (NpcProduct product : StoreType.GENERAL_STORE.getProducts()) {
-            builder.append("name :\t'").append(product.getItem().getName()).append("'\tprice:")
-                    .append(product.getPrice())
-                    .append("\n----------------------\n");
-        }
-        return new Result(true, builder.toString());
+    public static Result showAllProducts() {
+        return ShopController.showAllProducts(
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(PierresGeneralStore.class).getDailyProductList());
     }
 
-    @Override
-    public Result ShowAllAvailableProducts() {
-        StringBuilder builder = new StringBuilder();
-        for (NpcProduct product : StoreType.GENERAL_STORE.getProducts()) {
-            if(product.getRemainingStock() > 0){
-            builder.append("name :\t'").append(product.getItem().getName()).append("'\tprice:")
-                    .append(product.getPrice()).append("\nstock: ")
-                    .append(product.getRemainingStock()).append("out of ")
-                    .append(product.getDailyStock()).append("remained.")
-                    .append("\n----------------------\n");
-            }
-        }
-        return new Result(true, builder.toString());
+    public static Result showAllAvailableProducts() {
+        return ShopController.showAllAvailableProducts(
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(PierresGeneralStore.class).getDailyProductList());
+    }
+
+    public static Result PurchaseProduct(Matcher matcher) {
+        return ShopController.purchaseProductFromList(matcher,
+                App.getCurrentUser().getCurrentGame().
+                        findStoreByClass(PierresGeneralStore.class).getDailyProductList());
     }
 }

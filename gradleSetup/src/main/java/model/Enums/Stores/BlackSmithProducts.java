@@ -1,5 +1,6 @@
 package model.Enums.Stores;
 
+import model.Enums.Items.EtcType;
 import model.Enums.Items.MineralItemType;
 import model.Enums.Items.ToolType;
 import model.Enums.Items.TrashcanType;
@@ -63,7 +64,7 @@ public enum BlackSmithProducts implements Store {
     COPPER_TOOL(
             new NpcProduct(
                     "COPPER_TOOL",
-                    null,
+                    EtcType.COPPER_BAR,
                     "",
                     2000,
                     -1,
@@ -74,7 +75,7 @@ public enum BlackSmithProducts implements Store {
     STEEL_TOOL(
             new NpcProduct(
                     "STEEL_TOOL",
-                    null,
+                    EtcType.IRON_BAR,
                     "",
                     5000,
                     -1,
@@ -85,7 +86,7 @@ public enum BlackSmithProducts implements Store {
     GOLD_TOOL(
             new NpcProduct(
                     "GOLD_TOOL",
-                    null,
+                    EtcType.GOLD_BAR,
                     "",
                     10000,
                     -1,
@@ -96,7 +97,7 @@ public enum BlackSmithProducts implements Store {
     IRIDIUM_TOOL(
             new NpcProduct(
                     "IRIDIUM_TOOL",
-                    null,
+                    EtcType.IRIDIUM_BAR,
                     "",
                     25000,
                     -1,
@@ -109,7 +110,7 @@ public enum BlackSmithProducts implements Store {
     COPPER_TRASH_CAN(
             new NpcProduct(
                     "COPPER_TRASH_CAN",
-                    null,
+                    EtcType.COPPER_BAR,
                         "",
                     1000,
                     -1,
@@ -120,7 +121,7 @@ public enum BlackSmithProducts implements Store {
     STEEL_TRASH_CAN(
             new NpcProduct(
                     "STEEL_TRASH_CAN",
-                    null,
+                    EtcType.IRON_BAR,
                     "",
                     2500,
                     -1,
@@ -131,7 +132,7 @@ public enum BlackSmithProducts implements Store {
     GOLD_TRASH_CAN(
             new NpcProduct(
                     "GOLD_TRASH_CAN",
-                    null,
+                    EtcType.GOLD_BAR,
                     "",
                     5000,
                     -1,
@@ -142,7 +143,7 @@ public enum BlackSmithProducts implements Store {
     IRIDIUM_TRASH_CAN(
             new NpcProduct(
                     "IRIDIUM_TRASH_CAN",
-                    null,
+                    EtcType.IRIDIUM_BAR,
                     "",
                     12500,
                     -1,

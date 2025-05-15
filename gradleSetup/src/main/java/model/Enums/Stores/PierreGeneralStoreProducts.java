@@ -177,7 +177,7 @@ public enum PierreGeneralStoreProducts implements Store {
     CHERRY_SAPLING(
             new NpcProduct(
                     "CHERRY_SAPLING",
-                    TreeType.CHERRY_TREE,
+                    TreeType.CHERRY_TREE,//TODO
                     "Takes 28 days to produce a mature Cherry tree. Bears fruit in the spring. Only grows if the 8 surrounding \"tiles\" are empty.",
                     3400,
                     -1,

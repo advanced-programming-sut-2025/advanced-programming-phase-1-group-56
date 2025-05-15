@@ -32,7 +32,7 @@ public class Inventory {
 
     public void add(Item item, int quantity) {
         for (Slot slot : slots) {
-            if (slot.getItem().equals(item)) {
+            if (slot.getItem().getName().equals(item.getName())) {
                 if (slot.getQuantity() + quantity < item.getMaxStackSize())
                     slot.setQuantity(slot.getQuantity() + quantity);
                 else if (slot.getQuantity() + quantity > item.getMaxStackSize()) {
@@ -74,7 +74,7 @@ public class Inventory {
     public void remove(Item item, int quantity) {
         int tmpQuantity = quantity;
         for (Slot slot : slots) {
-            if (slot.getItem().equals(item)) {
+            if (slot.getItem().getName().equals(item.getName())) {
                 if(slot.getQuantity() >= tmpQuantity) {
                     slot.setQuantity(slot.getQuantity() - tmpQuantity);
                     if(slot.getQuantity()==0){
@@ -92,7 +92,7 @@ public class Inventory {
     public int countItem(Item item){
         int sum = 0;
         for (Slot slot : slots) {
-            if (slot.getItem().equals(item)) {
+            if (slot.getItem().getName().equals(item.getName())) {
                 sum += slot.getQuantity();
             }
         }
@@ -117,7 +117,7 @@ public class Inventory {
         int max = 0;
         max +=  (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
         for (Slot slot : slots) {// for semi full slots of same item
-            if (slot.getItem().equals(item)) {
+            if (slot.getItem().getName().equals(item.getName())) {
                 max += item.maxStackSize - slot.getQuantity();
             }
         }
