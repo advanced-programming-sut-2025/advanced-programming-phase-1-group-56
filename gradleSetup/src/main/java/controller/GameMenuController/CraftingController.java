@@ -47,10 +47,10 @@ public class CraftingController extends CommandController {
                 tmpString.append("- Description : ").append(cr.description).append("\n");
                 tmpString.append("- Ingredients : \n");
                 int count = 0;
-                for (Ingredient i : cr.ingredients) {
+                for (Slot i : cr.ingredients) {
                     count += 1;
-                    tmpString.append(count + ".").append("  name : ").append(i.name);
-                    tmpString.append("   quantity : ").append(i.quantity).append("\n");
+                    tmpString.append(count + ".").append("  name : ").append(i.getItem().getName());
+                    tmpString.append("   quantity : ").append(i.getQuantity()).append("\n");
                 }
                 tmpString.append("-------------------------------");
             }
@@ -67,8 +67,8 @@ public class CraftingController extends CommandController {
         } else {
             return new Result(false, "you don't have enough space!");
         }
-        for (Ingredient i : recipe.ingredients) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(returnInventoryItemByName(i.name), i.getQuantity());
+        for (Slot i : recipe.ingredients) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(returnInventoryItemByName(i.getItem().getName()), i.getQuantity());
         }
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractEnergy(2);
 
@@ -148,8 +148,8 @@ public class CraftingController extends CommandController {
             tmpString.append("Tools Name : ").append(craftTool.name).append("\n");
             tmpString.append("Description : ").append(craftTool.description).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient : craftTool.ingredients) {
-                tmpString.append("Name : ").append(ingredient.getName()).append("\n");
+            for (Slot ingredient : craftTool.ingredients) {
+                tmpString.append("Name : ").append(ingredient.getItem().getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n----\n");
             }
             tmpString.append("Sell Price : ").append(craftTool.sellPrice).append("\n");
@@ -169,10 +169,10 @@ public class CraftingController extends CommandController {
     }
 
     private static boolean havaIngredient(CraftingRecipesList craftTool) {
-        for (Ingredient ingredient : craftTool.ingredients) {
+        for (Slot ingredient : craftTool.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (slot.getItem().getName().equals(ingredient.getName())) {
+                if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
                 }
             }
@@ -180,16 +180,16 @@ public class CraftingController extends CommandController {
                 return false;
             }
         }
-        for (Ingredient ingredient : craftTool.ingredients) {
+        for (Slot ingredient : craftTool.ingredients) {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (ingredient.getName().equals(slot.getItem().getName())) {
+                if (ingredient.getItem().getName().equals(slot.getItem().getName())) {
                     int sum = 0;
                     for (Slot slot1 : App.getCurrentUser()
                             .getCurrentGame()
                             .getCurrentPlayer()
                             .getInventory()
                             .getSlots()) {
-                        if (slot1.getItem().getName().equals(ingredient.getName())) {
+                        if (slot1.getItem().getName().equals(ingredient.getItem().getName())) {
                             sum += slot1.getQuantity();
                         }
                     }

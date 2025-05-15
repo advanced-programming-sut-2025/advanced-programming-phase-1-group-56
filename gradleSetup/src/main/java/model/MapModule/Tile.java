@@ -98,9 +98,16 @@ public class Tile extends Node{
     }
 
     @Override
+    public boolean isValid() {
+        return isWalkable;
+    }
+
+
+    @Override
     public double heuristic(Node dest) {
         return distanceTo(dest);
     }
+
 
     @Override
     public double distanceTo(Node dest) {

@@ -6,7 +6,7 @@ public abstract class Node {
     private Node parent;
     private ArrayList<Node> neighbours;
     private double cost, heuristic, function;
-    private boolean valid;
+//    private boolean valid;
 
     public abstract void calculateNeighbours(Network network);
 
@@ -56,15 +56,13 @@ public abstract class Node {
         this.parent = parent;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
+    public abstract boolean isValid();
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
+//    public void setValid(boolean valid) {
+//        this.valid = valid;
+//    }
 
-    public void reverseValidation(){
-        valid = !valid;
-    }
+//    public void reverseValidation(){
+//        valid = !valid;
+//    }
 }

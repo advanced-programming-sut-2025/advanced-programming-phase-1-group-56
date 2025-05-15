@@ -1,5 +1,6 @@
 package model.TimeSystem;
 
+import model.App;
 import model.Enums.WeatherAndTime.DayOfWeek;
 import model.Enums.WeatherAndTime.Seasons;
 
@@ -7,7 +8,7 @@ public class DateTime {
     private int hour;
     private int day;
 
-    DateTime( int day,int hour) {
+    DateTime(int day, int hour) {
         this.day = day;
         this.hour = hour;
     }
@@ -29,18 +30,24 @@ public class DateTime {
     }
 
     public void addHour(int hour) {
-        this.hour += hour;
+        for (int i = 0; i < hour; i++) {
+            App.getCurrentUser().getCurrentGame().getTimeSystem().nextHour();
+        }
     }
 
     public void addDay(int day) {
-        this.day += day;
+        while (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDay() < day + this.day) {
+            App.getCurrentUser().getCurrentGame().getTimeSystem().nextHour();
+        }
     }
+
     //TODO
-    public Seasons getSeason(){
+    public Seasons getSeason() {
         return null;
     }
+
     //TODO
-    public DayOfWeek getDayOfWeek(){
+    public DayOfWeek getDayOfWeek() {
         return null;
     }
 }

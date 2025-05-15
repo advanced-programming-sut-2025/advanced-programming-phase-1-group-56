@@ -4,13 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="">
+    <list default="true" id="ba30d6d2-9614-4fb4-ac52-d294467abc4b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/EtcObjectType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/EtcObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/OreItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ArtisanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ArtisanController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CraftingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CraftingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/MapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ToolsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ToolsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/ArtesianRecepie.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/ArtesianRecepie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Animals/AnimalType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Animals/AnimalType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ArtisanGoodType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ArtisanGoodType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ArtisanMachineItemType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ArtisanMachineItemType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/EtcType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/EtcType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FishType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FishType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FoodType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FoodType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FruitType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FruitType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/MixedSeed.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/MixedSeed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/Ore.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/Ore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/SeedType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/SeedType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ToolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ToolType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Recepies/CraftingRecipesList.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Recepies/CraftingRecipesList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Recepies/FoodRecipesList.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Recepies/FoodRecipesList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/ArtesianMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/ArtesianMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/WeatherState.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/WeatherState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/DateTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/DateTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/TimeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/TimeSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/CraftingTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/CraftingTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Tool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,17 +58,7 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="gradleSetup" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="gradleSetup" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -47,27 +68,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2wuGyOj3RRvgMI5Zmu0vwh640AO" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2x6YFMbkONBTwQ4STa9q0O3iahn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -75,82 +86,42 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "mehdi",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/HP/OneDrive/Desktop/tiledMap/gradleSetup/src/main/java/model/States",
+    "last_opened_file_path": "C:/Users/USER/Desktop/Ap/Java program/stradew valley project",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\States" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\GameObject" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Activities" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="model.items" />
-      <recent name="model.GameObject" />
-      <recent name="model.Enums.Buildings" />
-      <recent name="model.Enums" />
-      <recent name="model.Enums.Animals" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="stardew valley" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="stardew valley" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="" />
-      <created>1746884299828</created>
+      <changelist id="ba30d6d2-9614-4fb4-ac52-d294467abc4b" name="Changes" comment="" />
+      <created>1747259885596</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1746884299828</updated>
-      <workItem from="1746884301117" duration="22000" />
-      <workItem from="1746954958205" duration="6884000" />
-      <workItem from="1746987294025" duration="22000" />
-      <workItem from="1746987349849" duration="18270000" />
-      <workItem from="1747044758638" duration="6306000" />
-      <workItem from="1747086359062" duration="365000" />
-      <workItem from="1747086791410" duration="10742000" />
-      <workItem from="1747151837233" duration="10040000" />
+      <updated>1747259885596</updated>
+      <workItem from="1747259886714" duration="43762000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

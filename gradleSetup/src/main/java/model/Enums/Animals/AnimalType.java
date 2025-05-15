@@ -2,7 +2,7 @@ package model.Enums.Animals;
 
 import model.Enums.Buildings.BuildingType;
 import model.Enums.Items.EtcType;
-import model.GameObject.Animal.Animal;
+import model.GameObject.Animal;
 import model.MapModule.Position;
 
 public enum AnimalType {

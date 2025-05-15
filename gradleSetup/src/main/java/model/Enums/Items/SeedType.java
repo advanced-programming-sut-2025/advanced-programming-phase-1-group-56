@@ -1,6 +1,7 @@
 package model.Enums.Items;
 
 import model.Enums.GameObjects.CropType;
+import model.Enums.GameObjects.TreeType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum SeedType implements ItemType {

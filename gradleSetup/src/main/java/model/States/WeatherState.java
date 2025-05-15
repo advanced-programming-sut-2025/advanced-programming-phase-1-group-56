@@ -19,21 +19,22 @@ public class WeatherState {
         return true;//TODO
     }//TODO move this to farm class
 
-    public double getEnergyMultiplier(String season) {
+    public double getEnergyMultiplier() {
 
         //TODO
-//        switch (todayWeather) {
-//            case Rainy:
-//            case Storm:
+        switch (todayWeather) {
+            case Rainy: return 1.2;
+            case Storm: return 0.5;
+            case Sunny: return 1.5;
 //                if (!season.equalsIgnoreCase("winter")) return 1.5;
 //                break;
 //            case Snow:
 //                if (season.equalsIgnoreCase("winter")) return 2.0;
 //                break;
-//        }
-//        return 1.0;
+        }
+        return 1.0;
 
-        return "OMG WOW".length();
+//        return "OMG WOW".length();
     }
 
     public WeatherType getTodayWeather() {

@@ -17,9 +17,9 @@ public class TimeSystem {
     }
 
     public void nextHour() {
-        time.addHour(1);
+        time.setHour(time.getHour() + 1);
         if (time.getHour() >= 22) {
-            time.setHour(0);time.setDay(time.getDay() + 1);
+            time.setHour(9);time.setDay(time.getDay() + 1);
             notifyObservers(true);
         }
         else {
