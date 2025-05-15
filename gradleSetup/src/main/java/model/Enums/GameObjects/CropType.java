@@ -4,7 +4,7 @@ package model.Enums.GameObjects;
 import model.Enums.Items.FoodType;
 import model.Enums.WeatherAndTime.Seasons;
 
-public enum CropType {
+public enum CropType implements initialPlant {
     BLUE_JAZZ(FoodType.BLUE_JAZZ, new int[]{1,2,2,2}, 7, true, -1, 50, true, 45, 20, new Seasons[]{Seasons.Spring}, false),
     CARROT(FoodType.CARROT, new int[]{1,1,1}, 3, true, -1, 35, true, 75, 33, new Seasons[]{Seasons.Spring}, false),
     CAULIFLOWER(FoodType.CAULIFLOWER, new int[]{1,2,4,4,1}, 12, true, -1, 175, true, 75, 33, new Seasons[]{Seasons.Spring}, true),
