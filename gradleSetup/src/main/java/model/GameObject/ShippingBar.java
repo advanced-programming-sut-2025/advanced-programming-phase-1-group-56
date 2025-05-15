@@ -3,6 +3,7 @@ package model.GameObject;
 import com.google.gson.annotations.Expose;
 import model.App;
 import model.Enums.BackPackType;
+import model.Enums.Buildings.BuildingType;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.Position;
 import model.Slot;
@@ -13,10 +14,10 @@ import model.items.Inventory;
 import java.util.ArrayList;
 
 public class ShippingBar extends GameObject implements TimeObserver {
-    private final Inventory inventory = new Inventory(BackPackType.InitialBackpack);
+    private final Inventory inventory = new Inventory(100);
     @Expose(serialize = false,deserialize = false)
     private Farm farm;
-
+    private final BuildingType type = BuildingType.SHIPPING_BIN;
 
     public ShippingBar(Position position,Farm farm) {
         super(false, position);
@@ -38,5 +39,13 @@ public class ShippingBar extends GameObject implements TimeObserver {
             }
             inventory.getSlots().clear();
         }
+    }
+
+    public int getWidth(){
+        return type.getWidth();
+    }
+
+    public int getHeight(){
+        return type.getHeight();
     }
 }

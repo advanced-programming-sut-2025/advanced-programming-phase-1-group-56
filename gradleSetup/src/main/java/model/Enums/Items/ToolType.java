@@ -68,13 +68,11 @@ public enum ToolType {
         return usedEnergy;
     }
 
-    /**
-     * ظرفیت ابزار (برای ابزارهایی مثل ظرف آبیاری)
-     * برای ابزارهای بدون ظرفیت، مقدار ۰ است
-     */
+
     public int getCapacity() {
         return capacity;
     }
+
     public String getName() {
         return name;
     }

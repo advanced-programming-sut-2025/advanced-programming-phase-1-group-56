@@ -40,4 +40,8 @@ public class GameLocation extends Network {
     public void setTiles(Tile[][] tiles) {
         this.tiles = tiles;
     }
+
+    public boolean isWithinBounds(int x, int y, int width,int height) {
+        return x >= 0 && x + width <= tiles[0].length && y >= 0 && y + height <= tiles.length;
+    }
 }

@@ -33,6 +33,6 @@ public class EnergyController extends CommandController {
     }
 
     public void GhashKardan(){
-
+        App.getMe().setFainted(true);
     }
 }

@@ -1,4 +1,6 @@
 package model.Enums.Items;
 
-public interface ItemType {
+import model.items.Saleable;
+
+public interface ItemType extends Saleable {
 }

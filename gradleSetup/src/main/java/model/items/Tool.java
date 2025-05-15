@@ -12,6 +12,7 @@ import model.Enums.WeatherAndTime.WeatherType;
 import model.GameObject.*;
 import model.MapModule.Tile;
 import model.Player;
+import model.Result;
 import model.skills.Skill;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Tool extends Item {
     private int capacity;
 
     public Tool(ToolType toolType) {
-        super(toolType.getName(),100,true,-1);
+        super(toolType.getName(), 100, true, -1);
         this.toolType = toolType;
         this.capacity = toolType.getCapacity();
 //        this.toolBehavior = toolBehavior;
@@ -53,9 +54,12 @@ public class Tool extends Item {
                     tile.setFixedObject(null);
 //                    player.getInventory().add(new Etc(EtcType.WOOD) , 1);
 //                    Skill playerSkill = player.getSkillByName("foraging");
-                    if (playerSkill!=null){
-                        playerSkill.setXp(playerSkill.getXp() + 5);
+
+                    if(playerSkill==null){
+                        System.out.println("Player skill is null in tool use");
+                        return;
                     }
+                    playerSkill.setXp(playerSkill.getXp() + 5);
                     if (playerSkill.calculateLevel() == 3){
                         player.subtractEnergy(toolType.getUsedEnergy() +1);
                     } else {
