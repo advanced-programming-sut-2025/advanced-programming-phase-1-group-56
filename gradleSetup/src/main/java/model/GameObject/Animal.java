@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class Animal extends LivingEntity implements Saleable {
     private String name;
     private AnimalType animalInfo;
+    private final ArrayList<AnimalProduct> dailyProducts = new ArrayList<>();
     private int friendship = 0;
     private boolean isFed = false;
     private boolean isCaressed = false;
@@ -45,6 +46,8 @@ public class Animal extends LivingEntity implements Saleable {
     public ArrayList<EtcType> getProducts() {
         return new ArrayList<>(Arrays.asList(animalInfo.getProducts()));
     }
+
+    public ArrayList<AnimalProduct> getDailyProducts() { return dailyProducts; }
 
     public boolean getIsFed() {
         return isFed;
