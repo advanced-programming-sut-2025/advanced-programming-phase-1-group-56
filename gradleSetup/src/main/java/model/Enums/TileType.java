@@ -1,13 +1,14 @@
 package model.Enums;
 
 public enum TileType {
+    Speed_Gro,
+    Deluxe_Retaining_Soil,
     Mine,
     Vanity,
     Water,
     Grass,
     Stone,//SangFresh
     Soil,
-    FarmingSoil,
     PlowedSoil,
     WaterPlowedSoil,
     Wrapper,

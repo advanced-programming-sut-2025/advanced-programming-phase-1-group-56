@@ -2,6 +2,7 @@ package model.items;
 
 import com.google.gson.internal.bind.TreeTypeAdapter;
 import model.App;
+import model.Enums.Animals.AnimalType;
 import model.Enums.GameObjects.TreeType;
 import model.Enums.Items.*;
 import model.Enums.TileType;
@@ -28,6 +29,12 @@ public class Tool extends Item {
 //        this.toolBehavior = toolBehavior;
 //        this.toolBehavior.setToolType();
 //        this.toolMaterial = toolMaterial;
+    }
+
+    public static void upgrade(Tool tool){
+        if (tool.getToolType().getNextToolType() != null){
+            tool.setToolType(tool.getToolType());
+        }
     }
 
     public void use(Tile tile){
@@ -146,8 +153,21 @@ public class Tool extends Item {
             case "Milk Pail" : {
                 if (tile.getFixedObject().getClass() == Animal.class){
                     Animal animal = (Animal) tile.getFixedObject();
-//                    if (animal.get)
+                    if (animal.getAnimalInfo() == AnimalType.COW || animal.getAnimalInfo() == AnimalType.SHEEP || animal.getAnimalInfo() == AnimalType.GOAT){
+                        player.getInventory().add(new Etc(EtcType.MILK) , 1);
+                    }
+                    player.getInventory().remove(new Tool(ToolType.MILK_PAIL) , 1);
                 }
+                player.subtractEnergy(toolType.getUsedEnergy());
+            }
+            case "Shear" : {
+                if (tile.getFixedObject().getClass() == Animal.class){
+                    Animal animal = (Animal) tile.getFixedObject();
+                    if (animal.getAnimalInfo() == AnimalType.SHEEP){
+                        player.getInventory().add(new Etc(EtcType.WOOL) , 1);
+                    }
+                }
+                player.subtractEnergy(toolType.getUsedEnergy());
             }
 
         }
@@ -155,6 +175,9 @@ public class Tool extends Item {
 
     public ToolType getToolType() {
         return toolType;
+    }
+    public void setToolType(ToolType toolType){
+        this.toolType = toolType;
     }
 
     public int getCapacity() {
