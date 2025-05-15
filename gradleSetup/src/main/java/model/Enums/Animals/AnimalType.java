@@ -4,8 +4,9 @@ import model.Enums.Buildings.BuildingType;
 import model.Enums.Items.EtcType;
 import model.GameObject.Animal;
 import model.MapModule.Position;
+import model.items.Saleable;
 
-public enum AnimalType {
+public enum AnimalType implements Saleable {
     CHICKEN("Chicken",800, BuildingType.COOP,
             new EtcType[]{
                     EtcType.EGG,EtcType.BIG_EGG
@@ -72,6 +73,26 @@ public enum AnimalType {
     }
 
     public Animal createAnimal(Position position, String name) {
-        return new Animal(position, false, name, this);
+        return new Animal(position, name, this);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public BuildingType getRequiredBuildingType() {
+        return requiredBuilding;
+    }
+
+    public static AnimalType findAnimalTypeByName(String name) {
+        for (AnimalType animalType : AnimalType.values()) {
+            if (animalType.name.equals(name)) {
+                return animalType;
+            }
+        }
+        return null;
+    }
+
+
 }

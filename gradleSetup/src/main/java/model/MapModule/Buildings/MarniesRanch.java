@@ -1,13 +1,18 @@
 package model.MapModule.Buildings;
-
-import model.Enums.Registery.StoreType;
+import model.Enums.Animals.AnimalType;
+import model.Enums.Stores.MarniesRanchProducts;
+import model.Enums.Stores.StardropSaloonProducts;
+import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
+import model.TimeSystem.DateTime;
+
+import java.util.ArrayList;
 
 public class MarniesRanch extends Store {
-    private final StoreType storeType = StoreType.RANCH;
-
+    private ArrayList<NpcProduct> dailyProductList;
     public MarniesRanch( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
         super( startingPosition,walkable, name, doorPosition, height, width);
+        dailyProductList = MarniesRanchProducts.getProducts(MarniesRanchProducts.class);
     }
 
     @Override
@@ -15,7 +20,17 @@ public class MarniesRanch extends Store {
 
     }
 
-    public StoreType getStoreType() {
-        return storeType;
+    @Override
+    public void onHourChanged(DateTime time, boolean newDay) {
+        dailyProductList = MarniesRanchProducts.getProducts(MarniesRanchProducts.class);
+    }
+
+    public NpcProduct findProductByAnimalType(AnimalType animalType) {
+        for (NpcProduct product : dailyProductList) {
+            if(product.getSaleable().equals(animalType)) {
+                return product;
+            }
+        }
+        return null;
     }
 }

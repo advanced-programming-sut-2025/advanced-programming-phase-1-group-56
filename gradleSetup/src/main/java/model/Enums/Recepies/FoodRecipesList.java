@@ -4,14 +4,14 @@ import model.Enums.Items.EtcType;
 import model.Enums.Items.FishType;
 import model.Enums.Items.FoodType;
 import model.Enums.Items.FruitType;
-import model.Ingredient;
+import model.items.Saleable;
 import model.Slot;
 import model.items.Etc;
 import model.items.Fish;
 import model.items.Food;
 import model.items.Fruit;
 
-public enum FoodRecipesList {
+public enum FoodRecipesList implements Saleable {
     FRIED_EGG("Fried Egg", FoodType.FRIED_EGG ,new Slot[]{new Slot(new Etc(EtcType.EGG), 1)}, 50, null, "Starter", 35),
     BAKED_FISH("Baked Fish", FoodType.BAKED_FISH ,new Slot[]{new Slot(new Fish(FishType.Sardine), 1), new Slot(new Fish(FishType.Salmon), 1), new Slot(new Food(FoodType.WHEAT), 1)}, 75, null, "Starter", 100),
     SALAD("Salad", FoodType.SALAD ,new Slot[]{new Slot(new Food(FoodType.LEEK), 1), new Slot(new Food(FoodType.DANDELION), 1)}, 113, null, "Starter", 110),
@@ -53,5 +53,10 @@ public enum FoodRecipesList {
         this.effect = effect;
         this.source = source;
         this.sellPrice = sellPrice;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

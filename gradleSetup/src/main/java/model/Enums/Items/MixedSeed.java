@@ -24,4 +24,9 @@ public enum MixedSeed implements ItemType {
         }
         return null;
     }
+
+    @Override
+    public String getName() {
+        return "";
+    }
 }
