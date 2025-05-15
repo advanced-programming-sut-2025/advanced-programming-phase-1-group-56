@@ -12,14 +12,6 @@ public abstract class Building extends GameObject {
      protected final int height;
      protected final int width;
 
-//    public boolean[][] getWalkable() {
-//        return walkable;
-//    }
-//
-//    public void setWalkable(boolean[][] walkable) {
-//        this.walkable = walkable;
-//    }
-
     public GameLocation getIndoor() {
         return indoor;
     }

@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController.GameController;
 import model.Activities.*;
 import model.Enums.BackPackType;
 import model.Enums.FarmPosition;
@@ -246,15 +247,24 @@ public class Player implements TimeObserver {
     }
 
     public int getGold() {
-        return gold;
+        if(partner == null)
+            return gold;
+        else return gold + partner.getGold();
     }
 
     public void addGold(int gold) {
-        this.gold += gold;
-    }
-
-    public void subtractGold(int gold) {
-        this.gold -= gold;
+        if(partner == null){
+            this.gold += gold;
+        }else if(this.gold + gold< 0){
+            //gold is negative
+            gold += this.gold;
+            this.gold = 0;
+            this.partner.gold += gold;
+            //gold = -100 this.gold = 20
+            //gold += 20 --> -80
+            //this.gold = 0
+            //partner.gold += -80 tick
+        }
     }
 
     public UUID getPlayerID(){
@@ -383,7 +393,11 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(energy.getEnergy() - amount);
+        energy.setEnergy(Math.min((energy.getEnergy() - amount),0));
+        if(energy.getEnergy()==0){
+            fainted = true;
+            GameController.skipTurn();
+        }
     }
 
     public Skill getSkillByName(String skillName){

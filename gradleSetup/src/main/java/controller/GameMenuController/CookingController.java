@@ -88,10 +88,10 @@ public class CookingController extends CommandController {
                 tmpString.append("- Add Energy : ").append(cr.energy).append("\n");
                 tmpString.append("- Ingredients : \n");
                 int count = 0;
-                for (Ingredient i : cr.ingredients) {
+                for (Slot i : cr.ingredients) {
                     count += 1;
-                    tmpString.append(count + ".").append("  name : ").append(i.name);
-                    tmpString.append("   quantity : ").append(i.quantity).append("\n");
+                    tmpString.append(count + ".").append("  name : ").append(i.getItem().getName());
+                    tmpString.append("   quantity : ").append(i.getQuantity()).append("\n");
                 }
                 tmpString.append("-------------------------------");
             }
@@ -100,9 +100,9 @@ public class CookingController extends CommandController {
                 getCurrentGame()
                 .getCurrentPlayer()
                 .subtractEnergy(3);
-        for (Ingredient ingredient : cookFood.ingredients) {
-            Item item = returnInventoryItemByName(ingredient.name);
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, ingredient.quantity);
+        for (Slot ingredient : cookFood.ingredients) {
+            Item item = returnInventoryItemByName(ingredient.getItem().getName());
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, ingredient.getQuantity());
         }
         Food food = null;
         for(FoodType foodType : FoodType.values()){
@@ -189,9 +189,9 @@ public class CookingController extends CommandController {
             tmpString.append(count).append(". \n");
             tmpString.append("FoodName : ").append(cookFood.name).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient : cookFood.ingredients) {
+            for (Slot ingredient : cookFood.ingredients) {
                 tmpString.append("  ");
-                tmpString.append("Ingridient Name :").append(ingredient.getName()).append("\n");
+                tmpString.append("Ingridient Name :").append(ingredient.getItem().getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n").append("----\n");
             }
             tmpString.append("Sell Price :").append(cookFood.sellPrice).append("g\n");
@@ -201,10 +201,10 @@ public class CookingController extends CommandController {
     }
 
     private static boolean havaIngredient(FoodRecipesList cookFood) {
-        for (Ingredient ingredient : cookFood.ingredients) {
+        for (Slot ingredient : cookFood.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (slot.getItem().getName().equals(ingredient.getName())) {
+                if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
                 }
             }
@@ -212,16 +212,16 @@ public class CookingController extends CommandController {
                 return false;
             }
         }
-        for (Ingredient ingredient : cookFood.ingredients) {
+        for (Slot ingredient : cookFood.ingredients) {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (ingredient.getName().equals(slot.getItem().getName())) {
+                if (ingredient.getItem().getName().equals(slot.getItem().getName())) {
                     int sum = 0;
                     for (Slot slot1 : App.getCurrentUser()
                             .getCurrentGame()
                             .getCurrentPlayer()
                             .getInventory()
                             .getSlots()) {
-                        if (slot1.getItem().getName().equals(ingredient.getName())) {
+                        if (slot1.getItem().getName().equals(ingredient.getItem().getName())) {
                             sum += slot1.getQuantity();
                         }
                     }
@@ -247,9 +247,9 @@ public class CookingController extends CommandController {
             tmpString.append(count).append(". \n");
             tmpString.append("FoodName : ").append(cookFood.name).append("\n");
             tmpString.append("Ingredients : \n");
-            for (Ingredient ingredient : cookFood.ingredients) {
+            for (Slot ingredient : cookFood.ingredients) {
                 tmpString.append("  ");
-                tmpString.append("Ingridient Name :").append(ingredient.getName()).append("\n");
+                tmpString.append("Ingridient Name :").append(ingredient.getItem().getName()).append("\n");
                 tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n").append("----\n");
             }
             tmpString.append("Sell Price :").append(cookFood.sellPrice).append("g\n");

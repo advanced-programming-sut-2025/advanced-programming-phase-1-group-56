@@ -125,7 +125,12 @@ public enum FoodType implements ItemType {
     DRIED_FRUIT("Dried Fruit", 75, 0 , null),
     PICKLES("Pickles", 0, 0 , null),
     JELLY("Jelly", 0, 0 , null),
-    SMOKED_FISH("Smoked Fish", 0, 0 , null);
+    SMOKED_FISH("Smoked Fish", 0, 0 , null),
+
+    ANY_FOOD("Any Food" , 0 , 0 , null),
+    ANY_MUSHROOMS("Any Mushroom" , 0 , 0 , null),
+    ANY_VEGETABLE("Any Vegetable" , 0 , 0 , null);
+
 
     private String name;
     private int energy;

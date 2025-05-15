@@ -1,20 +1,30 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Buildings.BuildingType;
+import model.Enums.Buildings.CoopType;
 import model.GameObject.Animal;
 import model.MapModule.Position;
 
 import java.util.ArrayList;
 
-public class Coop extends Building {
-    private int capacity;
-    private int price;
+public class Coop extends Building implements AnimalHouse {
     private ArrayList<Animal> animals = new ArrayList<>();
+    private final BuildingType type;
 
 
-    public Coop(String name, Position position,Position doorPosition, int width, int height, boolean walkable, int capacity, int price) {
-        super(position,walkable,name, doorPosition, height,width);
-        this.capacity = capacity;
-        this.price = price;
+    public Coop(Position position, BuildingType type) {
+        super(
+                position,
+                false,
+                type.getName(),
+                new Position(
+                        (2 * position.getX() + type.getWidth()) / 2,
+                        (2 * position.getY() + type.getHeight()) / 2
+                ),
+                type.getHeight(),
+                type.getWidth()
+        );
+        this.type = type;
     }
 
     @Override
@@ -23,18 +33,19 @@ public class Coop extends Building {
     }
 
     public int getCapacity() {
-        return capacity;
+        return type.getCapacity();
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public ArrayList<Animal> getAnimals() {
+        return animals;
     }
 
-    public int getPrice() {
-        return price;
+    @Override
+    public BuildingType getType() {
+        return type;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setAnimals(ArrayList<Animal> animals) {
+        this.animals = animals;
     }
 }
