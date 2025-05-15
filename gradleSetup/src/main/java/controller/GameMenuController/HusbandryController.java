@@ -106,11 +106,11 @@ public class HusbandryController extends CommandController {
     public static Result showProduces() {
         StringBuilder tmpString = new StringBuilder();
         for (Animal animal  : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if(animal.getProducts().isEmpty()){
+            if(animal.getDailyProducts().isEmpty()){
                 continue;
             }else {
                 tmpString.append("animal's Name : " + animal.getName() + "\n");
-                for(AnimalProduct animalProduct : animal.getProducts()){
+                for(AnimalProduct animalProduct : animal.getDailyProducts()){
                     tmpString.append("animal's Product Name : " + animalProduct.getName() + "\n")
                             .append("animal's Product quality : " + animalProduct.getQuality()+"\n");
                 }
