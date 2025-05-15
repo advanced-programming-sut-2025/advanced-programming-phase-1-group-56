@@ -79,15 +79,15 @@ public class PreGameMenuController extends CommandController {
         switch (playersToPlay.size()) {
             case 2: {
                 Farm farm1 = loadTheFarm("Farm1");
-                farm1.setPosition(FarmPosition.UPLEFT);
-                playersToPlay.getFirst().setFarmPosition(FarmPosition.UPLEFT);
+                farm1.setPosition(FarmPosition.LEFT);
+                playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
 
 
                 Farm farm2 = loadTheFarm("Farm2");
-                farm2.setPosition(FarmPosition.UPRIGHT);
-                playersToPlay.get(1).setFarmPosition(FarmPosition.UPRIGHT);
+                farm2.setPosition(FarmPosition.UP);
+                playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
 
@@ -97,24 +97,24 @@ public class PreGameMenuController extends CommandController {
             break;
             case 3: {
                 Farm farm1 = loadTheFarm("Farm1");
-                farm1.setPosition(FarmPosition.UPLEFT);
-                playersToPlay.getFirst().setFarmPosition(FarmPosition.UPLEFT);
+                farm1.setPosition(FarmPosition.LEFT);
+                playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
 
 
                 Farm farm2 = loadTheFarm("Farm2");
-                farm2.setPosition(FarmPosition.UPRIGHT);
-                playersToPlay.get(1).setFarmPosition(FarmPosition.UPRIGHT);
+                farm2.setPosition(FarmPosition.UP);
+                playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
                 playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
 
 
                 Farm farm3 = loadTheFarm("Farm1");
-                farm3.setPosition(FarmPosition.DOWNLEFT);
-                playersToPlay.get(2).setFarmPosition(FarmPosition.DOWNLEFT);
+                farm3.setPosition(FarmPosition.DOWN);
+                playersToPlay.get(2).setFarmPosition(FarmPosition.DOWN);
                 farm3.setPlayer(playersToPlay.get(2));
                 playersToPlay.get(2).setPlayerFarm(farm3);
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
@@ -125,32 +125,32 @@ public class PreGameMenuController extends CommandController {
             break;
             case 4: {
                 Farm farm1 = loadTheFarm("Farm1");
-                farm1.setPosition(FarmPosition.UPLEFT);
-                playersToPlay.getFirst().setFarmPosition(FarmPosition.UPLEFT);
+                farm1.setPosition(FarmPosition.LEFT);
+                playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
 
 
                 Farm farm2 = loadTheFarm("Farm2");
-                farm2.setPosition(FarmPosition.UPRIGHT);
-                playersToPlay.get(1).setFarmPosition(FarmPosition.UPRIGHT);
+                farm2.setPosition(FarmPosition.UP);
+                playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
                 playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
 
 
                 Farm farm3 = loadTheFarm("Farm1");
-                farm3.setPosition(FarmPosition.DOWNLEFT);
-                playersToPlay.get(2).setFarmPosition(FarmPosition.DOWNLEFT);
+                farm3.setPosition(FarmPosition.DOWN);
+                playersToPlay.get(2).setFarmPosition(FarmPosition.DOWN);
                 farm3.setPlayer(playersToPlay.get(2));
                 playersToPlay.get(2).setPlayerFarm(farm3);
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
 
 
                 Farm farm4 = loadTheFarm("Farm2");
-                farm4.setPosition(FarmPosition.DOWNRIGHT);
-                playersToPlay.get(3).setFarmPosition(FarmPosition.DOWNRIGHT);
+                farm4.setPosition(FarmPosition.RIGHT);
+                playersToPlay.get(3).setFarmPosition(FarmPosition.RIGHT);
                 farm4.setPlayer(playersToPlay.get(3));
                 playersToPlay.get(3).setPlayerFarm(farm4);
                 playersToPlay.get(3).setDefaultHome(farm4.getDefaultHome());
