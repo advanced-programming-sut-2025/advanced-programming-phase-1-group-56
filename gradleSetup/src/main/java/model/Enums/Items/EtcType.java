@@ -60,4 +60,8 @@ public enum EtcType implements ItemType {
     }
 
 
+    @Override
+    public String getName() {
+        return name;
+    }
 }

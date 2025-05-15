@@ -6,10 +6,4 @@ public class FarmingSkill extends Skill {
     public FarmingSkill(Skills name, int xp) {
         super(name,xp);
     }
-
-    @Override
-    public int calculateLevel() {
-        return 0;
-        //TODO complete this
-    }
 }

@@ -1,22 +1,30 @@
 package model.MapModule.Buildings;
 
 
+import model.Enums.Buildings.BuildingType;
 import model.GameObject.Animal;
 import model.MapModule.Position;
 
 import java.util.ArrayList;
 
-public class Barn extends Building {
-    private int capacity;
-    private int price;
-    private ArrayList<Animal> animals = new ArrayList<>();
+public class Barn extends Building implements AnimalHouse {
+    private final BuildingType type;
+    private final ArrayList<Animal> animals = new ArrayList<>();
 
 
-
-    public Barn( Position position,boolean walkable,String name,Position doorPosition, int width, int height, int capacity, int price) {
-        super( position,walkable,name,doorPosition, height,width);
-        this.capacity = capacity;
-        this.price = price;
+    public Barn(Position position, BuildingType type) {
+        super(
+                position,
+                false,
+                type.getName(),
+                new Position(
+                        (2 * position.getX() + type.getWidth()) / 2,
+                        (2 * position.getY() + type.getHeight()) / 2
+                ),
+                type.getHeight(),
+                type.getWidth()
+        );
+        this.type = type;
     }
 
     @Override
@@ -24,21 +32,6 @@ public class Barn extends Building {
         //TODO
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
     public ArrayList<Animal> getAnimals() {
         return animals;
     }
@@ -48,7 +41,7 @@ public class Barn extends Building {
     }
 
     public boolean hasFreeCapacity() {
-        return animals.size() < this.capacity; // فرض کن فیلد capacity رو داری
+        return animals.size() < this.getRemainingCapacity();
     }
 
     public int getCurrentAnimalCount() {
@@ -56,6 +49,10 @@ public class Barn extends Building {
     }
 
     public int getRemainingCapacity() {
-        return this.capacity - animals.size();
+        return this.type.getCapacity() - animals.size();
+    }
+
+    public BuildingType getType() {
+        return type;
     }
 }

@@ -110,6 +110,15 @@ public class Farm extends GameLocation implements TimeObserver {
         //TODO add this if needed
     }
 
+    public GreenHouse getGreenHouse(){
+        for (Building building: buildings) {
+            if (building instanceof GreenHouse) {
+                return (GreenHouse) building;
+            }
+        }
+        return null;
+    }
+
     private void deleteObjectTreeOrCrop(GameObject gameObject) {
         allGameObjects.remove(gameObject);
         for (int i = 0; i < this.getTiles().length; i++) {

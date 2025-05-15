@@ -7,8 +7,9 @@ import model.items.Etc;
 import model.items.Mineral;
 import model.items.OreItem;
 import model.items.Seed;
+import model.items.Saleable;
 
-public enum CraftingRecipesList {
+public enum CraftingRecipesList implements Saleable {
     CherryBomb("Cherry Bomb", "Destroys everything in a 3-tile radius",
             new Slot[]{new Slot(new OreItem(Ore.COPPER_ORE), 4), new Slot(new Mineral(MineralItemType.COAL), 1)},
             "Mining Level 1", 50),
@@ -105,5 +106,10 @@ public enum CraftingRecipesList {
         this.ingredients = ingredients;
         this.source = source;
         this.sellPrice = sellPrice;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

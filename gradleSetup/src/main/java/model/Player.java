@@ -65,7 +65,6 @@ public class Player implements TimeObserver {
     private Position position;
     private GameLocation currentGameLocation;
     private Buff currentBuff= null;
-    private Buff foodBuff =null;
     private boolean interactWithPartnerToday;
 
     //connections
@@ -83,6 +82,7 @@ public class Player implements TimeObserver {
     private final ArrayList<Message> messages = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
+    private int maxEnergy = 200;
 
     private Player partner = null;
 
@@ -247,15 +247,24 @@ public class Player implements TimeObserver {
     }
 
     public int getGold() {
-        return gold;
+        if(partner == null)
+            return gold;
+        else return gold + partner.getGold();
     }
 
     public void addGold(int gold) {
-        this.gold += gold;
-    }
-
-    public void subtractGold(int gold) {
-        this.gold -= gold;
+        if(partner == null){
+            this.gold += gold;
+        }else if(this.gold + gold< 0){
+            //gold is negative
+            gold += this.gold;
+            this.gold = 0;
+            this.partner.gold += gold;
+            //gold = -100 this.gold = 20
+            //gold += 20 --> -80
+            //this.gold = 0
+            //partner.gold += -80 tick
+        }
     }
 
     public UUID getPlayerID(){
@@ -351,17 +360,20 @@ public class Player implements TimeObserver {
     }
 
     public void setCurrentBuff(Buff currentBuff) {
+        this.currentBuff.manageBuff(this);
         this.currentBuff = currentBuff;
     }
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay){
-            //TODO lot things
             interactWithPartnerToday = false;
         }
         else{
-
+            if(getCurrentBuff().getRemainingTime() == 0){
+                this.currentBuff.manageBuff1(this);
+                this.currentBuff = null;
+            }
         }
     }
 
@@ -373,15 +385,10 @@ public class Player implements TimeObserver {
         this.interactWithPartnerToday = interactWithPartnerToday;
     }
 
-    public Buff getFoodBuff() {
-        return foodBuff;
-    }
-
-    public void setFoodBuff(Buff foodBuff) {
-        this.foodBuff = foodBuff;
-    }
-
     public void addEnergy(int amount) {
+        if(energy.getEnergy() + amount > maxEnergy){
+            energy.setEnergy(maxEnergy);
+        }
         energy.setEnergy(energy.getEnergy() + amount);
     }
 
@@ -400,5 +407,13 @@ public class Player implements TimeObserver {
             }
         }
         return null;
+    }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    public void setMaxEnergy(int maxEnergy) {
+        this.maxEnergy = maxEnergy;
     }
 }

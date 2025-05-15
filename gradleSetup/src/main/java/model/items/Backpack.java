@@ -3,30 +3,18 @@ package model.items;
 import model.Enums.BackPackType;
 
 public class Backpack extends Item {
-    private int capacity;
-    private BackPackType BackPackType;
+    private BackPackType backPackType;
 
-    public Backpack(BackPackType BackPackType) {
-        super(BackPackType.name(), 0, false,-1);
+    public Backpack(BackPackType backPackType) {
+
+        super(backPackType.toString(),1,false,backPackType.getPrice());
     }
 
     public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+        return backPackType.getCapacity();
     }
 
     public int getPrice(){
         return -1 ;
-    }
-
-    public BackPackType getBackPackType() {
-        return BackPackType;
-    }
-
-    public void setBackPackType(BackPackType backPackType) {
-        BackPackType = backPackType;
     }
 }
