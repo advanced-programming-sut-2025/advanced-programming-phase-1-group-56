@@ -3,7 +3,6 @@ package model.Enums.Animals;
 import model.Enums.Buildings.BuildingType;
 import model.Enums.Items.EtcType;
 import model.GameObject.Animal;
-import model.GameObject.Animal;
 import model.MapModule.Position;
 import model.items.Saleable;
 

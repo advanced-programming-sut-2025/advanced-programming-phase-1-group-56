@@ -133,6 +133,30 @@ public class Inventory {
                 return slot.getItem();
             }
         }
+
+        return null;
+    }
+
+    public Item findItemByPartOfName(String partOfName) {
+        int max = 0;
+        Item item = null;
+        for (Slot slot : slots) {
+            if (slot.getItem().getName().contains(partOfName)) {
+                if( countItem(slot.getItem())> max){
+                    max = countItem(slot.getItem());
+                    item = slot.getItem();
+                }
+            }
+        }
+        return null;
+    }
+
+    public Slot findSlotByName(String itemName) {
+        for (Slot slot : slots) {
+            if (slot.getItem().getName().equals(itemName)) {
+                return slot;
+            }
+        }
         return null;
     }
 }

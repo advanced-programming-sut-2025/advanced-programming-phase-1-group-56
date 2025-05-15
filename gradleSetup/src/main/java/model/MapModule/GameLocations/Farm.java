@@ -1,9 +1,12 @@
 package model.MapModule.GameLocations;
 
 import com.google.gson.annotations.Expose;
+import controller.GameMenuController.FarmingController;
 import model.App;
 import model.Enums.FarmPosition;
+import model.GameObject.Crop;
 import model.GameObject.GameObject;
+import model.GameObject.Tree;
 import model.MapModule.Buildings.Building;
 import model.MapModule.Buildings.GreenHouse;
 import model.MapModule.Buildings.Home;
@@ -31,11 +34,20 @@ public class Farm extends GameLocation implements TimeObserver {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay) {
-            //TODO
-            System.out.println("good Morning");
-        }
-        else {
-            //TODO new hour
+            FarmingController.manageCrows(this);
+            FarmingController.managePlaceMineral(this);
+            FarmingController.managePlaceRandomCropOrSeed(this);
+            for(GameObject gameObject : allGameObjects) {
+                if(gameObject instanceof Tree) {
+                    if(((Tree)gameObject).getDaysWithNoWater() == 2){
+                        deleteObjectTreeOrCrop((Tree)gameObject);
+                    }
+                } else  if(gameObject instanceof Crop) {
+                    if(((Crop)gameObject).getDaysWithNoWater() == 2){
+                        deleteObjectTreeOrCrop((Crop)gameObject);
+                    }
+                }
+            }
         }
     }
 
@@ -105,5 +117,16 @@ public class Farm extends GameLocation implements TimeObserver {
             }
         }
         return null;
+    }
+
+    private void deleteObjectTreeOrCrop(GameObject gameObject) {
+        allGameObjects.remove(gameObject);
+        for (int i = 0; i < this.getTiles().length; i++) {
+            for (int j = 0; j < this.getTiles()[i].length; j++) {
+                if(this.getTiles()[i][j].getFixedObject().equals(gameObject)) {
+                    this.getTiles()[i][j].setFixedObject(null);
+                }
+            }
+        }
     }
 }

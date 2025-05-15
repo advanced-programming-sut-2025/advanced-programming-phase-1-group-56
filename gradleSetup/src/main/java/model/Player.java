@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController.GameController;
 import model.Activities.*;
 import model.Enums.BackPackType;
 import model.Enums.FarmPosition;
@@ -394,7 +395,11 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(energy.getEnergy() - amount);
+        energy.setEnergy(Math.min((energy.getEnergy() - amount),0));
+        if(energy.getEnergy()==0){
+            fainted = true;
+            GameController.skipTurn();
+        }
     }
 
     public Skill getSkillByName(String skillName){
