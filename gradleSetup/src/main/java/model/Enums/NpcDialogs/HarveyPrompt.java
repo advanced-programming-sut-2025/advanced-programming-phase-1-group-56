@@ -5,7 +5,7 @@ import model.Enums.WeatherAndTime.WeatherType;
 import java.util.*;
 import java.util.stream.*;
 
-public enum HarveyPrompt {
+public enum HarveyPrompt implements NpcPrompt {
     Sunny_HEALTHY(
             "On a Sunny afternoon, Harvey discusses the benefits of a healthy heart.",
             WeatherType.Sunny, true, 1),

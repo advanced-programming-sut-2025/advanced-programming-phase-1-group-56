@@ -131,10 +131,10 @@ public class FarmLoader {
                         case "mailbox" -> go = new MailBox(new Position(tx,ty));
                         case "grass" -> go = new Grass(true,new Position(tx,ty), GrassType.NormalGrass);
                         case "fibergrass" -> go = new Grass(true,new Position(tx,ty), GrassType.FiberGrass);
-                        case "wood" -> go = new Tree(false,TreeType.TREE_BARK,new Position(tx,ty));//TODO
+                        case "wood" -> go = new Tree(TreeType.TREE_BARK,new Position(tx,ty));//TODO
                         case "stone" -> go = new ForagingMineral(false,new Position(tx,ty), MineralItemType.STONE);//TODO
-                        case "tree" -> go = new Tree(false, TreeType.APPLE_TREE,new Position(tx,ty));
-                        case "stick" -> go = new Tree(false,TreeType.TREE_BARK,new Position(tx,ty));
+                        case "tree" -> go = new Tree( TreeType.APPLE_TREE,new Position(tx,ty));
+                        case "stick" -> go = new Tree(TreeType.TREE_BARK,new Position(tx,ty));
                         case "bigstone" -> go = new ForagingMineral(false,new Position(tx,ty),MineralItemType.BIG_STONE);
                         default -> go = null;
                     }

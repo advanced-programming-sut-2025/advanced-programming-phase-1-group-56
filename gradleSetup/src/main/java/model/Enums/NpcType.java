@@ -1,104 +1,106 @@
 package model.Enums;
 
-import model.Enums.NpcDialogs.NpcPrompt;
-import model.Enums.NpcDialogs.SebastianPrompt;
+import model.Enums.Items.*;
+import model.Enums.NpcDialogs.*;
+import model.Enums.Recepies.FoodRecipesList;
+import model.GameObject.ArtesianMachine;
 import model.GameObject.NPC.NPC;
 import model.GameObject.NPC.NpcRequest;
 import model.MapModule.Position;
-import model.items.Item;
+import model.items.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public enum NpcType {
-    SEBASTIAN(new NPC(
+    SEBASTIAN(
             "Sebastian",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new Item("Iron", 99, true),           50, new Item("Diamond", 1, false),        2),
-                    new NpcRequest(new Item("Pumpkin Pie", 1, true),      1, new Item("Gold",    1, false),     5000),
-                    new NpcRequest(new Item("Coconut",     5, true),      5, new Item("Friendship Point", 1, false), 1)
+                    new NpcRequest(new Mineral(MineralItemType.IRON), 50, new Mineral(MineralItemType.DIAMOND), 2),
+                    new NpcRequest(new Food(FoodType.PUMPKIN_PIE), 1, EtcType.Money, 5000),
+                    new NpcRequest(new Mineral(MineralItemType.STONE), 150, new Mineral(MineralItemType.QUARTZ), 50)
             )),
             new ArrayList<>(Arrays.asList(
-                    new Item("Wool",       999, true),
-                    new Item("Pumpkin Pie",   1, true),
-                    new Item("Pizza",        1, false)
+                    new Etc(EtcType.WOOL),
+                    new Food(FoodType.PUMPKIN_PIE),
+                    new Food(FoodType.PIZZA)
             )),
-            new Position(10,10)
-    )),
+            SebastianPrompt.class
+    ),
 
-    ABIGAIL(new NPC(
+    ABIGAIL(
             "Abigail",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new Item("Stone",     999, true),   150, new Item("Quartz", 1, false),       50),
-                    new NpcRequest(new Item("Pumpkin",      1, true),     1, new Item("Gold",   1, false),      500),
-                    new NpcRequest(new Item("Any Fruit",  12, true),    12, new Item("Gold",   1, false),      750)
+                    new NpcRequest(new OreItem(Ore.GOLD_ORE), 1, EtcType.NPC_FRIENDSHIP_XP, 200),
+                    new NpcRequest(new Food(FoodType.PUMPKIN), 1, EtcType.Money, 500),
+                    new NpcRequest(new Food(FoodType.WHEAT), 50, EtcType.IRIDIUM_SPRINKLER, 1)
             )),
             new ArrayList<>(Arrays.asList(
-                    new Item("Stone",     999, true),
-                    new Item("Iron Ore",  999, true),
-                    new Item("Coffee",    999, true)
+                    new Mineral(MineralItemType.STONE),
+                    new Mineral(MineralItemType.IRON),
+                    new Food(FoodType.COFFEE)
             )),
-            new Position(15,15)
-    )),
+            AbigailPrompt.class
+    ),
 
-    HARVEY(new NPC(
+    HARVEY(
             "Harvey",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new Item("Salmon",   1, true),       1, new Item("Friendship Point", 1, false),  1),
-                    new NpcRequest(new Item("Wine",     1, false),      1, new Item("Salad",           1, false),  5),
-                    new NpcRequest(new Item("Wood",    10, true),      10, new Item("Gold",             1, false),500)
+                    new NpcRequest(new Etc(EtcType.ANY_PLANT), 12, EtcType.Money, 750),
+                    new NpcRequest(new Fish(FishType.Salmon), 1, EtcType.NPC_FRIENDSHIP_XP, 200),
+                    new NpcRequest(new Food(FoodType.WINE), 1, new Food(FoodType.SALAD), 5)
             )),
             new ArrayList<>(Arrays.asList(
-                    new Item("Coffee", 999, true),
-                    new Item("Pickles",999, true),
-                    new Item("Wine",    1,   false)
+                    new Food(FoodType.COFFEE),
+                    new Food(FoodType.PICKLES),
+                    new Food(FoodType.WINE)
             )),
-            new Position(20,20)
-    )),
+            HarveyPrompt.class
+    ),
 
-    LEAH(new NPC(
+    LEAH(
             "Leah",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new Item("Salad",          1, false),  1, new Item("Dinner Salmon",1, false),     1),
-                    new NpcRequest(new Item("Deluxe Scarecrow",3, false),  3, new Item("Wood",           999, true),   200),
-                    new NpcRequest(new Item("Wood",           999, true),  80, new Item("Gold",              1, false),1000)
+                    new NpcRequest(new Etc(EtcType.WOOD), 10, EtcType.Money, 500),
+                    new NpcRequest(new Fish(FishType.Salmon), 1, FoodRecipesList.SALMON_DINNER, 1),
+                    new NpcRequest(new Etc(EtcType.WOOD), 200, new Etc(EtcType.DELUXE_SCARE_CROW), 3)
             )),
             new ArrayList<>(Arrays.asList(
-                    new Item("Salad",   1, false),
-                    new Item("Grapes", 999, true),
-                    new Item("Wine",     1, false)
+                    new Food(FoodType.SALAD),
+                    new Food(FoodType.GRAPE),
+                    new Food(FoodType.WINE)
             )),
-            new Position(25,25)
-    )),
+            LeahPrompt.class
+    ),
 
-    ROBIN(new NPC(
+    ROBIN(
             "Robin",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new Item("Iron Bar",    1, true),   10, new Item("Bee House",      1, false),  3),
-                    new NpcRequest(new Item("Wood",       999, true),1000, new Item("Gold",            1, false),25000),
-                    new NpcRequest(new Item("Spaghetti",   1, false),   1, new Item("Friendship Point",1, false),  1)
+                    new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 1000),
+                    new NpcRequest(new OreItem(Ore.IRON_ORE), 10, new Artesian(ArtisanMachineItemType.BEE_HOUSE), 3),
+                    new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 25000)
             )),
             new ArrayList<>(Arrays.asList(
-                    new Item("Spaghetti", 1, false),
-                    new Item("Wood",     999, true),
-                    new Item("Iron Bar",  1, true)
+                    new Food(FoodType.SPAGHETTI),
+                    new Etc(EtcType.WOOD),
+                    new OreItem(Ore.IRON_ORE)
             )),
-            new Position(30,30)
-    ));
+            RobinPrompt.class
+    );
 
     private final String name;
     private final ArrayList<NpcRequest> requests;
     private final ArrayList<Item> favoriteItems;
-    private final Class<NpcPrompt> promptClass;
+    private final Class<? extends NpcPrompt> promptClass;
 
-    NpcType(String name, ArrayList<NpcRequest> requests, ArrayList<Item> favoriteItems, Class<NpcPrompt> promptClass) {
+    NpcType(String name, ArrayList<NpcRequest> requests, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass) {
         this.name = name;
         this.requests = requests;
         this.favoriteItems = favoriteItems;
         this.promptClass = promptClass;
     }
 
-    public Class<NpcPrompt> getPromptClass() {
+    public Class<? extends NpcPrompt> getPromptClass() {
         return promptClass;
     }
 

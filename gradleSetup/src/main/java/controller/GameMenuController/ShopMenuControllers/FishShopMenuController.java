@@ -2,6 +2,7 @@ package controller.GameMenuController.ShopMenuControllers;
 
 import model.App;
 import model.MapModule.Buildings.FishShop;
+import model.MapModule.Buildings.JojaMart;
 import model.MapModule.Buildings.PierresGeneralStore;
 import model.Result;
 import model.items.Fish;
@@ -25,5 +26,9 @@ public class FishShopMenuController implements ShopController {
         return ShopController.purchaseProductFromList(matcher,
                 App.getCurrentUser().getCurrentGame().
                         findStoreByClass(FishShop.class).getDailyProductList());
+    }
+
+    public static Result ExitShop(){
+        return ShopController.exitShopMenu(FishShop.class);
     }
 }

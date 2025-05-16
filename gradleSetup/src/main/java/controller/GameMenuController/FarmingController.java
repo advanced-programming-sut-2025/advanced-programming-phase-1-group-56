@@ -27,6 +27,16 @@ import java.util.Random;
 import java.util.regex.Matcher;
 
 public class FarmingController extends CommandController {
+
+    public static void manageStrikeThunder(Farm farm){
+        if (App.getCurrentUser().getCurrentGame().getWeatherState().shouldStrikeThunder()) {
+            for (int i = 0; i < 3; i++) {
+                int randX = (int) (Math.random() * farm.getTiles()[0].length);
+                int randY = (int) (Math.random() * farm.getTiles().length);
+                WeatherController.cheatThor(farm, Integer.toString(randX), Integer.toString(randY));
+            }
+        }
+    }
     public static Result craftInfo(Matcher matcher) {
         String name = matcher.group(1);
         FruitType fruitType = null;
@@ -250,7 +260,7 @@ public class FarmingController extends CommandController {
         if (seed2.cropType instanceof CropType) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Crop(true, new Position(x, y), (CropType) seed.cropType));
         } else if (seed2.cropType instanceof TreeType) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Tree(false, ((TreeType) seed.cropType), new Position(x, y)));
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Tree(((TreeType) seed.cropType), new Position(x, y)));
         }
         return new Result(true, "you successfully planted in this tile!");
     }
@@ -398,7 +408,7 @@ public class FarmingController extends CommandController {
                             if (seedType.cropType instanceof CropType) {
                                 tile.setFixedObject(new Crop(true, pos, (CropType) seedType.cropType));
                             } else if (seedType.cropType instanceof TreeType) {
-                                tile.setFixedObject(new Tree(false, (TreeType) seedType.cropType, pos));
+                                tile.setFixedObject(new Tree( (TreeType) seedType.cropType, pos));
                             }
                         }
                     }

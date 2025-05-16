@@ -4,6 +4,7 @@ import model.App;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Buildings.JojaMart;
 import model.MapModule.Buildings.MarniesRanch;
+import model.MapModule.Buildings.TheSaloonStardrop;
 import model.Result;
 
 import java.util.regex.Matcher;
@@ -26,4 +27,9 @@ public class JojaMartShopMenuController implements ShopController {
                 App.getCurrentUser().getCurrentGame().
                         findStoreByClass(JojaMart.class).getDailyProductList());
     }
+
+    public static Result ExitShop(){
+        return ShopController.exitShopMenu(JojaMart.class);
+    }
+
 }

@@ -4,7 +4,7 @@ import model.Enums.Items.EtcType;
 import model.Enums.Items.SeedType;
 
 public class Etc extends Item {
-    private EtcType etcType;
+    private final EtcType etcType;
 
     public Etc( EtcType etcType) {
         super(etcType.name, 100, true, etcType.value);

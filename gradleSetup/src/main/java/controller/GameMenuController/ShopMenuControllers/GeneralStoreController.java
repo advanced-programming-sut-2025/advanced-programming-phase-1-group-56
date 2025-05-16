@@ -26,4 +26,8 @@ public class GeneralStoreController implements ShopController {
                 App.getCurrentUser().getCurrentGame().
                         findStoreByClass(PierresGeneralStore.class).getDailyProductList());
     }
+
+    public static Result ExitShop(){
+        return ShopController.exitShopMenu(PierresGeneralStore.class);
+    }
 }

@@ -1,15 +1,9 @@
 package model.Enums.Stores;
 
-import model.Enums.Items.EtcType;
-import model.Enums.Items.MineralItemType;
-import model.Enums.Items.ToolType;
-import model.Enums.Items.TrashcanType;
+import model.Enums.Items.*;
 import model.Enums.WeatherAndTime.Seasons;
 import model.GameObject.NPC.NpcProduct;
-import model.items.Item;
-import model.items.Saleable;
-import model.items.Mineral;
-import model.items.Tool;
+import model.items.*;
 
 import java.util.ArrayList;
 
@@ -18,7 +12,7 @@ public enum BlackSmithProducts implements Store {
     COPPER_ORE(
             new NpcProduct(
                     "COPPER_ORE",
-                    new Mineral(MineralItemType.COPPER),
+                    new OreItem(Ore.COPPER_ORE),
                     "A common ore that can be smelted into bars.",
                     75,
                     -1,
@@ -51,7 +45,7 @@ public enum BlackSmithProducts implements Store {
     GOLD_ORE(
             new NpcProduct(
                     "GOLD_ORE",
-                    new Mineral(MineralItemType.GOLD),
+                    new OreItem(Ore.GOLD_ORE),
                     "A precious ore that can be smelted into bars.",
                     400,
                     -1,
