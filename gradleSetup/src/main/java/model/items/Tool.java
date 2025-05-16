@@ -159,6 +159,7 @@ public class Tool extends Item {
                     Animal animal = (Animal) tile.getFixedObject();
                     if (animal.getAnimalInfo() == AnimalType.COW || animal.getAnimalInfo() == AnimalType.SHEEP || animal.getAnimalInfo() == AnimalType.GOAT){
                         player.getInventory().add(new Etc(EtcType.MILK) , 1);
+                        animal.setGetProduct(true);
                     }
                     player.getInventory().remove(new Tool(ToolType.MILK_PAIL) , 1);
                 }
@@ -169,6 +170,7 @@ public class Tool extends Item {
                     Animal animal = (Animal) tile.getFixedObject();
                     if (animal.getAnimalInfo() == AnimalType.SHEEP){
                         player.getInventory().add(new Etc(EtcType.WOOL) , 1);
+                        animal.setGetProduct(true);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
