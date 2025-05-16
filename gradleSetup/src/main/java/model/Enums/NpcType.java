@@ -1,14 +1,16 @@
 package model.Enums;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import model.Enums.NpcDialogs.NpcPrompt;
+import model.Enums.NpcDialogs.SebastianPrompt;
 import model.GameObject.NPC.NPC;
 import model.GameObject.NPC.NpcRequest;
 import model.MapModule.Position;
 import model.items.Item;
 
-public enum NPCs {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public enum NpcType {
     SEBASTIAN(new NPC(
             "Sebastian",
             new ArrayList<>(Arrays.asList(
@@ -84,13 +86,31 @@ public enum NPCs {
             new Position(30,30)
     ));
 
-    private final NPC npc;
+    private final String name;
+    private final ArrayList<NpcRequest> requests;
+    private final ArrayList<Item> favoriteItems;
+    private final Class<NpcPrompt> promptClass;
 
-    NPCs(NPC npc) {
-        this.npc = npc;
+    NpcType(String name, ArrayList<NpcRequest> requests, ArrayList<Item> favoriteItems, Class<NpcPrompt> promptClass) {
+        this.name = name;
+        this.requests = requests;
+        this.favoriteItems = favoriteItems;
+        this.promptClass = promptClass;
     }
 
-    public NPC getNpc() {
-        return npc;
+    public Class<NpcPrompt> getPromptClass() {
+        return promptClass;
+    }
+
+    public ArrayList<Item> getFavoriteItems() {
+        return favoriteItems;
+    }
+
+    public ArrayList<NpcRequest> getRequests() {
+        return requests;
+    }
+
+    public String getName() {
+        return name;
     }
 }
