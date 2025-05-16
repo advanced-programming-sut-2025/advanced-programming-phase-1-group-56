@@ -3,7 +3,7 @@ package model.GameObject.NPC;
 import model.Player;
 
 public class NpcFriendship {
-    private final Player player;
+//    private final Player player;
     private final NPC npc;
     private int level;
     private int xp;

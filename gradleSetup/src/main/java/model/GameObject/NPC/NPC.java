@@ -1,5 +1,6 @@
 package model.GameObject.NPC;
 
+import model.Enums.NPCs;
 import model.MapModule.Position;
 import model.GameObject.LivingEntity;
 import model.MapModule.Buildings.Building;
@@ -8,12 +9,15 @@ import model.items.Item;
 import java.util.ArrayList;
 
 public class NPC extends LivingEntity {
-    private final String name;
-    private final NpcRequest[] requests = new NpcRequest[3];
-    private final ArrayList<NpcRequest> npcRequests = new ArrayList<>();
-    private final ArrayList<Item> favoriteItems = new ArrayList<>();
-    private final Building workingBuilding;
-    private final Job job;
+//    private final String name;
+//    private final NpcRequest[] requests = new NpcRequest[3];
+//    private final ArrayList<NpcRequest> npcRequests = new ArrayList<>();
+//    private final ArrayList<Item> favoriteItems = new ArrayList<>();
+
+//    private final Building workingBuilding;
+//    private final Job job;
+    private NPCs nps
+    private ArrayList<NpcFriendship> friendships;
     private int lastActiveRequest;
 
     public NPC(Position position, boolean walkable, String name, Building workingBuilding, Job job, int lastActiveRequest) {
