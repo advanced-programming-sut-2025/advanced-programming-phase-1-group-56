@@ -13,6 +13,8 @@ public class MarniesRanch extends Store {
     public MarniesRanch( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
         super( startingPosition,walkable, name, doorPosition, height, width);
         dailyProductList = MarniesRanchProducts.getProducts(MarniesRanchProducts.class);
+        setOpeningHour(9);
+        setClosingHour(16);
     }
 
     @Override

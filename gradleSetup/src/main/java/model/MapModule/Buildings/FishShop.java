@@ -13,6 +13,8 @@ public class FishShop extends Store {
     public FishShop( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
         super(startingPosition,walkable,name,doorPosition,height,width);
         dailyProductList = FishShopProducts.getProducts(FishShopProducts.class);
+        setOpeningHour(9);
+        setClosingHour(17);
     }
 
     @Override

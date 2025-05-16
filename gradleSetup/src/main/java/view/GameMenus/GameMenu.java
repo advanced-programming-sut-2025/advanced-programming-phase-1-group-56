@@ -47,13 +47,7 @@ public class GameMenu implements AppMenu {
 
     public boolean HusbandryCheck(String input) {
         Matcher matcher;
-        if ((matcher = HusbandryCommands.buildBarnOrCoop.getMatcher(input)) != null) {
-            System.out.println(HusbandryController.buildCoopOrBarn(matcher));
-            return true;
-        } else if ((matcher = HusbandryCommands.buyAnimal.getMatcher(input)) != null) {
-            System.out.println(HusbandryController.manageBuyAnimal(matcher));
-            return true;
-        } else if ((matcher = HusbandryCommands.pettingAnimal.getMatcher(input)) != null) {
+        if ((matcher = HusbandryCommands.pettingAnimal.getMatcher(input)) != null) {
             System.out.println(HusbandryController.petting(matcher));
             return true;
         } else if ((matcher = HusbandryCommands.showInfoAnimals.getMatcher(input)) != null) {
