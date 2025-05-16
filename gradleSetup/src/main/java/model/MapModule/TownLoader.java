@@ -206,7 +206,7 @@ public class TownLoader {
                             go = new MarniesRanch( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
                         }
-                        case "wood" -> go = new Tree(false, TreeType.TREE_BARK,new Position(tx,ty));//TODO
+                        case "wood" -> go = new Tree( TreeType.TREE_BARK,new Position(tx,ty));//TODO
                         default -> go = null;
                     }
                     ;

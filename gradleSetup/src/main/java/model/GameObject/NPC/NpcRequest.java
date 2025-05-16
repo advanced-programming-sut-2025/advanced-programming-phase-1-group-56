@@ -1,50 +1,35 @@
 package model.GameObject.NPC;
 
 import model.items.Item;
+import model.items.Saleable;
 
 public class NpcRequest {
-    private Item requestedItem;
-    private int RequestedQuantity;
-    private Item rewardItem;
-    private int rewardQuantity;
+    private final Item requestedItem;
+    private final int RequestedQuantity;
+    private final Saleable rewardItem;
 
-    public NpcRequest(Item item, int quantity, Item rewardItem, int rewardQuantity) {
-        this.requestedItem = item;
-        this.RequestedQuantity = quantity;
-        this.rewardItem = rewardItem;
-        this.rewardQuantity = rewardQuantity;
+    public int getRewardQuantity() {
+        return rewardQuantity;
     }
 
+    public Saleable getRewardItem() {
+        return rewardItem;
+    }
 
     public int getRequestedQuantity() {
         return RequestedQuantity;
-    }
-
-    public void setRequestedQuantity(int requestedQuantity) {
-        this.RequestedQuantity = requestedQuantity;
     }
 
     public Item getRequestedItem() {
         return requestedItem;
     }
 
-    public void setRequestedItem(Item requestedItem) {
-        this.requestedItem = requestedItem;
-    }
+    private final int rewardQuantity;
 
-    public int getRewardQuantity() {
-        return rewardQuantity;
-    }
-
-    public void setRewardQuantity(int rewardQuantity) {
-        this.rewardQuantity = rewardQuantity;
-    }
-
-    public Item getRewardItem() {
-        return rewardItem;
-    }
-
-    public void setRewardItem(Item rewardItem) {
+    public NpcRequest(Item item, int quantity, Saleable rewardItem, int rewardQuantity) {
+        this.requestedItem = item;
+        this.RequestedQuantity = quantity;
         this.rewardItem = rewardItem;
+        this.rewardQuantity = rewardQuantity;
     }
 }
