@@ -27,4 +27,9 @@ public enum ArtisanMachineItemType implements ItemType {
         this.isArtisanBlock = isArtisanBlock;
         this.isPlacable = isPlacable;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }
