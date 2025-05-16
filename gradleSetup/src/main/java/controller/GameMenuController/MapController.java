@@ -3,15 +3,18 @@ package controller.GameMenuController;
 import controller.CommandController;
 import model.App;
 import model.Enums.FarmPosition;
+import model.Enums.Menu;
 import model.Enums.TileType;
 import model.Game;
 import model.MapModule.AStarPathFinding;
 import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.Node;
+import model.MapModule.Position;
 import model.MapModule.Tile;
 import model.Player;
 import model.Result;
+import view.GameMenus.GreenHouseMenu;
 
 import java.util.ArrayList;
 
@@ -95,18 +98,66 @@ public class MapController extends CommandController {
         } else if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY()).getFixedObject() instanceof Building building){
             if (player.getPosition() == building.getDoorPosition()){
                 if (building instanceof JojaMart){
-
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 9 am to 11 pm.");
+                    }
+                    App.setCurrentMenu(Menu.JojaMartMenu);
+                    return new Result(true , "welcome to Joja Mart");
                 } else if (building instanceof Blacksmith){
-
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((Blacksmith) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((Blacksmith) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 9 am to 4 pm.");
+                    }
+                    App.setCurrentMenu(Menu.BlackSmithMenu);
+                    return new Result(true , "welcome to Black Smith");
                 } else if (building instanceof CarpentersShop){
-
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((CarpentersShop) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((CarpentersShop) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 9 am to 8 pm.");
+                    }
+                    App.setCurrentMenu(Menu.CarpenterShopMenu);
+                    return new Result(true , "welcome to Carpenters Shop");
                 } else if (building instanceof MarniesRanch){
-
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((MarniesRanch) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((MarniesRanch) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 9 am to 4 pm.");
+                    }
+                    App.setCurrentMenu(Menu.MarniesRanchMenu);
+                    return new Result(true , "welcome to Marnies Ranch");
                 } else if (building instanceof PierresGeneralStore){
-
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((PierresGeneralStore) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((PierresGeneralStore) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 9 am to 5 pm.");
+                    }
+                    App.setCurrentMenu(Menu.PierresGeneralStoreMenu);
+                    return new Result(true , "welcome to Pirrer Store");
                 } else if (building instanceof TheSaloonStardrop){
-
-                } else if
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((TheSaloonStardrop) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((TheSaloonStardrop) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 12 am to 12 pm.");
+                    }
+                    App.setCurrentMenu(Menu.TheSaloonStarDropMenu);
+                    return new Result(true , "welcome to Saloon Star Drop");
+                } else if(building instanceof FishShop){
+                    if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((FishShop) building).getOpeningHour() ||
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((FishShop) building).getClosingHour()){
+                        return new Result(false , "The shop is closed, please come from 9 am to 5 pm.");
+                    }
+                    App.setCurrentMenu(Menu.FishShopMenu);
+                    return new Result(true , "welcome to Fish Shop");
+                } else if(building instanceof Home){
+                    App.setCurrentMenu(Menu.HouseMenu);
+                    return new Result(true , "welcome to your home");
+                } else if(building instanceof GreenHouse){
+                    App.setCurrentMenu(Menu.GreenHouseMenu);
+                    if (((GreenHouse) building).isBroken()){
+                        return new Result(false , "the green house is broken and you cant come into it.");
+                    }
+                    player.setCurrentGameLocation(((GreenHouse) building).getIndoor());
+                    player.setPosition(new Position(5 , 9));
+                    return new Result(true , "welcome to green house");
+                }
             }
 
         }

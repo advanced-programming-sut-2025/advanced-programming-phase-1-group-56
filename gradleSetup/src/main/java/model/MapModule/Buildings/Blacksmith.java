@@ -14,6 +14,8 @@ public class Blacksmith extends Store {
     public Blacksmith( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
         super(startingPosition,walkable, name, doorPosition, height, width);
         dailyProductList = BlackSmithProducts.getProducts(BlackSmithProducts.class);
+        setOpeningHour(9);
+        setClosingHour(16);
     }
 
     @Override

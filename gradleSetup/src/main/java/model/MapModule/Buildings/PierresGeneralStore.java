@@ -14,6 +14,8 @@ public class PierresGeneralStore extends Store {
     public PierresGeneralStore(Position startingPosition, boolean walkable, String name, Position doorPosition, int height, int width) {
         super(startingPosition, walkable, name, doorPosition, height, width);
         dailyProductList = PierreGeneralStoreProducts.getProducts(PierreGeneralStoreProducts.class);
+        setOpeningHour(9);
+        setClosingHour(17);
     }
 
     @Override
