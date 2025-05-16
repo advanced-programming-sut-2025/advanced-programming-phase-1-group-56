@@ -5,7 +5,7 @@ import model.Enums.WeatherAndTime.WeatherType;
 import java.util.*;
 import java.util.stream.*;
 
-public enum LeahPrompt {
+public enum LeahPrompt implements NpcPrompt {
     Sunny_ART(
             "On a Sunny day, Leah excitedly shows you her latest clay sculpture.",
             WeatherType.Sunny, true, 1),

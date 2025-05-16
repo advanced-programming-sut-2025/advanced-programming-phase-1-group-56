@@ -1,6 +1,5 @@
 package model.Enums.Stores;
 
-import model.Activities.ArtesianRecepie;
 import model.Enums.Items.EtcType;
 import model.Enums.Items.FoodType;
 import model.Enums.Items.ToolType;
