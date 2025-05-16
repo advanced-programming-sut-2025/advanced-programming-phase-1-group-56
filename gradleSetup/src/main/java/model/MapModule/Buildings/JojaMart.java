@@ -13,6 +13,8 @@ public class JojaMart extends Store {
     public JojaMart( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
         super(startingPosition,walkable,name,doorPosition,height,width);
         dailyProductList = JojamartProducts.getProducts(JojamartProducts.class);
+        setOpeningHour(9);
+        setClosingHour(23);
     }
 
     @Override

@@ -1,14 +1,11 @@
 package controller.GameMenuController;
 
 import controller.CommandController;
-import model.App;
+import model.*;
 
 import model.Enums.Items.FoodType;
 import model.Enums.Recepies.CraftingRecipesList;
 import model.Enums.Recepies.FoodRecipesList;
-import model.Ingredient;
-import model.Result;
-import model.Slot;
 import model.States.Energy;
 import model.items.Food;
 import model.items.Item;
@@ -41,7 +38,7 @@ public class CookingController extends CommandController {
         String input = matcher.group(1).trim();
         Item item = returnInventoryItemByName(input);
         if (item == null) {
-            return new Result(false, "there is no " + item.getName() + " in refrigerator");
+            return new Result(false, "there is no " + input + " in refrigerator");
         } else if (!(item instanceof Food)) {
             return new Result(false, "this item is not Food!");
         }
@@ -126,28 +123,18 @@ public class CookingController extends CommandController {
         String foodName = matcher.group(1).trim();
         Item item = returnInventoryItemByName(foodName);
         if (item == null) {
-            return new Result(false, "there is no `" + item.getName() + " in your inventory!");
+            return new Result(false, "there is no `" + foodName + " in your inventory!");
         } else if (!(item instanceof Food)) {
             return new Result(false, "this item is not Food!");
         }
         Food food = (Food) item;
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
-        App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .setEnergy(new Energy(App.getCurrentUser()
-                        .getCurrentGame()
-                        .getCurrentPlayer()
-                        .getEnergy()
-                        .getEnergy() + food.getEnergy()));
-        if (food.getBuff().equals("1")) {
-        }
-        //TODO need time observer
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
         return new Result(true, "you eat " + item.getName());
     }
 
     private static Item returnRefrigeratorItemByName(String itemName) {
-
         for (Slot slot : App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()

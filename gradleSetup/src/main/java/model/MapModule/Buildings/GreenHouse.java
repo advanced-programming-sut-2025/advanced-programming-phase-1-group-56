@@ -11,20 +11,21 @@ import model.TimeSystem.TimeObserver;
 import java.util.Observer;
 
 public class GreenHouse extends Building implements TimeObserver {
-    final static int wid = 6;
-    final static int het = 5;
+    final static int wid = 11;
+    final static int het = 11;
     private boolean broken = true;
     private GameLocation indoor;
 
     public GreenHouse(Position startingPosition,boolean walkable,String name,Position doorPosition,int height,int width) {
-        super(startingPosition,walkable,name,doorPosition,wid,het);
+        super(startingPosition,walkable,name,doorPosition,het,wid);
         GameLocation indoor = new GameLocation();
-        Tile[][] tiles = new Tile[5][6];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 6; j++) {
+        Tile[][] tiles = new Tile[11][11];
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
                 tiles[i][j] = new Tile(new Position(i,j),true, TileType.Soil);
             }
         }
+        tiles[10][5].setTileType(TileType.Wrapper);
         indoor.setTiles(tiles);
         this.indoor = indoor;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);

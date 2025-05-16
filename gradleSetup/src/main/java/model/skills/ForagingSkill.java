@@ -6,9 +6,4 @@ public class ForagingSkill extends Skill {
     public ForagingSkill(Skills name, int xp) {
         super(name,xp);
     }
-
-    @Override
-    public int calculateLevel() {
-        return 0;
-    }
 }

@@ -7,8 +7,4 @@ public class FishingSkill extends Skill {
         super(name,xp);
     }
 
-    @Override
-    public int calculateLevel() {
-        return 0;
-    }
 }
