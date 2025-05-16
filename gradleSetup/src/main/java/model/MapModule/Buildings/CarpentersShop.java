@@ -14,6 +14,8 @@ public class CarpentersShop extends Store{
     public CarpentersShop(Position startingPosition,boolean walkable, String name, Position doorPosition,  int height, int width) {
         super(startingPosition,walkable,name,doorPosition,height,width);
         dailyProductList = CarpenterShopProducts.getProducts(CarpenterShopProducts.class);
+        setOpeningHour(9);
+        setClosingHour(20);
     }
 
     @Override

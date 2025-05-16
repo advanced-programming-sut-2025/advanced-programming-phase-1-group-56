@@ -12,6 +12,8 @@ public class TheSaloonStardrop extends Store {
     public TheSaloonStardrop( Position startingPosition, boolean walkable, String name,Position doorPosition,int height, int width) {
         super(startingPosition,walkable,name,doorPosition,height,width);
         dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
+        setOpeningHour(12);
+        setClosingHour(24);
     }
 
     @Override
