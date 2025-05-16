@@ -48,4 +48,8 @@ public class Coop extends Building implements AnimalHouse {
     public void setAnimals(ArrayList<Animal> animals) {
         this.animals = animals;
     }
+
+    public int getRemainingCapacity() {
+        return this.type.getCapacity() - animals.size();
+    }
 }
