@@ -10,10 +10,7 @@ import model.Game;
 import model.GameObject.NPC.NpcProduct;
 import model.GameObject.ShippingBar;
 import model.GameObject.Well;
-import model.MapModule.Buildings.Barn;
-import model.MapModule.Buildings.Building;
-import model.MapModule.Buildings.CarpentersShop;
-import model.MapModule.Buildings.Coop;
+import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Position;
@@ -156,6 +153,10 @@ public class CarpenterMenuController implements ShopController {
 
 
         return new Result(true, name + " built at (" + x + "," + y + ").");
+    }
+
+    public static Result ExitShop(){
+        return ShopController.exitShopMenu(CarpentersShop.class);
     }
 }
 

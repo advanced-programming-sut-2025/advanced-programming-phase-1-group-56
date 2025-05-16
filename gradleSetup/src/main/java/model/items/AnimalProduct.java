@@ -4,8 +4,8 @@ import model.Enums.Animals.AnimalProductQuality;
 import model.Enums.Items.EtcType;
 
 public class AnimalProduct extends Item{
-    private final EtcType etcType;
-    private final AnimalProductQuality quality;
+    private EtcType etcType;
+    private AnimalProductQuality quality;
 
     public AnimalProduct(EtcType etcType, AnimalProductQuality quality) {
         super(etcType.name, 100, true, etcType.value);
@@ -24,5 +24,13 @@ public class AnimalProduct extends Item{
 
     public int getPrice(){
         return price;
+    }
+
+    public void setQuality(AnimalProductQuality quality) {
+        this.quality = quality;
+    }
+
+    public void setPrice(int price){
+        this.price = price;
     }
 }

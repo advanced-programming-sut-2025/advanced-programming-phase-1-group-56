@@ -23,6 +23,7 @@ public class Crop extends GameObject implements TimeObserver {
     private int harvestDayRegrowth;
     private boolean isHarvest;
     private boolean isComplete;
+    private boolean is1time;
 
 
     public Crop(boolean walkable, Position position,  CropType cropType) {
@@ -40,6 +41,7 @@ public class Crop extends GameObject implements TimeObserver {
         this.harvestDayRegrowth = 0;
         this.isHarvest = false;
         this.isComplete = false;
+        this.is1time = false;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
@@ -102,14 +104,15 @@ public class Crop extends GameObject implements TimeObserver {
             if(speedGro){
                 countCurrentStage1--;
             }
-            if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && isComplete == false) {
-                isComplete = true;
-                isHarvest = true;
-            }
-            if (countCurrentStage == cropType.stages[currentStage] && isComplete == false) {
-                this.currentStage++;
-            }
+            isWateredToday = false;
             if(cropType.regrowthTime != -1){
+                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                    isComplete = true;
+                    isHarvest = true;
+                }
+                if (countCurrentStage == cropType.stages[currentStage] && isComplete == false) {
+                    this.currentStage++;
+                }
                 if (isComplete){
                     harvestDayRegrowth++;
                 }
@@ -117,7 +120,16 @@ public class Crop extends GameObject implements TimeObserver {
                     isHarvest = true;
                     harvestDayRegrowth = 0;
                 }
-                isWateredToday = false;
+
+            }else {
+                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                    isComplete = true;
+                    isHarvest = true;
+                    is1time = true;
+                }
+                if (countCurrentStage == cropType.stages[currentStage] && isComplete == false) {
+                    this.currentStage++;
+                }
             }
         }else{
             if(isWateredToday) {
@@ -167,5 +179,13 @@ public class Crop extends GameObject implements TimeObserver {
 
     public void setHarvest(boolean harvest) {
         isHarvest = harvest;
+    }
+
+    public boolean isIs1time() {
+        return is1time;
+    }
+
+    public void setIs1time(boolean is1time) {
+        this.is1time = is1time;
     }
 }

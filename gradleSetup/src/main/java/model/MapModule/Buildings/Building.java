@@ -48,6 +48,10 @@ public abstract class Building extends GameObject {
         return width;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
 //    protected boolean [][] walkable;
 
     public Building(Position position ,boolean walkable,String name/*,GameLocation indoor*/,Position doorPosition,int height,int width) {

@@ -28,9 +28,9 @@ public class Tree extends GameObject implements TimeObserver {
     private int harvestDayRegrowth;
     private boolean isComplete;
 
-    public Tree (boolean walkable , TreeType treeType, Position position)
+    public Tree (TreeType treeType, Position position)
     {
-        super(walkable,position);
+        super(false,position);
         this.treeType = treeType;
         this.isWateredToday = false;
         this.isFertilizerToday = false;
