@@ -1,7 +1,11 @@
 package model.Enums;
 
 import view.*;
+import view.GameMenus.GameMenu;
+import view.GameMenus.GreenHouseMenu;
+import view.GameMenus.HouseMenu;
 import view.GameMenus.ShopMenus.*;
+import view.GameMenus.TradeMenu;
 
 import java.util.Scanner;
 
@@ -12,6 +16,7 @@ public enum Menu {
     avatarMenu(new AvatarMenu()),
     gameMenu(new GameMenu()),
     HouseMenu(new HouseMenu()),
+    GreenHouseMenu(new GreenHouseMenu()),
     exitMenu(new ExitMenu()),
     TradeMenu(new TradeMenu()),
     CarpenterShopMenu(new CarpentersShopMenu()),

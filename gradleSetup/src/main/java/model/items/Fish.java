@@ -27,4 +27,6 @@ public class Fish extends Item {
     public boolean isLegendary() {
         return fishType.isLegendary();
     }
+
+//    public int getEnergy(){ return fishType.get}
 }

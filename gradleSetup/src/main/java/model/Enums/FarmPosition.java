@@ -1,10 +1,15 @@
 package model.Enums;
 
 public enum FarmPosition {
-    UPRIGHT,
-    UPLEFT,
-    DOWNRIGHT,
-    DOWNLEFT,
+    UP,
+    LEFT,
+    DOWN,
+    RIGHT,
+//    UP,
+//    DOWN,
+//    RIGHT,
+//    LEFT;
+
 }
 
 
