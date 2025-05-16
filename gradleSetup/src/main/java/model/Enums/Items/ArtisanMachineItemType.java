@@ -16,8 +16,21 @@ public enum ArtisanMachineItemType implements ItemType {
     DEHYDRATOR("Dehydrator", ArtisanMachineType.Dehydrator ,true, true),
     FISH_SMOKER("Fish Smoker", ArtisanMachineType.FISH_SMOKER ,true, true);
 
-    public final String name;
-    public final ArtisanMachineType artisanMachineType;
+    private final String name;
+
+    public ArtisanMachineType getArtisanMachineType() {
+        return artisanMachineType;
+    }
+
+    public boolean isArtisanBlock() {
+        return isArtisanBlock;
+    }
+
+    public boolean isPlacable() {
+        return isPlacable;
+    }
+
+    private final ArtisanMachineType artisanMachineType;
     public final boolean isArtisanBlock;
     public final boolean isPlacable;
 

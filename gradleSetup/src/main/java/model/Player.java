@@ -13,6 +13,7 @@ import model.Enums.Skills;
 import model.GameObject.Animal;
 import model.GameObject.NPC.NPC;
 
+import model.GameObject.NPC.NpcFriendship;
 import model.MapModule.Buildings.Building;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.GameLocation;
@@ -73,7 +74,7 @@ public class Player implements TimeObserver {
     private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
 
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<NPC> npc = new ArrayList<>();
+    private final ArrayList<NpcFriendship> npcFriendships =new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<Animal> animals = new ArrayList<>();
 
@@ -283,8 +284,8 @@ public class Player implements TimeObserver {
         return myTrades;
     }
 
-    public ArrayList<NPC> getNpc() {
-        return npc;
+    public ArrayList<NpcFriendship> getNpcFriendShips() {
+        return npcFriendships;
     }
 
     public GameLocation getCurrentGameLocation() {
@@ -402,10 +403,9 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(Math.min((energy.getEnergy() - amount), 0));
-        if (energy.getEnergy() == 0) {
+        energy.setEnergy(Math.min((energy.getEnergy() - amount),0));
+        if(energy.getEnergy() <= 0){
             fainted = true;
-            GameController.skipTurn();
         }
     }
 
