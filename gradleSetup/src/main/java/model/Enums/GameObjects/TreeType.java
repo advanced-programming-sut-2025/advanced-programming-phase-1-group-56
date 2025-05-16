@@ -7,7 +7,7 @@ import model.Enums.Items.MineralItemType;
 import model.Enums.WeatherAndTime.Seasons;
 import model.items.Saleable;
 
-public enum TreeType implements Saleable ,initialPlant{
+public enum TreeType implements Saleable , initialPlant {
     TREE_BARK("Tree Bark", "nothing", -1, EtcType.WOOD, -1, -1, -1, false, -1, null),
     BURNT_TREE("Burnt Tree", "nothing", -1, MineralItemType.COAL, -1, -1, -1, false, -1, null),
     NORMAL_TREE("Normal Tree", "nothing", -1, EtcType.WOOD, -1, 0, -1, false, -1, null),
