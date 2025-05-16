@@ -60,13 +60,13 @@ public class Tool extends Item {
                         return;
                     }
                     playerSkill.setXp(playerSkill.getXp() + 5);
-                    if (playerSkill.calculateLevel() == 3){
+                    if (playerSkill.getLevel() == 3){
                         player.subtractEnergy(toolType.getUsedEnergy() +1);
                     } else {
                         player.subtractEnergy(toolType.getUsedEnergy());
                     }
                 } else {
-                    if (playerSkill.calculateLevel() == 3){
+                    if (playerSkill.getLevel() == 3){
                         if (toolType.getUsedEnergy() -2 >= 0){
                             player.subtractEnergy(toolType.getUsedEnergy() +2);
                         }
@@ -121,7 +121,7 @@ public class Tool extends Item {
 //
                     }
                     player.subtractEnergy(toolType.getUsedEnergy());
-                    if (playerSkill.calculateLevel() == 3){
+                    if (playerSkill.getLevel() == 3){
                         player.addEnergy( 1);
                     }
                 }
@@ -129,7 +129,7 @@ public class Tool extends Item {
             case "Fishing Pole" : {
                 Skill playerSkill = player.getSkillByName("fishing");
                 if (tile.getTileType() == TileType.Water){
-                    int quantity = (int) (Math.random() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplier() * (playerSkill.calculateLevel() + 2));
+                    int quantity = (int) (Math.random() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplier() * (playerSkill.getLevel() + 2));
                     if (toolType.getToolMaterial() == ToolMaterial.Training){
                         FishType fishType = FishType.getCheapestFishOfSeason(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
                         player.getInventory().add(new Fish(fishType), quantity);
@@ -138,7 +138,7 @@ public class Tool extends Item {
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
-                if (playerSkill.calculateLevel() == 3){
+                if (playerSkill.getLevel() == 3){
                     player.subtractEnergy(1);
                 }
             }
@@ -159,6 +159,7 @@ public class Tool extends Item {
                     Animal animal = (Animal) tile.getFixedObject();
                     if (animal.getAnimalInfo() == AnimalType.COW || animal.getAnimalInfo() == AnimalType.SHEEP || animal.getAnimalInfo() == AnimalType.GOAT){
                         player.getInventory().add(new Etc(EtcType.MILK) , 1);
+                        animal.setGetProduct(true);
                     }
                     player.getInventory().remove(new Tool(ToolType.MILK_PAIL) , 1);
                 }
@@ -169,6 +170,7 @@ public class Tool extends Item {
                     Animal animal = (Animal) tile.getFixedObject();
                     if (animal.getAnimalInfo() == AnimalType.SHEEP){
                         player.getInventory().add(new Etc(EtcType.WOOL) , 1);
+                        animal.setGetProduct(true);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());

@@ -43,7 +43,7 @@ public class Farm extends GameLocation implements TimeObserver {
                         deleteObjectTreeOrCrop((Tree)gameObject);
                     }
                 } else  if(gameObject instanceof Crop) {
-                    if(((Crop)gameObject).getDaysWithNoWater() == 2){
+                    if(((Crop)gameObject).getDaysWithNoWater() == 2 || ((Crop)gameObject).isIs1time() ){
                         deleteObjectTreeOrCrop((Crop)gameObject);
                     }
                 }
