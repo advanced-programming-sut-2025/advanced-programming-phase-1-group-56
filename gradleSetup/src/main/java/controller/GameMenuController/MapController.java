@@ -3,12 +3,18 @@ package controller.GameMenuController;
 import controller.CommandController;
 import model.App;
 import model.Enums.FarmPosition;
+import model.Enums.Items.ArtisanGoodType;
+import model.Enums.Items.ArtisanMachineItemType;
+import model.Enums.Items.Ore;
 import model.Enums.Menu;
 import model.Enums.TileType;
 import model.Game;
+import model.GameObject.*;
+import model.GameObject.NPC.NPC;
 import model.MapModule.AStarPathFinding;
 import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Farm;
+import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Node;
 import model.MapModule.Position;
 import model.MapModule.Tile;
@@ -20,9 +26,64 @@ import java.util.ArrayList;
 
 public class MapController extends CommandController {
     public static Result printMap() {
-        Game game = App.getCurrentUser().getCurrentGame();
+        String RESET = "\u001B[0m";
+        String RED = "\u001B[31m";
+        String GREEN = "\u001B[32m";
+        String BLUE = "\u001B[34m";
+        String YELLOW = "\u001B[33m";
+        String ORANGE = "\u001B[38;5;208m";
+        String MAGENTA = "\u001B[35m";
+        String CYAN = "\u001B[36m";
+        String WHITE = "\u001B[37m";
+        String GRAY = "\u001B[38;5;240m";
+        String BLACK_BROWN = "\u001B[38;5;94m";
+        String BROWN = "\u001B[38;5;130m";
 
-        return null;
+        Tile[][] tiles  = App.getMe().getCurrentGameLocation().getTiles();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].getPosition().getX() == App.getMe().getPosition().getX() &&
+                        tiles[i][j].getPosition().getY() == App.getMe().getPosition().getY()){
+                    result.append("🧍‍");
+                } else if (tiles[i][j].getFixedObject() == null) {
+                    switch (tiles[i][j].getTileType()) {
+                        case TileType.Soil -> result.append(ORANGE + "██");
+                        case TileType.Grass -> result.append(GREEN + "██");
+                        case TileType.Water -> result.append(CYAN + "██");
+                        case TileType.Vanity -> result.append(WHITE + "██");
+                        case TileType.Stone -> result.append(GRAY + "██");
+                        case TileType.PlowedSoil -> result.append(BROWN + "██");
+                        case TileType.WaterPlowedSoil -> result.append(BLACK_BROWN + "██");
+                    }
+                } else {
+                    if(tiles[i][j].getFixedObject() instanceof Building){
+                        result.append(((Building)tiles[i][j].getFixedObject()).getBuildingType().getIcon());
+                    } else if (tiles[i][j].getFixedObject() instanceof Crop) {
+                        result.append(((Crop)tiles[i][j].getFixedObject()).getCropType().getIcon());
+                    } else if (tiles[i][j].getFixedObject() instanceof ForagingCrop) {
+                        result.append(((ForagingCrop)tiles[i][j].getFixedObject()).getForagingCropType().getIcon());
+                    } else if (tiles[i][j].getFixedObject() instanceof EtcObject) {
+                        result.append(((EtcObject)tiles[i][j].getFixedObject()).getEtcObjectType().getIcon());
+                    } else if (tiles[i][j].getFixedObject() instanceof Animal) {
+                        result.append(((Crop)tiles[i][j].getFixedObject()).getCropType().getIcon());
+                    } else if (tiles[i][j].getFixedObject() instanceof NPC) {
+                        result.append(((NPC)tiles[i][j].getFixedObject()).getType().getIcon());
+                    } else if (tiles[i][j].getFixedObject() instanceof MailBox) {
+                        result.append("\uD83D\uDCE7");
+                    } else if (tiles[i][j].getFixedObject() instanceof ShippingBar) {
+                        result.append("\uD83D\uDCE6");
+                    } else if (tiles[i][j].getFixedObject() instanceof Well) {
+                        result.append("\uD83D\uDFE6");
+                    } else if (tiles[i][j].getFixedObject() instanceof ForagingMineral) {
+                        result.append(((ForagingMineral)tiles[i][j].getFixedObject()).getForagingMineralType().getIcon());
+                    }
+                }
+            }
+            result.append('\n');
+        }
+
+        return new Result(true , result.toString());
     }
 
     public static Result manageHelpReadingMap() {
@@ -59,10 +120,11 @@ public class MapController extends CommandController {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         Game game = App.getCurrentUser().getCurrentGame();
         ArrayList<Node> path = findPath(x, y);
-        int neededEnergy = (int) path.size() /20;
+        int turn = AStarPathFinding.countDirectionChanges(path);
+        int neededEnergy = (int) path.size() + (2*turn) /20;
         int availableDistance = Math.min(player.getEnergy().getEnergy()*20  , path.size());
         player.setPosition(((Tile)path.get(path.size() - availableDistance)).getPosition());
-        player.subtractEnergy(neededEnergy);
+        player.subtractEnergy(availableDistance/20);
         if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY()).getTileType() == TileType.Wrapper){
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
             if (player.getCurrentGameLocation() instanceof Farm) {

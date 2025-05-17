@@ -1,5 +1,6 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Buildings.BuildingType;
 import model.GameObject.GameObject;
 import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Position;
@@ -11,6 +12,7 @@ public abstract class Building extends GameObject {
      protected Position startPosition;
      protected final int height;
      protected final int width;
+     protected final BuildingType buildingType;
 
     public GameLocation getIndoor() {
         return indoor;
@@ -54,13 +56,18 @@ public abstract class Building extends GameObject {
 
 //    protected boolean [][] walkable;
 
-    public Building(Position position ,boolean walkable,String name/*,GameLocation indoor*/,Position doorPosition,int height,int width) {
+    public Building(Position position ,boolean walkable,String name,Position doorPosition,int height,int width,BuildingType buildingType) {
         super(walkable,position);
         this.name = name;
         this.indoor = null;
         this.doorPosition = doorPosition;
         this.height = height;
         this.width = width;
+        this.buildingType = buildingType;
+    }
+
+    public BuildingType getBuildingType() {
+        return buildingType;
     }
 
     public abstract void interact();

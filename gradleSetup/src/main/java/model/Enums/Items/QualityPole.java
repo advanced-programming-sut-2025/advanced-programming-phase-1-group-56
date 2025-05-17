@@ -16,4 +16,9 @@ public enum QualityPole implements ItemType {
     public double getCapacity() {
         return factor;
     }
+
+    @Override
+    public String getName() {
+        return "";
+    }
 }

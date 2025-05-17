@@ -12,10 +12,6 @@ public class Fish extends Item {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
     public int getBasePrice() {
         return fishType.getPrice();
     }
@@ -27,6 +23,4 @@ public class Fish extends Item {
     public boolean isLegendary() {
         return fishType.isLegendary();
     }
-
-//    public int getEnergy(){ return fishType.get}
 }

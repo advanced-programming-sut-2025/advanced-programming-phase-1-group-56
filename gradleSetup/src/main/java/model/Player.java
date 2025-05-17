@@ -78,6 +78,7 @@ public class Player implements TimeObserver {
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<Animal> animals = new ArrayList<>();
 
+    private NPC lastMeetedNpc = null;
     //doesn't need expose because duplicate won't make any trouble
     private final ArrayList<Friendship> friendShips = new ArrayList<>();
     private final ArrayList<Message> messages = new ArrayList<>();
@@ -355,6 +356,15 @@ public class Player implements TimeObserver {
     public void setGender(boolean gender) {
         this.gender = gender;
     }
+
+    public NPC getLastMeetedNpc() {
+        return lastMeetedNpc;
+    }
+
+    public void setLastMeetedNpc(NPC lastMeetedNpc) {
+        this.lastMeetedNpc = lastMeetedNpc;
+    }
+
 
     public Buff getCurrentBuff() {
         return currentBuff;

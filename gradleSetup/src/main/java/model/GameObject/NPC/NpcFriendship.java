@@ -1,21 +1,28 @@
+
+
 package model.GameObject.NPC;
 
 import model.App;
 import model.Player;
+import model.TimeSystem.DateTime;
+import model.TimeSystem.TimeObserver;
 
-public class NpcFriendship {
+public class NpcFriendship implements TimeObserver {
     private final Player player;
     private final NPC npc;
     private int xp;
     private int lastActiveRequest ;
+    private boolean hasGiftedToday;
+    private boolean hasMetToday;
 
     public NpcFriendship(Player player, NPC npc) {
         this.player = player;
         this.npc = npc;
         xp = 0;
         lastActiveRequest = 1;
-        NPC seb = App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getNpcByName("Sebastian");
-        seb.getType().getPromptClass().
+        hasMetToday = false;
+        hasGiftedToday = false;
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
 
@@ -45,5 +52,35 @@ public class NpcFriendship {
 
     public void setLastActiveRequest(int lastActiveRequest) {
         this.lastActiveRequest = lastActiveRequest;
+    }
+
+    public boolean isHasMetToday() {
+        return hasMetToday;
+    }
+
+    public void addXp(int amount    ) {
+        xp += amount;
+        xp = Math.max(xp,799);
+    }
+
+
+    public void setHasMetToday(boolean hasMetToday) {
+        this.hasMetToday = hasMetToday;
+    }
+
+    public boolean isHasGiftedToday() {
+        return hasGiftedToday;
+    }
+
+    public void setHasGiftedToday(boolean hasGiftedToday) {
+        this.hasGiftedToday = hasGiftedToday;
+    }
+
+    @Override
+    public void onHourChanged(DateTime time, boolean newDay) {
+        if(newDay) {
+            hasGiftedToday = false;
+            hasMetToday = false;
+        }
     }
 }
