@@ -1,19 +1,25 @@
 show current menu
 menu enter main menu
 back
-register -u Mohsen? -p MohsenZare12? MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male  //name is incorrect
-register -u Mohsen -p MohsenZare12` MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male //password use not supported character
-register -u Mohsen -p MohsenZare12? MohsenZare12 -n Ali -e Mohsen33@gmail.com -g male //password and confirm password is not equal
-register -u Mohsen -p Mohsen Mohsen -n Ali -e Mohsen33@gmail.com -g male //password is too short
-register -u Mohsen -p MohsenZare12 MohsenZare12 -n Ali -e Mohsen33@gmail.com -g male //password is not strong
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e john..doe@example.com -g male //two dot back together
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@domain -g male //don't have domain
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@domain.c -g male //domain would not have 1 character
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@domain..com -g male //two dot in domain
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@.com -g male //domain start with dot
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
+register -u Mohsen? -p MohsenZare12? MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
+register -u Mohsen -p MohsenZare12` MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
+register -u Mohsen -p MohsenZare12? MohsenZare12 -n Ali -e Mohsen33@gmail.com -g male
+register -u Mohsen -p Mohsen Mohsen -n Ali -e Mohsen33@gmail.com -g male
+register -u Mohsen -p MohsenZare12 MohsenZare12 -n Ali -e Mohsen33@gmail.com -g male
+register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e john..doe@example.com -g male
+register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@domain -g male
+register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@domain.c -g male
+register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@domain..com -g male
+register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e user@.com -g male
+register -u Mohsen1 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
 pick question -q 1 -a blue -c blue
-register -u Mohsen -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male //another Mohsen have registered
+register -u Mohsen2 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
+pick question -q 1 -a blue -c blue
+register -u Mohsen3 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
+pick question -q 1 -a blue -c blue
+register -u Mohsen4 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
+pick question -q 1 -a blue -c blue
+register -u Mohsen1 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
 login -u Mohsen -p MohsenZare12? –stay-logged-in
 menu exit
 forget password -u Mohsen
@@ -23,7 +29,7 @@ user logout
 menu enter main menu
 login -u Mohsen -p MohsenZare12?
 menu enter profile menu
-change username -u mohsen` //check like login menu
+change username -u mohsen`
 change username -u mohsen
 change username -u mohsenZare
 change nickname -u mohsen
@@ -38,3 +44,74 @@ change password -p MohsenZare12 -o MohsenZare12?
 change password -p Mohsen -o MohsenZare12?
 change password -p Mohsenzare` -o MohsenZare12?
 user info
+game new -u Mohsen2 Mohsen3 Mohsen4
+game map 1
+game map 2
+game map 4
+game map 3
+
+next turn
+day of the week
+datetime
+date
+time
+cheat advance time 5h
+time
+cheat advance date 3d
+date
+season
+cheat advance date 29d
+season
+weather
+weather forecast
+cheat weather set Snow
+cheat advance date 1d
+weather
+walk -l <40, 50>
+print map -l <10, 10> -s 30
+help reading map
+cheat Thor -l < , >
+print map -l <10, 10> -s 30
+energy show
+energy set -v 150
+energy unlimited
+energy set -v 200
+energy set -v 250
+energy show
+inventory show
+inventory trash -i Watering Can -n 1
+cheat add item -n Watering Can -c 1
+tools show available
+tools equip Axe
+tools show current
+tools upgrade Axe //yo cant
+cheat weather set Snow
+cheat advance date 1d
+tools use -d RIGHT
+cheat weather set Sunny
+cheat advance date 1d
+//use tools
+tools use -d LEFT
+energy show
+energy set -v 130
+next turn
+next turn
+next turn
+craftinfo -n Garlic
+craftinfo -n Potato
+craftinfo -n Parsnip
+craftinfo -n Kale
+craftinfo -n Green Bean
+craftinfo -n Banana Tree
+craftinfo -n Cherry Tree
+craftinfo -n Apricot Tree
+craftinfo -n Leek
+craftinfo -n Morel
+craftinfo -n Carrot
+craftinfo -n Maple Tree
+craftinfo -n Oak Tree
+plant -s Corn Seeds -d LEFT
+cheat add item -n Corn Seeds -c 1
+plant -s Corn Seeds -d LEFT
+
+

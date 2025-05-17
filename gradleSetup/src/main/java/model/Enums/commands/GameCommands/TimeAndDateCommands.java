@@ -9,8 +9,8 @@ public enum TimeAndDateCommands implements Commands {
     showDateTime("\\s*date\\s+time\\s*"),
     showDayOfWeek("\\s*day\\s+of\\s+the\\s+week\\s*"),
     showSeason("\\s*season\\s*"),
-    cheatAdvancedDate("\\s*cheat\\s+advance\\s+date\\s+([0-9]+))d\\s+"),
-    cheatAdvancedTime("\\s*cheat\\s+advance\\s+time\\s+([0-9]+))h\\s+"),
+    cheatAdvancedDate("\\s*cheat\\s+advance\\s+date\\s+([0-9]+)d\\s+"),
+    cheatAdvancedTime("\\s*cheat\\s+advance\\s+time\\s+([0-9]+)h\\s+"),
     ;
 
     private final String regex;
