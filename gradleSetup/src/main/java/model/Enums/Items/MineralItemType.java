@@ -1,7 +1,5 @@
 package model.Enums.Items;
 
-import javax.naming.Name;
-
 public enum MineralItemType implements ItemType {
     BIG_STONE("Big Stone",null,0),
     STONE("Stone",null,0),
@@ -19,11 +17,12 @@ public enum MineralItemType implements ItemType {
     DIAMOND("Diamond", "A rare and valuable gem.", 750),
     PRISMATIC_SHARD("Prismatic Shard", "A very rare and powerful substance with unknown origins.", 2000),
 
-    COPPER("Copper", "A common ore that can be smelted into bars.", 5),
-    IRON("Iron", "A fairly common ore that can be smelted into bars.", 10),
-    GOLD("Gold", "A precious ore that can be smelted into bars.", 25),
-    IRIDIUM("Iridium", "An exotic ore with many curious properties. Can be smelted into bars.", 100),
-    COAL("Coal", "A combustible rock that is useful for crafting and smelting.", 15);
+    COPPER_ORE("Copper Ore", "A common ore that can be smelted into bars.", 5),
+    IRON_ORE("Iron Ore", "A fairly common ore that can be smelted into bars.", 10),
+    COAL_ORE("Coal Ore", "A combustible rock that is useful for crafting and smelting.", 15),
+    GOLD_ORE("Gold Ore", "A precious ore that can be smelted into bars.", 25),
+    IRIDIUM_ORE("Iridium Ore", "An exotic ore with many curious properties. Can be smelted into bars.", 100),
+    ANY_ORE("Any Ore", "A precious ore that can be smelted into bars.", -1);
 
     public final String name;
     public final String description;

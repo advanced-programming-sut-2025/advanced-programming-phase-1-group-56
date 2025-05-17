@@ -10,6 +10,7 @@ import model.Slot;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 import model.items.Inventory;
+import model.items.Item;
 
 import java.util.ArrayList;
 
@@ -34,8 +35,10 @@ public class ShippingBar extends GameObject implements TimeObserver {
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay) {
             for (Slot slot : inventory.getSlots()) {
-                int sumPrice = slot.getQuantity() * slot.getItem().getPrice();
-                farm.getPlayer().addGold(sumPrice);
+                int sumPrice = slot.getQuantity() * slot.getItem().getFinalPrice();
+                if(sumPrice!=-1){
+                    farm.getPlayer().addGold(sumPrice);
+                }
             }
             inventory.getSlots().clear();
         }

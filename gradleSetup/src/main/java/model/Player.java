@@ -412,7 +412,7 @@ public class Player implements TimeObserver {
 
     public Skill getSkillByName(String skillName) {
         for (Skill skill : skills) {
-            if (skill.getName().equals(skillName)) {
+            if (skill.getName().equalsIgnoreCase(skillName)) {
                 return skill;
             }
         }

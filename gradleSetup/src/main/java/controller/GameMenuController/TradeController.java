@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 
 public class TradeController extends CommandController {
 
-    public static Result startTrade(Player player) {
+    public static Result startTrade() {
         App.setCurrentMenu(Menu.TradeMenu);
         return new Result(true, "you are now in trade menu");
     }
@@ -46,7 +46,7 @@ public class TradeController extends CommandController {
             return new Result(false, "you can't make trade with yourself");
         }
 
-        if (type.equals("offer")) {
+        if (type.equalsIgnoreCase("offer")) {
             if (price == null && targetItem != null) {
                 //ITEM TO ITEM TRADE
                 try {
@@ -111,12 +111,12 @@ public class TradeController extends CommandController {
                 return new Result(false, "you cannot get money and item at same time");
             }
 
-        } else if (type.equals("request")) {
+        } else if (type.equalsIgnoreCase("request")) {
             if (price != null || targetItem != null) {
                 return new Result(false, "invalid request format....to request money" +
                         " type money after the flag '-i'");
             } else {
-                if (item.equals("money")) {
+                if (item.equalsIgnoreCase("money")) {
                     // MONEY_REQUEST
                     try {
                         int moneyToGet = Integer.parseInt(targetAmount);
@@ -155,7 +155,7 @@ public class TradeController extends CommandController {
         return new Result(true, "trade added successfully");
     }
 
-    public Result showTradeList() {
+    public static Result showTradeList() {
         StringBuilder builder = new StringBuilder();
         builder.append("My Pending Trades:\n");
         builder.append("\n-------------------------------\n");
@@ -182,7 +182,7 @@ public class TradeController extends CommandController {
         return new Result(true, builder.toString());
     }
 
-    public Result tradeResponse(Matcher matcher) {
+    public static Result tradeResponse(Matcher matcher) {
         String resp = matcher.group(1);
         String tradeID = matcher.group(2);
         if (resp == null) {
@@ -200,7 +200,7 @@ public class TradeController extends CommandController {
         }
 
 
-        if (resp.equals("-accept")) {
+        if (resp.equalsIgnoreCase("-accept")) {
             switch (tradeToDo.getType()) {
                 case TradeType.MONEY_REQUEST: {
                     Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
@@ -328,7 +328,7 @@ public class TradeController extends CommandController {
             return new Result(true, "trade done successfully...");
 
 
-        } else if (resp.equals("-reject")) {
+        } else if (resp.equalsIgnoreCase("-reject")) {
             tradeToDo.setStatus(TradeStatus.REJECTED);
             Player player1 = thisGame.findPlayerById(tradeToDo.getPlayerID());
             Player player2 = thisGame.findPlayerById(tradeToDo.getCounterPartyId());
