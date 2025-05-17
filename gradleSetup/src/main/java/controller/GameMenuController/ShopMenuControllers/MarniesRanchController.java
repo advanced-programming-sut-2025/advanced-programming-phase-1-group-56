@@ -106,4 +106,8 @@ public class MarniesRanchController implements ShopController {
                         barn.getType().getCapacity() - barn.getCurrentAnimalCount() > 0).findFirst();
     }
 
+    public static Result ExitShop(){
+        return ShopController.exitShopMenu(MarniesRanch.class);
+    }
+
 }

@@ -42,21 +42,20 @@ public enum EtcType implements ItemType {
     QUALITY_SPRINKLER("Quality Sprinkler", 0 , EtcObjectType.QUALITY_SPRINKLER),
     SCARE_CROW("Scare Crow", 0 , EtcObjectType.SCARE_CROW),
     DELUXE_SCARE_CROW("Deluxe Scarecrow", 0 , EtcObjectType.DELUXE_SCARE_CROW),
-    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0 , EtcObjectType.IRIDIUM_SPRINKLER);
+    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0 , EtcObjectType.IRIDIUM_SPRINKLER),
+    Money("Money",1,null),
+    NPC_FRIENDSHIP_XP("npc friendship xp",1,null),
+    ANY_PLANT("Any Plant",-1,null),;
 
 
     final public String name;
     final public int value;
     final public EtcObjectType etcObjectType;
-//    final public boolean isArtisanBlock;
-//    final public boolean isPlacable;
 
     EtcType(String name, int value , EtcObjectType etcObjectType/* boolean isArtisanBlock, boolean isPlacable*/) {
         this.name = name;
         this.value = value;
         this.etcObjectType = etcObjectType;
-//        this.isArtisanBlock = isArtisanBlock;
-//        this.isPlacable = isPlacable;
     }
 
 
@@ -64,4 +63,5 @@ public enum EtcType implements ItemType {
     public String getName() {
         return name;
     }
+    
 }

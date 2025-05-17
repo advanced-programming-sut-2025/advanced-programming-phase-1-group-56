@@ -41,7 +41,6 @@ public class DateTime {
         }
     }
 
-
     public Seasons getSeason() {
         return Seasons.values()[((day-1)/28)%4];
     }
@@ -49,6 +48,5 @@ public class DateTime {
     public DayOfWeek getDayOfWeek() {
         return DayOfWeek.values()[(day - 1) % 7];
     }
+
 }
-
-

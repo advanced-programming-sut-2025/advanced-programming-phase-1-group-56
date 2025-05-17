@@ -59,7 +59,7 @@ public class MapController extends CommandController {
         Game game = App.getCurrentUser().getCurrentGame();
         ArrayList<Node> path = findPath(x, y);
         int neededEnergy = (int) path.size() /20;
-        int availableDistance = player.getEnergy().getEnergy()*20;
+        int availableDistance = Math.min(player.getEnergy().getEnergy()*20  , path.size());
         player.setPosition(((Tile)path.get(path.size() - availableDistance)).getPosition());
         player.subtractEnergy(neededEnergy);
         if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY()).getTileType() == TileType.Wrapper){
@@ -73,24 +73,28 @@ public class MapController extends CommandController {
                     } else if (player.getPartner().getFarmPosition() == FarmPosition.LEFT){
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                     }
+                    player.setPosition(new Position(78 , 17));
                 } else if (player.getPosition().getX() == 111 && player.getPosition().getY() == 76) {
                     if (player.getFarmPosition() == FarmPosition.RIGHT){
                         player.setCurrentGameLocation(player.getPlayerFarm());
                     } else if (player.getPartner().getFarmPosition() == FarmPosition.RIGHT){
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                     }
+                    player.setPosition(new Position(78 , 17));
                 } else if (player.getPosition().getY() == 0 && (player.getPosition().getX() == 80 || player.getPosition().getX() == 81 || player.getPosition().getX() == 82)) {
                     if (player.getFarmPosition() == FarmPosition.UP){
                         player.setCurrentGameLocation(player.getPlayerFarm());
                     } else if (player.getPartner().getFarmPosition() == FarmPosition.UP){
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                     }
+                    player.setPosition(new Position(41 , 63));
                 } else if (player.getPosition().getY() == 109 && (player.getPosition().getX() == 53 || player.getPosition().getX() == 54 || player.getPosition().getX() == 55)){
                     if (player.getFarmPosition() == FarmPosition.DOWN){
                         player.setCurrentGameLocation(player.getPlayerFarm());
                     } else if (player.getPartner().getFarmPosition() == FarmPosition.DOWN){
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                     }
+                    player.setPosition(new Position(41 , 1));
                 }
             }
 
@@ -158,12 +162,39 @@ public class MapController extends CommandController {
                     return new Result(true , "welcome to green house");
                 }
             }
-
         }
-        if (player.getEnergy().getEnergy() < neededEnergy) {
+        if (player.isFainted()) {/////toye view seda bezan
             return new Result(false , String.format("you faint at Tile <%d , %d>" , player.getPosition().getX() , player.getPosition().getY()));
         } else {
             return new Result(true , String.format("you are at Tile <%d , %d>" , player.getPosition().getX() , player.getPosition().getY()));
+        }
+
+
+    }
+
+    public void walkToHome(){
+        Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+        if (player.getCurrentGameLocation() instanceof Farm){
+            movePlayer(player.getDefaultHome().getDoorPosition().getX() , player.getDefaultHome().getDoorPosition().getY());
+        } else{
+            switch(player.getFarmPosition()){
+                case FarmPosition.RIGHT -> {
+                    movePlayer(111 , 76);
+                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX() , player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                }
+                case FarmPosition.LEFT -> {
+                    movePlayer(0 , 53);
+                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX() , player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                }
+                case FarmPosition.UP -> {
+                    movePlayer(81 , 0);
+                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX() , player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                }
+                case FarmPosition.DOWN -> {
+                    movePlayer(54 , 109);
+                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX() , player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                }
+            }
         }
     }
 

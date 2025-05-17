@@ -1,6 +1,7 @@
 package model.items;
 
 import com.google.gson.internal.bind.TreeTypeAdapter;
+import controller.GameMenuController.GameController;
 import model.App;
 import model.Enums.Animals.AnimalType;
 import model.Enums.GameObjects.TreeType;
@@ -139,7 +140,7 @@ public class Tool extends Item {
                 }
                 player.subtractEnergy(toolType.getUsedEnergy()*(int)App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 if (playerSkill.getLevel() == 3){
-                    player.subtractEnergy(1);
+                    player.addEnergy(1);
                 }
             }
             case "Scythe" : {
@@ -177,7 +178,9 @@ public class Tool extends Item {
                 }
                 player.subtractEnergy(toolType.getUsedEnergy()*(int)App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
             }
-
+            if(player.isFainted()){
+                GameController.skipTurn();
+            }
         }
     }
 

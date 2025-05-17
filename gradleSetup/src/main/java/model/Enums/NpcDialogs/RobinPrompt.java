@@ -5,7 +5,7 @@ import model.Enums.WeatherAndTime.WeatherType;
 import java.util.*;
 import java.util.stream.*;
 
-public enum RobinPrompt {
+public enum RobinPrompt implements NpcPrompt {
     Sunny_BUILDING(
             "On a Sunny morning, Robin proudly describes the new coop she’s built.",
             WeatherType.Sunny, true, 1),

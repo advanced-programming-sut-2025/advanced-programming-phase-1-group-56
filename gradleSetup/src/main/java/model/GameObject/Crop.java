@@ -9,13 +9,13 @@ import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 
 public class Crop extends GameObject implements TimeObserver {
-    private CropType cropType;
+    private final CropType cropType;
     private int currentStage;
     //    private final HashMap<Item,Integer> itemsGiven;
     private boolean isWateredToday;
     private boolean isFertilizerToday;
-    private boolean speedGro;
-    private boolean deluxeRetainingSoil;
+    private final boolean speedGro;
+    private final boolean deluxeRetainingSoil;
     private boolean isInGreenHouse;
     private boolean isProtected;
     private int daysWithNoWater;
