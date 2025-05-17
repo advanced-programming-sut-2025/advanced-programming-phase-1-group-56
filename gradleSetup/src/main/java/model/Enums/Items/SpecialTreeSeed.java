@@ -16,4 +16,8 @@ public enum SpecialTreeSeed implements ItemType {
         this.name = name;
         this.season = season;
     }
+    @Override
+    public String getName() {
+        return name;
+    }
 }

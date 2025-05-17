@@ -37,7 +37,7 @@ public class Player implements TimeObserver {
     @Expose(serialize = false, deserialize = false)
     private User user;
     private boolean gender;
-
+    private int energyUsage = 0;
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -74,7 +74,7 @@ public class Player implements TimeObserver {
     private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
 
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<NpcFriendship> npcFriendships =new ArrayList<>();
+    private final ArrayList<NpcFriendship> npcFriendships = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<Animal> animals = new ArrayList<>();
 
@@ -403,10 +403,11 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(Math.min((energy.getEnergy() - amount),0));
-        if(energy.getEnergy() <= 0){
+        energy.setEnergy(Math.min((energy.getEnergy() - amount), 0));
+        if (energy.getEnergy() <= 0) {
             fainted = true;
         }
+        App.getMe().setEnergyUsage(App.getMe().getEnergyUsage() + amount);
     }
 
     public Skill getSkillByName(String skillName) {
@@ -424,5 +425,13 @@ public class Player implements TimeObserver {
 
     public void setMaxEnergy(int maxEnergy) {
         this.maxEnergy = maxEnergy;
+    }
+
+    public int getEnergyUsage() {
+        return energyUsage;
+    }
+
+    public void setEnergyUsage(int energyUsage) {
+        this.energyUsage = energyUsage;
     }
 }

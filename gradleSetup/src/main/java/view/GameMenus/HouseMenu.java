@@ -2,6 +2,8 @@ package view.GameMenus;
 
 import controller.GameMenuController.CookingController;
 import controller.GameMenuController.CraftingController;
+import controller.GameMenuController.GameController;
+import model.App;
 import model.Enums.commands.GameCommands.CraftingCommand;
 import model.Enums.commands.GameCommands.HouseMenuCommands;
 import view.AppMenu;
@@ -33,6 +35,9 @@ public class HouseMenu implements AppMenu {
 
         } else if((matcher = HouseMenuCommands.prepareRecipe.getMatcher(input)).find()) {
             System.out.println(CookingController.prepareCooking(matcher));
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
 
         }
@@ -45,6 +50,9 @@ public class HouseMenu implements AppMenu {
             return true;
         }else if((matcher = CraftingCommand.craftItem.getMatcher(input)) != null) {
             System.out.println(CraftingController.craftingItem(matcher));
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
         } else if ((matcher = CraftingCommand.dropItem.getMatcher(input)) != null) {
             System.out.println(CraftingController.placeItem(matcher));

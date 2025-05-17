@@ -6,6 +6,7 @@ import model.Enums.Animals.AnimalProductQuality;
 import model.Enums.Animals.AnimalType;
 import model.Enums.Items.EtcType;
 import model.Enums.Items.ToolType;
+import model.Enums.Skills;
 import model.Enums.WeatherAndTime.WeatherType;
 
 import model.GameObject.Animal;
@@ -238,6 +239,7 @@ public class HusbandryController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(animalProduct, 1);
             animal.getDailyProducts().remove(animalProduct);
         }
+        App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp()+5);
         return new Result(true, "you get product from animal!");
     }
 

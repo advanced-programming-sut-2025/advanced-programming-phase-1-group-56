@@ -2,6 +2,8 @@ package model.Enums.Items;
 
 import model.Enums.GameObjects.ArtisanMachineType;
 
+import java.util.ArrayList;
+
 public enum ArtisanMachineItemType implements ItemType {
 
     CHARCOAL_KLIN("Charcoal Klin", ArtisanMachineType.CHARCOAL_KILN ,true, true),

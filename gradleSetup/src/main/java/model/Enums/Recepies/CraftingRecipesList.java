@@ -112,4 +112,14 @@ public enum CraftingRecipesList implements Saleable {
     public String getName() {
         return name;
     }
+
+
+    public static CraftingRecipesList fromName(String name) {
+        for (CraftingRecipesList type : CraftingRecipesList.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
