@@ -32,4 +32,12 @@ public class NpcRequest {
         this.rewardItem = rewardItem;
         this.rewardQuantity = rewardQuantity;
     }
+
+    @Override
+    public String toString() {
+        return  "\trequested Item: " + this.getRequestedItem().getName() + "*" +
+                this.getRequestedQuantity() + "\n" + "\treward Item:" +
+                this.getRewardItem().getName() + "*" +
+                this.getRewardQuantity();
+    }
 }

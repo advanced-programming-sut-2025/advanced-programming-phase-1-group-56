@@ -2,8 +2,9 @@ package model.Enums.Items;
 
 import model.Enums.GameObjects.ArtisanMachineType;
 import model.Enums.GameObjects.EtcObjectType;
+import model.items.Saleable;
 
-public enum EtcType implements ItemType {
+public enum EtcType implements ItemType, Saleable {
 
     WOOD("Wood", 2 , EtcObjectType.WOOD),
     FIBER("Fiber", 1 , EtcObjectType.FIBER),
