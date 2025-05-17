@@ -1,12 +1,15 @@
 package model.Enums;
 
+import model.App;
 import model.Enums.Items.*;
 import model.Enums.NpcDialogs.*;
 import model.Enums.Recepies.FoodRecipesList;
 import model.GameObject.ArtesianMachine;
 import model.GameObject.NPC.NPC;
+import model.GameObject.NPC.NpcFriendship;
 import model.GameObject.NPC.NpcRequest;
 import model.MapModule.Position;
+import model.Player;
 import model.items.*;
 
 import java.util.ArrayList;
@@ -114,5 +117,15 @@ public enum NpcType {
 
     public String getName() {
         return name;
+    }
+
+    public NPC getNPC(Position position) {
+        NPC npcToAdd = new NPC(position, this);
+        for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+            NpcFriendship friendship = new NpcFriendship(player, npcToAdd);
+            npcToAdd.addFriendship(friendship);
+            player.getNpcFriendShips().add(friendship);
+        }
+        return npcToAdd;
     }
 }

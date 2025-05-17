@@ -19,19 +19,19 @@ public class GameMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
 
-        if (!(GameCheck(input) ||
-                DateTimeCheck(input) ||
-                WeatherCheck(input) ||
-                MapCheck(input) ||
-                EnergyAndSkillsCheck(input) ||
-                ToolsCheck(input) ||
-                FarmingCheck(input) ||
-                HusbandryCheck(input) ||
-                ArtisanCheck(input) ||
-                TradeCheck(input) ||
-                RelationShipCheck(input) ||
-                NPCCheck(input))
-        ) {
+        if (!(GameCheck(input) //||
+//                DateTimeCheck(input) ||
+//                WeatherCheck(input) ||
+//                MapCheck(input) ||
+//                EnergyAndSkillsCheck(input) ||
+//                ToolsCheck(input) ||
+//                FarmingCheck(input) ||
+//                HusbandryCheck(input) ||
+//                ArtisanCheck(input) ||
+//                TradeCheck(input) ||
+//                RelationShipCheck(input) ||
+//                NPCCheck(input))
+        )){
 
             System.out.println("invalid command");
         }
@@ -41,7 +41,7 @@ public class GameMenu implements AppMenu {
 
     public boolean GameCheck(String input) {
         Matcher matcher;
-
+        return false;
     }
 
 

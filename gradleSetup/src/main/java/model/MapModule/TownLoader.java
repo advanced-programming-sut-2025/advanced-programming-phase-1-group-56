@@ -2,6 +2,7 @@ package model.MapModule;
 
 import com.google.gson.*;
 import model.Enums.GameObjects.TreeType;
+import model.Enums.NpcType;
 import model.Enums.TileType;
 import model.GameObject.*;
 import model.MapModule.Buildings.*;
@@ -57,12 +58,10 @@ public class TownLoader {
                                 case "water" -> TileType.Water;
                                 case "grass" -> TileType.Grass;
                                 case "stone" -> TileType.Stone;
-                                case "soil" -> TileType.Soil;
-                                case "farmingsoil" -> TileType.FarmingSoil;
+                                case "soil", "farmingsoil" -> TileType.Soil;
                                 case "plowedsoil" -> TileType.PlowedSoil;
                                 case "waterplowedsoil" -> TileType.WaterPlowedSoil;
                                 case "wrapper" -> TileType.Wrapper;
-                                case "default" -> TileType.Default;
                                 default -> TileType.Default;
                             };
                         } catch (IllegalArgumentException ignored) {
@@ -107,8 +106,11 @@ public class TownLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new PierresGeneralStore( new Position(tx, ty),false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new PierresGeneralStore( new Position(tx, ty),false, "PierresGeneralStore", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
+                            int dX = ((PierresGeneralStore) go).getDoorPosition().getX();
+                            int dY = ((PierresGeneralStore) go).getDoorPosition().getY()+2;
+                            town.getNPCs().add(NpcType.SEBASTIAN.getNPC(new Position(dX,dY)));
                         }
 
                         case "thestardropsaloon" -> {
@@ -123,8 +125,11 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new TheSaloonStardrop( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new TheSaloonStardrop( new Position(tx, ty),false, "TheSaloonStardrop", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
+                            int dX = ((TheSaloonStardrop) go).getDoorPosition().getX();
+                            int dY = ((TheSaloonStardrop) go).getDoorPosition().getY()+2;
+                            town.getNPCs().add(NpcType.LEAH.getNPC(new Position(dX,dY)));
                         }
 
                         case "blacksmith" -> {
@@ -139,7 +144,10 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new Blacksmith( new Position(tx, ty),false, "Blacksmith", new Position(doorX, doorY), objHeight, objWidth);
+                            int dX = ((Blacksmith) go).getDoorPosition().getX();
+                            int dY = ((Blacksmith) go).getDoorPosition().getY()+2;
+                            town.getNPCs().add(NpcType.ROBIN.getNPC(new Position(dX,dY)));
                             town.getStores().add((Store) go);
                         }
 
@@ -155,8 +163,11 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new JojaMart( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new JojaMart( new Position(tx, ty),false, "JojaMart", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
+                            int dX = ((JojaMart) go).getDoorPosition().getX();
+                            int dY = ((JojaMart) go).getDoorPosition().getY()+2;
+                            town.getNPCs().add(NpcType.HARVEY.getNPC(new Position(dX,dY)));
                         }
 
                         case "carpentersshop" -> {
@@ -171,8 +182,11 @@ public class TownLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new CarpentersShop( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new CarpentersShop( new Position(tx, ty),false, "CarpenterShop", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
+                            int dX = ((CarpentersShop) go).getDoorPosition().getX();
+                            int dY = ((CarpentersShop) go).getDoorPosition().getY()+2;
+                            town.getNPCs().add(NpcType.HARVEY.getNPC(new Position(dX,dY)));
                         }
 
                         case "fishshop" -> {
@@ -187,7 +201,7 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new FishShop( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new FishShop( new Position(tx, ty),false, "FishShop", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
                         }
 
@@ -203,7 +217,7 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new MarniesRanch( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new MarniesRanch( new Position(tx, ty),false, "MarniesRanch", new Position(doorX, doorY), objHeight, objWidth);
                             town.getStores().add((Store) go);
                         }
                         case "wood" -> go = new Tree( TreeType.TREE_BARK,new Position(tx,ty));//TODO
@@ -263,10 +277,13 @@ public class TownLoader {
         Tile[][] townTileSet = load(town,"Town4.tmj");
         town.setTiles(townTileSet);
         //TODO npc registry
+        //done
         return town;
     }
 
 
+
+    //TODO chap rangi naghshe
 //    public static void main(String[] args) throws Exception {
 //        Tile[][] farm = load("hello3.tmj");
 //        System.out.println("Loaded " + farm.length + "×" + farm[0].length + " tiles.");
