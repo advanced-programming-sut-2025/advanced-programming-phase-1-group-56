@@ -1,7 +1,6 @@
 package model.GameObject;
 
 import model.Enums.Buildings.BuildingType;
-import model.MapModule.Buildings.Building;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;

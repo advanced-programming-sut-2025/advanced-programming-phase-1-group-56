@@ -1,25 +1,23 @@
 package model.Enums.Recepies;
 
 import model.Enums.Items.*;
-import model.Ingredient;
 import model.Slot;
 import model.items.Etc;
 import model.items.Mineral;
-import model.items.OreItem;
 import model.items.Seed;
 import model.items.Saleable;
 
 public enum CraftingRecipesList implements Saleable {
     CherryBomb("Cherry Bomb", "Destroys everything in a 3-tile radius",
-            new Slot[]{new Slot(new OreItem(Ore.COPPER_ORE), 4), new Slot(new Mineral(MineralItemType.COAL), 1)},
+            new Slot[]{new Slot(new Mineral(MineralItemType.COPPER_ORE), 4), new Slot(new Mineral(MineralItemType.COAL_ORE), 1)},
             "Mining Level 1", 50),
 
     Bomb("Bomb", "Destroys everything in a 5-tile radius",
-            new Slot[]{new Slot(new OreItem(Ore.IRON_ORE), 4), new Slot(new Mineral(MineralItemType.COAL), 1)},
+            new Slot[]{new Slot(new Mineral(MineralItemType.IRON_ORE), 4), new Slot(new Mineral(MineralItemType.COAL_ORE), 1)},
             "Mining Level 2", 50),
 
     MegaBomb("Mega Bomb", "Destroys everything in a 7-tile radius",
-            new Slot[]{new Slot(new OreItem(Ore.GOLD_ORE), 4), new Slot(new Mineral(MineralItemType.COAL), 1)},
+            new Slot[]{new Slot(new Mineral(MineralItemType.GOLD_ORE), 4), new Slot(new Mineral(MineralItemType.COAL_ORE), 1)},
             "Mining Level 3", 50),
 
     Sprinkler("Sprinkler", "Waters 4 adjacent tiles",
@@ -39,19 +37,19 @@ public enum CraftingRecipesList implements Saleable {
             "Foraging Level 1", 0),
 
     Furnace("Furnace", "Turns ores and coal into bars",
-            new Slot[]{new Slot(new OreItem(Ore.COPPER_ORE), 20), new Slot(new Mineral(MineralItemType.STONE), 25)},
+            new Slot[]{new Slot(new Mineral(MineralItemType.COPPER_ORE), 20), new Slot(new Mineral(MineralItemType.STONE), 25)},
             "-", 0),
 
     Scarecrow("Scarecrow", "Prevents crow attacks within an 8-tile radius",
-            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Mineral(MineralItemType.COAL), 1), new Slot(new Etc(EtcType.FIBER), 20)},
+            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Mineral(MineralItemType.COAL_ORE), 1), new Slot(new Etc(EtcType.FIBER), 20)},
             "-", 0),
 
     DeluxeScarecrow("Deluxe Scarecrow", "Prevents crow attacks within a 12-tile radius",
-            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Mineral(MineralItemType.COAL), 1), new Slot(new Etc(EtcType.FIBER), 20), new Slot(new OreItem(Ore.IRON_ORE), 1)},
+            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Mineral(MineralItemType.COAL_ORE), 1), new Slot(new Etc(EtcType.FIBER), 20), new Slot(new Mineral(MineralItemType.IRON_ORE), 1)},
             "Farming Level 2", 0),
 
     BeeHouse("Bee House", "Produces honey when placed on the farm",
-            new Slot[]{new Slot(new Etc(EtcType.WOOD), 40), new Slot(new Mineral(MineralItemType.COAL), 8), new Slot(new Etc(EtcType.IRON_BAR), 1)},
+            new Slot[]{new Slot(new Etc(EtcType.WOOD), 40), new Slot(new Mineral(MineralItemType.COAL_ORE), 8), new Slot(new Etc(EtcType.IRON_BAR), 1)},
             "Farming Level 1", 0),
 
     CheesePress("Cheese Press", "Turns milk into cheese",
@@ -75,7 +73,7 @@ public enum CraftingRecipesList implements Saleable {
             "Farming Level 3", 0),
 
     PreservesJar("Preserves Jar", "Turns vegetables into pickles and fruits into jam",
-            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Mineral(MineralItemType.STONE), 40), new Slot(new Mineral(MineralItemType.COAL), 8)},
+            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Mineral(MineralItemType.STONE), 40), new Slot(new Mineral(MineralItemType.COAL_ORE), 8)},
             "Farming Level 2", 0),
 
     Dehydrator("Dehydrator", "Dries fruits or mushrooms",
@@ -87,7 +85,7 @@ public enum CraftingRecipesList implements Saleable {
             "Pierre's General Store", 0),
 
     FishSmoker("Fish Smoker", "Turns any fish into smoked fish with preserved quality",
-            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Etc(EtcType.IRON_BAR), 3), new Slot(new Mineral(MineralItemType.COAL), 10)},
+            new Slot[]{new Slot(new Etc(EtcType.WOOD), 50), new Slot(new Etc(EtcType.IRON_BAR), 3), new Slot(new Mineral(MineralItemType.COAL_ORE), 10)},
             "Fish Shop", 0),
 
     MysticTreeSeed("Mystic Tree Seed", "Can be planted to grow a mystic tree",

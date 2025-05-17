@@ -1,7 +1,5 @@
 package model.Enums.Items;
 
-import model.items.Etc;
-
 public enum ToolMaterial implements ItemType {
     Training(null),
     Bamboo(null),

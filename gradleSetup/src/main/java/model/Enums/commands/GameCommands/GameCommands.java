@@ -9,6 +9,7 @@ public enum GameCommands implements Commands {
 
     //Execute Commands
     exitGame("\\s*exit\\s+\\s*"),//TODO think about the algorithms
+    deleteGame("\\s*force\\s+terminate\\s*"),
     nextTurn("\\s*next\\s+turn\\s*"),
     Walk("\\s*walk\\s+-l\\s+<([0,9]+), ([0,9]+)>\\s*"),
     printMap("\\s*print\\s+map\\s+-l\\s+<([0,9]+),\\s+([0,9]+)>\\s+-s\\s+([0-9]+)"),

@@ -3,7 +3,6 @@ package model.Enums.NpcDialogs;
 import model.Enums.WeatherAndTime.WeatherType;
 
 import java.util.*;
-import java.util.stream.*;
 
 public enum SebastianPrompt implements NpcPrompt {
     // (promptText, weather, day, minFriendship)

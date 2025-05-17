@@ -2,7 +2,6 @@ package controller.GameMenuController;
 
 import controller.CommandController;
 import model.App;
-import model.Enums.BuffType;
 import model.Enums.Direction;
 import model.Enums.GameObjects.CropType;
 import model.Enums.GameObjects.ForagingCropType;
@@ -11,7 +10,6 @@ import model.Enums.Items.*;
 import model.Enums.Skills;
 import model.Enums.TileType;
 import model.Enums.WeatherAndTime.Seasons;
-import model.Game;
 import model.GameObject.*;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.Position;
@@ -19,9 +17,7 @@ import model.MapModule.Tile;
 import model.Result;
 import model.Slot;
 import model.items.Item;
-import model.items.Seed;
 import model.items.Tool;
-import model.skills.MiningSkill;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -169,9 +165,7 @@ public class FarmingController extends CommandController {
 
         Random random = new Random();
         int index = random.nextInt(mixedSeed.possibleCrops.length);
-        SeedType selectedSeed = mixedSeed.possibleCrops[index];
-
-        return selectedSeed;
+        return mixedSeed.possibleCrops[index];
     }
 
     public static Result manageCrows(Farm farm) {
@@ -207,6 +201,9 @@ public class FarmingController extends CommandController {
         Direction dir;
         SeedType seed = getSeedTypeFromString(seedName);
         Item seed1 = getItemFromString(seedName);
+        if (seed == null) {
+            return new Result(false, "this seed does not exist!");
+        }
         if (seed1 == null) {
             return new Result(false, "this seed does not exist!");
         } else if ((dir = getDirectionFromString(direction)) == null) {

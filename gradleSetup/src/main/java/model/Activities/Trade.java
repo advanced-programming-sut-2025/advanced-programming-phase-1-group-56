@@ -3,7 +3,6 @@ package model.Activities;
 import model.App;
 import model.Enums.Activity.TradeStatus;
 import model.Enums.Activity.TradeType;
-import model.Player;
 import model.Slot;
 import model.TimeSystem.DateTime;
 import java.util.UUID;

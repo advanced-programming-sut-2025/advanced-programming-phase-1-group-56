@@ -3,10 +3,8 @@ package model.items;
 import model.Enums.BuffType;
 import model.Enums.Items.FoodType;
 
-import java.util.HashMap;
-
 public class Food extends Item {
-    private FoodType foodType;
+    private final FoodType foodType;
 
     public Food(FoodType foodType) {
         super(foodType.getName(), 100, true,foodType.getPrice());
@@ -20,10 +18,6 @@ public class Food extends Item {
 
     public int getEnergy() {
         return foodType.getEnergy();
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public BuffType getBuff() {

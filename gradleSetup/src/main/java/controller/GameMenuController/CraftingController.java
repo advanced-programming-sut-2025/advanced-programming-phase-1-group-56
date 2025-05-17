@@ -5,10 +5,10 @@ import model.App;
 import model.Enums.Direction;
 import model.Enums.Items.*;
 import model.Enums.Recepies.CraftingRecipesList;
+import model.GameObject.DroppedItem;
 import model.GameObject.*;
 import model.Ingredient;
 import model.MapModule.Position;
-import model.MapModule.Tile;
 import model.Result;
 import model.Slot;
 import model.items.*;
@@ -49,7 +49,7 @@ public class CraftingController extends CommandController {
                 int count = 0;
                 for (Slot i : cr.ingredients) {
                     count += 1;
-                    tmpString.append(count + ".").append("  name : ").append(i.getItem().getName());
+                    tmpString.append(count).append(".").append("  name : ").append(i.getItem().getName());
                     tmpString.append("   quantity : ").append(i.getQuantity()).append("\n");
                 }
                 tmpString.append("-------------------------------");
@@ -60,6 +60,9 @@ public class CraftingController extends CommandController {
             if (cr.name.equals(recipe.name)) {
                 craftingRecipesList = cr;
             }
+        }
+        if(craftingRecipesList == null){
+            return new Result(false,"craft recipe list in null");
         }
         Item craftingTool = new CraftingTool(craftingRecipesList);
         if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
@@ -251,6 +254,7 @@ public class CraftingController extends CommandController {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {
@@ -294,16 +298,12 @@ public class CraftingController extends CommandController {
         return null;
     }
 
-    private static Direction getDirectionFromString(String input) {
+    public static Direction getDirectionFromString(String input) {
         try {
             return Direction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
             return null;
         }
-    }
-
-    private static ItemType returnItemWithEnum(ItemType itemType, String name) {
-
     }
 
 }

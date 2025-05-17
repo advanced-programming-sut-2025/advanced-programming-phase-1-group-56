@@ -11,11 +11,9 @@ import model.User;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -70,10 +68,9 @@ public class LoginMenuController extends CommandController {
             return new Result(false, "wrong answer!!!");
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("please enter new password : ").append("\nyou can use this : ");
-        stringBuilder.append(manageMakeRandomPassword(10, "somthing"));
-        return new Result(true, stringBuilder.toString());
+        String stringBuilder = "please enter new password : " + "\nyou can use this : " +
+                manageMakeRandomPassword(10, "somthing");
+        return new Result(true, stringBuilder);
     }
 
     public static Result manageAnswerForgotPassword(String input, Matcher matcher) {
@@ -172,7 +169,7 @@ public class LoginMenuController extends CommandController {
         String email = matcher.group(5).trim();
         String gender = matcher.group(6).trim();
         boolean gender1;
-        if (gender.equals("male")) {
+        if (gender.equalsIgnoreCase("male")) {
             gender1 = true;
         } else {
             gender1 = false;

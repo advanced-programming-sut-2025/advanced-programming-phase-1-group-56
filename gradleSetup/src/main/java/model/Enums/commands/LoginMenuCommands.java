@@ -1,7 +1,6 @@
 package model.Enums.commands;
 
 import model.Enums.commands.Commands;
-import view.AppMenu;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

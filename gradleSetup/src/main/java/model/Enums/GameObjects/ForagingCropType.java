@@ -1,8 +1,6 @@
 package model.Enums.GameObjects;
 
 import model.Enums.Items.FoodType;
-import model.Enums.Items.FruitType;
-import model.Enums.Items.ItemType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum ForagingCropType {
@@ -34,12 +32,20 @@ public enum ForagingCropType {
     public final Seasons[] season;
     public final int baseSellPrice;
     public final int energy;
+    public final String icon;
 
     ForagingCropType(FoodType name, Seasons[] season, int baseSellPrice, int energy) {
         this.cropItem = name;
         this.season = season;
         this.baseSellPrice = baseSellPrice;
         this.energy = energy;
+        this.icon = "\uD83C\uDF3F";
+    }
+
+
+
+    public String getIcon() {
+        return icon;
     }
 
 }

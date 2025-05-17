@@ -8,7 +8,6 @@ import model.Enums.Recepies.FoodRecipesList;
 import model.Enums.WeatherAndTime.Seasons;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Buildings.Store;
-import model.MapModule.Buildings.TheSaloonStardrop;
 import model.MapModule.Position;
 import model.Player;
 import model.Result;

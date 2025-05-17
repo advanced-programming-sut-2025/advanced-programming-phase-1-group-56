@@ -2,13 +2,14 @@ package view.GameMenus;
 
 import controller.GameMenuController.CookingController;
 import controller.GameMenuController.CraftingController;
+import model.App;
+import model.Enums.Menu;
 import controller.GameMenuController.GameController;
 import model.App;
 import model.Enums.commands.GameCommands.CraftingCommand;
 import model.Enums.commands.GameCommands.HouseMenuCommands;
 import view.AppMenu;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -16,7 +17,10 @@ public class HouseMenu implements AppMenu {
     @Override
     public void check(Scanner scanner) {
         String input  = scanner.nextLine();
-        if(!(cookingMenu(input)||craftingMenu(input))){
+        if (input.equalsIgnoreCase("exit")) {
+            App.setCurrentMenu(Menu.gameMenu);
+            System.out.println("exiting home redirecting to farm...");
+        } if(!(cookingMenu(input)||craftingMenu(input))){
             System.out.println("Invalid command!");
         }
     }
@@ -29,7 +33,7 @@ public class HouseMenu implements AppMenu {
             System.out.println(CookingController.refrigeratorPick(matcher));
             return true;
 
-        } else if ((matcher = HouseMenuCommands.showRecipes.getMatcher(input)).find()) {
+        } else if (( HouseMenuCommands.showRecipes.getMatcher(input)).find()) {
             System.out.println(CookingController.showRecipes());
             return true;
 
@@ -45,7 +49,7 @@ public class HouseMenu implements AppMenu {
     }
     public boolean craftingMenu(String input) {
         Matcher matcher;
-        if((matcher = CraftingCommand.ShowRecipe.getMatcher(input)) != null) {
+        if((CraftingCommand.ShowRecipe.getMatcher(input)) != null) {
             System.out.println(CraftingController.showCraftingRecipes());
             return true;
         }else if((matcher = CraftingCommand.craftItem.getMatcher(input)) != null) {

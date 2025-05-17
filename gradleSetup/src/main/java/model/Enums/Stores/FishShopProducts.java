@@ -1,10 +1,8 @@
 package model.Enums.Stores;
 
-import model.Enums.Items.EtcType;
 import model.Enums.Items.FoodType;
 import model.Enums.Items.ToolType;
 import model.Enums.Recepies.CraftingRecipesList;
-import model.Enums.Recepies.FoodRecipesList;
 import model.Enums.WeatherAndTime.Seasons;
 import model.GameObject.NPC.NpcProduct;
 import model.items.Food;

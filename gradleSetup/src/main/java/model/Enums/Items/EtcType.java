@@ -1,6 +1,5 @@
 package model.Enums.Items;
 
-import model.Enums.GameObjects.ArtisanMachineType;
 import model.Enums.GameObjects.EtcObjectType;
 import model.items.Etc;
 

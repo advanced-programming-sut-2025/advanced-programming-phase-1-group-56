@@ -2,7 +2,6 @@ package model.GameObject;
 
 import com.google.gson.annotations.Expose;
 import model.App;
-import model.Enums.BackPackType;
 import model.Enums.Buildings.BuildingType;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.Position;
@@ -10,8 +9,6 @@ import model.Slot;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 import model.items.Inventory;
-
-import java.util.ArrayList;
 
 public class ShippingBar extends GameObject implements TimeObserver {
     private final Inventory inventory = new Inventory(100);
@@ -34,8 +31,10 @@ public class ShippingBar extends GameObject implements TimeObserver {
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay) {
             for (Slot slot : inventory.getSlots()) {
-                int sumPrice = slot.getQuantity() * slot.getItem().getPrice();
-                farm.getPlayer().addGold(sumPrice);
+                int sumPrice = slot.getQuantity() * slot.getItem().getFinalPrice();
+                if(sumPrice!=-1){
+                    farm.getPlayer().addGold(sumPrice);
+                }
             }
             inventory.getSlots().clear();
         }

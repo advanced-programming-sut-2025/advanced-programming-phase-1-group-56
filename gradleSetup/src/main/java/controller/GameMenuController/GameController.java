@@ -4,20 +4,17 @@ import controller.CommandController;
 import model.App;
 import model.Enums.Menu;
 import model.Game;
-import model.MapModule.AStarPathFinding;
-import model.MapModule.Buildings.MarniesRanch;
-import model.MapModule.Node;
-import model.MapModule.Tile;
 import model.Player;
 import model.Result;
 
-import java.time.DayOfWeek;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameController extends CommandController {
     public static Result saveGame() {
-        //TODO save game
+        for (Player player: App.getCurrentUser().getCurrentGame().getPlayers())
+        {
+            player.getUser().setGold(player.getGold());
+        }
         return null;
     }
 
@@ -26,6 +23,7 @@ public class GameController extends CommandController {
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer());
         System.out.println("Going to exit game...");
         App.setCurrentMenu(Menu.mainMenu);
+        App.getCurrentUser().setCurrentGame(null);
         return saveGame();
     }
 
@@ -48,6 +46,7 @@ public class GameController extends CommandController {
         for (Player player : game.getPlayers()) {
             player.getUser().setGameId(null);
             player.getUser().setCurrentGame(null);
+
         }
         return new Result(true,"Mission Failed Successfully... ):");
     }
