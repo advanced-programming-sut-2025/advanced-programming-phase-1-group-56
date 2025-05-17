@@ -1,13 +1,8 @@
 package model.States;
 
-import com.fasterxml.jackson.databind.jsonschema.SchemaAware;
-import controller.GameMenuController.WeatherController;
 import model.App;
 import model.Enums.WeatherAndTime.Seasons;
 import model.Enums.WeatherAndTime.WeatherType;
-import model.MapModule.GameLocations.Farm;
-import model.Player;
-import model.Result;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 

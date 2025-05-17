@@ -4,9 +4,7 @@ import model.Enums.Items.FoodType;
 import model.Enums.Recepies.FoodRecipesList;
 import model.Enums.WeatherAndTime.Seasons;
 import model.GameObject.NPC.NpcProduct;
-import model.items.Etc;
 import model.items.Food;
-import model.items.Item;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,7 @@
 package model.MapModule;
 
-import model.Game;
 import model.MapModule.GameLocations.Farm;
-import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.GameLocations.Town;
-
-import java.util.ArrayList;
 
 public class GameMap{
     private Farm farm1;

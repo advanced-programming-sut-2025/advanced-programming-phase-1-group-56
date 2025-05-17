@@ -1,12 +1,8 @@
 package view.GameMenus;
 
-import controller.GameMenuController.CookingController;
-import controller.GameMenuController.CraftingController;
 import controller.GameMenuController.TradeController;
 import model.App;
 import model.Enums.Menu;
-import model.Enums.commands.GameCommands.CraftingCommand;
-import model.Enums.commands.GameCommands.HouseMenuCommands;
 import model.Enums.commands.GameCommands.TradeCommands;
 import view.AppMenu;
 

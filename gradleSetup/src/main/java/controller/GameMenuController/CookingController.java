@@ -4,9 +4,7 @@ import controller.CommandController;
 import model.*;
 
 import model.Enums.Items.FoodType;
-import model.Enums.Recepies.CraftingRecipesList;
 import model.Enums.Recepies.FoodRecipesList;
-import model.States.Energy;
 import model.items.Food;
 import model.items.Item;
 
@@ -80,6 +78,7 @@ public class CookingController extends CommandController {
             for (FoodRecipesList c : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getFoodRecipes()) {
                 if (cr.name().equals(c.name)) {
                     known = true;
+
                     break;
                 }
             }
@@ -90,7 +89,7 @@ public class CookingController extends CommandController {
                 int count = 0;
                 for (Slot i : cr.ingredients) {
                     count += 1;
-                    tmpString.append(count + ".").append("  name : ").append(i.getItem().getName());
+                    tmpString.append(count).append(".").append("  name : ").append(i.getItem().getName());
                     tmpString.append("   quantity : ").append(i.getQuantity()).append("\n");
                 }
                 tmpString.append("-------------------------------");
@@ -116,7 +115,7 @@ public class CookingController extends CommandController {
                 .getCurrentPlayer()
                 .getInventory()
                 .add(food, 1);
-        return new Result(true, "your food is ready!");
+        return new Result(true, tmpString.append("your food is ready!").toString());
     }
 
     public static Result eatFood(Matcher matcher) {
@@ -206,6 +205,7 @@ public class CookingController extends CommandController {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {

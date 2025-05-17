@@ -1,11 +1,8 @@
 package model.MapModule.Buildings;
 
 import model.Enums.Stores.StardropSaloonProducts;
-import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
-
-import java.util.ArrayList;
 
 public class TheSaloonStardrop extends Store {
 

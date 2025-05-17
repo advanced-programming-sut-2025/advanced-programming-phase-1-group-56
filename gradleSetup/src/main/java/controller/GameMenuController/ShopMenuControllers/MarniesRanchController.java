@@ -2,7 +2,6 @@ package controller.GameMenuController.ShopMenuControllers;
 
 import model.App;
 import model.Enums.Animals.AnimalType;
-import model.Enums.Stores.MarniesRanchProducts;
 import model.GameObject.Animal;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Buildings.*;

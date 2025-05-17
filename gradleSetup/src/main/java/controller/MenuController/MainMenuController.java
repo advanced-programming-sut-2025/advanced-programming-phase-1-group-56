@@ -13,7 +13,7 @@ public class MainMenuController extends CommandController {
         App.setCurrentMenu(Menu.loginMenu);
         App.setCurrentUser(null);
         File file = new File(FILE_PATH_FOR_STAY_LOGGED);
-        file.delete();
+        file.delete()
         return new Result(true, "You have been logged out!");
     }
 }

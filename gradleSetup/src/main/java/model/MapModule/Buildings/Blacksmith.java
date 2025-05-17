@@ -1,7 +1,6 @@
 package model.MapModule.Buildings;
 
 import model.Enums.Stores.BlackSmithProducts;
-import model.Enums.Stores.CarpenterShopProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;

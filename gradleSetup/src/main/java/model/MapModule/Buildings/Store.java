@@ -3,7 +3,6 @@ package model.MapModule.Buildings;
 import model.GameObject.NPC.NPC;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
-import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 
 import java.util.ArrayList;

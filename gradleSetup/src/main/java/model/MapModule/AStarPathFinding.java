@@ -1,8 +1,5 @@
 package model.MapModule;
 
-import model.MapModule.GameLocations.GameLocation;
-
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class AStarPathFinding {
@@ -23,7 +20,7 @@ public class AStarPathFinding {
 
     public ArrayList<Node> solve() {
 
-        if (start == null && end == null) {
+        if (start == null || end == null) {
             return null;
         }
 

@@ -1,16 +1,12 @@
 package model.Enums.Stores;
 
-import model.Enums.GameObjects.CropType;
-import model.Enums.GameObjects.ForagingCropType;
 import model.Enums.Items.EtcType;
 import model.Enums.Items.FoodType;
 import model.Enums.Items.SeedType;
 import model.Enums.WeatherAndTime.Seasons;
-import model.GameObject.ForagingCrop;
 import model.GameObject.NPC.NpcProduct;
 import model.items.Etc;
 import model.items.Food;
-import model.items.Item;
 import model.items.Seed;
 
 import java.util.ArrayList;

@@ -30,7 +30,7 @@ public class FarmLoader {
         for (JsonElement lyrEl : layers) {
             JsonObject lyr = lyrEl.getAsJsonObject();
             if ("tilelayer".equals(lyr.get("type").getAsString())) {
-                data = lyr.getAsJsonArray("data");
+//                data = lyr.getAsJsonArray("data");
                 break;
             }
         }

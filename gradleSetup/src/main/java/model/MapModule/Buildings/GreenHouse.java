@@ -8,8 +8,6 @@ import model.MapModule.Tile;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 
-import java.util.Observer;
-
 public class GreenHouse extends Building implements TimeObserver {
     final static int wid = 11;
     final static int het = 11;

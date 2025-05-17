@@ -2,7 +2,6 @@ package model.MapModule.GameLocations;
 
 import com.google.gson.annotations.Expose;
 import controller.GameMenuController.FarmingController;
-import controller.GameMenuController.WeatherController;
 import model.App;
 import model.Enums.FarmPosition;
 import model.GameObject.Crop;
@@ -11,7 +10,6 @@ import model.GameObject.Tree;
 import model.MapModule.Buildings.Building;
 import model.MapModule.Buildings.GreenHouse;
 import model.MapModule.Buildings.Home;
-import model.MapModule.Position;
 import model.MapModule.Tile;
 import model.Player;
 import model.TimeSystem.DateTime;
@@ -96,6 +94,7 @@ public class Farm extends GameLocation implements TimeObserver {
                     for (GameObject go : allGameObjects) {
                         if (go.equals(tile.getFixedObject())) {
                             found = true;
+                            break;
                         }
                     }
                     if (!found) {

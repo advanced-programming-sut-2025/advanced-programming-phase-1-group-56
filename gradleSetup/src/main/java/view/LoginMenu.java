@@ -19,18 +19,18 @@ public class LoginMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
         Matcher matcher;
-        User tmpUser = null;
+        User tmpUser;
         Gson gson = new Gson();
-        try (Reader reader = new FileReader(FILE_PATH_FOR_STAY_LOGGED);) {
+        try (Reader reader = new FileReader(FILE_PATH_FOR_STAY_LOGGED)) {
             tmpUser = gson.fromJson(reader, User.class);
             App.setCurrentUser(tmpUser);
-            if(!App.getCurrentUser().equals(tmpUser)) {
+            if (!App.getCurrentUser().equals(tmpUser)) {
                 System.out.println("hello " + tmpUser.getUsername());
             }
         } catch (FileNotFoundException e) {
             App.setCurrentUser(null);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         if ((matcher = LoginMenuCommands.register.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageRegisterUser(matcher));
@@ -67,9 +67,9 @@ public class LoginMenu implements AppMenu {
         } else if ((input.equals("menu exit"))) {
             App.setCurrentMenu(Menu.exitMenu);
             System.out.println("why do you want to exit? );  ");
-        } else if ((matcher = LoginMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
+        } else if ((LoginMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
             System.out.println("you are in login menu now!");
-        } else if ((matcher = LoginMenuCommands.back.getMatcher(input)).find()) {
+        } else if ((LoginMenuCommands.back.getMatcher(input)).find()) {
             System.out.println("you can't go back!");
         } else {
             System.out.println("invalid command bro!..");

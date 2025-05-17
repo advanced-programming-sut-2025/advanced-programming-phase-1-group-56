@@ -5,12 +5,8 @@ import model.*;
 import model.Enums.Items.ArtisanGoodType;
 import model.Enums.Items.FishType;
 import model.Enums.Items.FruitType;
-import model.Enums.Items.Ore;
 import model.GameObject.ArtesianMachine;
-import model.items.Artesian;
-import model.items.ArtisanGood;
-import model.items.Fish;
-import model.items.Item;
+
 
 import java.util.regex.Matcher;
 
@@ -36,12 +32,14 @@ public class ArtisanController extends CommandController {
                                         for (FishType fishType : FishType.values()) {
                                             if (fishType.getName().equals(str)) {
                                                 found2 = true;
+                                                break;
                                             }
                                         }
                                     } else if (ingredient.getItem().getName().equals("Any Fruit")) {
                                         for (FruitType fruitType : FruitType.values()) {
                                             if (fruitType.getName().equals(str)) {
                                                 found2 = true;
+                                                break;
                                             }
                                         }
                                     } else if (ingredient.getItem().getName().equals("Any Ore")) {
@@ -66,7 +64,7 @@ public class ArtisanController extends CommandController {
                     }
                     return new Result(false, "you dont near any" + machineName);
                 }
-//                return new Result(false , "you dont near any artisan machine");
+//                return new Result(false , "you don't near any artisan machine");
             }
         }
         return new Result(false, "you dont near to such artisan machine");

@@ -1,10 +1,8 @@
 package model.items;
 
-import model.Enums.GameObjects.CropType;
 import model.Enums.GameObjects.initialPlant;
 import model.Enums.Items.SeedType;
 import model.Enums.WeatherAndTime.Seasons;
-import model.GameObject.Crop;
 
 public class Seed extends Item {
     private SeedType seedType;

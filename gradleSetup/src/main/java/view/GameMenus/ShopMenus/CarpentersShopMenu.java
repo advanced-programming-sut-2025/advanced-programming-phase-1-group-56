@@ -1,6 +1,5 @@
 package view.GameMenus.ShopMenus;
 
-import controller.GameMenuController.ShopMenuControllers.BlacksmithMenuController;
 import controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
 import model.Enums.commands.GameCommands.StoreCommands;
 import view.AppMenu;

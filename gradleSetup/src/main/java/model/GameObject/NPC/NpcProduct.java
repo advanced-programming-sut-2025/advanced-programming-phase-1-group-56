@@ -1,7 +1,6 @@
 package model.GameObject.NPC;
 
 import model.Enums.WeatherAndTime.Seasons;
-import model.items.Item;
 import model.items.Saleable;
 
 public class NpcProduct{

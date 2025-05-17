@@ -1,8 +1,6 @@
 package model.Enums.GameObjects;
 
 import model.Enums.Items.FoodType;
-import model.Enums.Items.FruitType;
-import model.Enums.Items.ItemType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum ForagingCropType {

@@ -39,7 +39,7 @@ public class GameMenu implements AppMenu {
                 System.out.println(message);
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
                 return true;
             }
         } else if (PreGameMenuCommands.loadGame.getMatcher(input) != null) {//load game
@@ -115,7 +115,7 @@ public class GameMenu implements AppMenu {
             System.out.println(InventoryController.inventoryShow());
             return true;
         } else if ((EnergyAndSkillsCommands.trashInventory.getMatcher(input)).find()) {
-            System.out.println(InventoryController.manageInventoryTrash(matcher.group(1),matcher.group(2)));
+            System.out.println(InventoryController.manageInventoryTrash(matcher.group(1), matcher.group(2)));
             return true;
         }
         //Complete trash and show inventory , and add xp for skills!!!
@@ -192,6 +192,9 @@ public class GameMenu implements AppMenu {
         } else if ((HusbandryCommands.produces.getMatcher(input)) != null) {
             System.out.println(HusbandryController.showProduces());
             return true;
+        } else if ((matcher = HusbandryCommands.cheatSetFriendship.getMatcher(input)) != null) {
+            System.out.println(HusbandryController.cheatSetFriendship(matcher));
+            return true;
         } else if ((matcher = HusbandryCommands.collectProduce.getMatcher(input)) != null) {
             System.out.println(HusbandryController.collectProduce(matcher));
             return true;
@@ -254,6 +257,9 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = TradeCommands.cheatAddMoney.getMatcher(input)) != null) {
             System.out.println(TradeController.cheatAddMoney(matcher.group(1)).getMessage());
+            return true;
+        }else if ((matcher = TradeCommands.sell.getMatcher(input)) != null) {
+            System.out.println(TradeController.sellProducts(matcher).getMessage());
             return true;
         } else {
             return false;
