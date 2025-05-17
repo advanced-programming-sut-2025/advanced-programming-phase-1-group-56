@@ -3,10 +3,10 @@ package model.items;
 import model.Enums.Items.ArtisanMachineItemType;
 
 public class Artesian extends Item {
-    private ArtisanMachineItemType artisanMachineItemType;
+    private final ArtisanMachineItemType artisanMachineItemType;
 
     public Artesian(ArtisanMachineItemType itemType) {
-        super(itemType.name,100, true,-1);
+        super(itemType.getName(),100, true,-1);
         this.artisanMachineItemType = itemType;
     }
 

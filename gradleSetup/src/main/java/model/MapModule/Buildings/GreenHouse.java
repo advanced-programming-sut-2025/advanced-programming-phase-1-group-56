@@ -1,6 +1,7 @@
 package model.MapModule.Buildings;
 
 import model.App;
+import model.Enums.Buildings.BuildingType;
 import model.Enums.TileType;
 import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Position;
@@ -17,7 +18,7 @@ public class GreenHouse extends Building implements TimeObserver {
     private GameLocation indoor;
 
     public GreenHouse(Position startingPosition,boolean walkable,String name,Position doorPosition,int height,int width) {
-        super(startingPosition,walkable,name,doorPosition,het,wid);
+        super(startingPosition,walkable,name,doorPosition,het,wid,BuildingType.GREEN_HOUSE);
         GameLocation indoor = new GameLocation();
         Tile[][] tiles = new Tile[11][11];
         for (int i = 0; i < 11; i++) {

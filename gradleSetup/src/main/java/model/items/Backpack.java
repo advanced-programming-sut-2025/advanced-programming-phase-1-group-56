@@ -7,7 +7,7 @@ public class Backpack extends Item {
 
     public Backpack(BackPackType backPackType) {
 
-        super(backPackType.toString(),1,false,backPackType.getPrice());
+        super(backPackType.toString(),1,false,-1);
     }
 
     public int getCapacity() {

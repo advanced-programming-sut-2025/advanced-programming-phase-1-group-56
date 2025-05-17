@@ -5,6 +5,7 @@ import model.App;
 import model.Enums.Animals.AnimalProductQuality;
 import model.Enums.Animals.AnimalType;
 import model.Enums.Items.EtcType;
+import model.Enums.Items.ItemQuality;
 import model.Enums.Items.ToolType;
 import model.Enums.WeatherAndTime.WeatherType;
 
@@ -159,7 +160,7 @@ public class HusbandryController extends CommandController {
                 tmpString.append("animal's Name : " + animal.getName() + "\n");
                 for (AnimalProduct animalProduct : animal.getDailyProducts()) {
                     tmpString.append("animal's Product Name : " + animalProduct.getName() + "\n")
-                            .append("animal's Product quality : " + animalProduct.getQuality() + "\n");
+                            .append("animal's Product quality : " + animalProduct.getItemQuality() + "\n");
                 }
                 tmpString.append("------------------------------");
             }
@@ -296,16 +297,17 @@ public class HusbandryController extends CommandController {
         EtcType[] products = animal.getAnimalInfo().getProducts();
 
         if (products.length == 1) {
-            animalProduct = new AnimalProduct(products[0], AnimalProductQuality.normal);
+            animalProduct = new AnimalProduct(products[0]);
+//            animalProduct.setQuality();
         } else {
             Random random = new Random();
             double randomInt = random.nextDouble(0.5, 1.5);
             double probability = (animal.getFriendship() + 150 * randomInt) / 1500;
 
             if (animal.getFriendship() >= 100 && probability > 0.5) {
-                animalProduct = new AnimalProduct(products[1], AnimalProductQuality.normal);
+                animalProduct = new AnimalProduct(products[1]);
             } else {
-                animalProduct = new AnimalProduct(products[0], AnimalProductQuality.normal);
+                animalProduct = new AnimalProduct(products[0]);
             }
         }
 
@@ -314,13 +316,13 @@ public class HusbandryController extends CommandController {
         double qualityValue = ((double) animal.getFriendship() / 1000) * (0.5 + 0.5 * rand);
 
         if (qualityValue > 0.9) {
-            animalProduct.setQuality(AnimalProductQuality.Iridium);
+            animalProduct.setItemQuality(ItemQuality.Iridium);
         } else if (qualityValue > 0.7) {
-            animalProduct.setQuality(AnimalProductQuality.gold);
+            animalProduct.setItemQuality(ItemQuality.Gold);
         } else if (qualityValue > 0.5) {
-            animalProduct.setQuality(AnimalProductQuality.silver);
+            animalProduct.setItemQuality(ItemQuality.Silver);
         } else {
-            animalProduct.setQuality(AnimalProductQuality.normal);
+            animalProduct.setItemQuality(ItemQuality.Normal);
         }
 
         return animalProduct;

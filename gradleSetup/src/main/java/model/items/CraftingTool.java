@@ -15,12 +15,6 @@ public class CraftingTool extends Item {
         this.recipesList = recipesList;
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-
     public CraftingRecipesList getRecipesList() {
         return recipesList;
     }

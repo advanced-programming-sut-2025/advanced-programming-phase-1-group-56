@@ -19,6 +19,8 @@ public class AStarPathFinding {
         this.path = null;
         this.openList = null;
         this.closedList = null;
+        this.start = start;
+        this.end = end;
     }
 
     public ArrayList<Node> solve() {
@@ -77,6 +79,30 @@ public class AStarPathFinding {
         }
         return this.path;
     }
+
+    public static int countDirectionChanges(ArrayList<Node> path) {
+        if (path == null || path.size() < 3) return 0;
+
+        int changes = 0;
+
+        for (int i = path.size() - 1; i >= 2; i--) {
+            Tile t1 = (Tile) path.get(i);
+            Tile t2 = (Tile) path.get(i - 1);
+            Tile t3 = (Tile) path.get(i - 2);
+
+            int dx1 = t2.getPosition().getX() - t1.getPosition().getX();
+            int dy1 = t2.getPosition().getY() - t1.getPosition().getY();
+            int dx2 = t3.getPosition().getX() - t2.getPosition().getX();
+            int dy2 = t3.getPosition().getY() - t2.getPosition().getY();
+
+            if (dx1 != dx2 || dy1 != dy2) {
+                changes++;
+            }
+        }
+
+        return changes;
+    }
+
 
 //    public void reset() {
 //        this.start = null;

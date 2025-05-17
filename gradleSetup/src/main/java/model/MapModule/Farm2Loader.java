@@ -59,7 +59,7 @@ public class Farm2Loader {
                                 case "grass" -> TileType.Grass;
                                 case "stone" -> TileType.Stone;
                                 case "soil" -> TileType.Soil;
-                                case "farmingsoil" -> TileType.FarmingSoil;
+//                                case "farmingsoil" -> TileType.FarmingSoil;
                                 case "plowedsoil" -> TileType.PlowedSoil;
                                 case "waterplowedsoil" -> TileType.WaterPlowedSoil;
                                 case "wrapper" -> TileType.Wrapper;
