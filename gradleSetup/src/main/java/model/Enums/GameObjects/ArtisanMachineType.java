@@ -1,6 +1,7 @@
 package model.Enums.GameObjects;
 
 import model.Enums.Items.ArtisanGoodType;
+import model.Enums.Items.ItemType;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public enum ArtisanMachineType {
     public List<ArtisanGoodType> getProducts() {
         return products;
     }
+
 
     public String getName() {
         return name;

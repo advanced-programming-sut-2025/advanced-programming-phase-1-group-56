@@ -29,4 +29,13 @@ public class Town extends GameLocation implements TimeObserver {
     public ArrayList<Store> getStores() {
         return stores;
     }
+
+    public NPC getNpcByName(String name) {
+        for (NPC npc : NPCs) {
+            if(name.equalsIgnoreCase(npc.getType().getName())) {
+                return npc;
+            }
+        }
+        return null;
+    }
 }
