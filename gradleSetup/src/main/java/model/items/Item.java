@@ -1,5 +1,7 @@
 package model.items;
 
+import model.Enums.Items.ItemQuality;
+
 import model.App;
 import model.Enums.Items.ItemQuality;
 import model.GameObject.NPC.NpcProduct;

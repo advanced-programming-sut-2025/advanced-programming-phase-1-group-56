@@ -1,7 +1,7 @@
 package model.MapModule.Buildings;
 
 import model.Enums.Buildings.BuildingType;
-import model.Enums.Buildings.CoopType;
+//import model.Enums.Buildings.CoopType;
 import model.GameObject.Animal;
 import model.MapModule.Position;
 
@@ -22,7 +22,8 @@ public class Coop extends Building implements AnimalHouse {
                         (2 * position.getY() + type.getHeight()) / 2
                 ),
                 type.getHeight(),
-                type.getWidth()
+                type.getWidth(),
+                type
         );
         this.type = type;
     }

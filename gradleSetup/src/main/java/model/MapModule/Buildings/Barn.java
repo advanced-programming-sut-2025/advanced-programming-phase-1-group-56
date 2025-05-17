@@ -22,7 +22,8 @@ public class Barn extends Building implements AnimalHouse {
                         (2 * position.getY() + type.getHeight()) / 2
                 ),
                 type.getHeight(),
-                type.getWidth()
+                type.getWidth(),
+                type
         );
         this.type = type;
     }

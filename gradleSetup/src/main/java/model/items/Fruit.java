@@ -3,7 +3,7 @@ package model.items;
 import model.Enums.Items.FruitType;
 
 public class Fruit extends Item {
-    private FruitType fruitType;
+    private final FruitType fruitType;
 
     public Fruit( FruitType fruitType) {
         super(fruitType.getName(), 100, true, fruitType.getPrice());

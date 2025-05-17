@@ -58,7 +58,7 @@ public enum CropType implements initialPlant {
     public final Seasons[] season;
     public final boolean canBecomeGiant;
     public final FoodType cropItem;
-
+    public final String icon;
     CropType(FoodType cropItem, int[] stages, int totalHarvestTime, boolean oneTime, int regrowthTime,
              int baseSellPrice, boolean isEdible, int energy, int health, Seasons[] season, boolean canBecomeGiant) {
         this.cropItem = cropItem;
@@ -72,5 +72,9 @@ public enum CropType implements initialPlant {
         this.health = health;
         this.season = season;
         this.canBecomeGiant = canBecomeGiant;
+        this.icon = "\uD83C\uDF31";
+    }
+    public String getIcon(){
+        return icon;
     }
 }

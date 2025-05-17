@@ -4,7 +4,7 @@ import model.Enums.BuffType;
 import model.Enums.Items.FoodType;
 
 public class Food extends Item {
-    private FoodType foodType;
+    private final FoodType foodType;
 
     public Food(FoodType foodType) {
         super(foodType.getName(), 100, true,foodType.getPrice());

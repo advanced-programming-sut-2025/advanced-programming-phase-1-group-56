@@ -14,10 +14,10 @@ import model.MapModule.GameLocations.Farm;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class FarmLoader {
+public class Farm2Loader {
     private static final int tileSize = 16;
 
-    public static Tile[][] load(String jsonPath,Farm farm) throws FileNotFoundException {
+    public static Tile[][] load(String jsonPath, Farm farm) throws FileNotFoundException {
         JsonObject map = JsonParser
                 .parseReader(new FileReader(jsonPath))
                 .getAsJsonObject();
@@ -30,7 +30,7 @@ public class FarmLoader {
         for (JsonElement lyrEl : layers) {
             JsonObject lyr = lyrEl.getAsJsonObject();
             if ("tilelayer".equals(lyr.get("type").getAsString())) {
-//                data = lyr.getAsJsonArray("data");
+                data = lyr.getAsJsonArray("data");
                 break;
             }
         }
@@ -108,7 +108,7 @@ public class FarmLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new Home(new Position(tx, ty),false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new Home(new Position(tx, ty), false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
 
                         }
                         case "greenhouse" -> {
@@ -123,21 +123,24 @@ public class FarmLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new GreenHouse(new Position(tx, ty), false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         //TODO
-                        case "shippingbar" -> go = new ShippingBar(new Position(tx,ty),farm);
-                        case "mailbox" -> go = new MailBox(new Position(tx,ty));
-                        case "grass" -> go = new Grass(true,new Position(tx,ty), GrassType.NormalGrass);
-                        case "fibergrass" -> go = new Grass(true,new Position(tx,ty), GrassType.FiberGrass);
-                        case "wood" -> go = new Tree(TreeType.TREE_BARK,new Position(tx,ty));//TODO
-                        case "stone" -> go = new ForagingMineral(false,new Position(tx,ty), MineralItemType.STONE);//TODO
-                        case "tree" -> go = new Tree( TreeType.APPLE_TREE,new Position(tx,ty));
-                        case "stick" -> go = new Tree(TreeType.TREE_BARK,new Position(tx,ty));
-                        case "bigstone" -> go = new ForagingMineral(false,new Position(tx,ty),MineralItemType.BIG_STONE);
+                        case "shippingmail" -> go = new ShippingBar(new Position(tx, ty), farm);
+                        case "mailbox" -> go = new MailBox(new Position(tx, ty));
+//                        case "grass" -> go = new Grass(true, new Position(tx, ty), GrassType.NormalGrass);
+//                        case "fibergrass" -> go = new Grass(true, new Position(tx, ty), GrassType.FiberGrass);
+//                        case "wood" -> go = new Tree(TreeType.TREE_BARK, new Position(tx, ty));//TODO
+//                        case "stone" ->
+//                                go = new ForagingMineral(false, new Position(tx, ty), MineralItemType.STONE);//TODO
+//                        case "tree" -> go = new Tree(TreeType.APPLE_TREE, new Position(tx, ty));
+//                        case "stick" -> go = new Tree(TreeType.TREE_BARK, new Position(tx, ty));
+//                        case "bigstone" ->
+//                                go = new ForagingMineral(false, new Position(tx, ty), MineralItemType.BIG_STONE);
                         default -> go = null;
                     }
+
 
                     if (go != null
                             && ty >= 0 && ty + objHeight < height
@@ -153,61 +156,38 @@ public class FarmLoader {
                 }
             }
         }
+
+        for (int i = 0;i < height; i ++){
+            for (int j = 0;j < width;j ++){
+                if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
+                    int rand = (int) (Math.random() * 100);
+                    GameObject go = null;
+                    if (rand <= 30){
+                        if (rand < 3){
+                            go = new ForagingMineral(false, new Position(j, i), MineralItemType.STONE);
+                        } else if (rand < 12){
+                            go = new Tree(TreeType.APPLE_TREE, new Position(j, i));
+                        } else if (rand < 15){
+                            go = new Grass(true, new Position(j, i), GrassType.NormalGrass);
+                        } else if (rand < 20){
+                            go = new Grass(true, new Position(j, i), GrassType.FiberGrass);
+                        } else if (rand < 25){
+                            go = new Tree(TreeType.TREE_BARK, new Position(j, i));
+                        } else {
+                            go = new Tree(TreeType.NORMAL_TREE, new Position(j, i));
+                        }
+                    }
+                    tiles[i][j].setFixedObject(go);
+                }
+            }
+        }
+
         return tiles;
     }
 
-    public static Farm loadTheFarm(String farmName) throws Exception {
+    public static Farm loadTheFarm2(String farmName) throws Exception {
         Farm farm = new Farm();
-        Tile[][] farmTileSet = load(farmName + ".tmj",farm);
+        Tile[][] farmTileSet = load(farmName + ".tmj", farm);
         return farm;
     }
-
-
-//    public static void main(String[] args) throws Exception {
-//        Tile[][] farm = load("hello3.tmj");
-//        System.out.println("Loaded " + farm.length + "×" + farm[0].length + " tiles.");
-//
-//        // ANSI colors
-//        final String RESET = "\u001B[0m";
-//        final String RED = "\u001B[41m";     // background red
-//        final String GREEN = "\u001B[42m";   // background green
-//        final String BLUE = "\u001B[44m";    // background blue
-//        final String YELLOW = "\u001B[43m";  // background yellow
-//        final String GRAY = "\u001B[100m";   // background gray
-//        char toPrint;
-//        for (int i = 0; i < 65; i++) {
-//            for (int j = 0; j < 80; j++) {
-//                GameObject go = farm[i][j].getFixedObject();
-//                String color = GRAY; // default background
-//
-//                if (go != null) {
-//                    String name = go.getClass().getSimpleName();
-//                    switch (name) {
-//                        case "Tree":
-//                            color = GREEN;
-//                            break;
-//                        case "Rock":
-//                            color = RED;
-//                            break;
-//                        case "Water":
-//                            color = BLUE;
-//                            break;
-//                        case "Home":
-//                            color = YELLOW;
-//                            break;
-//                        default:
-//                            color = GRAY;
-//                    }
-//                    if (name.isEmpty()) {
-//                        name =" ";
-//                    }
-//                    System.out.print(color + name.charAt(0) + RESET); // two spaces colored
-//                } else {
-//                    System.out.print("  "); // empty space
-//                }
-//            }
-//            System.out.println();
-//        }
-//    }
-
 }

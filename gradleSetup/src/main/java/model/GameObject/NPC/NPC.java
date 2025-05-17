@@ -3,6 +3,7 @@ package model.GameObject.NPC;
 import model.Enums.NpcType;
 import model.MapModule.Position;
 import model.GameObject.LivingEntity;
+import model.MapModule.Buildings.Building;
 import model.Player;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;

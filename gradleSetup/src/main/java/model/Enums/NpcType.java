@@ -28,7 +28,8 @@ public enum NpcType {
                     new Food(FoodType.PUMPKIN_PIE),
                     new Food(FoodType.PIZZA)
             )),
-            SebastianPrompt.class
+            SebastianPrompt.class,
+            "U+1F9D9"
     ),
 
     ABIGAIL(
@@ -44,7 +45,8 @@ public enum NpcType {
                     new Mineral(MineralItemType.IRON_ORE),
                     new Food(FoodType.COFFEE)
             )),
-            AbigailPrompt.class
+            AbigailPrompt.class ,
+            "U+1F9DB"
     ),
 
     HARVEY(
@@ -60,7 +62,8 @@ public enum NpcType {
                     new Food(FoodType.PICKLES),
                     new Food(FoodType.WINE)
             )),
-            HarveyPrompt.class
+            HarveyPrompt.class ,
+            "U+1F9DF"
     ),
 
     LEAH(
@@ -76,7 +79,8 @@ public enum NpcType {
                     new Food(FoodType.GRAPE),
                     new Food(FoodType.WINE)
             )),
-            LeahPrompt.class
+            LeahPrompt.class ,
+            "U+1F9DD"
     ),
 
     ROBIN(
@@ -92,7 +96,8 @@ public enum NpcType {
                     new Etc(EtcType.WOOD),
                     new Etc(EtcType.IRON_BAR)
             )),
-            RobinPrompt.class
+            RobinPrompt.class ,
+            "U+1F9DA"
     );
 
     private final String name;
@@ -100,13 +105,15 @@ public enum NpcType {
     private final int daysForSecond;
     private final ArrayList<Item> favoriteItems;
     private final Class<? extends NpcPrompt> promptClass;
+    private final String icon;
 
-    NpcType(String name, ArrayList<NpcRequest> requests, int daysForSecond, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass) {
+    NpcType(String name, ArrayList<NpcRequest> requests, int daysForSecond, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass , String icon) {
         this.name = name;
         this.requests = requests;
         this.daysForSecond = daysForSecond;
         this.favoriteItems = favoriteItems;
         this.promptClass = promptClass;
+        this.icon = icon;
     }
 
     public Class<? extends NpcPrompt> getPromptClass() {
@@ -124,6 +131,11 @@ public enum NpcType {
     public String getName() {
         return name;
     }
+
+    public String getIcon() {
+        return icon;
+    }
+
 
     public NPC getNPC(Position position) {
         NPC npcToAdd = new NPC(position, this);
