@@ -78,16 +78,16 @@ public class AStarPathFinding {
         return this.path;
     }
 
-    public void reset() {
-        this.start = null;
-        this.end = null;
-        this.path = null;
-        this.openList = null;
-        this.closedList = null;
-        for (Node n : network.getNodes()) {
-            n.setValid(true);
-        }
-    }
+//    public void reset() {
+//        this.start = null;
+//        this.end = null;
+//        this.path = null;
+//        this.openList = null;
+//        this.closedList = null;
+//        for (Node n : network.getNodes()) {
+//            n.setValid(true);
+//        }
+//    }
 
     private void retracePath(Node current) {
         Node temp = current;
