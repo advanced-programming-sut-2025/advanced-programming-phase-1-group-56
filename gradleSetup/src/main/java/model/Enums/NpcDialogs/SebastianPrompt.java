@@ -5,7 +5,7 @@ import model.Enums.WeatherAndTime.WeatherType;
 import java.util.*;
 import java.util.stream.*;
 
-public enum SebastianPrompt {
+public enum SebastianPrompt implements NpcPrompt {
     // (promptText, weather, day, minFriendship)
     Sunny_DAY_WEATHER(
             "On a Sunny day, Sebastian shyly comments on the bright sunshine.",

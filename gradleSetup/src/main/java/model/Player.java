@@ -13,6 +13,7 @@ import model.Enums.Skills;
 import model.GameObject.Animal;
 import model.GameObject.NPC.NPC;
 
+import model.GameObject.NPC.NpcFriendship;
 import model.MapModule.Buildings.Building;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.GameLocation;
@@ -64,21 +65,21 @@ public class Player implements TimeObserver {
     private int gold;
     private Position position;
     private GameLocation currentGameLocation;
-    private Buff currentBuff= null;
+    private Buff currentBuff = null;
     private boolean interactWithPartnerToday;
 
     //connections
-    private final ArrayList<UUID> myTrades= new ArrayList<>();
-    private final ArrayList<UUID> receivedTrades= new ArrayList<>();
-    private final ArrayList<UUID> endedTradesHistory= new ArrayList<>();
+    private final ArrayList<UUID> myTrades = new ArrayList<>();
+    private final ArrayList<UUID> receivedTrades = new ArrayList<>();
+    private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
 
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<NPC> npc =new ArrayList<>();
+    private final ArrayList<NpcFriendship> npcFriendships =new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<Animal> animals =new ArrayList<>();
+    private final ArrayList<Animal> animals = new ArrayList<>();
 
     //doesn't need expose because duplicate won't make any trouble
-    private final ArrayList<Friendship> friendShips =new ArrayList<>();
+    private final ArrayList<Friendship> friendShips = new ArrayList<>();
     private final ArrayList<Message> messages = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
@@ -90,10 +91,10 @@ public class Player implements TimeObserver {
         this.user = user;
         this.userId = user.getUserId();
         //id ok
-        FarmingSkill farmingSkill = new FarmingSkill(Skills.Farming,0);
-        ForagingSkill foragingSkill = new ForagingSkill(Skills.Foraging,0);
-        MiningSkill miningSkill = new MiningSkill(Skills.Mining,0);
-        FishingSkill fishingSkill = new FishingSkill(Skills.Fishing,0);
+        FarmingSkill farmingSkill = new FarmingSkill(Skills.Farming, 0);
+        ForagingSkill foragingSkill = new ForagingSkill(Skills.Foraging, 0);
+        MiningSkill miningSkill = new MiningSkill(Skills.Mining, 0);
+        FishingSkill fishingSkill = new FishingSkill(Skills.Fishing, 0);
         skills.add(farmingSkill);
         skills.add(foragingSkill);
         skills.add(miningSkill);
@@ -144,7 +145,7 @@ public class Player implements TimeObserver {
         this.energy = energy;
     }
 
-    public void toggleUnlimitedEnergy(){
+    public void toggleUnlimitedEnergy() {
         energy.toggleUnlimited();
     }
 
@@ -247,15 +248,15 @@ public class Player implements TimeObserver {
     }
 
     public int getGold() {
-        if(partner == null)
+        if (partner == null)
             return gold;
         else return gold + partner.getGold();
     }
 
     public void addGold(int gold) {
-        if(partner == null){
+        if (partner == null) {
             this.gold += gold;
-        }else if(this.gold + gold< 0){
+        } else if (this.gold + gold < 0) {
             //gold is negative
             gold += this.gold;
             this.gold = 0;
@@ -267,7 +268,7 @@ public class Player implements TimeObserver {
         }
     }
 
-    public UUID getPlayerID(){
+    public UUID getPlayerID() {
         return userId;
     }
 
@@ -283,8 +284,8 @@ public class Player implements TimeObserver {
         return myTrades;
     }
 
-    public ArrayList<NPC> getNpc() {
-        return npc;
+    public ArrayList<NpcFriendship> getNpcFriendShips() {
+        return npcFriendships;
     }
 
     public GameLocation getCurrentGameLocation() {
@@ -317,9 +318,9 @@ public class Player implements TimeObserver {
         return null;
     }
 
-    public Gift findGiftById(String id){
-        for (Gift gift: gifts) {
-            if(gift.getGiftID().equals(UUID.fromString(id))){
+    public Gift findGiftById(String id) {
+        for (Gift gift : gifts) {
+            if (gift.getGiftID().equals(UUID.fromString(id))) {
                 return gift;
             }
         }
@@ -360,19 +361,28 @@ public class Player implements TimeObserver {
     }
 
     public void setCurrentBuff(Buff currentBuff) {
-        this.currentBuff.manageBuff(this);
+        if (this.currentBuff != null) {// old buff != null
+            this.currentBuff.manageBuff1(this);//disable old buff
+        }
         this.currentBuff = currentBuff;
+        if (currentBuff != null) {//new buff != null
+            this.currentBuff.manageBuff(this);//enable new buff
+        }
     }
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay){
+        if (newDay) {
             interactWithPartnerToday = false;
-        }
-        else{
-            if(getCurrentBuff().getRemainingTime() == 0){
-                this.currentBuff.manageBuff1(this);
-                this.currentBuff = null;
+            if (fainted) {
+                fainted = false;
+                energy.setEnergy((int) (energy.getMaxEnergy() * 0.75));
+            } else {
+                energy.setEnergy(energy.getMaxEnergy());
+            }
+        } else {
+            if (getCurrentBuff().getRemainingTime() == 0) {
+                this.setCurrentBuff(null);
             }
         }
     }
@@ -386,7 +396,7 @@ public class Player implements TimeObserver {
     }
 
     public void addEnergy(int amount) {
-        if(energy.getEnergy() + amount > maxEnergy){
+        if (energy.getEnergy() + amount > maxEnergy) {
             energy.setEnergy(maxEnergy);
         }
         energy.setEnergy(energy.getEnergy() + amount);
@@ -394,15 +404,14 @@ public class Player implements TimeObserver {
 
     public void subtractEnergy(int amount) {
         energy.setEnergy(Math.min((energy.getEnergy() - amount),0));
-        if(energy.getEnergy()==0){
+        if(energy.getEnergy() <= 0){
             fainted = true;
-            GameController.skipTurn();
         }
     }
 
-    public Skill getSkillByName(String skillName){
+    public Skill getSkillByName(String skillName) {
         for (Skill skill : skills) {
-            if(skill.getName().equals(skillName)){
+            if (skill.getName().equals(skillName)) {
                 return skill;
             }
         }

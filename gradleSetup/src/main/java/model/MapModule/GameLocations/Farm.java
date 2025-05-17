@@ -2,6 +2,7 @@ package model.MapModule.GameLocations;
 
 import com.google.gson.annotations.Expose;
 import controller.GameMenuController.FarmingController;
+import controller.GameMenuController.WeatherController;
 import model.App;
 import model.Enums.FarmPosition;
 import model.GameObject.Crop;
@@ -22,7 +23,7 @@ public class Farm extends GameLocation implements TimeObserver {
     private FarmPosition position;
     private final ArrayList<Building> buildings = new ArrayList<>();
     private final ArrayList<GameObject> allGameObjects = new ArrayList<>();
-    @Expose(serialize = false,deserialize = false)
+    @Expose(serialize = false, deserialize = false)
     private Player player;
 
     public Farm() {
@@ -30,17 +31,17 @@ public class Farm extends GameLocation implements TimeObserver {
     }
 
 
-
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay) {
+        if (newDay) {
+            FarmingController.manageStrikeThunder(this);
             FarmingController.manageCrows(this);
             FarmingController.managePlaceMineral(this);
             FarmingController.managePlaceRandomCropOrSeed(this);
-            for(GameObject gameObject : allGameObjects) {
-                if(gameObject instanceof Tree) {
-                    if(((Tree)gameObject).getDaysWithNoWater() == 2){
-                        deleteObjectTreeOrCrop((Tree)gameObject);
+            for (GameObject gameObject : allGameObjects) {
+                if (gameObject instanceof Tree) {
+                    if (((Tree) gameObject).getDaysWithNoWater() == 2) {
+                        deleteObjectTreeOrCrop((Tree) gameObject);
                     }
                 } else  if(gameObject instanceof Crop) {
                     if(((Crop)gameObject).getDaysWithNoWater() == 2 || ((Crop)gameObject).isIs1time() ){
@@ -73,9 +74,9 @@ public class Farm extends GameLocation implements TimeObserver {
     }
     //TODO
 
-    public Home getDefaultHome(){
-        for(Building building : buildings) {
-            if(building instanceof Home home){
+    public Home getDefaultHome() {
+        for (Building building : buildings) {
+            if (building instanceof Home home) {
                 return home;
             }
         }
@@ -88,11 +89,11 @@ public class Farm extends GameLocation implements TimeObserver {
 
     public void readAllGameObjectsFromTiles() {
         allGameObjects.clear();
-        for(Tile[] row:tiles) {
-            for(Tile tile:row) {
-                if(tile.getFixedObject()!=null) {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (tile.getFixedObject() != null) {
                     boolean found = false;
-                    for (GameObject go:allGameObjects) {
+                    for (GameObject go : allGameObjects) {
                         if (go.equals(tile.getFixedObject())) {
                             found = true;
                         }
@@ -110,8 +111,8 @@ public class Farm extends GameLocation implements TimeObserver {
         //TODO add this if needed
     }
 
-    public GreenHouse getGreenHouse(){
-        for (Building building: buildings) {
+    public GreenHouse getGreenHouse() {
+        for (Building building : buildings) {
             if (building instanceof GreenHouse) {
                 return (GreenHouse) building;
             }
@@ -123,7 +124,7 @@ public class Farm extends GameLocation implements TimeObserver {
         allGameObjects.remove(gameObject);
         for (int i = 0; i < this.getTiles().length; i++) {
             for (int j = 0; j < this.getTiles()[i].length; j++) {
-                if(this.getTiles()[i][j].getFixedObject().equals(gameObject)) {
+                if (this.getTiles()[i][j].getFixedObject().equals(gameObject)) {
                     this.getTiles()[i][j].setFixedObject(null);
                 }
             }

@@ -18,7 +18,7 @@ public class EnergyController extends CommandController {
         try{
             int energy = Integer.parseInt(energyStr.trim());
             Player player =App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-            player.getEnergy().setEnergy(energy);
+            player.getEnergy().setEnergy(Math.max(energy, player.getEnergy().getMaxEnergy()));
         }
         catch(NumberFormatException e){
             return new Result(false, "Invalid energy value");
