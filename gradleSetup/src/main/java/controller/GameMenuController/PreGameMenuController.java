@@ -15,6 +15,7 @@ import model.items.Tool;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static model.MapModule.Farm2Loader.loadTheFarm2;
 import static model.MapModule.FarmLoader.loadTheFarm;
 import static model.MapModule.TownLoader.loadTheTown;
 
@@ -87,7 +88,7 @@ public class PreGameMenuController extends CommandController {
                 playersToPlay.getFirst().setPlayerFarm(farm1);
 
 
-                Farm farm2 = loadTheFarm("Farm2");
+                Farm farm2 = loadTheFarm2("Farm2");
                 farm2.setPosition(FarmPosition.UP);
                 playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
@@ -106,7 +107,7 @@ public class PreGameMenuController extends CommandController {
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
 
 
-                Farm farm2 = loadTheFarm("Farm2");
+                Farm farm2 = loadTheFarm2("Farm2");
                 farm2.setPosition(FarmPosition.UP);
                 playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
@@ -134,7 +135,7 @@ public class PreGameMenuController extends CommandController {
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
 
 
-                Farm farm2 = loadTheFarm("Farm2");
+                Farm farm2 = loadTheFarm2("Farm2");
                 farm2.setPosition(FarmPosition.UP);
                 playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
@@ -150,7 +151,7 @@ public class PreGameMenuController extends CommandController {
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
 
 
-                Farm farm4 = loadTheFarm("Farm2");
+                Farm farm4 = loadTheFarm2("Farm2");
                 farm4.setPosition(FarmPosition.RIGHT);
                 playersToPlay.get(3).setFarmPosition(FarmPosition.RIGHT);
                 farm4.setPlayer(playersToPlay.get(3));

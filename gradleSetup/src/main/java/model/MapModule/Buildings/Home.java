@@ -1,5 +1,6 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Buildings.BuildingType;
 import model.GameObject.Refrigerator;
 import model.MapModule.Buildings.Building;
 import model.MapModule.Position;
@@ -8,7 +9,7 @@ public class Home extends Building {
     private Refrigerator myRefrigerator;
 
     public Home(Position startingPosition,boolean walkable,String name,Position doorPosition,int height,int width) {
-        super(startingPosition,walkable,name,doorPosition,height,width);
+        super(startingPosition,walkable,name,doorPosition,height,width, BuildingType.HOME);
         this.myRefrigerator = null;
     }
 

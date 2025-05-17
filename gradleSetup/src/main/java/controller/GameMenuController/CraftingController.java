@@ -298,7 +298,7 @@ public class CraftingController extends CommandController {
         return null;
     }
 
-    private static Direction getDirectionFromString(String input) {
+    public static Direction getDirectionFromString(String input) {
         try {
             return Direction.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
