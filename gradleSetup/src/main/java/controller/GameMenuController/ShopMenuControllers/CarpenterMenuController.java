@@ -4,23 +4,19 @@ import model.App;
 import model.Enums.Buildings.BuildingType;
 import model.Enums.Items.EtcType;
 import model.Enums.Items.MineralItemType;
-import model.Enums.Stores.BlackSmithProducts;
-import model.Enums.Stores.CarpenterShopProducts;
+import model.Enums.TileType;
 import model.Game;
 import model.GameObject.NPC.NpcProduct;
 import model.GameObject.ShippingBar;
 import model.GameObject.Well;
 import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Farm;
-import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Position;
 import model.Player;
 import model.Result;
 import model.items.Etc;
-import model.items.Item;
 import model.items.Mineral;
 
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class CarpenterMenuController implements ShopController {
@@ -129,6 +125,7 @@ public class CarpenterMenuController implements ShopController {
                 for (int i = x; i < x + type.getWidth(); i++) {
                     for (int j = y; j < y + type.getHeight(); j++) {
                         farm.getTileByPosition(i, j).setFixedObject(newWell);
+                        farm.getTileByPosition(i, j).setTileType(TileType.Water);
                     }
                 }
 //                                App.getMe().getPlayerFarm().getBuildings().add(newBin);

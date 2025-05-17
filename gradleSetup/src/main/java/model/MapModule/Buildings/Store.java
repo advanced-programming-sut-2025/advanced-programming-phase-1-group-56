@@ -1,9 +1,9 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Buildings.BuildingType;
 import model.GameObject.NPC.NPC;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
-import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 
 import java.util.ArrayList;
@@ -27,11 +27,11 @@ public abstract class Store extends Building implements TimeObserver {
     }
 
     public Store(Position position, boolean walkable, String name, Position doorPosition, int height, int width) {
-        super(position, walkable, name, doorPosition, height, width);
+        super(position, walkable, name, doorPosition, height, width , BuildingType.STORE);
     }
 
     public Store(Position position, String name, Position doorPosition, int width, int height, boolean walkable, NPC owner, int openingHour, int closingHour, ArrayList<NpcProduct> products) {
-        super(position, walkable, name, doorPosition, height, width);
+        super(position, walkable, name, doorPosition, height, width , BuildingType.STORE);
         this.name = name;
         this.owner = owner;
         this.openingHour = openingHour;

@@ -3,7 +3,6 @@ package model;
 import com.google.gson.annotations.Expose;
 import model.Activities.Trade;
 import model.MapModule.Buildings.Store;
-import model.MapModule.GameMap;
 import model.States.WeatherState;
 import model.TimeSystem.TimeSystem;
 import model.MapModule.GameMap;
@@ -76,7 +75,7 @@ public class Game {
 //    }
     private String gameId;
     private ArrayList<String> usersId = new ArrayList<>();
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players;
     private final GameMap gameMap;
     private final TimeSystem timeSystem;
     private final WeatherState weatherState;

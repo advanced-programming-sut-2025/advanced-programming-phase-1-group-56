@@ -1,10 +1,7 @@
 package controller.GameMenuController.ShopMenuControllers;
 
 import model.App;
-import model.MapModule.Buildings.Store;
 import model.MapModule.Buildings.TheSaloonStardrop;
-import model.MapModule.Position;
-import model.Player;
 import model.Result;
 
 import java.util.regex.Matcher;

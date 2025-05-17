@@ -1,11 +1,9 @@
 package model.GameObject;
 
-import controller.GameMenuController.FarmingController;
 import controller.GameMenuController.HusbandryController;
 import model.App;
 import model.Enums.Animals.AnimalType;
 import model.Enums.Items.EtcType;
-import model.GameObject.LivingEntity;
 import model.MapModule.Buildings.AnimalHouse;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
@@ -162,7 +160,6 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
             dailyProducts.remove(0);
         } else {
             System.out.println("There is no" + etcType.name + "in this animal");
-            return;
         }
     }
 

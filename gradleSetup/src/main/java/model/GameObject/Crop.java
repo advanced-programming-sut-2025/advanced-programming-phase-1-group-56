@@ -2,7 +2,6 @@ package model.GameObject;
 
 import model.App;
 import model.Enums.GameObjects.CropType;
-import model.Enums.Items.ItemType;
 import model.Enums.WeatherAndTime.WeatherType;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;

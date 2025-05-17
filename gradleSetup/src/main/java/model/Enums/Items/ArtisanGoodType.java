@@ -32,9 +32,9 @@ public enum ArtisanGoodType implements ItemType {
     PICKLES             ("Pickles",          "A jar of your home-made pickles.",                 20,    6,  new Slot[]{new Slot(new Food(FoodType.ANY_VEGETABLE),1)}, 40),
     JELLY               ("Jelly",            "Gooey.",                                           30,    72, new Slot[]{new Slot(new Fruit(FruitType.ANY_FRUIT),1)}, 50),
     SMOKED_FISH         ("Smoked Fish",      "A whole fish, smoked to perfection.",               60,   1,  new Slot[]{new Slot(new Fish(FishType.ANY_FISH),1),
-            new Slot(new Mineral(MineralItemType.COAL), 1)}, 120),
-    METAL_BAR           ("Any metal bar",     "Turns ore and coal into metal bars.",               150,   4,  new Slot[]{new Slot(new OreItem(Ore.ANY_ORE), 5),
-            new Slot(new Mineral(MineralItemType.COAL),1)}, 200);
+            new Slot(new Mineral(MineralItemType.COAL_ORE), 1)}, 120),
+    METAL_BAR           ("Any metal bar",     "Turns ore and coal into metal bars.",               150,   4,  new Slot[]{new Slot(new Mineral(MineralItemType.ANY_ORE), 5),
+            new Slot(new Mineral(MineralItemType.COAL_ORE),1)}, 200);
 
     private final String name;
     private final String description;

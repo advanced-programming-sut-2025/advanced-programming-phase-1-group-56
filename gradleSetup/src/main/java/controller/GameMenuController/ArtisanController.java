@@ -2,15 +2,14 @@ package controller.GameMenuController;
 
 import controller.CommandController;
 import model.*;
-import model.Enums.Items.ArtisanGoodType;
-import model.Enums.Items.FishType;
-import model.Enums.Items.FruitType;
+import model.Enums.Items.*;
 import model.GameObject.ArtesianMachine;
 import model.items.Artesian;
 import model.items.ArtisanGood;
 import model.items.Fish;
 import model.items.Item;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class ArtisanController extends CommandController {
@@ -24,6 +23,7 @@ public class ArtisanController extends CommandController {
                 if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() - 1 + i, player.getPosition().getY() - 1 + j).getFixedObject() instanceof ArtesianMachine artesianMachine) {
                     if (artesianMachine.getArtisanMachineType().getName().equals(machineName)) {
                         for (ArtisanGoodType product : artesianMachine.getArtisanMachineType().getProducts()) {
+//                            boolean found = false;
                             for (String str : productsName) {
                                 if (player.getInventory().findItemByName(str) == null) {
                                     return new Result(false, "this item doesn't fount in your inventory.");
@@ -43,7 +43,12 @@ public class ArtisanController extends CommandController {
                                             }
                                         }
                                     } else if (ingredient.getItem().getName().equals("Any Ore")) {
-                                        for (Ore ore : Ore.values()) {
+                                        ArrayList<MineralItemType> Ores = new ArrayList<>();
+                                        Ores.add(MineralItemType.COPPER_ORE);
+                                        Ores.add(MineralItemType.IRON_ORE);
+                                        Ores.add(MineralItemType.GOLD_ORE);
+                                        Ores.add(MineralItemType.IRIDIUM_ORE);
+                                        for (MineralItemType ore : Ores) {
                                             if (ore.getName().equals(str)) {
                                                 found2 = true;
                                             }
@@ -91,6 +96,4 @@ public class ArtisanController extends CommandController {
         }
         return new Result(false, "you dont near a artisan machine");
     }
-
-
 }

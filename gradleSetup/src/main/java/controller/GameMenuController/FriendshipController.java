@@ -91,7 +91,7 @@ public class FriendshipController extends CommandController {
         User user = App.getUserByUsername(userName.trim());
         Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         Item itemToGift = me.getInventory().findItemByName(item.trim());
-        int amount = 1;
+        int amount;
         if (user == null) {
             return new Result(false, "User not found");
         }

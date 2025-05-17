@@ -1,6 +1,5 @@
 package model.items;
 
-import com.google.gson.internal.bind.TreeTypeAdapter;
 import controller.GameMenuController.GameController;
 import model.App;
 import model.Enums.Animals.AnimalType;
@@ -8,16 +7,11 @@ import model.Enums.GameObjects.TreeType;
 import model.Enums.Items.*;
 import model.Enums.Skills;
 import model.Enums.TileType;
-import model.Enums.WeatherAndTime.Seasons;
-import model.Enums.WeatherAndTime.WeatherType;
 
 import model.GameObject.*;
 import model.MapModule.Tile;
 import model.Player;
-import model.Result;
 import model.skills.Skill;
-
-import java.util.ArrayList;
 
 public class Tool extends Item {
     private ToolType toolType;

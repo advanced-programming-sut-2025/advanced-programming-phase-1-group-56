@@ -1,10 +1,7 @@
 package controller.GameMenuController.ShopMenuControllers;
 
 import model.App;
-import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Buildings.JojaMart;
-import model.MapModule.Buildings.MarniesRanch;
-import model.MapModule.Buildings.TheSaloonStardrop;
 import model.Result;
 
 import java.util.regex.Matcher;

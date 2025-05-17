@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Tile extends Node{
     private Position position;
-    private boolean isWalkable; // این به‌صورت دستی باید مقداردهی بشه یا از objectها گرفته بشه
+    private boolean isWalkable;
     @Expose(deserialize = false, serialize = false)
     private GameObject fixedObject;
     private TileType tileType;
@@ -22,7 +22,7 @@ public class Tile extends Node{
     }
 
     public boolean isWalkable() {
-        return isWalkable;
+        return isWalkable && fixedObject.isWalkable();
     }
 
     public Position getPosition() {
@@ -44,7 +44,6 @@ public class Tile extends Node{
 
     public void setFixedObject(GameObject fixedObject) {
         this.fixedObject = fixedObject;
-        this.isWalkable = fixedObject.isWalkable();
     }
 
     public TileType getTileType() {
@@ -117,5 +116,9 @@ public class Tile extends Node{
 
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
+    }
+
+    public void setWalkable(boolean walkable) {
+        isWalkable = walkable;
     }
 }

@@ -10,7 +10,6 @@ import model.GameObject.Tree;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.GameLocation;
 import model.MapModule.Tile;
-import model.Player;
 import model.Result;
 
 public class WeatherController extends CommandController {

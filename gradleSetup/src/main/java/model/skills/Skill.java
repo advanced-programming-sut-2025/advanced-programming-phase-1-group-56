@@ -4,7 +4,7 @@ import model.Enums.Skills;
 
 public abstract class Skill {
     private int xp;
-    private Skills name;
+    private final Skills name;
     private int level;
 
 
@@ -14,8 +14,8 @@ public abstract class Skill {
         this.level = 0;
     }
 
-    public Skills getName(){
-        return name;
+    public String getName(){
+        return name.toString();
     }
 
 

@@ -2,10 +2,6 @@ package model.GameObject;
 
 import model.MapModule.Position;
 import model.items.Inventory;
-import model.items.Item;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Refrigerator extends GameObject {
     private Inventory inventory;

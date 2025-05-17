@@ -1,5 +1,6 @@
 package model.MapModule.GameLocations;
 
+import model.App;
 import model.MapModule.Network;
 import model.MapModule.Node;
 import model.MapModule.Tile;
@@ -43,5 +44,16 @@ public class GameLocation extends Network {
 
     public boolean isWithinBounds(int x, int y, int width,int height) {
         return x >= 0 && x + width <= tiles[0].length && y >= 0 && y + height <= tiles.length;
+    }
+
+    public boolean isPlantingLand() {
+            boolean isFarm = this instanceof Farm;
+            boolean isPlayerGreenhouse = this == App.getMe().getPlayerFarm().getGreenHouse().getIndoor();
+            boolean isPartnerGreenhouse = false;
+            if (App.getMe().getPartner() != null) {
+                isPartnerGreenhouse = this == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor();
+            }
+            return isFarm || isPlayerGreenhouse || isPartnerGreenhouse;
+
     }
 }

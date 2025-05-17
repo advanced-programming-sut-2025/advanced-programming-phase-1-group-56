@@ -4,7 +4,6 @@ import model.App;
 import model.Enums.Items.*;
 import model.Enums.NpcDialogs.*;
 import model.Enums.Recepies.FoodRecipesList;
-import model.GameObject.ArtesianMachine;
 import model.GameObject.NPC.NPC;
 import model.GameObject.NPC.NpcFriendship;
 import model.GameObject.NPC.NpcRequest;
@@ -19,7 +18,7 @@ public enum NpcType {
     SEBASTIAN(
             "Sebastian",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new Mineral(MineralItemType.IRON), 50, new Mineral(MineralItemType.DIAMOND), 2),
+                    new NpcRequest(new Mineral(MineralItemType.IRON_ORE), 50, new Mineral(MineralItemType.DIAMOND), 2),
                     new NpcRequest(new Food(FoodType.PUMPKIN_PIE), 1, EtcType.Money, 5000),
                     new NpcRequest(new Mineral(MineralItemType.STONE), 150, new Mineral(MineralItemType.QUARTZ), 50)
             )),
@@ -29,23 +28,25 @@ public enum NpcType {
                     new Food(FoodType.PUMPKIN_PIE),
                     new Food(FoodType.PIZZA)
             )),
-            SebastianPrompt.class
+            SebastianPrompt.class,
+            "U+1F9D9"
     ),
 
     ABIGAIL(
             "Abigail",
             new ArrayList<>(Arrays.asList(
-                    new NpcRequest(new OreItem(Ore.GOLD_ORE), 1, EtcType.NPC_FRIENDSHIP_XP, 200),
+                    new NpcRequest(new Etc(EtcType.GOLD_BAR), 1, EtcType.NPC_FRIENDSHIP_XP, 200),
                     new NpcRequest(new Food(FoodType.PUMPKIN), 1, EtcType.Money, 500),
                     new NpcRequest(new Food(FoodType.WHEAT), 50, (EtcType.IRIDIUM_SPRINKLER), 1)
             )),
             9,
             new ArrayList<>(Arrays.asList(
                     new Mineral(MineralItemType.STONE),
-                    new Mineral(MineralItemType.IRON),
+                    new Mineral(MineralItemType.IRON_ORE),
                     new Food(FoodType.COFFEE)
             )),
-            AbigailPrompt.class
+            AbigailPrompt.class ,
+            "U+1F9DB"
     ),
 
     HARVEY(
@@ -61,7 +62,8 @@ public enum NpcType {
                     new Food(FoodType.PICKLES),
                     new Food(FoodType.WINE)
             )),
-            HarveyPrompt.class
+            HarveyPrompt.class ,
+            "U+1F9DF"
     ),
 
     LEAH(
@@ -77,23 +79,25 @@ public enum NpcType {
                     new Food(FoodType.GRAPE),
                     new Food(FoodType.WINE)
             )),
-            LeahPrompt.class
+            LeahPrompt.class ,
+            "U+1F9DD"
     ),
 
     ROBIN(
             "Robin",
             new ArrayList<>(Arrays.asList(
                     new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 1000),
-                    new NpcRequest(new OreItem(Ore.IRON_ORE), 10, new Artesian(ArtisanMachineItemType.BEE_HOUSE), 3),
+                    new NpcRequest(new Etc(EtcType.IRON_BAR), 10, new Artesian(ArtisanMachineItemType.BEE_HOUSE), 3),
                     new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 25000)
             )),
             120,
             new ArrayList<>(Arrays.asList(
                     new Food(FoodType.SPAGHETTI),
                     new Etc(EtcType.WOOD),
-                    new OreItem(Ore.IRON_ORE)
+                    new Etc(EtcType.IRON_BAR)
             )),
-            RobinPrompt.class
+            RobinPrompt.class ,
+            "U+1F9DA"
     );
 
     private final String name;
@@ -101,13 +105,15 @@ public enum NpcType {
     private final int daysForSecond;
     private final ArrayList<Item> favoriteItems;
     private final Class<? extends NpcPrompt> promptClass;
+    private final String icon;
 
-    NpcType(String name, ArrayList<NpcRequest> requests, int daysForSecond, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass) {
+    NpcType(String name, ArrayList<NpcRequest> requests, int daysForSecond, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass , String icon) {
         this.name = name;
         this.requests = requests;
         this.daysForSecond = daysForSecond;
         this.favoriteItems = favoriteItems;
         this.promptClass = promptClass;
+        this.icon = icon;
     }
 
     public Class<? extends NpcPrompt> getPromptClass() {
@@ -125,6 +131,11 @@ public enum NpcType {
     public String getName() {
         return name;
     }
+
+    public String getIcon() {
+        return icon;
+    }
+
 
     public NPC getNPC(Position position) {
         NPC npcToAdd = new NPC(position, this);

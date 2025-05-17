@@ -1,7 +1,6 @@
 package model.Enums.GameObjects;
 
 import model.Enums.Items.ArtisanGoodType;
-import model.Enums.Items.ItemType;
 
 import java.util.List;
 

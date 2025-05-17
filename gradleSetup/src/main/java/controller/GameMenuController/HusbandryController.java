@@ -5,6 +5,7 @@ import model.App;
 import model.Enums.Animals.AnimalProductQuality;
 import model.Enums.Animals.AnimalType;
 import model.Enums.Items.EtcType;
+import model.Enums.Items.ItemQuality;
 import model.Enums.Items.ToolType;
 import model.Enums.Skills;
 import model.Enums.WeatherAndTime.WeatherType;
@@ -14,14 +15,12 @@ import model.MapModule.Buildings.Barn;
 import model.MapModule.Buildings.Building;
 import model.MapModule.Buildings.Coop;
 import model.MapModule.GameLocations.Farm;
-import model.MapModule.Tile;
 import model.Slot;
 import model.items.AnimalProduct;
 import model.MapModule.Position;
 import model.Result;
 import model.items.Etc;
 import model.items.Item;
-import model.items.Tool;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -49,7 +48,7 @@ public class HusbandryController extends CommandController {
             return new Result(false, "Animal is not around u!");
         }
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equals(name)) {
+            if (animal2.getName().equalsIgnoreCase(name)) {
                 animal2.addFriendShip(15);
                 animal2.setCaressed(true);
             }
@@ -61,14 +60,13 @@ public class HusbandryController extends CommandController {
     public static Result showInfoOfAnimal() {
         StringBuilder tmpString = new StringBuilder();
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            tmpString.append("animal's Name : " + animal.getName() + "\n" + "your friendShip with him : " + animal.getFriendship())
-                    .append("\n")
-                    .append("cuddled or not : " + animal.getIsCaressed())
-                    .append("\n")
-                    .append("eaten or not : " + animal.getIsFed()).append("\n");
+            tmpString.append("animal's Name : ").append(animal.getName()).append("\n").append("your friendShip with him : ")
+                    .append(animal.getFriendship()).append("\n")
+                    .append("cuddled or not : ").append(animal.getIsCaressed())
+                    .append("\n").append("eaten or not : ").append(animal.getIsFed()).append("\n");
 
         }
-        return null;
+        return new Result(false,tmpString.toString());
     }
 
     public static Result shepherdAnimals(Matcher matcher) {
@@ -98,7 +96,7 @@ public class HusbandryController extends CommandController {
                     if (y <= coop.getHeight() + coop.getPosition().getY() && y > coop.getPosition().getY()) {
                         animal.setGoOut(false);
                         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getName().equals(animalName)) {
+                            if (animal2.getName().equalsIgnoreCase(animalName)) {
                                 animal2.setPosition(new Position(x, y));
                             }
                         }
@@ -113,7 +111,7 @@ public class HusbandryController extends CommandController {
                     if (y <= barn.getHeight() + barn.getPosition().getY() && y > barn.getPosition().getY()) {
                         animal.setGoOut(false);
                         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getName().equals(animalName)) {
+                            if (animal2.getName().equalsIgnoreCase(animalName)) {
                                 animal2.setPosition(new Position(x, y));
                             }
                         }
@@ -127,7 +125,7 @@ public class HusbandryController extends CommandController {
         animal.setFed(true);
         animal.addFriendShip(8);
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equals(animalName)) {
+            if (animal2.getName().equalsIgnoreCase(animalName)) {
                 animal2.setPosition(new Position(x, y));
             }
         }
@@ -160,7 +158,7 @@ public class HusbandryController extends CommandController {
                 tmpString.append("animal's Name : " + animal.getName() + "\n");
                 for (AnimalProduct animalProduct : animal.getDailyProducts()) {
                     tmpString.append("animal's Product Name : " + animalProduct.getName() + "\n")
-                            .append("animal's Product quality : " + animalProduct.getQuality() + "\n");
+                            .append("animal's Product quality : " + animalProduct.getItemQuality() + "\n");
                 }
                 tmpString.append("------------------------------");
             }
@@ -203,6 +201,7 @@ public class HusbandryController extends CommandController {
                 Item item = slot.getItem();
                 if (item.getName().equals(ToolType.MILK_PAIL.getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {
@@ -218,6 +217,7 @@ public class HusbandryController extends CommandController {
                 Item item = slot.getItem();
                 if (item.getName().equals(ToolType.SHEAR.getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {
@@ -249,7 +249,7 @@ public class HusbandryController extends CommandController {
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
         }
-        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * (animal.getFriendship() / 1000 + 0.3));
+        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * ((double) (animal.getFriendship() / 1000) + 0.3));
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
@@ -259,8 +259,8 @@ public class HusbandryController extends CommandController {
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(sellPrice);
         return new Result(true, "process for Selling animal ...");
     }
-    //CHEAT
 
+    //CHEAT
     public static Result cheatSetFriendship(Matcher matcher) {
         String name = matcher.group(1);
         int amount = Integer.parseInt(matcher.group(2));
@@ -298,16 +298,17 @@ public class HusbandryController extends CommandController {
         EtcType[] products = animal.getAnimalInfo().getProducts();
 
         if (products.length == 1) {
-            animalProduct = new AnimalProduct(products[0], AnimalProductQuality.normal);
+            animalProduct = new AnimalProduct(products[0]);
+//            animalProduct.setQuality();
         } else {
             Random random = new Random();
             double randomInt = random.nextDouble(0.5, 1.5);
             double probability = (animal.getFriendship() + 150 * randomInt) / 1500;
 
             if (animal.getFriendship() >= 100 && probability > 0.5) {
-                animalProduct = new AnimalProduct(products[1], AnimalProductQuality.normal);
+                animalProduct = new AnimalProduct(products[1]);
             } else {
-                animalProduct = new AnimalProduct(products[0], AnimalProductQuality.normal);
+                animalProduct = new AnimalProduct(products[0]);
             }
         }
 
@@ -316,13 +317,13 @@ public class HusbandryController extends CommandController {
         double qualityValue = ((double) animal.getFriendship() / 1000) * (0.5 + 0.5 * rand);
 
         if (qualityValue > 0.9) {
-            animalProduct.setQuality(AnimalProductQuality.Iridium);
+            animalProduct.setItemQuality(ItemQuality.Iridium);
         } else if (qualityValue > 0.7) {
-            animalProduct.setQuality(AnimalProductQuality.gold);
+            animalProduct.setItemQuality(ItemQuality.Gold);
         } else if (qualityValue > 0.5) {
-            animalProduct.setQuality(AnimalProductQuality.silver);
+            animalProduct.setItemQuality(ItemQuality.Silver);
         } else {
-            animalProduct.setQuality(AnimalProductQuality.normal);
+            animalProduct.setItemQuality(ItemQuality.Normal);
         }
 
         return animalProduct;

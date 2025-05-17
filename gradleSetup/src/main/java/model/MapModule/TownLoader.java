@@ -6,13 +6,10 @@ import model.Enums.NpcType;
 import model.Enums.TileType;
 import model.GameObject.*;
 import model.MapModule.Buildings.*;
-import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.Town;
-import model.items.Etc;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Scanner;
 
 public class TownLoader {
     private static final int tileSize = 16;
@@ -30,7 +27,7 @@ public class TownLoader {
         for (JsonElement lyrEl : layers) {
             JsonObject lyr = lyrEl.getAsJsonObject();
             if ("tilelayer".equals(lyr.get("type").getAsString())) {
-                data = lyr.getAsJsonArray("data");
+//                data = lyr.getAsJsonArray("data");
                 break;
             }
         }
