@@ -46,6 +46,7 @@ public class GameController extends CommandController {
         for (Player player : game.getPlayers()) {
             player.getUser().setGameId(null);
             player.getUser().setCurrentGame(null);
+
         }
         return new Result(true,"Mission Failed Successfully... ):");
     }

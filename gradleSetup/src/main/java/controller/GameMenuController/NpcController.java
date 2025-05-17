@@ -151,7 +151,7 @@ public class NpcController extends CommandController {
 
     public static Result manageShowActiveQuest() {
         StringBuilder builder = new StringBuilder();
-        NPC npc = App.getMe().getLastMeetedNPC();
+        NPC npc = App.getMe().getLastMeetedNpc();
 
         if (npc == null) {
             return new Result(false, "You haven't met a npc recently");
@@ -182,7 +182,7 @@ public class NpcController extends CommandController {
     }
 
     public static Result finishingQuest(String indexStr) {
-        NPC npc = App.getMe().getLastMeetedNPC();
+        NPC npc = App.getMe().getLastMeetedNpc();
         int index;
         try {
             index = Integer.parseInt(indexStr.trim());
