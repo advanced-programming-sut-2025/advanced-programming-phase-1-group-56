@@ -8,6 +8,7 @@ import model.Enums.GameObjects.CropType;
 import model.Enums.GameObjects.ForagingCropType;
 import model.Enums.GameObjects.TreeType;
 import model.Enums.Items.*;
+import model.Enums.Skills;
 import model.Enums.TileType;
 import model.Enums.WeatherAndTime.Seasons;
 import model.Game;
@@ -279,6 +280,7 @@ public class FarmingController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Tree(((TreeType) seed.cropType), new Position(x, y)));
         }
         App.getMe().getInventory().remove(seed1,1);
+        App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp()+5);
         return new Result(true, "you successfully planted in this tile!");
     }
 
@@ -360,7 +362,7 @@ public class FarmingController extends CommandController {
             default:
                 break;
         }
-        if (item.getName().equals(EtcType.SPEED_GRO.name())
+        if ((item.getName().equals(EtcType.SPEED_GRO.name()) || item.getName().equals(EtcType.DELUXE_SPEED_GRO.getName()))
                 && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.WaterPlowedSoil)
                         || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.PlowedSoil))) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).setTileType(TileType.Speed_Gro);
@@ -373,7 +375,7 @@ public class FarmingController extends CommandController {
                 ((Crop)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setSpeedGro(true);
             }
 
-        } else if (item.getName().equals(EtcType.DELUXE_RETAINING_SOIL.name())
+        } else if ((item.getName().equals(EtcType.DELUXE_RETAINING_SOIL.name())||item.getName().equals(EtcType.BASIC_RETAINING_SOIL.name()) || (item.getName().equals(EtcType.QUALITY_RETAINING_SOIL.name())))
                 && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.WaterPlowedSoil)
                 || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.PlowedSoil))){
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).setTileType(TileType.Deluxe_Retaining_Soil);

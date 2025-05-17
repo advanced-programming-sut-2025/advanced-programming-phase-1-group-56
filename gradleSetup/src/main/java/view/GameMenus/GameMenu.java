@@ -26,11 +26,8 @@ public class GameMenu implements AppMenu {
                 RelationShipCheck(input) ||
                 NPCCheck(input))
         ) {
-
             System.out.println("invalid command");
         }
-
-
     }
 
     public boolean GameCheck(String input, Scanner scanner) {
@@ -45,6 +42,9 @@ public class GameMenu implements AppMenu {
                 if (input1.toLowerCase().equals("yes")) {
                     System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
                 }
+            }
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
             }
             return true;
         } else if ((matcher = GameCommands.printMap.getMatcher(input)).find()) {
@@ -62,6 +62,9 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ToolCommands.toolsEquip.getMatcher(input)) != null) {
             System.out.println(ToolsController.equipTool(matcher.group(1)));
+            if(App.getMe().getEnergyUsage() == 50){
+                GameController.manageNextTurn();
+            }
             return true;
         } else if ((matcher = ToolCommands.toolsShowCurrent.getMatcher(input)) != null) {
             System.out.println(ToolsController.showCurrentTools());
@@ -74,7 +77,9 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = ToolCommands.toolsUse.getMatcher(input)) != null) {
             System.out.println(ToolsController.useTools(matcher.group(1)));
-            //CorrectNess
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
         }
         return false;
@@ -149,7 +154,7 @@ public class GameMenu implements AppMenu {
             System.out.println(WeatherController.cheatWeather(matcher.group(1)));
             return true;
         } else if ((matcher = WeatherCommands.cheatThor.getMatcher(input)) != null) {
-            System.out.println(WeatherController.cheatThor(matcher.group(1), matcher.group(2)));
+            System.out.println(WeatherController.cheatThor(App.getMe().getCurrentGameLocation(),matcher.group(1), matcher.group(2)));
             return true;
         }
         return false;
@@ -186,6 +191,9 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ArtisanCommands.use.getMatcher(input)) != null) {
             System.out.println(ArtisanController.useArtisan(matcher));
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
         } else if ((matcher = ArtisanCommands.get.getMatcher(input)) != null) {
             System.out.println(ArtisanController.getArtisan(matcher));

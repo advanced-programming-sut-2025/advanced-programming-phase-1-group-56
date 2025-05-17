@@ -36,7 +36,10 @@ public class Farm extends GameLocation implements TimeObserver {
         if (newDay) {
             FarmingController.manageStrikeThunder(this);
             FarmingController.manageCrows(this);
-            FarmingController.managePlaceMineral(this);
+            for (int i = 0; i < 6 ; i++) {
+                FarmingController.managePlaceMineral(this);
+            }
+
             FarmingController.managePlaceRandomCropOrSeed(this);
             for (GameObject gameObject : allGameObjects) {
                 if (gameObject instanceof Tree) {
