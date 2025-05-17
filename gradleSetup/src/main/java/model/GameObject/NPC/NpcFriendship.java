@@ -1,18 +1,21 @@
 package model.GameObject.NPC;
 
+import model.App;
 import model.Player;
 
 public class NpcFriendship {
-//    private final Player player;
+    private final Player player;
     private final NPC npc;
-    private int level;
     private int xp;
+    private int lastActiveRequest ;
 
-    public NpcFriendship(Player player, NPC npc, int level, int xp) {
+    public NpcFriendship(Player player, NPC npc) {
         this.player = player;
         this.npc = npc;
-        this.level = level;
-        this.xp = xp;
+        xp = 0;
+        lastActiveRequest = 1;
+        NPC seb = App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getNpcByName("Sebastian");
+        seb.getType().getPromptClass().
     }
 
 
@@ -25,11 +28,7 @@ public class NpcFriendship {
     }
 
     public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
+        return xp/200;
     }
 
     public NPC getNpc() {
@@ -38,5 +37,13 @@ public class NpcFriendship {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getLastActiveRequest() {
+        return lastActiveRequest;
+    }
+
+    public void setLastActiveRequest(int lastActiveRequest) {
+        this.lastActiveRequest = lastActiveRequest;
     }
 }

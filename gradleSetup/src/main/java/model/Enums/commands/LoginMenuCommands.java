@@ -1,4 +1,4 @@
-package model.Enums.MenusRegexes;
+package model.Enums.commands;
 
 import model.Enums.commands.Commands;
 import view.AppMenu;
