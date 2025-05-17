@@ -21,7 +21,6 @@ public class ArtisanController extends CommandController {
                 if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() - 1 + i, player.getPosition().getY() - 1 + j).getFixedObject() instanceof ArtesianMachine artesianMachine) {
                     if (artesianMachine.getArtisanMachineType().getName().equals(machineName)) {
                         for (ArtisanGoodType product : artesianMachine.getArtisanMachineType().getProducts()) {
-//                            boolean found = false;
                             for (String str : productsName) {
                                 if (player.getInventory().findItemByName(str) == null) {
                                     return new Result(false, "this item doesn't fount in your inventory.");

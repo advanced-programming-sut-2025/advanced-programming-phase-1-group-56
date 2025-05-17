@@ -51,6 +51,7 @@ public class GameController extends CommandController {
     }
 
     public static Result manageNextTurn() {
+        App.getMe().setEnergyUsage(0);
         Game game =App.getCurrentUser().getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         int indexOfCurrent= game.getPlayers().indexOf(currentPlayer);

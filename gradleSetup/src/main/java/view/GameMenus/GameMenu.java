@@ -27,8 +27,6 @@ public class GameMenu implements AppMenu {
         ) {
             System.out.println("Invalid command!");
         }
-
-
     }
 
     public boolean GameCheck(String input, Scanner scanner) {
@@ -66,6 +64,9 @@ public class GameMenu implements AppMenu {
                     System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2))));
                 }
             }
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
         } else if ((GameCommands.printMap.getMatcher(input)).find()) {
             System.out.println(MapController.printMap());
@@ -82,6 +83,9 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ToolCommands.toolsEquip.getMatcher(input)) != null) {
             System.out.println(ToolsController.equipTool(matcher.group(1)));
+            if(App.getMe().getEnergyUsage() == 50){
+                GameController.manageNextTurn();
+            }
             return true;
         } else if ((ToolCommands.toolsShowCurrent.getMatcher(input)) != null) {
             System.out.println(ToolsController.showCurrentTools());
@@ -94,7 +98,9 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = ToolCommands.toolsUse.getMatcher(input)) != null) {
             System.out.println(ToolsController.useTools(matcher.group(1)));
-            //CorrectNess
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
         }
         return false;
@@ -209,6 +215,9 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ArtisanCommands.use.getMatcher(input)) != null) {
             System.out.println(ArtisanController.useArtisan(matcher));
+            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+                GameController.manageNextTurn();
+            }
             return true;
         } else if ((matcher = ArtisanCommands.get.getMatcher(input)) != null) {
             System.out.println(ArtisanController.getArtisan(matcher));

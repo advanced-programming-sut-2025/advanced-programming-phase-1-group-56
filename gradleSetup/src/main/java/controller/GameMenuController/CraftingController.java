@@ -3,13 +3,15 @@ package controller.GameMenuController;
 import controller.CommandController;
 import model.App;
 import model.Enums.Direction;
+import model.Enums.Items.*;
 import model.Enums.Recepies.CraftingRecipesList;
 import model.GameObject.DroppedItem;
+import model.GameObject.*;
+import model.Ingredient;
 import model.MapModule.Position;
 import model.Result;
 import model.Slot;
-import model.items.CraftingTool;
-import model.items.Item;
+import model.items.*;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -54,8 +56,8 @@ public class CraftingController extends CommandController {
             }
         }
         CraftingRecipesList craftingRecipesList = null;
-        for(CraftingRecipesList cr : craftingRecipesLists) {
-            if(cr.name.equals(recipe.name)) {
+        for (CraftingRecipesList cr : craftingRecipesLists) {
+            if (cr.name.equals(recipe.name)) {
                 craftingRecipesList = cr;
             }
         }
@@ -72,7 +74,6 @@ public class CraftingController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(returnInventoryItemByName(i.getItem().getName()), i.getQuantity());
         }
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractEnergy(2);
-
         return new Result(true, tmpString.toString());
     }
 
@@ -121,20 +122,98 @@ public class CraftingController extends CommandController {
             default:
                 break;
         }
+        if (item instanceof Artesian) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
+        } else if (item instanceof Etc) {
+            if (((Etc) item).getEtcType().etcObjectType != null) {
+                if (((Etc) item).getEtcType().getName().equals(EtcType.SCARE_CROW.name) || ((Etc) item).getEtcType().getName().equals(EtcType.DELUXE_SCARE_CROW.name)) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Crop)
+                                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setProtected(true);
+                            else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Tree)
+                                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setProtected(true);
+                        }
+                    }
+                }
+            } else if (((Etc) item).getEtcType().getName().equals(EtcType.SPRINKLER.name) || ((Etc) item).getEtcType().getName().equals(EtcType.IRIDIUM_SPRINKLER.name) || ((Etc) item).getEtcType().getName().equals(EtcType.QUALITY_SPRINKLER.name)) {
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Crop)
+                            ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setWateredToday(true);
+                        else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Tree)
+                            ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setWateredToday(true);
+                    }
+                }
+            }
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
+        }
 
-        DroppedItem droppedItem = new DroppedItem(item,new Position(x,y));
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(droppedItem);
+
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
         return new Result(true, "you placed a item!");
     }
 
 
-    //CHEAT
-
     public static Result cheatAddItem(Matcher matcher) {
         String itemName = matcher.group(1);
         int count = Integer.parseInt(matcher.group(2));
-        //TODO kol item hai bazi
+        EtcType type = (EtcType) ItemType.FindItemTypeByName(EtcType.values(), itemName);
+        if (type != null) {
+            App.getMe().getInventory().add(new Etc(type), 1);
+            return new Result(true, "add Etc To Your Inventory!");
+        }
+        ArtisanMachineItemType type1 = (ArtisanMachineItemType) ItemType.FindItemTypeByName(ArtisanMachineItemType.values(), itemName);
+        if (type1 != null) {
+            App.getMe().getInventory().add(new Artesian(type1), 1);
+            return new Result(true, "add Artisan Machine To Your Inventory!");
+        }
+        ArtisanGoodType type2 = (ArtisanGoodType) ItemType.FindItemTypeByName(ArtisanGoodType.values(), itemName);
+        if (type2 != null) {
+            App.getMe().getInventory().add(new ArtisanGood(type2), 1);
+            return new Result(true, "add Artisan Good To Your Inventory!");
+        }
+        CraftingRecipesList type3 = (CraftingRecipesList) CraftingRecipesList.fromName(itemName);
+        if (type3 != null) {
+            App.getMe().getInventory().add(new CraftingTool(type3), 1);
+            return new Result(true, "add CraftingTool To Your Inventory!");
+        }
+
+        FishType type4 = (FishType) ItemType.FindItemTypeByName(FishType.values(), itemName);
+        if (type4 != null) {
+            App.getMe().getInventory().add(new Fish(type4), 1);
+            return new Result(true, "add Fish To Your Inventory!");
+        }
+
+        FoodType type5 = (FoodType) ItemType.FindItemTypeByName(FoodType.values(), itemName);
+        if (type5 != null) {
+            App.getMe().getInventory().add(new Food(type5), 1);
+            return new Result(true, "add Food To Your Inventory!");
+        }
+        FruitType type6 = (FruitType) ItemType.FindItemTypeByName(FruitType.values(), itemName);
+        if (type6 != null) {
+            App.getMe().getInventory().add(new Fruit(type6), 1);
+            return new Result(true, "add Fruit To Your Inventory!");
+        }
+
+        MineralItemType type7 = (MineralItemType)ItemType.FindItemTypeByName(MineralItemType.values(), itemName);
+        if (type7 != null) {
+            App.getMe().getInventory().add(new Mineral(type7), 1);
+            return new Result(true, "add CraftingTool To Your Inventory!");
+        }
+
+        SeedType type8 = (SeedType) ItemType.FindItemTypeByName(SeedType.values(), itemName);
+        if (type8 != null) {
+            App.getMe().getInventory().add(new Seed(type8), 1);
+            return new Result(true, "add Seed To Your Inventory!");
+        }
+
+        ToolType type9 = (ToolType) ToolType.fromName(itemName);
+        if (type9 != null) {
+            App.getMe().getInventory().add(new Tool(type9), 1);
+            return new Result(true, "add Tool To Your Inventory!");
+        }
+
 
         return null;
     }

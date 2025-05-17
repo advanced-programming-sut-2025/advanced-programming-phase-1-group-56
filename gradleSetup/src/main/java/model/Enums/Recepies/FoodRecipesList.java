@@ -59,4 +59,13 @@ public enum FoodRecipesList implements Saleable {
     public String getName() {
         return name;
     }
+
+    public static FoodRecipesList fromName(String name) {
+        for (FoodRecipesList type : FoodRecipesList.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
