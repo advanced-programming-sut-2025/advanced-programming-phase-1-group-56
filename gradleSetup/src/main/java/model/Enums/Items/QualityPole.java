@@ -13,10 +13,6 @@ public enum QualityPole implements ItemType {
 
     }
 
-    @Override
-    public String getName() {
-        return this.toString();
-    }
     public double getCapacity() {
         return factor;
     }
