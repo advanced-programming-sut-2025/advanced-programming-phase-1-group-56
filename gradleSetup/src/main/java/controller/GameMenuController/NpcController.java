@@ -122,7 +122,6 @@ public class NpcController extends CommandController {
     }
 
     public static Result finishingQuest(String indexStr) {
-        StringBuilder builder = new StringBuilder();
         NPC npc = App.getMe().getLastMeetedNPC();
         int index;
         try {
