@@ -42,116 +42,126 @@ public class TradeController extends CommandController {
         if (counterParty == null) {
             return new Result(false, "there is no player with such username in this game");
         }
-        if(counterParty.equals(App.getCurrentUser().getCurrentGame().getCurrentPlayer())) {
+        if (counterParty.equals(App.getCurrentUser().getCurrentGame().getCurrentPlayer())) {
             return new Result(false, "you can't make trade with yourself");
         }
-
+        Trade trade;
         if (type.equalsIgnoreCase("offer")) {
             if (price == null && targetItem != null) {
                 //ITEM TO ITEM TRADE
+                int amountToGive;
+                int amountToGet;
                 try {
-                    int amountToGive = Integer.parseInt(itemAmount);
-                    int amountToGet = Integer.parseInt(targetAmount);
-                    //Item itemToGive = ItemRegistry.findItemByName(item);
-                    Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                    Item itemToGive = findItemInPlayerInventoryByName(me, targetItem);
-                    //Item itemToGet = ItemRegistry.findItemByName(targetItem);
-                    Item itemToGet = findItemInPlayerInventoryByName(counterParty, item);
-                    //TODO
-                    if (itemToGive == null) {
-                        return new Result(false, "there is no such item to offer");
-                    }
-                    if (itemToGet == null) {
-                        return new Result(false, "there is no such target item");
-                    }
-                    int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-                            .getInventory().countItem(itemToGive);
-                    if (amountThatPlayerHas < amountToGive) {
-                        return new Result(false, "You do not have much item in you inventory");
-                    }
-                    Slot slotToGive = new Slot(itemToGive, amountToGive);
-                    Slot slotToGet = new Slot(itemToGet, amountToGet);
-                    Trade trade = new Trade(
-                            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                            counterParty.getPlayerID(),
-                            slotToGive, slotToGet
-                    );
+                    amountToGive = Integer.parseInt(itemAmount);
+                    amountToGet = Integer.parseInt(targetAmount);
                 } catch (NumberFormatException e) {
                     return new Result(false, "Invalid target amount or item amount");
                 }
+                //Item itemToGive = ItemRegistry.findItemByName(item);
+                Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+                Item itemToGive = findItemInPlayerInventoryByName(me, targetItem);
+                //Item itemToGet = ItemRegistry.findItemByName(targetItem);
+                Item itemToGet = findItemInPlayerInventoryByName(counterParty, item);
+                //TODO
+                if (itemToGive == null) {
+                    return new Result(false, "there is no such item to offer");
+                }
+                if (itemToGet == null) {
+                    return new Result(false, "there is no such target item");
+                }
+                int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
+                        .getInventory().countItem(itemToGive);
+                if (amountThatPlayerHas < amountToGive) {
+                    return new Result(false, "You do not have much item in you inventory");
+                }
+
+                Slot slotToGive = new Slot(itemToGive, amountToGive);
+                Slot slotToGet = new Slot(itemToGet, amountToGet);
+                trade = new Trade(
+                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                        counterParty.getPlayerID(),
+                        slotToGive, slotToGet
+                );
             } else if (targetItem == null && price != null) {
+                int amountToGive;
+                int moneyToGet;
                 //ITEM TO MONEY TRADE
                 try {
-                    int amountToGive = Integer.parseInt(itemAmount);
-                    int moneyToGet = Integer.parseInt(price);
-                    //Item itemToGive = ItemRegistry.findItemByName(item);
-                    //TODO
-                    Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                    Item itemToGive = findItemInPlayerInventoryByName(me, item);
-                    if (itemToGive == null) {
-                        return new Result(false, "there is no such item to offer");
-                    }
-                    int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-                            .getInventory().countItem(itemToGive);
-                    if (amountThatPlayerHas < amountToGive) {
-                        return new Result(false, "You do not have much item in you inventory");
-                    }
-                    Slot slotToGive = new Slot(itemToGive, amountToGive);
-                    Trade trade = new Trade(
-                            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                            counterParty.getPlayerID(),
-                            slotToGive, moneyToGet
-                    );
+                    amountToGive = Integer.parseInt(itemAmount);
+                    moneyToGet = Integer.parseInt(price);
                 } catch (NumberFormatException e) {
                     return new Result(false, "Invalid target amount or item amount");
                 }
+
+                //Item itemToGive = ItemRegistry.findItemByName(item);
+                //TODO
+                Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
+                Item itemToGive = findItemInPlayerInventoryByName(me, item);
+                if (itemToGive == null) {
+                    return new Result(false, "there is no such item to offer");
+                }
+                int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
+                        .getInventory().countItem(itemToGive);
+                if (amountThatPlayerHas < amountToGive) {
+                    return new Result(false, "You do not have much item in you inventory");
+                }
+                Slot slotToGive = new Slot(itemToGive, amountToGive);
+
+                trade = new Trade(
+                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                        counterParty.getPlayerID(),
+                        slotToGive, moneyToGet
+                );
             } else if (targetItem == null) {
                 return new Result(false, "you cannot leave both (targetItem) and price (price) blank");
             } else {
                 return new Result(false, "you cannot get money and item at same time");
             }
-
         } else if (type.equalsIgnoreCase("request")) {
             if (price != null || targetItem != null) {
                 return new Result(false, "invalid request format....to request money" +
                         " type money after the flag '-i'");
-            } else {
-                if (item.equalsIgnoreCase("money")) {
-                    // MONEY_REQUEST
-                    try {
-                        int moneyToGet = Integer.parseInt(targetAmount);
-                        Trade trade = new Trade(
-                                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                                counterParty.getPlayerID(),
-                                moneyToGet
-                        );
-                    } catch (NumberFormatException e) {
-                        return new Result(false, "Invalid target amount or item amount");
-                    }
-                    //
-                } else {
-                    //PRODUCT_REQUEST
-                    try {
-                        int amountToGet = Integer.parseInt(targetAmount);
-                        //Item itemToGet = ItemRegistry.findItemByName(item);
-                        //TODO
-                        Item itemToGet = findItemInPlayerInventoryByName(counterParty, item);
-                        if (itemToGet == null) {
-                            return new Result(false, "there is no such target item");
-                        }
-                        Slot slotToGet = new Slot(itemToGet, amountToGet);
-                        Trade trade = new Trade(
-                                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                                counterParty.getPlayerID(),
-                                slotToGet
-                        );
-                    } catch (NumberFormatException e) {
-                        return new Result(false, "Invalid target amount or item amount");
-                    }
-                    //
-                }
             }
+            if (item.equalsIgnoreCase("money")) {
+                // MONEY_REQUEST
+                int moneyToGet;
+                try {
+                    moneyToGet = Integer.parseInt(targetAmount);
+                } catch (NumberFormatException e) {
+                    return new Result(false, "Invalid target amount or item amount");
+                }
+
+                trade = new Trade(
+                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                        counterParty.getPlayerID(),
+                        moneyToGet
+                );
+            } else {
+                //PRODUCT_REQUEST
+                int amountToGet;
+                try {
+                    amountToGet = Integer.parseInt(targetAmount);
+                } catch (NumberFormatException e) {
+                    return new Result(false, "Invalid target amount or item amount");
+                }
+                Item itemToGet = findItemInPlayerInventoryByName(counterParty, item);
+                if (itemToGet == null) {
+                    return new Result(false, "there is no such target item");
+                }
+                Slot slotToGet = new Slot(itemToGet, amountToGet);
+                trade = new Trade(
+                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                        counterParty.getPlayerID(),
+                        slotToGet
+                );
+            }
+        } else {
+            return new Result(false, "invalid trade type");
         }
+
+        App.getMe().getMyTrades().add(trade.getTradeID());
+        counterParty.getReceivedTrades().add(trade.getTradeID());
+        App.getCurrentUser().getCurrentGame().getAllTrades().add(trade);
         return new Result(true, "trade added successfully");
     }
 
@@ -167,7 +177,7 @@ public class TradeController extends CommandController {
             if (trade == null) {
                 continue;
             }
-            builder.append(trade.toString());
+            builder.append(trade);
             builder.append("\n-------------------------------\n");
         }
         ArrayList<UUID> receivedTradesID = me.getReceivedTrades();
@@ -176,7 +186,7 @@ public class TradeController extends CommandController {
             if (trade == null) {
                 continue;
             }
-            builder.append(trade.toString());
+            builder.append(trade);
             builder.append("\n-------------------------------\n");
         }
         return new Result(true, builder.toString());
@@ -206,12 +216,11 @@ public class TradeController extends CommandController {
                     Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
                     Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
                     //counterParty gets the money so I loose money
-                    if(me.getGold()> tradeToDo.getMoneyGets()){//I have such money
+                    if (me.getGold() > tradeToDo.getMoneyGets()) {//I have such money
                         me.addGold(-tradeToDo.getMoneyGets());
                         counterParty.addGold(tradeToDo.getMoneyGets());
-                    }
-                    else{
-                        return new  Result(false, "you dont have enough money to give!");
+                    } else {
+                        return new Result(false, "you dont have enough money to give!");
                     }
                 }
                 break;
@@ -220,18 +229,16 @@ public class TradeController extends CommandController {
                     Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
                     //counterParty gets the item so I loose item
                     Slot tradeSlot = tradeToDo.getItemsGets();
-                    if(me.getInventory().countItem(tradeSlot.getItem())>tradeSlot.getQuantity()){//I have such item
-                        if(counterParty.getInventory().canAddItem(tradeSlot.getItem(), tradeSlot.getQuantity())){
-                            me.getInventory().remove(tradeSlot.getItem(),tradeSlot.getQuantity());
-                            counterParty.getInventory().add(tradeSlot.getItem(),tradeSlot.getQuantity());
-                        }
-                        else {
-                            return new Result(false,"your counterParty Inventory is full!\n"+
+                    if (me.getInventory().countItem(tradeSlot.getItem()) > tradeSlot.getQuantity()) {//I have such item
+                        if (counterParty.getInventory().canAddItem(tradeSlot.getItem(), tradeSlot.getQuantity())) {
+                            me.getInventory().remove(tradeSlot.getItem(), tradeSlot.getQuantity());
+                            counterParty.getInventory().add(tradeSlot.getItem(), tradeSlot.getQuantity());
+                        } else {
+                            return new Result(false, "your counterParty Inventory is full!\n" +
                                     "you can reject request or either wait...");
                         }
-                    }
-                    else{
-                        return new  Result(false, "you dont have such item to give!");
+                    } else {
+                        return new Result(false, "you dont have such item to give!");
                     }
                 }
                 break;
@@ -241,39 +248,36 @@ public class TradeController extends CommandController {
                     Slot givingSlot = tradeToDo.getItemsGets();
                     Slot gettingSlot = tradeToDo.getItemsToGive();
                     // why its reverse? because trade is made from the counterParties POV
-                    if(me.getInventory().countItem(givingSlot.getItem())>givingSlot.getQuantity()){//I have such item
-                        if(counterParty.getInventory().countItem(gettingSlot.getItem())>gettingSlot.getQuantity()){//cp also has such item
+                    if (me.getInventory().countItem(givingSlot.getItem()) > givingSlot.getQuantity()) {//I have such item
+                        if (counterParty.getInventory().countItem(gettingSlot.getItem()) > gettingSlot.getQuantity()) {//cp also has such item
 
                             //Temp remove
-                            me.getInventory().remove(givingSlot.getItem(),givingSlot.getQuantity());
-                            counterParty.getInventory().remove(gettingSlot.getItem(),gettingSlot.getQuantity());
+                            me.getInventory().remove(givingSlot.getItem(), givingSlot.getQuantity());
+                            counterParty.getInventory().remove(gettingSlot.getItem(), gettingSlot.getQuantity());
 
-                            if(!me.getInventory().canAddItem(gettingSlot.getItem(), gettingSlot.getQuantity())) {
+                            if (!me.getInventory().canAddItem(gettingSlot.getItem(), gettingSlot.getQuantity())) {
                                 //Temp remove cancellation
-                                me.getInventory().add(givingSlot.getItem(),givingSlot.getQuantity());
-                                counterParty.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
-                                return new Result(false,"your inventory doesn't have enough space RN!" +
-                                        "you can reject the trade or respond later..." );
-                            }
-                            else if(!counterParty.getInventory().canAddItem(
+                                me.getInventory().add(givingSlot.getItem(), givingSlot.getQuantity());
+                                counterParty.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
+                                return new Result(false, "your inventory doesn't have enough space RN!" +
+                                        "you can reject the trade or respond later...");
+                            } else if (!counterParty.getInventory().canAddItem(
                                     givingSlot.getItem(), givingSlot.getQuantity())) {
                                 //Temp remove cancellation
-                                me.getInventory().add(givingSlot.getItem(),givingSlot.getQuantity());
-                                counterParty.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
-                                return new Result(false,"your counterParty inventory is full RN!!" +
-                                        "you can reject the trade or respond later..." );
-                            }else {
-                                counterParty.getInventory().add(givingSlot.getItem(),givingSlot.getQuantity());
-                                me.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
+                                me.getInventory().add(givingSlot.getItem(), givingSlot.getQuantity());
+                                counterParty.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
+                                return new Result(false, "your counterParty inventory is full RN!!" +
+                                        "you can reject the trade or respond later...");
+                            } else {
+                                counterParty.getInventory().add(givingSlot.getItem(), givingSlot.getQuantity());
+                                me.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                             }
-                        }
-                        else{
-                            return new  Result(false, "your counterParty doesn't have such"+
+                        } else {
+                            return new Result(false, "your counterParty doesn't have such" +
                                     " item in his inventory RN!\n you can reject trade or wait for your counterParty");
                         }
-                    }
-                    else{
-                        return new  Result(false, "you dont have such item to give!");
+                    } else {
+                        return new Result(false, "you dont have such item to give!");
                     }
                 }
                 break;
@@ -283,29 +287,27 @@ public class TradeController extends CommandController {
                     int moneyToPay = tradeToDo.getMoneyGets();
                     Slot gettingSlot = tradeToDo.getItemsToGive();
                     // why its reverse? because trade is made from the counterParties POV
-                    if(me.getGold()>moneyToPay){//I have such money
-                        if(counterParty.getInventory().countItem(gettingSlot.getItem())>gettingSlot.getQuantity()){//CP has such item
+                    if (me.getGold() > moneyToPay) {//I have such money
+                        if (counterParty.getInventory().countItem(gettingSlot.getItem()) > gettingSlot.getQuantity()) {//CP has such item
                             //Temp remove
                             me.addGold(-moneyToPay);
-                            counterParty.getInventory().remove(gettingSlot.getItem(),gettingSlot.getQuantity());
+                            counterParty.getInventory().remove(gettingSlot.getItem(), gettingSlot.getQuantity());
 
-                            if(!me.getInventory().canAddItem(gettingSlot.getItem(), gettingSlot.getQuantity())) {//inventory of me is full
+                            if (!me.getInventory().canAddItem(gettingSlot.getItem(), gettingSlot.getQuantity())) {//inventory of me is full
                                 //Temp remove cancellation
                                 me.addGold(+moneyToPay);
-                                counterParty.getInventory().add(gettingSlot.getItem(),gettingSlot.getQuantity());
-                                return new Result(false,"your inventory doesn't have enough space RN!" +
-                                        "you can reject the trade or respond later..." );
-                            }else {//trade is done
+                                counterParty.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
+                                return new Result(false, "your inventory doesn't have enough space RN!" +
+                                        "you can reject the trade or respond later...");
+                            } else {//trade is done
                                 me.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                             }
-                        }
-                        else{
-                            return new  Result(false, "your counterParty doesn't have such"+
+                        } else {
+                            return new Result(false, "your counterParty doesn't have such" +
                                     " item in his inventory RN!\n you can reject trade or wait for your counterParty");
                         }
-                    }
-                    else{
-                        return new  Result(false, "you dont have such money to give!");
+                    } else {
+                        return new Result(false, "you dont have such money to give!");
                     }
                 }
                 break;
@@ -344,7 +346,7 @@ public class TradeController extends CommandController {
         }
     }
 
-    public static Result showTradeHistory(){
+    public static Result showTradeHistory() {
         StringBuilder builder = new StringBuilder();
         builder.append("History Trades:\n");
         builder.append("\n-------------------------------\n");
@@ -356,10 +358,10 @@ public class TradeController extends CommandController {
             if (trade == null) {
                 continue;
             }
-            builder.append(trade.toString());
+            builder.append(trade);
             builder.append("\n-------------------------------\n");
         }
-        return new Result(true,builder.toString());
+        return new Result(true, builder.toString());
     }
 
     public static Result sellProducts(Matcher matcher) {
@@ -367,28 +369,24 @@ public class TradeController extends CommandController {
         String quantity = matcher.group(2);
         int amount;
         ShippingBar shippingBar;
-        if(quantity== null) {
+        if (quantity == null) {
             amount = 1;
-        }
-        else{
-            try{
+        } else {
+            try {
                 amount = Integer.parseInt(quantity);
-            }catch(NumberFormatException e){
-                return new Result(false,e.getMessage());
+            } catch (NumberFormatException e) {
+                return new Result(false, e.getMessage());
             }
         }
         Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         Item itemToSell = findItemInPlayerInventoryByName(me, item);
-        if(itemToSell == null) {
+        if (itemToSell == null) {
             return new Result(false, "you dont have such item");
-        }
-        else if(amount <= 0) {
+        } else if (amount <= 0) {
             return new Result(false, "wtf brother amount should be greater than 0");
-        }
-        else if(amount> me.getInventory().countItem(itemToSell)) {
+        } else if (amount > me.getInventory().countItem(itemToSell)) {
             return new Result(false, "you dont have as much you want to sell");
-        }
-        else if ((shippingBar = getShippingBarNearby(me))==null){
+        } else if ((shippingBar = getShippingBarNearby(me)) == null) {
             return new Result(false, "doesn't Find shipping bar nearby...");
         }
 
@@ -398,11 +396,11 @@ public class TradeController extends CommandController {
     }
 
     private static ShippingBar getShippingBarNearby(Player me) {
-        ShippingBar shippingBar= null;
-        if(me.getCurrentGameLocation() instanceof Farm farm){
-            for (int i = me.getPosition().getX()-1; i <= me.getPosition().getX()+1 ; i++) {
-                for(int j = me.getPosition().getY()-1; j <= me.getPosition().getY()+1; j++){
-                    if(farm.getTiles()[i][j].getFixedObject() instanceof ShippingBar ship){
+        ShippingBar shippingBar = null;
+        if (me.getCurrentGameLocation() instanceof Farm farm) {
+            for (int i = me.getPosition().getX() - 1; i <= me.getPosition().getX() + 1; i++) {
+                for (int j = me.getPosition().getY() - 1; j <= me.getPosition().getY() + 1; j++) {
+                    if (farm.getTiles()[i][j].getFixedObject() instanceof ShippingBar ship) {
                         shippingBar = ship;
                     }
                 }
@@ -414,10 +412,10 @@ public class TradeController extends CommandController {
 
 
     public static Result cheatAddMoney(String amountStr) {
-        try{
+        try {
             int amount = Integer.parseInt(amountStr.trim());
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(amount);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return new Result(false, "invalid amount");
         }
         return new Result(true, "money added successfully...");

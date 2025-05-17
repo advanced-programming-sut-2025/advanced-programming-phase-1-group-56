@@ -12,10 +12,6 @@ public class Fish extends Item {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
     public int getBasePrice() {
         return fishType.getPrice();
     }

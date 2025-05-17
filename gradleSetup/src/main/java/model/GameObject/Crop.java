@@ -2,7 +2,6 @@ package model.GameObject;
 
 import model.App;
 import model.Enums.GameObjects.CropType;
-import model.Enums.Items.ItemType;
 import model.Enums.WeatherAndTime.WeatherType;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
@@ -14,8 +13,8 @@ public class Crop extends GameObject implements TimeObserver {
     //    private final HashMap<Item,Integer> itemsGiven;
     private boolean isWateredToday;
     private boolean isFertilizerToday;
-    private final boolean speedGro;
-    private final boolean deluxeRetainingSoil;
+    private boolean speedGro;
+    private boolean deluxeRetainingSoil;
     private boolean isInGreenHouse;
     private boolean isProtected;
     private int daysWithNoWater;
@@ -80,7 +79,7 @@ public class Crop extends GameObject implements TimeObserver {
     }
 
     public void setSpeedGro(boolean speedGro) {
-        speedGro = speedGro;
+        this.speedGro = speedGro;
     }
 
     public boolean isDeluxeRetainingSoil() {
@@ -88,7 +87,7 @@ public class Crop extends GameObject implements TimeObserver {
     }
 
     public void setDeluxeRetainingSoil(boolean deluxeRetainingSoil) {
-        deluxeRetainingSoil = deluxeRetainingSoil;
+        this.deluxeRetainingSoil = deluxeRetainingSoil;
     }
 
     @Override

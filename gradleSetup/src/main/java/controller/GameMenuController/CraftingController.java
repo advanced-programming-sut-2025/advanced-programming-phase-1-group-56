@@ -5,9 +5,7 @@ import model.App;
 import model.Enums.Direction;
 import model.Enums.Recepies.CraftingRecipesList;
 import model.GameObject.DroppedItem;
-import model.Ingredient;
 import model.MapModule.Position;
-import model.MapModule.Tile;
 import model.Result;
 import model.Slot;
 import model.items.CraftingTool;
@@ -25,7 +23,7 @@ public class CraftingController extends CommandController {
     public static Result craftingItem(Matcher matcher) {
         String ItemName = matcher.group(1);
         CraftingRecipesList recipe = returnCraftingRecipe(ItemName);
-        if (recipe != null) {
+        if (recipe == null) {
             return new Result(true, "you can't Craft this Recipe!");
         } else if (!havaIngredient(recipe)) {
             return new Result(false, "you have not enough ingredients!");
@@ -49,7 +47,7 @@ public class CraftingController extends CommandController {
                 int count = 0;
                 for (Slot i : cr.ingredients) {
                     count += 1;
-                    tmpString.append(count + ".").append("  name : ").append(i.getItem().getName());
+                    tmpString.append(count).append(".").append("  name : ").append(i.getItem().getName());
                     tmpString.append("   quantity : ").append(i.getQuantity()).append("\n");
                 }
                 tmpString.append("-------------------------------");
@@ -60,6 +58,9 @@ public class CraftingController extends CommandController {
             if(cr.name.equals(recipe.name)) {
                 craftingRecipesList = cr;
             }
+        }
+        if(craftingRecipesList == null){
+            return new Result(false,"craft recipe list in null");
         }
         Item craftingTool = new CraftingTool(craftingRecipesList);
         if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
@@ -174,6 +175,7 @@ public class CraftingController extends CommandController {
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {

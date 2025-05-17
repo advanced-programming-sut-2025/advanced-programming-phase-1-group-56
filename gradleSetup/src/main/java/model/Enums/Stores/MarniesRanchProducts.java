@@ -4,7 +4,6 @@ import model.Enums.Animals.AnimalType;
 import model.Enums.Items.EtcType;
 import model.Enums.Items.ToolType;
 import model.Enums.WeatherAndTime.Seasons;
-import model.GameObject.Animal;
 import model.GameObject.NPC.NpcProduct;
 import model.items.Etc;
 import model.items.Tool;

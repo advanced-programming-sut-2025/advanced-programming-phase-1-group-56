@@ -2,8 +2,6 @@ package model.GameObject;
 
 import model.MapModule.Position;
 
-import java.util.UUID;
-
 public abstract class GameObject {
     //    public UUID objectId;
     protected boolean walkable;

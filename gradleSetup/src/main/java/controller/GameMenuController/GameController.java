@@ -4,15 +4,9 @@ import controller.CommandController;
 import model.App;
 import model.Enums.Menu;
 import model.Game;
-import model.MapModule.AStarPathFinding;
-import model.MapModule.Buildings.MarniesRanch;
-import model.MapModule.Node;
-import model.MapModule.Tile;
 import model.Player;
 import model.Result;
 
-import java.time.DayOfWeek;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameController extends CommandController {

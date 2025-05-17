@@ -1,8 +1,5 @@
 package model.MapModule;
 
-import model.GameObject.GameObject;
-import model.MapModule.GameLocations.GameLocation;
-
 public class Position {
     private int x;
     private int y;

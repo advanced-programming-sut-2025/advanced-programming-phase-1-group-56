@@ -1,7 +1,5 @@
 package model.items;
 
-import model.Enums.Items.EtcType;
-import model.Enums.Items.FoodType;
 import model.Enums.Items.FruitType;
 
 public class Fruit extends Item {
@@ -13,10 +11,6 @@ public class Fruit extends Item {
     }
     public FruitType getFruitType() {
         return fruitType;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public int getEnergy(){

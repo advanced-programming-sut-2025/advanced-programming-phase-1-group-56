@@ -14,12 +14,6 @@ public class Mineral extends Item {
         return type;
     }
 
-    public int getPrice(){
-        return price;
-    }
-    public String getName(){
-        return name;
-    }
     public String description(){
         return type.description;
     }

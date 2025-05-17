@@ -1,7 +1,6 @@
 package model.items;
 
 import model.Enums.Items.EtcType;
-import model.Enums.Items.SeedType;
 
 public class Etc extends Item {
     private final EtcType etcType;

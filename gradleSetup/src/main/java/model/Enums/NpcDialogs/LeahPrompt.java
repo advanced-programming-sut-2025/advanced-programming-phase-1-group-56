@@ -3,7 +3,6 @@ package model.Enums.NpcDialogs;
 import model.Enums.WeatherAndTime.WeatherType;
 
 import java.util.*;
-import java.util.stream.*;
 
 public enum LeahPrompt implements NpcPrompt {
     Sunny_ART(

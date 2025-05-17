@@ -52,7 +52,7 @@ public class DeepSeekApiChat {
             if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             }
-            // 4. پارس JSON و استخراج متن
+
             JsonNode root = mapper.readTree(response.body().string());
             String text = root.get("choices")
                     .get(0)

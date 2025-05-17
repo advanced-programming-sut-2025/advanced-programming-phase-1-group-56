@@ -4,5 +4,5 @@ public enum ItemQuality {
     Normal,
     Silver,
     Gold,
-    Iridium;
+    Iridium
 }

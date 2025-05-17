@@ -1,6 +1,5 @@
 package model;
 
-import controller.GameMenuController.GameController;
 import model.Activities.*;
 import model.Enums.BackPackType;
 import model.Enums.FarmPosition;

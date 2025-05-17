@@ -13,14 +13,12 @@ import model.MapModule.Buildings.Barn;
 import model.MapModule.Buildings.Building;
 import model.MapModule.Buildings.Coop;
 import model.MapModule.GameLocations.Farm;
-import model.MapModule.Tile;
 import model.Slot;
 import model.items.AnimalProduct;
 import model.MapModule.Position;
 import model.Result;
 import model.items.Etc;
 import model.items.Item;
-import model.items.Tool;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -60,14 +58,13 @@ public class HusbandryController extends CommandController {
     public static Result showInfoOfAnimal() {
         StringBuilder tmpString = new StringBuilder();
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            tmpString.append("animal's Name : " + animal.getName() + "\n" + "your friendShip with him : " + animal.getFriendship())
-                    .append("\n")
-                    .append("cuddled or not : " + animal.getIsCaressed())
-                    .append("\n")
-                    .append("eaten or not : " + animal.getIsFed()).append("\n");
+            tmpString.append("animal's Name : ").append(animal.getName()).append("\n").append("your friendShip with him : ")
+                    .append(animal.getFriendship()).append("\n")
+                    .append("cuddled or not : ").append(animal.getIsCaressed())
+                    .append("\n").append("eaten or not : ").append(animal.getIsFed()).append("\n");
 
         }
-        return null;
+        return new Result(false,tmpString.toString());
     }
 
     public static Result shepherdAnimals(Matcher matcher) {
@@ -155,12 +152,13 @@ public class HusbandryController extends CommandController {
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             if (animal.getDailyProducts().isEmpty()) {
                 continue;
-            } else {
-                tmpString.append("animal's Name : " + animal.getName() + "\n");
-                for (AnimalProduct animalProduct : animal.getDailyProducts()) {
-                    tmpString.append("animal's Product Name : " + animalProduct.getName() + "\n")
-                            .append("animal's Product quality : " + animalProduct.getQuality() + "\n");
-                }
+            }
+            tmpString.append("animal's Name : ").append(animal.getName()).append("\n");
+            for (AnimalProduct animalProduct : animal.getDailyProducts()) {
+                tmpString.append("animal's Product Name : ").append(animalProduct.getName())
+                        .append("\n").append("animal's Product quality : ")
+                        .append(animalProduct.getQuality()).append("\n");
+
                 tmpString.append("------------------------------");
             }
         }
@@ -202,6 +200,7 @@ public class HusbandryController extends CommandController {
                 Item item = slot.getItem();
                 if (item.getName().equals(ToolType.MILK_PAIL.getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {
@@ -217,6 +216,7 @@ public class HusbandryController extends CommandController {
                 Item item = slot.getItem();
                 if (item.getName().equals(ToolType.SHEAR.getName())) {
                     isExist = true;
+                    break;
                 }
             }
             if (!isExist) {
@@ -247,7 +247,7 @@ public class HusbandryController extends CommandController {
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
         }
-        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * ((double)(animal.getFriendship() / 1000) + 0.3));
+        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * ((double) (animal.getFriendship() / 1000) + 0.3));
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
@@ -257,8 +257,8 @@ public class HusbandryController extends CommandController {
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(sellPrice);
         return new Result(true, "process for Selling animal ...");
     }
-    //CHEAT
 
+    //CHEAT
     public static Result cheatSetFriendship(Matcher matcher) {
         String name = matcher.group(1);
         int amount = Integer.parseInt(matcher.group(2));

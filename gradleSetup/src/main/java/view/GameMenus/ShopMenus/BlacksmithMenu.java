@@ -2,7 +2,6 @@ package view.GameMenus.ShopMenus;
 
 import controller.GameMenuController.ShopMenuControllers.BlacksmithMenuController;
 import model.Enums.commands.GameCommands.StoreCommands;
-import model.MapModule.Buildings.Blacksmith;
 import view.AppMenu;
 
 import java.util.Scanner;

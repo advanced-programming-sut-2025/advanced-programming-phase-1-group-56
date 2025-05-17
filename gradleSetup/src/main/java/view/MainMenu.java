@@ -14,14 +14,14 @@ public class MainMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
         Matcher matcher;
-        if ((matcher = MainMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
+        if ((MainMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
             System.out.println("you are in Main Menu BROOOOO!");
         } else if ((matcher = MainMenuCommands.goMenu.getMatcher(input)).find()) {
             String menu = matcher.group(1);
             System.out.println(MainMenuController.goToMenu(menu));
-        } else if ((matcher = MainMenuCommands.logout.getMatcher(input)).find()) {
+        } else if ((MainMenuCommands.logout.getMatcher(input)).find()) {
             System.out.println(MainMenuController.manageUserLogout());
-        } else if ((matcher = MainMenuCommands.back.getMatcher(input)).find()) {
+        } else if ((MainMenuCommands.back.getMatcher(input)).find()) {
             App.setCurrentMenu(Menu.loginMenu);
             System.out.println("you are in login menu now!");
         } else {

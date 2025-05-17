@@ -5,7 +5,6 @@ import model.Enums.BackPackType;
 import model.Slot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Inventory {
     private final ArrayList<Slot> slots = new ArrayList<>();
@@ -145,6 +144,7 @@ public class Inventory {
                 if( countItem(slot.getItem())> max){
                     max = countItem(slot.getItem());
                     item = slot.getItem();
+                    return item;
                 }
             }
         }

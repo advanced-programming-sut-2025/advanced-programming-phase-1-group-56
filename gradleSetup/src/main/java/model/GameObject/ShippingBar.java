@@ -2,7 +2,6 @@ package model.GameObject;
 
 import com.google.gson.annotations.Expose;
 import model.App;
-import model.Enums.BackPackType;
 import model.Enums.Buildings.BuildingType;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.Position;
@@ -10,9 +9,6 @@ import model.Slot;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
 import model.items.Inventory;
-import model.items.Item;
-
-import java.util.ArrayList;
 
 public class ShippingBar extends GameObject implements TimeObserver {
     private final Inventory inventory = new Inventory(100);

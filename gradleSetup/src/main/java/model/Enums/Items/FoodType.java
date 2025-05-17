@@ -1,7 +1,6 @@
 package model.Enums.Items;
 
 import model.Enums.BuffType;
-import model.items.Food;
 
 public enum FoodType implements ItemType {
 

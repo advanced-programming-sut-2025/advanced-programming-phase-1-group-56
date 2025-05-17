@@ -12,7 +12,7 @@ import model.Enums.Menu;
 public class App {
     private static final String FILE_PATH = "users.json";
     //TODO
-    private static ArrayList<User> users = new ArrayList<>();
+    private static final ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
 

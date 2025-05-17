@@ -22,10 +22,6 @@ public class AnimalProduct extends Item{
         return quality;
     }
 
-    public int getPrice(){
-        return price;
-    }
-
     public void setQuality(AnimalProductQuality quality) {
         this.quality = quality;
     }

@@ -8,7 +8,6 @@ import model.Enums.commands.GameCommands.CraftingCommand;
 import model.Enums.commands.GameCommands.HouseMenuCommands;
 import view.AppMenu;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -32,7 +31,7 @@ public class HouseMenu implements AppMenu {
             System.out.println(CookingController.refrigeratorPick(matcher));
             return true;
 
-        } else if ((matcher = HouseMenuCommands.showRecipes.getMatcher(input)).find()) {
+        } else if (( HouseMenuCommands.showRecipes.getMatcher(input)).find()) {
             System.out.println(CookingController.showRecipes());
             return true;
 
@@ -45,7 +44,7 @@ public class HouseMenu implements AppMenu {
     }
     public boolean craftingMenu(String input) {
         Matcher matcher;
-        if((matcher = CraftingCommand.ShowRecipe.getMatcher(input)) != null) {
+        if((CraftingCommand.ShowRecipe.getMatcher(input)) != null) {
             System.out.println(CraftingController.showCraftingRecipes());
             return true;
         }else if((matcher = CraftingCommand.craftItem.getMatcher(input)) != null) {

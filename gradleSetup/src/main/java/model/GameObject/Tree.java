@@ -3,7 +3,6 @@ package model.GameObject;
 
 import model.App;
 import model.Enums.GameObjects.TreeType;
-import model.Enums.Items.ItemType;
 import model.Enums.WeatherAndTime.WeatherType;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
@@ -99,7 +98,7 @@ public class Tree extends GameObject implements TimeObserver {
     }
 
     public void setSpeedGro(boolean speedGro) {
-        speedGro = speedGro;
+        this.speedGro = speedGro;
     }
 
     public boolean isDeluxeRetainingSoil() {
@@ -185,7 +184,7 @@ public class Tree extends GameObject implements TimeObserver {
     }
 
     public void setHarvestDayRegrowth(int harvestDayRegrowth) {
-        harvestDayRegrowth = harvestDayRegrowth;
+        this.harvestDayRegrowth = harvestDayRegrowth;
     }
 
     public boolean isComplete() {

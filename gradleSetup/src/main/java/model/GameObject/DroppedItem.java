@@ -1,8 +1,6 @@
 package model.GameObject;
 
-import model.Enums.Items.GrassType;
 import model.MapModule.Position;
-import model.Slot;
 import model.items.Item;
 
 public class DroppedItem extends GameObject {

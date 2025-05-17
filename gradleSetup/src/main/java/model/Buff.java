@@ -4,7 +4,6 @@ import model.Enums.BuffType;
 import model.Enums.Skills;
 import model.TimeSystem.DateTime;
 import model.TimeSystem.TimeObserver;
-import model.skills.Skill;
 
 public class Buff implements TimeObserver {
     private BuffType buffType;
