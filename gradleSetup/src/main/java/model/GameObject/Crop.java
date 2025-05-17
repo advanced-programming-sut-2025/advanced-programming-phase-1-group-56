@@ -41,7 +41,7 @@ public class Crop extends GameObject implements TimeObserver {
         this.harvestDayRegrowth = 0;
         this.isHarvest = false;
         this.isComplete = false;
-        this.is1time = false;
+        this.is1time = cropType.oneTime;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
@@ -106,11 +106,11 @@ public class Crop extends GameObject implements TimeObserver {
             }
             isWateredToday = false;
             if(cropType.regrowthTime != -1){
-                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && !isComplete) {
                     isComplete = true;
                     isHarvest = true;
                 }
-                if (countCurrentStage == cropType.stages[currentStage] && isComplete == false) {
+                if (countCurrentStage == cropType.stages[currentStage] && !isComplete) {
                     this.currentStage++;
                 }
                 if (isComplete){
@@ -121,12 +121,12 @@ public class Crop extends GameObject implements TimeObserver {
                     harvestDayRegrowth = 0;
                 }
             }else {
-                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && !isComplete) {
                     isComplete = true;
                     isHarvest = true;
                     is1time = true;
                 }
-                if (countCurrentStage == cropType.stages[currentStage] && isComplete == false) {
+                if (countCurrentStage == cropType.stages[currentStage] && !isComplete) {
                     this.currentStage++;
                 }
             }
@@ -186,5 +186,9 @@ public class Crop extends GameObject implements TimeObserver {
 
     public void setIs1time(boolean is1time) {
         this.is1time = is1time;
+    }
+
+    public void setHarvestDayRegrowth(int harvestDayRegrowth) {
+        this.harvestDayRegrowth = harvestDayRegrowth;
     }
 }

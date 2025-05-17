@@ -1,5 +1,7 @@
 package model.Enums.Items;
 
+import model.Enums.Recepies.CraftingRecipesList;
+
 public enum ToolType {
     // Hoe variants (capacity = 0)
     HOE_IRIDIUM  ("Hoe" ,ToolMaterial.Iridium, 1, 0 , null),
@@ -80,5 +82,13 @@ public enum ToolType {
         return nextToolType;
     }
 
+    public static ToolType fromName(String name) {
+        for (ToolType type : ToolType.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 
 }

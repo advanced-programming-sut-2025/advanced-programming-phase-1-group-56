@@ -36,7 +36,7 @@ public class Player implements TimeObserver {
     @Expose(serialize = false, deserialize = false)
     private User user;
     private boolean gender;
-
+    private int energyUsage = 0;
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -76,7 +76,7 @@ public class Player implements TimeObserver {
     private final ArrayList<NpcFriendship> npcFriendships = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<Animal> animals = new ArrayList<>();
-    private NPC lastMeetedNPC = null;
+
     //doesn't need expose because duplicate won't make any trouble
     private final ArrayList<Friendship> friendShips = new ArrayList<>();
     private final ArrayList<Message> messages = new ArrayList<>();
@@ -383,7 +383,6 @@ public class Player implements TimeObserver {
             if (getCurrentBuff().getRemainingTime() == 0) {
                 this.setCurrentBuff(null);
             }
-            this.lastMeetedNPC = null;
         }
     }
 
@@ -407,6 +406,7 @@ public class Player implements TimeObserver {
         if (energy.getEnergy() <= 0) {
             fainted = true;
         }
+        App.getMe().setEnergyUsage(App.getMe().getEnergyUsage() + amount);
     }
 
     public Skill getSkillByName(String skillName) {
@@ -426,11 +426,11 @@ public class Player implements TimeObserver {
         this.maxEnergy = maxEnergy;
     }
 
-    public NPC getLastMeetedNPC() {
-        return lastMeetedNPC;
+    public int getEnergyUsage() {
+        return energyUsage;
     }
 
-    public void setLastMeetedNPC(NPC lastMeetedNPC) {
-        this.lastMeetedNPC = lastMeetedNPC;
+    public void setEnergyUsage(int energyUsage) {
+        this.energyUsage = energyUsage;
     }
 }
