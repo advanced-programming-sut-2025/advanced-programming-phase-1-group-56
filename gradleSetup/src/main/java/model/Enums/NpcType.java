@@ -23,6 +23,7 @@ public enum NpcType {
                     new NpcRequest(new Food(FoodType.PUMPKIN_PIE), 1, EtcType.Money, 5000),
                     new NpcRequest(new Mineral(MineralItemType.STONE), 150, new Mineral(MineralItemType.QUARTZ), 50)
             )),
+            7,
             new ArrayList<>(Arrays.asList(
                     new Etc(EtcType.WOOL),
                     new Food(FoodType.PUMPKIN_PIE),
@@ -36,8 +37,9 @@ public enum NpcType {
             new ArrayList<>(Arrays.asList(
                     new NpcRequest(new OreItem(Ore.GOLD_ORE), 1, EtcType.NPC_FRIENDSHIP_XP, 200),
                     new NpcRequest(new Food(FoodType.PUMPKIN), 1, EtcType.Money, 500),
-                    new NpcRequest(new Food(FoodType.WHEAT), 50, EtcType.IRIDIUM_SPRINKLER, 1)
+                    new NpcRequest(new Food(FoodType.WHEAT), 50, (EtcType.IRIDIUM_SPRINKLER), 1)
             )),
+            9,
             new ArrayList<>(Arrays.asList(
                     new Mineral(MineralItemType.STONE),
                     new Mineral(MineralItemType.IRON),
@@ -53,6 +55,7 @@ public enum NpcType {
                     new NpcRequest(new Fish(FishType.Salmon), 1, EtcType.NPC_FRIENDSHIP_XP, 200),
                     new NpcRequest(new Food(FoodType.WINE), 1, new Food(FoodType.SALAD), 5)
             )),
+            11,
             new ArrayList<>(Arrays.asList(
                     new Food(FoodType.COFFEE),
                     new Food(FoodType.PICKLES),
@@ -68,6 +71,7 @@ public enum NpcType {
                     new NpcRequest(new Fish(FishType.Salmon), 1, FoodRecipesList.SALMON_DINNER, 1),
                     new NpcRequest(new Etc(EtcType.WOOD), 200, new Etc(EtcType.DELUXE_SCARE_CROW), 3)
             )),
+            13,
             new ArrayList<>(Arrays.asList(
                     new Food(FoodType.SALAD),
                     new Food(FoodType.GRAPE),
@@ -83,6 +87,7 @@ public enum NpcType {
                     new NpcRequest(new OreItem(Ore.IRON_ORE), 10, new Artesian(ArtisanMachineItemType.BEE_HOUSE), 3),
                     new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 25000)
             )),
+            120,
             new ArrayList<>(Arrays.asList(
                     new Food(FoodType.SPAGHETTI),
                     new Etc(EtcType.WOOD),
@@ -93,12 +98,14 @@ public enum NpcType {
 
     private final String name;
     private final ArrayList<NpcRequest> requests;
+    private final int daysForSecond;
     private final ArrayList<Item> favoriteItems;
     private final Class<? extends NpcPrompt> promptClass;
 
-    NpcType(String name, ArrayList<NpcRequest> requests, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass) {
+    NpcType(String name, ArrayList<NpcRequest> requests, int daysForSecond, ArrayList<Item> favoriteItems, Class<? extends NpcPrompt> promptClass) {
         this.name = name;
         this.requests = requests;
+        this.daysForSecond = daysForSecond;
         this.favoriteItems = favoriteItems;
         this.promptClass = promptClass;
     }
@@ -127,5 +134,9 @@ public enum NpcType {
             player.getNpcFriendShips().add(friendship);
         }
         return npcToAdd;
+    }
+
+    public int getDaysForSecond() {
+        return daysForSecond;
     }
 }
