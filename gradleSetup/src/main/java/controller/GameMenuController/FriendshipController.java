@@ -49,7 +49,7 @@ public class FriendshipController extends CommandController {
             return new Result(false, "one of Players not found..for adding friendship xp");
         }
 
-        if(playerToTalk.equals(me.getPartner())&&!me.isInteractWithPartnerToday()) {
+        if (playerToTalk.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
             playerToTalk.setInteractWithPartnerToday(true);
             me.addEnergy(50);
@@ -109,8 +109,7 @@ public class FriendshipController extends CommandController {
         }
         if (amount > me.getInventory().countItem(itemToGift)) {
             return new Result(false, "You have not enough amount of item");
-        } else if (Math.abs(me.getPosition().getY() - playerToGift.getPosition().getY()) > 3 ||
-                Math.abs(me.getPosition().getX() - playerToGift.getPosition().getX()) > 3) {
+        } else if (!me.getPosition().isNear(playerToGift.getPosition(), 3)) {
             return new Result(false, "You are not nearby the player to send gift");
         } else if (playerToGift.equals(me)) {
             return new Result(false, "you have narcissism");
@@ -123,7 +122,7 @@ public class FriendshipController extends CommandController {
         playerToGift.getInventory().add(itemToGift, amount);
         playerToGift.getGifts().add(new Gift(me, playerToGift, itemToGift, amount));
 
-        if(playerToGift.equals(me.getPartner())&&!me.isInteractWithPartnerToday()) {
+        if (playerToGift.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
             playerToGift.setInteractWithPartnerToday(true);
             me.addEnergy(50);
@@ -196,15 +195,14 @@ public class FriendshipController extends CommandController {
             return new Result(false, "Player not found");
         }
         Player me = App.getMe();
-        if (Math.abs(me.getPosition().getX() - player.getPosition().getX()) > 1 ||
-                Math.abs(me.getPosition().getY() - player.getPosition().getY()) > 1) {
+        if (!me.getPosition().isNear(player.getPosition(), 1)) {
             return new Result(false, "You are out of bounds");
         }
         if (me.findFriendshipByPlayer(player).getLevel() < 2) {
             return new Result(false, "atsafghorilah.Hanuz mahram nistid..");
         }
 
-        if(player.equals(me.getPartner())&&!me.isInteractWithPartnerToday()) {
+        if (player.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
             player.setInteractWithPartnerToday(true);
             me.addEnergy(50);
@@ -226,8 +224,7 @@ public class FriendshipController extends CommandController {
             return new Result(false, "Player does not found");
         }
         Player me = App.getMe();
-        if (Math.abs(me.getPosition().getX() - player.getPosition().getX()) > 1 ||
-                Math.abs(me.getPosition().getY() - player.getPosition().getY()) > 1) {
+        if (!me.getPosition().isNear(player.getPosition(), 1)) {
             return new Result(false, "You are out of bounds");
         }
         if (me.findFriendshipByPlayer(player).getLevel() < 2) {
@@ -244,7 +241,7 @@ public class FriendshipController extends CommandController {
         player.getInventory().add(gol, 1);
         player.findFriendshipByPlayer(player).setDeliveredFlowerBothWay(true);
 
-        if(player.equals(me.getPartner())&&!me.isInteractWithPartnerToday()) {
+        if (player.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
             player.setInteractWithPartnerToday(true);
             me.addEnergy(50);
@@ -269,12 +266,11 @@ public class FriendshipController extends CommandController {
         if (!me.isGender()) {
             return new Result(false, "a boy can send request. you cannot LOL");
         }
-        if(player.isGender()){
+        if (player.isGender()) {
             return new Result(false, "why are you gay?? why are you gay????!");
         }
-        if (Math.abs(me.getPosition().getX() - player.getPosition().getX()) > 1 ||
-                Math.abs(me.getPosition().getY() - player.getPosition().getY()) > 1) {
-            return new Result(false, "Az dur nemishe ke...");
+        if (me.getPosition().isNear(player.getPosition(), 1)) {
+            return new Result(false, "out of bounds...");
         }
         if (me.findFriendshipByPlayer(player).getLevel() < 3) {
             return new Result(false, "namzad nistid hanuz...");
@@ -286,23 +282,22 @@ public class FriendshipController extends CommandController {
             return new Result(false, "bedun halghe nemishe");
         } else if (!player.getInventory().canAddItem(ringToMarry, 1)) {
             return new Result(false, "her inventory is full. she maybe...");
-        }
-        else if(player.getPartner()!=null){
-            return new Result(false,"astaghfurillah brother,HARAMM!!#@#@#$@##,she is married ");
+        } else if (player.getPartner() != null) {
+            return new Result(false, "astaghfurillah brother,HARAMM!!#@#@#$@##,she is married ");
         }
 
-        for(Gift request : player.getMarryRequests()){
-            if(request.getSender().equals(me)){
-                return new Result(false,"don't spam marry request pls,we will peygiri it");
+        for (Gift request : player.getMarryRequests()) {
+            if (request.getSender().equals(me)) {
+                return new Result(false, "don't spam marry request pls,we will peygiri it");
             }
         }
 
-        player.getMarryRequests().add(new Gift(me,player,ringToMarry,1));
+        player.getMarryRequests().add(new Gift(me, player, ringToMarry, 1));
         me.getInventory().remove(ringToMarry, 1);//TEMP REMOVE maybe comebacks
         return new Result(true, "KhasteGari sabt shod..ishala ke kheyre...");
     }
 
-    public static Result respondMarriage(String respond,String username) {
+    public static Result respondMarriage(String respond, String username) {
         User user = App.getUserByUsername(username.trim());
         if (user == null) {
             return new Result(false, "User not found");
@@ -313,33 +308,33 @@ public class FriendshipController extends CommandController {
         }
         Player me = App.getMe();
         Gift request = null;
-        for (Gift req: player.getMarryRequests()) {
-            if(req.getSender().equals(player)){
+        for (Gift req : player.getMarryRequests()) {
+            if (req.getSender().equals(player)) {
                 request = req;
             }
         }
-        if(request == null) {
+        if (request == null) {
             return new Result(false, "this guy doesn't send you marry request");
         }
 
-        switch (respond){
-            case "-accept":{
+        switch (respond) {
+            case "-accept": {
                 me.getInventory().add(request.getGift(), 1);//girl gets the ring
                 me.setPartner(player);
                 me.findFriendshipByPlayer(player).setMarriedBothWay(true);
                 me.getMarryRequests().clear();
                 return new Result(true, "Mobarake...You are now married to " + player.getUser().getName());
             }
-            case "-reject":{
-                player.getInventory().add(request.getGift(),1);//boy get back his ring
+            case "-reject": {
+                player.getInventory().add(request.getGift(), 1);//boy get back his ring
                 me.findFriendshipByPlayer(player).setMarriedBothWay(false);
                 me.getMarryRequests().remove(request);
                 me.findFriendshipByPlayer(player).resetFriendshipBothWay();
                 player.setCurrentBuff(new Buff(BuffType.Depression));
-                return new Result(true,"you rejected "+ player.getUser().getName()+"'s request");
+                return new Result(true, "you rejected " + player.getUser().getName() + "'s request");
             }
             default:
-                return new Result(false,"barye bar N on porsidam ..invalid response.");
+                return new Result(false, "barye bar N on porsidam ..invalid response.");
         }
     }
 }

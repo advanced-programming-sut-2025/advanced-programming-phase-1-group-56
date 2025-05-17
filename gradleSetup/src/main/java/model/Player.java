@@ -74,10 +74,10 @@ public class Player implements TimeObserver {
     private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
 
     @Expose(serialize = false, deserialize = false)
-    private final ArrayList<NpcFriendship> npcFriendships =new ArrayList<>();
+    private final ArrayList<NpcFriendship> npcFriendships = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<Animal> animals = new ArrayList<>();
-
+    private NPC lastMeetedNPC = null;
     //doesn't need expose because duplicate won't make any trouble
     private final ArrayList<Friendship> friendShips = new ArrayList<>();
     private final ArrayList<Message> messages = new ArrayList<>();
@@ -384,6 +384,7 @@ public class Player implements TimeObserver {
             if (getCurrentBuff().getRemainingTime() == 0) {
                 this.setCurrentBuff(null);
             }
+            this.lastMeetedNPC = null;
         }
     }
 
@@ -403,8 +404,8 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(Math.min((energy.getEnergy() - amount),0));
-        if(energy.getEnergy() <= 0){
+        energy.setEnergy(Math.min((energy.getEnergy() - amount), 0));
+        if (energy.getEnergy() <= 0) {
             fainted = true;
         }
     }
@@ -424,5 +425,13 @@ public class Player implements TimeObserver {
 
     public void setMaxEnergy(int maxEnergy) {
         this.maxEnergy = maxEnergy;
+    }
+
+    public NPC getLastMeetedNPC() {
+        return lastMeetedNPC;
+    }
+
+    public void setLastMeetedNPC(NPC lastMeetedNPC) {
+        this.lastMeetedNPC = lastMeetedNPC;
     }
 }
