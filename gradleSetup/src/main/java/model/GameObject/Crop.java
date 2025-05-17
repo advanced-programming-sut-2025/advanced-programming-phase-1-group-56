@@ -26,6 +26,7 @@ public class Crop extends GameObject implements TimeObserver {
     private boolean is1time;
 
 
+
     public Crop(boolean walkable, Position position,  CropType cropType) {
         super(walkable, position);
         this.cropType = cropType;
@@ -120,7 +121,6 @@ public class Crop extends GameObject implements TimeObserver {
                     isHarvest = true;
                     harvestDayRegrowth = 0;
                 }
-
             }else {
                 if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && isComplete == false) {
                     isComplete = true;
@@ -135,7 +135,7 @@ public class Crop extends GameObject implements TimeObserver {
             if(isWateredToday) {
                 daysWithNoWater = 0;
             }
-            if(App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() != WeatherType.Sunny){
+            if(App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() != WeatherType.Sunny && !isInGreenHouse){
                 this.isWateredToday = true;
             }
         }

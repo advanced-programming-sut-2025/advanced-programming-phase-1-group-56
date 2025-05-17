@@ -9,7 +9,8 @@ public enum FarmingCommands implements Commands {
     CRAFT_INFO("craftinfo -n (.+)"),
     PLANT("plant -s (.+) -d (.+)"),
     showPlant("showplant -l <(\\d+),(\\d+)>"),
-    feritilize("fertilize -f (.+) -d (.+)");
+    feritilize("fertilize -f (.+) -d (.+)"),
+    showWater("howmuch water");
 
     private final String pattern;
     FarmingCommands(String pattern) {

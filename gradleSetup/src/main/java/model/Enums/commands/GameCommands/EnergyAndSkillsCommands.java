@@ -5,21 +5,19 @@ import model.Enums.commands.Commands;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum GameCommands implements Commands {
-
-    //Execute Commands
-    exitGame("\\s*exit\\s+\\s*"),//TODO think about the algorithms
-    nextTurn("\\s*next\\s+turn\\s*"),
-    Walk("\\s*walk\\s+-l\\s+<([0,9]+), ([0,9]+)>\\s*"),
-    printMap("\\s*print\\s+map\\s+-l\\s+<([0,9]+),\\s+([0,9]+)>\\s+-s\\s+([0-9]+)"),
-    helpReadingMap("help\\s+reading\\s+map");
+public enum EnergyAndSkillsCommands implements Commands {
+    showEnergy("show energy"),
+    cheatEnergy("energy set -v ([0,9]+)"),
+    unlimitedEnergy("energy unlimited"),
+    showInventory("inventory show"),
+    trashInventory("inventory trash -i (.+) -n ([0,9]+)");
 
 
 
 
     private final String pattern;
 
-    GameCommands(String pattern) {
+    EnergyAndSkillsCommands(String pattern) {
         this.pattern = pattern;
     }
 

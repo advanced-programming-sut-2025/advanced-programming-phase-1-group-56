@@ -5,12 +5,12 @@ import model.Enums.commands.Commands;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum Artisan implements Commands {
+public enum ArtisanCommands implements Commands {
     use("artisan use (.+) (.+)"),
     get("artisan get (.+)");
     private final String regex;
 
-    Artisan(String regex) {
+    ArtisanCommands(String regex) {
         this.regex = regex;
     }
 

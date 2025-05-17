@@ -41,13 +41,14 @@ public class DateTime {
         }
     }
 
-    //TODO
+
     public Seasons getSeason() {
-        return null;
+        return Seasons.values()[((day-1)/28)%4];
     }
 
-    //TODO
     public DayOfWeek getDayOfWeek() {
-        return null;
+        return DayOfWeek.values()[(day - 1) % 7];
     }
 }
+
+

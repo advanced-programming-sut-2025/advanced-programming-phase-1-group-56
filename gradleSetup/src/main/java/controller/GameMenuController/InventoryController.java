@@ -3,7 +3,7 @@ package controller.GameMenuController;
 import controller.CommandController;
 import model.Result;
 
-public class inventoryController extends CommandController {
+public class InventoryController extends CommandController {
     public static Result inventoryShow() {
 
         return null;

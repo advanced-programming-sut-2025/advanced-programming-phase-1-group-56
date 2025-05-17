@@ -29,6 +29,15 @@ public class WeatherState {
         };
     }
 
+
+    public double getEnergyMultiplierTool() {
+        return switch (todayWeather){
+            case Rainy -> 1.5;
+            case Sunny -> 2;
+            default -> 1.0;
+        };
+    }
+
     public WeatherType getTodayWeather() {
         return todayWeather;
     }

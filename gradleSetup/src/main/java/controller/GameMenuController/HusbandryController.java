@@ -84,7 +84,7 @@ public class HusbandryController extends CommandController {
             return new Result(false, "there is no animal with that name");
         } else if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)) {
             return new Result(false, "you are not in the farm!");
-        } else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject() != null) {
+        } else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject() != null || !App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) {
             return new Result(true, "there is something exist in this tile!");
         }
 
