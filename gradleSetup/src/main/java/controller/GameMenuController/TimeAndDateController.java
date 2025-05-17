@@ -40,7 +40,7 @@ public class TimeAndDateController extends CommandController {
         newTime = newTime.trim();
         try{
             int newHour = Integer.parseInt(newTime);
-            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().setHour(newHour);
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addHour(newHour);
             return new Result(true,"Time successfully changed to " + newTime);
         }catch(NumberFormatException e){
             return new Result(true,"Invalid time format");
@@ -51,7 +51,7 @@ public class TimeAndDateController extends CommandController {
         newDate = newDate.trim();
         try{
             int newDay = Integer.parseInt(newDate);
-            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().setDay(newDay);
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addDay(newDay);
             return new Result(true,"Date successfully changed to " + newDate);
         }catch(NumberFormatException e){
             return new Result(true,"Invalid time format");

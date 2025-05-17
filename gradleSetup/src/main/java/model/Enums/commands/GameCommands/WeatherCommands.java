@@ -9,6 +9,7 @@ public enum WeatherCommands implements Commands {
     //show commands
     showTodayWeather("\\s*weather\\s*"),
     showTomorrowWeather("\\s*weather\\s+forecast\\s*"),
+    buildGreenHouse("\\s*greenhouse\\s+build\\s*"),
     //cheat
     cheatThor("\\s*cheat\\s+Thor\\s+-l\\s+([0-9]+)\\s+([0-9]+)\\s*"),
     cheatWeather("\\s*cheat\\s+weather\\s+set\\s+<Type>\\s*");

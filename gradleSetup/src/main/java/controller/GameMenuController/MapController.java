@@ -32,7 +32,7 @@ public class MapController extends CommandController {
 
 
 
-    public Result calculateMoveEnergy(int x , int y){
+    public static Result calculateMoveEnergy(int x , int y){
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
 
         ArrayList<Node> path = findPath(x, y);
@@ -41,9 +41,8 @@ public class MapController extends CommandController {
             return new Result(false,"No path found");
         } else {
             int neededEnergy = (int) path.size() /20;
-            return new Result(true , String.format("you need %f energy to go to tile<%d , %d>. Are you sure that you want to go?" , neededEnergy , x , y));
+            return new Result(true , String.format("you need %d energy to go to tile<%d , %d>. Are you sure that you want to go?" , neededEnergy , x , y));
         }
-//        App.getCurrentUser().getCurrentGame().getCurrentPlayer()
     }
 
     private static ArrayList<Node> findPath(int x, int y) {
@@ -55,7 +54,7 @@ public class MapController extends CommandController {
     }
 
 
-    public Result movePlayer(int x , int y){
+    public static Result movePlayer(int x , int y){
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         Game game = App.getCurrentUser().getCurrentGame();
         ArrayList<Node> path = findPath(x, y);

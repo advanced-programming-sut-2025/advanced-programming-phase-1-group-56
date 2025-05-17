@@ -29,7 +29,7 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
     private int produce;
 
     public Animal(Position position, String name, AnimalType animalInfo) {
-        super(position,true);
+        super(position, true);
         this.name = name;
         this.animalInfo = animalInfo;
         this.isFed = false;
@@ -59,7 +59,9 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
         return new ArrayList<>(Arrays.asList(animalInfo.getProducts()));
     }
 
-    public ArrayList<AnimalProduct> getDailyProducts() { return dailyProducts; }
+    public ArrayList<AnimalProduct> getDailyProducts() {
+        return dailyProducts;
+    }
 
     public boolean getIsFed() {
         return isFed;
@@ -85,7 +87,7 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
         this.nickName = nickName;
     }
 
-    public void produceProductOnDay(){//TODO
+    public void produceProductOnDay() {//TODO
 
     }
 
@@ -121,21 +123,22 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
-            if(isFed){
+            if (isFed) {
                 produce++;
-            }if (produce == animalInfo.getProductionInterval()){
+            }
+            if (produce == animalInfo.getProductionInterval()) {
                 dailyProducts.clear();
                 dailyProducts.add(HusbandryController.getProduct(this));
                 produce = 0;
             }
 
-            if(!isFed){
+            if (!isFed) {
                 friendship -= 20;
             }
-            if(goOut){
+            if (goOut) {
                 friendship -= 20;
             }
-            if(!isCaressed){
+            if (!isCaressed) {
                 friendship -= 10;
             }
 
@@ -150,6 +153,18 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
         this.produce = produce;
     }
 
+    public void deleteProduct(EtcType etcType) {
+        if (dailyProducts.isEmpty()) {
+            System.out.println("There is no product in this animal");
+            return;
+        }
+        if (dailyProducts.get(0).getEtcType().name().equals(etcType.name())) {
+            dailyProducts.remove(0);
+        } else {
+            System.out.println("There is no" + etcType.name + "in this animal");
+            return;
+        }
+    }
 
 
 }

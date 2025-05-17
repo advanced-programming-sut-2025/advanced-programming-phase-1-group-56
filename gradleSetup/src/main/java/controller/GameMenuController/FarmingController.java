@@ -178,6 +178,7 @@ public class FarmingController extends CommandController {
                     farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
                 }else if(farm.getAllGameObjects().get(i) instanceof Tree && !((Tree)farm.getAllGameObjects().get(i)).isProtected()) {
                     ((Tree)farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
+                    ((Tree)farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
                 }
                 if(i+16 < count){
                     i+=16;
@@ -199,8 +200,8 @@ public class FarmingController extends CommandController {
             return new Result(false, "this seed does not exist!");
         } else if ((dir = getDirectionFromString(direction)) == null) {
             return new Result(false, "this direction does not exist!");
-        } else if (containsSeason(seed.season,App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
-            return new Result(false, "you can't plant in this season!");
+        } else if (!(App.getMe().getCurrentGameLocation() instanceof Farm || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor())){
+            return new Result(false, "you are not in Green House or Farm!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
         int x = position.getX();
@@ -237,21 +238,37 @@ public class FarmingController extends CommandController {
             default:
                 break;
         }
+        if (containsSeason(seed.season,App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
+            if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
+                    || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()))
+                return new Result(false, "you can't plant in this season!");
+        }
+
+
         if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.PlowedSoil
         ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.WaterPlowedSoil
         ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.Deluxe_Retaining_Soil
-        ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.Speed_Gro) {
+        ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.Speed_Gro ) {
             return new Result(false, "you can't plant in this tile!");
         }
+
+        if (!App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) return new Result(false, "you can't plant in this tile!");
         SeedType seed2 = seed;
         if(seed.name.equals(SeedType.MIXED.name())) {
             seed2 = manageMixedSeed();
         }
         if (seed2.cropType instanceof CropType) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Crop(true, new Position(x, y), (CropType) seed.cropType));
+            Crop crop =  new Crop(true, new Position(x, y), (CropType) seed.cropType);
+            if(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
+                    || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()){
+                crop.setInGreenHouse(true);
+                crop.setProtected(true);
+            }
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(crop);
         } else if (seed2.cropType instanceof TreeType) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Tree(false, ((TreeType) seed.cropType), new Position(x, y)));
         }
+        App.getMe().getInventory().remove(seed1,1);
         return new Result(true, "you successfully planted in this tile!");
     }
 
@@ -387,7 +404,7 @@ public class FarmingController extends CommandController {
         for (int i = 0; i < farm.getTiles().length; i++) {
             for (int j = 0; j < farm.getTiles()[i].length; j++) {
                 Tile tile = farm.getTiles()[i][j];
-                if (tile.getFixedObject() == null && random.nextInt(100) == 0) { // احتمال ۱٪
+                if (tile.getFixedObject() == null && random.nextInt(100) == 0 && tile.isWalkable()) {
                     Position pos = new Position(i, j);
                     if (cropOrSeed == 0) {
                         tile.setFixedObject(new ForagingCrop(true, pos, type));
@@ -448,5 +465,6 @@ public class FarmingController extends CommandController {
         }
         return false;
     }
+
 
 }

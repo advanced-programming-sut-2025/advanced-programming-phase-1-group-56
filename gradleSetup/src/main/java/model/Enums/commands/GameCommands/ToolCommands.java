@@ -6,11 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum ToolCommands implements Commands {
-    toolsEquip(""),
-    toolsShowCurrent(""),
-    toolsShowAvailable(""),
-    toolsUpgrade(""),
-    toolsUse("");
+    toolsEquip("tools equip (.+)"),
+    toolsShowCurrent("tools show current"),
+    toolsShowAvailable("tools show available"),
+    toolsUpgrade("tools upgrade (.+)"),
+    toolsUse("tools use -d (.+)");
 
     private final String regex;
 
