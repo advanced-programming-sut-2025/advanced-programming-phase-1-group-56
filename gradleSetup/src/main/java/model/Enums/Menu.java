@@ -1,8 +1,8 @@
 package model.Enums;
 
+import model.MapModule.Buildings.GreenHouse;
 import view.*;
 import view.GameMenus.GameMenu;
-import view.GameMenus.GreenHouseMenu;
 import view.GameMenus.HouseMenu;
 import view.GameMenus.ShopMenus.*;
 import view.GameMenus.TradeMenu;
@@ -16,7 +16,6 @@ public enum Menu {
     avatarMenu(new AvatarMenu()),
     gameMenu(new GameMenu()),
     HouseMenu(new HouseMenu()),
-    GreenHouseMenu(new GreenHouseMenu()),
     exitMenu(new ExitMenu()),
     TradeMenu(new TradeMenu()),
     CarpenterShopMenu(new CarpentersShopMenu()),

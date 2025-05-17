@@ -5,7 +5,6 @@ import model.App;
 import model.Enums.FarmPosition;
 import model.Enums.Items.ArtisanGoodType;
 import model.Enums.Items.ArtisanMachineItemType;
-import model.Enums.Items.Ore;
 import model.Enums.Menu;
 import model.Enums.TileType;
 import model.Game;
@@ -20,7 +19,6 @@ import model.MapModule.Position;
 import model.MapModule.Tile;
 import model.Player;
 import model.Result;
-import view.GameMenus.GreenHouseMenu;
 
 import java.util.ArrayList;
 
@@ -215,7 +213,7 @@ public class MapController extends CommandController {
                     App.setCurrentMenu(Menu.HouseMenu);
                     return new Result(true , "welcome to your home");
                 } else if(building instanceof GreenHouse){
-                    App.setCurrentMenu(Menu.GreenHouseMenu);
+                    App.setCurrentMenu(Menu.gameMenu);
                     if (((GreenHouse) building).isBroken()){
                         return new Result(false , "the green house is broken and you cant come into it.");
                     }
