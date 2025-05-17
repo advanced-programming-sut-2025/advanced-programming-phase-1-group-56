@@ -2,6 +2,8 @@ package view.GameMenus;
 
 import controller.GameMenuController.CookingController;
 import controller.GameMenuController.CraftingController;
+import model.App;
+import model.Enums.Menu;
 import model.Enums.commands.GameCommands.CraftingCommand;
 import model.Enums.commands.GameCommands.HouseMenuCommands;
 import view.AppMenu;
@@ -14,7 +16,10 @@ public class HouseMenu implements AppMenu {
     @Override
     public void check(Scanner scanner) {
         String input  = scanner.nextLine();
-        if(!(cookingMenu(input)||craftingMenu(input))){
+        if (input.equalsIgnoreCase("exit")) {
+            App.setCurrentMenu(Menu.gameMenu);
+            System.out.println("exiting home redirecting to farm...");
+        } if(!(cookingMenu(input)||craftingMenu(input))){
             System.out.println("Invalid command!");
         }
     }

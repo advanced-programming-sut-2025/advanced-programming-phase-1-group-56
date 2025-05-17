@@ -12,7 +12,7 @@ public enum BlackSmithProducts implements Store {
     COPPER_ORE(
             new NpcProduct(
                     "COPPER_ORE",
-                    new OreItem(Ore.COPPER_ORE),
+                    new Mineral(MineralItemType.COPPER_ORE),
                     "A common ore that can be smelted into bars.",
                     75,
                     -1,
@@ -23,7 +23,7 @@ public enum BlackSmithProducts implements Store {
     IRON_ORE(
             new NpcProduct(
                     "IRON_ORE",
-                    new Mineral(MineralItemType.IRON),
+                    new Mineral(MineralItemType.IRON_ORE),
                     "A fairly common ore that can be smelted into bars.",
                     150,
                     -1,
@@ -34,7 +34,7 @@ public enum BlackSmithProducts implements Store {
     COAL(
             new NpcProduct(
                     "COAL",
-                    new Mineral(MineralItemType.COAL),
+                    new Mineral(MineralItemType.COAL_ORE),
                     "A combustible rock that is useful for crafting and smelting.",
                     150,
                     -1,
@@ -45,7 +45,7 @@ public enum BlackSmithProducts implements Store {
     GOLD_ORE(
             new NpcProduct(
                     "GOLD_ORE",
-                    new OreItem(Ore.GOLD_ORE),
+                    new Mineral(MineralItemType.GOLD_ORE),
                     "A precious ore that can be smelted into bars.",
                     400,
                     -1,

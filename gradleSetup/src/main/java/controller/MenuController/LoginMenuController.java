@@ -172,7 +172,7 @@ public class LoginMenuController extends CommandController {
         String email = matcher.group(5).trim();
         String gender = matcher.group(6).trim();
         boolean gender1;
-        if (gender.equals("male")) {
+        if (gender.equalsIgnoreCase("male")) {
             gender1 = true;
         } else {
             gender1 = false;

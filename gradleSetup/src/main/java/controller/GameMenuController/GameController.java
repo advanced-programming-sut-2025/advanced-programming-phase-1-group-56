@@ -17,7 +17,10 @@ import java.util.Scanner;
 
 public class GameController extends CommandController {
     public static Result saveGame() {
-        //TODO save game
+        for (Player player: App.getCurrentUser().getCurrentGame().getPlayers())
+        {
+            player.getUser().setGold(player.getGold());
+        }
         return null;
     }
 
@@ -26,6 +29,7 @@ public class GameController extends CommandController {
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer());
         System.out.println("Going to exit game...");
         App.setCurrentMenu(Menu.mainMenu);
+        App.getCurrentUser().setCurrentGame(null);
         return saveGame();
     }
 

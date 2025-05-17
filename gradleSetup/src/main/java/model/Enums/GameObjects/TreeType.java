@@ -9,7 +9,7 @@ import model.items.Saleable;
 
 public enum TreeType implements Saleable , initialPlant {
     TREE_BARK("Tree Bark", "nothing", -1, EtcType.WOOD, -1, -1, -1, false, -1, null),
-    BURNT_TREE("Burnt Tree", "nothing", -1, MineralItemType.COAL, -1, -1, -1, false, -1, null),
+    BURNT_TREE("Burnt Tree", "nothing", -1, MineralItemType.COAL_ORE, -1, -1, -1, false, -1, null),
     NORMAL_TREE("Normal Tree", "nothing", -1, EtcType.WOOD, -1, 0, -1, false, -1, null),
     // source
     APRICOT_TREE("Apricot Tree", "Apricot Sapling", 7, FruitType.APRICOT, 28, 1, 59, true, 38, new Seasons[]{Seasons.Spring}),

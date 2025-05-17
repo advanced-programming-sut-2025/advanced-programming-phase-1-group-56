@@ -4,11 +4,13 @@ import controller.CommandController;
 import model.*;
 import model.Activities.Friendship;
 import model.Enums.FarmPosition;
+import model.Enums.Items.ToolType;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.Town;
 import model.MapModule.GameMap;
 import model.States.WeatherState;
 import model.TimeSystem.TimeSystem;
+import model.items.Tool;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -182,20 +184,29 @@ public class PreGameMenuController extends CommandController {
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
 
+        for (User user: usersToPlay) {
+            user.setGameId(newGame.getGameId());
+            user.setCurrentGame(newGame);
+            user.setNumOfGames(user.getNumOfGames() + 1);
+        }
+
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
 
     private static void GivePlayersInitialItem(Game newGame) {
         for (Player player : newGame.getPlayers()) {
-            //player.getInventory().add(new Pickaxe());
-            //TODO
-
+            player.getInventory().add(new Tool(ToolType.AXE_WOODEN),1);
+            player.getInventory().add(new Tool(ToolType.PICK_WOODEN),1);
+            player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC),1);
+            player.getInventory().add(new Tool(ToolType.HOE_WOODEN),1);
+            player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
+            player.addGold(100);
         }
     }
 
     public static Result loadGame() {
         String gameId = App.getCurrentUser().getGameId();
-        //Game gameToLoad= somthing .... ;
+        //Game gameToLoad= something .... ;
         //TODO
         //gameToLoad.setStarterPlayer(gameToLoad.getPlayerByUser(App.getCurrentUser()));
         return new Result(true, "successfully loaded game with id:" + gameId);

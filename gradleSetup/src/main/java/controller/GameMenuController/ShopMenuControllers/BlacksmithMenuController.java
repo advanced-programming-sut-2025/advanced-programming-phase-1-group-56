@@ -9,6 +9,7 @@ import model.Enums.Items.TrashcanType;
 import model.Enums.Stores.BlackSmithProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Buildings.Blacksmith;
+import model.MapModule.Buildings.TheSaloonStardrop;
 import model.Player;
 import model.Result;
 import model.items.Item;
@@ -103,5 +104,8 @@ public class BlacksmithMenuController implements ShopController {
         return null;
     }
 
+    public static Result ExitShop(){
+        return ShopController.exitShopMenu(Blacksmith.class);
+    }
 
 }

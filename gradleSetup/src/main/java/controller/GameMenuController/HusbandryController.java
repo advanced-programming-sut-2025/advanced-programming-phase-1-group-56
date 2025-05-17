@@ -48,7 +48,7 @@ public class HusbandryController extends CommandController {
             return new Result(false, "Animal is not around u!");
         }
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equals(name)) {
+            if (animal2.getName().equalsIgnoreCase(name)) {
                 animal2.addFriendShip(15);
                 animal2.setCaressed(true);
             }
@@ -97,7 +97,7 @@ public class HusbandryController extends CommandController {
                     if (y <= coop.getHeight() + coop.getPosition().getY() && y > coop.getPosition().getY()) {
                         animal.setGoOut(false);
                         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getName().equals(animalName)) {
+                            if (animal2.getName().equalsIgnoreCase(animalName)) {
                                 animal2.setPosition(new Position(x, y));
                             }
                         }
@@ -112,7 +112,7 @@ public class HusbandryController extends CommandController {
                     if (y <= barn.getHeight() + barn.getPosition().getY() && y > barn.getPosition().getY()) {
                         animal.setGoOut(false);
                         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getName().equals(animalName)) {
+                            if (animal2.getName().equalsIgnoreCase(animalName)) {
                                 animal2.setPosition(new Position(x, y));
                             }
                         }
@@ -126,7 +126,7 @@ public class HusbandryController extends CommandController {
         animal.setFed(true);
         animal.addFriendShip(8);
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equals(animalName)) {
+            if (animal2.getName().equalsIgnoreCase(animalName)) {
                 animal2.setPosition(new Position(x, y));
             }
         }
@@ -247,7 +247,7 @@ public class HusbandryController extends CommandController {
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
         }
-        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * (animal.getFriendship() / 1000 + 0.3));
+        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * ((double)(animal.getFriendship() / 1000) + 0.3));
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
