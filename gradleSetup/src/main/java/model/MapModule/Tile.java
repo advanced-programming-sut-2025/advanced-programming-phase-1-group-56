@@ -99,7 +99,7 @@ public class Tile extends Node{
 
     @Override
     public boolean isValid() {
-        return isWalkable;
+        return this.isWalkable();
     }
 
 
