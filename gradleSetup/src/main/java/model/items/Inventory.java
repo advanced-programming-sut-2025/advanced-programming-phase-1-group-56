@@ -5,6 +5,7 @@ import model.Enums.BackPackType;
 import model.Slot;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Inventory {
     private final ArrayList<Slot> slots = new ArrayList<>();
@@ -31,64 +32,63 @@ public class Inventory {
 
     public void add(Item item, int quantity) {
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
-                if (slot.getQuantity() + quantity < item.getMaxStackSize())
-                    slot.setQuantity(slot.getQuantity() + quantity);
-                else if (slot.getQuantity() + quantity > item.getMaxStackSize()) {
-                    int tmpQuantity = quantity;
-
-                    int spaceLeft = item.getMaxStackSize() - slot.getQuantity();
-                    slot.setQuantity(item.getMaxStackSize());
-                    tmpQuantity -= spaceLeft;
-
-                    while (tmpQuantity > 0) {
-                        if (slots.size() == capacity) {
-                            return;
-                        }
-
-                        int addAmount = Math.min(tmpQuantity, item.getMaxStackSize());
-                        Slot newSlot = new Slot(item, addAmount);
-                        slots.add(newSlot);
-                        tmpQuantity -= addAmount;
-                    }
-                    return;
+            if (quantity <= 0) {
+                break;
+            }
+            if (item.getName().equalsIgnoreCase(slot.getItem().getName())) {
+                if (quantity <= item.maxStackSize - slot.getQuantity()) {
+                    slot.setQuantity(quantity + slot.getQuantity());
+                    quantity = 0;
                 } else {
-                    slot.setQuantity(slot.getQuantity() + quantity);
-                }
-            } else {
-                int tmpQuantity = quantity;
-                while (tmpQuantity > 0) {
-                    if (slots.size() == capacity) {
-                        return;
-                    }
-                    int addAmount = Math.min(tmpQuantity, item.getMaxStackSize());
-                    Slot newSlot = new Slot(item, addAmount);
-                    slots.add(newSlot);
-                    tmpQuantity -= addAmount;
+                    quantity -= item.maxStackSize - slot.getQuantity();
+                    slot.setQuantity(item.maxStackSize);
                 }
             }
         }
+        while (slots.size() < capacity) {
+            if (quantity <= 0)
+                break;
+
+            if (quantity <= item.maxStackSize) {
+                slots.add(new Slot(item, quantity));
+                quantity = 0;
+            } else {
+                slots.add(new Slot(item, item.maxStackSize));
+                quantity -= item.maxStackSize;
+            }
+        }
+
+        slots.removeIf(slot -> slot.getQuantity() == 0);
+
     }
 
     public void remove(Item item, int quantity) {
-        int tmpQuantity = quantity;
-        for (Slot slot : slots) {
-            if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
-                if(slot.getQuantity() >= tmpQuantity) {
-                    slot.setQuantity(slot.getQuantity() - tmpQuantity);
-                    if(slot.getQuantity()==0){
-                        slots.remove(slot);
-                    }
-                    return;
-                } else if(slot.getQuantity() < tmpQuantity) {
-                    tmpQuantity -= slot.getQuantity();
-                    slots.remove(slot);
+        int remaining = quantity;
+
+        Iterator<Slot> it = slots.iterator();
+        while (it.hasNext() && remaining > 0) {
+            Slot slot = it.next();
+            if (item.equals(slot.getItem())) {
+                int slotQty = slot.getQuantity();
+
+                if (slotQty > remaining) {
+                    slot.setQuantity(slotQty - remaining);
+                    remaining = 0;
+                } else {
+                    remaining -= slotQty;
+                    it.remove();
                 }
             }
         }
+
+        if (remaining > 0) {
+            System.out.printf("Warning: only removed %d of %d requested%n",
+                    quantity - remaining, quantity);
+        }
     }
 
-    public int countItem(Item item){
+
+    public int countItem(Item item) {
         int sum = 0;
         for (Slot slot : slots) {
             if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
@@ -98,12 +98,12 @@ public class Inventory {
         return sum;
     }
 
-    public boolean hasItem(Item item){
-        return countItem(item)!=0;
+    public boolean hasItem(Item item) {
+        return countItem(item) != 0;
     }
 
 
-    public ArrayList<Slot> getSlots(){
+    public ArrayList<Slot> getSlots() {
         return slots;
     }
 
@@ -112,9 +112,9 @@ public class Inventory {
         return backPackType;
     }
 
-    public int maxItemMayBeAdded(Item item){
+    public int maxItemMayBeAdded(Item item) {
         int max = 0;
-        max +=  (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
+        max += (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
         for (Slot slot : slots) {// for semi full slots of same item
             if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 max += item.maxStackSize - slot.getQuantity();
@@ -122,8 +122,9 @@ public class Inventory {
         }
         return max;
     }
+
     public boolean canAddItem(Item item, int quantity) {
-        return quantity <=  maxItemMayBeAdded(item);
+        return quantity <= maxItemMayBeAdded(item);
     }
 
     public Item findItemByName(String itemName) {
@@ -141,7 +142,7 @@ public class Inventory {
         Item item = null;
         for (Slot slot : slots) {
             if (slot.getItem().getName().contains(partOfName)) {
-                if( countItem(slot.getItem())> max){
+                if (countItem(slot.getItem()) > max) {
                     max = countItem(slot.getItem());
                     item = slot.getItem();
                     return item;

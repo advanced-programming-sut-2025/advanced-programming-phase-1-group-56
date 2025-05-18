@@ -1,6 +1,7 @@
 package model.MapModule;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AStarPathFinding {
     private Network network;
@@ -11,14 +12,58 @@ public class AStarPathFinding {
     private ArrayList<Node> openList;
     private ArrayList<Node> closedList;
 
-    public AStarPathFinding(Network network , Node start, Node end) {
+    public AStarPathFinding(Network network, Node start, Node end) {
         this.network = network;
-        this.path = null;
-        this.openList = null;
-        this.closedList = null;
         this.start = start;
         this.end = end;
     }
+
+//    public ArrayList<Node> solve() {
+//        if (start == null || end == null) return null;
+//        if (start.equals(end)) {
+//            this.path = new ArrayList<>();
+//            return path;
+//        }
+//
+//        this.openList = new ArrayList<>();
+//        this.closedList = new ArrayList<>();
+//
+//        // مقداردهی اولیه هزینه start
+//        start.setCost(0);
+//        start.setHeuristic(start.heuristic(end));
+//        start.setFunction(start.getCost() + start.getHeuristic());
+//        openList.add(start);
+//
+//        while (!openList.isEmpty()) {
+//            Node current = getLowestF();
+//            if (current.equals(end)) {
+//                retracePath(current);
+//                return path;
+//            }
+//
+//            openList.remove(current);
+//            closedList.add(current);
+//
+//            for (Node n : current.getNeighbours()) {
+//                if (closedList.contains(n) || !n.isValid()) continue;
+//
+//                double tempScore = current.getCost() + current.distanceTo(n);
+//
+//                if (!openList.contains(n)) {
+//                    openList.add(n);
+//                } else if (tempScore >= n.getCost()) {
+//                    continue;
+//                }
+//
+//                n.setParent(current);
+//                n.setCost(tempScore);
+//                n.setHeuristic(n.heuristic(end));
+//                n.setFunction(n.getCost() + n.getHeuristic());
+//            }
+//        }
+//
+//        return new ArrayList<>(); // اگر مسیری پیدا نشد
+//    }
 
     public ArrayList<Node> solve() {
 
@@ -26,7 +71,8 @@ public class AStarPathFinding {
             return null;
         }
 
-        if (start.equals(end)) {
+        if (((Tile) start).getPosition().getX() == ((Tile) end).getPosition().getX() &&
+                ((Tile) start).getPosition().getY() == ((Tile) end).getPosition().getY()) {
             this.path = new ArrayList<>();
             return path;
         }
@@ -41,7 +87,8 @@ public class AStarPathFinding {
         while (!openList.isEmpty()) {
             Node current = getLowestF();
 
-            if (current.equals(end)) {
+            if (((Tile) start).getPosition().getX() == ((Tile) end).getPosition().getX() &&
+                    ((Tile) start).getPosition().getY() == ((Tile) end).getPosition().getY()) {
                 retracePath(current);
                 break;
             }
@@ -112,6 +159,20 @@ public class AStarPathFinding {
 //        }
 //    }
 
+//    private void retracePath(Node current) {
+//        Node temp = current;
+//        ArrayList<Node> tempPath = new ArrayList<>();
+//
+//        while (temp != null) {
+//            tempPath.add(temp);
+//            temp = temp.getParent();
+//        }
+//
+//        // معکوس کردن مسیر برای شروع از start
+//        Collections.reverse(tempPath);
+//        this.path = tempPath;
+//    }
+
     private void retracePath(Node current) {
         Node temp = current;
         this.path.add(current);
@@ -125,9 +186,9 @@ public class AStarPathFinding {
     }
 
     private Node getLowestF() {
-        Node lowest = openList.get(0);
+        Node lowest = openList.getFirst();
         for (Node n : openList) {
-            if (n.getFunction()< lowest.getFunction()) {
+            if (n.getFunction() < lowest.getFunction()) {
                 lowest = n;
             }
         }
