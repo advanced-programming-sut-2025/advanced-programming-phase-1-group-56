@@ -15,17 +15,22 @@ public class GameController extends CommandController {
         {
             player.getUser().setGold(player.getGold());
         }
-        return null;
+        return new Result(true,"saved  game");
     }
 
     public static Result exitGame() {
         boolean isPLayerOwner= App.getCurrentUser().getCurrentGame().getStarterPlayer().equals(
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer());
-        System.out.println("Going to exit game...");
-        App.setCurrentMenu(Menu.mainMenu);
-        Result res =  saveGame();
-        App.getCurrentUser().setCurrentGame(null);
-        return res;
+        if(isPLayerOwner) {
+            System.out.println("Going to exit game...");
+            App.setCurrentMenu(Menu.mainMenu);
+            Result res = saveGame();
+            App.getCurrentUser().setCurrentGame(null);
+            return res;
+        }
+        else {
+            return new Result(false,"you are not owner of this game to exit game");
+        }
     }
 
     public static Result terminateGame(Scanner scanner) {
