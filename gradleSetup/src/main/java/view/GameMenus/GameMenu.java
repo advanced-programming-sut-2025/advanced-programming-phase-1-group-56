@@ -3,7 +3,6 @@ package view.GameMenus;
 import controller.GameMenuController.*;
 import model.App;
 import model.Enums.commands.GameCommands.*;
-import model.User;
 import view.AppMenu;
 
 import java.util.Scanner;
@@ -57,12 +56,12 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
             boolean isCorrect;
-            System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2))));
-            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2))).isSuccess();
+            System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
+            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())).isSuccess();
             if (isCorrect) {
                 String input1 = scanner.nextLine();
                 if (input1.equalsIgnoreCase("yes")) {
-                    System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2))));
+                    System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                 }
             }
             if (App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()) {
@@ -122,7 +121,7 @@ public class GameMenu implements AppMenu {
             System.out.println(InventoryController.inventoryShow());
             return true;
         } else if ((EnergyAndSkillsCommands.trashInventory.getMatcher(input)).find()) {
-            System.out.println(InventoryController.manageInventoryTrash(matcher.group(1).trim(), matcher.group(2)));
+            System.out.println(InventoryController.manageInventoryTrash(matcher.group(1).trim(), matcher.group(2).trim()));
             return true;
         }
         //Complete trash and show inventory , and add xp for skills!!!
@@ -176,7 +175,7 @@ public class GameMenu implements AppMenu {
             System.out.println(WeatherController.cheatWeather(matcher.group(1).trim()));
             return true;
         } else if ((matcher = WeatherCommands.cheatThor.getMatcher(input)) != null) {
-            System.out.println(WeatherController.cheatThor(App.getMe().getCurrentGameLocation(), matcher.group(1).trim(), matcher.group(2)));
+            System.out.println(WeatherController.cheatThor(App.getMe().getCurrentGameLocation(), matcher.group(1).trim(), matcher.group(2).trim()));
             return true;
         }
         return false;
@@ -279,13 +278,13 @@ public class GameMenu implements AppMenu {
     public boolean RelationShipCheck(String input) {
         Matcher matcher;
         if ((matcher = RelationshipCommands.talk.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.TalkWithPlayer(matcher.group(1).trim(), matcher.group(2)).getMessage());
+            System.out.println(FriendshipController.TalkWithPlayer(matcher.group(1).trim(), matcher.group(2).trim()).getMessage());
             return true;
         } else if ((matcher = RelationshipCommands.talkHistory.getMatcher(input)) != null) {
             System.out.println(FriendshipController.historyOfTalking(matcher.group(1).trim()).getMessage());
             return true;
         } else if ((matcher = RelationshipCommands.gift.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.sendGift(matcher.group(1).trim(), matcher.group(2), matcher.group(3)).message());
+            System.out.println(FriendshipController.sendGift(matcher.group(1).trim(), matcher.group(2).trim(), matcher.group(3).trim()).message());
             return true;
         } else if ((RelationshipCommands.giftList.getMatcher(input)) != null) {
             System.out.println(FriendshipController.giftList().message());
@@ -294,7 +293,7 @@ public class GameMenu implements AppMenu {
             System.out.println(FriendshipController.giftHistory().message());
             return true;
         } else if ((matcher = RelationshipCommands.giftRate.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.manageRatingGift(matcher.group(1).trim(), matcher.group(2)).message());
+            System.out.println(FriendshipController.manageRatingGift(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else if ((matcher = RelationshipCommands.flower.getMatcher(input)) != null) {
             System.out.println(FriendshipController.buyFlower(matcher.group(1).trim()).message());
@@ -306,10 +305,10 @@ public class GameMenu implements AppMenu {
             System.out.println(FriendshipController.showFriendships().message());
             return true;
         } else if ((matcher = RelationshipCommands.marryRequest.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2)).message());
+            System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else if ((matcher = RelationshipCommands.marryRespond.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2)).message());
+            System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else {
             return false;
@@ -326,7 +325,7 @@ public class GameMenu implements AppMenu {
             }
             return true;
         } else if ((matcher = NpcCommands.GiftNPC.getMatcher(input)) != null) {
-            System.out.println(NpcController.giftNPC(matcher.group(1).trim(), matcher.group(2)).getMessage());
+            System.out.println(NpcController.giftNPC(matcher.group(1).trim(), matcher.group(2).trim()).getMessage());
             return true;
         } else if ((NpcCommands.NpcFriendship.getMatcher(input)) != null) {
             System.out.println(NpcController.manageFriendshipNPCList().getMessage());

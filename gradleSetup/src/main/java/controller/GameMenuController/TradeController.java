@@ -194,7 +194,7 @@ public class TradeController extends CommandController {
 
     public static Result tradeResponse(Matcher matcher) {
         String resp = matcher.group(1).trim();
-        String tradeID = matcher.group(2);
+        String tradeID = matcher.group(2).trim();
         if (resp == null) {
             return new Result(false, "response is null");
         }
@@ -366,7 +366,7 @@ public class TradeController extends CommandController {
 
     public static Result sellProducts(Matcher matcher) {
         String item = matcher.group(1).trim();
-        String quantity = matcher.group(2);
+        String quantity = matcher.group(2).trim();
         int amount;
         ShippingBar shippingBar;
         if (quantity == null) {
