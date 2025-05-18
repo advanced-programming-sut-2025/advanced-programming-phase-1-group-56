@@ -11,7 +11,7 @@ public class InventoryController extends CommandController {
         StringBuilder output = new StringBuilder();
         int counter = 1;
         for (Slot slot : App.getMe().getInventory().getSlots()) {
-            output.append(counter).append("-Name: '").append(slot.getItem().getName()).append("' Count:\n")
+            output.append(counter).append("-Name: '").append(slot.getItem().getName()).append("' Count:")
                     .append(slot.getQuantity()).append("\n");
             counter++;
         }

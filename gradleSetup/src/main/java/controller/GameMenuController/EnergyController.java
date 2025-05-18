@@ -9,7 +9,7 @@ import model.States.Energy;
 public class EnergyController extends CommandController {
     public static Result energyShow(){
         Energy energy = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getEnergy();
-        return new Result(true,"your current energy : "+(energy.isUnlimited()?"∞/∞":
+        return new Result(true,"your current energy : "+(energy.isUnlimited()?"8/8 (8 = infinity)":
                 energy.getEnergy()+" / "+energy.getMaxEnergy()));
     }
 
@@ -18,12 +18,15 @@ public class EnergyController extends CommandController {
         try{
             int energy = Integer.parseInt(energyStr.trim());
             Player player =App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-            player.getEnergy().setEnergy(Math.max(energy, player.getEnergy().getMaxEnergy()));
+            if(energy> App.getMe().getMaxEnergy()){
+                return new Result(false,"you can't cheat more than max energy");
+            }
+            player.getEnergy().setEnergy(Math.min(energy, player.getEnergy().getMaxEnergy()));
+            return new Result(true,"Energy cheated successfully");
         }
         catch(NumberFormatException e){
             return new Result(false, "Invalid energy value");
         }
-        return null;
     }
 
     public static Result toggleUnlimitedEnergy(){

@@ -12,7 +12,7 @@ public enum WeatherCommands implements Commands {
     buildGreenHouse("\\s*greenhouse\\s+build\\s*"),
     //cheat
     cheatThor("\\s*cheat\\s+Thor\\s+-l\\s+([0-9]+)\\s+([0-9]+)\\s*"),
-    cheatWeather("\\s*cheat\\s+weather\\s+set\\s+<Type>\\s*");
+    cheatWeather("\\s*cheat\\s+weather\\s+set\\s+(.+)\\s*");
 
     private final String regex;
 

@@ -189,7 +189,7 @@ public class AStarPathFinding {
     private Node getLowestF() {
         Node lowest = openList.getFirst();
         for (Node n : openList) {
-            if (n.getFunction()< lowest.getFunction()) {
+            if (n.getFunction() < lowest.getFunction()) {
                 lowest = n;
             }
         }

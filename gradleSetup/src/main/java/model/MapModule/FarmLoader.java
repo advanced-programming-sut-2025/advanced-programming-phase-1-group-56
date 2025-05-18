@@ -114,7 +114,7 @@ public class FarmLoader {
                                 }
                             }
                             go = new Home(new Position(tx, ty),false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
-
+                            farm.getBuildings().add((Building) go);
                         }
                         case "greenhouse" -> {
                             JsonArray props = obj.getAsJsonArray("properties");

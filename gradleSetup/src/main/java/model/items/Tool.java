@@ -34,7 +34,7 @@ public class Tool extends Item {
         switch (name) {
             case "Axe": {
                 Skill playerSkill = player.getSkillByName(Skills.Foraging.toString());
-                if (tile.getFixedObject().getClass() == Tree.class) {
+                if (tile.getFixedObject()!= null&&tile.getFixedObject().getClass() == Tree.class) {
                     TreeType t = ((Tree) tile.getFixedObject()).getTreeType();
                     switch (t) {
                         case TreeType.BURNT_TREE -> player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);

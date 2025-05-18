@@ -71,8 +71,8 @@ public class HusbandryController extends CommandController {
 
     public static Result shepherdAnimals(Matcher matcher) {
         String animalName = matcher.group(1).trim();
-        int x = Integer.parseInt(matcher.group(2).trim());
-        int y = Integer.parseInt(matcher.group(3).trim());
+        int x = Integer.parseInt(matcher.group(2));
+        int y = Integer.parseInt(matcher.group(3));
         Animal animal = returnAnimal(animalName);
         if (App.getCurrentUser()
                 .getCurrentGame()
@@ -263,7 +263,7 @@ public class HusbandryController extends CommandController {
     //CHEAT
     public static Result cheatSetFriendship(Matcher matcher) {
         String name = matcher.group(1).trim();
-        int amount = Integer.parseInt(matcher.group(2).trim());
+        int amount = Integer.parseInt(matcher.group(2));
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             if (animal.getNickName().equals(name)) {
                 animal.addFriendShip(amount);

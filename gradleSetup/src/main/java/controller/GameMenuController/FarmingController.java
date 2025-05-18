@@ -144,8 +144,6 @@ public class FarmingController extends CommandController {
         Random random = new Random();
         int randomMinerals =  random.nextInt(MineralItemType.values().length);
         MineralItemType mineralItemType = MineralItemType.values()[randomMinerals];
-        //TODO delete this
-        //System.out.println(farm.getPosition().name());
         for (int i = 0; i < farm.getTiles().length; i++) {
             for (int j = 0; j < farm.getTiles()[i].length; j++) {
                 Tile tile = farm.getTiles()[i][j];
@@ -199,7 +197,7 @@ public class FarmingController extends CommandController {
 
     public static Result managePlantSeed(Matcher matcher) {
         String seedName = matcher.group(1).trim();
-        String direction = matcher.group(2).trim();
+        String direction = matcher.group(2);
         Direction dir;
         SeedType seed = getSeedTypeFromString(seedName);
         Item seed1 = getItemFromString(seedName);
@@ -285,7 +283,7 @@ public class FarmingController extends CommandController {
 
     public static Result showPlant(Matcher matcher) {
         int x = Integer.parseInt(matcher.group(1).trim());
-        int y = Integer.parseInt(matcher.group(2).trim());
+        int y = Integer.parseInt(matcher.group(2));
         Tile tile = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y);
         StringBuilder tmpString = new StringBuilder();
         if (tile.getFixedObject() instanceof Tree) {
@@ -318,7 +316,7 @@ public class FarmingController extends CommandController {
 
     public static Result manageFertilize(Matcher matcher) {
         String fertilizer = matcher.group(1).trim();
-        String direction = matcher.group(2).trim();
+        String direction = matcher.group(2);
         Direction dir;
         Item item = getItemFromString(fertilizer);
         if (item == null) {
