@@ -17,6 +17,16 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 public class CraftingController extends CommandController {
+    public static Result addRecipe(String name){
+        CraftingRecipesList craftingRecipesList = CraftingRecipesList.fromName(name);
+        App.getMe().addToolRecipes(craftingRecipesList);
+        return new Result(true, "recipe added successfully");
+    }//TODO
+
+
+
+
+
     public static Result showCraftingRecipes() {
         String tmpString = RecipeList();
         return new Result(true, tmpString);

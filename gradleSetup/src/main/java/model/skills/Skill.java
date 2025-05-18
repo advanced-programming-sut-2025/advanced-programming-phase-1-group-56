@@ -29,6 +29,7 @@ public abstract class Skill {
         if(xp > (100 * level+1 )+50 && level <4){
             this.level = level+1;
         }
+
     }
 
     public int getLevel() {

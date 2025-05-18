@@ -16,54 +16,60 @@ import java.util.regex.Matcher;
 public class HouseMenu implements AppMenu {
     @Override
     public void check(Scanner scanner) {
-        String input  = scanner.nextLine();
+        String input = scanner.nextLine();
         if (input.equalsIgnoreCase("exit")) {
             App.setCurrentMenu(Menu.gameMenu);
             System.out.println("exiting home redirecting to farm...");
-        } if(!(cookingMenu(input)||craftingMenu(input))){
+        }
+        if (!(cookingMenu(input) || craftingMenu(input))) {
             System.out.println("Invalid command!");
         }
     }
+
     public boolean cookingMenu(String input) {
         Matcher matcher;
-        if((matcher = HouseMenuCommands.refrigeratorPut.getMatcher(input)).find()) {
+        if ((matcher = HouseMenuCommands.refrigeratorPut.getMatcher(input)).find()) {
             System.out.println(CookingController.refrigeratorPut(matcher));
             return true;
-        } else if((matcher = HouseMenuCommands.refrigeratorPick.getMatcher(input)).find()) {
+        } else if ((matcher = HouseMenuCommands.refrigeratorPick.getMatcher(input)).find()) {
             System.out.println(CookingController.refrigeratorPick(matcher));
             return true;
 
-        } else if (( HouseMenuCommands.showRecipes.getMatcher(input)).find()) {
+        } else if ((HouseMenuCommands.showRecipes.getMatcher(input)).find()) {
             System.out.println(CookingController.showRecipes());
             return true;
 
-        } else if((matcher = HouseMenuCommands.prepareRecipe.getMatcher(input)).find()) {
+        } else if ((matcher = HouseMenuCommands.prepareRecipe.getMatcher(input)).find()) {
             System.out.println(CookingController.prepareCooking(matcher));
-            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+            if (App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()) {
                 GameController.manageNextTurn();
             }
             return true;
 
+        } else if((matcher = HouseMenuCommands.addRecipe.getMatcher(input)).find()) {
+            String name = matcher.group(1).trim();
+            System.out.println(CookingController.addRecipe(name));
+            return true;
         }
         return false;
     }
+
     public boolean craftingMenu(String input) {
         Matcher matcher;
-        if((CraftingCommand.ShowRecipe.getMatcher(input)) != null) {
+        if ((CraftingCommand.ShowRecipe.getMatcher(input)) != null) {
             System.out.println(CraftingController.showCraftingRecipes());
             return true;
-        }else if((matcher = CraftingCommand.craftItem.getMatcher(input)) != null) {
+        } else if ((matcher = CraftingCommand.craftItem.getMatcher(input)) != null) {
             System.out.println(CraftingController.craftingItem(matcher));
-            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+            if (App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()) {
                 GameController.manageNextTurn();
             }
             return true;
-        } else if ((matcher = CraftingCommand.dropItem.getMatcher(input)) != null) {
-            System.out.println(CraftingController.placeItem(matcher));
-            //Complete
-            return true;
-        } else if((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null){
+        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
             System.out.println(CraftingController.cheatAddItem(matcher));
+            return true;
+        } else if ((matcher = CraftingCommand.cheatAddRecipe.getMatcher(input)) != null) {
+            System.out.println(CraftingController.addRecipe(matcher.group(1)));
             return true;
         }
         return false;

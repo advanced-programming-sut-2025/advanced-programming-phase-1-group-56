@@ -45,4 +45,13 @@ public enum FruitType implements ItemType {
     public BuffType getBuffType(){
         return buffType;
     }
+
+    public static FruitType fromName(String name) {
+        for (FruitType type : FruitType.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
