@@ -91,24 +91,21 @@ public class AStarPathFinding {
             closedList.add(current);
             current.calculateNeighbours(network);
 
-            for (Node n : current.getNeighbours()) {
-                if (!n.isValid() || closedList.contains(n)) continue;
+            for (Node neighbor : current.getNeighbours()) {
+                if (!neighbor.isValid() || closedList.contains(neighbor)) continue;
 
-                double tempScore = current.getCost() + current.distanceTo(n);
+                double tempGScore = current.getCost() + current.distanceTo(neighbor);
 
-                if (openList.contains(n)) {
-                    if (tempScore < n.getCost()) {
-                        n.setCost(tempScore);
-                        n.setParent(current);
+                if (!openList.contains(neighbor) || tempGScore < neighbor.getCost()) {
+                    neighbor.setParent(current);
+                    neighbor.setCost(tempGScore);
+                    neighbor.setHeuristic(neighbor.heuristic(end));
+                    neighbor.setFunction(neighbor.getCost() + neighbor.getHeuristic());
+
+                    if (!openList.contains(neighbor)) {
+                        openList.add(neighbor);
                     }
-                } else {
-                    n.setCost(tempScore);
-                    openList.add(n);
-                    n.setParent(current);
                 }
-
-                n.setHeuristic(n.heuristic(end));
-                n.setFunction(n.getCost() + n.getHeuristic());
 
             }
         }

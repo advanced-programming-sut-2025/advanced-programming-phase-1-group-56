@@ -36,7 +36,7 @@ public enum ToolType {
     POLE_IRIDIUM  ("Fishing Pole" ,ToolMaterial.Iridium, 4, 0 , null),
     POLE_FIBERGLASS("Fishing Pole" , ToolMaterial.FiberGlass, 6, 0 , POLE_IRIDIUM),
     POLE_BAMBOO   ("Fishing Pole" ,ToolMaterial.Bamboo, 8, 0 , POLE_FIBERGLASS),
-    POLE_TRAINING ("Fishing Pole" ,ToolMaterial.Training, 8, 0 , POLE_BAMBOO),
+    POLE_TRAINING ("Fishing Pole" ,ToolMaterial.Training, 8, 0 , POLE_BAMBOO),////
 
     // Scythe
     SCYTHE_BASIC  ("Scythe" ,ToolMaterial.Wooden, 2, 0 , null),
