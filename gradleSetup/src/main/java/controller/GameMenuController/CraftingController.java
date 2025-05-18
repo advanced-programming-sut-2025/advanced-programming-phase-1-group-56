@@ -134,6 +134,7 @@ public class CraftingController extends CommandController {
         }
         if (item instanceof Artesian) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
+            System.out.println("yes");
         } else if (item instanceof Etc) {
             if (((Etc) item).getEtcType().etcObjectType != null) {
                 if (((Etc) item).getEtcType().getName().equals(EtcType.SCARE_CROW.name) || ((Etc) item).getEtcType().getName().equals(EtcType.DELUXE_SCARE_CROW.name)) {
@@ -169,7 +170,7 @@ public class CraftingController extends CommandController {
 
     public static Result cheatAddItem(Matcher matcher) {
         String itemName = matcher.group(1).trim();
-        int count = Integer.parseInt(matcher.group(2));
+        int count = Integer.parseInt(matcher.group(2).trim());
         EtcType type = (EtcType) ItemType.FindItemTypeByName(EtcType.values(), itemName);
         if (type != null) {
             App.getMe().getInventory().add(new Etc(type), 1);
