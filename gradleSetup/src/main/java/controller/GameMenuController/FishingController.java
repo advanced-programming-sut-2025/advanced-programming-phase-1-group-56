@@ -18,7 +18,7 @@ public class FishingController extends CommandController {
         if (item == null) {
             return new Result(false , "you don't have a this fishing pole");
         }
-        if (App.getMe().getCurrentItem() != item){
+        if (App.getMe().getCurrentItem() != item) {
             return new Result(false , "you do");
         }
         for (int i = 0; i <= 2; i++) {

@@ -16,6 +16,8 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.okhttp3:okhttp:4.11.0")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("junit:junit:4.13.2")
+//    implementation("org.junit.jupiter.api")
 }
 
 tasks.test {
