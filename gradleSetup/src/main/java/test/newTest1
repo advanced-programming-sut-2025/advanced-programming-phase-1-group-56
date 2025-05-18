@@ -111,7 +111,7 @@ cheat add item -n Corn Seeds -c 1
 plant -s Corn Seeds -d LEFT
 tools equip Hoe
 tools use -d LEFT
-fertilize -f Speed Gro -d
+fertilize -f Speed Gro -d LEFT
 plant -s Corn Seeds -d LEFT
 showplant -l <39, 50>
 fertilize -f Speed Gro -d

@@ -39,7 +39,7 @@ public class Farm extends GameLocation implements TimeObserver {
             }
 
             FarmingController.managePlaceRandomCropOrSeed(this);
-            for (GameObject gameObject : allGameObjects) {
+            for (GameObject gameObject : readAllGameObjectsFromTiles()) {
                 if (gameObject instanceof Tree) {
                     if (((Tree) gameObject).getDaysWithNoWater() == 2) {
                         deleteObjectTreeOrCrop((Tree) gameObject);
@@ -88,7 +88,7 @@ public class Farm extends GameLocation implements TimeObserver {
         return allGameObjects;
     }
 
-    public void readAllGameObjectsFromTiles() {
+    public ArrayList readAllGameObjectsFromTiles() {
         allGameObjects.clear();
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
