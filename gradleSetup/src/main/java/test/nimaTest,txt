@@ -1,0 +1,37 @@
+﻿login -u Mohsen -p MohsenZare12?
+menu enter main menu
+menu enter game menu
+game new -u Mohsen1 Mohsen2 Mohsen3
+1
+2
+4
+3
+print map
+cheat add 200000 dollars
+sp
+79
+17
+print map
+sp
+20
+88
+print map
+show all products
+show all available products
+purchase wood -n 700
+exit
+sp
+ 0
+ 53
+print map
+build greenhouse
+sp
+28
+15
+print map
+sp
+10
+5
+
+
+print map

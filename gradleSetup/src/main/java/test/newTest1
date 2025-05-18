@@ -125,7 +125,7 @@ cheat add item -n Cherry -c 1
 cooking refrigerator put Cherry
 inventory show
 inventory trash -i Sprinkler -n 1
-cooking show recipes
+
 cheat add item -n Egg -c 1
 cooking prepare Fried Egg
 show energy

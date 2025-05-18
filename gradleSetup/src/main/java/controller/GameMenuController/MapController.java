@@ -19,6 +19,7 @@ import model.MapModule.Position;
 import model.MapModule.Tile;
 import model.Player;
 import model.Result;
+import model.items.Fish;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,48 @@ public class MapController extends CommandController {
                             result.append(BROWN + "DD");
                         } else {
                             result.append(GREEN + "GH");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof Blacksmith blacksmith) {
+                        if (i == blacksmith.getDoorPosition().getY() && j == blacksmith.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "BS");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof CarpentersShop carpentersShop) {
+                        if (i == carpentersShop.getDoorPosition().getY() && j == carpentersShop.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "CS");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof TheSaloonStardrop theSaloonStardrop) {
+                        if (i == theSaloonStardrop.getDoorPosition().getY() && j == theSaloonStardrop.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "SS");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof JojaMart jojaMart) {
+                        if (i == jojaMart.getDoorPosition().getY() && j == jojaMart.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "JM");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof FishShop fishShop) {
+                        if (i == fishShop.getDoorPosition().getY() && j == fishShop.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "FS");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof MarniesRanch marniesRanch) {
+                        if (i == marniesRanch.getDoorPosition().getY() && j == marniesRanch.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "MR");
+                        }
+                    } else if (tiles[i][j].getFixedObject() instanceof PierresGeneralStore pierresGeneralStore) {
+                        if (i == pierresGeneralStore.getDoorPosition().getY() && j == pierresGeneralStore.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "GS");
                         }
                     } else if (tiles[i][j].getFixedObject() instanceof Crop) {
                         result.append("CC");
@@ -158,23 +201,23 @@ public class MapController extends CommandController {
         Game game = App.getCurrentUser().getCurrentGame();
         ArrayList<Node> path = findPath(x, y);
         int turn = AStarPathFinding.countDirectionChanges(path);
-        double neededEnergy =  path.size() + (double)((2 * turn) / 20);
+        double neededEnergy = path.size() + (double) ((2 * turn) / 20);
         double availableDistance = Math.min(player.getEnergy().getEnergy() * 20, path.size());
-        player.setPosition(((Tile) path.get((path.size() - (int)availableDistance))).getPosition());
+        player.setPosition(((Tile) path.get((path.size() - (int) availableDistance))).getPosition());
         player.subtractEnergy(availableDistance / 20);
         if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getTileType() == TileType.Wrapper) {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
             if (player.getCurrentGameLocation() instanceof Farm) {
                 player.setCurrentGameLocation(game.getGameMap().getPelikanTown());
-                if ((player.getFarmPosition() == FarmPosition.LEFT)){
+                if ((player.getFarmPosition() == FarmPosition.LEFT)) {
 //                    player.getPosition().getX() == 0 player.getPosition().getY() == 52;
-                    player.setPosition(new Position( 1  , 53));
-                } else if ((player.getFarmPosition() == FarmPosition.RIGHT)){
-                    player.setPosition(new Position( 110 , 76));
-                } else if ((player.getFarmPosition() == FarmPosition.UP)){
-                    player.setPosition(new Position( 81 , 1));
-                } else{
-                    player.setPosition(new Position(54 , 108));
+                    player.setPosition(new Position(1, 53));
+                } else if ((player.getFarmPosition() == FarmPosition.RIGHT)) {
+                    player.setPosition(new Position(110, 76));
+                } else if ((player.getFarmPosition() == FarmPosition.UP)) {
+                    player.setPosition(new Position(81, 1));
+                } else {
+                    player.setPosition(new Position(54, 108));
                 }
             } else {
                 if (player.getPosition().getX() == 0 && (player.getPosition().getY() == 52 || player.getPosition().getY() == 53 || player.getPosition().getY() == 54)) {
