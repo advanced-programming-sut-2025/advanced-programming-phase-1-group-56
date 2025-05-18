@@ -149,7 +149,14 @@ public class MapController extends CommandController {
             if (player.getCurrentGameLocation() instanceof Farm) {
                 player.setCurrentGameLocation(game.getGameMap().getPelikanTown());
                 if ((player.getFarmPosition() == FarmPosition.LEFT)){
-
+//                    player.getPosition().getX() == 0 player.getPosition().getY() == 52;
+                    player.setPosition(new Position( 1  , 53));
+                } else if ((player.getFarmPosition() == FarmPosition.RIGHT)){
+                    player.setPosition(new Position( 110 , 76));
+                } else if ((player.getFarmPosition() == FarmPosition.UP)){
+                    player.setPosition(new Position( 81 , 1));
+                } else{
+                    player.setPosition(new Position(54 , 108));
                 }
             } else {
                 if (player.getPosition().getX() == 0 && (player.getPosition().getY() == 52 || player.getPosition().getY() == 53 || player.getPosition().getY() == 54)) {
@@ -248,11 +255,7 @@ public class MapController extends CommandController {
                 }
             }
         }
-        if (player.isFainted()) {/////toye view seda bezan
-            return new Result(false, String.format("you faint at Tile <%d , %d>", player.getPosition().getX(), player.getPosition().getY()));
-        } else {
-            return new Result(true, String.format("you are at Tile <%d , %d>", player.getPosition().getX(), player.getPosition().getY()));
-        }
+        return new Result(true, String.format("you are at Tile <%d , %d>", player.getPosition().getX(), player.getPosition().getY()));
 
 
     }
