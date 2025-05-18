@@ -24,17 +24,16 @@ public class MainMenuUnitTest {
     @Before
     public void setUp() {
         profileMenu = new ProfileMenu();
-        System.setOut(new PrintStream(outputStream)); // ثبت خروجی کنسول
-        App.setCurrentMenu(Menu.profileMenu); // تنظیم منوی اولیه
+        System.setOut(new PrintStream(outputStream));
+        App.setCurrentMenu(Menu.profileMenu);
     }
 
     @After
     public void tearDown() {
-        System.setOut(originalOut); // بازگردانی خروجی اصلی
-        App.setCurrentMenu(null); // ریست وضعیت برنامه
+        System.setOut(originalOut);
+        App.setCurrentMenu(null);
     }
 
-    // ------------ تست دستورات معتبر ------------
 
     @Test
     public void testShowCurrentMenuCommand() {
@@ -94,8 +93,6 @@ public class MainMenuUnitTest {
                 outputStream.toString().contains("you are in main menu now!"));
     }
 
-    // ------------ تست دستورات نامعتبر ------------
-
     @Test
     public void testInvalidCommandFormat() {
         simulateInput("profile change --invalid-option");
@@ -111,8 +108,6 @@ public class MainMenuUnitTest {
         assertTrue("باید خطای دستور خالی را نمایش دهد",
                 outputStream.toString().contains("invalid command bro!.."));
     }
-
-    // ------------ متدهای کمکی ------------
 
     private void simulateInput(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes()));

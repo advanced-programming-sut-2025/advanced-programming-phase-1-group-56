@@ -25,17 +25,17 @@ public class LoginMenuUnitTest {
     @Before
     public void setUp() {
         loginMenu = new LoginMenu();
-        System.setOut(new PrintStream(outputStream)); // گرفتن خروجی کنسول
-        App.setCurrentMenu(Menu.loginMenu); // ریست حالت برنامه
+        System.setOut(new PrintStream(outputStream));
+        App.setCurrentMenu(Menu.loginMenu);
     }
 
     @After
     public void tearDown() {
-        System.setOut(originalOut); // بازگردانی خروجی اصلی
-        System.setIn(originalIn); // بازگردانی ورودی اصلی
+        System.setOut(originalOut);
+        System.setIn(originalIn);
     }
 
-    // ------------ تست‌های اصلی ------------
+
 
     @Test
     public void testValidRegistrationFlow() {
@@ -46,7 +46,7 @@ public class LoginMenuUnitTest {
 
         loginMenu.check(new Scanner(System.in));
 
-        // بررسی خروجی
+
         String output = outputStream.toString();
         assertTrue(output.contains("Success"));
         assertTrue(output.contains("Question set"));
@@ -85,7 +85,7 @@ public class LoginMenuUnitTest {
         assertTrue(output.contains("invalid command bro!.."));
     }
     @Test
-    public void testَnswerSecurityQuestion() {
+    public void testAnswerSecurityQuestion() {
         String input = "invalid_command --wrong-option";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 

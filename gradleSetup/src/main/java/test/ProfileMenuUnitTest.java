@@ -26,17 +26,17 @@ public class ProfileMenuUnitTest {
     @Before
     public void setUp() {
         profileMenu = new ProfileMenu();
-        System.setOut(new PrintStream(outputStream)); // گرفتن خروجی کنسول
-        App.setCurrentMenu(Menu.profileMenu); // تنظیم منوی فعلی
+        System.setOut(new PrintStream(outputStream));
+        App.setCurrentMenu(Menu.profileMenu);
     }
 
     @After
     public void tearDown() {
-        System.setOut(originalOut); // بازگردانی خروجی اصلی
-        System.setIn(originalIn); // بازگردانی ورودی اصلی
+        System.setOut(originalOut);
+        System.setIn(originalIn);
     }
 
-    // ------------ تست‌های اصلی ------------
+
 
     @Test
     public void testShowCurrentMenu() {
@@ -95,7 +95,6 @@ public class ProfileMenuUnitTest {
         assertTrue(outputStream.toString().contains("invalid command bro!.."));
     }
 
-    // ------------ متدهای کمکی ------------
 
     private void simulateInput(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
