@@ -6,7 +6,7 @@ public class Etc extends Item {
     private final EtcType etcType;
 
     public Etc( EtcType etcType) {
-        super(etcType.name, 100, true, etcType.value);
+        super(etcType.name, 10000, true, etcType.value);
         this.etcType = etcType;
     }
 

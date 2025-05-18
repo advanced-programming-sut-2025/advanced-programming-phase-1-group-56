@@ -21,8 +21,11 @@ import java.util.regex.Matcher;
 public interface ShopController {
 
     static NpcProduct findProductByName(List<NpcProduct> products, String productName) {
+        if(products==null || products.isEmpty()) {
+            System.out.println("mf store doesn't have any products");
+        }
         for (NpcProduct product : products) {
-            if (product.getSaleable().getName().equals(productName)) {
+            if (product.getSaleable().getName().trim().equalsIgnoreCase(productName.trim())) {
                 return product;
             }
         }
@@ -130,14 +133,16 @@ public interface ShopController {
             if (product.getRemainingStock() <= 0)
                 continue;
             Seasons currSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
-            if (!Arrays.stream(product.getSeasons()).toList().contains(currSeason)) {
+            if (!Arrays.stream(product.getSeasons()).toList().contains(currSeason)&& product.getOutOfSeasonPrice()==-1) {
                 continue;
             }
             if (product.getSaleable() instanceof Item) {
+                String remainM = (product.getDailyStock()>100)?"unlimited":Integer.toString(product.getDailyStock());
+                String remain = (product.getDailyStock()>100)?"unlimited":Integer.toString(product.getRemainingStock());
                 builder.append("name :\t'").append(product.getName())
                         .append("'\n\tprice: ").append(product.getPrice())
-                        .append("\n\tstock: ").append(product.getRemainingStock())
-                        .append("out of ").append(product.getDailyStock()).append("remained.")
+                        .append("\n\tstock: ").append(remain)
+                        .append("out of ").append(remainM).append("remained.")
                         .append("\n----------------------\n");
 
 
