@@ -3,18 +3,19 @@ package model.MapModule;
 import com.google.gson.annotations.Expose;
 import model.Enums.TileType;
 import model.GameObject.GameObject;
+import model.MapModule.Buildings.Building;
 import model.MapModule.GameLocations.GameLocation;
 
 import java.util.ArrayList;
 
-public class Tile extends Node{
+public class Tile extends Node {
     private Position position;
     private boolean isWalkable;
     @Expose(deserialize = false, serialize = false)
     private GameObject fixedObject;
     private TileType tileType;
 
-    public Tile(Position position,boolean isWalkable ,TileType tileType) {
+    public Tile(Position position, boolean isWalkable, TileType tileType) {
         this.position = position;
         this.fixedObject = null;
         this.isWalkable = isWalkable;
@@ -23,6 +24,12 @@ public class Tile extends Node{
 
     public boolean isWalkable() {
         boolean objectWalk = fixedObject == null || fixedObject.isWalkable();
+        if (
+                fixedObject != null &&
+                        fixedObject instanceof Building b &&
+                        b.getDoorPosition().getX() == this.getPosition().getX() &&
+                        b.getDoorPosition().getY() == this.getPosition().getY()
+        ) return true;
         return isWalkable && objectWalk;
     }
 
@@ -59,19 +66,19 @@ public class Tile extends Node{
 
         int minX = 0;
         int minY = 0;
-        int maxY = grid.getTiles().length-1;
+        int maxY = grid.getTiles().length - 1;
         int maxX = grid.getTiles()[0].length - 1;
 
         if (position.getX() > minX) {
-            nodes.add(grid.getTileByPosition(position.getX() - 1 , position.getY())); //west
+            nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY())); //west
         }
 
         if (position.getX() < maxX) {
-            nodes.add(grid.getTileByPosition(position.getX()+1, position.getY())); //east
+            nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY())); //east
         }
 
         if (position.getY() > minY) {
-            nodes.add(grid.getTileByPosition(position.getX(), position.getY() -1)); //north
+            nodes.add(grid.getTileByPosition(position.getX(), position.getY() - 1)); //north
         }
 
         if (position.getY() < maxY) {
@@ -79,18 +86,18 @@ public class Tile extends Node{
         }
 
         if (position.getX() > minX && position.getY() > minY) {
-            nodes.add(grid.getTileByPosition(position.getX() - 1 , position.getY()- 1)); //northwest
+            nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY() - 1)); //northwest
         }
 
         if (position.getX() < maxX && position.getY() < maxY) {
             nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY() + 1)); //southeast
         }
 
-        if(position.getX() < maxX && position.getY() > minY){
+        if (position.getX() < maxX && position.getY() > minY) {
             nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY() - 1)); //northeast
         }
 
-        if(position.getX() > minY && position.getY() < maxY){
+        if (position.getX() > minY && position.getY() < maxY) {
             nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY() + 1)); //southwest
         }
 
@@ -99,7 +106,7 @@ public class Tile extends Node{
 
     @Override
     public boolean isValid() {
-        return isWalkable;
+        return this.isWalkable();
     }
 
 
@@ -112,7 +119,7 @@ public class Tile extends Node{
     @Override
     public double distanceTo(Node dest) {
         Tile d = (Tile) dest;
-        return Math.sqrt(Math.pow(d.position.getX() - position.getX() , 2) + Math.pow(d.position.getY() - position.getY() , 2));
+        return Math.sqrt(Math.pow(d.position.getX() - position.getX(), 2) + Math.pow(d.position.getY() - position.getY(), 2));
     }
 
     public void setTileType(TileType tileType) {

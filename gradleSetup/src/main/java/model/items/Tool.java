@@ -56,21 +56,21 @@ public class Tool extends Item {
                     }
                     playerSkill.setXp(playerSkill.getXp() + 5);
                     if (playerSkill.getLevel() == 3) {
-                        player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
-                        System.out.println(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
+                        player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
+                        System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                     } else {
-                        player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
-                        System.out.println(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                        player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                        System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                     }
                 } else {
                     if (playerSkill.getLevel() == 3) {
                         if (toolType.getUsedEnergy() - 2 >= 0) {
-                            player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 2);
-                            System.out.println(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 2);
+                            player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 2);
+                            System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 2);
                         }
                     } else {
-                        player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
-                        System.out.println(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
+                        player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
+                        System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                     }
 
                 }
@@ -81,7 +81,7 @@ public class Tool extends Item {
                 if (tile.getFixedObject() == null && tile.getTileType() == TileType.Soil) {
                     tile.setTileType(TileType.PlowedSoil);
                 }
-                player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 break;
             }
             case "Pickaxe": {
@@ -93,20 +93,20 @@ public class Tool extends Item {
                         playerSkill.setXp(playerSkill.getXp() + 10);
                         App.getMe().getSkillByName(Skills.Foraging.toString()).setXp(App.getMe().getSkillByName(Skills.Foraging.toString()).getXp() + 10);
                     }
-                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                    player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else if (tile.getFixedObject() == null && (tile.getTileType() == TileType.PlowedSoil || tile.getTileType() == TileType.WaterPlowedSoil
                         || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
                     tile.setTileType(TileType.Soil);
-                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                    player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
 //                } else if (tile.getFixedObject().getClass() == DroppedItem.class) {
 //                    tile.setFixedObject(null);
 //                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
-                } else if (tile.getFixedObject() instanceof Crop && !((Crop)tile.getFixedObject()).getCropType().oneTime) {
+                } else if (tile.getFixedObject() instanceof Crop && !((Crop) tile.getFixedObject()).getCropType().oneTime) {
                     tile.setFixedObject(null);
-                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                    player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
 
                 } else {
-                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
+                    player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                 }
                 break;
             }
@@ -124,7 +124,7 @@ public class Tool extends Item {
                         }
 //
                     }
-                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                    player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                     if (playerSkill.getLevel() == 3) {
                         player.addEnergy(1);
                     }
@@ -175,7 +175,7 @@ public class Tool extends Item {
                         tree.setHarvest(false);
                     }
                 }
-                player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 break;
             }
             case "Milk Pail": {
@@ -190,7 +190,7 @@ public class Tool extends Item {
                         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);
                     }
                 }
-                player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 break;
             }
             case "Shear": {
@@ -202,7 +202,7 @@ public class Tool extends Item {
                         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);
                     }
                 }
-                player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 break;
             }
 //            if (player.isFainted()) {

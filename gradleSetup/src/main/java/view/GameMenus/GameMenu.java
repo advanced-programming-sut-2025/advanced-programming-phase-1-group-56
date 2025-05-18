@@ -61,6 +61,7 @@ public class GameMenu implements AppMenu {
             System.out.println("X: " + App.getMe().getPosition().getX() + "Y:" + App.getMe().getPosition().getY());
             System.out.println("X: " + App.getMe().getPlayerFarm().getTiles()[0].length + "Y: " + App.getMe().getPlayerFarm().getTiles().length);
             System.out.println("HOME DOOR" +App.getMe().getDefaultHome().getDoorPosition().getX() + ":" + App.getMe().getDefaultHome().getDoorPosition().getY());
+            System.out.println(App.getMe().getPlayerFarm().getTileByPosition(App.getMe().getDefaultHome().getDoorPosition()).isWalkable());
             System.out.println("GREEN HOUSE DOOR" + App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition().getX() + ":" + App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition().getY());
             return true;
         } else if (input.matches("sp")) {
