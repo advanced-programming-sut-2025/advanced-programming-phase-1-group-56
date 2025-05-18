@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 
 public class FishingController extends CommandController {
     public static Result fishing(Matcher matcher) {
-        String fishingPoleName = matcher.group(1);
+        String fishingPoleName = matcher.group(1).trim();
         Item item = App.getMe().getInventory().findItemByName(fishingPoleName);
         if (item == null) {
             return new Result(false , "you don't have a this fishing pole");

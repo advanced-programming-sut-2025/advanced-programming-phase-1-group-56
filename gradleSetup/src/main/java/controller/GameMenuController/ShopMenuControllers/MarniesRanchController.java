@@ -34,8 +34,8 @@ public class MarniesRanchController implements ShopController {
 
     public static Result buyAnimal(Matcher matcher) {
         // Parse arguments
-        String typeName = matcher.group(1).trim();   // e.g. "COW"
-        String nickName = matcher.group(2).trim();                            // unique name
+        String typeName = matcher.group(1).trim().trim();   // e.g. "COW"
+        String nickName = matcher.group(2).trim().trim();                            // unique name
 
         // Validate nickname
         if (nickName.isEmpty()) {

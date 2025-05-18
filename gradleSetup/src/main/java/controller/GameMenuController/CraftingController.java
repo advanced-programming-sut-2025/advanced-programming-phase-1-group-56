@@ -23,7 +23,7 @@ public class CraftingController extends CommandController {
     }
 
     public static Result craftingItem(Matcher matcher) {
-        String ItemName = matcher.group(1);
+        String ItemName = matcher.group(1).trim();
         CraftingRecipesList recipe = returnCraftingRecipe(ItemName);
         if (recipe == null) {
             return new Result(true, "you can't Craft this Recipe!");
@@ -78,8 +78,8 @@ public class CraftingController extends CommandController {
     }
 
     public static Result placeItem(Matcher matcher) {
-        String itemName = matcher.group(1);
-        String direction = matcher.group(2);
+        String itemName = matcher.group(1).trim();
+        String direction = matcher.group(2).trim();
         Direction dir;
         Item item = returnInventoryItemByName(itemName);
         if (item == null) {
@@ -156,8 +156,8 @@ public class CraftingController extends CommandController {
 
 
     public static Result cheatAddItem(Matcher matcher) {
-        String itemName = matcher.group(1);
-        int count = Integer.parseInt(matcher.group(2));
+        String itemName = matcher.group(1).trim();
+        int count = Integer.parseInt(matcher.group(2).trim());
         EtcType type = (EtcType) ItemType.FindItemTypeByName(EtcType.values(), itemName);
         if (type != null) {
             App.getMe().getInventory().add(new Etc(type), 1);

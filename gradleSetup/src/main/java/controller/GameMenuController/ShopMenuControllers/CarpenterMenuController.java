@@ -39,8 +39,8 @@ public class CarpenterMenuController implements ShopController {
     }
 
     public static Result BuildABuilding(Matcher matcher) {
-        String name = matcher.group(1).toUpperCase();
-        String[] coords = matcher.group(2).split(",");
+        String name = matcher.group(1).trim().toUpperCase();
+        String[] coords = matcher.group(2).trim().split(",");
         int x, y;
         try {
             x = Integer.parseInt(coords[0].trim());

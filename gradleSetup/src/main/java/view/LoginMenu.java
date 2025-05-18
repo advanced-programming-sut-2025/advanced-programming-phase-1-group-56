@@ -20,18 +20,18 @@ public class LoginMenu implements AppMenu {
         String input = scanner.nextLine();
         Matcher matcher;
         User tmpUser;
-        Gson gson = new Gson();
-        try (Reader reader = new FileReader(FILE_PATH_FOR_STAY_LOGGED)) {
-            tmpUser = gson.fromJson(reader, User.class);
-            App.setCurrentUser(tmpUser);
-            if (!App.getCurrentUser().equals(tmpUser)) {
-                System.out.println("hello " + tmpUser.getUsername());
-            }
-        } catch (FileNotFoundException e) {
-            App.setCurrentUser(null);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+//        Gson gson = new Gson();
+//        try (Reader reader = new FileReader(FILE_PATH_FOR_STAY_LOGGED)) {
+//            tmpUser = gson.fromJson(reader, User.class);
+//            App.setCurrentUser(tmpUser);
+//            if (!App.getCurrentUser().equals(tmpUser)) {
+//                System.out.println("hello " + tmpUser.getUsername());
+//            }
+//        } catch (FileNotFoundException e) {
+//            App.setCurrentUser(null);
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
         if ((matcher = LoginMenuCommands.register.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageRegisterUser(matcher));
             if (LoginMenuController.manageRegisterUser(matcher).isSuccess()) {
@@ -44,7 +44,7 @@ public class LoginMenu implements AppMenu {
                 }
             }
         } else if ((matcher = LoginMenuCommands.goMenu.getMatcher(input)).find()) {
-            String menu = matcher.group(1);
+            String menu = matcher.group(1).trim();
             System.out.println(LoginMenuController.goToMenu(menu));
         } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher, true));
