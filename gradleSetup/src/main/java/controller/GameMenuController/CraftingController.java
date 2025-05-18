@@ -169,7 +169,7 @@ public class CraftingController extends CommandController {
 
     public static Result cheatAddItem(Matcher matcher) {
         String itemName = matcher.group(1).trim();
-        int count = Integer.parseInt(matcher.group(2));
+        int count = Integer.parseInt(matcher.group(2).trim());
         EtcType type = (EtcType) ItemType.FindItemTypeByName(EtcType.values(), itemName);
         if (type != null) {
             App.getMe().getInventory().add(new Etc(type), 1);
