@@ -52,7 +52,7 @@ public enum EtcObjectType {
     }
 
     public String getIcon() {
-        return icon;
+        return "ET";
     }
 
 }

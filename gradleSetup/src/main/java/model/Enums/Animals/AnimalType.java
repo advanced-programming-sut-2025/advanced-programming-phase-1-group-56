@@ -95,4 +95,6 @@ public enum AnimalType implements Saleable {
     }
 
 
+
+
 }

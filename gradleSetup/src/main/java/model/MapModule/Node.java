@@ -41,6 +41,7 @@ public abstract class Node {
 
 
     public ArrayList<Node> getNeighbours() {
+//        calculateNeighbours();
         return neighbours;
     }
 
