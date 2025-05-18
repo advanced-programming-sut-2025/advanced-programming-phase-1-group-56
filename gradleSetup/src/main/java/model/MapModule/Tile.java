@@ -59,8 +59,8 @@ public class Tile extends Node{
 
         int minX = 0;
         int minY = 0;
-        int maxX = grid.getTiles().length-1;
-        int maxY = grid.getTiles()[0].length - 1;
+        int maxY = grid.getTiles().length-1;
+        int maxX = grid.getTiles()[0].length - 1;
 
         if (position.getX() > minX) {
             nodes.add(grid.getTileByPosition(position.getX() - 1 , position.getY())); //west

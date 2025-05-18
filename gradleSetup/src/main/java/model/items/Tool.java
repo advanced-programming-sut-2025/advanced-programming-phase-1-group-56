@@ -120,6 +120,7 @@ public class Tool extends Item {
                         player.addEnergy(1);
                     }
                 }
+                break;
             }
             case "Fishing Pole": {
                 Skill playerSkill = player.getSkillByName(Skills.Fishing.toString());
@@ -137,6 +138,7 @@ public class Tool extends Item {
                 if (playerSkill.getLevel() == 3) {
                     player.addEnergy(1);
                 }
+                break;
             }
             case "Scythe": {
                 if (tile.getFixedObject().getClass() == Crop.class || tile.getFixedObject().getClass() == ForagingCrop.class) {
@@ -165,6 +167,7 @@ public class Tool extends Item {
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                break;
             }
             case "Milk Pail": {
                 if (tile.getFixedObject().getClass() == Animal.class) {
@@ -179,6 +182,7 @@ public class Tool extends Item {
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                break;
             }
             case "Shear": {
                 if (tile.getFixedObject().getClass() == Animal.class) {
@@ -190,10 +194,11 @@ public class Tool extends Item {
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                break;
             }
-            if (player.isFainted()) {
-                GameController.skipTurn();
-            }
+//            if (player.isFainted()) {
+//                GameController.skipTurn();
+//            }
         }
     }
 

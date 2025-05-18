@@ -45,7 +45,7 @@ public enum ForagingCropType {
 
 
     public String getIcon() {
-        return icon;
+        return "FP";
     }
 
 }
