@@ -64,6 +64,9 @@ public abstract class Item implements Saleable {
         } else {
             basePrice = -1;
 
+
+            //TODO debug
+
             //1
             NpcProduct product =
                     App.getCurrentUser().getCurrentGame().
@@ -71,6 +74,7 @@ public abstract class Item implements Saleable {
             if (product != null) {
                 basePrice = product.getPrice()/2;
             }
+
             //2
             product =
                     App.getCurrentUser().getCurrentGame().

@@ -9,7 +9,6 @@ public abstract class Building extends GameObject {
      protected GameLocation indoor;
      protected String name;
      protected Position doorPosition;
-     protected Position startPosition;
      protected final int height;
      protected final int width;
      protected final BuildingType buildingType;
@@ -36,14 +35,6 @@ public abstract class Building extends GameObject {
 
     public void setDoorPosition(Position doorPosition) {
         this.doorPosition = doorPosition;
-    }
-
-    public Position getStartPosition() {
-        return startPosition;
-    }
-
-    public void setStartPosition(Position startPosition) {
-        this.startPosition = startPosition;
     }
 
     public int getWidth() {

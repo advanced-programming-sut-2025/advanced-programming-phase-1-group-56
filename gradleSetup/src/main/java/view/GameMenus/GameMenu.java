@@ -3,6 +3,7 @@ package view.GameMenus;
 import controller.GameMenuController.*;
 import model.App;
 import model.Enums.commands.GameCommands.*;
+import model.MapModule.Position;
 import view.AppMenu;
 
 import java.util.Scanner;
@@ -56,6 +57,19 @@ public class GameMenu implements AppMenu {
         } else if (GameCommands.nextTurn.getMatcher(input).find()) {//skip turn
             System.out.println(GameController.manageNextTurn().message());
             return true;
+        } else if (input.equalsIgnoreCase("pwd")) {
+            System.out.println("X: " + App.getMe().getPosition().getX() + "Y:" + App.getMe().getPosition().getY());
+            System.out.println("X: " + App.getMe().getPlayerFarm().getTiles()[0].length + "Y: " + App.getMe().getPlayerFarm().getTiles().length);
+            return true;
+        } else if (input.matches("sp")) {
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            App.getMe().setPosition(new Position(x, y));
+            System.out.println(MapController.printMap());
+            return true;
+        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+            System.out.println(CraftingController.cheatAddItem(matcher));
+            return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
             boolean isCorrect;
             System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
@@ -66,7 +80,8 @@ public class GameMenu implements AppMenu {
                     System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                 }
             }
-            if (App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()) {
+            if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
+                App.getMe().setEnergyUsage(0);
                 GameController.manageNextTurn();
             }
             return true;
@@ -74,7 +89,7 @@ public class GameMenu implements AppMenu {
             System.out.println(MapController.printMap());
             return true;
         } else if ((GameCommands.helpReadingMap.getMatcher(input)).find()) {
-            System.out.println(MapController.manageHelpReadingMap());
+            System.out.println(MapController.printMapHint().message());
             return true;
         }
         return false;
@@ -85,7 +100,8 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ToolCommands.toolsEquip.getMatcher(input)) != null) {
             System.out.println(ToolsController.equipTool(matcher.group(1).trim()));
-            if (App.getMe().getEnergyUsage() == 50) {
+            if (App.getMe().getEnergyUsage() > 50) {
+                App.getMe().setEnergyUsage(0);
                 GameController.manageNextTurn();
             }
             return true;
@@ -100,7 +116,7 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = ToolCommands.toolsUse.getMatcher(input)) != null) {
             System.out.println(ToolsController.useTools(matcher.group(1).trim()));
-            if (App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()) {
+            if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
                 GameController.manageNextTurn();
             }
             return true;
@@ -122,7 +138,7 @@ public class GameMenu implements AppMenu {
         } else if ((EnergyAndSkillsCommands.showInventory.getMatcher(input)).find()) {
             System.out.println(InventoryController.inventoryShow());
             return true;
-        } else if ((EnergyAndSkillsCommands.trashInventory.getMatcher(input)).find()) {
+        } else if ((matcher = EnergyAndSkillsCommands.trashInventory.getMatcher(input)).find()) {
             System.out.println(InventoryController.manageInventoryTrash(matcher.group(1).trim(), matcher.group(2).trim()));
             return true;
         }
@@ -217,7 +233,7 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ArtisanCommands.use.getMatcher(input)) != null) {
             System.out.println(ArtisanController.useArtisan(matcher));
-            if (App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()) {
+            if (App.getMe().getEnergyUsage()>= 50 || App.getMe().isFainted()) {
                 GameController.manageNextTurn();
             }
             return true;

@@ -26,6 +26,10 @@ public class GameController extends CommandController {
             App.setCurrentMenu(Menu.mainMenu);
             Result res = saveGame();
             App.getCurrentUser().setCurrentGame(null);
+
+            for (Player player: App.getCurrentUser().getCurrentGame().getPlayers()){
+                player.getUser().setGold(Math.max(player.getGold(),player.getGold()));
+            }
             return res;
         }
         else {
@@ -58,7 +62,7 @@ public class GameController extends CommandController {
     }
 
     public static Result manageNextTurn() {
-        App.getMe().setEnergyUsage(0);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().setEnergyUsage(0);
         Game game =App.getCurrentUser().getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         int indexOfCurrent= game.getPlayers().indexOf(currentPlayer);

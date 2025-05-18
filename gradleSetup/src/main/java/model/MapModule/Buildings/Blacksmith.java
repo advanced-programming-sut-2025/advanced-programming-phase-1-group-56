@@ -28,4 +28,8 @@ public class Blacksmith extends Store {
 
     }
 
+    @Override
+    public ArrayList<NpcProduct> getDailyProductList() {
+        return dailyProductList;
+    }
 }

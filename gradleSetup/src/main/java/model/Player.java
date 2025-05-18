@@ -59,7 +59,7 @@ public class Player implements TimeObserver {
 
 
     //status
-    private boolean fainted;
+    private boolean fainted =false;
     private Energy energy;
     private int gold;
     private Position position;
@@ -113,7 +113,7 @@ public class Player implements TimeObserver {
         this.energy = new Energy(200);
         this.fainted = false;
         this.gold = 0;
-        this.position = new Position(0, 0);
+        this.position = new Position(20, 20);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();
@@ -443,5 +443,10 @@ public class Player implements TimeObserver {
 
     public void setEnergyUsage(int energyUsage) {
         this.energyUsage = energyUsage;
+    }
+
+    public void teleportToHome() {
+        this.setCurrentGameLocation(this.getPlayerFarm());
+        this.setPosition(new Position(getDefaultHome().getPosition().getX()+5, getDefaultHome().getPosition().getY() +12));
     }
 }
