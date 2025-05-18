@@ -20,7 +20,7 @@ import static model.MapModule.FarmLoader.loadTheFarm;
 import static model.MapModule.TownLoader.loadTheTown;
 
 public class PreGameMenuController extends CommandController {
-    public static Result manageNewGame(String usernamesStr, Scanner scanner) throws Exception {
+    public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
         if (usernamesStr.isEmpty()) {
             return new Result(false, "empty flag");
@@ -68,6 +68,12 @@ public class PreGameMenuController extends CommandController {
             }
         }
 
+        Game newGame = new Game(null, null, null, null);
+        App.getCurrentUser().setCurrentGame(newGame);
+        TimeSystem timeSystem = new TimeSystem(1, 9);
+        newGame.setTimeSystem(timeSystem);// 1/4 set
+
+
         ArrayList<Player> playersToPlay = new ArrayList<>();
         for (int i = 0; i < usersToPlay.size(); i++) {
             Player player = new Player(usersToPlay.get(i));
@@ -75,6 +81,14 @@ public class PreGameMenuController extends CommandController {
             player.setFarmPosition(FarmPosition.values()[positions.get(i) - 1]);
             //TODO check if it's ok
         }
+
+
+        WeatherState weatherState = new WeatherState();
+        newGame.setWeatherState(weatherState);// 2/4 set
+
+
+        newGame.setPlayers(playersToPlay);// 3/4
+
 
         GameMap map = new GameMap();
         Town town = loadTheTown();
@@ -86,13 +100,14 @@ public class PreGameMenuController extends CommandController {
                 playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
-
+                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
                 Farm farm2 = loadTheFarm2("Farm2");
                 farm2.setPosition(FarmPosition.UP);
                 playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
+                playersToPlay.get(1).setCurrentGameLocation(farm2);
 
 
                 map.setFarm1(farm1).setFarm2(farm2).setFarm3(null).setFarm4(null).setPelikanTown(town);
@@ -105,6 +120,7 @@ public class PreGameMenuController extends CommandController {
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
+                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
                 Farm farm2 = loadTheFarm2("Farm2");
@@ -113,6 +129,7 @@ public class PreGameMenuController extends CommandController {
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
                 playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
+                playersToPlay.get(1).setCurrentGameLocation(farm2);
 
 
                 Farm farm3 = loadTheFarm("Farm1");
@@ -121,6 +138,7 @@ public class PreGameMenuController extends CommandController {
                 farm3.setPlayer(playersToPlay.get(2));
                 playersToPlay.get(2).setPlayerFarm(farm3);
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
+                playersToPlay.get(2).setCurrentGameLocation(farm3);
 
 
                 map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(null).setPelikanTown(town);
@@ -133,6 +151,8 @@ public class PreGameMenuController extends CommandController {
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
+                playersToPlay.get(0).setCurrentGameLocation(farm1);
+
 
 
                 Farm farm2 = loadTheFarm2("Farm2");
@@ -141,6 +161,8 @@ public class PreGameMenuController extends CommandController {
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
                 playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
+                playersToPlay.get(1).setCurrentGameLocation(farm2);
+
 
 
                 Farm farm3 = loadTheFarm("Farm1");
@@ -149,6 +171,7 @@ public class PreGameMenuController extends CommandController {
                 farm3.setPlayer(playersToPlay.get(2));
                 playersToPlay.get(2).setPlayerFarm(farm3);
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
+                playersToPlay.get(2).setCurrentGameLocation(farm3);
 
 
                 Farm farm4 = loadTheFarm2("Farm2");
@@ -157,6 +180,7 @@ public class PreGameMenuController extends CommandController {
                 farm4.setPlayer(playersToPlay.get(3));
                 playersToPlay.get(3).setPlayerFarm(farm4);
                 playersToPlay.get(3).setDefaultHome(farm4.getDefaultHome());
+                playersToPlay.get(3).setCurrentGameLocation(farm4);
 
 
                 map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(farm4).setPelikanTown(town);
@@ -167,9 +191,9 @@ public class PreGameMenuController extends CommandController {
             }
             break;
         }
-        TimeSystem timeSystem = new TimeSystem(1, 9);
-        WeatherState weatherState = new WeatherState();
-        Game newGame = new Game(playersToPlay, map, timeSystem, weatherState);
+
+        newGame.setGameMap(map);// 4/4
+
 
         //FriendShips
         for (Player player1 : playersToPlay) {
@@ -177,10 +201,10 @@ public class PreGameMenuController extends CommandController {
                 player1.getFriendShips().add(new Friendship(player2));
             }
         }
-        App.getCurrentUser().setCurrentGame(newGame);
+
         App.getCurrentUser().setGameId(newGame.getGameId());
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
-        App.getCurrentUser().getAllGamesId().add(newGame.getGameId());
+//        App.getCurrentUser().getAllGamesId().add(newGame.getGameId());
         GivePlayersInitialItem(newGame);
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
@@ -202,6 +226,8 @@ public class PreGameMenuController extends CommandController {
             player.getInventory().add(new Tool(ToolType.HOE_WOODEN),1);
             player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
             player.addGold(100);
+            player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
+            player.teleportToHome();
         }
     }
 

@@ -31,7 +31,7 @@ public class TimeAndDateController extends CommandController {
     }
     public static Result showCurrentSeason() {
         Seasons season = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
-        return new Result(true,"Day Of Week = " + season);
+        return new Result(true,"Current Season = " + season);
     }
 
     //CHEAT

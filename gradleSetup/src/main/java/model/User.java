@@ -20,7 +20,7 @@ public class User {
     private Game currentGame;
     private int numOfGames;
     private int highScore;
-    private final ArrayList<String> allGamesId = new ArrayList<>();
+    //private final ArrayList<String> allGamesId = new ArrayList<>();
     private int gold = 0;
 
     public User(String username, String name, String password, String salt, String email, int securityQuestion,
@@ -143,9 +143,9 @@ public class User {
         this.gameId = gameId;
     }
 
-    public ArrayList<String> getAllGamesId() {
-        return allGamesId;
-    }
+//    public ArrayList<String> getAllGamesId() {
+//        return allGamesId;
+//    }
     public int getGold() {
         return gold;
     }

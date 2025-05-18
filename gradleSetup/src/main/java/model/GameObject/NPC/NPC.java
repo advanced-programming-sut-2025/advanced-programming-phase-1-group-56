@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class NPC extends LivingEntity implements TimeObserver {
     private final NpcType type;
-    private ArrayList<NpcFriendship> friendships;
+    private final ArrayList<NpcFriendship> friendships = new ArrayList<>();
 
     public NPC(Position position, NpcType type) {
         super(position, false);

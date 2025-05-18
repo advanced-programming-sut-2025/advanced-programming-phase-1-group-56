@@ -148,7 +148,6 @@ public class CarpenterMenuController implements ShopController {
         me.addGold(-product.getPrice());
         product.setRemainingStock(product.getRemainingStock() - 1);
 
-
         return new Result(true, name + " built at (" + x + "," + y + ").");
     }
 

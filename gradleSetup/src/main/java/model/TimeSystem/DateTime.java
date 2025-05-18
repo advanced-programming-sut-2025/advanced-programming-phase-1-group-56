@@ -36,7 +36,8 @@ public class DateTime {
     }
 
     public void addDay(int day) {
-        while (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDay() < day + this.day) {
+        int destDay = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDay() + day;
+        while (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getDay() < destDay) {
             App.getCurrentUser().getCurrentGame().getTimeSystem().nextHour();
         }
     }
