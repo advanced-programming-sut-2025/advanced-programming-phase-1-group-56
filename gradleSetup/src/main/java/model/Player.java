@@ -53,8 +53,8 @@ public class Player implements TimeObserver {
 
     //Authorities
     private Inventory inventory;
-    private BackPackType currentBackpack;
-    private TrashcanType currentTrashcan;
+    private BackPackType currentBackpack = BackPackType.InitialBackpack;
+    private TrashcanType currentTrashcan = TrashcanType.initialTrashcan;
     private Item currentItem;
 
 
@@ -91,6 +91,7 @@ public class Player implements TimeObserver {
         this.user = user;
         this.userId = user.getUserId();
         //id ok
+        currentBackpack = BackPackType.InitialBackpack;
         FarmingSkill farmingSkill = new FarmingSkill(Skills.Farming, 0);
         ForagingSkill foragingSkill = new ForagingSkill(Skills.Foraging, 0);
         MiningSkill miningSkill = new MiningSkill(Skills.Mining, 0);

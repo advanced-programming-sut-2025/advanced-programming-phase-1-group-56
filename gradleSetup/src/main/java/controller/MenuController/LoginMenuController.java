@@ -24,8 +24,8 @@ public class LoginMenuController extends CommandController {
     public static Result manageRegisterUser(Matcher matcher) {
         Random random = new Random();
         String username = matcher.group(1).trim();
-        String password = matcher.group(2).trim();
-        String rePassword = matcher.group(3);
+        String password = matcher.group(2).trim().trim();
+        String rePassword = matcher.group(3).trim();
         String nickName = matcher.group(4);
         String email = matcher.group(5);
         String gender = matcher.group(6);
@@ -114,7 +114,7 @@ public class LoginMenuController extends CommandController {
 
     public static Result manageLoginUser(Matcher matcher, boolean stayLoggedIn) {
         String username = matcher.group(1).trim();
-        String password = matcher.group(2);
+        String password = matcher.group(2).trim();
 
         User user = returnUser(username);
         if (user == null) {
@@ -163,8 +163,8 @@ public class LoginMenuController extends CommandController {
     public static Result peakSecurityQuestion(Matcher matcher1, Matcher matcher) {
         Random random = new Random();
         String username = matcher.group(1).trim().trim();
-        String password = matcher.group(2);
-        String rePassword = matcher.group(3).trim();
+        String password = matcher.group(2).trim();
+        String rePassword = matcher.group(3).trim().trim();
         String nickName = matcher.group(4).trim();
         String email = matcher.group(5).trim();
         String gender = matcher.group(6).trim();
