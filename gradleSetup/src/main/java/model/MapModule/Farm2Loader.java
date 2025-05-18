@@ -113,7 +113,7 @@ public class Farm2Loader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new Home(new Position(tx, ty), false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new Home(new Position(tx, ty), false, "PlayerHome", new Position(tx+4, ty+5), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         case "greenhouse" -> {
@@ -128,7 +128,7 @@ public class Farm2Loader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse(new Position(tx, ty), false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new GreenHouse(new Position(tx, ty), false, "GreenHouse",new Position(tx+3,ty+5), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         //TODO
