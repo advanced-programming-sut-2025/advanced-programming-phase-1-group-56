@@ -22,7 +22,8 @@ public class Tile extends Node{
     }
 
     public boolean isWalkable() {
-        return isWalkable && fixedObject.isWalkable();
+        boolean objectWalk = fixedObject == null || fixedObject.isWalkable();
+        return isWalkable && objectWalk;
     }
 
     public Position getPosition() {

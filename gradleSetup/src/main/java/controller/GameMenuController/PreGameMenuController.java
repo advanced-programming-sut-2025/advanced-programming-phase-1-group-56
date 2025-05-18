@@ -20,7 +20,7 @@ import static model.MapModule.FarmLoader.loadTheFarm;
 import static model.MapModule.TownLoader.loadTheTown;
 
 public class PreGameMenuController extends CommandController {
-    public static Result manageNewGame(String usernamesStr, Scanner scanner) throws Exception {
+    public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
         if (usernamesStr.isEmpty()) {
             return new Result(false, "empty flag");
@@ -68,6 +68,12 @@ public class PreGameMenuController extends CommandController {
             }
         }
 
+        Game newGame = new Game(null, null, null, null);
+        App.getCurrentUser().setCurrentGame(newGame);
+        TimeSystem timeSystem = new TimeSystem(1, 9);
+        newGame.setTimeSystem(timeSystem);// 1/4 set
+
+
         ArrayList<Player> playersToPlay = new ArrayList<>();
         for (int i = 0; i < usersToPlay.size(); i++) {
             Player player = new Player(usersToPlay.get(i));
@@ -75,6 +81,14 @@ public class PreGameMenuController extends CommandController {
             player.setFarmPosition(FarmPosition.values()[positions.get(i) - 1]);
             //TODO check if it's ok
         }
+
+
+        WeatherState weatherState = new WeatherState();
+        newGame.setWeatherState(weatherState);// 2/4 set
+
+
+        newGame.setPlayers(playersToPlay);// 3/4
+
 
         GameMap map = new GameMap();
         Town town = loadTheTown();
@@ -167,9 +181,9 @@ public class PreGameMenuController extends CommandController {
             }
             break;
         }
-        TimeSystem timeSystem = new TimeSystem(1, 9);
-        WeatherState weatherState = new WeatherState();
-        Game newGame = new Game(playersToPlay, map, timeSystem, weatherState);
+
+        newGame.setGameMap(map);// 4/4
+
 
         //FriendShips
         for (Player player1 : playersToPlay) {
@@ -177,10 +191,10 @@ public class PreGameMenuController extends CommandController {
                 player1.getFriendShips().add(new Friendship(player2));
             }
         }
-        App.getCurrentUser().setCurrentGame(newGame);
+
         App.getCurrentUser().setGameId(newGame.getGameId());
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
-        App.getCurrentUser().getAllGamesId().add(newGame.getGameId());
+//        App.getCurrentUser().getAllGamesId().add(newGame.getGameId());
         GivePlayersInitialItem(newGame);
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));

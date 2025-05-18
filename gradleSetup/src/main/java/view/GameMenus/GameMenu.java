@@ -13,7 +13,8 @@ public class GameMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
 
-        if (!(GameCheck(input, scanner) ||
+        if (!(
+                GameCheck(input, scanner) ||
                 DateTimeCheck(input) ||
                 WeatherCheck(input) ||
                 EnergyAndSkillsCheck(input) ||
@@ -23,7 +24,8 @@ public class GameMenu implements AppMenu {
                 ArtisanCheck(input) ||
                 TradeCheck(input) ||
                 RelationShipCheck(input) ||
-                NPCCheck(input))
+                NPCCheck(input)
+        )
         ) {
             System.out.println("Invalid command!");
         }

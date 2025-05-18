@@ -23,8 +23,9 @@ public class GameController extends CommandController {
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer());
         System.out.println("Going to exit game...");
         App.setCurrentMenu(Menu.mainMenu);
+        Result res =  saveGame();
         App.getCurrentUser().setCurrentGame(null);
-        return saveGame();
+        return res;
     }
 
     public static Result terminateGame(Scanner scanner) {

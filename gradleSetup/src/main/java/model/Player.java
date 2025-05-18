@@ -391,7 +391,7 @@ public class Player implements TimeObserver {
                 energy.setEnergy(energy.getMaxEnergy());
             }
         } else {
-            if (getCurrentBuff().getRemainingTime() == 0) {
+            if (getCurrentBuff() != null && getCurrentBuff().getRemainingTime() == 0) {
                 this.setCurrentBuff(null);
             }
         }

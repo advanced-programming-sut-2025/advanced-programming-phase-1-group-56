@@ -17,11 +17,16 @@ import java.io.FileReader;
 public class FarmLoader {
     private static final int tileSize = 16;
 
-    public static Tile[][] load(String jsonPath,Farm farm) throws FileNotFoundException {
-        JsonObject map = JsonParser
+    public static Tile[][] load(String jsonPath,Farm farm) {
+        JsonObject map = null;
+        try{
+        map = JsonParser
                 .parseReader(new FileReader(jsonPath))
                 .getAsJsonObject();
-
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
         int width = map.get("width").getAsInt();
         int height = map.get("height").getAsInt();
 
@@ -144,8 +149,8 @@ public class FarmLoader {
                             && tx >= 0 && tx + objWidth < width) {
                         for (int i = ty; i < ty + objHeight; i++) {
                             for (int j = tx; j < tx + objWidth; j++) {
-                                System.out.println(i);
-                                System.out.println(j);
+//                                System.out.println(i);
+//                                System.out.println(j);
                                 tiles[i][j].setFixedObject(go);
                             }
                         }
@@ -156,9 +161,10 @@ public class FarmLoader {
         return tiles;
     }
 
-    public static Farm loadTheFarm(String farmName) throws Exception {
+    public static Farm loadTheFarm(String farmName) {
         Farm farm = new Farm();
         Tile[][] farmTileSet = load(farmName + ".tmj",farm);
+        farm.setTiles(farmTileSet);
         return farm;
     }
 
