@@ -15,16 +15,16 @@ public class GameMenu implements AppMenu {
 
         if (!(
                 GameCheck(input, scanner) ||
-                DateTimeCheck(input) ||
-                WeatherCheck(input) ||
-                EnergyAndSkillsCheck(input) ||
-                ToolsCheck(input) ||
-                FarmingCheck(input) ||
-                HusbandryCheck(input) ||
-                ArtisanCheck(input) ||
-                TradeCheck(input) ||
-                RelationShipCheck(input) ||
-                NPCCheck(input)
+                        DateTimeCheck(input) ||
+                        WeatherCheck(input) ||
+                        EnergyAndSkillsCheck(input) ||
+                        ToolsCheck(input) ||
+                        FarmingCheck(input) ||
+                        HusbandryCheck(input) ||
+                        ArtisanCheck(input) ||
+                        TradeCheck(input) ||
+                        RelationShipCheck(input) ||
+                        NPCCheck(input)
         )
         ) {
             System.out.println("Invalid command!");

@@ -145,7 +145,7 @@ public class Tool extends Item {
                         player.getInventory().add(new Food(crop.getCropType().cropItem), 1);
                         if (crop.isIs1time()) {
                             tile.setFixedObject(null);
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getObservers().remove(crop);
+                            App.getCurrentUser().getCurrentGame().getTimeSystem().removeObserver(crop);
                         } else {
                             crop.setHarvest(false);
                             crop.setHarvestDayRegrowth(0);
