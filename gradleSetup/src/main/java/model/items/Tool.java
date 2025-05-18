@@ -141,7 +141,7 @@ public class Tool extends Item {
                         FishType fishType = FishType.getCheapestFishOfSeason(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
                         player.getInventory().add(new Fish(fishType), quantity);
                     } else {
-                        player.getInventory().add(new Fish(FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason()).get((int) (Math.random() * FishType.values().length))), quantity);
+                        player.getInventory().add(new Fish(FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason()).get(2)), quantity);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
