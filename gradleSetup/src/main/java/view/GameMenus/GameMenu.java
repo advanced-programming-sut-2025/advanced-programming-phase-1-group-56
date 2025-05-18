@@ -41,8 +41,8 @@ public class GameMenu implements AppMenu {
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
                 System.out.println(e.getMessage());
-                return true;
             }
+            return true;
         } else if (PreGameMenuCommands.loadGame.getMatcher(input) != null) {//load game
             System.out.println(PreGameMenuController.loadGame().message());
             return true;
@@ -60,6 +60,8 @@ public class GameMenu implements AppMenu {
         } else if (input.equalsIgnoreCase("pwd")) {
             System.out.println("X: " + App.getMe().getPosition().getX() + "Y:" + App.getMe().getPosition().getY());
             System.out.println("X: " + App.getMe().getPlayerFarm().getTiles()[0].length + "Y: " + App.getMe().getPlayerFarm().getTiles().length);
+            System.out.println("HOME DOOR" +App.getMe().getDefaultHome().getDoorPosition().getX() + ":" + App.getMe().getDefaultHome().getDoorPosition().getY());
+            System.out.println("GREEN HOUSE DOOR" + App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition().getX() + ":" + App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition().getY());
             return true;
         } else if (input.matches("sp")) {
             int x = scanner.nextInt();
@@ -116,9 +118,9 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = ToolCommands.toolsUse.getMatcher(input)) != null) {
             System.out.println(ToolsController.useTools(matcher.group(1).trim()));
-            if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
-                GameController.manageNextTurn();
-            }
+//            if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
+//                GameController.manageNextTurn();
+//            }
             return true;
         }
         return false;
@@ -222,7 +224,10 @@ public class GameMenu implements AppMenu {
         } else if ((matcher = HusbandryCommands.collectProduce.getMatcher(input)) != null) {
             System.out.println(HusbandryController.collectProduce(matcher));
             return true;
-        } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
+        }  else if ((matcher = HusbandryCommands.fishing.getMatcher(input)) != null) {
+            System.out.println(FishingController.fishing(matcher));
+            return true;
+        }else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
             System.out.println(HusbandryController.sellAnimal(matcher));
             return true;
         }

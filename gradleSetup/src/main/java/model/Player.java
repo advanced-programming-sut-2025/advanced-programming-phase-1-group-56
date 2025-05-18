@@ -59,7 +59,7 @@ public class Player implements TimeObserver {
 
 
     //status
-    private boolean fainted =false;
+    private boolean fainted = false;
     private Energy energy;
     private int gold;
     private Position position;
@@ -225,7 +225,7 @@ public class Player implements TimeObserver {
     }
 
     public Building getDefaultHome() {
-        return defaultHome;
+        return playerFarm.getDefaultHome();
     }
 
     public void setDefaultHome(Building defaultHome) {
@@ -413,7 +413,7 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(Math.min((energy.getEnergy() - amount), 0));
+        energy.setEnergy(Math.max((energy.getEnergy() - amount), 0));
         if (energy.getEnergy() <= 0) {
             fainted = true;
         }

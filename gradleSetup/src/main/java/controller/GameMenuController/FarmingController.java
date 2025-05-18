@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
 
 public class FarmingController extends CommandController {
 
-    public static void manageStrikeThunder(Farm farm){
+    public static void manageStrikeThunder(Farm farm) {
         if (App.getCurrentUser().getCurrentGame().getWeatherState().shouldStrikeThunder()) {
             for (int i = 0; i < 3; i++) {
                 int randX = (int) (Math.random() * farm.getTiles()[0].length);
@@ -34,6 +34,7 @@ public class FarmingController extends CommandController {
             }
         }
     }
+
     public static Result craftInfo(Matcher matcher) {
         String name = matcher.group(1).trim();
         FruitType fruitType = null;
@@ -141,13 +142,12 @@ public class FarmingController extends CommandController {
     }
 
     public static void managePlaceMineral(Farm farm) {
-        Random random = new Random();
-        int randomMinerals =  random.nextInt(MineralItemType.values().length);
+        int randomMinerals = (int) (Math.random() * (MineralItemType.values().length));
         MineralItemType mineralItemType = MineralItemType.values()[randomMinerals];
         for (int i = 0; i < farm.getTiles().length; i++) {
             for (int j = 0; j < farm.getTiles()[i].length; j++) {
                 Tile tile = farm.getTiles()[i][j];
-                if (tile.getFixedObject() == null && random.nextInt(4) == 0 && tile.getTileType() == TileType.Mine) {
+                if (tile.getFixedObject() == null && (int)(Math.random()* 20) == 0 && tile.getTileType() == TileType.Mine) {
                     tile.setFixedObject(new ForagingMineral(false, new Position(i, j), mineralItemType));
                 }
             }
@@ -171,23 +171,23 @@ public class FarmingController extends CommandController {
     public static Result manageCrows(Farm farm) {
         Random random = new Random();
         int randomInt = random.nextInt(3);
-        if(randomInt == 0) {
+        if (randomInt == 0) {
             int count = 0;
-            for(int i = 0 ; i < farm.getAllGameObjects().size() ; i++) {
-                if(farm.getAllGameObjects().get(i) instanceof Crop||farm.getAllGameObjects().get(i) instanceof Tree) {
+            for (int i = 0; i < farm.getAllGameObjects().size(); i++) {
+                if (farm.getAllGameObjects().get(i) instanceof Crop || farm.getAllGameObjects().get(i) instanceof Tree) {
                     count++;
                 }
             }
-            for(int i = 0 ; i < count ; i++) {
-                if (farm.getAllGameObjects().get(i) instanceof Crop && !((Crop)farm.getAllGameObjects().get(i)).isProtected()) {
+            for (int i = 0; i < count; i++) {
+                if (farm.readAllGameObjectsFromTiles().get(i) instanceof Crop && !((Crop) farm.getAllGameObjects().get(i)).isProtected()) {
                     farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
-                }else if(farm.getAllGameObjects().get(i) instanceof Tree && !((Tree)farm.getAllGameObjects().get(i)).isProtected()) {
-                    ((Tree)farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
-                    ((Tree)farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
+                } else if (farm.readAllGameObjectsFromTiles().get(i) instanceof Tree && !((Tree) farm.getAllGameObjects().get(i)).isProtected()) {
+                    ((Tree) farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
+                    ((Tree) farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
                 }
-                if(i+16 < count){
-                    i+=16;
-                }else{
+                if (i + 16 < count) {
+                    i += 16;
+                } else {
                     break;
                 }
             }
@@ -199,16 +199,13 @@ public class FarmingController extends CommandController {
         String seedName = matcher.group(1).trim();
         String direction = matcher.group(2);
         Direction dir;
-        SeedType seed = getSeedTypeFromString(seedName);
+        SeedType seed = SeedType.fromName(seedName);
         Item seed1 = getItemFromString(seedName);
-        if (seed == null) {
-            return new Result(false, "this seed does not exist!");
-        }
-        if (seed1 == null) {
+        if (seed == null || seed1 == null) {
             return new Result(false, "this seed does not exist!");
         } else if ((dir = getDirectionFromString(direction)) == null) {
             return new Result(false, "this direction does not exist!");
-        } else if (!(App.getMe().getCurrentGameLocation() instanceof Farm || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor())){
+        } else if (!(App.getMe().getCurrentGameLocation() instanceof Farm || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor())) {
             return new Result(false, "you are not in Green House or Farm!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
@@ -246,38 +243,48 @@ public class FarmingController extends CommandController {
             default:
                 break;
         }
-        if (containsSeason(seed.season,App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
+        if (containsSeason(seed.season, App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
             if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
                     || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()))
                 return new Result(false, "you can't plant in this season!");
         }
 
 
-        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.PlowedSoil
-        ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.WaterPlowedSoil
-        ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.Deluxe_Retaining_Soil
-        ||App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() != TileType.Speed_Gro ) {
+        if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.PlowedSoil
+                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.WaterPlowedSoil
+                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.Deluxe_Retaining_Soil
+                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.Speed_Gro)) {
             return new Result(false, "you can't plant in this tile!");
         }
 
-        if (!App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) return new Result(false, "you can't plant in this tile!");
+        if (!App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable())
+            return new Result(false, "you can't plant in this tile!");
         SeedType seed2 = seed;
-        if(seed.name.equals(SeedType.MIXED.name())) {
+        if (seed.name.equals(SeedType.MIXED.name())) {
             seed2 = manageMixedSeed();
         }
         if (seed2.cropType instanceof CropType) {
-            Crop crop =  new Crop(true, new Position(x, y), (CropType) seed.cropType);
-            if(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
-                    || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()){
-                crop.setInGreenHouse(true);
-                crop.setProtected(true);
+            Crop crop = new Crop(true, new Position(x, y), (CropType) seed.cropType);
+            if (App.getMe().getPartner() == null) {
+                if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()) {
+                    crop.setInGreenHouse(true);
+                    crop.setProtected(true);
+                }
+            } else {
+                if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
+                        || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()) {
+                    crop.setInGreenHouse(true);
+                    crop.setProtected(true);
+                }
             }
+
+
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(crop);
         } else if (seed2.cropType instanceof TreeType) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Tree(((TreeType) seed.cropType), new Position(x, y)));
         }
-        App.getMe().getInventory().remove(seed1,1);
-        App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp()+5);
+        App.getMe().getInventory().remove(seed1, 1);
+        App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);
         return new Result(true, "you successfully planted in this tile!");
     }
 
@@ -293,17 +300,18 @@ public class FarmingController extends CommandController {
             for (int i = 0; i < tree.getCurrentStage(); i++) {
                 remainHarvestTime -= tree.getTreeType().stages;
             }
+            tmpString.append("days with no water : ").append(tree.getDaysWithNoWater()).append("\n");
             tmpString.append("remaining Harvest time : ").append(remainHarvestTime).append("\n");
             tmpString.append("Current Stage : ").append(tree.getCurrentStage()).append("\n");
             tmpString.append("is Watered Today : ").append(tree.isWateredToday()).append("\n");
             tmpString.append("is fertilized Today : ").append(tree.isFertilizerToday()).append("\n");
-        } else if (tile.getFixedObject() instanceof Crop) {
-            Crop crop = (Crop) tile.getFixedObject();
+        } else if (tile.getFixedObject() instanceof Crop crop) {
             tmpString.append("Name: ").append(crop.getCropType().name()).append("\n");
             int remainHarvestTime = crop.getCropType().totalHarvestTime;
             for (int i = 0; i < crop.getCurrentStage(); i++) {
                 remainHarvestTime -= crop.getCropType().stages[i];
             }
+            tmpString.append("days with no water : ").append(crop.getDaysWithNoWater()).append("\n");
             tmpString.append("remaining Harvest time : ").append(remainHarvestTime).append("\n");
             tmpString.append("Current Stage : ").append(crop.getCurrentStage()).append("\n");
             tmpString.append("is Watered Today : ").append(crop.isWateredToday()).append("\n");
@@ -311,7 +319,7 @@ public class FarmingController extends CommandController {
         } else {
             return new Result(false, "you haven't planted in this tile!");
         }
-        return new  Result(true, tmpString.toString());
+        return new Result(true, tmpString.toString());
     }
 
     public static Result manageFertilize(Matcher matcher) {
@@ -360,50 +368,50 @@ public class FarmingController extends CommandController {
                 break;
         }
         if ((item.getName().equals(EtcType.SPEED_GRO.name()) || item.getName().equals(EtcType.DELUXE_SPEED_GRO.getName()))
-                && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.WaterPlowedSoil)
-                        || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.PlowedSoil))) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).setTileType(TileType.Speed_Gro);
-            GameObject object = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject();
-            if(object instanceof Tree) {
-                ((Tree)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setFertilizerToday(true);
-                ((Tree)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setSpeedGro(true);
-            } else if(object instanceof Crop) {
-                ((Crop)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setFertilizerToday(true);
-                ((Crop)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setSpeedGro(true);
+                && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.WaterPlowedSoil)
+                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.PlowedSoil))) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setTileType(TileType.Speed_Gro);
+            GameObject object = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject();
+            if (object instanceof Tree) {
+                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setFertilizerToday(true);
+                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setSpeedGro(true);
+            } else if (object instanceof Crop) {
+                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setFertilizerToday(true);
+                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setSpeedGro(true);
             }
 
-        } else if ((item.getName().equals(EtcType.DELUXE_RETAINING_SOIL.name())||item.getName().equals(EtcType.BASIC_RETAINING_SOIL.name()) || (item.getName().equals(EtcType.QUALITY_RETAINING_SOIL.name())))
-                && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.WaterPlowedSoil)
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getTileType().equals(TileType.PlowedSoil))){
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).setTileType(TileType.Deluxe_Retaining_Soil);
-            GameObject object = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject();
-            if(object instanceof Tree) {
-                ((Tree)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setFertilizerToday(true);
-                ((Tree)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setDeluxeRetainingSoil(true);
-            } else if(object instanceof Crop) {
-                ((Crop)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setFertilizerToday(true);
-                ((Crop)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x,y).getFixedObject()).setDeluxeRetainingSoil(true);
+        } else if ((item.getName().equals(EtcType.DELUXE_RETAINING_SOIL.name()) || item.getName().equals(EtcType.BASIC_RETAINING_SOIL.name()) || (item.getName().equals(EtcType.QUALITY_RETAINING_SOIL.name())))
+                && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.WaterPlowedSoil)
+                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.PlowedSoil))) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setTileType(TileType.Deluxe_Retaining_Soil);
+            GameObject object = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject();
+            if (object instanceof Tree) {
+                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setFertilizerToday(true);
+                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setDeluxeRetainingSoil(true);
+            } else if (object instanceof Crop) {
+                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setFertilizerToday(true);
+                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject()).setDeluxeRetainingSoil(true);
             }
         }
 
 
-        return new Result(true,"You fertilized!");
+        return new Result(true, "You fertilized!");
     }
 
-    public static void managePlaceRandomCropOrSeed(Farm farm){
+    public static void managePlaceRandomCropOrSeed(Farm farm) {
         Random random = new Random();
         Seasons currentSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
 
         int randomSeed = random.nextInt(SeedType.values().length);
         SeedType seedType = SeedType.values()[randomSeed];
-        while (!seedType.name.contains("Seeds") || !containsSeason(seedType.season,currentSeason )) {
+        while (!seedType.name.contains("Seeds") || !containsSeason(seedType.season, currentSeason)) {
             randomSeed = random.nextInt(SeedType.values().length);
             seedType = SeedType.values()[randomSeed];
         }
 
         int randomCrop = random.nextInt(ForagingCropType.values().length);
         ForagingCropType type = ForagingCropType.values()[randomCrop];
-        while (containsSeason(type.season,currentSeason)) {
+        while (containsSeason(type.season, currentSeason)) {
             randomCrop = random.nextInt(ForagingCropType.values().length);
             type = ForagingCropType.values()[randomCrop];
         }
@@ -424,7 +432,7 @@ public class FarmingController extends CommandController {
                             if (seedType.cropType instanceof CropType) {
                                 tile.setFixedObject(new Crop(true, pos, (CropType) seedType.cropType));
                             } else if (seedType.cropType instanceof TreeType) {
-                                tile.setFixedObject(new Tree( (TreeType) seedType.cropType, pos));
+                                tile.setFixedObject(new Tree((TreeType) seedType.cropType, pos));
                             }
                         }
                     }
@@ -435,10 +443,10 @@ public class FarmingController extends CommandController {
 
     public static Result howMuchWaterIsExist() {
         Item item = getItemFromString("Watering Can");
-        if (item  == null) {
-            return new  Result(false,"You don't have any water in this location!");
+        if (item == null) {
+            return new Result(false, "You don't have any water in this location!");
         }
-        return new Result(true,"remaining water capacity :"+((Tool)App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().findItemByName("Watering Can")).getCapacity());
+        return new Result(true, "remaining water capacity :" + ((Tool) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().findItemByName("Watering Can")).getCapacity());
     }
 
     private static Direction getDirectionFromString(String input) {
@@ -449,17 +457,8 @@ public class FarmingController extends CommandController {
         }
     }
 
-    private static SeedType getSeedTypeFromString(String input) {
-        for (SeedType seedType1 : SeedType.values()) {
-            if (input.equals(seedType1.name())) {
-                return seedType1;
-            }
-        }
-        return null;
-
-    }
     private static Item getItemFromString(String input) {
-        for(Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()){
+        for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
             Item item = slot.getItem();
             if (item.getName().equals(input)) {
                 return item;
@@ -469,8 +468,8 @@ public class FarmingController extends CommandController {
     }
 
     private static boolean containsSeason(Seasons[] seasons, Seasons season) {
-        for(Seasons season1 : seasons){
-            if(season.equals(season1)) return true;
+        for (Seasons season1 : seasons) {
+            if (season.equals(season1)) return true;
         }
         return false;
     }
