@@ -148,6 +148,9 @@ public class MapController extends CommandController {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
             if (player.getCurrentGameLocation() instanceof Farm) {
                 player.setCurrentGameLocation(game.getGameMap().getPelikanTown());
+                if ((player.getFarmPosition() == FarmPosition.LEFT)){
+
+                }
             } else {
                 if (player.getPosition().getX() == 0 && (player.getPosition().getY() == 52 || player.getPosition().getY() == 53 || player.getPosition().getY() == 54)) {
                     if (player.getFarmPosition() == FarmPosition.LEFT) {

@@ -91,7 +91,7 @@ public class GameMenu implements AppMenu {
         } else if ((GameCommands.helpReadingMap.getMatcher(input)).find()) {
             System.out.println(MapController.printMapHint().message());
             return true;
-        }
+        } else if ()
         return false;
 
     }

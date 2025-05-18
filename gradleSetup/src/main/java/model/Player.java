@@ -413,7 +413,7 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(int amount) {
-        energy.setEnergy(Math.min((energy.getEnergy() - amount), 0));
+        energy.setEnergy(Math.max((energy.getEnergy() - amount), 0));
         if (energy.getEnergy() <= 0) {
             fainted = true;
         }
