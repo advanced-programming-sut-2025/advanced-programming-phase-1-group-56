@@ -16,13 +16,7 @@ public class GameLocation extends Network {
 
 
     public Tile getTileByPosition(int x, int y){
-        for(Tile[] tx : tiles){
-            for (Tile ty : tx){
-                if(ty.getPosition().getX() == x && ty.getPosition().getY() == y)
-                    return ty;
-            }
-        }
-        return null;
+        return tiles[y][x];
     }
 
     @Override

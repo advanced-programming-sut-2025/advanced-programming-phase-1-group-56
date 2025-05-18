@@ -447,6 +447,6 @@ public class Player implements TimeObserver {
 
     public void teleportToHome() {
         this.setCurrentGameLocation(this.getPlayerFarm());
-        this.setPosition(new Position(getDefaultHome().getPosition().getX()-16, getDefaultHome().getPosition().getY() + 16));
+        this.setPosition(new Position(getDefaultHome().getPosition().getX()+5, getDefaultHome().getPosition().getY() +12));
     }
 }

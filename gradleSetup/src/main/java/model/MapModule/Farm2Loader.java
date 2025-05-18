@@ -147,6 +147,7 @@ public class Farm2Loader {
                     }
 
 
+
                     if (go != null
                             && ty >= 0 && ty + objHeight < height
                             && tx >= 0 && tx + objWidth < width) {
@@ -162,21 +163,28 @@ public class Farm2Loader {
             }
         }
 
+
+        for (int i = 6; i < 17; i++) {
+            for (int j = 10; j < 17; j++) {
+                tiles[j][i].setTileType(TileType.Mine);
+            }
+        }
+
         for (int i = 0;i < height; i ++){
             for (int j = 0;j < width;j ++){
                 if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
                     int rand = (int) (Math.random() * 100);
                     GameObject go = null;
-                    if (rand <= 30){
-                        if (rand < 3){
+                    if (rand <= 10){
+                        if (rand < 1){
                             go = new ForagingMineral(false, new Position(j, i), MineralItemType.STONE);
-                        } else if (rand < 12){
+                        } else if (rand < 4){
                             go = new Tree(TreeType.APPLE_TREE, new Position(j, i));
-                        } else if (rand < 15){
+                        } else if (rand < 5){
                             go = new Grass(true, new Position(j, i), GrassType.NormalGrass);
-                        } else if (rand < 20){
+                        } else if (rand < 7){
                             go = new Grass(true, new Position(j, i), GrassType.FiberGrass);
-                        } else if (rand < 25){
+                        } else if (rand < 9){
                             go = new Tree(TreeType.TREE_BARK, new Position(j, i));
                         } else {
                             go = new Tree(TreeType.NORMAL_TREE, new Position(j, i));

@@ -62,10 +62,6 @@ public class HouseMenu implements AppMenu {
             System.out.println(CraftingController.placeItem(matcher));
             //Complete
             return true;
-        } else if((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null){
-            System.out.println(CraftingController.cheatAddItem(matcher));
-            return true;
-        }
-        return false;
+        } return false;
     }
 }

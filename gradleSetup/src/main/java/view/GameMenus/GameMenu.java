@@ -3,6 +3,7 @@ package view.GameMenus;
 import controller.GameMenuController.*;
 import model.App;
 import model.Enums.commands.GameCommands.*;
+import model.MapModule.Position;
 import view.AppMenu;
 
 import java.util.Scanner;
@@ -58,9 +59,18 @@ public class GameMenu implements AppMenu {
             return true;
         } else if (input.equalsIgnoreCase("pwd")) {
             System.out.println("X: " + App.getMe().getPosition().getX() + "Y:" + App.getMe().getPosition().getY());
-            System.out.println("X: " + App.getMe().getPlayerFarm().getTiles()[0].length + "Y: " + App.getMe().getPlayerFarm().getTiles().length );
+            System.out.println("X: " + App.getMe().getPlayerFarm().getTiles()[0].length + "Y: " + App.getMe().getPlayerFarm().getTiles().length);
             return true;
-        }else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
+        } else if (input.matches("sp")) {
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            App.getMe().setPosition(new Position(x, y));
+            System.out.println(MapController.printMap());
+            return true;
+        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+            System.out.println(CraftingController.cheatAddItem(matcher));
+            return true;
+        } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
             boolean isCorrect;
             System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
             isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())).isSuccess();
@@ -78,7 +88,7 @@ public class GameMenu implements AppMenu {
             System.out.println(MapController.printMap());
             return true;
         } else if ((GameCommands.helpReadingMap.getMatcher(input)).find()) {
-            System.out.println(MapController.manageHelpReadingMap());
+            System.out.println(MapController.printMapHint().message());
             return true;
         }
         return false;

@@ -43,38 +43,46 @@ public class MapController extends CommandController {
             for (int j = 0; j < tiles[i].length; j++) {
                 if (tiles[i][j].getPosition().getX() == App.getMe().getPosition().getX() &&
                         tiles[i][j].getPosition().getY() == App.getMe().getPosition().getY()) {
-                    result.append("🧍‍");
+                    result.append(CYAN + "PP");
                 } else if (tiles[i][j].getFixedObject() == null) {
                     switch (tiles[i][j].getTileType()) {
-                        case TileType.Soil -> result.append(ORANGE + "██");
-                        case TileType.Grass -> result.append(GREEN + "██");
-                        case TileType.Water -> result.append(CYAN + "██");
-                        case TileType.Vanity -> result.append(WHITE + "██");
-                        case TileType.Stone -> result.append(GRAY + "██");
-                        case TileType.PlowedSoil -> result.append(BROWN + "██");
-                        case TileType.WaterPlowedSoil -> result.append(BLACK_BROWN + "██");
+                        case TileType.Soil -> result.append(ORANGE + "..");
+                        case TileType.Grass -> result.append(GREEN + "..");
+                        case TileType.Water -> result.append(CYAN + "..");
+                        case TileType.Vanity -> result.append(WHITE + "XX");
+                        case TileType.Stone -> result.append(GRAY + "..");
+                        case TileType.PlowedSoil -> result.append(BROWN + "..");
+                        case TileType.WaterPlowedSoil -> result.append(BLACK_BROWN + "..");
+                        case TileType.Mine -> result.append(WHITE + ",,");
+                        default -> result.append(GRAY + "..");
                     }
                 } else {
                     if (tiles[i][j].getFixedObject() instanceof Building) {
-                        result.append(((Building) tiles[i][j].getFixedObject()).getBuildingType().getIcon());
+                        result.append("BB");
                     } else if (tiles[i][j].getFixedObject() instanceof Crop) {
-                        result.append(((Crop) tiles[i][j].getFixedObject()).getCropType().getIcon());
+                        result.append("CC");
                     } else if (tiles[i][j].getFixedObject() instanceof ForagingCrop) {
-                        result.append(((ForagingCrop) tiles[i][j].getFixedObject()).getForagingCropType().getIcon());
+                        result.append("FC");
                     } else if (tiles[i][j].getFixedObject() instanceof EtcObject) {
-                        result.append(((EtcObject) tiles[i][j].getFixedObject()).getEtcObjectType().getIcon());
+                        result.append("ET");
                     } else if (tiles[i][j].getFixedObject() instanceof Animal) {
-                        result.append(((Crop) tiles[i][j].getFixedObject()).getCropType().getIcon());
+                        result.append("AN");
                     } else if (tiles[i][j].getFixedObject() instanceof NPC) {
-                        result.append(((NPC) tiles[i][j].getFixedObject()).getType().getIcon());
+                        result.append("NP");
                     } else if (tiles[i][j].getFixedObject() instanceof MailBox) {
-                        result.append("\uD83D\uDCE7");
+                        result.append("MB");
                     } else if (tiles[i][j].getFixedObject() instanceof ShippingBar) {
-                        result.append("\uD83D\uDCE6");
+                        result.append("SB");
                     } else if (tiles[i][j].getFixedObject() instanceof Well) {
-                        result.append("\uD83D\uDFE6");
+                        result.append("WL");
                     } else if (tiles[i][j].getFixedObject() instanceof ForagingMineral) {
-                        result.append(((ForagingMineral) tiles[i][j].getFixedObject()).getForagingMineralType().getIcon());
+                        result.append("FM");
+                    } else if (tiles[i][j].getFixedObject() instanceof Tree) {
+                        result.append("TT");
+                    } else if (tiles[i][j].getFixedObject() instanceof Grass) {
+                        result.append(GREEN + "GG");
+                    } else {
+                        result.append("");
                     }
                 }
             }
@@ -84,19 +92,16 @@ public class MapController extends CommandController {
         return new Result(true, result.toString());
     }
 
-    public static Result manageHelpReadingMap() {
-
-        return null;
-    }
-
 
     public static Result calculateMoveEnergy(int x, int y) {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
 
         ArrayList<Node> path = findPath(x, y);
 
-        if (path == null || path.isEmpty()) {
-            return new Result(false, "No path found");
+        if (path == null) {
+            return new Result(false, "path is null");
+        } else if (path.isEmpty()) {
+            return new Result(false, "path is empty");
         } else {
             int neededEnergy = (int) path.size() / 20;
             return new Result(true, String.format("you need %d energy to go to tile<%d , %d>. Are you sure that you want to go?", neededEnergy, x, y));
@@ -107,8 +112,26 @@ public class MapController extends CommandController {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         ArrayList<Node> path = new AStarPathFinding(player.getCurrentGameLocation(),
                 player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(),
-                        player.getPosition().getY()), player.getCurrentGameLocation().getTiles()[x][y]).solve();
+                        player.getPosition().getY()), player.getCurrentGameLocation().getTiles()[y][x]).solve();
         return path;
+    }
+
+    public static Result printMapHint() {
+        return new Result(true,"""
+                GG == Grass
+                TT == Tree 
+                BB == Building
+                CC == Crop
+                FC == Foraging Crop
+                ET == EtcObject
+                AN == Animal
+                NP == NPC
+                MB == MailBox
+                Sb == ShippingBar
+                WL == WELL
+                FM == ForagingMineral
+                PP == Player"""
+        );
     }
 
 
