@@ -210,12 +210,12 @@ public class CraftingController extends CommandController {
 
         ToolType type9 = (ToolType) ToolType.fromName(itemName);
         if (type9 != null) {
-            App.getMe().getInventory().add(new Tool(type9), 1);
+            App.getMe().getInventory().add(new Tool(type9), count);
             return new Result(true, "add Tool To Your Inventory!");
         }
 
 
-        return null;
+        return new Result(false,"cheat add eshteb shode why?");
     }
 
     private static String RecipeList() {
@@ -300,7 +300,7 @@ public class CraftingController extends CommandController {
 
     public static Direction getDirectionFromString(String input) {
         try {
-            return Direction.valueOf(input.toUpperCase());
+            return Direction.valueOf(input.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
             return null;
         }

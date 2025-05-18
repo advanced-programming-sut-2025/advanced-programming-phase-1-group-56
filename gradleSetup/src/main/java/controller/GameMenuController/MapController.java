@@ -39,7 +39,12 @@ public class MapController extends CommandController {
 
         Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
         StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tiles[0].length; i++) {
+            result.append(String.format("%02d", i));
+        }
+        System.out.println();
         for (int i = 0; i < tiles.length; i++) {
+            result.append(String.format("%02d", i));
             for (int j = 0; j < tiles[i].length; j++) {
                 if (tiles[i][j].getPosition().getX() == App.getMe().getPosition().getX() &&
                         tiles[i][j].getPosition().getY() == App.getMe().getPosition().getY()) {
@@ -57,8 +62,19 @@ public class MapController extends CommandController {
                         default -> result.append(GRAY + "..");
                     }
                 } else {
-                    if (tiles[i][j].getFixedObject() instanceof Building) {
-                        result.append("BB");
+                    if (tiles[i][j].getFixedObject() instanceof Home home) {
+                        if (i == home.getDoorPosition().getY() && j == home.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(BROWN + "PH");
+                        }
+                    }
+                    if (tiles[i][j].getFixedObject() instanceof GreenHouse greenHouse) {
+                        if (i == greenHouse.getDoorPosition().getY() && j == greenHouse.getDoorPosition().getX()) {
+                            result.append(BROWN + "DD");
+                        } else {
+                            result.append(GREEN + "GH");
+                        }
                     } else if (tiles[i][j].getFixedObject() instanceof Crop) {
                         result.append("CC");
                     } else if (tiles[i][j].getFixedObject() instanceof ForagingCrop) {
@@ -117,7 +133,7 @@ public class MapController extends CommandController {
     }
 
     public static Result printMapHint() {
-        return new Result(true,"""
+        return new Result(true, """
                 GG == Grass
                 TT == Tree 
                 BB == Building

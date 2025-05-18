@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public enum FarmingCommands implements Commands {
     CRAFT_INFO("craftinfo -n (.+)"),
     PLANT("plant -s (.+) -d (.+)"),
-    showPlant("showplant -l <(\\d+),(\\d+)>"),
+    showPlant("showplant -l <(\\d+), (\\d+)>"),
     feritilize("fertilize -f (.+) -d (.+)"),
     showWater("howmuch water");
 

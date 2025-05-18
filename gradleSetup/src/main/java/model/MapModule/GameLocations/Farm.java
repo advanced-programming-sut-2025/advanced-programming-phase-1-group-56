@@ -34,19 +34,24 @@ public class Farm extends GameLocation implements TimeObserver {
         if (newDay) {
             FarmingController.manageStrikeThunder(this);
             FarmingController.manageCrows(this);
-            for (int i = 0; i < 6 ; i++) {
-                FarmingController.managePlaceMineral(this);
-            }
+            FarmingController.managePlaceMineral(this);
+
 
             FarmingController.managePlaceRandomCropOrSeed(this);
-            for (GameObject gameObject : allGameObjects) {
-                if (gameObject instanceof Tree) {
-                    if (((Tree) gameObject).getDaysWithNoWater() == 2) {
-                        deleteObjectTreeOrCrop((Tree) gameObject);
+            for (GameObject gameObject : readAllGameObjectsFromTiles()) {
+                if (gameObject instanceof Tree tree) {
+                    if (tree.getDaysWithNoWater() >= 2) {
+                        int x = tree.getPosition().getX();
+                        int y = tree.getPosition().getY();
+                        this.getTileByPosition(x,y).setFixedObject(null);
+//                        allGameObjects.remove(tree);
                     }
-                } else  if(gameObject instanceof Crop) {
-                    if(((Crop)gameObject).getDaysWithNoWater() == 2 || ((Crop)gameObject).isIs1time() ){
-                        deleteObjectTreeOrCrop((Crop)gameObject);
+                } else if (gameObject instanceof Crop crop) {
+                    if ((crop.getDaysWithNoWater() >= 2 || crop.isIs1time())) {
+                        int x = crop.getPosition().getX();
+                        int y = crop.getPosition().getY();
+                        this.getTileByPosition(x,y).setFixedObject(null);
+//                        allGameObjects.remove(crop);
                     }
                 }
             }
@@ -88,24 +93,25 @@ public class Farm extends GameLocation implements TimeObserver {
         return allGameObjects;
     }
 
-    public void readAllGameObjectsFromTiles() {
+    public ArrayList<GameObject> readAllGameObjectsFromTiles() {
         allGameObjects.clear();
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 if (tile.getFixedObject() != null) {
-                    boolean found = false;
-                    for (GameObject go : allGameObjects) {
-                        if (go.equals(tile.getFixedObject())) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
+//                    boolean found = false;
+//                    for (GameObject go : allGameObjects) {
+//                        if (go.equals(tile.getFixedObject())) {
+//                            found = true;
+//                            break;
+//                        }
+//                    }
+                    //if (!found) {
                         allGameObjects.add(tile.getFixedObject());
-                    }
+                    //}
                 }
             }
         }
+        return allGameObjects;
         //DONE!
     }
 
@@ -122,14 +128,4 @@ public class Farm extends GameLocation implements TimeObserver {
         return null;
     }
 
-    private void deleteObjectTreeOrCrop(GameObject gameObject) {
-        allGameObjects.remove(gameObject);
-        for (int i = 0; i < this.getTiles().length; i++) {
-            for (int j = 0; j < this.getTiles()[i].length; j++) {
-                if (this.getTiles()[i][j].getFixedObject().equals(gameObject)) {
-                    this.getTiles()[i][j].setFixedObject(null);
-                }
-            }
-        }
-    }
 }

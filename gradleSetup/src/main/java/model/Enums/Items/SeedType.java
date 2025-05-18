@@ -83,4 +83,13 @@ public enum SeedType implements ItemType {
     public String getName() {
         return name;
     }
+
+    public static SeedType fromName(String name) {
+        for (SeedType type : SeedType.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

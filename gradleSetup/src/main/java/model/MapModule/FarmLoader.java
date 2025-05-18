@@ -113,7 +113,7 @@ public class FarmLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new Home(new Position(tx, ty),false, "PlayerHome", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new Home(new Position(tx, ty),false, "PlayerHome", new Position(tx+4, ty+4), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         case "greenhouse" -> {
@@ -128,7 +128,7 @@ public class FarmLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse( new Position(tx, ty),false, "GreenHouse", new Position(doorX, doorY), objHeight, objWidth);
+                            go = new GreenHouse( new Position(tx, ty),false, "GreenHouse", new Position(tx+3, ty+5), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         //TODO
@@ -156,6 +156,11 @@ public class FarmLoader {
                         }
                     }
                 }
+            }
+        }
+        for (int i = 3; i < 17; i++) {
+            for (int j = 8; j < 16 ; j++) {
+                tiles[j][i].setTileType(TileType.Mine);
             }
         }
         return tiles;
