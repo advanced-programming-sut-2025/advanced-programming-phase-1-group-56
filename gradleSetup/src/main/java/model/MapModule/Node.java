@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Node {
     private Node parent;
-    private ArrayList<Node> neighbours;
+    private ArrayList<Node> neighbours = new ArrayList<Node>();
     private double cost, heuristic, function;
 //    private boolean valid;
 
@@ -57,12 +57,4 @@ public abstract class Node {
     }
 
     public abstract boolean isValid();
-
-//    public void setValid(boolean valid) {
-//        this.valid = valid;
-//    }
-
-//    public void reverseValidation(){
-//        valid = !valid;
-//    }
 }
