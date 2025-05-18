@@ -144,6 +144,8 @@ public class FarmingController extends CommandController {
         Random random = new Random();
         int randomMinerals =  random.nextInt(MineralItemType.values().length);
         MineralItemType mineralItemType = MineralItemType.values()[randomMinerals];
+        //TODO delete this
+        //System.out.println(farm.getPosition().name());
         for (int i = 0; i < farm.getTiles().length; i++) {
             for (int j = 0; j < farm.getTiles()[i].length; j++) {
                 Tile tile = farm.getTiles()[i][j];
