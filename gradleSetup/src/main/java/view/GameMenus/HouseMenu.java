@@ -39,7 +39,7 @@ public class HouseMenu implements AppMenu {
 
         } else if((matcher = HouseMenuCommands.prepareRecipe.getMatcher(input)).find()) {
             System.out.println(CookingController.prepareCooking(matcher));
-            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+            if(App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()){
                 GameController.manageNextTurn();
             }
             return true;
@@ -54,7 +54,8 @@ public class HouseMenu implements AppMenu {
             return true;
         }else if((matcher = CraftingCommand.craftItem.getMatcher(input)) != null) {
             System.out.println(CraftingController.craftingItem(matcher));
-            if(App.getMe().getEnergyUsage() == 50 || App.getMe().isFainted()){
+            if(App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()){
+                App.getMe().setEnergyUsage(0);
                 GameController.manageNextTurn();
             }
             return true;

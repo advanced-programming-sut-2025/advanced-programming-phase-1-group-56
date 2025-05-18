@@ -59,7 +59,7 @@ public class Player implements TimeObserver {
 
 
     //status
-    private boolean fainted;
+    private boolean fainted =false;
     private Energy energy;
     private int gold;
     private Position position;

@@ -1,13 +1,17 @@
 package model.MapModule.Buildings;
 
 import model.Enums.Stores.StardropSaloonProducts;
+import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
 
-public class TheSaloonStardrop extends Store {
+import java.util.ArrayList;
 
-    public TheSaloonStardrop( Position startingPosition, boolean walkable, String name,Position doorPosition,int height, int width) {
-        super(startingPosition,walkable,name,doorPosition,height,width);
+public class TheSaloonStardrop extends Store {
+    private ArrayList<NpcProduct> dailyProductList;
+
+    public TheSaloonStardrop(Position startingPosition, boolean walkable, String name, Position doorPosition, int height, int width) {
+        super(startingPosition, walkable, name, doorPosition, height, width);
         dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
         setOpeningHour(12);
         setClosingHour(24);
@@ -20,9 +24,13 @@ public class TheSaloonStardrop extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay) {
+        if (newDay) {
             dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
         }
     }
 
+    @Override
+    public ArrayList<NpcProduct> getDailyProductList() {
+        return dailyProductList;
+    }
 }

@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 
 public enum EnergyAndSkillsCommands implements Commands {
     showEnergy("show energy"),
-    cheatEnergy("energy set -v ([0,9]+)"),
+    cheatEnergy("energy set -v ([0-9]+)"),
     unlimitedEnergy("energy unlimited"),
     showInventory("inventory show"),
-    trashInventory("inventory trash -i (.+) -n ([0,9]+)");
+    trashInventory("inventory trash -i (.+) -n ([0-9]+)");
 
 
 

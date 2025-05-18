@@ -222,15 +222,10 @@ public class PreGameMenuController extends CommandController {
         for (Player player : newGame.getPlayers()) {
             App.getCurrentUser().getCurrentGame().setCurrentPlayer(player);
             player.getInventory().add(new Tool(ToolType.AXE_WOODEN),1);
-            System.out.println(InventoryController.inventoryShow());
             player.getInventory().add(new Tool(ToolType.PICK_WOODEN),1);
-            System.out.println(InventoryController.inventoryShow());
             player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC),1);
-            System.out.println(InventoryController.inventoryShow());
             player.getInventory().add(new Tool(ToolType.HOE_WOODEN),1);
-            System.out.println(InventoryController.inventoryShow());
             player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
-            System.out.println(InventoryController.inventoryShow());
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
             player.teleportToHome();
