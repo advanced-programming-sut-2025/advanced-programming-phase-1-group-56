@@ -27,7 +27,7 @@ public class WeatherController extends CommandController {
                     return new Result(false, "X/Y out of bounds");
                 }
 
-                Tile tile = farm.getTiles()[x][y];
+                Tile tile = farm.getTiles()[y][x];
                 GameObject object = tile.getFixedObject();
                 if(object instanceof Crop){
                     tile.setFixedObject(null);

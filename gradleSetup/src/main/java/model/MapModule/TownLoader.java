@@ -14,10 +14,16 @@ import java.io.FileReader;
 public class TownLoader {
     private static final int tileSize = 16;
 
-    public static Tile[][] load(Town town,String jsonPath) throws FileNotFoundException {
-        JsonObject map = JsonParser
-                .parseReader(new FileReader(jsonPath))
-                .getAsJsonObject();
+    public static Tile[][] load(Town town,String jsonPath){
+        JsonObject map=null;
+        try {
+             map = JsonParser
+                    .parseReader(new FileReader(jsonPath))
+                    .getAsJsonObject();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         int width = map.get("width").getAsInt();
         int height = map.get("height").getAsInt();
@@ -268,7 +274,7 @@ public class TownLoader {
 //    }
 
 
-    public static Town loadTheTown() throws Exception
+    public static Town loadTheTown()
     {
         Town town = new Town();
         Tile[][] townTileSet = load(town,"Town4.tmj");
