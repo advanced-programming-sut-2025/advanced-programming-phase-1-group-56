@@ -1,6 +1,7 @@
 package model.Enums.GameObjects;
 
 import model.Enums.Items.FoodType;
+import model.Enums.Items.FruitType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum ForagingCropType {
@@ -46,6 +47,15 @@ public enum ForagingCropType {
 
     public String getIcon() {
         return icon;
+    }
+
+    public static ForagingCropType fromName(String name) {
+        for (ForagingCropType type : ForagingCropType.values()) {
+            if (type.cropItem.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
     }
 
 }

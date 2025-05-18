@@ -94,6 +94,12 @@ public class GameMenu implements AppMenu {
         } else if ((GameCommands.helpReadingMap.getMatcher(input)).find()) {
             System.out.println(MapController.printMapHint().message());
             return true;
+        }  else if ((matcher = CraftingCommand.dropItem.getMatcher(input)) != null) {
+            System.out.println(CraftingController.placeItem(matcher));
+            return true;
+        } else if((matcher = GameCommands.eatFood.getMatcher(input)).find()) {
+            System.out.println(CookingController.eatFood(matcher));
+            return true;
         }
         return false;
 
@@ -119,9 +125,9 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = ToolCommands.toolsUse.getMatcher(input)) != null) {
             System.out.println(ToolsController.useTools(matcher.group(1).trim()));
-//            if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
-//                GameController.manageNextTurn();
-//            }
+            if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
+                GameController.manageNextTurn();
+            }
             return true;
         }
         return false;

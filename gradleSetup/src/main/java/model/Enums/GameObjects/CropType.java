@@ -2,6 +2,7 @@ package model.Enums.GameObjects;
 
 
 import model.Enums.Items.FoodType;
+import model.Enums.Items.FruitType;
 import model.Enums.WeatherAndTime.Seasons;
 
 public enum CropType implements initialPlant {
@@ -76,5 +77,14 @@ public enum CropType implements initialPlant {
     }
     public String getIcon(){
         return icon;
+    }
+
+    public static CropType fromName(String name) {
+        for (CropType type : CropType.values()) {
+            if (type.cropItem.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
     }
 }

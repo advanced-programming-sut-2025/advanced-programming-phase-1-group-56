@@ -43,11 +43,7 @@ public class FarmingController extends CommandController {
         ForagingCropType foragingCropType = null;
         SeedType seedType = null;
 
-        for (FruitType fruitType1 : FruitType.values()) {
-            if (name.equals(fruitType1.name())) {
-                fruitType = fruitType1;
-            }
-        }
+        fruitType = FruitType.fromName(name);
 
         StringBuilder tmpString = new StringBuilder();
 
@@ -58,18 +54,9 @@ public class FarmingController extends CommandController {
             tmpString.append("BuffType: ").append(fruitType.getBuffType().toString()).append("\n");
 
         } else {
-            for (CropType cropType1 : CropType.values()) {
-                if (name.equals(cropType1.name())) {
-                    cropType = cropType1;
-                }
-            }
+            cropType = CropType.fromName(name);
             if (cropType != null) {
                 tmpString.append("Name: ").append(cropType.cropItem.getName()).append("\n");
-                for (SeedType seedType1 : SeedType.values()) {
-                    if (((CropType) seedType1.cropType).cropItem.name().equals(cropType.cropItem.name())) {
-                        tmpString.append("Source: ").append(seedType1.name).append("\n");
-                    }
-                }
                 tmpString.append("Stage: ");
                 for (int i = 0; i < cropType.stages.length; i++) {
                     tmpString.append(i);
@@ -88,11 +75,7 @@ public class FarmingController extends CommandController {
                 tmpString.append("Can Become Giant: ").append(cropType.canBecomeGiant).append("\n");
 
             } else {
-                for (TreeType treeType1 : TreeType.values()) {
-                    if (name.equals(treeType1.name())) {
-                        treeType = treeType1;
-                    }
-                }
+                treeType = TreeType.fromName(name);
                 if (treeType != null) {
                     tmpString.append("Name: ").append(treeType.name).append("\n");
                     tmpString.append("Source: ").append(treeType.source).append("\n");
@@ -106,11 +89,7 @@ public class FarmingController extends CommandController {
                     tmpString.append("Season: ").append(Arrays.toString(treeType.season)).append("\n");
 
                 } else {
-                    for (SeedType seedType1 : SeedType.values()) {
-                        if (name.equals(seedType1.name())) {
-                            seedType = seedType1;
-                        }
-                    }
+                    seedType = SeedType.fromName(name);
                     if (seedType != null) {
                         tmpString.append("Name: ").append(seedType.name).append("\n");
                         tmpString.append("Season: ").append(Arrays.toString(seedType.season)).append("\n");
@@ -120,11 +99,7 @@ public class FarmingController extends CommandController {
                                 ? ((TreeType) seedType.cropType).name
                                 : "Unknown").append("\n");
                     } else {
-                        for (ForagingCropType foragingCropType1 : ForagingCropType.values()) {
-                            if (name.equals(foragingCropType1.name())) {
-                                foragingCropType = foragingCropType1;
-                            }
-                        }
+                        foragingCropType = ForagingCropType.fromName(name);
                         if (foragingCropType != null) {
                             tmpString.append("Name: ").append(foragingCropType.cropItem.getName()).append("\n");
                             tmpString.append("Season: ").append(Arrays.toString(foragingCropType.season)).append("\n");
