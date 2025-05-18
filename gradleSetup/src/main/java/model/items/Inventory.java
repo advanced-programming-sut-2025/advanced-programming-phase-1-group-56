@@ -80,11 +80,6 @@ public class Inventory {
                 }
             }
         }
-
-        if (remaining > 0) {
-            System.out.printf("Warning: only removed %d of %d requested%n",
-                    quantity - remaining, quantity);
-        }
     }
 
 
