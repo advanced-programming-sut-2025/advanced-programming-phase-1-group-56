@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="thats It?">
-      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newtest2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Farm.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Farm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/ForagingSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/ForagingSkill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/MiningSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/MiningSkill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/Skill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newTest1" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newTest1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newtest2" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newtest2" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747564070197</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="thats It?">
+      <option name="closed" value="true" />
+      <created>1747574181475</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1747574181475</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

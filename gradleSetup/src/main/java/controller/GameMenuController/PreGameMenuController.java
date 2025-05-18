@@ -5,6 +5,7 @@ import model.*;
 import model.Activities.Friendship;
 import model.Enums.FarmPosition;
 import model.Enums.Items.ToolType;
+import model.Enums.Recepies.FoodRecipesList;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.GameLocations.Town;
 import model.MapModule.GameMap;
@@ -228,6 +229,9 @@ public class PreGameMenuController extends CommandController {
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
             player.teleportToHome();
+            player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
+            player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
+            player.addFoodRecipes(FoodRecipesList.SALAD);
         }
     }
 

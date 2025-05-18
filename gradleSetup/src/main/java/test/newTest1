@@ -63,11 +63,7 @@ weather forecast
 cheat weather set Snow
 cheat advance date 1d
 weather
-walk -l <40, 50>
-print map -l <10, 10> -s 30
 help reading map
-cheat Thor -l <10, 10>
-print map -l <10, 10> -s 30
 energy show
 energy set -v 150
 energy unlimited
