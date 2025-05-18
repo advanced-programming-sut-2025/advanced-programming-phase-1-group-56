@@ -67,7 +67,7 @@ public class App {
     }
 
     public static User getUserByUsername(String username) {
-        for(User user : users){
+        for(User user : getUsers()){
             if(user.getUsername().equals(username)){
                 return user;
             }

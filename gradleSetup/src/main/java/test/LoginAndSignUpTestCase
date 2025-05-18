@@ -1,7 +1,7 @@
 show current menu
 menu enter main menu
 back
-register -u Mohsen? -p MohsenZare12? MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
+//register -u Mohsen? -p MohsenZare12? MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
 register -u Mohsen -p MohsenZare12` MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
 register -u Mohsen -p MohsenZare12? MohsenZare12 -n Ali -e Mohsen33@gmail.com -g male
 register -u Mohsen -p Mohsen Mohsen -n Ali -e Mohsen33@gmail.com -g male
@@ -44,6 +44,7 @@ change password -p MohsenZare12 -o MohsenZare12?
 change password -p Mohsen -o MohsenZare12?
 change password -p Mohsenzare` -o MohsenZare12?
 user info
+menu enter game menu
 game new -u Mohsen2 Mohsen3 Mohsen4
 game map 1
 game map 2

@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 
 public class ArtisanController extends CommandController {
     public static Result useArtisan(Matcher matcher) {
-        String machineName = matcher.group(1);
+        String machineName = matcher.group(1).trim();
         String productName = matcher.group(2);
         String[] productsName = productName.split(" ");
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
@@ -76,7 +76,7 @@ public class ArtisanController extends CommandController {
     }
 
     public static Result getArtisan(Matcher matcher) {
-        String machineName = matcher.group(1);
+        String machineName = matcher.group(1).trim();
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         for (int i = 0; i <= 2; i++) {
             for (int j = 0; j <= 2; j++) {

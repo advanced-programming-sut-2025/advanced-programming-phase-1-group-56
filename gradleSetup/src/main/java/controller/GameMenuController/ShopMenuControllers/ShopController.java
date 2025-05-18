@@ -30,7 +30,7 @@ public interface ShopController {
     }
 
     static Result purchaseProductFromList(Matcher matcher, ArrayList<NpcProduct> list) {
-        String productName = matcher.group(1);
+        String productName = matcher.group(1).trim();
         String amountStr = matcher.group(2);
         int amount;
         if (amountStr == null) {

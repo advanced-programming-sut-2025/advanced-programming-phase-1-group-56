@@ -23,7 +23,7 @@ public class LoginMenuController extends CommandController {
 
     public static Result manageRegisterUser(Matcher matcher) {
         Random random = new Random();
-        String username = matcher.group(1);
+        String username = matcher.group(1).trim();
         String password = matcher.group(2).trim();
         String rePassword = matcher.group(3);
         String nickName = matcher.group(4);
@@ -63,7 +63,7 @@ public class LoginMenuController extends CommandController {
 
     public static Result answer(Matcher matcher, Matcher matcher1) {
         String username = matcher1.group(1);
-        String answer = matcher.group(1);
+        String answer = matcher.group(1).trim();
         if (!App.getCurrentUser().getAnswer().equals(answer)) {
             return new Result(false, "wrong answer!!!");
         }
@@ -77,7 +77,7 @@ public class LoginMenuController extends CommandController {
         if (!InfoRegexes.password.isValid(input)) {
             return new Result(false, "sorry! is not correct!(babol)");
         }
-        String username = matcher.group(1);
+        String username = matcher.group(1).trim();
         for (User user : App.getUsers()) {
             if (user.getUsername().equals(username)) {
                 user.setPassword(input);
@@ -113,7 +113,7 @@ public class LoginMenuController extends CommandController {
     }
 
     public static Result manageLoginUser(Matcher matcher, boolean stayLoggedIn) {
-        String username = matcher.group(1);
+        String username = matcher.group(1).trim();
         String password = matcher.group(2);
 
         User user = returnUser(username);
@@ -139,7 +139,7 @@ public class LoginMenuController extends CommandController {
 
 
     public static Result manageForgotPassword(Matcher matcher) {
-        String username = matcher.group(1);
+        String username = matcher.group(1).trim();
         if (returnUser(username) == null) {
             return new Result(false, "there is no user found with such name!");
         }
@@ -162,7 +162,7 @@ public class LoginMenuController extends CommandController {
 
     public static Result peakSecurityQuestion(Matcher matcher1, Matcher matcher) {
         Random random = new Random();
-        String username = matcher.group(1).trim();
+        String username = matcher.group(1).trim().trim();
         String password = matcher.group(2);
         String rePassword = matcher.group(3).trim();
         String nickName = matcher.group(4).trim();

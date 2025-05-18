@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 
 public class CookingController extends CommandController {
     public static Result refrigeratorPick(Matcher matcher) {
-        String input = matcher.group(1).trim();
+        String input = matcher.group(1).trim().trim();
         Item item = returnRefrigeratorItemByName(input);
         if (item == null) {
             return new Result(false, "there is no " + input + " in refrigerator");
@@ -33,7 +33,7 @@ public class CookingController extends CommandController {
     }
 
     public static Result refrigeratorPut(Matcher matcher) {
-        String input = matcher.group(1).trim();
+        String input = matcher.group(1).trim().trim();
         Item item = returnInventoryItemByName(input);
         if (item == null) {
             return new Result(false, "there is no " + input + " in refrigerator");
@@ -62,7 +62,7 @@ public class CookingController extends CommandController {
     }
 
     public static Result prepareCooking(Matcher matcher) {
-        String recipeName = matcher.group(1).trim();
+        String recipeName = matcher.group(1).trim().trim();
         FoodRecipesList cookFood = returnCookFoodByName(recipeName);
         if (cookFood == null) {
             return new Result(false, "you are not allowed to use this recipe");
@@ -119,7 +119,7 @@ public class CookingController extends CommandController {
     }
 
     public static Result eatFood(Matcher matcher) {
-        String foodName = matcher.group(1).trim();
+        String foodName = matcher.group(1).trim().trim();
         Item item = returnInventoryItemByName(foodName);
         if (item == null) {
             return new Result(false, "there is no `" + foodName + " in your inventory!");

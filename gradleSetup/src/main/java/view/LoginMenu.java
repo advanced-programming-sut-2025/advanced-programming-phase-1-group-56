@@ -44,7 +44,7 @@ public class LoginMenu implements AppMenu {
                 }
             }
         } else if ((matcher = LoginMenuCommands.goMenu.getMatcher(input)).find()) {
-            String menu = matcher.group(1);
+            String menu = matcher.group(1).trim();
             System.out.println(LoginMenuController.goToMenu(menu));
         } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher, true));
