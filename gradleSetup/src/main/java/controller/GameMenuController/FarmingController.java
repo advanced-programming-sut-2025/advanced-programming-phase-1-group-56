@@ -35,7 +35,7 @@ public class FarmingController extends CommandController {
         }
     }
     public static Result craftInfo(Matcher matcher) {
-        String name = matcher.group(1);
+        String name = matcher.group(1).trim();
         FruitType fruitType = null;
         CropType cropType = null;
         TreeType treeType = null;
@@ -196,8 +196,8 @@ public class FarmingController extends CommandController {
     }
 
     public static Result managePlantSeed(Matcher matcher) {
-        String seedName = matcher.group(1);
-        String direction = matcher.group(2);
+        String seedName = matcher.group(1).trim();
+        String direction = matcher.group(2).trim();
         Direction dir;
         SeedType seed = getSeedTypeFromString(seedName);
         Item seed1 = getItemFromString(seedName);
@@ -282,8 +282,8 @@ public class FarmingController extends CommandController {
     }
 
     public static Result showPlant(Matcher matcher) {
-        int x = Integer.parseInt(matcher.group(1));
-        int y = Integer.parseInt(matcher.group(2));
+        int x = Integer.parseInt(matcher.group(1).trim());
+        int y = Integer.parseInt(matcher.group(2).trim());
         Tile tile = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y);
         StringBuilder tmpString = new StringBuilder();
         if (tile.getFixedObject() instanceof Tree) {
@@ -315,8 +315,8 @@ public class FarmingController extends CommandController {
     }
 
     public static Result manageFertilize(Matcher matcher) {
-        String fertilizer = matcher.group(1);
-        String direction = matcher.group(2);
+        String fertilizer = matcher.group(1).trim();
+        String direction = matcher.group(2).trim();
         Direction dir;
         Item item = getItemFromString(fertilizer);
         if (item == null) {

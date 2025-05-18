@@ -17,10 +17,10 @@ public class MainMenu implements AppMenu {
         if ((MainMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
             System.out.println("you are in Main Menu BROOOOO!");
         } else if ((matcher = MainMenuCommands.goMenu.getMatcher(input)).find()) {
-            String menu = matcher.group(1);
-            System.out.println(MainMenuController.goToMenu(menu));
+            String menu = matcher.group(1).trim();
+            System.out.println(MainMenuController.goToMenu(menu).message());
         } else if ((MainMenuCommands.logout.getMatcher(input)).find()) {
-            System.out.println(MainMenuController.manageUserLogout());
+            System.out.println(MainMenuController.manageUserLogout().message());
         } else if ((MainMenuCommands.back.getMatcher(input)).find()) {
             App.setCurrentMenu(Menu.loginMenu);
             System.out.println("you are in login menu now!");

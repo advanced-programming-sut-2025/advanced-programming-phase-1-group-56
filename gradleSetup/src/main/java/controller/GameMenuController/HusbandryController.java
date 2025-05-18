@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 public class HusbandryController extends CommandController {
 
     public static Result petting(Matcher matcher) {
-        String name = matcher.group(1);
+        String name = matcher.group(1).trim();
         Animal animal = returnAnimal(name);
         if (animal == null) {
             return new Result(false, "Animal not found");
@@ -70,9 +70,9 @@ public class HusbandryController extends CommandController {
     }
 
     public static Result shepherdAnimals(Matcher matcher) {
-        String animalName = matcher.group(1);
-        int x = Integer.parseInt(matcher.group(2));
-        int y = Integer.parseInt(matcher.group(3));
+        String animalName = matcher.group(1).trim();
+        int x = Integer.parseInt(matcher.group(2).trim());
+        int y = Integer.parseInt(matcher.group(3).trim());
         Animal animal = returnAnimal(animalName);
         if (App.getCurrentUser()
                 .getCurrentGame()
@@ -133,7 +133,7 @@ public class HusbandryController extends CommandController {
     }
 
     public static Result feedHay(Matcher matcher) {
-        String animalName = matcher.group(1);
+        String animalName = matcher.group(1).trim();
         Animal animal = returnAnimal(animalName);
 
         if (animal == null) {
@@ -170,7 +170,7 @@ public class HusbandryController extends CommandController {
     }
 
     public static Result collectProduce(Matcher matcher) {
-        String name = matcher.group(1);
+        String name = matcher.group(1).trim();
         Animal animal = returnAnimal(name);
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
@@ -244,7 +244,7 @@ public class HusbandryController extends CommandController {
     }
 
     public static Result sellAnimal(Matcher matcher) {
-        String userName = matcher.group(1);
+        String userName = matcher.group(1).trim();
         Animal animal = returnAnimal(userName);
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
@@ -262,8 +262,8 @@ public class HusbandryController extends CommandController {
 
     //CHEAT
     public static Result cheatSetFriendship(Matcher matcher) {
-        String name = matcher.group(1);
-        int amount = Integer.parseInt(matcher.group(2));
+        String name = matcher.group(1).trim();
+        int amount = Integer.parseInt(matcher.group(2).trim());
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             if (animal.getNickName().equals(name)) {
                 animal.addFriendShip(amount);
