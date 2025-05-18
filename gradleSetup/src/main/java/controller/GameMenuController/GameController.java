@@ -26,6 +26,10 @@ public class GameController extends CommandController {
             App.setCurrentMenu(Menu.mainMenu);
             Result res = saveGame();
             App.getCurrentUser().setCurrentGame(null);
+
+            for (Player player: App.getCurrentUser().getCurrentGame().getPlayers()){
+                player.getUser().setGold(Math.max(player.getGold(),player.getGold()));
+            }
             return res;
         }
         else {

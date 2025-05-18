@@ -15,7 +15,7 @@ public class InventoryController extends CommandController {
                     .append(slot.getQuantity()).append("\n");
             counter++;
         }
-        return new Result(true, output.append("slot sizedddda::::").append(App.getMe().getInventory().getSlots().size()).toString());
+        return new Result(true, output.toString());
     }
 
     public static Result manageInventoryTrash(String itemStr, String amountStr) {

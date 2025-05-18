@@ -4,4 +4,5 @@ import model.GameObject.NPC.NpcProduct;
 
 public interface Store {
         NpcProduct getProduct();
+
 }

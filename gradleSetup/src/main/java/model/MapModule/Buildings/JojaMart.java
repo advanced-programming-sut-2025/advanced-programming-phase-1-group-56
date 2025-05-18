@@ -25,4 +25,14 @@ public class JojaMart extends Store {
     public void onHourChanged(DateTime time, boolean newDay) {
         dailyProductList = JojamartProducts.getProducts(JojamartProducts.class);
     }
+
+    @Override
+    public ArrayList<NpcProduct> getDailyProductList() {
+        return dailyProductList;
+    }
+
+    @Override
+    public void setDailyProductList(ArrayList<NpcProduct> dailyProductList) {
+        this.dailyProductList = dailyProductList;
+    }
 }

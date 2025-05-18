@@ -12,7 +12,7 @@ public abstract class Store extends Building implements TimeObserver {
     private NPC owner;
     private int openingHour;
     private int closingHour;
-    protected ArrayList<NpcProduct> dailyProductList;
+    protected ArrayList<NpcProduct> dailyProductList = new ArrayList<>();
 
     public void setOwner(NPC owner) {
         this.owner = owner;
@@ -36,6 +36,7 @@ public abstract class Store extends Building implements TimeObserver {
         this.owner = owner;
         this.openingHour = openingHour;
         this.closingHour = closingHour;
+        this.dailyProductList = products;
     }
 
     public int getClosingHour() {
@@ -60,7 +61,7 @@ public abstract class Store extends Building implements TimeObserver {
 
     public NpcProduct getProductByName(String name) {
         for (NpcProduct product : dailyProductList) {
-            if (product.getName().equals(name)) {
+            if (product.getName().equalsIgnoreCase(name) || product.getSaleable().getName().equalsIgnoreCase(name)) {
                 return product;
             }
         }
