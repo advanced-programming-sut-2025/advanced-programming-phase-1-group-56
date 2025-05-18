@@ -157,6 +157,8 @@ public class CraftingController extends CommandController {
                 }
             }
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
+        } else  {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new DroppedItem(item,new  Position(x, y)));
         }
 
 

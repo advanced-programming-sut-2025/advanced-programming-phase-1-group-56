@@ -93,7 +93,7 @@ public class Tool extends Item {
                         || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
                     tile.setTileType(TileType.Soil);
                     player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
-                } else if (tile.getFixedObject().getClass() == DroppedItem.class) {
+                } else if (tile.getFixedObject() instanceof DroppedItem) {
                     tile.setFixedObject(null);
                     player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else {

@@ -135,3 +135,60 @@ cooking prepare Triple Shot Espresso
 show energy
 
 
+
+fishing -p <fishing pole>
+
+
+
+artisan use Fish_Smoker Salmon Coal
+add recipe -n Fish Smoker -c 1
+cheat add item -n Fish Smoker -c 1
+place item -n Fish Smoker -d UP
+cheat add item -n Salmon -c 1
+cheat add item -n Coal -c 1
+artisan use Fish Smoker Salmon Coal
+cheat advance date 1d
+artisan get Fish Smoker
+
+walk //
+show all products
+show all available products
+purchase // -n //
+cheat add 100 dollars
+purchase // -n //
+sell // -n 2
+sell // -n 2
+
+
+friendships
+talk -u <username> -m <message>
+talk history -u <username>
+gift -u <username> -i <item> -a <amount>
+gift list
+gift rate -i <gift-number> -r <rate>
+gift history -u <username>
+flower -u <username>
+ask marriage -u <username> -r <ring>
+respond (--accept | --reject) -u <username>
+start trade
+trade -u <username> -t <request|offer> -i <item> -a <amount> [-p <price>] [-ti <targetItem> -ta <targetAmount>]
+trade list
+trade response (--accept | --reject) -i <id>
+trade history
+meet NPC <npc_name>
+gift NPC <npc_name> -i <item>
+
+
+build -a <building_name> -l <x , y>
+buy animal -a <animal> -n <name>
+pet -n <name>
+cheat set friendship -n <animal name> -c <amount>
+animals
+shepherd animals -n <animal name> -l <x , y>
+feed hay -n <animal name>
+produces
+collect produce -n <name>
+sell animal -n <name>
+
+
+
