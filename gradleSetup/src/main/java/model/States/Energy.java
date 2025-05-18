@@ -2,19 +2,19 @@ package model.States;
 
 public class Energy {
 
-    private int energy;
-    private int maxEnergy =200;
+    private double energy;
+    private double maxEnergy =200;
     private boolean unlimited;
 
 
-    public Energy(int energy) {
+    public Energy(double energy) {
         this.energy = energy;
     }
 
-    public int getEnergy() {
+    public double getEnergy() {
         return energy;
     }
-    public void setEnergy(int energy) {
+    public void setEnergy(double energy) {
         this.energy = energy;
     }
     public boolean isUnlimited() {
@@ -24,11 +24,11 @@ public class Energy {
         unlimited = !unlimited;
     }
 
-    public int getMaxEnergy() {
+    public double getMaxEnergy() {
         return maxEnergy;
     }
 
-    public void setMaxEnergy(int maxEnergy) {
+    public void setMaxEnergy(double maxEnergy) {
         this.maxEnergy = maxEnergy;
     }
 }

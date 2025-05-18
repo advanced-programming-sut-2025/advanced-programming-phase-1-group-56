@@ -3,6 +3,7 @@ package model.MapModule.GameLocations;
 import model.App;
 import model.MapModule.Network;
 import model.MapModule.Node;
+import model.MapModule.Position;
 import model.MapModule.Tile;
 
 import java.util.ArrayList;
@@ -17,6 +18,10 @@ public class GameLocation extends Network {
 
     public Tile getTileByPosition(int x, int y){
         return tiles[y][x];
+    }
+
+    public Tile getTileByPosition(Position pos){
+        return tiles[pos.getY()][pos.getX()];
     }
 
     @Override

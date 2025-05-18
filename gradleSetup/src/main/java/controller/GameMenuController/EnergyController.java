@@ -16,7 +16,7 @@ public class EnergyController extends CommandController {
     //CHEAT
     public static Result cheatEnergySet(String energyStr){
         try{
-            int energy = Integer.parseInt(energyStr.trim());
+            double energy = Double.parseDouble(energyStr.trim());
             Player player =App.getCurrentUser().getCurrentGame().getCurrentPlayer();
             if(energy> App.getMe().getMaxEnergy()){
                 return new Result(false,"you can't cheat more than max energy");

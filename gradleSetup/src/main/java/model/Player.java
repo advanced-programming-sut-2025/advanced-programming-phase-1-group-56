@@ -36,7 +36,7 @@ public class Player implements TimeObserver {
     @Expose(serialize = false, deserialize = false)
     private User user;
     private boolean gender;
-    private int energyUsage = 0;
+    private double energyUsage = 0;
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -83,7 +83,7 @@ public class Player implements TimeObserver {
     private final ArrayList<Message> messages = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
-    private int maxEnergy = 200;
+    private double maxEnergy = 200;
 
     private Player partner = null;
 
@@ -412,7 +412,7 @@ public class Player implements TimeObserver {
         energy.setEnergy(energy.getEnergy() + amount);
     }
 
-    public void subtractEnergy(int amount) {
+    public void subtractEnergy(double amount) {
         energy.setEnergy(Math.max((energy.getEnergy() - amount), 0));
         if (energy.getEnergy() <= 0) {
             fainted = true;
@@ -429,19 +429,19 @@ public class Player implements TimeObserver {
         return null;
     }
 
-    public int getMaxEnergy() {
+    public double getMaxEnergy() {
         return maxEnergy;
     }
 
-    public void setMaxEnergy(int maxEnergy) {
+    public void setMaxEnergy(double maxEnergy) {
         this.maxEnergy = maxEnergy;
     }
 
-    public int getEnergyUsage() {
+    public double getEnergyUsage() {
         return energyUsage;
     }
 
-    public void setEnergyUsage(int energyUsage) {
+    public void setEnergyUsage(double energyUsage) {
         this.energyUsage = energyUsage;
     }
 

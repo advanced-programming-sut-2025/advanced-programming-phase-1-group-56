@@ -51,15 +51,16 @@ public class MapController extends CommandController {
                     result.append(CYAN + "PP");
                 } else if (tiles[i][j].getFixedObject() == null) {
                     switch (tiles[i][j].getTileType()) {
-                        case TileType.Soil -> result.append(ORANGE + "..");
-                        case TileType.Grass -> result.append(GREEN + "..");
-                        case TileType.Water -> result.append(CYAN + "..");
+                        case TileType.Soil -> result.append(ORANGE + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
+                        case TileType.Grass -> result.append(GREEN + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
+                        case TileType.Water -> result.append(CYAN + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
                         case TileType.Vanity -> result.append(WHITE + "XX");
-                        case TileType.Stone -> result.append(GRAY + "..");
-                        case TileType.PlowedSoil -> result.append(BROWN + "..");
-                        case TileType.WaterPlowedSoil -> result.append(BLACK_BROWN + "..");
+                        case TileType.Stone -> result.append(GRAY + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
+                        case TileType.PlowedSoil -> result.append(BROWN + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
+                        case TileType.WaterPlowedSoil ->
+                                result.append(BLACK_BROWN + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
                         case TileType.Mine -> result.append(WHITE + ",,");
-                        default -> result.append(GRAY + "..");
+                        default -> result.append(GRAY + ((tiles[i][j].isWalkable()) ? ".." : ",,"));
                     }
                 } else {
                     if (tiles[i][j].getFixedObject() instanceof Home home) {
@@ -68,8 +69,7 @@ public class MapController extends CommandController {
                         } else {
                             result.append(BROWN + "PH");
                         }
-                    }
-                    if (tiles[i][j].getFixedObject() instanceof GreenHouse greenHouse) {
+                    } else if (tiles[i][j].getFixedObject() instanceof GreenHouse greenHouse) {
                         if (i == greenHouse.getDoorPosition().getY() && j == greenHouse.getDoorPosition().getX()) {
                             result.append(BROWN + "DD");
                         } else {
@@ -97,8 +97,10 @@ public class MapController extends CommandController {
                         result.append("TT");
                     } else if (tiles[i][j].getFixedObject() instanceof Grass) {
                         result.append(GREEN + "GG");
-                    } else {
-                        result.append("");
+                    } else if (tiles[i][j].isWalkable()) {
+                        result.append(GRAY + "..");
+                    } else if (!tiles[i][j].isWalkable()) {
+                        result.append(GRAY + ",,");
                     }
                 }
             }
@@ -119,8 +121,8 @@ public class MapController extends CommandController {
         } else if (path.isEmpty()) {
             return new Result(false, "path is empty");
         } else {
-            int neededEnergy = (int) path.size() / 20;
-            return new Result(true, String.format("you need %d energy to go to tile<%d , %d>. Are you sure that you want to go?", neededEnergy, x, y));
+            double neededEnergy = (double) path.size() / 20;
+            return new Result(true, String.format("you need %f energy to go to tile<%d , %d>. Are you sure that you want to go?", neededEnergy, x, y));
         }
     }
 
@@ -156,9 +158,9 @@ public class MapController extends CommandController {
         Game game = App.getCurrentUser().getCurrentGame();
         ArrayList<Node> path = findPath(x, y);
         int turn = AStarPathFinding.countDirectionChanges(path);
-        int neededEnergy = (int) path.size() + (2 * turn) / 20;
-        int availableDistance = Math.min(player.getEnergy().getEnergy() * 20, path.size());
-        player.setPosition(((Tile) path.get(path.size() - availableDistance)).getPosition());
+        double neededEnergy =  path.size() + (double)((2 * turn) / 20);
+        double availableDistance = Math.min(player.getEnergy().getEnergy() * 20, path.size());
+        player.setPosition(((Tile) path.get((path.size() - (int)availableDistance))).getPosition());
         player.subtractEnergy(availableDistance / 20);
         if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getTileType() == TileType.Wrapper) {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
@@ -197,7 +199,7 @@ public class MapController extends CommandController {
             }
 
         } else if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getFixedObject() instanceof Building building) {
-            if (player.getPosition() == building.getDoorPosition()) {
+            if (player.getPosition().equals(building.getDoorPosition())) {
                 if (building instanceof JojaMart) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
                             App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
@@ -261,13 +263,7 @@ public class MapController extends CommandController {
                 }
             }
         }
-        if (player.isFainted()) {/////toye view seda bezan
-            return new Result(false, String.format("you faint at Tile <%d , %d>", player.getPosition().getX(), player.getPosition().getY()));
-        } else {
-            return new Result(true, String.format("you are at Tile <%d , %d>", player.getPosition().getX(), player.getPosition().getY()));
-        }
-
-
+        return new Result(true, String.format("you are at Tile <%d , %d>", player.getPosition().getX(), player.getPosition().getY()));
     }
 
     public void walkToHome() {
