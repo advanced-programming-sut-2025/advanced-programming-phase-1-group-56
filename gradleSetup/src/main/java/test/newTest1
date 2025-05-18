@@ -1,7 +1,3 @@
-show current menu
-menu enter main menu
-back
-//register -u Mohsen? -p MohsenZare12? MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
 register -u Mohsen -p MohsenZare12` MohsenZare12? -n Ali -e Mohsen33@gmail.com -g male
 register -u Mohsen -p MohsenZare12? MohsenZare12 -n Ali -e Mohsen33@gmail.com -g male
 register -u Mohsen -p Mohsen Mohsen -n Ali -e Mohsen33@gmail.com -g male
@@ -20,8 +16,7 @@ pick question -q 1 -a blue -c blue
 register -u Mohsen4 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
 pick question -q 1 -a blue -c blue
 register -u Mohsen1 -p MohsenZare12? MohsenZare12? -n Ali -e mohsenAli23@gmail.com -g male
-login -u Mohsen -p MohsenZare12? –stay-logged-in
-menu exit
+login -u Mohsen -p MohsenZare12?
 forget password -u Mohsen
 answer -a blue
 menu enter main menu
@@ -38,19 +33,19 @@ change email -e user@domain.c
 change email -e user@domain..com
 change email -e user@.com
 change email -e Mohsenzare123@gmail.com
-change password -p MohsenZare12 -o MohsenZare12?
+change password -p MohsenZare12? -o MohsenZare12?
 change password -p MohsenZare12? -o MohsenZare12
 change password -p MohsenZare12 -o MohsenZare12?
 change password -p Mohsen -o MohsenZare12?
 change password -p Mohsenzare` -o MohsenZare12?
 user info
+back
 menu enter game menu
 game new -u Mohsen1 Mohsen2 Mohsen3
 1
 2
 4
 3
-
 next turn
 day of the week
 datetime
@@ -71,7 +66,7 @@ weather
 walk -l <40, 50>
 print map -l <10, 10> -s 30
 help reading map
-cheat Thor -l < , >
+cheat Thor -l <10, 10>
 print map -l <10, 10> -s 30
 energy show
 energy set -v 150
@@ -114,6 +109,33 @@ craftinfo -n Oak Tree
 plant -s Corn Seeds -d LEFT
 cheat add item -n Corn Seeds -c 1
 plant -s Corn Seeds -d LEFT
-
+tools equip Hoe
+tools use -d LEFT
+fertilize -f Speed Gro -d
+plant -s Corn Seeds -d LEFT
+showplant -l <39, 50>
+fertilize -f Speed Gro -d
+howmuch water
+walk -l <, >
+crafting show recipes
+crafting craft Coke
+crafting craft Sprinkler
+add recipe -n Sprinkler -c 1
+cheat add item -n Iron Bar -c 1
+cheat add item -n Copper Bar -c 1
+crafting craft Sprinkler
+place item -n Sprinkler -d Right
+cheat add item -n Cherry -c 1
+cooking refrigerator put Cherry
+inventory show
+inventory trash -i Sprinkler -n 1
+cooking show recipes
+cheat add item -n Egg -c 1
+cooking prepare Fried Egg
+show energy
+inventory show
+cooking add recipe Triple Shot Espresso
+cooking prepare Triple Shot Espresso
+show energy
 
 

@@ -11,6 +11,13 @@ import model.items.Item;
 import java.util.regex.Matcher;
 
 public class CookingController extends CommandController {
+
+    public static Result addRecipe(String name) {
+        FoodRecipesList foodRecipesList = FoodRecipesList.fromName(name);
+        App.getMe().addFoodRecipes(foodRecipesList);
+        return new Result(true, "recipe added successfully");
+    }
+    //TODO
     public static Result refrigeratorPick(Matcher matcher) {
         String input = matcher.group(1).trim().trim();
         Item item = returnRefrigeratorItemByName(input);

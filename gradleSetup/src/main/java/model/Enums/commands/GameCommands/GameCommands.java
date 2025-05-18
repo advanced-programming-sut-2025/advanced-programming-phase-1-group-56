@@ -14,7 +14,8 @@ public enum GameCommands implements Commands {
     Walk("\\s*walk\\s+-l\\s+([0-9]+)\\s+([0-9]+)\\s*"),
     printMap("\\s*print\\s+map\\s*"),
     //printMap("\\s*print\\s+map\\s+-l\s+<([0,9]+),\s+([0,9]+)>\s+-s\s+([0-9]+)"),
-    helpReadingMap("help\\s+reading\\s+map");
+    helpReadingMap("help\\s+reading\\s+map"),
+    eatFood("eat (.+)");
 
 
     private final String pattern;

@@ -26,9 +26,9 @@ public class LoginMenuController extends CommandController {
         String username = matcher.group(1).trim();
         String password = matcher.group(2).trim().trim();
         String rePassword = matcher.group(3).trim();
-        String nickName = matcher.group(4);
-        String email = matcher.group(5);
-        String gender = matcher.group(6);
+        String nickName = matcher.group(4).trim();
+        String email = matcher.group(5).trim();
+        String gender = matcher.group(6).trim();
         if (!InfoRegexes.usersName.isValid(username)) {
             return new Result(false, "do yo wanna play game with me?(username is incorrect) you can use " + makeRandomUserName());
         } else if (returnUser(username) != null) {

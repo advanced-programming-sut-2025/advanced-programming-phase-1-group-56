@@ -10,7 +10,8 @@ public enum CraftingCommand implements Commands {
     ShowRecipe("crafting show recipes"),
     craftItem("crafting craft (.+)"),
     dropItem("place item -n (.+) -d (.+)"),
-    cheatCode("cheat add item -n (.+) -c (.+)");
+    cheatCode("cheat add item -n (.+) -c (.+)"),
+    cheatAddRecipe("add recipe -n (.+) -c (.+)");//TODO
 
     private final String command;
 

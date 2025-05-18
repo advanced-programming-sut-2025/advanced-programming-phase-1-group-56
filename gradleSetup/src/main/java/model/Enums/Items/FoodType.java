@@ -156,4 +156,13 @@ public enum FoodType implements ItemType {
         return buffType;
     }
 
+    public static FoodType fromName(String name) {
+        for (FoodType type : FoodType.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
+
 }
