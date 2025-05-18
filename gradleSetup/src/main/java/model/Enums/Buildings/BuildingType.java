@@ -85,6 +85,6 @@ public enum BuildingType implements Saleable {
     }
 
     public String getIcon() {
-        return icon;
+        return "BB";
     }
 }
