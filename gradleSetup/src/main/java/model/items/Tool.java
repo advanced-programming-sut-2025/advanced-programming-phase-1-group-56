@@ -97,6 +97,8 @@ public class Tool extends Item {
                 } else if (tile.getFixedObject() == null && (tile.getTileType() == TileType.PlowedSoil || tile.getTileType() == TileType.WaterPlowedSoil
                         || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
                     tile.setTileType(TileType.Soil);
+                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
+                } else if (tile.getFixedObject() instanceof DroppedItem) {
                     player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
 //                } else if (tile.getFixedObject().getClass() == DroppedItem.class) {
 //                    tile.setFixedObject(null);

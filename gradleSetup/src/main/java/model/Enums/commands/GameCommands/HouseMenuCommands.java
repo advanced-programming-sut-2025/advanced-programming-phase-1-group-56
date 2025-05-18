@@ -9,7 +9,8 @@ public enum HouseMenuCommands implements Commands {
     refrigeratorPick("cooking\\s+refrigerator\\s+pick\\s+(.+)"),
     refrigeratorPut("cooking\\s+refrigerator\\s+put\\s+(.+)"),
     showRecipes("cooking show recipes"),
-    prepareRecipe("cooking prepare (.+)");
+    prepareRecipe("cooking prepare (.+)"),
+    addRecipe("cooking add recipe (.+)");//TODO
 
     private final String pattern;
     HouseMenuCommands(String pattern) {

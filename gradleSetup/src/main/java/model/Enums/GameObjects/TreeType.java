@@ -60,4 +60,13 @@ public enum TreeType implements Saleable , initialPlant {
     public String getIcon(){
         return icon;
     }
+
+    public static TreeType fromName(String name) {
+        for (TreeType type : TreeType.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

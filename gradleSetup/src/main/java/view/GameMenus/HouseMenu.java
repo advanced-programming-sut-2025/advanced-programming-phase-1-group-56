@@ -48,6 +48,10 @@ public class HouseMenu implements AppMenu {
             }
             return true;
 
+        } else if((matcher = HouseMenuCommands.addRecipe.getMatcher(input)).find()) {
+            String name = matcher.group(1).trim();
+            System.out.println(CookingController.addRecipe(name));
+            return true;
         }
         return false;
     }
@@ -67,6 +71,12 @@ public class HouseMenu implements AppMenu {
         } else if ((matcher = CraftingCommand.dropItem.getMatcher(input)) != null) {
             System.out.println(CraftingController.placeItem(matcher));
             //Complete
+            return true;
+        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+            System.out.println(CraftingController.cheatAddItem(matcher));
+            return true;
+        } else if ((matcher = CraftingCommand.cheatAddRecipe.getMatcher(input)) != null) {
+            System.out.println(CraftingController.addRecipe(matcher.group(1)));
             return true;
         }
         return false;

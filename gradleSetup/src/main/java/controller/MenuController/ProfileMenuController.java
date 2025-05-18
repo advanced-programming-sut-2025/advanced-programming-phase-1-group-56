@@ -11,8 +11,9 @@ public class ProfileMenuController extends CommandController {
     public static Result manageChangePassword(String  newPassword,String oldPassword) {
         newPassword= newPassword.trim();
         oldPassword =oldPassword.trim();
-        if(!App.getCurrentUser().getPassword().equals(oldPassword)) {
-            return new Result(false,"password ghadimit eshatabahe dadash..");
+        String hashedInputPassword = MakePasswordSHA_256.hashPassword(oldPassword, App.getCurrentUser().getSalt());//TODO
+        if(!App.getCurrentUser().getPassword().equals(hashedInputPassword)){
+            return new Result(false,"password ghadimit eshatabahe dadash.");
         } else if(newPassword.equals(oldPassword)) {
             return new Result(false, "dadash password jadid hamun ghablie ke");
         } else if(!InfoRegexes.password.isValid(newPassword)) {
@@ -63,9 +64,9 @@ public class ProfileMenuController extends CommandController {
     public static Result UserInfo() {
         User user = App.getCurrentUser();
         String info = "Dadash Shoma '" + user.getUsername() + "' " +
-                "Molagahb be '" + user.getUsername() + "' Mibashid.\n" +
+                "Molagahb be '" + user.getName() + "' Mibashid.\n" +
                 user.getHighScore() + "$ balatarin emtiaz shome dar " +
-                user.getNumOfGames() + "ta bazi mibashad..";
+                user.getNumOfGames() + "ta bazi mibashad..";//TODO
 
         return new Result(true, info);
     }
