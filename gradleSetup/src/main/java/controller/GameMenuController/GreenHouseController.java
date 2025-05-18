@@ -28,7 +28,6 @@ public class GreenHouseController extends CommandController {
 
         me.getInventory().remove(new Etc(EtcType.WOOD), 500);
         me.addGold(-1000);
-
         greenHouse.setBroken(false);
 
         return new Result(true, "Greenhouse built successfully.");
