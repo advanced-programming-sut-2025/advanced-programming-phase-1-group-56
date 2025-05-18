@@ -56,7 +56,11 @@ public class GameMenu implements AppMenu {
         } else if (GameCommands.nextTurn.getMatcher(input).find()) {//skip turn
             System.out.println(GameController.manageNextTurn().message());
             return true;
-        } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
+        } else if (input.equalsIgnoreCase("pwd")) {
+            System.out.println("X: " + App.getMe().getPosition().getX() + "Y:" + App.getMe().getPosition().getY());
+            System.out.println("X: " + App.getMe().getPlayerFarm().getTiles()[0].length + "Y: " + App.getMe().getPlayerFarm().getTiles().length );
+            return true;
+        }else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
             boolean isCorrect;
             System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
             isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())).isSuccess();

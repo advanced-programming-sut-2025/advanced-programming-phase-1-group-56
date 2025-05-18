@@ -226,6 +226,8 @@ public class PreGameMenuController extends CommandController {
             player.getInventory().add(new Tool(ToolType.HOE_WOODEN),1);
             player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
             player.addGold(100);
+            player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
+            player.teleportToHome();
         }
     }
 
