@@ -13,6 +13,9 @@ import model.MapModule.Tile;
 import model.Player;
 import model.skills.Skill;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Tool extends Item {
     private ToolType toolType;
     private int capacity;
@@ -141,7 +144,8 @@ public class Tool extends Item {
                         FishType fishType = FishType.getCheapestFishOfSeason(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
                         player.getInventory().add(new Fish(fishType), quantity);
                     } else {
-                        player.getInventory().add(new Fish(FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason()).get(2)), quantity);
+                        ArrayList<FishType> seasonFishes = FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
+                        player.getInventory().add(new Fish(seasonFishes.get((int)(Math.random() * seasonFishes.size()))), quantity);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
