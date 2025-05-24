@@ -13,6 +13,7 @@ import model.MapModule.Tile;
 import model.Player;
 import model.skills.Skill;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Tool extends Item {
@@ -144,7 +145,7 @@ public class Tool extends Item {
                         player.getInventory().add(new Fish(fishType), quantity);
                     } else {
                         ArrayList<FishType> seasonFishes = FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
-                        player.getInventory().add(new Fish(seasonFishes.get((int) (Math.random() * seasonFishes.size()))), quantity);
+                        player.getInventory().add(new Fish(seasonFishes.get((int)(Math.random() * seasonFishes.size()))), quantity);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
