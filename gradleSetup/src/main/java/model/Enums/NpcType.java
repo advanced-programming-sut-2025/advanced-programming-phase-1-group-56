@@ -79,7 +79,7 @@ public enum NpcType {
                     new Food(FoodType.GRAPE),
                     new Food(FoodType.WINE)
             )),
-            LeahPrompt.class ,
+            LeahPrompt.class,
             "U+1F9DD"
     ),
 

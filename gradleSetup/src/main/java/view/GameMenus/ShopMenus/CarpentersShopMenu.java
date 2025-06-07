@@ -1,6 +1,8 @@
 package view.GameMenus.ShopMenus;
 
+import controller.GameMenuController.HusbandryController;
 import controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
+import model.Enums.commands.GameCommands.HusbandryCommands;
 import model.Enums.commands.GameCommands.StoreCommands;
 import view.AppMenu;
 
@@ -12,15 +14,18 @@ public class CarpentersShopMenu implements AppMenu {
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
         Matcher matcher;
-        if((StoreCommands.ShowAllProduct.getMatcher(input))!=null) {
+        if ((StoreCommands.ShowAllProduct.getMatcher(input)) != null) {
             System.out.println(CarpenterMenuController.showAllProducts().message());
-        } else if((StoreCommands.ShowAllAvailableProducts.getMatcher(input))!=null) {
+        } else if ((StoreCommands.ShowAllAvailableProducts.getMatcher(input)) != null) {
             System.out.println(CarpenterMenuController.showAllAvailableProducts().message());
-        } else if((matcher = StoreCommands.PurchaseProducts.getMatcher(input))!=null) {
+        } else if ((matcher = StoreCommands.PurchaseProducts.getMatcher(input)) != null) {
             System.out.println(CarpenterMenuController.PurchaseProduct(matcher).message());
-        } else if(input.equalsIgnoreCase("exit")) {
+        } else if (input.equalsIgnoreCase("exit")) {
             System.out.println(CarpenterMenuController.ExitShop().message());
-        } else {
+        } else if ((matcher = HusbandryCommands.BuildABuilding.getMatcher(input)) != null) {
+            System.out.println(CarpenterMenuController.BuildABuilding(matcher).message());
+        }
+        {
             System.out.println("invalid command");
         }
     }

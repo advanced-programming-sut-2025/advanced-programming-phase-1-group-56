@@ -140,7 +140,7 @@ fishing -p <fishing pole>
 
 
 
-artisan use Fish_Smoker Salmon Coal
+artisan use pri Salmon Coal
 add recipe -n Fish Smoker -c 1
 cheat add item -n Fish Smoker -c 1
 place item -n Fish Smoker -d UP

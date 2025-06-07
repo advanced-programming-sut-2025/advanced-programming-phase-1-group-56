@@ -77,7 +77,19 @@ public class GameMenu implements AppMenu {
             System.out.println(MapController.printMap());
             setCurrentStoreOrBuilding();
             return true;
-        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+        } else if(input.equalsIgnoreCase("ef")) {
+            System.out.println("emptying field:");
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            for (int i = x-7; i < x+7 ; i++) {
+                for (int j = y-7; j < y+7; j++) {
+                    App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setWalkable(true);
+                    App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setTileType(TileType.Soil);
+                    App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setFixedObject(null);
+                }
+            }
+            return true;
+        }else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
             System.out.println(CraftingController.cheatAddItem(matcher));
             return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
