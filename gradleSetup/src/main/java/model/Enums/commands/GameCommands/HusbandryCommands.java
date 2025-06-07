@@ -17,7 +17,9 @@ public enum HusbandryCommands implements Commands {
     sellAnimal("sell animal -n (\\S+)"),
     fishing("fishing -p (.+)"),
     //cheatCode
-    cheatSetFriendship("cheat set friendship -n (.+) -c (.+)");
+    cheatSetFriendship("cheat set friendship -n (.+) -c (.+)"),
+    BuildABuilding("build -a (.+) -l  (\\d+,\\d+)")
+    ;
 
     private final String regex;
 
