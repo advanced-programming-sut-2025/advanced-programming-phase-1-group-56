@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Animal extends LivingEntity implements Saleable, TimeObserver {
-    private String name;
     private AnimalType animalInfo;
     private final ArrayList<AnimalProduct> dailyProducts = new ArrayList<>();
     private int friendship = 0;
@@ -28,7 +27,7 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
 
     public Animal(Position position, String name, AnimalType animalInfo) {
         super(position, true);
-        this.name = name;
+        this.nickName = name;
         this.animalInfo = animalInfo;
         this.isFed = false;
         this.isCaressed = false;
@@ -47,10 +46,6 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
 
     public void addFriendShip(int countFriendShip) {
         friendship += countFriendShip;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ArrayList<EtcType> getProducts() {
@@ -97,11 +92,6 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
         this.animalInfo = animalInfo;
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
     public AnimalHouse getHouse() {
         return house;
     }
@@ -133,7 +123,7 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
             if (!isFed) {
                 friendship -= 20;
             }
-            if (goOut) {
+            if (!goOut) {
                 friendship -= 20;
             }
             if (!isCaressed) {
@@ -164,4 +154,8 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
     }
 
 
+    @Override
+    public String getName() {
+        return "";
+    }
 }

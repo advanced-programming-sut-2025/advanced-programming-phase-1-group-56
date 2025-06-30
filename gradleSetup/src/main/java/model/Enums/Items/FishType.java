@@ -78,4 +78,13 @@ public enum FishType implements ItemType {
         }
         return cheapestFish;
     }
+
+    public static FishType fromName(String name) {
+        for (FishType type : FishType.values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }

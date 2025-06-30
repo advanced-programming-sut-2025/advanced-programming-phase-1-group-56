@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public enum ArtisanMachineItemType implements ItemType {
 
-    CHARCOAL_KLIN("Charcoal Klin", ArtisanMachineType.CHARCOAL_KILN ,true, true),
+    CHARCOAL_KLIN("Charcoal_Klin", ArtisanMachineType.CHARCOAL_KILN ,true, true),
     FURNACE("Furnace", ArtisanMachineType.FURNACE ,true, true),
-    BEE_HOUSE("Bee House", ArtisanMachineType.BEE_HOUSE ,true, true),
-    CHEESE_PRESS("Cheese Press", ArtisanMachineType.CHEESE_PRESS ,true, true),
+    BEE_HOUSE("Bee_House", ArtisanMachineType.BEE_HOUSE ,true, true),
+    CHEESE_PRESS("Cheese_Press", ArtisanMachineType.CHEESE_PRESS ,true, true),
     KEG("Keg", ArtisanMachineType.KEG ,true, true),
     LOOM("Loom", ArtisanMachineType.LOOM ,true, true),
-    MAYONNAISE_MACHINE("Mayonnaise Machine", ArtisanMachineType.MAYONNAISE_MACHINE ,true, true),
-    OIL_MAKER("Oil Maker", ArtisanMachineType.OIL_MAKER ,true, true),
+    MAYONNAISE_MACHINE("Mayonnaise_Machine", ArtisanMachineType.MAYONNAISE_MACHINE ,true, true),
+    OIL_MAKER("Oil_Maker", ArtisanMachineType.OIL_MAKER ,true, true),
     PRESERVES_JAR("Preserves Jar", ArtisanMachineType.PRESERVES_JAR ,true, true),
     DEHYDRATOR("Dehydrator", ArtisanMachineType.Dehydrator ,true, true),
-    FISH_SMOKER("Fish Smoker", ArtisanMachineType.FISH_SMOKER ,true, true);
+    FISH_SMOKER("Fish_Smoker", ArtisanMachineType.FISH_SMOKER ,true, true);
 
     private final String name;
 
