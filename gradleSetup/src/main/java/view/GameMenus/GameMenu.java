@@ -366,6 +366,9 @@ public class GameMenu implements AppMenu {
         } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
             System.out.println(HusbandryController.sellAnimal(matcher));
             return true;
+        } else if((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
+            System.out.println(HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)),matcher.group(3)));
+            return true;
         }
         return false;
     }

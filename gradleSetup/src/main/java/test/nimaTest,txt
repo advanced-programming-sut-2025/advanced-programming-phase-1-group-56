@@ -7,6 +7,18 @@ game new -u Mohsen1 Mohsen2 Mohsen3
 4
 3
 print map
+add animal <65, 24> -n Chicken
+pet -n mn
+shepherd animals -n mn -l 68, 24
+print map
+inventory show
+produces
+collect produce -n mn
+cheat advance date 1d
+feed hay -n mn
+produces
+collect produce -n mn
+
 cheat add 200000 dollars
 sp
 79
