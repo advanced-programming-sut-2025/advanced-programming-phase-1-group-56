@@ -77,7 +77,19 @@ public class GameMenu implements AppMenu {
             System.out.println(MapController.printMap());
             setCurrentStoreOrBuilding();
             return true;
-        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+        } else if(input.equalsIgnoreCase("ef")) {
+            System.out.println("emptying field:");
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            for (int i = x-7; i < x+7 ; i++) {
+                for (int j = y-7; j < y+7; j++) {
+                    App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setWalkable(true);
+                    App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setTileType(TileType.Soil);
+                    App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setFixedObject(null);
+                }
+            }
+            return true;
+        }else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
             System.out.println(CraftingController.cheatAddItem(matcher));
             return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
@@ -365,6 +377,9 @@ public class GameMenu implements AppMenu {
             return true;
         } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
             System.out.println(HusbandryController.sellAnimal(matcher));
+            return true;
+        } else if((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
+            System.out.println(HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)),matcher.group(3)));
             return true;
         }
         return false;

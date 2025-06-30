@@ -14,13 +14,7 @@ public class DeepSeekApiChat {
     private final OkHttpClient client = new OkHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    /**
-     * ارسال پرامپت و دریافت پاسخ AI
-     *
-     * @param prompt       متن دستور برای مدل
-//     * @param messageIndex شماره پیام برای عمق گفتگو
-     * @return خروجی مدل به‌همراه ایندکس پیام
-     */
+
     public String generateDialogue(String prompt) throws IOException {
         // 1. ساخت JSON درخواست
         ObjectNode body = mapper.createObjectNode();

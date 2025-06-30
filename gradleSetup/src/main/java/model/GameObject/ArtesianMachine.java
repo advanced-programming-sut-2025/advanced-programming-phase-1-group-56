@@ -67,7 +67,7 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
             processTime--;
         }
 
-        if(processTime == 0){
+        if(processTime <= 0){
             finishMakeArtisanGood(new ArtisanGood(artisanGoodType));
             artisanGoodType = null;
         }

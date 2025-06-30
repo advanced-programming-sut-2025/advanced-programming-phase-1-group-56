@@ -134,6 +134,7 @@ public class CraftingController extends CommandController {
         }
         if (item instanceof Artesian) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
+            System.out.println("yes");
         } else if (item instanceof Etc) {
             if (((Etc) item).getEtcType().etcObjectType != null) {
                 if (((Etc) item).getEtcType().getName().equals(EtcType.SCARE_CROW.name) || ((Etc) item).getEtcType().getName().equals(EtcType.DELUXE_SCARE_CROW.name)) {

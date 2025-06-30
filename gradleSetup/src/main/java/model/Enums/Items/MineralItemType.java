@@ -17,12 +17,12 @@ public enum MineralItemType implements ItemType {
     DIAMOND("Diamond", "A rare and valuable gem.", 750 , "\uD83D\uDFE9"),
     PRISMATIC_SHARD("Prismatic Shard", "A very rare and powerful substance with unknown origins.", 2000 , "\uD83C\uDF08"),
 
-    COPPER_ORE("Copper Ore", "A common ore that can be smelted into bars.", 5 , "\uD83D\uDFE0"),
-    IRON_ORE("Iron Ore", "A fairly common ore that can be smelted into bars.", 10 , "\uD83D\uDD34"),
-    GOLD_ORE("Gold Ore", "A precious ore that can be smelted into bars.", 25 , "\uD83E\uDE99"),
-    IRIDIUM_ORE("Iridium Ore", "An exotic ore with many curious properties. Can be smelted into bars.", 100 , "\uD83D\uDFE2"),
-    COAL_ORE("Coal Ore", "A combustible rock that is useful for crafting and smelting.", 15 , "\u26AB"),
-    ANY_ORE("Any Ore", "A precious ore that can be smelted into bars.", -1,null);
+    COPPER_ORE("Copper_Ore", "A common ore that can be smelted into bars.", 5 , "\uD83D\uDFE0"),
+    IRON_ORE("Iron_Ore", "A fairly common ore that can be smelted into bars.", 10 , "\uD83D\uDD34"),
+    GOLD_ORE("Gold_Ore", "A precious ore that can be smelted into bars.", 25 , "\uD83E\uDE99"),
+    IRIDIUM_ORE("Iridium_Ore", "An exotic ore with many curious properties. Can be smelted into bars.", 100 , "\uD83D\uDFE2"),
+    COAL_ORE("Coal_Ore", "A combustible rock that is useful for crafting and smelting.", 15 , "\u26AB"),
+    ANY_ORE("Any_Ore", "A precious ore that can be smelted into bars.", -1,null);
 
     public final String name;
     public final String description;
