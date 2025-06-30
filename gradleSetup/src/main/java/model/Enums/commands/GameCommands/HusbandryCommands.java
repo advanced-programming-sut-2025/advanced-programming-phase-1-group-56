@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum HusbandryCommands implements Commands {
+    cheatADdAnimal("add animal <(.+), (.+)> -n (.+)"),
     buildBarnOrCoop("build\\s+-a\\s+(.+)\\s+-l\\s+(\\S+) , (\\S+)"),
     buyAnimal("buy\\s+animal\\s+-a\\s+(.+)\\s+-n\\s+(.+)"),
     pettingAnimal("pet -n (\\S+)"),
@@ -35,4 +36,6 @@ public enum HusbandryCommands implements Commands {
         }
         return null;
     }
+
+
 }
