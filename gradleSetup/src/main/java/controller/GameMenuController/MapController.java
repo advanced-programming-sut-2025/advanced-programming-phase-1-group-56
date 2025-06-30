@@ -127,7 +127,7 @@ public class MapController extends CommandController {
                     } else if (tiles[i][j].getFixedObject() instanceof Animal) {
                         result.append("AN");
                     } else if (tiles[i][j].getFixedObject() instanceof NPC) {
-                        result.append("NP");
+                        result.append(RED + "NP");
                     } else if (tiles[i][j].getFixedObject() instanceof MailBox) {
                         result.append("MB");
                     } else if (tiles[i][j].getFixedObject() instanceof ShippingBar) {
