@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="thats It?">
+      <change afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameAssetManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" afterDir="false" />
@@ -13,11 +21,8 @@
       <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/CraftingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/CraftingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/HusbandryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/HusbandryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/HusbandryCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/HusbandryCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/gradleSetup/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +30,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/gradleSetup">
       <ProjectState />
     </projectState>
@@ -93,6 +101,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="mohsen" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="mohsen" />
@@ -127,31 +148,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;mohsen&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/OneDrive/Desktop/TAMRIN 3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.gradleSetup [:Main.main()].executor": "Run",
+    "Gradle.tiledMap:lwjgl3 [:lwjgl3:com.game.DesktopLauncher.main()].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "mohsen",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/HP/OneDrive/Desktop/tiledMap",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\States" />
@@ -183,11 +205,11 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="Lwjgl3Launcher" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-23" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="gradleSetup.main" />
+      <option name="MAIN_CLASS_NAME" value="com.game.lwjgl3.Lwjgl3Launcher" />
+      <module name="tiledMap.lwjgl3.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -238,6 +260,9 @@
       <workItem from="1748081831628" duration="2995000" />
       <workItem from="1748110825156" duration="26000" />
       <workItem from="1751269156415" duration="1104000" />
+      <workItem from="1751306744482" duration="3307000" />
+      <workItem from="1751375718114" duration="671000" />
+      <workItem from="1751376549539" duration="2361000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -372,6 +397,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="last commit to show mohesen" />
