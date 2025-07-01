@@ -16,6 +16,8 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.squareup.okhttp3:okhttp:4.11.0")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:1.12.0")
+    implementation("com.badlogicgames.gdx:gdx-platform:1.12.0:natives-desktop")
 }
 
 tasks.test {
