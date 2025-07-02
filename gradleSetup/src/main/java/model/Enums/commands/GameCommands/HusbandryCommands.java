@@ -18,7 +18,7 @@ public enum HusbandryCommands implements Commands {
     fishing("fishing -p (.+)"),
     //cheatCode
     cheatSetFriendship("cheat set friendship -n (.+) -c (.+)"),
-    BuildABuilding("build -a (.+) -l  (\\d+,\\d+)")
+    BuildABuilding("build -a (.+) -l (\\d+) (\\d+)")
     ;
 
     private final String regex;
