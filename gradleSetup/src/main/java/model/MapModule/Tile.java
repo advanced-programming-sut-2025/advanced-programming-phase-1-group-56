@@ -1,6 +1,7 @@
 package model.MapModule;
 
 import com.google.gson.annotations.Expose;
+import kotlin.jvm.Transient;
 import model.Enums.TileType;
 import model.GameObject.GameObject;
 import model.MapModule.Buildings.Building;
