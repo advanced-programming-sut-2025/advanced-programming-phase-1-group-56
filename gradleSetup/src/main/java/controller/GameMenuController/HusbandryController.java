@@ -26,7 +26,16 @@ import java.util.Random;
 import java.util.regex.Matcher;
 
 public class HusbandryController extends CommandController {
-
+    public static Result addAnimal(int x , int y, String name){
+        AnimalType animal = AnimalType.findAnimalTypeByName(name);
+        if(animal == null){
+            return new Result(false, "AnimalType not found");
+        }
+        Animal animal1 = new Animal(new Position(x,y),"mn",animal);
+        App.getMe().addAnimals(animal1);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal1);
+        return new Result(true,"Added Animal " + animal1.getName());
+    }
     public static Result petting(Matcher matcher) {
         String name = matcher.group(1).trim();
         Animal animal = returnAnimal(name);
@@ -48,23 +57,26 @@ public class HusbandryController extends CommandController {
             return new Result(false, "Animal is not around u!");
         }
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equalsIgnoreCase(name)) {
+            if (animal2.getNickName().equalsIgnoreCase(name)) {
                 animal2.addFriendShip(15);
                 animal2.setCaressed(true);
             }
         }
-        return new Result(true, "you petting " + animal.getName());
+        return new Result(true, "you petting " + animal.getNickName());
 
     }
 
     public static Result showInfoOfAnimal() {
         StringBuilder tmpString = new StringBuilder();
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            tmpString.append("animal's Name : ").append(animal.getName()).append("\n").append("your friendShip with him : ")
+            tmpString.append("animal's Name : ").append(animal.getNickName()).append("\n").append("your friendShip with him : ")
                     .append(animal.getFriendship()).append("\n")
                     .append("cuddled or not : ").append(animal.getIsCaressed())
                     .append("\n").append("eaten or not : ").append(animal.getIsFed()).append("\n");
 
+        }
+        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals().isEmpty()){
+            return new Result(false,"there is no animal");
         }
         return new Result(false,tmpString.toString());
     }
@@ -96,7 +108,7 @@ public class HusbandryController extends CommandController {
                     if (y <= coop.getHeight() + coop.getPosition().getY() && y > coop.getPosition().getY()) {
                         animal.setGoOut(false);
                         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getName().equalsIgnoreCase(animalName)) {
+                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
                                 animal2.setPosition(new Position(x, y));
                             }
                         }
@@ -111,7 +123,7 @@ public class HusbandryController extends CommandController {
                     if (y <= barn.getHeight() + barn.getPosition().getY() && y > barn.getPosition().getY()) {
                         animal.setGoOut(false);
                         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getName().equalsIgnoreCase(animalName)) {
+                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
                                 animal2.setPosition(new Position(x, y));
                             }
                         }
@@ -125,11 +137,15 @@ public class HusbandryController extends CommandController {
         animal.setFed(true);
         animal.addFriendShip(8);
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equalsIgnoreCase(animalName)) {
-                animal2.setPosition(new Position(x, y));
+            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(animal2.getPosition().getX(), animal2.getPosition().getY()).setFixedObject(null);
+                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getAnimalInfo());
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal3);
+                return new Result(true, animal2.getNickName() + " have been replaced!");
             }
         }
-        return new Result(true, "your animal has go out in this weather!");
+        return null;
+
     }
 
     public static Result feedHay(Matcher matcher) {
@@ -141,12 +157,12 @@ public class HusbandryController extends CommandController {
         }
 
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getName().equals(animalName)) {
+            if (animal2.getNickName().equals(animalName)) {
                 animal2.setFed(true);
             }
         }
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(new Etc(EtcType.HAY), 1);
-        return null;
+        return new Result(true, animal.getNickName() + " ate.");
     }
 
     public static Result showProduces() {
@@ -155,7 +171,7 @@ public class HusbandryController extends CommandController {
             if (animal.getDailyProducts().isEmpty()) {
                 continue;
             } else {
-                tmpString.append("animal's Name : " + animal.getName() + "\n");
+                tmpString.append("animal's Name : " + animal.getNickName() + "\n");
                 for (AnimalProduct animalProduct : animal.getDailyProducts()) {
                     tmpString.append("animal's Product Name : " + animalProduct.getName() + "\n")
                             .append("animal's Product quality : " + animalProduct.getItemQuality() + "\n");
@@ -255,9 +271,13 @@ public class HusbandryController extends CommandController {
                 .getCurrentPlayer()
                 .getAnimals()
                 .remove(animal);
-        animal.getHouse().getAnimals().remove(animal);
+        if(animal.getHouse() != null){
+            animal.getHouse().getAnimals().remove(animal);
+        }
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(animal.getPosition().getX(), animal.getPosition().getY()).setFixedObject(null);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(sellPrice);
         return new Result(true, "process for Selling animal ...");
+
     }
 
     //CHEAT

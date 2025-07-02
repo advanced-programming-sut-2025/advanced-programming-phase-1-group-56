@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum ArtisanCommands implements Commands {
-    use("artisan use (.+) (.+)"),
+    use("artisan use (\\w+)((?: \\w+)+)"),
     get("artisan get (.+)");
     private final String regex;
 
