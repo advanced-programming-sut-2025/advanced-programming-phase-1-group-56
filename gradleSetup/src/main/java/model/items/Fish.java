@@ -7,7 +7,7 @@ public class Fish extends Item {
     private final FishType fishType;
 
     public Fish( FishType fishType) {
-        super(fishType.getName(), 100, true, fishType.getPrice());
+        super(fishType.getName(), 9999, true, fishType.getPrice());
         this.fishType = fishType;
     }
 

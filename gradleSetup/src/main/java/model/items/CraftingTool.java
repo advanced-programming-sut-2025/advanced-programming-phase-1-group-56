@@ -7,7 +7,7 @@ public class CraftingTool extends Item {
     private final CraftingRecipesList recipesList;
 
     public CraftingTool(CraftingRecipesList recipesList) {
-        super(recipesList.name,100,false, recipesList.sellPrice);
+        super(recipesList.name,9999,false, recipesList.sellPrice);
         this.recipesList = recipesList;
     }
 
