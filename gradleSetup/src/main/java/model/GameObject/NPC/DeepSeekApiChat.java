@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class DeepSeekApiChat {
     private static final String API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct";
-    private static final String API_KEY = "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"; // ← توکن خودت رو بذار اینجا
+    private static final String API_KEY =  "";
 
     private final OkHttpClient client = new OkHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
