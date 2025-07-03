@@ -101,7 +101,7 @@ public class Game {
 
     public Player getPlayerByUser(User user) {
         for (Player player : players) {
-            if (player.getUser().equals(user)) {
+            if (player.getUser().getUsername().equals(user.getUsername())) {
                 return player;
             }
         }

@@ -13,6 +13,18 @@ energy show
 pwd
 ef 18 18 40 30
 sp 79 17
+invalid command for enter
+sp 42 58
+cheat add item -n PIZZA -c 10
+cheat add item -n iron_ore -c 100
+meet NPC SEBASTIAN
+gift NPC SEBASTIAN -i PIZZA
+friendship NPC list
+quests list
+quests finish -i 0
+inv
+
+------------------------------------------------ for carpenter shop
 print map
 cheat add 99000 dollars
 cheat add item -n wood -c 2000
@@ -28,6 +40,16 @@ exit
 sp 0 56
 walk -l 62 25
 print map
+
+------------------------------------------------ cse
+------------------------------------------------for sebastian test
+sp 42 58
+cheat add item -n stone -c 10
+meet NPC SEBASTIAN
+gift NPC SEBASTIAN -i stone
+friendship NPC list
+------------------------------------------------se
+
 exit game
 logout
 menu exit
