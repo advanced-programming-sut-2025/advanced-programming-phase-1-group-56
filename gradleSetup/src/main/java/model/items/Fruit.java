@@ -6,7 +6,7 @@ public class Fruit extends Item {
     private final FruitType fruitType;
 
     public Fruit( FruitType fruitType) {
-        super(fruitType.getName(), 100, true, fruitType.getPrice());
+        super(fruitType.getName(), 9999, true, fruitType.getPrice());
         this.fruitType = fruitType;
     }
     public FruitType getFruitType() {

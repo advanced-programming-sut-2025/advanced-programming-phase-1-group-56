@@ -5,8 +5,10 @@ import model.Enums.GameObjects.TreeType;
 import model.Enums.NpcType;
 import model.Enums.TileType;
 import model.GameObject.*;
+import model.GameObject.NPC.NPC;
 import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Town;
+import netscape.javascript.JSObject;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,9 +19,7 @@ public class TownLoader {
     public static Tile[][] load(Town town,String jsonPath){
         JsonObject map=null;
         try {
-             map = JsonParser
-                    .parseReader(new FileReader(jsonPath))
-                    .getAsJsonObject();
+             map = JsonParser.parseReader(new FileReader(jsonPath)).getAsJsonObject();
         }catch (FileNotFoundException e){
             e.printStackTrace();
             System.exit(1);
@@ -111,9 +111,11 @@ public class TownLoader {
                             }
                             go = new PierresGeneralStore( new Position(tx, ty),false, "PierresGeneralStore", new Position(doorX/16, doorY/16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((PierresGeneralStore) go).getDoorPosition().getX()/16;
-                            int dY = ((PierresGeneralStore) go).getDoorPosition().getY()/16+3;
-                            town.getNPCs().add(NpcType.SEBASTIAN.getNPC(new Position(dX,dY)));
+                            int dX = ((PierresGeneralStore) go).getDoorPosition().getX();
+                            int dY = ((PierresGeneralStore) go).getDoorPosition().getY()+2;
+                            NPC newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX,dY));
+                            town.getNPCs().add(newNPC);
+                            tiles[dX][dY].setFixedObject(newNPC);
                         }
 
                         case "thestardropsaloon" -> {
@@ -130,10 +132,11 @@ public class TownLoader {
                             }
                             go = new TheSaloonStardrop( new Position(tx, ty),false, "TheSaloonStardrop", new Position(doorX/16, doorY/16+1), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((TheSaloonStardrop) go).getDoorPosition().getX()/16;
-                            int dY = ((TheSaloonStardrop) go).getDoorPosition().getY()/16+3;
-                            town.getNPCs().add(NpcType.LEAH.getNPC(new Position(dX,dY)));
-                            town.getTileByPosition(dX,dY);
+                            int dX = ((TheSaloonStardrop) go).getDoorPosition().getX();
+                            int dY = ((TheSaloonStardrop) go).getDoorPosition().getY()+2;
+                            NPC newNPC = NpcType.LEAH.getNPC(new Position(dX,dY));
+                            town.getNPCs().add(newNPC);
+                            tiles[dX][dY].setFixedObject(newNPC);
                         }
 
                         case "blacksmith" -> {
@@ -149,9 +152,11 @@ public class TownLoader {
                                 }
                             }
                             go = new Blacksmith( new Position(tx, ty),false, "Blacksmith", new Position(doorX/16, doorY/16), objHeight, objWidth);
-                            int dX = ((Blacksmith) go).getDoorPosition().getX()/16;
-                            int dY = ((Blacksmith) go).getDoorPosition().getY()/16+3;
-                            town.getNPCs().add(NpcType.ROBIN.getNPC(new Position(dX,dY)));
+                            int dX = ((Blacksmith) go).getDoorPosition().getX();
+                            int dY = ((Blacksmith) go).getDoorPosition().getY()+2;
+                            NPC newNPC = NpcType.ROBIN.getNPC(new Position(dX,dY));
+                            town.getNPCs().add(newNPC);
+                            tiles[dX][dY].setFixedObject(newNPC);
                             town.getStores().add((Store) go);
                         }
 
@@ -169,9 +174,8 @@ public class TownLoader {
                             }
                             go = new JojaMart( new Position(tx, ty),false, "JojaMart", new Position(doorX/16, doorY/16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((JojaMart) go).getDoorPosition().getX()/16;
-                            int dY = ((JojaMart) go).getDoorPosition().getY()/16+3;
-                            town.getNPCs().add(NpcType.HARVEY.getNPC(new Position(dX,dY)));
+                            int dX = ((JojaMart) go).getDoorPosition().getX();
+                            int dY = ((JojaMart) go).getDoorPosition().getY()+2;
                         }
 
                         case "carpentersshop" -> {
@@ -188,9 +192,11 @@ public class TownLoader {
                             }
                             go = new CarpentersShop( new Position(tx, ty),false, "CarpenterShop", new Position(doorX/16, doorY/16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((CarpentersShop) go).getDoorPosition().getX()/16;
-                            int dY = ((CarpentersShop) go).getDoorPosition().getY()/16+3;
-                            town.getNPCs().add(NpcType.HARVEY.getNPC(new Position(dX,dY)));
+                            int dX = ((CarpentersShop) go).getDoorPosition().getX();
+                            int dY = ((CarpentersShop) go).getDoorPosition().getY()+2;
+                            NPC newNPC = NpcType.HARVEY.getNPC(new Position(dX,dY));
+                            town.getNPCs().add(newNPC);
+                            tiles[dX][dY].setFixedObject(newNPC);
                         }
 
                         case "fishshop" -> {

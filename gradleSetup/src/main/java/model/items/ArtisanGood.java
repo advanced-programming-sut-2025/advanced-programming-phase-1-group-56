@@ -8,7 +8,7 @@ public class ArtisanGood extends Item {
 //    private int sellPrice;
 
     public ArtisanGood(ArtisanGoodType artesianGoodType) {
-        super(artesianGoodType.getName(), 100, true, artesianGoodType.getSellPrice());
+        super(artesianGoodType.getName(), 9999, true, artesianGoodType.getSellPrice());
 //        this.energy = energy;
 //        this.sellPrice = sellPrice;
     }
