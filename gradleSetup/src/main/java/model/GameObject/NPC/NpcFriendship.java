@@ -50,16 +50,16 @@ public class NpcFriendship implements TimeObserver {
 
     public int getLastActiveRequest() {
         if (lastDoneRequest == 0) {
-            return 1;
+            return 0;
         }
         if (lastDoneRequest == 1) {
             if (daysToSecondQ <= 0) {
-                return 2;
+                return 1;
             }
             return -1;//second request is locked because of days
         } else if (lastDoneRequest == 2) {
             if (getLevel() >= 1) {
-                return 3;
+                return 2;
             }
             return -1;//third request is locked because of friendShip
         } else return -1;//all request are done
@@ -79,7 +79,7 @@ public class NpcFriendship implements TimeObserver {
 
     public void addXp(int amount) {
         xp += amount;
-        xp = Math.max(xp, 799);
+        xp = Math.min(xp, 799);
     }
 
     public void setHasGiftedToday(boolean hasGiftedToday) {

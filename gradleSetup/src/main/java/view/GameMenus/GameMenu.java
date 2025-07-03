@@ -76,8 +76,8 @@ public class GameMenu implements AppMenu {
             int x = Integer.parseInt(matcher.group(1).trim());
             int y = Integer.parseInt(matcher.group(2).trim());
             App.getMe().setPosition(new Position(x, y));
-            System.out.println(MapController.printMap());
             setCurrentStoreOrBuilding();
+            System.out.println(MapController.printMap());
             return true;
         } else if((matcher = Pattern.compile("\\s*ef\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s*").matcher(input)).matches()) {
             int x1 =Integer.parseInt(matcher.group(1).trim());
@@ -147,7 +147,7 @@ public class GameMenu implements AppMenu {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
             if(player.getCurrentGameLocation().equals(App.getMe().getPlayerFarm().getGreenHouse().getIndoor())){
                 player.setCurrentGameLocation(App.getMe().getPlayerFarm());
-                Position position = App.getMe().getPlayerFarm().getGreenHouse().getPosition();
+                Position position = App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition();
                 player.setPosition(new Position(position.getX(), position.getY() +2));
                 System.out.println("backing to farm from greenhouse");
             }
