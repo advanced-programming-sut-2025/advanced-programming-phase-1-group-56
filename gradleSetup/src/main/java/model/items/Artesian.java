@@ -6,7 +6,7 @@ public class Artesian extends Item {
     private final ArtisanMachineItemType artisanMachineItemType;
 
     public Artesian(ArtisanMachineItemType itemType) {
-        super(itemType.getName(),100, true,-1);
+        super(itemType.getName(),9999, true,-1);
         this.artisanMachineItemType = itemType;
     }
 
