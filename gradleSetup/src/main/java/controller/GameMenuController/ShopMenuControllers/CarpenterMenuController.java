@@ -40,11 +40,10 @@ public class CarpenterMenuController implements ShopController {
 
     public static Result BuildABuilding(Matcher matcher) {
         String name = matcher.group(1).trim().toUpperCase();
-        String[] coords = matcher.group(2).trim().split(",");
-        int x, y;
+        int x,y = 0;
         try {
-            x = Integer.parseInt(coords[0].trim());
-            y = Integer.parseInt(coords[1].trim());
+            x = Integer.parseInt(matcher.group(2).trim());
+            y = Integer.parseInt(matcher.group(3).trim());
         } catch (Exception e) {
             return new Result(false, "Coordinates must be integers (x,y).");
         }
