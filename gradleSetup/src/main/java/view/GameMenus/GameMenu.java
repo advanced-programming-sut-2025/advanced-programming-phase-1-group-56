@@ -10,10 +10,12 @@ import model.MapModule.Buildings.*;
 import model.MapModule.GameLocations.Farm;
 import model.MapModule.Position;
 import model.Player;
+import model.States.Energy;
 import view.AppMenu;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GameMenu implements AppMenu {
     @Override
@@ -70,19 +72,21 @@ public class GameMenu implements AppMenu {
             System.out.println(App.getMe().getPlayerFarm().getTileByPosition(App.getMe().getDefaultHome().getDoorPosition()).isWalkable());
             System.out.println("GREEN HOUSE DOOR" + App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition().getX() + ":" + App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition().getY());
             return true;
-        } else if (input.matches("sp")) {
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
+        } else if ((matcher = Pattern.compile("\\s*sp\\s*(\\d+)\\s*(\\d+)\\s*").matcher(input)).matches()) {
+            int x = Integer.parseInt(matcher.group(1).trim());
+            int y = Integer.parseInt(matcher.group(2).trim());
             App.getMe().setPosition(new Position(x, y));
             System.out.println(MapController.printMap());
             setCurrentStoreOrBuilding();
             return true;
-        } else if(input.equalsIgnoreCase("ef")) {
-            System.out.println("emptying field:");
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
-            for (int i = x-7; i < x+7 ; i++) {
-                for (int j = y-7; j < y+7; j++) {
+        } else if((matcher = Pattern.compile("\\s*ef\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s*").matcher(input)).matches()) {
+            int x1 =Integer.parseInt(matcher.group(1).trim());
+            int y1 = Integer.parseInt(matcher.group(2).trim());
+            int x2 = Integer.parseInt(matcher.group(3).trim());
+            int y2 =Integer.parseInt(matcher.group(4).trim());
+            System.out.printf("emptying field: from <%d,%d> to <%d, %d>\n",x1,y1,x2,y2);
+            for (int i = x1; i < x2 ; i++) {
+                for (int j = y1; j < y2; j++) {
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setWalkable(true);
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setTileType(TileType.Soil);
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setFixedObject(null);
@@ -93,19 +97,32 @@ public class GameMenu implements AppMenu {
             System.out.println(CraftingController.cheatAddItem(matcher));
             return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
+
             boolean isCorrect;
-            System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
-            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())).isSuccess();
+            Energy energy = new Energy(0);
+            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy).isSuccess();
             if (isCorrect) {
-                String input1 = scanner.nextLine();
-                if (input1.equalsIgnoreCase("yes")) {
+                if(energy.getEnergy() > App.getMe().getEnergy().getEnergy()) {
+                    System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy));
+                    String input1 = scanner.nextLine();
+                    if (input1.equalsIgnoreCase("yes")) {
+                        System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
+                    }
+                }
+                else{
                     System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                 }
             }
+            else{
+                System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy));
+            }
+
+
             if (App.getMe().getEnergyUsage() > 50 || App.getMe().isFainted()) {
                 App.getMe().setEnergyUsage(0);
                 GameController.manageNextTurn();
             }
+
             return true;
         } else if ((GameCommands.printMap.getMatcher(input)).find()) {
             System.out.println(MapController.printMap());

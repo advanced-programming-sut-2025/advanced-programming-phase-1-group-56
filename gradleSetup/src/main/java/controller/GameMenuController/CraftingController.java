@@ -173,51 +173,51 @@ public class CraftingController extends CommandController {
         int count = Integer.parseInt(matcher.group(2).trim());
         EtcType type = (EtcType) ItemType.FindItemTypeByName(EtcType.values(), itemName);
         if (type != null) {
-            App.getMe().getInventory().add(new Etc(type), 1);
+            App.getMe().getInventory().add(new Etc(type), count);
             return new Result(true, "add Etc To Your Inventory!");
         }
         ArtisanMachineItemType type1 = (ArtisanMachineItemType) ItemType.FindItemTypeByName(ArtisanMachineItemType.values(), itemName);
         if (type1 != null) {
-            App.getMe().getInventory().add(new Artesian(type1), 1);
+            App.getMe().getInventory().add(new Artesian(type1), count);
             return new Result(true, "add Artisan Machine To Your Inventory!");
         }
         ArtisanGoodType type2 = (ArtisanGoodType) ItemType.FindItemTypeByName(ArtisanGoodType.values(), itemName);
         if (type2 != null) {
-            App.getMe().getInventory().add(new ArtisanGood(type2), 1);
+            App.getMe().getInventory().add(new ArtisanGood(type2), count);
             return new Result(true, "add Artisan Good To Your Inventory!");
         }
         CraftingRecipesList type3 = (CraftingRecipesList) CraftingRecipesList.fromName(itemName);
         if (type3 != null) {
-            App.getMe().getInventory().add(new CraftingTool(type3), 1);
+            App.getMe().getInventory().add(new CraftingTool(type3), count);
             return new Result(true, "add CraftingTool To Your Inventory!");
         }
 
         FishType type4 = (FishType) ItemType.FindItemTypeByName(FishType.values(), itemName);
         if (type4 != null) {
-            App.getMe().getInventory().add(new Fish(type4), 1);
+            App.getMe().getInventory().add(new Fish(type4), count);
             return new Result(true, "add Fish To Your Inventory!");
         }
 
         FoodType type5 = (FoodType) ItemType.FindItemTypeByName(FoodType.values(), itemName);
         if (type5 != null) {
-            App.getMe().getInventory().add(new Food(type5), 1);
+            App.getMe().getInventory().add(new Food(type5), count);
             return new Result(true, "add Food To Your Inventory!");
         }
         FruitType type6 = (FruitType) ItemType.FindItemTypeByName(FruitType.values(), itemName);
         if (type6 != null) {
-            App.getMe().getInventory().add(new Fruit(type6), 1);
+            App.getMe().getInventory().add(new Fruit(type6), count);
             return new Result(true, "add Fruit To Your Inventory!");
         }
 
         MineralItemType type7 = (MineralItemType)ItemType.FindItemTypeByName(MineralItemType.values(), itemName);
         if (type7 != null) {
-            App.getMe().getInventory().add(new Mineral(type7), 1);
+            App.getMe().getInventory().add(new Mineral(type7), count);
             return new Result(true, "add CraftingTool To Your Inventory!");
         }
 
         SeedType type8 = (SeedType) ItemType.FindItemTypeByName(SeedType.values(), itemName);
         if (type8 != null) {
-            App.getMe().getInventory().add(new Seed(type8), 1);
+            App.getMe().getInventory().add(new Seed(type8), count);
             return new Result(true, "add Seed To Your Inventory!");
         }
 

@@ -8,7 +8,7 @@ public class AnimalProduct extends Item{
 //    private AnimalProductQuality quality;
 
     public AnimalProduct(EtcType etcType) {
-        super(etcType.name, 100, true, etcType.value);
+        super(etcType.name, 9999, true, etcType.value);
 //        this.quality = quality;
         this.etcType = etcType;
     }
