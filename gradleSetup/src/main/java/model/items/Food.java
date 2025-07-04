@@ -7,7 +7,7 @@ public class Food extends Item {
     private final FoodType foodType;
 
     public Food(FoodType foodType) {
-        super(foodType.getName(), 100, true,foodType.getPrice());
+        super(foodType.getName(), 9999, true,foodType.getPrice());
         this.foodType = foodType;
     }
 

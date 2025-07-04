@@ -339,7 +339,7 @@ public class TradeController extends CommandController {
             player2.getReceivedTrades().remove(tradeToDo.getTradeID());
             player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
             //friendship
-            player1.findFriendshipByPlayer(player2).changeTwoWayXp(+50);
+            player1.findFriendshipByPlayer(player2).changeTwoWayXp(-30);
             return new Result(true, "trade rejected successfully...");
         } else {
             return new Result(false, "taklifet chie da?");
