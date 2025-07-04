@@ -1,6 +1,7 @@
 package model.MapModule.Buildings;
 
 import model.Enums.Stores.BlackSmithProducts;
+import model.Enums.Stores.FishShopProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
@@ -24,8 +25,10 @@ public class Blacksmith extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        dailyProductList = BlackSmithProducts.getProducts(BlackSmithProducts.class);
-
+        if(newDay){
+            dailyProductList.clear();
+            dailyProductList = FishShopProducts.getProducts(BlackSmithProducts.class);
+        }
     }
 
     @Override

@@ -35,7 +35,8 @@ public class BlacksmithMenuController implements ShopController {
 
     public static Result upgradeTools(String toolName) {
         Player me = App.getMe();
-        boolean isTrashCan = toolName.contains("Trash Can");
+        boolean isTrashCan = toolName.toLowerCase().contains("trash can")||
+                toolName.toLowerCase().contains("trash_can");
         Tool tool = null;
         EtcType toolMaterial;
 
@@ -56,7 +57,7 @@ public class BlacksmithMenuController implements ShopController {
             if (current.getNextTrashcanType() == null) {
                 return new Result(false, "This trashcan is already at max level.");
             }
-            toolMaterial = current.getMaterial().getOre();
+            toolMaterial = current.getNextTrashcanType().getMaterial().getOre();
         }
 
         // barr
@@ -69,14 +70,19 @@ public class BlacksmithMenuController implements ShopController {
         String keyword = isTrashCan ? "TRASH_CAN" : "TOOL";
         NpcProduct npcProduct = findUpgradeProduct(keyword, toolMaterial.name());
         if (npcProduct == null) {
-            return new Result(false, "Error finding upgrade option in shop.");
+            return new Result(false, "Error finding upgrade option in shop."
+                    + keyword + "     " + toolMaterial.name());
         }
+
+        if(npcProduct.getRemainingStock()==0){
+            return new Result(false, "daily stock ended comeback tomorrow.");
+        }
+
 
         int price = npcProduct.getPrice();
         if (me.getGold() < price) {
             return new Result(false, "You don't have enough money.");
         }
-
         // upgrade commit
         npcProduct.setRemainingStock(npcProduct.getRemainingStock() - 1);
         me.addGold(-price);
@@ -88,12 +94,13 @@ public class BlacksmithMenuController implements ShopController {
             Tool.upgrade(tool);
         }
 
-        return new Result(true, "Successfully upgraded your " + (isTrashCan ? "trashcan." : "tool."));
+        return new Result(true, "Successfully upgraded your " + (isTrashCan ? "trashcan." : "tool."
+                            + "to " + tool.getToolType().getName() + tool.getToolType().getToolMaterial().getName()));
     }
 
     private static NpcProduct findUpgradeProduct(String keyword, String oreName) {
         for (NpcProduct p : BlackSmithProducts.getProducts(BlackSmithProducts.class)) {
-            if (p.getName().contains(keyword) && p.getSaleable().getName().equals(oreName)) {
+            if (p.getName().toLowerCase().contains(keyword.toLowerCase()) && p.getSaleable().getName().equalsIgnoreCase(oreName)) {
                 return p;
             }
         }

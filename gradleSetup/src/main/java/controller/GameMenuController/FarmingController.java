@@ -119,10 +119,14 @@ public class FarmingController extends CommandController {
     public static void managePlaceMineral(Farm farm) {
         int randomMinerals = (int) (Math.random() * (MineralItemType.values().length));
         MineralItemType mineralItemType = MineralItemType.values()[randomMinerals];
-        for (int i = 0; i < farm.getTiles().length; i++) {
-            for (int j = 0; j < farm.getTiles()[i].length; j++) {
+//        for (int i = 0; i < farm.getTiles().length; i++) {
+//            for (int j = 0; j < farm.getTiles()[i].length; j++) {
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 24; j++) {
                 Tile tile = farm.getTiles()[i][j];
-                if (tile.getFixedObject() == null && (int)(Math.random()* 20) == 0 && tile.getTileType() == TileType.Mine) {
+                //riz debug
+                if (tile.getFixedObject() == null && (int)(Math.random()* 20) == 0 && tile.getTileType() == TileType.Mine)
+                {
                     tile.setFixedObject(new ForagingMineral(false, new Position(i, j), mineralItemType));
                 }
             }

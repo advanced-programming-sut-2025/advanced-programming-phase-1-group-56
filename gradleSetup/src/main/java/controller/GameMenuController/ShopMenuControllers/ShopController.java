@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 public interface ShopController {
 
     static NpcProduct findProductByName(List<NpcProduct> products, String productName) {
-        if(products==null || products.isEmpty()) {
+        if (products == null || products.isEmpty()) {
             System.out.println("mf store doesn't have any products");
         }
         for (NpcProduct product : products) {
@@ -64,20 +64,20 @@ public interface ShopController {
             sumPrice = amount * productToBuy.getOutOfSeasonPrice();
         }
 
-        if (productToBuy.getRemainingStock() == 0) {
+        if (productToBuy.getRemainingStock() <= 0) {
             return new Result(false, productName + " is ran out of stock,comeback tomorrow...");
         } else if (productToBuy.getRemainingStock() < amount) {
             return new Result(false, " only " + productToBuy.getRemainingStock() + "of " + productName
                     + " has remained..there is not enough amount you want..");
-        } else if (productToBuy.getPrice() * amount > me.getGold()) {
+        } else if (sumPrice > me.getGold()) {
             return new Result(false, "you can't afford buy this\n" +
-                    "you have :" + me.getGold() + " gold,but you need: " + productToBuy.getPrice() * amount);
+                    "you have :" + me.getGold() + " gold,but you need: " + sumPrice);
         }
 
         if (productToBuy.getSaleable() instanceof Item item) {
             //item
             me.addGold(-sumPrice);
-            productToBuy.setRemainingStock(-amount);
+            productToBuy.changeRemainingStock(-amount);
             me.getInventory().add(item, amount);
             return new Result(true, "purchase item successful..");
         } else if (productToBuy.getSaleable() instanceof CraftingRecipesList recipe ||
@@ -87,28 +87,26 @@ public interface ShopController {
                 return new Result(false, "you dont need to buy more than one crafting recipe.");
             }
             me.addGold(-sumPrice);
-            productToBuy.setRemainingStock(-amount);
+            productToBuy.changeRemainingStock(-amount);
             if (productToBuy.getSaleable() instanceof CraftingRecipesList recipe) {
                 me.addToolRecipes(recipe);
             } else if (productToBuy.getSaleable() instanceof FoodRecipesList food) {
                 me.addFoodRecipes(food);
             }
             return new Result(true, "purchase recipe successful..");
-        }else if(productToBuy.getSaleable() instanceof BackPackType backPackType) {
-            if(me.getCurrentBackpack().getNext()==null){
+        } else if (productToBuy.getSaleable() instanceof BackPackType backPackType) {
+            if (me.getCurrentBackpack().getNext() == null) {
                 return new Result(false, "your backpack is already max");
-            }
-            else if(amount>1){
+            } else if (amount > 1) {
                 return new Result(false, "you can't buy more than one back pack");
-            }
-            else if(me.getCurrentBackpack().getNext()!=backPackType){
+            } else if (me.getCurrentBackpack().getNext() != backPackType) {
                 return new Result(false, "you can't buy worse back pack or jump from initial backpack" +
                         "to deluxe backpack");
             }
             me.addGold(-sumPrice);
-            productToBuy.setRemainingStock(-amount);
+            productToBuy.changeRemainingStock(-amount);
             me.setCurrentBackpack(backPackType);
-            return new Result(true,"upgrade your backpack to :" + backPackType.getName() +
+            return new Result(true, "upgrade your backpack to :" + backPackType.getName() +
                     " successfully..");
         } else {
             return new Result(false, "you can only buy items with this command");
@@ -133,12 +131,12 @@ public interface ShopController {
             if (product.getRemainingStock() <= 0)
                 continue;
             Seasons currSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
-            if (!Arrays.stream(product.getSeasons()).toList().contains(currSeason)&& product.getOutOfSeasonPrice()==-1) {
+            if (!Arrays.stream(product.getSeasons()).toList().contains(currSeason) && product.getOutOfSeasonPrice() == -1) {
                 continue;
             }
             if (product.getSaleable() instanceof Item) {
-                String remainM = (product.getDailyStock()>100)?"unlimited":Integer.toString(product.getDailyStock());
-                String remain = (product.getDailyStock()>100)?"unlimited":Integer.toString(product.getRemainingStock());
+                String remainM = (product.getDailyStock() > 100) ? "unlimited" : Integer.toString(product.getDailyStock());
+                String remain = (product.getDailyStock() > 100) ? "unlimited" : Integer.toString(product.getRemainingStock());
                 builder.append("name :\t'").append(product.getName())
                         .append("'\n\tprice: ").append(product.getPrice())
                         .append("\n\tstock: ").append(remain)
@@ -151,14 +149,14 @@ public interface ShopController {
         return new Result(true, builder.toString());
     }
 
-    static Result exitShopMenu(Class <? extends Store> store) {
+    static Result exitShopMenu(Class<? extends Store> store) {
         App.setCurrentMenu(Menu.gameMenu);
         Player me = App.getMe();
         Store shop = App.getCurrentUser().getCurrentGame().findStoreByClass(store);
-        Position posToSet = new Position(shop.getDoorPosition().getX(),shop.getDoorPosition().getY()+2);
+        Position posToSet = new Position(shop.getDoorPosition().getX(), shop.getDoorPosition().getY() + 1);
         me.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
         me.setPosition(posToSet);
-        return new Result(true,"exiting " + shop.getName() + "shop...\n" +
+        return new Result(true, "exiting " + shop.getName() + "shop...\n" +
                 "redirecting to the town...");
     }
 

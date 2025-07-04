@@ -242,8 +242,8 @@ public class CraftingController extends CommandController {
             tmpString.append("Description : ").append(craftTool.description).append("\n");
             tmpString.append("Ingredients : \n");
             for (Slot ingredient : craftTool.ingredients) {
-                tmpString.append("Name : ").append(ingredient.getItem().getName()).append("\n");
-                tmpString.append("Quantity : ").append(ingredient.getQuantity()).append("\n----\n");
+                tmpString.append("\tName : ").append(ingredient.getItem().getName()).append("\n");
+                tmpString.append("\tQuantity : ").append(ingredient.getQuantity()).append("\n----\n");
             }
             tmpString.append("Sell Price : ").append(craftTool.sellPrice).append("\n");
             tmpString.append("----------------------------------");

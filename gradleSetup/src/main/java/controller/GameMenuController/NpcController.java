@@ -9,10 +9,8 @@ import model.Enums.NpcDialogs.NpcPrompt;
 import model.Enums.NpcDialogs.RobinPrompt;
 import model.Enums.WeatherAndTime.WeatherType;
 import model.GameObject.ArtesianMachine;
+import model.GameObject.NPC.*;
 import model.GameObject.NPC.DeepSeekApiChat;
-import model.GameObject.NPC.NPC;
-import model.GameObject.NPC.NpcFriendship;
-import model.GameObject.NPC.NpcRequest;
 import model.GameObject.NPC.NpcFriendship;
 import model.MapModule.GameMap;
 import model.Player;
@@ -72,10 +70,12 @@ public class NpcController extends CommandController {
             return new Result(false, "Error generating dialogue: " + e.getCause().getMessage());
         }
 
-        DeepSeekApiChat deepSeek = new DeepSeekApiChat();
-        String meet = deepSeek.generateDialogue(outPrompt);
+        //DeepSeekApiChat deepSeek = new DeepSeekApiChat();
+        //String meet = deepSeek.generateDialogue(outPrompt);
         player.setLastMeetedNpc(npc);
-        return new Result(true, meet);
+        //return new Result(true, meet);
+        //TODO DEBUG
+        return new Result(true, outPrompt);
     }
 
 
@@ -94,17 +94,18 @@ public class NpcController extends CommandController {
             return new Result(false, "You have to be near npc");
         }
         NpcFriendship friendship = npc.findFriendshipByPlayer(App.getMe());
-        boolean isFavorite = npc.getType().getFavoriteItems().contains(item);
+        boolean isFavorite = npc.getType().getFavoriteItems().stream().anyMatch(i -> i.getName().equalsIgnoreCase(itemName));
         App.getMe().getInventory().remove(item, 1);
-        friendship.setHasGiftedToday(true);
 
         if (!friendship.isHasGiftedToday()) {
             if (isFavorite) {
                 friendship.addXp(+200);
+                friendship.setHasGiftedToday(true);
                 return new Result(true, "tnx for gifting " + npc.getType().getName() +
                         " it's favorite item");
             } else {
                 friendship.addXp(+50);
+                friendship.setHasGiftedToday(true);
                 return new Result(true, "tnx for gifting " + npc.getType().getName());
             }
         }
@@ -115,7 +116,7 @@ public class NpcController extends CommandController {
         StringBuilder builder = new StringBuilder();
         builder.append("your friendships:\n");
         for (NpcFriendship f : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getNpcFriendShips()) {
-            builder.append("with Npc:").append(f.getPlayer().getUser().getName()).append("\n")
+            builder.append("with Npc:").append(f.getNpc().getType().getName()).append("\n")
                     .append("\txp:").append(f.getXp()).append("\n")
                     .append("\tlevel:").append(f.getLevel()).append("\n")
                     .append("----------------\n");
@@ -127,7 +128,7 @@ public class NpcController extends CommandController {
         StringBuilder builder = new StringBuilder();
         builder.append("your quests:\n");
         for (NpcFriendship f : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getNpcFriendShips()) {
-            int IndexOfActiveReq = f.getLastActiveRequest() - 1;
+            int IndexOfActiveReq = f.getLastActiveRequest();
             NpcRequest req = f.getNpc().getType().getRequests().get(IndexOfActiveReq);
             if (f.getLastActiveRequest() != -1) {
                 builder.append("--your Active request with: ").append(f.getNpc().getType().getName())
@@ -161,7 +162,7 @@ public class NpcController extends CommandController {
 
         builder.append("your active Quest with npc:").append(npc.getType().getName()).append("\n");
         NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
-        int IndexOfActiveReq = f.getLastActiveRequest() - 1;
+        int IndexOfActiveReq = f.getLastActiveRequest() ;
         NpcRequest req = f.getNpc().getType().getRequests().get(IndexOfActiveReq);
         if (f.getLastActiveRequest() != -1) {
             builder.append("--your Active request with: ").append(f.getNpc().getType().getName())
@@ -218,7 +219,8 @@ public class NpcController extends CommandController {
                 return new Result(false, "You dont have" + payAmount + " of any plant");
             }
         } else if (App.getMe().getInventory().countItem(itemToPay) < payAmount) {
-            return new Result(false, "you dont have enough item to finish the quest");
+            return new Result(false, "you dont have enough item to finish the quest with:"
+                    + npc.getType().getName() + " item to pay : " + itemToPay.getName() + "*" + payAmount);
         }
         App.getMe().getInventory().remove(itemToPay, payAmount);//Temp remove
 
