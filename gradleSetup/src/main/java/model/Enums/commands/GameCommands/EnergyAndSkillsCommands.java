@@ -6,10 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum EnergyAndSkillsCommands implements Commands {
-    showEnergy("show energy"),
+    showEnergy("(?:show energy)|(?:s e)"),
     cheatEnergy("energy set -v ([0-9]+)"),
     unlimitedEnergy("energy unlimited"),
-    showInventory("inventory show"),
+    showInventory("(?:inventory show)|(?:i s)"),
     trashInventory("inventory trash -i (.+) -n ([0-9]+)");
 
 

@@ -1,6 +1,7 @@
 package view.GameMenus.ShopMenus;
 
 import controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
+import model.Enums.commands.GameCommands.HusbandryCommands;
 import model.Enums.commands.GameCommands.StoreCommands;
 import view.AppMenu;
 
@@ -18,6 +19,8 @@ public class MarniesRanchMenu implements AppMenu {
             System.out.println(MarniesRanchController.showAllAvailableProducts().message());
         } else if((matcher = StoreCommands.PurchaseProducts.getMatcher(input))!=null) {
             System.out.println(MarniesRanchController.PurchaseProduct(matcher).message());
+        } else if((matcher = HusbandryCommands.buyAnimal.getMatcher(input))!=null) {
+            System.out.println(MarniesRanchController.buyAnimal(matcher).message());
         } else if(input.equalsIgnoreCase("exit")) {
             System.out.println(MarniesRanchController.ExitShop().message());
         } else {

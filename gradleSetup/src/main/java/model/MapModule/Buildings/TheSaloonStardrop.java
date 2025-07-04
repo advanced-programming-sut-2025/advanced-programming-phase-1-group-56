@@ -1,5 +1,6 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Stores.FishShopProducts;
 import model.Enums.Stores.StardropSaloonProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
@@ -24,7 +25,7 @@ public class TheSaloonStardrop extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if (newDay) {
+        if(newDay){
             dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
         }
     }

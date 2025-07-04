@@ -1,6 +1,7 @@
 package controller.GameMenuController.ShopMenuControllers;
 
 import model.App;
+import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Buildings.PierresGeneralStore;
 import model.Result;
 

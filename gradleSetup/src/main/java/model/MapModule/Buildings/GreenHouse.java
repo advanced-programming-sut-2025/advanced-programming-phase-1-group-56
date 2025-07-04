@@ -21,7 +21,7 @@ public class GreenHouse extends Building implements TimeObserver {
         Tile[][] tiles = new Tile[11][11];
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
-                tiles[i][j] = new Tile(new Position(i,j),true, TileType.Soil);
+                tiles[i][j] = new Tile(new Position(j,i),true, TileType.Soil);
             }
         }
         tiles[10][5].setTileType(TileType.Wrapper);

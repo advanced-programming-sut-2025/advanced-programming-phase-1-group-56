@@ -23,7 +23,9 @@ public class FishShop extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        dailyProductList = FishShopProducts.getProducts(FishShopProducts.class);
+        if(newDay){
+            dailyProductList = FishShopProducts.getProducts(FishShopProducts.class);
+        }
     }
 
     @Override

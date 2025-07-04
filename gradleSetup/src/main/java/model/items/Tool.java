@@ -28,7 +28,7 @@ public class Tool extends Item {
 
     public static void upgrade(Tool tool) {
         if (tool.getToolType().getNextToolType() != null) {
-            tool.setToolType(tool.getToolType());
+            tool.setToolType(tool.getToolType().getNextToolType());
         }
     }
 
