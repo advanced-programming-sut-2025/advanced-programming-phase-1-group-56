@@ -330,7 +330,6 @@ public class GameMenu implements AppMenu {
         } else if ((TimeAndDateCommands.showDayOfWeek.getMatcher(input)) != null) {
             System.out.println(TimeAndDateController.dayOfTheWeek());
             return true;
-
         }
         //Cheat
         else if ((matcher = TimeAndDateCommands.cheatAdvancedDate.getMatcher(input)) != null) {
@@ -422,7 +421,7 @@ public class GameMenu implements AppMenu {
         if ((matcher = FarmingCommands.CRAFT_INFO.getMatcher(input)).find()) {
             if (!App.getMe().getCurrentGameLocation().isPlantingLand()) {
                 System.out.println("you are not in a planting land!");
-                return false;
+                return true;
             }
             System.out.println(FarmingController.craftInfo(matcher));
             return true;

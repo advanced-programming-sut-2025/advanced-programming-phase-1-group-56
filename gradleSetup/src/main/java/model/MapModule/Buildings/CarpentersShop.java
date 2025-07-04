@@ -2,6 +2,7 @@ package model.MapModule.Buildings;
 
 import model.Enums.Buildings.BuildingType;
 import model.Enums.Stores.CarpenterShopProducts;
+import model.Enums.Stores.FishShopProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
 import model.TimeSystem.DateTime;
@@ -18,10 +19,7 @@ public class CarpentersShop extends Store {
 
     public CarpentersShop(Position startingPosition, boolean walkable, String name, Position doorPosition, int height, int width) {
         super(startingPosition, walkable, name, doorPosition, height, width);
-        dailyProductList.clear();
-        for (CarpenterShopProducts pr : CarpenterShopProducts.values()) {
-            dailyProductList.add(pr.getProduct());
-        }
+        dailyProductList = CarpenterShopProducts.getProducts(CarpenterShopProducts.class);
         setOpeningHour(9);
         setClosingHour(20);
     }
@@ -33,9 +31,8 @@ public class CarpentersShop extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        dailyProductList.clear();
-        for (CarpenterShopProducts pr : CarpenterShopProducts.values()) {
-            dailyProductList.add(pr.getProduct());
+        if (newDay) {
+            dailyProductList = CarpenterShopProducts.getProducts(CarpenterShopProducts.class);
         }
     }
 

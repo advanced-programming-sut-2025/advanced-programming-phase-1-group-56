@@ -15,6 +15,7 @@ public class InventoryController extends CommandController {
                     .append(slot.getQuantity()).append("\n");
             counter++;
         }
+        output.append("\nBaghi mande Puli : ").append(App.getMe().getGold());
         return new Result(true, output.toString());
     }
 

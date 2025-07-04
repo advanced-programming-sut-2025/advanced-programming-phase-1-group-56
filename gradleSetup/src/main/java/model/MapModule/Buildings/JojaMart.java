@@ -1,5 +1,6 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Stores.FishShopProducts;
 import model.Enums.Stores.JojamartProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
@@ -9,8 +10,9 @@ import java.util.ArrayList;
 
 public class JojaMart extends Store {
     private ArrayList<NpcProduct> dailyProductList;
-    public JojaMart( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
-        super(startingPosition,walkable,name,doorPosition,height,width);
+
+    public JojaMart(Position startingPosition, boolean walkable, String name, Position doorPosition, int height, int width) {
+        super(startingPosition, walkable, name, doorPosition, height, width);
         dailyProductList = JojamartProducts.getProducts(JojamartProducts.class);
         setOpeningHour(9);
         setClosingHour(23);
@@ -23,7 +25,9 @@ public class JojaMart extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        dailyProductList = JojamartProducts.getProducts(JojamartProducts.class);
+        if (newDay) {
+            dailyProductList = JojamartProducts.getProducts(JojamartProducts.class);
+        }
     }
 
     @Override
