@@ -6,6 +6,7 @@ import model.Enums.FarmPosition;
 import model.Enums.Items.ArtisanGoodType;
 import model.Enums.Items.ArtisanMachineItemType;
 import model.Enums.Menu;
+import model.Enums.NpcType;
 import model.Enums.TileType;
 import model.Game;
 import model.GameObject.*;
@@ -19,6 +20,7 @@ import model.MapModule.Position;
 import model.MapModule.Tile;
 import model.Player;
 import model.Result;
+import model.States.Energy;
 import model.items.Fish;
 
 import java.util.ArrayList;
@@ -40,12 +42,27 @@ public class MapController extends CommandController {
 
         Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
         StringBuilder result = new StringBuilder();
+
+        //Ruler
+        result.append(BLUE  +"**");
         for (int i = 0; i < tiles[0].length; i++) {
-            result.append(String.format("%02d", i));
+            if(i%2== 0){
+                result.append( RED+ String.format("%02d", i%100));
+            } else {
+                result.append( BLUE + String.format("%02d", i%100));
+            }
         }
-        System.out.println();
+        //Ruler
+        result.append("\n");
         for (int i = 0; i < tiles.length; i++) {
-            result.append(String.format("%02d", i));
+
+            //Ruler
+            if(i%2== 0){
+                result.append( RED+ String.format("%02d", i%100));
+            } else {
+                result.append( BLUE + String.format("%02d", i%100));
+            }
+
             for (int j = 0; j < tiles[i].length; j++) {
                 if (tiles[i][j].getPosition().getX() == App.getMe().getPosition().getX() &&
                         tiles[i][j].getPosition().getY() == App.getMe().getPosition().getY()) {
@@ -126,8 +143,6 @@ public class MapController extends CommandController {
                         result.append("ET");
                     } else if (tiles[i][j].getFixedObject() instanceof Animal) {
                         result.append("AN");
-                    } else if (tiles[i][j].getFixedObject() instanceof NPC) {
-                        result.append("NP");
                     } else if (tiles[i][j].getFixedObject() instanceof MailBox) {
                         result.append("MB");
                     } else if (tiles[i][j].getFixedObject() instanceof ShippingBar) {
@@ -140,7 +155,23 @@ public class MapController extends CommandController {
                         result.append("TT");
                     } else if (tiles[i][j].getFixedObject() instanceof Grass) {
                         result.append(GREEN + "GG");
-                    } else if (tiles[i][j].isWalkable()) {
+                    } else if (tiles[i][j].getFixedObject() instanceof Coop) {
+                        result.append(RED + "CP");
+                    } else if (tiles[i][j].getFixedObject() instanceof Barn) {
+                        result.append(RED+ "BA");
+                    } else if (tiles[i][j].getFixedObject() instanceof Well) {
+                        result.append(RED+ "WE");
+                    } else if (tiles[i][j].getFixedObject() instanceof NPC npc && npc.getType() == NpcType.ABIGAIL) {
+                        result.append(BLUE + "AB");
+                    } else if (tiles[i][j].getFixedObject() instanceof NPC npc && npc.getType() == NpcType.HARVEY) {
+                        result.append(BLUE + "HV");
+                    } else if (tiles[i][j].getFixedObject() instanceof NPC npc && npc.getType() == NpcType.LEAH) {
+                        result.append(BLUE + "LH");
+                    } else if (tiles[i][j].getFixedObject() instanceof NPC npc && npc.getType() == NpcType.SEBASTIAN) {
+                        result.append(BLUE + "SB");
+                    } else if (tiles[i][j].getFixedObject() instanceof NPC npc && npc.getType() == NpcType.ROBIN) {
+                        result.append(BLUE + "RB");
+                    }else if (tiles[i][j].isWalkable()) {
                         result.append(GRAY + "..");
                     } else if (!tiles[i][j].isWalkable()) {
                         result.append(GRAY + ",,");
@@ -154,17 +185,15 @@ public class MapController extends CommandController {
     }
 
 
-    public static Result calculateMoveEnergy(int x, int y) {
-        Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-
+    public static Result calculateMoveEnergy(int x, int y, Energy energyNeeded) {
         ArrayList<Node> path = findPath(x, y);
-
         if (path == null) {
             return new Result(false, "path is null");
         } else if (path.isEmpty()) {
             return new Result(false, "path is empty");
         } else {
             double neededEnergy = (double) path.size() / 20;
+            Energy newEnergy = new Energy(neededEnergy);
             return new Result(true, String.format("you need %f energy to go to tile<%d , %d>. Are you sure that you want to go?", neededEnergy, x, y));
         }
     }

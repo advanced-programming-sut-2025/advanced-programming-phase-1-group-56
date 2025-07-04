@@ -23,13 +23,13 @@ public class GameController extends CommandController {
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer());
         if(isPLayerOwner) {
             System.out.println("Going to exit game...");
-            App.setCurrentMenu(Menu.mainMenu);
             Result res = saveGame();
-            App.getCurrentUser().setCurrentGame(null);
 
             for (Player player: App.getCurrentUser().getCurrentGame().getPlayers()){
                 player.getUser().setGold(Math.max(player.getGold(),player.getGold()));
             }
+            App.setCurrentMenu(Menu.mainMenu);
+            App.getCurrentUser().setCurrentGame(null);
             return res;
         }
         else {
