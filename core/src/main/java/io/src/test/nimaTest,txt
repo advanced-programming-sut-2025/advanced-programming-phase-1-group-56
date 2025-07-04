@@ -1,0 +1,60 @@
+﻿login -u Mohsen -p MohsenZare12?
+menu enter main menu
+menu enter game menu
+game new -u Mohsen1 Mohsen2 Mohsen3
+1
+2
+4
+3
+print map
+add animal <65, 24> -n Chicken
+pet -n mn
+shepherd animals -n mn -l 68, 24
+print map
+inventory show
+produces
+collect produce -n mn
+cheat advance date 1d
+feed hay -n mn
+produces
+collect produce -n mn
+
+cheat add 200000 dollars
+ef
+20
+40
+ef
+35
+40
+print map
+print
+ef
+10
+23
+sp
+79
+17
+print map
+sp
+20
+88
+print map
+show all products
+show all available products
+purchase wood -n 700
+exit
+sp
+ 0
+ 53
+print map
+build greenhouse
+sp
+28
+15
+print map
+sp
+10
+5
+
+
+print map
