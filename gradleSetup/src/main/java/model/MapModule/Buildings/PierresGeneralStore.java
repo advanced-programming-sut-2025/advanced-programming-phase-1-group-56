@@ -1,5 +1,6 @@
 package model.MapModule.Buildings;
 
+import model.Enums.Stores.FishShopProducts;
 import model.Enums.Stores.PierreGeneralStoreProducts;
 import model.GameObject.NPC.NpcProduct;
 import model.MapModule.Position;
@@ -24,7 +25,9 @@ public class PierresGeneralStore extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        dailyProductList = PierreGeneralStoreProducts.getProducts(PierreGeneralStoreProducts.class);
+        if(newDay){
+            dailyProductList = PierreGeneralStoreProducts.getProducts(PierreGeneralStoreProducts.class);
+        }
     }
 
     public ArrayList<NpcProduct> getDailyProductList() {

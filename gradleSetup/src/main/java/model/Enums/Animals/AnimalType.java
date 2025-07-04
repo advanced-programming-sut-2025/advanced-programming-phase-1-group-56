@@ -87,7 +87,7 @@ public enum AnimalType implements Saleable {
 
     public static AnimalType findAnimalTypeByName(String name) {
         for (AnimalType animalType : AnimalType.values()) {
-            if (animalType.name.equals(name)) {
+            if (animalType.name.equalsIgnoreCase(name)) {
                 return animalType;
             }
         }

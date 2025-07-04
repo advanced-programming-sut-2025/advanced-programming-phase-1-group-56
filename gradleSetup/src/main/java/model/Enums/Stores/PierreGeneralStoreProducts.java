@@ -633,7 +633,7 @@ public enum PierreGeneralStoreProducts implements Store {
 
     @Override
     public NpcProduct getProduct() {
-        return null;
+        return npcProduct;
     }
 
     public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
