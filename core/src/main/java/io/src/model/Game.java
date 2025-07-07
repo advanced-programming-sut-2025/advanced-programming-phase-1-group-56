@@ -1,5 +1,8 @@
 package io.src.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.google.gson.annotations.Expose;
 import io.src.model.Activities.Trade;
 import io.src.model.MapModule.Buildings.Store;
@@ -16,6 +19,7 @@ public class Game {
     private ArrayList<Player> players;
     private GameMap gameMap;
     private TimeSystem timeSystem;
+    private OrthographicCamera camera; // Add camera field
 
     public void setWeatherState(WeatherState weatherState) {
         this.weatherState = weatherState;
@@ -45,6 +49,10 @@ public class Game {
         this.gameMap = GameMap;
         this.timeSystem = timeSystem;
         this.weatherState = weatherState;
+        currentPlayer = players.get(0);
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set(currentPlayer.getPosition().getX(), currentPlayer.getPosition().getY(), 0);
         //TODO HANDLE GAME ID SYSTEM
     }
     public ArrayList<Player> getPlayers() {
@@ -144,5 +152,42 @@ public class Game {
             }
         }
         return null; // یا throw new IllegalArgumentException(...)
+    }
+    public void update(float deltaTime) {
+
+        float playerX = currentPlayer.getPosition().getX() * 16;
+        float playerY = currentPlayer.getPosition().getY() * 16;
+
+        float camX = camera.position.x;
+        float camY = camera.position.y;
+
+        float viewHalfWidth = camera.viewportWidth / 2;
+        float viewHalfHeight = camera.viewportHeight / 2;
+
+        float border = 32; // 2-tile margin from edge
+
+        // Horizontal movement
+        if (playerX < camX - viewHalfWidth + border) {
+            camX = playerX + viewHalfWidth - border;
+        } else if (playerX > camX + viewHalfWidth - border) {
+            camX = playerX - viewHalfWidth + border;
+        }
+
+        // Vertical movement
+        if (playerY < camY - viewHalfHeight + border) {
+            camY = playerY + viewHalfHeight - border;
+        } else if (playerY > camY + viewHalfHeight - border) {
+            camY = playerY - viewHalfHeight + border;
+        }
+        //correct map width and height
+        camX = Math.max(viewHalfWidth, Math.min(camX, 80 * 16 - viewHalfWidth));
+        camY = Math.max(viewHalfHeight, Math.min(camY, 65 * 16 - viewHalfHeight));
+
+        camera.position.set(camX, camY, 0);
+        camera.update();
+    }
+
+    public OrthographicCamera getCamera(){
+        return camera;
     }
 }

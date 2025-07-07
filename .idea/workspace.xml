@@ -5,278 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="graphic environment loaded finally">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/8.10/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/workspace-id.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/.gradle/workspace-id.txt.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/CommandController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/CookingController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/CraftingController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/EnergyController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/FarmingController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/FishingController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/FriendshipController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/GameController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/controller/GameMenuController/GreenHouseController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/model/Result.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/build/classes/java/main/model/items/Item.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/CommandController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ArtisanController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CookingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/CraftingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/EnergyController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/FarmingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/FishingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/FriendshipController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/GameController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/GreenHouseController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/HusbandryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/InventoryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/MapController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/NpcController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/BlacksmithMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/CarpenterMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/FishShopMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/GeneralStoreController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/JojaMartShopMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/MarniesRanchController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/ShopController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ShopMenuControllers/StardropSaloonController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/SkillsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/TimeAndDateController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/ToolsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/TradeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/GameMenuController/WeatherController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/MenuController/AvatarMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/MenuController/LoginMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/MenuController/MainMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/controller/MenuController/ProfileMenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/ArtesianRecepie.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/Farming.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/Friendship.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/Gift.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/Message.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Activities/Trade.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Buff.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Activity/TradeStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Activity/TradeType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Animals/AnimalProductQuality.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Animals/AnimalType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/BackPackType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/BuffType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Buildings/BuildingType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Direction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/FarmPosition.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/ArtisanMachineType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/CropType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/EtcObjectType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/ForagingCropType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/TreeType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/GameObjects/initialPlant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/InfoRegexes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ArtisanGoodType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ArtisanMachineItemType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/EtcType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FishType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FoodType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/FruitType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/GrassType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ItemQuality.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ItemType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/MineralItemType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/MixedSeed.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/QualityPole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/SeedType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/SpecialTreeSeed.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ToolMaterial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/ToolType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/TrashcanType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Items/UpgradeTool.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Menu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcDialogs/AbigailPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcDialogs/HarveyPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcDialogs/LeahPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcDialogs/NpcPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcDialogs/RobinPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcDialogs/SebastianPrompt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/NpcType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Recepies/CraftingRecipesList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Recepies/FoodRecipesList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/SecurityQuestion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Skills.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/BlackSmithProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/CarpenterShopProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/FishShopProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/JojamartProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/MarniesRanchProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/PierreGeneralStoreProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/StardropSaloonProducts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/Stores/Store.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/TileType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/WeatherAndTime/DayOfWeek.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/WeatherAndTime/Seasons.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/WeatherAndTime/WeatherType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/AvatarMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/Commands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/ArtisanCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/CraftingCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/EnergyAndSkillsCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/FarmingCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/GameCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/HouseMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/HusbandryCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/NpcCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/PreGameMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/RelationshipCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/ShopCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/StoreCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/TimeAndDateCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/ToolCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/TradeCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/GameCommands/WeatherCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/LoginMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/MainMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/PreGameMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Enums/commands/ProfileMenuCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Game.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Animal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/ArtesianMachine.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Crop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/DroppedItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/EtcObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/ForagingCrop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/ForagingMineral.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/GameObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Grass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/LivingEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/MailBox.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Movable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/DeepSeekApiChat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/Dialogs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/Job.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/NPC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/NpcFriendship.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/NpcGift.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/NpcProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/NPC/NpcRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Refrigerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/ShippingBar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Sprinkle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Tree.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/GameObject/Well.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Ingredient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MakePasswordSHA_256.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/AStarPathFinding.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/AnimalHouse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Barn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Blacksmith.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Building.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/CarpentersShop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Coop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/FishShop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/GreenHouse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Home.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/JojaMart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/MarniesRanch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/PierresGeneralStore.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/Store.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Buildings/TheSaloonStardrop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Farm2Loader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/FarmLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Farm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/GameLocation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameLocations/Town.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/GameMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Network.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Position.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/Tile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/MapModule/TownLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Quest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Result.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/Slot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/Energy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/GameState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/States/WeatherState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/DateTime.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/TimeObserver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/TimeSystem/TimeSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/AnimalProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Artesian.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/ArtisanGood.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Backpack.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/CraftingTool.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Etc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Fish.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Food.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Fruit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Inventory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Mineral.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/OreItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Saleable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Seed.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/items/Tool.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/FarmingSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/FishingSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/ForagingSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/MiningSkill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/model/skills/Skill.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/GameMnueUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/HomeMenuUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/LoginAndSignUpTestCase" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/LoginMenuUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/MainMenuUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/ProfileMenuUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/TradeManuUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newTest1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/newtest2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/nimaTest,txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/test/temp test 1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/AppMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/AppView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/AvatarMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/ExitMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/GameMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/HouseMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/BlacksmithMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/CarpentersShopMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/FishShopMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/JojaMartMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/MarniesRanchMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/PierresGeneralStoreMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/ShopMenus/TheSaloonStarDropMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/GameMenus/TradeMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/LoginMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/MainMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradleSetup/src/main/java/view/ProfileMenu.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/StardewValley.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/player.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/sprites_player.atlas" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/States/WeatherState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/States/WeatherState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/AppView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/AppView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,7 +46,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="advanced-programming-phase-1-group-56" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -318,7 +70,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="nima" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -331,8 +83,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
-    &quot;accountId&quot;: &quot;bee11d60-58a2-482f-aaac-3d56730ac7ed&quot;
+    &quot;url&quot;: &quot;https://github.com/advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
+    &quot;accountId&quot;: &quot;ff4b5d5d-f8fc-4156-b8ab-50d7ad926447&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -353,14 +105,17 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
+    "Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
     "Gradle.gradleSetup [:Main.main()].executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "mohsen",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/USER/Desktop/stardew valley_graphic",
+    "last_opened_file_path": "C:/Users/HP/OneDrive/Desktop/Stardew/advanced-programming-phase-1-group-56/assets",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -376,21 +131,22 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\Stardew\advanced-programming-phase-1-group-56\assets" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\States" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\GameObject" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Activities" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\Stardew\advanced-programming-phase-1-group-56\assets" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="io.src.view.GameMenus" />
       <recent name="model.items" />
       <recent name="model.GameObject" />
       <recent name="model.Enums.Buildings" />
       <recent name="model.Enums" />
-      <recent name="model.Enums.Animals" />
     </key>
   </component>
   <component name="RunManager">
@@ -458,6 +214,11 @@
       <workItem from="1749302851587" duration="11000" />
       <workItem from="1751444116282" duration="214000" />
       <workItem from="1751444756343" duration="1939000" />
+      <workItem from="1751832435710" duration="87000" />
+      <workItem from="1751832630704" duration="33000" />
+      <workItem from="1751832675681" duration="399000" />
+      <workItem from="1751833095878" duration="304000" />
+      <workItem from="1751873573050" duration="15263000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -652,6 +413,16 @@
     <MESSAGE value="green house and carpenter shop" />
     <MESSAGE value="carpentershop update + npc dar dast handle shodan" />
     <option name="LAST_COMMIT_MESSAGE" value="carpentershop update + npc dar dast handle shodan" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.badlogic.gdx.utils.GdxRuntimeException" package="com.badlogic.gdx.utils" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
