@@ -1,14 +1,15 @@
 package io.src.view;
 
+import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import java.util.Scanner;
 
 public class AppView {
-    public void run() {
+    public void run(GameController gameController) {
         Scanner scanner = new Scanner(System.in);
         do {
-            App.getCurrentMenu().checkCommand(scanner);
+            App.getCurrentMenu().checkCommand(scanner,gameController);
         } while (App.getCurrentMenu() != Menu.exitMenu);
     }
 }

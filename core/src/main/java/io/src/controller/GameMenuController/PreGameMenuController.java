@@ -21,6 +21,7 @@ import static io.src.model.MapModule.FarmLoader.loadTheFarm;
 import static io.src.model.MapModule.TownLoader.loadTheTown;
 
 public class PreGameMenuController extends CommandController {
+
     public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
         if (usernamesStr.isEmpty()) {
