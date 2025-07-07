@@ -199,6 +199,8 @@ public class PreGameMenuController extends CommandController {
         //FriendShips
         for (Player player1 : playersToPlay) {
             for (Player player2 : playersToPlay) {
+                if(player2.equals(player1))
+                    continue;
                 player1.getFriendShips().add(new Friendship(player2));
             }
         }

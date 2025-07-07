@@ -8,13 +8,21 @@ import model.Activities.Message;
 
 import model.Enums.BuffType;
 
+import model.TimeSystem.DateTime;
 import model.items.Item;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FriendshipController extends CommandController {
     public static Result showFriendships() {
         StringBuilder builder = new StringBuilder();
         builder.append("your friendships:\n");
         for (Friendship f : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getFriendShips()) {
+            if(f.getPlayer().equals(App.getMe()))
+                continue;
             builder.append("\twith player:").append(f.getPlayer().getUser().getName()).append("\n")
                     .append("\txp:").append(f.getXp()).append("\n")
                     .append("\tlevel:").append(f.getLevel()).append("\n")
@@ -62,6 +70,8 @@ public class FriendshipController extends CommandController {
     public static Result historyOfTalking(String userName) {
         userName = userName.trim();
         User user = App.getUserByUsername(userName);
+        String MyName = App.getMe().getUser().getName();
+        String YourName = user.getName();
         if (user == null) {
             return new Result(false, "User not found");
         }
@@ -75,14 +85,24 @@ public class FriendshipController extends CommandController {
         }
         StringBuilder builder = new StringBuilder();
         builder.append("chat Between You And: ").append(playerToTalk.getUser().getName()).append("\n");
+
+        List<Message> messages = new LinkedList<>(playerToTalk.getMessages());
+        sortMessageByDate(messages);
+
+
+        DateTime oldDateTime = new DateTime(0, 8);
         for (Message msg : playerToTalk.getMessages()) {
-            if (
-                    (msg.getSender().equals(me) && msg.getReciever().equals(playerToTalk)) ||
-                            (msg.getSender().equals(playerToTalk) && msg.getReciever().equals(me))
-            ) {
-                builder.append(msg.getMessage()).append("\n");
-                builder.append("---");
+            if (oldDateTime.getDay() != msg.getTimeStamp().getDay()) {
+                builder.append("----------------\n")
+                        .append("Day ").append(msg.getTimeStamp().getDay()).append(" -\n----------------\n");
+                oldDateTime = msg.getTimeStamp();
             }
+            if (msg.getSender().equals(me) && msg.getReciever().equals(playerToTalk)) {
+                builder.append("\tyou: ").append(msg.getMessage()).append("\n");
+            } else if (msg.getSender().equals(playerToTalk) && msg.getReciever().equals(me)) {
+                builder.append("\t").append(YourName).append(": ").append(msg.getMessage()).append("\n");
+            }
+
         }
         return new Result(true, builder.toString());
     }
@@ -157,6 +177,9 @@ public class FriendshipController extends CommandController {
         if (gift == null) {
             return new Result(false, "gift doesn't find with such id..");
         }
+        if(gift.getRate() > 0) {
+            return new Result(false, "this gift is already rated");
+        }
         int rate;
         try {
             rate = Integer.parseInt(rateStr);
@@ -197,6 +220,9 @@ public class FriendshipController extends CommandController {
         Player me = App.getMe();
         if (!me.getPosition().isNear(player.getPosition(), 1)) {
             return new Result(false, "You are out of bounds");
+        }
+        if(me.equals(player)) {
+            return new Result(false, "You can not hug yourself");
         }
         if (me.findFriendshipByPlayer(player).getLevel() < 2) {
             return new Result(false, "atsafghorilah.Hanuz mahram nistid..");
@@ -239,7 +265,7 @@ public class FriendshipController extends CommandController {
         }
         me.getInventory().remove(gol, 1);
         player.getInventory().add(gol, 1);
-        player.findFriendshipByPlayer(player).setDeliveredFlowerBothWay(true);
+        me.findFriendshipByPlayer(player).setDeliveredFlowerBothWay(true);
 
         if (player.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
@@ -266,15 +292,27 @@ public class FriendshipController extends CommandController {
         if (!me.isGender()) {
             return new Result(false, "a boy can send request. you cannot LOL");
         }
+
+        if(me.equals(player)) {
+            return new Result(false, "you can marry yourself");
+        }
+
         if (player.isGender()) {
             return new Result(false, "why are you gay?? why are you gay????!");
         }
-        if (me.getPosition().isNear(player.getPosition(), 1)) {
+        if (!me.getPosition().isNear(player.getPosition(), 1)) {
             return new Result(false, "out of bounds...");
         }
         if (me.findFriendshipByPlayer(player).getLevel() < 3) {
             return new Result(false, "namzad nistid hanuz...");
         }
+
+        for (Gift request : player.getMarryRequests()) {
+            if (request.getSender().equals(me)) {
+                return new Result(false, "don't spam marry request pls,we will peygiri it");
+            }
+        }
+
         Item ringToMarry = me.getInventory().findItemByName(ring);
         if (ringToMarry == null) {
             return new Result(false, "you dont have ringe mored nazar");
@@ -286,11 +324,6 @@ public class FriendshipController extends CommandController {
             return new Result(false, "astaghfurillah brother,HARAMM!!#@#@#$@##,she is married ");
         }
 
-        for (Gift request : player.getMarryRequests()) {
-            if (request.getSender().equals(me)) {
-                return new Result(false, "don't spam marry request pls,we will peygiri it");
-            }
-        }
 
         player.getMarryRequests().add(new Gift(me, player, ringToMarry, 1));
         me.getInventory().remove(ringToMarry, 1);//TEMP REMOVE maybe comebacks
@@ -308,7 +341,9 @@ public class FriendshipController extends CommandController {
         }
         Player me = App.getMe();
         Gift request = null;
-        for (Gift req : player.getMarryRequests()) {
+        //TODO for debug
+        for (Gift req : me.getMarryRequests()) {
+            //System.out.println(req.toString());
             if (req.getSender().equals(player)) {
                 request = req;
             }
@@ -323,6 +358,9 @@ public class FriendshipController extends CommandController {
                 me.setPartner(player);
                 me.findFriendshipByPlayer(player).setMarriedBothWay(true);
                 me.getMarryRequests().clear();
+                player.setCurrentBuff(null);
+                player.setPartner(me);
+                me.setPartner(player);
                 return new Result(true, "Mobarake...You are now married to " + player.getUser().getName());
             }
             case "-reject": {
@@ -330,11 +368,25 @@ public class FriendshipController extends CommandController {
                 me.findFriendshipByPlayer(player).setMarriedBothWay(false);
                 me.getMarryRequests().remove(request);
                 me.findFriendshipByPlayer(player).resetFriendshipBothWay();
-                player.setCurrentBuff(new Buff(BuffType.Depression));
+                Buff depression  = new Buff(BuffType.Depression);
+                player.setCurrentBuff(depression);
                 return new Result(true, "you rejected " + player.getUser().getName() + "'s request");
             }
             default:
                 return new Result(false, "barye bar N on porsidam ..invalid response.");
         }
+    }
+
+    public static void sortMessageByDate(List<Message> messages) {
+        Collections.sort(messages, (a, b) -> {
+            if (a.getTimeStamp().getDay() != b.getTimeStamp().getDay()) {
+                return Integer.compare(a.getTimeStamp().getDay(), b.getTimeStamp().getDay());
+            } else if (a.getTimeStamp().getHour() != b.getTimeStamp().getHour()) {
+                return Integer.compare(a.getTimeStamp().getHour(), b.getTimeStamp().getHour());
+            } else {
+                return 0;
+            }
+        });
+
     }
 }

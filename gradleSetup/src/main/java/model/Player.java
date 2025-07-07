@@ -83,7 +83,6 @@ public class Player implements TimeObserver {
     private final ArrayList<Message> messages = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
-    private double maxEnergy = 200;
 
     private Player partner = null;
 
@@ -380,6 +379,8 @@ public class Player implements TimeObserver {
         }
     }
 
+
+
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
@@ -406,8 +407,8 @@ public class Player implements TimeObserver {
     }
 
     public void addEnergy(int amount) {
-        if (energy.getEnergy() + amount > maxEnergy) {
-            energy.setEnergy(maxEnergy);
+        if (energy.getEnergy() + amount > energy.getMaxEnergy()) {
+            energy.setEnergy(energy.getMaxEnergy());
         }
         energy.setEnergy(energy.getEnergy() + amount);
     }
@@ -430,12 +431,9 @@ public class Player implements TimeObserver {
     }
 
     public double getMaxEnergy() {
-        return maxEnergy;
+        return energy.getMaxEnergy();
     }
 
-    public void setMaxEnergy(double maxEnergy) {
-        this.maxEnergy = maxEnergy;
-    }
 
     public double getEnergyUsage() {
         return energyUsage;

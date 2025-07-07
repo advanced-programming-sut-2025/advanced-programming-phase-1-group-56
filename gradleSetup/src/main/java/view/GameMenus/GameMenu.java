@@ -79,13 +79,13 @@ public class GameMenu implements AppMenu {
             setCurrentStoreOrBuilding();
             System.out.println(MapController.printMap());
             return true;
-        } else if((matcher = Pattern.compile("\\s*ef\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s*").matcher(input)).matches()) {
-            int x1 =Integer.parseInt(matcher.group(1).trim());
+        } else if ((matcher = Pattern.compile("\\s*ef\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s*").matcher(input)).matches()) {
+            int x1 = Integer.parseInt(matcher.group(1).trim());
             int y1 = Integer.parseInt(matcher.group(2).trim());
             int x2 = Integer.parseInt(matcher.group(3).trim());
-            int y2 =Integer.parseInt(matcher.group(4).trim());
-            System.out.printf("emptying field: from <%d,%d> to <%d, %d>\n",x1,y1,x2,y2);
-            for (int i = x1; i < x2 ; i++) {
+            int y2 = Integer.parseInt(matcher.group(4).trim());
+            System.out.printf("emptying field: from <%d,%d> to <%d, %d>\n", x1, y1, x2, y2);
+            for (int i = x1; i < x2; i++) {
                 for (int j = y1; j < y2; j++) {
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setWalkable(true);
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setTileType(TileType.Soil);
@@ -93,28 +93,26 @@ public class GameMenu implements AppMenu {
                 }
             }
             return true;
-        }else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
             System.out.println(CraftingController.cheatAddItem(matcher));
             return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
 
             boolean isCorrect;
             Energy energy = new Energy(0);
-            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy).isSuccess();
+            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()), energy).isSuccess();
             if (isCorrect) {
-                if(energy.getEnergy() > App.getMe().getEnergy().getEnergy()) {
-                    System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy));
+                if (energy.getEnergy() > App.getMe().getEnergy().getEnergy()) {
+                    System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()), energy));
                     String input1 = scanner.nextLine();
                     if (input1.equalsIgnoreCase("yes")) {
                         System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                     }
-                }
-                else{
+                } else {
                     System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                 }
-            }
-            else{
-                System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy));
+            } else {
+                System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()), energy));
             }
 
 
@@ -145,13 +143,12 @@ public class GameMenu implements AppMenu {
         Player player = App.getMe();
         if (player.getCurrentGameLocation().getTileByPosition(player.getPosition()).getTileType() == TileType.Wrapper) {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
-            if(player.getCurrentGameLocation().equals(App.getMe().getPlayerFarm().getGreenHouse().getIndoor())){
+            if (player.getCurrentGameLocation().equals(App.getMe().getPlayerFarm().getGreenHouse().getIndoor())) {
                 player.setCurrentGameLocation(App.getMe().getPlayerFarm());
                 Position position = App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition();
-                player.setPosition(new Position(position.getX(), position.getY() +2));
+                player.setPosition(new Position(position.getX(), position.getY() + 2));
                 System.out.println("backing to farm from greenhouse");
-            }
-             else if (player.getCurrentGameLocation() instanceof Farm) {
+            } else if (player.getCurrentGameLocation() instanceof Farm) {
                 player.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
                 if ((player.getFarmPosition() == FarmPosition.LEFT)) {
 //                    player.getPosition().getX() == 0 player.getPosition().getY() == 52;
@@ -394,8 +391,8 @@ public class GameMenu implements AppMenu {
         } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
             System.out.println(HusbandryController.sellAnimal(matcher));
             return true;
-        } else if((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
-            System.out.println(HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)),matcher.group(3)));
+        } else if ((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
+            System.out.println(HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), matcher.group(3)));
             return true;
         }
         return false;
@@ -451,11 +448,12 @@ public class GameMenu implements AppMenu {
 
     public boolean TradeCheck(String input) {
         Matcher matcher;
-        if ((TradeCommands.startTrade.getMatcher(input)) != null) {
-            System.out.println(TradeController.startTrade().getMessage());
-            return true;
-        } else if ((matcher = TradeCommands.cheatAddMoney.getMatcher(input)) != null) {
+        if ((matcher = TradeCommands.cheatAddMoney.getMatcher(input)) != null) {
             System.out.println(TradeController.cheatAddMoney(matcher.group(1).trim()).getMessage());
+            return true;
+        } else if (TradeCommands.startTrade.getMatcher(input) != null) {
+            System.out.println("test");
+            System.out.println(TradeController.startTrade().getMessage());
             return true;
         } else if ((matcher = TradeCommands.sell.getMatcher(input)) != null) {
             System.out.println(TradeController.sellProducts(matcher).getMessage());
@@ -502,7 +500,7 @@ public class GameMenu implements AppMenu {
             System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else if ((matcher = RelationshipCommands.marryRespond.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
+            System.out.println(FriendshipController.respondMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else {
             return false;

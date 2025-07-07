@@ -12,10 +12,8 @@ help reading map
 energy show
 pwd
 ef 18 18 40 30
-sp 79 17
-invalid command for enter
-print map
-
+i s
+s e
 
 
 ------------------------------------------------ for carpenter shop
@@ -67,6 +65,76 @@ exit
 sp 58 85
 purchase Duck -n 1
 inv
+-----------------------------------------------2 player for trade and marige
+register -u Fati2 -p MohsenZare12? MohsenZare12? -n Fatemeh -e mohsenAli23@gmail.com -g female
+login -u Mohsen -p MohsenZare12?
+menu enter main menu
+menu enter game menu
+game new -u Fati2
+1
+2
+print map
+help reading map
+energy show
+pwd
+ef 18 18 40 30
+i s
+s e
+sp 79 17
+sp 30 60
+next turn
+sp 79 17
+sp 30 61
+talk -u Mohsen -m SALAM
+talk -u Mohsen -m Mmmmm.
+next turn
+talk -u Fati2
+talk -u Fati2 -m EEeee salam
+talk -u Fati2 -m Khobi?
+next turn
+next turn
+next turn
+talk -u Mohsen -m Merci Khobam
+cheat advance date 1d
+next turn
+talk -u Fati2 -m ajab ruz ghashangi
+talk history -u Fati2
+cheat advance date 1d
+talk -u Fati2 -m test
+talk history -u Fati2
+inv
+talk -u Fati2 -m Dustim Dustim
+talk -u Fati2 -m Dustim Dustim
+talk -u Fati2 -m Dustim Dustim
+friendships
+talk -u Fati2 -m Dustim Dustim
+talk -u Fati2 -m Dustim Dustim
+hug -u Fati2
+friendships
+cheat add item -n Gold_Bar -c 3
+gift -u Fati2 -i Gold_Bar -a 4
+gift -u Fati2 -i Gold_Bar -a 3
+next turn
+i s
+gift list
+inv
+//gift rate -i ... -r 5
+friendships
+//gift rate -i ... -r 5
+hug -u Mohsen
+cheat add item -n bouquet -c 1
+flower -u Mohsen
+ask marriage -u Mohsen -r sad
+next turn
+ask marriage -u Fati2 -r ring
+hug -u Fati2
+hug -u Fati2
+cheat add item -n Wedding_Ring -c 1
+ask marriage -u Fati2 -r Wedding_Ring
+next turn
+respond -accept -u Mohsen
+next turn
+s e
 -----------------------------------------------exit game
 exit game
 logout

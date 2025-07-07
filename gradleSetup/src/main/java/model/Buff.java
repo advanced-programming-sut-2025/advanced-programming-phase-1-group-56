@@ -12,6 +12,7 @@ public class Buff implements TimeObserver {
     public Buff(BuffType buffType) {
         this.buffType = buffType;
         this.remainingTime = buffType.getDuration();
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -35,11 +36,11 @@ public class Buff implements TimeObserver {
         } else if(buffType == BuffType.MiningBuff){
             player.getSkillByName(Skills.Mining.toString()).setLevel(player.getSkillByName(Skills.Mining.toString()).getLevel()+1);
         } else if(buffType == BuffType.MaxEnergy50){
-            player.setMaxEnergy(player.getMaxEnergy()+50);
+            player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()+50);
         } else if(buffType == BuffType.MaxEnergy100){
-            player.setMaxEnergy(player.getMaxEnergy()+100);
+            player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()+100);
         } else if(buffType == BuffType.Depression){
-            player.setMaxEnergy(player.getMaxEnergy()/2);
+            player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()/2);
         }
     }
     public void manageBuff1(Player player){
@@ -56,11 +57,11 @@ public class Buff implements TimeObserver {
         } else if(buffType == BuffType.MiningBuff){
             player.getSkillByName(Skills.Mining.toString()).setLevel(player.getSkillByName(Skills.Mining.toString()).getLevel()-1);
         } else if(buffType == BuffType.MaxEnergy50){
-            player.setMaxEnergy(player.getMaxEnergy()-50);
+            player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()-50);
         } else if(buffType == BuffType.MaxEnergy100){
-            player.setMaxEnergy(player.getMaxEnergy()-100);
+            player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()-100);
         } else if(buffType == BuffType.Depression){
-            player.setMaxEnergy(player.getMaxEnergy()*2);
+            player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()*2);
         }
     }
     public BuffType getBuffType() {
@@ -69,5 +70,10 @@ public class Buff implements TimeObserver {
 
     public int getRemainingTime() {
         return remainingTime;
+    }
+
+    @Override
+    public String toString() {
+        return "[buff: "  + buffType.toString() + "-> duration" +remainingTime + "/" +this.buffType.getDuration() + " ]";
     }
 }

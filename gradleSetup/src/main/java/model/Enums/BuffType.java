@@ -33,4 +33,8 @@ public enum BuffType {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return name+"_"+value;
+    }
 }
