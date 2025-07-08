@@ -89,7 +89,7 @@ public class Player implements TimeObserver {
     private Player partner = null;
 
 
-    private float speed = 2f;
+    private float speed = 100f;
     private float vx = 0, vy = 0;
 
     public void setVelocity(float vx, float vy) {
@@ -102,8 +102,7 @@ public class Player implements TimeObserver {
     }
 
     public boolean tryMove(float dx, float dy) {
-        int newX = (int) (position.getX() + dx);
-        int newY = (int) (position.getY() + dy);
+        position.ChangePosition(dx,dy);
 
 //        if (newX < 0 || newX >= tiles.length || newY < 0 || newY >= tiles[0].length) return false;
 
@@ -112,9 +111,7 @@ public class Player implements TimeObserver {
 //            playerPosition.second += dy;
 //            return true;
 //        }
-        Position newPosition = new Position(newX+position.getX(), position.getY()+newY);
-        position.setX(newPosition.getX());
-        position.setY(newPosition.getY());
+
         return false;
     }
 
@@ -144,7 +141,7 @@ public class Player implements TimeObserver {
         this.energy = new Energy(200);
         this.fainted = false;
         this.gold = 0;
-        this.position = new Position(20, 20);
+        this.position = new Position(800, 600);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();

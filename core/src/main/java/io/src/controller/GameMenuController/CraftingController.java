@@ -98,8 +98,8 @@ public class CraftingController extends CommandController {
             return new Result(false, "this direction does not exist!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        int x = position.getX();
-        int y = position.getY();
+        int x = (int)position.getX();
+        int y = (int)position.getY();
         switch (dir) {
             case UP:
                 y -= 1;

@@ -23,8 +23,8 @@ public class FishingController extends CommandController {
         }
         for (int i = 0; i <= 2; i++) {
             for (int j = 0; j <= 2; j++) {
-                if (App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition().getX() - 1 + i, App.getMe().getPosition().getY() - 1 + j).getTileType() == TileType.Water) {
-                    ((Tool) App.getMe().getCurrentItem()).use(App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition().getX() - 1 + i, App.getMe().getPosition().getY() - 1 + j));
+                if (App.getMe().getCurrentGameLocation().getTileByPosition((int)App.getMe().getPosition().getX() - 1 + i, (int)App.getMe().getPosition().getY() - 1 + j).getTileType() == TileType.Water) {
+                    ((Tool) App.getMe().getCurrentItem()).use(App.getMe().getCurrentGameLocation().getTileByPosition((int)App.getMe().getPosition().getX() - 1 + i, (int)App.getMe().getPosition().getY() - 1 + j));
                     return new Result(true , "you have use your fishing pole");
                 }
             }

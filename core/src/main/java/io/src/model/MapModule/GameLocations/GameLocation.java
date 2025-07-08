@@ -21,7 +21,7 @@ public class GameLocation extends Network {
     }
 
     public Tile getTileByPosition(Position pos){
-        return tiles[pos.getY()][pos.getX()];
+        return tiles[(int)pos.getY()][(int)pos.getX()];
     }
 
     @Override

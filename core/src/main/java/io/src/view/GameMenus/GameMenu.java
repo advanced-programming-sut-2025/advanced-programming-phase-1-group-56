@@ -305,7 +305,7 @@ public class GameMenu implements AppMenu , Screen {
                 }
             }
 
-        } else if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getFixedObject() instanceof Building building) {
+        } else if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(), (int)player.getPosition().getY()).getFixedObject() instanceof Building building) {
             if (player.getPosition().equals(building.getDoorPosition())) {
                 if (building instanceof JojaMart) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||

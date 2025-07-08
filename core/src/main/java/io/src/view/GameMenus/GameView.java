@@ -1,10 +1,13 @@
 package io.src.view.GameMenus;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -28,6 +31,7 @@ public class GameView {
     private int moveDirection = 0;
     private Texture pixel; // Add this
     public Image background = new Image(new Texture(Gdx.files.internal("Farm2.png")));
+    private final OrthographicCamera camera = new OrthographicCamera();
 
 
 
@@ -43,6 +47,7 @@ public class GameView {
         this.game = game;
         batch = new SpriteBatch();
         loadTextures();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //        loadFont();
     }
 
@@ -89,7 +94,7 @@ public class GameView {
 
 
     public void render() {
-        batch.setProjectionMatrix(game.getCamera().combined);
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
         Texture texture = ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture();
@@ -98,6 +103,10 @@ public class GameView {
         renderPlayer();
 
         batch.end();
+        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
+        camera.zoom = 0.3f;
+
+        camera.update();
     }
 
 
@@ -187,7 +196,7 @@ public class GameView {
         Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 
-        batch.draw(currentFrame, game.getCurrentPlayer().getPosition().getX(),game.getCurrentPlayer().getPosition().getY(), 16, 16 * 2);
+        batch.draw(currentFrame, game.getCurrentPlayer().getPosition().getX(),game.getCurrentPlayer().getPosition().getY(), 20, 20 * 2);
 //        renderInventory();
     }
 

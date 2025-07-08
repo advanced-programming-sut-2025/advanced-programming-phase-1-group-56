@@ -71,35 +71,35 @@ public class Tile extends Node {
         int maxX = grid.getTiles()[0].length - 1;
 
         if (position.getX() > minX) {
-            nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY())); //west
+            nodes.add(grid.getTileByPosition((int)position.getX() - 1, (int)position.getY())); //west
         }
 
         if (position.getX() < maxX) {
-            nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY())); //east
+            nodes.add(grid.getTileByPosition((int)position.getX() + 1, (int)position.getY())); //east
         }
 
         if (position.getY() > minY) {
-            nodes.add(grid.getTileByPosition(position.getX(), position.getY() - 1)); //north
+            nodes.add(grid.getTileByPosition((int)position.getX(), (int)position.getY() - 1)); //north
         }
 
         if (position.getY() < maxY) {
-            nodes.add(grid.getTileByPosition(position.getX(), position.getY() + 1)); //south
+            nodes.add(grid.getTileByPosition((int)position.getX(), (int)position.getY() + 1)); //south
         }
 
         if (position.getX() > minX && position.getY() > minY) {
-            nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY() - 1)); //northwest
+            nodes.add(grid.getTileByPosition((int)position.getX() - 1, (int)position.getY() - 1)); //northwest
         }
 
         if (position.getX() < maxX && position.getY() < maxY) {
-            nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY() + 1)); //southeast
+            nodes.add(grid.getTileByPosition((int)position.getX() + 1, (int)position.getY() + 1)); //southeast
         }
 
         if (position.getX() < maxX && position.getY() > minY) {
-            nodes.add(grid.getTileByPosition(position.getX() + 1, position.getY() - 1)); //northeast
+            nodes.add(grid.getTileByPosition((int)position.getX() + 1, (int)position.getY() - 1)); //northeast
         }
 
         if (position.getX() > minY && position.getY() < maxY) {
-            nodes.add(grid.getTileByPosition(position.getX() - 1, position.getY() + 1)); //southwest
+            nodes.add(grid.getTileByPosition((int)position.getX() - 1, (int)position.getY() + 1)); //southwest
         }
 
         setNeighbours(nodes);

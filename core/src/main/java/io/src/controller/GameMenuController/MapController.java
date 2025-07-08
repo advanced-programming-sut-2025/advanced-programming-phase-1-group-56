@@ -201,8 +201,8 @@ public class MapController extends CommandController {
     private static ArrayList<Node> findPath(int x, int y) {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         ArrayList<Node> path = new AStarPathFinding(player.getCurrentGameLocation(),
-                player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(),
-                        player.getPosition().getY()), player.getCurrentGameLocation().getTiles()[y][x]).solve();
+                player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),
+                    (int) player.getPosition().getY()), player.getCurrentGameLocation().getTiles()[y][x]).solve();
         return path;
     }
 
@@ -234,7 +234,7 @@ public class MapController extends CommandController {
         double availableDistance = Math.min(player.getEnergy().getEnergy() * 20, path.size());
         player.setPosition(((Tile) path.get((path.size() - (int) availableDistance))).getPosition());
         player.subtractEnergy(availableDistance / 20);
-        if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getTileType() == TileType.Wrapper) {
+        if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),(int) player.getPosition().getY()).getTileType() == TileType.Wrapper) {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
             if (player.getCurrentGameLocation() instanceof Farm) {
                 player.setCurrentGameLocation(game.getGameMap().getPelikanTown());
@@ -280,7 +280,7 @@ public class MapController extends CommandController {
                 }
             }
 
-        } else if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getFixedObject() instanceof Building building) {
+        } else if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(), (int)player.getPosition().getY()).getFixedObject() instanceof Building building) {
             if (player.getPosition().equals(building.getDoorPosition())) {
                 if (building instanceof JojaMart) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
@@ -351,24 +351,24 @@ public class MapController extends CommandController {
     public void walkToHome() {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
         if (player.getCurrentGameLocation() instanceof Farm) {
-            movePlayer(player.getDefaultHome().getDoorPosition().getX(), player.getDefaultHome().getDoorPosition().getY());
+            movePlayer((int)player.getDefaultHome().getDoorPosition().getX(), (int)player.getDefaultHome().getDoorPosition().getY());
         } else {
             switch (player.getFarmPosition()) {
                 case FarmPosition.RIGHT -> {
                     movePlayer(111, 76);
-                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX(), player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                    movePlayer((int)player.getPlayerFarm().getDefaultHome().getPosition().getX(), (int)player.getPlayerFarm().getDefaultHome().getPosition().getY());
                 }
                 case FarmPosition.LEFT -> {
                     movePlayer(0, 53);
-                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX(), player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                    movePlayer((int)player.getPlayerFarm().getDefaultHome().getPosition().getX(), (int)player.getPlayerFarm().getDefaultHome().getPosition().getY());
                 }
                 case FarmPosition.UP -> {
                     movePlayer(81, 0);
-                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX(), player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                    movePlayer((int)player.getPlayerFarm().getDefaultHome().getPosition().getX(),(int) player.getPlayerFarm().getDefaultHome().getPosition().getY());
                 }
                 case FarmPosition.DOWN -> {
                     movePlayer(54, 109);
-                    movePlayer(player.getPlayerFarm().getDefaultHome().getPosition().getX(), player.getPlayerFarm().getDefaultHome().getPosition().getY());
+                    movePlayer((int)player.getPlayerFarm().getDefaultHome().getPosition().getX(),(int) player.getPlayerFarm().getDefaultHome().getPosition().getY());
                 }
             }
         }
