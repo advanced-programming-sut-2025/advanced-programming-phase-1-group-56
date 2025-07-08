@@ -46,8 +46,8 @@ public class HusbandryController extends CommandController {
         boolean isExist = false;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(position.getX() + i, position.getY() + j).getFixedObject() instanceof Animal) {
-                    if (((Animal) (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(position.getX() + i, position.getY() + j).getFixedObject())).getNickName().equals(name)) {
+                if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)position.getX() + i, (int)position.getY() + j).getFixedObject() instanceof Animal) {
+                    if (((Animal) (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)position.getX() + i, (int)position.getY() + j).getFixedObject())).getNickName().equals(name)) {
                         isExist = true;
                     }
                 }
@@ -138,7 +138,7 @@ public class HusbandryController extends CommandController {
         animal.addFriendShip(8);
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             if (animal2.getNickName().equalsIgnoreCase(animalName)) {
-                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(animal2.getPosition().getX(), animal2.getPosition().getY()).setFixedObject(null);
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)animal2.getPosition().getX(), (int)animal2.getPosition().getY()).setFixedObject(null);
                 Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getAnimalInfo());
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal3);
                 return new Result(true, animal2.getNickName() + " have been replaced!");
@@ -274,7 +274,7 @@ public class HusbandryController extends CommandController {
         if(animal.getHouse() != null){
             animal.getHouse().getAnimals().remove(animal);
         }
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(animal.getPosition().getX(), animal.getPosition().getY()).setFixedObject(null);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)animal.getPosition().getX(), (int)animal.getPosition().getY()).setFixedObject(null);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(sellPrice);
         return new Result(true, "process for Selling animal ...");
 

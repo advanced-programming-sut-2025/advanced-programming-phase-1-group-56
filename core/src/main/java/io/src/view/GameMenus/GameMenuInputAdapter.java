@@ -90,37 +90,34 @@ public class GameMenuInputAdapter extends InputAdapter {
             vx += 1;
             dir = 2;
         }
+        System.out.println(vx + " " + vy);
 
-        float length = (float) Math.sqrt(vx * vx + vy * vy);
-        if (length > 0) {
-            vx /= length;
-            vy /= length;
-            player.setMovingDirection(dir);
-        } else {
-            player.setMovingDirection(0);
-        }
+
+        player.setMovingDirection(dir);
 
         float speed = player.getSpeed();
+
         player.setVelocity(vx * speed, vy * speed);
+
         player.update(delta);
     }
 
 
     private void performAction(int screenX, int screenY) {
-        OrthographicCamera camera = game.getCamera();
-        camera.update();
-        Vector3 worldCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));
+//        OrthographicCamera camera = game.getCamera();
+//        camera.update();
+//        Vector3 worldCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));
 
 
-        int tileX = (int) (worldCoordinates.x / 16);
-        int tileY = (int) (worldCoordinates.y / 16);
+//        int tileX = (int) (worldCoordinates.x / 16);
+//        int tileY = (int) (worldCoordinates.y / 16);
 
-        int dx = tileX - Math.round(game.getCurrentPlayer().getPosition().getX());
-        int dy = tileY - Math.round(game.getCurrentPlayer().getPosition().getY());
-
-        if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
-            return;
-        }
+//        int dx = tileX - Math.round(game.getCurrentPlayer().getPosition().getX());
+//        int dy = tileY - Math.round(game.getCurrentPlayer().getPosition().getY());
+//
+//        if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+//            return;
+//        }
 
 //        ItemDescriptionId selectedItem = game.getPlayer().getSelectedItem();
 //        if (selectedItem != null) {

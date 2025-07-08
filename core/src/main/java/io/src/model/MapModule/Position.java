@@ -1,31 +1,31 @@
 package io.src.model.MapModule;
 
 public class Position {
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
-    public Position(int x, int y) {
+    public Position(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public void  setX(int x) {
+    public void  setX(float x) {
         this.x = x;
     }
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void ChangePosition(int deltaX,int deltaY) {this.x += deltaX;this.y += deltaY;}
+    public void ChangePosition(float deltaX,float deltaY) {this.x += deltaX;this.y += deltaY;}
 
     public boolean isNear(Position pos2,int range) {
         return Math.abs(pos2.getX() - this.x) <= range && Math.abs(pos2.getY() - this.y) <= range;

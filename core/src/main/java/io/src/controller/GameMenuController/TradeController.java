@@ -398,8 +398,8 @@ public class TradeController extends CommandController {
     private static ShippingBar getShippingBarNearby(Player me) {
         ShippingBar shippingBar = null;
         if (me.getCurrentGameLocation() instanceof Farm farm) {
-            for (int i = me.getPosition().getX() - 1; i <= me.getPosition().getX() + 1; i++) {
-                for (int j = me.getPosition().getY() - 1; j <= me.getPosition().getY() + 1; j++) {
+            for (int i = (int)me.getPosition().getX() - 1; i <= me.getPosition().getX() + 1; i++) {
+                for (int j = (int)me.getPosition().getY() - 1; j <= me.getPosition().getY() + 1; j++) {
                     if (farm.getTiles()[i][j].getFixedObject() instanceof ShippingBar ship) {
                         shippingBar = ship;
                     }

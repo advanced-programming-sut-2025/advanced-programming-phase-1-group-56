@@ -50,42 +50,42 @@ public class ToolsController extends CommandController {
 
     public static Result useTools(String direction) {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        Tile destTile = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY());
+        Tile destTile = player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(), (int)player.getPosition().getY());
         Direction dir;
         if ((dir = CraftingController.getDirectionFromString(direction)) == null) {
             return new Result(false, "this direction does not exist!");
         }
         switch (dir) {
             case Direction.UP: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX(), destTile.getPosition().getY() - 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX(), (int)destTile.getPosition().getY() - 1);
             }
             break;
             case Direction.DOWN: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX(), destTile.getPosition().getY() + 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX(), (int)destTile.getPosition().getY() + 1);
             }
             break;
             case Direction.LEFT: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX() - 1, destTile.getPosition().getY());
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX() - 1, (int)destTile.getPosition().getY());
             }
             break;
             case Direction.RIGHT: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX() + 1, destTile.getPosition().getY());
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX() + 1, (int)destTile.getPosition().getY());
             }
             break;
             case Direction.UPLEFT: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX() - 1, destTile.getPosition().getY() - 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX() - 1, (int)destTile.getPosition().getY() - 1);
             }
             break;
             case Direction.DOWNRIGHT: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX() + 1, destTile.getPosition().getY() + 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX() + 1, (int)destTile.getPosition().getY() + 1);
             }
             break;
             case Direction.UPRIGHT: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX() + 1, destTile.getPosition().getY() - 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX() + 1, (int)destTile.getPosition().getY() - 1);
             }
             break;
             case Direction.DOWNLEFT: {
-                destTile = player.getCurrentGameLocation().getTileByPosition(destTile.getPosition().getX() - 1, destTile.getPosition().getY() + 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX() - 1, (int)destTile.getPosition().getY() + 1);
             }
             break;
             default: {
