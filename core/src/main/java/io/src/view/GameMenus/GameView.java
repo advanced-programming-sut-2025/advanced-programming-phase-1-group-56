@@ -7,24 +7,24 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import io.src.model.App;
 import io.src.model.Game;
+import io.src.model.Player;
+import kotlin.Pair;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class GameView {
     private final Game game;
-    private SpriteBatch batch;
-//    private TextureRegion[][] tileTextures;
-//    private Map<String, TextureRegion> textures;
+    private final SpriteBatch batch;
+    //    private TextureRegion[][] tileTextures;
+    private Map<String, TextureRegion> textures;
     private BitmapFont smallFont;
-    private GlyphLayout layout = new GlyphLayout();
+    private final GlyphLayout layout = new GlyphLayout();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
     private float stateTime = 0f;
@@ -32,7 +32,6 @@ public class GameView {
     private Texture pixel; // Add this
     public Image background = new Image(new Texture(Gdx.files.internal("Farm2.png")));
     private final OrthographicCamera camera = new OrthographicCamera();
-
 
 
     private void loadFont() {
@@ -48,7 +47,7 @@ public class GameView {
         batch = new SpriteBatch();
         loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        loadFont();
+        loadFont();
     }
 
     private void loadTextures() {
@@ -90,7 +89,7 @@ public class GameView {
         pixmap.fill();
         pixel = new Texture(pixmap);
         pixmap.dispose();
-        }
+    }
 
 
     public void render() {
@@ -103,12 +102,28 @@ public class GameView {
         renderPlayer();
 
         batch.end();
-        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
-        camera.zoom = 0.3f;
+        float y = game.getCurrentPlayer().getPosition().getY();
+        float x = game.getCurrentPlayer().getPosition().getX();
+        if (game.getCurrentPlayer().getPosition().getY() + 150 >= Gdx.graphics.getHeight()) {
+            y = Gdx.graphics.getHeight() - 150;
+        }
+        if (game.getCurrentPlayer().getPosition().getX() + 300 >= Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - 300;
+        }
+
+        if (game.getCurrentPlayer().getPosition().getY() - 200 <= 0) {
+            y = 200;
+        }
+
+        if (game.getCurrentPlayer().getPosition().getX() - 240 <= 0) {
+            x = 240;
+        }
+        camera.position.set(x, y, 0);
+
+        camera.zoom = 0.25f;
 
         camera.update();
     }
-
 
 
 //    private void renderTiles() {
@@ -184,11 +199,8 @@ public class GameView {
 //    }
 
 
-
-
-
     private void renderPlayer() {
-
+        System.out.println();
         moveDirection = game.getCurrentPlayer().getMovingDirection();
 
         stateTime += Gdx.graphics.getDeltaTime();
@@ -196,21 +208,20 @@ public class GameView {
         Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 
-        batch.draw(currentFrame, game.getCurrentPlayer().getPosition().getX(),game.getCurrentPlayer().getPosition().getY(), 20, 20 * 2);
+        batch.draw(currentFrame, game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 20, 20 * 2);
 //        renderInventory();
     }
 
 
 //    private void renderInventory() {
-//        Player player = game.getPlayer();
-//        Map<ItemDescriptionId, Pair<Integer, Integer>> inventory = player.getInventory();
+//        Player player = game.getCurrentPlayer();
 //        int selectedSlot = player.getSelectedSlot(); // Assuming you have this method
 //
 //        int screenWidth = Gdx.graphics.getWidth();
-//        int slotSize = StardewMini.TILE_SIZE /2;
-//        int numSlots = player.getMaxInventorySize();
+//        int slotSize = 16 /2;
+//        int numSlots = player.getCurrentBackpack().getCapacity();
 //        int startX = (screenWidth - numSlots * slotSize) / 2;
-//        int y = StardewMini.TILE_SIZE /2;
+//        int y = 16/2;
 //
 //        for (int i = 0; i < numSlots; i++) {
 //            int x = startX + i * slotSize;

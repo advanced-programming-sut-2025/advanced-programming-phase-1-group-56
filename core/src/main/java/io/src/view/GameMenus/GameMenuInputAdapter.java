@@ -27,11 +27,11 @@ public class GameMenuInputAdapter extends InputAdapter {
     public boolean keyDown(int keycode) {
         keysHeld.add(keycode);
 
-//        if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
-//            int selectedSlot = keycode - Input.Keys.NUM_1;
-//            game..setSelectedSlot(selectedSlot);
-//            return true;
-//        }
+        if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
+            int selectedSlot = keycode - Input.Keys.NUM_1;
+            game.getCurrentPlayer().setSelectedSlot(selectedSlot);
+            return true;
+        }
 
         if (keycode == Input.Keys.ESCAPE) {
             Gdx.app.exit();
@@ -53,10 +53,10 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-//        int current = game.getPlayer().getSelectedSlot();
-//        int size = game.getPlayer().getMaxInventorySize();
-//        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
-//        game.getPlayer().setSelectedSlot(next);
+        int current = game.getCurrentPlayer().getSelectedSlot();
+        int size = game.getCurrentPlayer().getCurrentBackpack().getCapacity();
+        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
+        game.getCurrentPlayer().setSelectedSlot(next);
         return true;
     }
 
@@ -90,7 +90,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             vx += 1;
             dir = 2;
         }
-        System.out.println(vx + " " + vy);
 
 
         player.setMovingDirection(dir);

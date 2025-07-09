@@ -71,6 +71,7 @@ public class PreGameMenuController extends CommandController {
         }
 
         Game newGame = new Game(null, null, null, null);
+
         App.getCurrentUser().setCurrentGame(newGame);
         TimeSystem timeSystem = new TimeSystem(1, 9);
         newGame.setTimeSystem(timeSystem);// 1/4 set
@@ -83,7 +84,7 @@ public class PreGameMenuController extends CommandController {
             player.setFarmPosition(FarmPosition.values()[positions.get(i) - 1]);
             //TODO check if it's ok
         }
-
+        System.out.println(1);
 
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
