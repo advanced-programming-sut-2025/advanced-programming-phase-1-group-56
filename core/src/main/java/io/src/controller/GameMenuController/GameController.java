@@ -1,6 +1,6 @@
 package io.src.controller.GameMenuController;
 
-import io.src.Main;
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
@@ -9,19 +9,20 @@ import io.src.model.Player;
 import io.src.model.Result;
 import io.src.view.AppView;
 import io.src.view.GameMenus.GameMenu;
+import io.src.view.GameMenus.GameMenu1;
 
 import java.util.Scanner;
 
 public class GameController extends CommandController {
-    private final Main game;
-    private GameMenu gameMenu;
+    private final StardewValley game;
+    private GameMenu1 gameMenu;
 
-    public GameController(Main main) {
-        game = main;
+    public GameController(StardewValley game) {
+        this.game = game;
     }
 
     public void init() {
-        gameMenu = new GameMenu(this);
+        gameMenu = new GameMenu1(this);
     }
 
     public void run() {
@@ -108,6 +109,7 @@ public class GameController extends CommandController {
         return manageNextTurn();
     }
 
-
-
+    public StardewValley getGame() {
+        return game;
+    }
 }

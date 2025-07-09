@@ -3,7 +3,9 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -30,103 +32,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GameMenu implements AppMenu , Screen {
-    private GameView gameView;
-    public Game myGame ;
-    private GameMenuInputAdapter gameMenuInputAdapter;
-    private GameController gameController;
-
-
-    public GameMenu(GameController gameController) {
-        this.gameController = gameController;
-        initializeGame();
-    }
-    private void initializeGame() {
-
-        TimeSystem timeSystem = new TimeSystem(1, 9);
-//        myGame.setTimeSystem(timeSystem);// 1/4 set
-
-
-        ArrayList<Player> playersToPlay = new ArrayList<>();
-
-        String mohsen = "mohsen";
-        String  wolf = "wolf";
-        Player player = new Player(new User(mohsen,mohsen,mohsen,mohsen,mohsen,2,mohsen,true));
-        Player player2 = new Player(new User(wolf,wolf,wolf,wolf,wolf,3,wolf,false));
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(player);
-        players.add(player2);
-
-
-        WeatherState weatherState = new WeatherState();
-//        myGame.setWeatherState(weatherState);// 2/4 set
-//        myGame.setPlayers(players);
-        GameMap gameMap = new GameMap();
-//        myGame.setGameMap(gameMap);
-//        myGame.setCurrentPlayer(player);
-        myGame = new Game(players,gameMap,timeSystem,weatherState);
-        gameView = new GameView(myGame);
-        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
-        Gdx.input.setInputProcessor(gameMenuInputAdapter);
-    }
-    @Override
-    public void show() {
-
-    }
-
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        myGame.update(delta);
-        gameView.render();
-        gameMenuInputAdapter.update(delta);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public class GameMenu implements AppMenu {
 
     @Override
     public void check(Scanner scanner) {
@@ -245,6 +151,9 @@ public class GameMenu implements AppMenu , Screen {
             return true;
         } else if ((matcher = GameCommands.eatFood.getMatcher(input)).find()) {
             System.out.println(CookingController.eatFood(matcher));
+            return true;
+        } else if(input.equalsIgnoreCase("exit")) {
+            App.setCurrentMenu(Menu.exitMenu);
             return true;
         }
         return false;
