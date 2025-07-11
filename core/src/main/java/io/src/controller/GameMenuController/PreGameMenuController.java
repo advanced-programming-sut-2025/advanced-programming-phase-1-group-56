@@ -189,7 +189,7 @@ public class PreGameMenuController extends CommandController {
             }
             break;
             default: {
-                System.out.println("that's not pussyble..you should start with (2-4) player");
+                System.out.println("that's not possible..you should start with (2-4) player");
             }
             break;
         }

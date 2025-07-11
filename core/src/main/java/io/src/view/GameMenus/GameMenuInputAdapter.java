@@ -90,7 +90,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             vx += 1;
             dir = 2;
         }
-        System.out.println(vx + " " + vy);
+//        System.out.println(vx + " " + vy);
 
 
         player.setMovingDirection(dir);

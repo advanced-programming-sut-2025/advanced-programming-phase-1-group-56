@@ -81,7 +81,7 @@ public class GameMenu implements AppMenu , Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         myGame.update(delta);
-        gameView.render();
+        gameView.render(delta);
         gameMenuInputAdapter.update(delta);
     }
 
@@ -156,6 +156,7 @@ public class GameMenu implements AppMenu , Screen {
             try {
                 String message = PreGameMenuController.manageNewGame(matcher.group(1).trim().trim(), scanner).message();
                 System.out.println(message);
+
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
                 System.out.println(e.getMessage());
