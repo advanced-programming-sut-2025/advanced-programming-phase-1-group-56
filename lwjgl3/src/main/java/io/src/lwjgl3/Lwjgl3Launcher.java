@@ -23,6 +23,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication(Game game) {
+
         return new Lwjgl3Application(new StardewValley(game), getDefaultConfiguration());
     }
 
