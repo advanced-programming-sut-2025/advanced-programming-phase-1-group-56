@@ -20,6 +20,7 @@ public class GameMenu1 implements Screen {
         this.gameController = gameController;
         initializeGame();
     }
+
     private void initializeGame() {
 
 //        TimeSystem timeSystem = new TimeSystem(1, 9);
@@ -95,6 +96,5 @@ public class GameMenu1 implements Screen {
         Cursor cursor = Gdx.graphics.newCursor(pixmap, 1, 1);
         Gdx.graphics.setCursor(cursor);
         pixmap.dispose();
-
     }
 }
