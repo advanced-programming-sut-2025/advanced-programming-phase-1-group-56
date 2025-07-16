@@ -27,7 +27,6 @@ public class GameMenuInputAdapter extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         keysHeld.add(keycode);
-
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
             int selectedSlot = keycode - Input.Keys.NUM_1;
             game.getCurrentPlayer().setSelectedSlot(selectedSlot);
@@ -96,7 +95,13 @@ public class GameMenuInputAdapter extends InputAdapter {
             vx = 0;
             vy = 0;
         }
-//        System.out.println(vx + " " + vy);
+        System.out.println(vx + " " + vy);
+
+
+        if(vx !=0 && vy !=0) {
+            vx/=(float) Math.sqrt(2);
+            vy/=(float) Math.sqrt(2);
+        }
 
 
 

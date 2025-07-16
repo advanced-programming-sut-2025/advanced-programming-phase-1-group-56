@@ -32,120 +32,24 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GameMenu implements AppMenu , Screen {
-    private GameView gameView;
-    public Game myGame ;
-    private GameMenuInputAdapter gameMenuInputAdapter;
-    private GameController gameController;
-
-
-    public GameMenu(GameController gameController) {
-        this.gameController = gameController;
-        initializeGame();
-    }
-    private void initializeGame() {
-
-        TimeSystem timeSystem = new TimeSystem(1, 9);
-//        myGame.setTimeSystem(timeSystem);// 1/4 set
-
-
-        ArrayList<Player> playersToPlay = new ArrayList<>();
-
-        String mohsen = "mohsen";
-        String  wolf = "wolf";
-        Player player = new Player(new User(mohsen,mohsen,mohsen,mohsen,mohsen,2,mohsen,true));
-        Player player2 = new Player(new User(wolf,wolf,wolf,wolf,wolf,3,wolf,false));
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(player);
-        players.add(player2);
-
-
-        WeatherState weatherState = new WeatherState();
-//        myGame.setWeatherState(weatherState);// 2/4 set
-//        myGame.setPlayers(players);
-        GameMap gameMap = new GameMap();
-//        myGame.setGameMap(gameMap);
-//        myGame.setCurrentPlayer(player);
-        myGame = new Game(players,gameMap,timeSystem,weatherState);
-        gameView = new GameView(myGame);
-        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
-        Gdx.input.setInputProcessor(gameMenuInputAdapter);
-    }
-    @Override
-    public void show() {
-
-    }
-
-
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        myGame.update(delta);
-        gameView.render(delta);
-        gameMenuInputAdapter.update(delta);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public class GameMenu implements AppMenu {
 
     @Override
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
 
         if (!(
-                GameCheck(input, scanner) ||
-                        DateTimeCheck(input) ||
-                        WeatherCheck(input) ||
-                        EnergyAndSkillsCheck(input) ||
-                        ToolsCheck(input) ||
-                        FarmingCheck(input) ||
-                        HusbandryCheck(input) ||
-                        ArtisanCheck(input) ||
-                        TradeCheck(input) ||
-                        RelationShipCheck(input) ||
-                        NPCCheck(input)
+            GameCheck(input, scanner) ||
+                DateTimeCheck(input) ||
+                WeatherCheck(input) ||
+                EnergyAndSkillsCheck(input) ||
+                ToolsCheck(input) ||
+                FarmingCheck(input) ||
+                HusbandryCheck(input) ||
+                ArtisanCheck(input) ||
+                TradeCheck(input) ||
+                RelationShipCheck(input) ||
+                NPCCheck(input)
         )
         ) {
             System.out.println("Invalid command!");
@@ -158,7 +62,6 @@ public class GameMenu implements AppMenu , Screen {
             try {
                 String message = PreGameMenuController.manageNewGame(matcher.group(1).trim().trim(), scanner).message();
                 System.out.println(message);
-
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
                 System.out.println(e.getMessage());
@@ -247,7 +150,7 @@ public class GameMenu implements AppMenu , Screen {
         } else if ((matcher = GameCommands.eatFood.getMatcher(input)).find()) {
             System.out.println(CookingController.eatFood(matcher));
             return true;
-        } else if(input.equalsIgnoreCase("exit")) {
+        } else if (input.equalsIgnoreCase("exit")) {
             App.setCurrentMenu(Menu.exitMenu);
             return true;
         }
@@ -308,11 +211,11 @@ public class GameMenu implements AppMenu , Screen {
                 }
             }
 
-        } else if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(), (int)player.getPosition().getY()).getFixedObject() instanceof Building building) {
+        } else if (player.getCurrentGameLocation().getTileByPosition((int) player.getPosition().getX(), (int) player.getPosition().getY()).getFixedObject() instanceof Building building) {
             if (player.getPosition().equals(building.getDoorPosition())) {
                 if (building instanceof JojaMart) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 11 pm.");
 
                     }
@@ -320,42 +223,42 @@ public class GameMenu implements AppMenu , Screen {
                     System.out.println("welcome to Joja Mart");
                 } else if (building instanceof Blacksmith) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((Blacksmith) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((Blacksmith) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((Blacksmith) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 4 pm.");
                     }
                     App.setCurrentMenu(Menu.BlackSmithMenu);
                     System.out.println("welcome to Black Smith");
                 } else if (building instanceof CarpentersShop) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((CarpentersShop) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((CarpentersShop) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((CarpentersShop) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 8 pm.");
                     }
                     App.setCurrentMenu(Menu.CarpenterShopMenu);
                     System.out.println("welcome to Carpenters Shop");
                 } else if (building instanceof MarniesRanch) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((MarniesRanch) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((MarniesRanch) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((MarniesRanch) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 4 pm.");
                     }
                     App.setCurrentMenu(Menu.MarniesRanchMenu);
                     System.out.println("welcome to Marnies Ranch");
                 } else if (building instanceof PierresGeneralStore) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((PierresGeneralStore) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((PierresGeneralStore) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((PierresGeneralStore) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 5 pm.");
                     }
                     App.setCurrentMenu(Menu.PierresGeneralStoreMenu);
                     System.out.println("welcome to Pirrer Store");
                 } else if (building instanceof TheSaloonStardrop) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((TheSaloonStardrop) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((TheSaloonStardrop) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((TheSaloonStardrop) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 12 am to 12 pm.");
                     }
                     App.setCurrentMenu(Menu.TheSaloonStarDropMenu);
                     System.out.println("welcome to Saloon Star Drop");
                 } else if (building instanceof FishShop) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((FishShop) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((FishShop) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((FishShop) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 5 pm.");
                     }
                     App.setCurrentMenu(Menu.FishShopMenu);
@@ -564,12 +467,11 @@ public class GameMenu implements AppMenu , Screen {
 
     public boolean TradeCheck(String input) {
         Matcher matcher;
-        if ((matcher = TradeCommands.cheatAddMoney.getMatcher(input)) != null) {
-            System.out.println(TradeController.cheatAddMoney(matcher.group(1).trim()).getMessage());
-            return true;
-        } else if (TradeCommands.startTrade.getMatcher(input) != null) {
-            System.out.println("test");
+        if ((TradeCommands.startTrade.getMatcher(input)) != null) {
             System.out.println(TradeController.startTrade().getMessage());
+            return true;
+        } else if ((matcher = TradeCommands.cheatAddMoney.getMatcher(input)) != null) {
+            System.out.println(TradeController.cheatAddMoney(matcher.group(1).trim()).getMessage());
             return true;
         } else if ((matcher = TradeCommands.sell.getMatcher(input)) != null) {
             System.out.println(TradeController.sellProducts(matcher).getMessage());
@@ -616,7 +518,7 @@ public class GameMenu implements AppMenu , Screen {
             System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else if ((matcher = RelationshipCommands.marryRespond.getMatcher(input)) != null) {
-            System.out.println(FriendshipController.respondMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
+            System.out.println(FriendshipController.askMarriage(matcher.group(1).trim(), matcher.group(2).trim()).message());
             return true;
         } else {
             return false;

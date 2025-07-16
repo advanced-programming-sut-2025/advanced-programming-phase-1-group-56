@@ -20,6 +20,8 @@ public class GameLocation extends Network {
         return tiles[(int)y][(int)x];
     }
 
+
+
     public Tile getTileByPosition(Position pos){
         return tiles[(int)pos.getY()][(int)pos.getX()];
     }
