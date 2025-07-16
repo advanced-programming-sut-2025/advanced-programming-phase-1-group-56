@@ -7,6 +7,12 @@ game new -u Mohsen1 Mohsen2 Mohsen3
 2
 4
 3
+exit
+
+
+
+
+
 print map
 help reading map
 energy show

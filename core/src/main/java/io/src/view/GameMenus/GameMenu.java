@@ -3,7 +3,9 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -244,6 +246,9 @@ public class GameMenu implements AppMenu , Screen {
             return true;
         } else if ((matcher = GameCommands.eatFood.getMatcher(input)).find()) {
             System.out.println(CookingController.eatFood(matcher));
+            return true;
+        } else if(input.equalsIgnoreCase("exit")) {
+            App.setCurrentMenu(Menu.exitMenu);
             return true;
         }
         return false;

@@ -48,7 +48,6 @@ public class Game {
         this.gameMap = GameMap;
         this.timeSystem = timeSystem;
         this.weatherState = weatherState;
-        currentPlayer = players.get(0);
         //TODO HANDLE GAME ID SYSTEM
     }
     public ArrayList<Player> getPlayers() {

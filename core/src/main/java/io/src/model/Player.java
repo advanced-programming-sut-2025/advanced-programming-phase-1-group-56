@@ -57,7 +57,7 @@ public class Player implements TimeObserver {
     private BackPackType currentBackpack = BackPackType.InitialBackpack;
     private TrashcanType currentTrashcan = TrashcanType.initialTrashcan;
     private Item currentItem;
-
+    private int selectedSlot = 0;
 
     //status
     private boolean fainted = false;
@@ -488,5 +488,13 @@ public class Player implements TimeObserver {
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    public int getSelectedSlot() {
+        return selectedSlot;
+    }
+
+    public void setSelectedSlot(int selectedSlot) {
+        this.selectedSlot = selectedSlot;
     }
 }
