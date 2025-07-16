@@ -34,8 +34,6 @@ import java.util.Map;
 
 public class GameView implements Screen {
 
-
-
     private final Game game;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
@@ -86,7 +84,6 @@ public class GameView implements Screen {
 //        stage.addActor(invWindow);
 //        stage.addActor(dialogWindow);
 
-        Gdx.input.setInputProcessor(stage);
     }
 
     private void loadTextures() {
@@ -326,8 +323,8 @@ public class GameView implements Screen {
         if (game.getCurrentPlayer().getPosition().getY() + 190 >= Gdx.graphics.getHeight()) {
             y = Gdx.graphics.getHeight() - 190;
         }
-        if (game.getCurrentPlayer().getPosition().getX() + 230 >= Gdx.graphics.getWidth()) {
-            x = Gdx.graphics.getWidth() - 230;
+        if (game.getCurrentPlayer().getPosition().getX() + 930 >= Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - 930;
         }
 
         if (game.getCurrentPlayer().getPosition().getY() - 150 <= 0) {

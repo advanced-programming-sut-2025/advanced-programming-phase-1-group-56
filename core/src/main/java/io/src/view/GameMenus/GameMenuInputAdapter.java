@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import io.src.controller.GameMenuController.GameController;
+import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.Player;
 
@@ -91,7 +92,12 @@ public class GameMenuInputAdapter extends InputAdapter {
             dir = 2;
         }
 
+        if(!App.getMe().getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),(int)player.getPosition().getY()).isWalkable()){
+            vx = 0;
+            vy = 0;
+        }
 
+        System.out.println(player.getPosition().getX() + "," + player.getPosition().getY());
         player.setMovingDirection(dir);
 
         float speed = player.getSpeed();

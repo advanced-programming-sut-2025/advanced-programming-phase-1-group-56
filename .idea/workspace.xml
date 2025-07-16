@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="graphic environment loaded finally">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/DialogWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/newtest2" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/newtest2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/temp test 1" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/temp test 1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,11 +124,11 @@
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\assets" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\model\MapModule" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\view\GameMenus" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\view\GameMenus\ShopMenus" />
       <recent name="C:\Users\HP\OneDrive\Desktop\Stardew\advanced-programming-phase-1-group-56\assets" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="io.src.view.GameMenus" />
@@ -224,6 +218,7 @@
       <workItem from="1752061992138" duration="1551000" />
       <workItem from="1752084177660" duration="4235000" />
       <workItem from="1752657634118" duration="365000" />
+      <workItem from="1752658182433" duration="3412000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -393,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751962184496</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="graphic environment loaded finally">
+      <option name="closed" value="true" />
+      <created>1752658216058</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1752658216058</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
