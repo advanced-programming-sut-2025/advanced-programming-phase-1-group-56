@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import io.src.controller.GameMenuController.GameController;
+import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.Player;
 
@@ -81,6 +82,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.S)) {
             vy -= 1;
             dir = 1;
+
         }
         if (keysHeld.contains(Input.Keys.A)) {
             vx -= 1;
@@ -89,6 +91,11 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.D)) {
             vx += 1;
             dir = 2;
+        }
+
+        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX()+vx , player.getPosition().getY()+vy).isWalkable()){
+            vx = 0;
+            vy = 0;
         }
 //        System.out.println(vx + " " + vy);
 

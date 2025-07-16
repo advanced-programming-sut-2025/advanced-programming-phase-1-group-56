@@ -23,10 +23,10 @@ public class InventoryWindow extends Window {
         contentStack = new Stack(itemsTable, equipTable);
         equipTable.setVisible(false);
 
-        bg.addChangeListener((e, btn) -> {
-            itemsTable.setVisible(itemsTab.isChecked());
-            equipTable.setVisible(equipTab.isChecked());
-        });
+//        bg.addChangeListener((e, btn) -> {
+//            itemsTable.setVisible(itemsTab.isChecked());
+//            equipTable.setVisible(equipTab.isChecked());
+//        });
 
         add(tabs).colspan(2).row();
         add(contentStack).expand().fill();

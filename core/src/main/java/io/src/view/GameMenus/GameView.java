@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -32,6 +34,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameView implements Screen {
+
+
+
     private final Game game;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
@@ -54,6 +59,7 @@ public class GameView implements Screen {
 
 
 
+
     private void loadFont() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("StardewValley.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -71,15 +77,15 @@ public class GameView implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //        loadFont();
 
-        stage = new Stage(new ScreenViewport());
-        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-        timeWindow   = new TimerWindow(skin);
-        invWindow    = new InventoryWindow(skin);
-        dialogWindow = new DialogWindow(skin);
+//        stage = new Stage(new ScreenViewport());
+//        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+//        timeWindow   = new TimerWindow(skin);
+//        invWindow    = new InventoryWindow(skin);
+//        dialogWindow = new DialogWindow(skin);
 
-        stage.addActor(timeWindow);
-        stage.addActor(invWindow);
-        stage.addActor(dialogWindow);
+//        stage.addActor(timeWindow);
+//        stage.addActor(invWindow);
+//        stage.addActor(dialogWindow);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -297,7 +303,7 @@ public class GameView implements Screen {
     @Override
     public void render(float v) {
         camera.update();
-        timeWindow.update(LocalTime.now());
+//        timeWindow.update(LocalTime.now());
         renderer.setView(camera);
         renderer.render();
 
@@ -336,8 +342,8 @@ public class GameView implements Screen {
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
         camera.zoom = 0.3f;
 
-        stage.act(v);
-        stage.draw();
+//        stage.act(v);
+//        stage.draw();
 
         camera.update();
     }
