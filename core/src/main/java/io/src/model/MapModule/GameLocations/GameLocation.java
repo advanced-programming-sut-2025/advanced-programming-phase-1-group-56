@@ -16,12 +16,12 @@ public class GameLocation extends Network {
 //    ArrayList<NPC> NPcs = new ArrayList<>();////
 
 
-    public Tile getTileByPosition(int x, int y){
-        return tiles[y][x];
+    public Tile getTileByPosition(float x, float y){
+        return tiles[(int)y][(int)x];
     }
 
     public Tile getTileByPosition(Position pos){
-        return tiles[pos.getY()][pos.getX()];
+        return tiles[(int)pos.getY()][(int)pos.getX()];
     }
 
     @Override

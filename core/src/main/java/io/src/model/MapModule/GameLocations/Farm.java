@@ -41,15 +41,15 @@ public class Farm extends GameLocation implements TimeObserver {
             for (GameObject gameObject : readAllGameObjectsFromTiles()) {
                 if (gameObject instanceof Tree tree) {
                     if (tree.getDaysWithNoWater() >= 2) {
-                        int x = tree.getPosition().getX();
-                        int y = tree.getPosition().getY();
+                        int x = (int)tree.getPosition().getX();
+                        int y = (int)tree.getPosition().getY();
                         this.getTileByPosition(x,y).setFixedObject(null);
 //                        allGameObjects.remove(tree);
                     }
                 } else if (gameObject instanceof Crop crop) {
                     if ((crop.getDaysWithNoWater() >= 2 || crop.isIs1time())) {
-                        int x = crop.getPosition().getX();
-                        int y = crop.getPosition().getY();
+                        int x = (int)crop.getPosition().getX();
+                        int y = (int)crop.getPosition().getY();
                         this.getTileByPosition(x,y).setFixedObject(null);
 //                        allGameObjects.remove(crop);
                     }

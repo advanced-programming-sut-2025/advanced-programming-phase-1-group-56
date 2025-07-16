@@ -111,8 +111,8 @@ public class TownLoader {
                             }
                             go = new PierresGeneralStore( new Position(tx, ty),false, "PierresGeneralStore", new Position(doorX/16, doorY/16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((PierresGeneralStore) go).getDoorPosition().getX();
-                            int dY = ((PierresGeneralStore) go).getDoorPosition().getY()+2;
+                            int dX = (int)((PierresGeneralStore) go).getDoorPosition().getX();
+                            int dY = (int)((PierresGeneralStore) go).getDoorPosition().getY()+2;
                             NPC newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX,dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
@@ -132,8 +132,8 @@ public class TownLoader {
                             }
                             go = new TheSaloonStardrop( new Position(tx, ty),false, "TheSaloonStardrop", new Position(doorX/16, doorY/16+1), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((TheSaloonStardrop) go).getDoorPosition().getX();
-                            int dY = ((TheSaloonStardrop) go).getDoorPosition().getY()+2;
+                            int dX =(int) ((TheSaloonStardrop) go).getDoorPosition().getX();
+                            int dY = (int)((TheSaloonStardrop) go).getDoorPosition().getY()+2;
                             NPC newNPC = NpcType.LEAH.getNPC(new Position(dX,dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
@@ -152,8 +152,8 @@ public class TownLoader {
                                 }
                             }
                             go = new Blacksmith( new Position(tx, ty),false, "Blacksmith", new Position(doorX/16, doorY/16), objHeight, objWidth);
-                            int dX = ((Blacksmith) go).getDoorPosition().getX();
-                            int dY = ((Blacksmith) go).getDoorPosition().getY()+2;
+                            int dX = (int)((Blacksmith) go).getDoorPosition().getX();
+                            int dY = (int)((Blacksmith) go).getDoorPosition().getY()+2;
                             NPC newNPC = NpcType.ROBIN.getNPC(new Position(dX,dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
@@ -174,8 +174,8 @@ public class TownLoader {
                             }
                             go = new JojaMart( new Position(tx, ty),false, "JojaMart", new Position(doorX/16, doorY/16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((JojaMart) go).getDoorPosition().getX();
-                            int dY = ((JojaMart) go).getDoorPosition().getY()+2;
+                            int dX =(int) ((JojaMart) go).getDoorPosition().getX();
+                            int dY =(int) ((JojaMart) go).getDoorPosition().getY()+2;
                         }
 
                         case "carpentersshop" -> {
@@ -192,8 +192,8 @@ public class TownLoader {
                             }
                             go = new CarpentersShop( new Position(tx, ty),false, "CarpenterShop", new Position(doorX/16, doorY/16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = ((CarpentersShop) go).getDoorPosition().getX();
-                            int dY = ((CarpentersShop) go).getDoorPosition().getY()+2;
+                            int dX =(int) ((CarpentersShop) go).getDoorPosition().getX();
+                            int dY = (int)((CarpentersShop) go).getDoorPosition().getY()+2;
                             NPC newNPC = NpcType.HARVEY.getNPC(new Position(dX,dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);

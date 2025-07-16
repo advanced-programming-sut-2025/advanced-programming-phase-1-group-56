@@ -23,8 +23,8 @@ public class ArtisanController extends CommandController {
         for (int i = 0; i <= 2; i++) {
             for (int j = 0; j <= 2; j++) {
                 Tile tile = player.getCurrentGameLocation().getTileByPosition(
-                        player.getPosition().getX() - 1 + i,
-                        player.getPosition().getY() - 1 + j
+                    (int)player.getPosition().getX() - 1 + i,
+                    (int)player.getPosition().getY() - 1 + j
                 );
                 if (tile == null) continue;
 
@@ -85,8 +85,8 @@ public class ArtisanController extends CommandController {
 
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
-                int x = player.getPosition().getX() + dx;
-                int y = player.getPosition().getY() + dy;
+                int x = (int)player.getPosition().getX() + dx;
+                int y = (int)player.getPosition().getY() + dy;
 
                 Tile tile = player.getCurrentGameLocation().getTileByPosition(x, y);
                 if (tile == null) continue;

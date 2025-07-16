@@ -1,5 +1,8 @@
 package io.src.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.google.gson.annotations.Expose;
 import io.src.model.Activities.Trade;
 import io.src.model.MapModule.Buildings.Store;
@@ -45,6 +48,7 @@ public class Game {
         this.gameMap = GameMap;
         this.timeSystem = timeSystem;
         this.weatherState = weatherState;
+        currentPlayer = players.get(0);
         //TODO HANDLE GAME ID SYSTEM
     }
     public ArrayList<Player> getPlayers() {
@@ -145,4 +149,14 @@ public class Game {
         }
         return null; // یا throw new IllegalArgumentException(...)
     }
+    public void update(float deltaTime) {
+
+        float playerX = currentPlayer.getPosition().getX() * 16;
+        float playerY = currentPlayer.getPosition().getY() * 16;
+
+        float border = 32; // 2-tile margin from edge
+
+
+    }
+
 }
