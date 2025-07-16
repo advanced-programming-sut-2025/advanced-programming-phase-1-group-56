@@ -61,7 +61,7 @@ public class GameMenu1 implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         myGame.update(delta);
-        gameView.render();
+        gameView.render(delta);
         gameMenuInputAdapter.update(delta);
     }
 
