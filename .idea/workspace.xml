@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="graphic environment loaded finally">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/DialogWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/AppView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/AppView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/newtest2" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/newtest2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/temp test 1" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/temp test 1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" afterDir="false" />
     </list>
@@ -67,7 +62,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="mehdi" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -135,6 +130,9 @@
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\model\MapModule" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\view\GameMenus" />
+      <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\view\GameMenus\ShopMenus" />
       <recent name="C:\Users\HP\OneDrive\Desktop\Stardew\advanced-programming-phase-1-group-56\assets" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model" />
     </key>
@@ -225,6 +223,7 @@
       <workItem from="1752061961341" duration="17000" />
       <workItem from="1752061992138" duration="1551000" />
       <workItem from="1752084177660" duration="4235000" />
+      <workItem from="1752657634118" duration="365000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
