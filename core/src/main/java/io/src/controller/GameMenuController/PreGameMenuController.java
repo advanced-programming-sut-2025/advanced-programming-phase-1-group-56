@@ -201,6 +201,8 @@ public class PreGameMenuController extends CommandController {
         //FriendShips
         for (Player player1 : playersToPlay) {
             for (Player player2 : playersToPlay) {
+                if(player2.equals(player1))
+                    continue;
                 player1.getFriendShips().add(new Friendship(player2));
             }
         }
@@ -231,7 +233,7 @@ public class PreGameMenuController extends CommandController {
             player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
-            player.teleportToHome();
+            //player.teleportToHome();
             player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
             player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
             player.addFoodRecipes(FoodRecipesList.SALAD);

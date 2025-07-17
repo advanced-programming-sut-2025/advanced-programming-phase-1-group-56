@@ -27,7 +27,6 @@ public class GameMenuInputAdapter extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         keysHeld.add(keycode);
-
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
             int selectedSlot = keycode - Input.Keys.NUM_1;
             game.getCurrentPlayer().setSelectedSlot(selectedSlot);
@@ -92,10 +91,19 @@ public class GameMenuInputAdapter extends InputAdapter {
             dir = 2;
         }
 
-        if(!App.getMe().getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),(int)player.getPosition().getY()).isWalkable()){
+        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX()+vx , player.getPosition().getY()+vy).isWalkable()){
             vx = 0;
             vy = 0;
         }
+        System.out.println(vx + " " + vy);
+
+
+        if(vx !=0 && vy !=0) {
+            vx/=(float) Math.sqrt(2);
+            vy/=(float) Math.sqrt(2);
+        }
+
+
 
         System.out.println(player.getPosition().getX() + "," + player.getPosition().getY());
         player.setMovingDirection(dir);
