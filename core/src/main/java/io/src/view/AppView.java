@@ -6,10 +6,10 @@ import io.src.model.Enums.Menu;
 import java.util.Scanner;
 
 public class AppView {
-    public void run(GameController gameController) {
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         do {
-            App.getCurrentMenu().checkCommand(scanner,gameController);
+            App.getCurrentMenu().checkCommand(scanner);
         } while (App.getCurrentMenu() != Menu.exitMenu);
     }
 }

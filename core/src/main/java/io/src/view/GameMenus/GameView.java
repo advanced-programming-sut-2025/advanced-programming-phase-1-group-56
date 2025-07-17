@@ -16,16 +16,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Tile;
@@ -38,12 +34,10 @@ import java.util.Map;
 
 public class GameView implements Screen {
 
-
-
     private final Game game;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
-//    private SpriteBatch batch;
+    //    private SpriteBatch batch;
 //    private TextureRegion[][] tileTextures;
 //    private Map<String, TextureRegion> textures;
     private BitmapFont smallFont;
@@ -59,7 +53,6 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
-//    private Table table;
 
 
 
@@ -78,17 +71,6 @@ public class GameView implements Screen {
         this.map = new TmxMapLoader().load("Farm1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
-//        this.table = new Table();
-//        this.stage = new Stage(new ScreenViewport());
-//        stage.addActor(table);
-//
-//        table.row().padBottom(5);
-//        table.add(new Button());
-//        table.row().padBottom(5);
-//        table.add(new Image(new Texture(Gdx.files.internal("Farm2.png"))));
-//        table.setVisible(false);
-//        table.setPosition();
-
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //        loadFont();
 
@@ -102,7 +84,6 @@ public class GameView implements Screen {
 //        stage.addActor(invWindow);
 //        stage.addActor(dialogWindow);
 
-//        Gdx.input.setInputProcessor(stage);
     }
 
     private void loadTextures() {
@@ -144,19 +125,19 @@ public class GameView implements Screen {
         pixmap.fill();
         pixel = new Texture(pixmap);
         pixmap.dispose();
-        }
+    }
 
 
 //    public void render() {
-////        batch.setProjectionMatrix(camera.combined);
-////        batch.begin();
-////
-////        Texture texture = ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture();
-////        batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-////
-////        renderPlayer();
-////
-////        batch.end();
+    ////        batch.setProjectionMatrix(camera.combined);
+    ////        batch.begin();
+    ////
+    ////        Texture texture = ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture();
+    ////        batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    ////
+    ////        renderPlayer();
+    ////
+    ////        batch.end();
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
 //        camera.zoom = 0.3f;
 //

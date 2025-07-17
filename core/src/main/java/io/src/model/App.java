@@ -14,7 +14,7 @@ public class App {
     //TODO
     private static final ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
-    private static Menu currentMenu = Menu.gameMenu;
+    private static Menu currentMenu = Menu.loginMenu;
 
 
 
