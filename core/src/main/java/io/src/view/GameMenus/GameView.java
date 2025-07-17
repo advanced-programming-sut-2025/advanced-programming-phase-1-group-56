@@ -16,13 +16,16 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Tile;
@@ -56,6 +59,7 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
+//    private Table table;
 
 
 
@@ -74,6 +78,17 @@ public class GameView implements Screen {
         this.map = new TmxMapLoader().load("Farm1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
+//        this.table = new Table();
+//        this.stage = new Stage(new ScreenViewport());
+//        stage.addActor(table);
+//
+//        table.row().padBottom(5);
+//        table.add(new Button());
+//        table.row().padBottom(5);
+//        table.add(new Image(new Texture(Gdx.files.internal("Farm2.png"))));
+//        table.setVisible(false);
+//        table.setPosition();
+
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //        loadFont();
 
@@ -87,7 +102,7 @@ public class GameView implements Screen {
 //        stage.addActor(invWindow);
 //        stage.addActor(dialogWindow);
 
-        Gdx.input.setInputProcessor(stage);
+//        Gdx.input.setInputProcessor(stage);
     }
 
     private void loadTextures() {

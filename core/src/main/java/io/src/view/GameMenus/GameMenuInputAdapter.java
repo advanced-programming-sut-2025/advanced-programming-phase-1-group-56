@@ -93,10 +93,10 @@ public class GameMenuInputAdapter extends InputAdapter {
             dir = 2;
         }
 
-        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX()+vx , player.getPosition().getY()+vy).isWalkable()){
-            vx = 0;
-            vy = 0;
-        }
+//        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX()+vx , player.getPosition().getY()+vy).isWalkable()){
+//            vx = 0;
+//            vy = 0;
+//        }
 //        System.out.println(vx + " " + vy);
 
 
