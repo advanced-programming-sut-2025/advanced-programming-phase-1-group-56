@@ -1,7 +1,9 @@
 package io.src.model.Enums.GameObjects;
 
+import org.jetbrains.annotations.Nullable;
+
 public enum EtcObjectType {
-//    WOOD("Wood", 2),
+    //    WOOD("Wood", 2),
 //    FIBER("Fiber", 1),
 //    GRASS_STARTER("Grass Starter", 50),
 //    BASIC_FERTILIZER("Basic Fertilizer", 2),
@@ -34,25 +36,30 @@ public enum EtcObjectType {
 //    CHERRY_BOMB("Cherry Bomb", 50),
 //    BOMB("Bomb", 50),
 //    MEGA_BOMB("Mega Bomb", 50),
-    SPRINKLER("Sprinkler", 0 , null),
-    QUALITY_SPRINKLER("Quality Sprinkler", 0 , null),
-    SCARE_CROW("Scare Crow", 0 , "\uD83C\uDF83"),
-    DELUXE_SCARE_CROW("Deluxe Scarecrow", 0 , "\uD83C\uDF83"),
-    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0 , null);
+    SPRINKLER("Sprinkler", 0, ""),
+    QUALITY_SPRINKLER("Quality Sprinkler", 0, ""),
+    SCARE_CROW("Scare Crow", 0, ""),
+    DELUXE_SCARE_CROW("Deluxe Scarecrow", 0, ""),
+    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0, "");
 
     public final String name;
     public final int value;
-    public final String icon;
+    private final String assetName;
 
 
-    EtcObjectType (String name, int value , String icon) {
+    EtcObjectType(String name, int value, String assetName) {
         this.name = name;
         this.value = value;
-        this.icon = icon;
+        this.assetName = assetName;
     }
 
-    public String getIcon() {
-        return "ET";
+    @Nullable
+    public String getAssetName() {
+        return switch (assetName) {
+            case "null" -> null;
+            case "" -> name.replace(" ", "_");
+            default -> assetName;
+        };
     }
 
 }

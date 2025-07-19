@@ -156,6 +156,6 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver {
 
     @Override
     public String getName() {
-        return "";
+        return nickName;
     }
 }
