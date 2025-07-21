@@ -31278,8 +31278,10 @@
  <objectgroup id="3" name="Object Layer 1">
   <object id="23" name="PlayerHome" x="944" y="176" width="144" height="96">
    <properties>
-    <property name="dooeX" value="1024"/>
+    <property name="doorX" value="1024"/>
     <property name="doorY" value="224"/>
+    <property name="width" value="144"/>
+    <property name="height" value="96"/>
    </properties>
   </object>
   <object id="24" name="MailBox" x="1088" y="240" width="16" height="32"/>

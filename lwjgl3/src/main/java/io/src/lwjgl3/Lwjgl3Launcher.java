@@ -12,19 +12,14 @@ public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return;
         // This handles macOS support and helps on Windows.
-        new AppView().run();
-        Game game = App.getCurrentUser().getCurrentGame();
-        if (game == null) {
-            System.out.println("no game");
-            return;
-        }
 
-        createApplication(game);
+
+        createApplication();
     }
 
-    private static Lwjgl3Application createApplication(Game game) {
+    private static Lwjgl3Application createApplication() {
 
-        return new Lwjgl3Application(new StardewValley(game), getDefaultConfiguration());
+        return new Lwjgl3Application(new StardewValley(), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {

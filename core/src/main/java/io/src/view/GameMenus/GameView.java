@@ -90,7 +90,7 @@ public class GameView implements Screen {
 //        stage.addActor(invWindow);
 //        stage.addActor(dialogWindow);
 
-        Gdx.input.setInputProcessor(stage);
+//        Gdx.input.setInputProcessor(stage);
     }
 
     private void loadTextures() {

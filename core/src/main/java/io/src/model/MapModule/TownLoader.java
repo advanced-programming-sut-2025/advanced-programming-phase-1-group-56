@@ -233,7 +233,6 @@ public class TownLoader {
                         case "wood" -> go = new Tree( TreeType.TREE_BARK,new Position(tx,ty));//TODO
                         default -> go = null;
                     }
-                    ;
 
                     if (go != null
                             && ty >= 0 && ty + objHeight < height
