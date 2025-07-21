@@ -33,6 +33,7 @@ public enum Menu {
     Menu(AppMenu appMenu) {
         this.menu = appMenu;
     }
+
     public void checkCommand(Scanner scanner, GameController gameController) {
         if(this.menu.toString() == "gameMenu") {
             new GameMenu(gameController).check(scanner);

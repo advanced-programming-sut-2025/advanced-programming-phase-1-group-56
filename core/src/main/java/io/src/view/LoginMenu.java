@@ -1,14 +1,10 @@
 package io.src.view;
 
-import com.google.gson.Gson;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;
 import io.src.model.User;
-
-
-import java.io.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
