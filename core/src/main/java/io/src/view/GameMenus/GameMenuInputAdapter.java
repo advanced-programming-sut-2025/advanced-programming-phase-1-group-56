@@ -27,12 +27,11 @@ public class GameMenuInputAdapter extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         keysHeld.add(keycode);
-
-//        if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
-//            int selectedSlot = keycode - Input.Keys.NUM_1;
-//            game..setSelectedSlot(selectedSlot);
-//            return true;
-//        }
+        if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
+            int selectedSlot = keycode - Input.Keys.NUM_1;
+            game.getCurrentPlayer().setSelectedSlot(selectedSlot);
+            return true;
+        }
 
         if (keycode == Input.Keys.ESCAPE) {
             Gdx.app.exit();
@@ -54,10 +53,10 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-//        int current = game.getPlayer().getSelectedSlot();
-//        int size = game.getPlayer().getMaxInventorySize();
-//        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
-//        game.getPlayer().setSelectedSlot(next);
+        int current = game.getCurrentPlayer().getSelectedSlot();
+        int size = game.getCurrentPlayer().getCurrentBackpack().getCapacity();
+        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
+        game.getCurrentPlayer().setSelectedSlot(next);
         return true;
     }
 
@@ -82,7 +81,6 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.S)) {
             vy -= 1;
             dir = 1;
-
         }
         if (keysHeld.contains(Input.Keys.A)) {
             vx -= 1;
@@ -97,9 +95,17 @@ public class GameMenuInputAdapter extends InputAdapter {
             vx = 0;
             vy = 0;
         }
-//        System.out.println(vx + " " + vy);
+        System.out.println(vx + " " + vy);
 
 
+        if(vx !=0 && vy !=0) {
+            vx/=(float) Math.sqrt(2);
+            vy/=(float) Math.sqrt(2);
+        }
+
+
+
+        System.out.println(player.getPosition().getX() + "," + player.getPosition().getY());
         player.setMovingDirection(dir);
 
         float speed = player.getSpeed();

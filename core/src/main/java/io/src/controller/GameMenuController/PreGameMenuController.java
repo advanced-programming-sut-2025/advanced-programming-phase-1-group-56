@@ -71,6 +71,7 @@ public class PreGameMenuController extends CommandController {
         }
 
         Game newGame = new Game(null, null, null, null);
+
         App.getCurrentUser().setCurrentGame(newGame);
         TimeSystem timeSystem = new TimeSystem(1, 9);
         newGame.setTimeSystem(timeSystem);// 1/4 set
@@ -83,7 +84,7 @@ public class PreGameMenuController extends CommandController {
             player.setFarmPosition(FarmPosition.values()[positions.get(i) - 1]);
             //TODO check if it's ok
         }
-
+        System.out.println(1);
 
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
@@ -200,6 +201,8 @@ public class PreGameMenuController extends CommandController {
         //FriendShips
         for (Player player1 : playersToPlay) {
             for (Player player2 : playersToPlay) {
+                if(player2.equals(player1))
+                    continue;
                 player1.getFriendShips().add(new Friendship(player2));
             }
         }
@@ -230,7 +233,7 @@ public class PreGameMenuController extends CommandController {
             player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
-            player.teleportToHome();
+            //player.teleportToHome();
             player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
             player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
             player.addFoodRecipes(FoodRecipesList.SALAD);

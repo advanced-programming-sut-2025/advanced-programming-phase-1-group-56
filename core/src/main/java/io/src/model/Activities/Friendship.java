@@ -46,10 +46,10 @@ public class Friendship {
 
     public int getLevel() {
         int lvl = xp/200 + 1;
-        if(isDeliveredFlower)
-            lvl=3;
-        if(isMarried)
-            lvl=4;
+        if(!isDeliveredFlower)
+            lvl = Math.min(lvl, 2);
+        if(!isMarried)
+            lvl = Math.min(lvl, 3);
         return lvl;
     }
 

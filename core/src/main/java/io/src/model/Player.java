@@ -57,7 +57,7 @@ public class Player implements TimeObserver {
     private BackPackType currentBackpack = BackPackType.InitialBackpack;
     private TrashcanType currentTrashcan = TrashcanType.initialTrashcan;
     private Item currentItem;
-
+    private int selectedSlot = 0;
 
     //status
     private boolean fainted = false;
@@ -84,12 +84,11 @@ public class Player implements TimeObserver {
     private final ArrayList<Message> messages = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
-    private double maxEnergy = 200;
 
     private Player partner = null;
 
 
-    private float speed = 100f;
+    private float speed = 6.25f;
     private float vx = 0, vy = 0;
 
     public void setVelocity(float vx, float vy) {
@@ -102,7 +101,7 @@ public class Player implements TimeObserver {
     }
 
     public boolean tryMove(float dx, float dy) {
-        position.ChangePosition(dx,dy);
+        position.ChangePosition(dx, dy);
 
 //        if (newX < 0 || newX >= tiles.length || newY < 0 || newY >= tiles[0].length) return false;
 
@@ -141,13 +140,14 @@ public class Player implements TimeObserver {
         this.energy = new Energy(200);
         this.fainted = false;
         this.gold = 0;
-        this.position = new Position(800, 600);
+        this.position = new Position(64, 25);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();
 //        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
     }
+
     public int getMovingDirection() {
         return movingDirection;
     }
@@ -335,6 +335,18 @@ public class Player implements TimeObserver {
         return position;
     }
 
+    public Position getPixelPosition() {
+        float pX = position.getX() * 16;
+        float pY = position.getY() * 16;
+        return new Position(pX, pY);
+    }
+
+    public void setPixelPosition(Position pixelPosition) {
+        float aX = (position.getX() / 16);
+        float aY =(position.getY() / 16);
+        position = new Position(aX, aY);
+    }
+
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -414,6 +426,7 @@ public class Player implements TimeObserver {
         }
     }
 
+
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
@@ -440,8 +453,8 @@ public class Player implements TimeObserver {
     }
 
     public void addEnergy(int amount) {
-        if (energy.getEnergy() + amount > maxEnergy) {
-            energy.setEnergy(maxEnergy);
+        if (energy.getEnergy() + amount > energy.getMaxEnergy()) {
+            energy.setEnergy(energy.getMaxEnergy());
         }
         energy.setEnergy(energy.getEnergy() + amount);
     }
@@ -464,12 +477,9 @@ public class Player implements TimeObserver {
     }
 
     public double getMaxEnergy() {
-        return maxEnergy;
+        return energy.getMaxEnergy();
     }
 
-    public void setMaxEnergy(double maxEnergy) {
-        this.maxEnergy = maxEnergy;
-    }
 
     public double getEnergyUsage() {
         return energyUsage;
@@ -481,7 +491,7 @@ public class Player implements TimeObserver {
 
     public void teleportToHome() {
         this.setCurrentGameLocation(this.getPlayerFarm());
-        this.setPosition(new Position(getDefaultHome().getPosition().getX()+5, getDefaultHome().getPosition().getY() +12));
+        this.setPosition(new Position(getDefaultHome().getPosition().getX() + 5, getDefaultHome().getPosition().getY() + 12));
     }
 
     public float getSpeed() {
@@ -490,5 +500,13 @@ public class Player implements TimeObserver {
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    public int getSelectedSlot() {
+        return selectedSlot;
+    }
+
+    public void setSelectedSlot(int selectedSlot) {
+        this.selectedSlot = selectedSlot;
     }
 }

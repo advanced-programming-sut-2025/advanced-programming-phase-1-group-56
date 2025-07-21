@@ -20,11 +20,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
+import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 
 import java.awt.*;
@@ -129,7 +132,7 @@ public class GameView implements Screen {
         pixmap.fill();
         pixel = new Texture(pixmap);
         pixmap.dispose();
-        }
+    }
 
 
 //    public void render() {
@@ -227,7 +230,6 @@ public class GameView implements Screen {
 
 
     private void renderPlayer() {
-
         moveDirection = game.getCurrentPlayer().getMovingDirection();
 
         stateTime += Gdx.graphics.getDeltaTime();
@@ -235,7 +237,7 @@ public class GameView implements Screen {
         Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 
-        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPosition().getX(),game.getCurrentPlayer().getPosition().getY(), 20, 20 * 2);
+        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(),game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
 //        renderInventory();
     }
 
@@ -322,25 +324,27 @@ public class GameView implements Screen {
 //            }
 //        }
         renderer.getBatch().end();
-        float y = game.getCurrentPlayer().getPosition().getY();
-        float x = game.getCurrentPlayer().getPosition().getX();
-        if (game.getCurrentPlayer().getPosition().getY() + 190 >= Gdx.graphics.getHeight()) {
+        float y = game.getCurrentPlayer().getPixelPosition().getY();
+        float x = game.getCurrentPlayer().getPixelPosition().getX();
+        if (game.getCurrentPlayer().getPixelPosition().getY() + 190 >= Gdx.graphics.getHeight()) {
             y = Gdx.graphics.getHeight() - 190;
         }
-        if (game.getCurrentPlayer().getPosition().getX() + 930 >= Gdx.graphics.getWidth()) {
+        if (game.getCurrentPlayer().getPixelPosition().getX() + 930 >= Gdx.graphics.getWidth()) {
             x = Gdx.graphics.getWidth() - 930;
         }
 
-        if (game.getCurrentPlayer().getPosition().getY() - 150 <= 0) {
+        if (game.getCurrentPlayer().getPixelPosition().getY() - 150 <= 0) {
             y = 150;
         }
 
-        if (game.getCurrentPlayer().getPosition().getX() - 290 <= 0) {
+        if (game.getCurrentPlayer().getPixelPosition().getX() - 290 <= 0) {
             x = 290;
         }
         camera.position.set(x, y, 0);
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
         camera.zoom = 0.3f;
+
+
 
 //        stage.act(v);
 //        stage.draw();

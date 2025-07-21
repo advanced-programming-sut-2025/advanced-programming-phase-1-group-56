@@ -1,51 +1,48 @@
 package io.src.model.Enums.Items;
 
 import io.src.model.Enums.Recepies.CraftingRecipesList;
+import org.jetbrains.annotations.Nullable;
 
 public enum ToolType {
     // Hoe variants (capacity = 0)
-    HOE_IRIDIUM  ("Hoe" ,ToolMaterial.Iridium, 1, 0 , null),
-    HOE_GOLDEN   ("Hoe" ,ToolMaterial.Golden, 2, 0 , HOE_IRIDIUM),
-    HOE_IRONIC   ("Hoe" ,ToolMaterial.Ironic, 3, 0 , HOE_GOLDEN),
-    HOE_CUPRIC   ("Hoe" ,ToolMaterial.Cupric, 4, 0 , HOE_IRONIC),
-    HOE_WOODEN   ("Hoe" ,ToolMaterial.Wooden, 5, 0 , HOE_CUPRIC),
-
+    HOE_IRIDIUM("Hoe", ToolMaterial.Iridium, 1, 0, null, "Iridium_Hoe"),
+    HOE_GOLDEN("Hoe", ToolMaterial.Golden, 2, 0, HOE_IRIDIUM, "Gold_Hoe"),
+    HOE_IRONIC("Hoe", ToolMaterial.Ironic, 3, 0, HOE_GOLDEN, "Steel_Hoe"),
+    HOE_CUPRIC("Hoe", ToolMaterial.Cupric, 4, 0, HOE_IRONIC, "Copper_Hoe"),
+    HOE_WOODEN("Hoe", ToolMaterial.Wooden, 5, 0, HOE_CUPRIC, "Hoe"),
     // Pickaxe var
-    PICK_IRIDIUM ("Pickaxe" ,ToolMaterial.Iridium, 1, 0 , null),
-    PICK_GOLDEN  ("Pickaxe" ,ToolMaterial.Golden, 2, 0 , PICK_IRIDIUM),
-    PICK_IRONIC  ("Pickaxe" ,ToolMaterial.Ironic, 3, 0 , PICK_GOLDEN),
-    PICK_CUPRIC  ("Pickaxe" ,ToolMaterial.Cupric, 4, 0 , PICK_IRONIC),
-    PICK_WOODEN  ("Pickaxe" ,ToolMaterial.Wooden, 5, 0 , PICK_CUPRIC),
-
-
+    PICK_IRIDIUM("Pickaxe", ToolMaterial.Iridium, 1, 0, null, "Iridium_Pickaxe"),
+    PICK_GOLDEN("Pickaxe", ToolMaterial.Golden, 2, 0, PICK_IRIDIUM, "Gold_Pickaxe"),
+    PICK_IRONIC("Pickaxe", ToolMaterial.Ironic, 3, 0, PICK_GOLDEN, "Steel_Pickaxe"),
+    PICK_CUPRIC("Pickaxe", ToolMaterial.Cupric, 4, 0, PICK_IRONIC, "Copper_Pickaxe"),
+    PICK_WOODEN("Pickaxe", ToolMaterial.Wooden, 5, 0, PICK_CUPRIC, "Pickaxe"),
     // Axe variant
-    AXE_IRIDIUM  ("Axe" ,ToolMaterial.Iridium, 1, 0 , null),
-    AXE_GOLDEN   ("Axe" ,ToolMaterial.Golden, 2, 0 , AXE_IRIDIUM),
-    AXE_IRONIC   ("Axe" ,ToolMaterial.Ironic, 3, 0 , AXE_GOLDEN),
-    AXE_CUPRIC   ("Axe" ,ToolMaterial.Cupric, 4, 0 , AXE_IRONIC),
-    AXE_WOODEN   ("Axe" ,ToolMaterial.Wooden, 5, 0 , AXE_CUPRIC),
-
+    AXE_IRIDIUM("Axe", ToolMaterial.Iridium, 1, 0, null, "Iridium_Axe"),
+    AXE_GOLDEN("Axe", ToolMaterial.Golden, 2, 0, AXE_IRIDIUM, "Gold_Axe"),
+    AXE_IRONIC("Axe", ToolMaterial.Ironic, 3, 0, AXE_GOLDEN, "Steel_Axe"),
+    AXE_CUPRIC("Axe", ToolMaterial.Cupric, 4, 0, AXE_IRONIC, "Copper_Axe"),
+    AXE_WOODEN("Axe", ToolMaterial.Wooden, 5, 0, AXE_CUPRIC, "Axe"),
     // Watering can
-    CAN_IRIDIUM  ("Watering Can" ,ToolMaterial.Iridium, 1, 100 , null),
-    CAN_GOLDEN   ("Watering Can" ,ToolMaterial.Golden, 2, 85 , CAN_IRIDIUM),
-    CAN_IRONIC   ("Watering Can" ,ToolMaterial.Ironic, 3, 70 , CAN_GOLDEN),
-    CAN_CUPRIC   ("Watering Can" ,ToolMaterial.Cupric, 4, 55 , CAN_IRONIC),
-    CAN_WOODEN   ("Watering Can" ,ToolMaterial.Wooden, 5, 40 , CAN_CUPRIC),
-
+    CAN_IRIDIUM("Watering Can", ToolMaterial.Iridium, 1, 100, null, "Iridium_Watering_Can"),
+    CAN_GOLDEN("Watering Can", ToolMaterial.Golden, 2, 85, CAN_IRIDIUM, "Gold_Watering_Can"),
+    CAN_IRONIC("Watering Can", ToolMaterial.Ironic, 3, 70, CAN_GOLDEN, "Steel_Watering_Can"),
+    CAN_CUPRIC("Watering Can", ToolMaterial.Cupric, 4, 55, CAN_IRONIC, "Copper_Watering_Can"),
+    CAN_WOODEN("Watering Can", ToolMaterial.Wooden, 5, 40, CAN_CUPRIC, ""),
     // Fishing pole variants
-    POLE_IRIDIUM  ("Fishing Pole" ,ToolMaterial.Iridium, 4, 0 , null),
-    POLE_FIBERGLASS("Fishing Pole" , ToolMaterial.FiberGlass, 6, 0 , POLE_IRIDIUM),
-    POLE_BAMBOO   ("Fishing Pole" ,ToolMaterial.Bamboo, 8, 0 , POLE_FIBERGLASS),
-    POLE_TRAINING ("Fishing Pole" ,ToolMaterial.Training, 8, 0 , POLE_BAMBOO),////
-
+    //POLE_IRIDIUM_Advanced("Advanced Iridium Rod", ToolMaterial.Iridium, 2, 0, null,"),
+    POLE_IRIDIUM("Iridium Rod", ToolMaterial.Iridium, 4, 0, null, ""),
+    POLE_FIBERGLASS("Fiberglass Rod", ToolMaterial.FiberGlass, 6, 0, POLE_IRIDIUM, ""),
+    POLE_BAMBOO("Bamboo Rod", ToolMaterial.Bamboo, 8, 0, POLE_FIBERGLASS, "Bamboo_Pole"),
+    POLE_TRAINING("Training Rod", ToolMaterial.Training, 8, 0, POLE_BAMBOO, "Training_Rod"),
     // Scythe
-    SCYTHE_BASIC  ("Scythe" ,ToolMaterial.Wooden, 2, 0 , null),
-
+    SCYTHE_IRIDIUM("Scythe", ToolMaterial.Wooden, 2, 0, null, "Iridium_Scythe"),
+    SCYTHE_GOLDEN("Scythe", ToolMaterial.Wooden, 2, 0, null, "Golden_Scythe"),
+    SCYTHE_CUPRIC("Scythe", ToolMaterial.Wooden, 2, 0, null, "Scythe1"),
+    SCYTHE_BASIC("Scythe", ToolMaterial.Wooden, 2, 0, null, "Scythe"),
     // Milk pail
-    MILK_PAIL     ("Milk Pail" ,ToolMaterial.Wooden, 4, 0 , null),
-
+    MILK_PAIL("Milk Pail", ToolMaterial.Wooden, 4, 0, null, "Milk_Pail"),
     // Shears
-    SHEAR         ("Shears" ,ToolMaterial.Wooden, 4, 0 , null);
+    SHEAR("Shears", ToolMaterial.Wooden, 4, 0, null, "Shearss");
 
 
     private final String name;
@@ -53,13 +50,15 @@ public enum ToolType {
     private final int usedEnergy;
     private final int capacity;
     private final ToolType nextToolType;
+    private final String assetName;
 
-    ToolType(String name ,ToolMaterial toolMaterial, int usedEnergy, int capacity , ToolType nextToolType) {
+    ToolType(String name, ToolMaterial toolMaterial, int usedEnergy, int capacity, ToolType nextToolType, String assetName) {
         this.name = name;
         this.toolMaterial = toolMaterial;
         this.usedEnergy = usedEnergy;
         this.capacity = capacity;
         this.nextToolType = nextToolType;
+        this.assetName = assetName;
     }
 
     public ToolMaterial getToolMaterial() {
@@ -78,6 +77,7 @@ public enum ToolType {
     public String getName() {
         return name;
     }
+
     public ToolType getNextToolType() {
         return nextToolType;
     }
@@ -89,6 +89,15 @@ public enum ToolType {
             }
         }
         return null;
+    }
+
+    @Nullable
+    public String getAssetName() {
+        return switch (assetName) {
+            case "null" -> null;
+            case "" -> name.replace(" ", "_");
+            default -> assetName;
+        };
     }
 
 }
