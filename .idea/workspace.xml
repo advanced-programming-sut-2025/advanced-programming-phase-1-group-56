@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="nothing">
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="connect new mapLoader">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Farm2.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Farm2.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/TownLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/TownLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,36 +79,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Unnamed.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.APproject:core [:core:io.src.model.GameAssetManager.main()].executor": "Run",
-    "Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
-    "Gradle.gradleSetup [:Main.main()].executor": "Run",
-    "Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "mehdi",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/USER/Desktop/Ap/Java program/tamrin Graphics mohsen",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.APproject:core [:core:io.src.model.GameAssetManager.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;mehdi&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/Ap/Java program/tamrin Graphics mohsen&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\States" />
@@ -203,7 +194,7 @@
       <workItem from="1751444116282" duration="214000" />
       <workItem from="1751444756343" duration="1939000" />
       <workItem from="1752652809561" duration="12885000" />
-      <workItem from="1753069731152" duration="11583000" />
+      <workItem from="1753069731152" duration="12256000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -357,7 +348,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751444924177</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="connect new mapLoader">
+      <option name="closed" value="true" />
+      <created>1753111454717</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1753111454717</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,7 +396,8 @@
     <MESSAGE value="town loader update" />
     <MESSAGE value="green house and carpenter shop" />
     <MESSAGE value="carpentershop update + npc dar dast handle shodan" />
-    <option name="LAST_COMMIT_MESSAGE" value="carpentershop update + npc dar dast handle shodan" />
+    <MESSAGE value="connect new mapLoader" />
+    <option name="LAST_COMMIT_MESSAGE" value="connect new mapLoader" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
