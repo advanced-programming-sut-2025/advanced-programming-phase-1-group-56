@@ -2,6 +2,7 @@ package io.src.model.Enums;
 
 import io.src.Main;
 import io.src.controller.GameMenuController.GameController;
+import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.MapModule.Buildings.GreenHouse;
 import io.src.view.*;
 import io.src.view.GameMenus.GameMenu;
@@ -12,11 +13,11 @@ import io.src.view.GameMenus.TradeMenu;
 import java.util.Scanner;
 
 public enum Menu {
-    loginMenu(new LoginMenu()),
+    loginMenu(new LoginMenu(new LoginMenuController())),
     mainMenu(new MainMenu()),
     profileMenu(new ProfileMenu()),
     avatarMenu(new AvatarMenu()),
-    gameMenu(new GameMenu(new GameController(new Main()))),
+    gameMenu(new GameMenu(new GameController())),
     HouseMenu(new HouseMenu()),
     exitMenu(new ExitMenu()),
     TradeMenu(new TradeMenu()),
@@ -30,14 +31,15 @@ public enum Menu {
 
 
     private final AppMenu menu;
+
     Menu(AppMenu appMenu) {
         this.menu = appMenu;
     }
 
     public void checkCommand(Scanner scanner, GameController gameController) {
-        if(this.menu.toString() == "gameMenu") {
+        if (this.menu.toString() == "gameMenu") {
             new GameMenu(gameController).check(scanner);
-        }else {
+        } else {
             this.menu.check(scanner);
         }
     }

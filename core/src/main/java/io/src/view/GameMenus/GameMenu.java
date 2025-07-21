@@ -41,6 +41,7 @@ public class GameMenu implements AppMenu , Screen {
         this.gameController = gameController;
         initializeGame();
     }
+
     private void initializeGame() {
 
         TimeSystem timeSystem = new TimeSystem(1, 9);
@@ -69,6 +70,7 @@ public class GameMenu implements AppMenu , Screen {
         gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
         Gdx.input.setInputProcessor(gameMenuInputAdapter);
     }
+
     @Override
     public void show() {
 

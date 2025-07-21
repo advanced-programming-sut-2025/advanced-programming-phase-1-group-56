@@ -13,12 +13,8 @@ import io.src.view.GameMenus.GameMenu;
 import java.util.Scanner;
 
 public class GameController extends CommandController {
-    private final Main game;
+    private final Main game = Main.getMain();
     private GameMenu gameMenu;
-
-    public GameController(Main main) {
-        game = main;
-    }
 
     public void init() {
         gameMenu = new GameMenu(this);

@@ -1,15 +1,60 @@
 package io.src.view;
 
+import com.badlogic.gdx.Screen;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;
 import io.src.model.User;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class LoginMenu implements AppMenu {
+public class LoginMenu implements AppMenu, Screen {
     private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
+    private LoginMenuController controller;
+
+    public LoginMenu() {
+    }
+
+    public LoginMenu(LoginMenuController controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float v) {
+
+    }
+
+    @Override
+    public void resize(int i, int i1) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
 
     @Override
     public void check(Scanner scanner) {
