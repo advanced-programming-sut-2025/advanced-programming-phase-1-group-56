@@ -37,6 +37,7 @@ public class Player implements TimeObserver {
     private User user;
     private boolean gender;
     private double energyUsage = 0;
+    private int movingDirection = 0;
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -87,6 +88,33 @@ public class Player implements TimeObserver {
 
     private Player partner = null;
 
+
+    private float speed = 100f;
+    private float vx = 0, vy = 0;
+
+    public void setVelocity(float vx, float vy) {
+        this.vx = vx;
+        this.vy = vy;
+    }
+
+    public void update(float delta) {
+        tryMove(vx * delta, vy * delta);
+    }
+
+    public boolean tryMove(float dx, float dy) {
+        position.ChangePosition(dx,dy);
+
+//        if (newX < 0 || newX >= tiles.length || newY < 0 || newY >= tiles[0].length) return false;
+
+//        if (tiles[newX][newY] != TileDescriptionId.WATER) {
+//            playerPosition.first += dx;
+//            playerPosition.second += dy;
+//            return true;
+//        }
+
+        return false;
+    }
+
     public Player(User user) {
         this.user = user;
         this.userId = user.getUserId();
@@ -113,14 +141,20 @@ public class Player implements TimeObserver {
         this.energy = new Energy(200);
         this.fainted = false;
         this.gold = 0;
-        this.position = new Position(20, 20);
+        this.position = new Position(800, 600);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();
-        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+//        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
     }
+    public int getMovingDirection() {
+        return movingDirection;
+    }
 
+    public void setMovingDirection(int direction) {
+        this.movingDirection = direction;
+    }
 
     public ArrayList<Skill> getSkills() {
         return skills;
@@ -448,5 +482,13 @@ public class Player implements TimeObserver {
     public void teleportToHome() {
         this.setCurrentGameLocation(this.getPlayerFarm());
         this.setPosition(new Position(getDefaultHome().getPosition().getX()+5, getDefaultHome().getPosition().getY() +12));
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 }

@@ -1,23 +1,133 @@
 package io.src.view.GameMenus;
 
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.src.controller.GameMenuController.*;
 import io.src.model.App;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.commands.GameCommands.*;
+import io.src.model.Game;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.MapModule.GameMap;
 import io.src.model.MapModule.Position;
 import io.src.model.Player;
 import io.src.model.States.Energy;
+import io.src.model.States.WeatherState;
+import io.src.model.TimeSystem.TimeSystem;
+import io.src.model.User;
 import io.src.view.AppMenu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GameMenu implements AppMenu {
+public class GameMenu implements AppMenu , Screen {
+    private GameView gameView;
+    public Game myGame ;
+    private GameMenuInputAdapter gameMenuInputAdapter;
+    private GameController gameController;
+
+
+    public GameMenu(GameController gameController) {
+        this.gameController = gameController;
+        initializeGame();
+    }
+    private void initializeGame() {
+
+        TimeSystem timeSystem = new TimeSystem(1, 9);
+//        myGame.setTimeSystem(timeSystem);// 1/4 set
+
+
+        ArrayList<Player> playersToPlay = new ArrayList<>();
+
+        String mohsen = "mohsen";
+        String  wolf = "wolf";
+        Player player = new Player(new User(mohsen,mohsen,mohsen,mohsen,mohsen,2,mohsen,true));
+        Player player2 = new Player(new User(wolf,wolf,wolf,wolf,wolf,3,wolf,false));
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(player);
+        players.add(player2);
+
+
+        WeatherState weatherState = new WeatherState();
+//        myGame.setWeatherState(weatherState);// 2/4 set
+//        myGame.setPlayers(players);
+        GameMap gameMap = new GameMap();
+//        myGame.setGameMap(gameMap);
+//        myGame.setCurrentPlayer(player);
+        myGame = new Game(players,gameMap,timeSystem,weatherState);
+        gameView = new GameView(myGame);
+        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
+        Gdx.input.setInputProcessor(gameMenuInputAdapter);
+    }
+    @Override
+    public void show() {
+
+    }
+
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        myGame.update(delta);
+        gameView.render(delta);
+        gameMenuInputAdapter.update(delta);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
@@ -46,6 +156,7 @@ public class GameMenu implements AppMenu {
             try {
                 String message = PreGameMenuController.manageNewGame(matcher.group(1).trim().trim(), scanner).message();
                 System.out.println(message);
+
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
                 System.out.println(e.getMessage());
@@ -195,7 +306,7 @@ public class GameMenu implements AppMenu {
                 }
             }
 
-        } else if (player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX(), player.getPosition().getY()).getFixedObject() instanceof Building building) {
+        } else if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(), (int)player.getPosition().getY()).getFixedObject() instanceof Building building) {
             if (player.getPosition().equals(building.getDoorPosition())) {
                 if (building instanceof JojaMart) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
@@ -536,6 +647,8 @@ public class GameMenu implements AppMenu {
             return false;
         }
     }
+
+
 }
 
 

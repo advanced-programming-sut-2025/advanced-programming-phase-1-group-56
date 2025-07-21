@@ -181,10 +181,10 @@ public class AStarPathFinding {
             Tile t2 = (Tile) path.get(i - 1);
             Tile t3 = (Tile) path.get(i - 2);
 
-            int dx1 = t2.getPosition().getX() - t1.getPosition().getX();
-            int dy1 = t2.getPosition().getY() - t1.getPosition().getY();
-            int dx2 = t3.getPosition().getX() - t2.getPosition().getX();
-            int dy2 = t3.getPosition().getY() - t2.getPosition().getY();
+            int dx1 = (int)t2.getPosition().getX() - (int)t1.getPosition().getX();
+            int dy1 = (int)t2.getPosition().getY() - (int)t1.getPosition().getY();
+            int dx2 = (int)t3.getPosition().getX() - (int)t2.getPosition().getX();
+            int dy2 = (int)t3.getPosition().getY() - (int)t2.getPosition().getY();
 
             if (dx1 != dx2 || dy1 != dy2) {
                 changes++;

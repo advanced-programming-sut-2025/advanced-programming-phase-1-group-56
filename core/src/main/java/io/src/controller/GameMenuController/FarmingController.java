@@ -159,10 +159,10 @@ public class FarmingController extends CommandController {
             }
             for (int i = 0; i < count; i++) {
                 if (farm.readAllGameObjectsFromTiles().get(i) instanceof Crop && !((Crop) farm.getAllGameObjects().get(i)).isProtected()) {
-                    farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
+                    farm.getTileByPosition((int)farm.getAllGameObjects().get(i).getPosition().getX(), (int)farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
                 } else if (farm.readAllGameObjectsFromTiles().get(i) instanceof Tree && !((Tree) farm.getAllGameObjects().get(i)).isProtected()) {
-                    ((Tree) farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
-                    ((Tree) farm.getTileByPosition(farm.getAllGameObjects().get(i).getPosition().getX(), farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
+                    ((Tree) farm.getTileByPosition((int)farm.getAllGameObjects().get(i).getPosition().getX(), (int)farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
+                    ((Tree) farm.getTileByPosition((int)farm.getAllGameObjects().get(i).getPosition().getX(), (int)farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
                 }
                 if (i + 16 < count) {
                     i += 16;
@@ -188,8 +188,8 @@ public class FarmingController extends CommandController {
             return new Result(false, "you are not in Green House or Farm!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        int x = position.getX();
-        int y = position.getY();
+        int x = (int)position.getX();
+        int y = (int)position.getY();
         switch (dir) {
             case UP:
                 y -= 1;
@@ -312,8 +312,8 @@ public class FarmingController extends CommandController {
             return new Result(false, "this direction does not exist!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        int x = position.getX();
-        int y = position.getY();
+        int x = (int)position.getX();
+        int y = (int)position.getY();
         switch (dir) {
             case UP:
                 y -= 1;

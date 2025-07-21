@@ -21,6 +21,7 @@ import static io.src.model.MapModule.FarmLoader.loadTheFarm;
 import static io.src.model.MapModule.TownLoader.loadTheTown;
 
 public class PreGameMenuController extends CommandController {
+
     public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
         if (usernamesStr.isEmpty()) {
@@ -188,7 +189,7 @@ public class PreGameMenuController extends CommandController {
             }
             break;
             default: {
-                System.out.println("that's not pussyble..you should start with (2-4) player");
+                System.out.println("that's not possible..you should start with (2-4) player");
             }
             break;
         }
