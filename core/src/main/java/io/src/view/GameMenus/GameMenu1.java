@@ -11,7 +11,6 @@ import io.src.model.Game;
 public class GameMenu1 implements Screen {
     private GameView gameView;
     public Game myGame ;
-    private GameMenuInputAdapter gameMenuInputAdapter;
     private GameController gameController;
 
 
@@ -46,9 +45,8 @@ public class GameMenu1 implements Screen {
 ////        myGame.setCurrentPlayer(player);
 //        setCursor();
 //        myGame = new Game(players,gameMap,timeSystem,weatherState);
-        gameView = new GameView(myGame);
-        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
-        Gdx.input.setInputProcessor(gameMenuInputAdapter);
+        gameView = new GameView(myGame,gameController);
+
     }
     @Override
     public void show() {
@@ -63,7 +61,7 @@ public class GameMenu1 implements Screen {
 
         myGame.update(delta);
         gameView.render(delta);
-        gameMenuInputAdapter.update(delta);
+
     }
 
     @Override

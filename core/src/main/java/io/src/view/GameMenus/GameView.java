@@ -1,9 +1,7 @@
 package io.src.view.GameMenus;
 
 import box2dLight.RayHandler;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.src.controller.GameMenuController.GameController;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Tile;
@@ -53,6 +52,11 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
+    private final GameController gameController;
+    private InputMultiplexer multiplexer = new InputMultiplexer();
+    private GameMenuInputAdapter gameMenuInputAdapter;
+
+
 
 
 
@@ -65,24 +69,37 @@ public class GameView implements Screen {
         generator.dispose();
     }
 
-    public GameView(Game game) {
+    public GameView(Game game, GameController gameController) {
         this.game = game;
-//        batch = new SpriteBatch();
+        this.gameController = gameController;
         this.map = new TmxMapLoader().load("Farm1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        loadFont();
 
-//        stage = new Stage(new ScreenViewport());
-//        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-//        timeWindow   = new TimerWindow(skin);
-//        invWindow    = new InventoryWindow(skin);
-//        dialogWindow = new DialogWindow(skin);
+        stage = new Stage(new ScreenViewport());
+        invWindow  = new InventoryWindow();
+        invWindow.setVisible(false);
+        stage.addActor(invWindow);
 
-//        stage.addActor(timeWindow);
-//        stage.addActor(invWindow);
-//        stage.addActor(dialogWindow);
+        InputAdapter keyListener = new InputAdapter() {
+            @Override
+            public boolean keyDown(int keycode) {
+                if (keycode == Input.Keys.E) {
+                    invWindow.setVisible(!invWindow.isVisible());
+                }
+                if (keycode == Input.Keys.ENTER) {
+                    dialogWindow.hideDialog();
+                }
+                return true;
+            }
+        };
+        multiplexer.addProcessor(keyListener);
+        multiplexer.addProcessor(stage);
+        gameMenuInputAdapter = new GameMenuInputAdapter(game, gameController);
+        multiplexer.addProcessor(gameMenuInputAdapter);
+        Gdx.input.setInputProcessor(multiplexer);
+
 
     }
 
@@ -97,10 +114,7 @@ public class GameView implements Screen {
 //            String path = id.getIconPath();
 //            textures.put(id.name(), new TextureRegion(new Texture(Gdx.files.internal(path))));
 //        }
-//        for (CarrotStages cs : CarrotStages.values()) {
-//            String path = cs.getIconPath();
-//            textures.put(cs.name(), new TextureRegion(new Texture(Gdx.files.internal(path))));
-//        }
+//
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites_player.atlas"));
 
@@ -338,23 +352,18 @@ public class GameView implements Screen {
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
         camera.zoom = 0.3f;
 
-//        stage.act(v);
-//        stage.draw();
+        if (invWindow.isVisible()) {
+            stage.act(v);
+            stage.draw();
+        }
+
+        gameMenuInputAdapter.update(v);
+
 
         camera.update();
     }
 
-    public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.E) {
-            invWindow.setVisible(!invWindow.isVisible());
-        }
-        if (keycode == Input.Keys.ENTER /*مثلاً برای بستن دیالوگ */) {
-            dialogWindow.hideDialog();
-        }
-        return true;
-    }
 
-    // فراخوانی وقتی پلیر با NPC برخورد کرد:
     public void onPlayerTalk(String npcName, String dialogText) {
         dialogWindow.showDialog(npcName, dialogText);
     }
@@ -383,4 +392,13 @@ public class GameView implements Screen {
     public void dispose() {
 
     }
+
+    public InventoryWindow getInvWindow() {
+        return invWindow;
+    }
+
+    public void setInvWindow(InventoryWindow invWindow) {
+        this.invWindow = invWindow;
+    }
+
 }

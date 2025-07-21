@@ -89,6 +89,8 @@ public class Player implements TimeObserver {
     private Player partner = null;
 
 
+
+
     private float speed = 100f;
     private float vx = 0, vy = 0;
 

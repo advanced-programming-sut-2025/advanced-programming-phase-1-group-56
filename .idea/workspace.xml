@@ -4,12 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="graphic environment loaded finally">
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="connect logic to graphic">
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/InventoryBackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar1.1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar2.1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/exit to desktop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/exit to menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/exit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/exitMenu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/inventory.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/lockSlot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/map.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/map_summer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/miniMap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/out.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/skillBackGround.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/skills.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/slot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Inventory/social.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/OreItem.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +121,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.view.GameMenus.InventoryWindow.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
@@ -101,7 +132,7 @@
     &quot;git-widget-placeholder&quot;: &quot;mohsen&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/OneDrive/Desktop/Stardew/advanced-programming-phase-1-group-56/assets&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/OneDrive/Desktop/StardewValley/advanced-programming-phase-1-group-56/assets/Inventory&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -111,17 +142,17 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\assets\Inventory" />
       <recent name="C:\Users\HP\OneDrive\Desktop\Stardew\advanced-programming-phase-1-group-56\assets" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\States" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\GameObject" />
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums\commands\GameCommands" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\assets" />
@@ -219,6 +250,16 @@
       <workItem from="1752084177660" duration="4235000" />
       <workItem from="1752657634118" duration="365000" />
       <workItem from="1752658182433" duration="3412000" />
+      <workItem from="1752668674326" duration="2072000" />
+      <workItem from="1752674620414" duration="375000" />
+      <workItem from="1752676931467" duration="5388000" />
+      <workItem from="1752740756547" duration="995000" />
+      <workItem from="1752764143456" duration="5711000" />
+      <workItem from="1752770451774" duration="670000" />
+      <workItem from="1752859544971" duration="2564000" />
+      <workItem from="1752902707482" duration="13778000" />
+      <workItem from="1752988488682" duration="19468000" />
+      <workItem from="1753091440519" duration="3215000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />

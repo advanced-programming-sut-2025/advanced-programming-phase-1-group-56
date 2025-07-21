@@ -112,4 +112,8 @@ public class GameController extends CommandController {
     public StardewValley getGame() {
         return game;
     }
+
+    public GameMenu1 getGameMenu() {
+        return gameMenu;
+    }
 }

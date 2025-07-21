@@ -19,6 +19,7 @@ public class GameMenuInputAdapter extends InputAdapter {
     private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
 
+
     public GameMenuInputAdapter(Game game, GameController gameController) {
         this.game = game;
         this.gameController = gameController;
@@ -38,6 +39,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             Gdx.app.exit();
             return true;
         }
+
 
 //        if (keycode == Input.Keys.N) {
 //            gameController.advanceToNextDay();
