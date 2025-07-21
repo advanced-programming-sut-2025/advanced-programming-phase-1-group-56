@@ -1,6 +1,7 @@
 package io.src.controller.MenuController;
 
 import com.google.gson.Gson;
+import io.src.Main;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.InfoRegexes;
@@ -8,6 +9,7 @@ import io.src.model.Enums.SecurityQuestion;
 import io.src.model.MakePasswordSHA_256;
 import io.src.model.Result;
 import io.src.model.User;
+import io.src.view.LoginMenu;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +22,16 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 public class LoginMenuController extends CommandController {
+    private final Main game = Main.getMain();
+    private LoginMenu loginMenu;
+
+    public void init() {
+        loginMenu = new LoginMenu(this);
+    }
+
+    public void run() {
+        game.setScreen(loginMenu);
+    }
 
     public static Result manageRegisterUser(Matcher matcher) {
         Random random = new Random();
@@ -54,9 +66,9 @@ public class LoginMenuController extends CommandController {
         SecurityQuestion[] questions = SecurityQuestion.values();
         for (int i = 0; i < questions.length; i++) {
             stringBuilder.append((i + 1))
-                    .append(". ")
-                    .append(questions[i].getQuestion())
-                    .append("\n");
+                .append(". ")
+                .append(questions[i].getQuestion())
+                .append("\n");
         }
         return stringBuilder.toString();
     }
@@ -69,7 +81,7 @@ public class LoginMenuController extends CommandController {
         }
 
         String stringBuilder = "please enter new password : " + "\nyou can use this : " +
-                manageMakeRandomPassword(10, "somthing");
+                               manageMakeRandomPassword(10, "somthing");
         return new Result(true, stringBuilder);
     }
 
