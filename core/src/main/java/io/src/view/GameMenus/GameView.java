@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
+import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 
@@ -74,7 +75,15 @@ public class GameView implements Screen {
     public GameView(Game game) {
         this.game = game;
 //        batch = new SpriteBatch();
-        this.map = new TmxMapLoader().load("Farm1.tmx");
+        if (game.getCurrentPlayer().getCurrentGameLocation() instanceof Farm){
+            switch (((Farm)(game.getCurrentPlayer().getCurrentGameLocation())).getPosition()){
+                case UP, RIGHT -> this.map = new TmxMapLoader().load("Farm2.tmx");
+                default -> this.map = new TmxMapLoader().load("Farm1.tmx");
+            }
+        } else {
+            this.map = new TmxMapLoader().load("Town4.tmx");
+        }
+//        this.map = new TmxMapLoader().load("Farm1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -312,11 +321,11 @@ public class GameView implements Screen {
         renderer.getBatch().begin();
         renderPlayer();
 
-//        for (Tile[] row : yourTiles) {
+//        for (Tile[] row : game.getCurrentPlayer().getCurrentGameLocation().getTiles()) {
 //            for (Tile tile : row) {
 //                GameObject go = tile.getFixedObject();
 //                if (go != null) {
-//                    TextureRegion region = go.getTextureRegion(); // یا sprite
+//                    TextureRegion region = new TextureRegion(go.get); // یا sprite
 //                    float worldX = tile.getPosition().getX() * TILE_SIZE;
 //                    float worldY = tile.getPosition().getY() * TILE_SIZE;
 //                    renderer.getBatch().draw(region, worldX, worldY);
