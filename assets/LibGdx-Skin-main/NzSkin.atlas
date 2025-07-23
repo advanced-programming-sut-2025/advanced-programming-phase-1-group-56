@@ -1,0 +1,272 @@
+
+NzSkin.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+background
+  rotate: false
+  xy: 243, 917
+  size: 98, 96
+  split: 44, 39, 35, 35
+  pad: 28, 33, 29, 28
+  orig: 98, 96
+  offset: 0, 0
+  index: -1
+backgroundPedding
+  rotate: false
+  xy: 243, 917
+  size: 98, 96
+  split: 36, 41, 39, 43
+  pad: 20, 24, 0, 0
+  orig: 98, 96
+  offset: 0, 0
+  index: -1
+hScroll
+  rotate: false
+  xy: 635, 1494
+  size: 29, 24
+  split: 9, 14, 12, 11
+  pad: 9, 10, 8, 10
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+hScrollKnob
+  rotate: false
+  xy: 1, 576
+  size: 40, 24
+  split: 14, 19, 10, 11
+  pad: 0, 0, 0, 0
+  orig: 40, 24
+  offset: 0, 0
+  index: -1
+overList
+  rotate: false
+  xy: 467, 1223
+  size: 32, 16
+  split: 7, 12, 6, 7
+  pad: 0, 0, 0, 0
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+selectBox
+  rotate: false
+  xy: 243, 1015
+  size: 192, 48
+  split: 61, 87, 8, 37
+  pad: 18, 48, 7, 7
+  orig: 192, 48
+  offset: 0, 0
+  index: -1
+selectListBoard
+  rotate: false
+  xy: 180, 667
+  size: 32, 16
+  split: 8, 14, 6, 9
+  pad: 6, 6, 5, 5
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+vScroll
+  rotate: false
+  xy: 437, 1034
+  size: 24, 29
+  split: 8, 13, 14, 12
+  pad: 8, 10, 9, 9
+  orig: 24, 29
+  offset: 0, 0
+  index: -1
+vScrollKnob
+  rotate: false
+  xy: 243, 875
+  size: 24, 40
+  split: 11, 11, 17, 13
+  pad: 0, 0, 0, 0
+  orig: 24, 40
+  offset: 0, 0
+  index: -1
+window2
+  rotate: false
+  xy: 509, 1446
+  size: 124, 72
+  split: 59, 54, 31, 36
+  pad: 33, 32, 12, 12
+  orig: 124, 72
+  offset: 0, 0
+  index: -1
+checkBox
+  rotate: false
+  xy: 1483, 1744
+  size: 46, 49
+  orig: 46, 49
+  offset: 0, 0
+  index: -1
+overCheckbox
+  rotate: false
+  xy: 703, 1558
+  size: 46, 49
+  orig: 46, 49
+  offset: 0, 0
+  index: -1
+selectCheckBox
+  rotate: false
+  xy: 1989, 1984
+  size: 46, 49
+  orig: 46, 49
+  offset: 0, 0
+  index: -1
+04B_30__
+  rotate: false
+  xy: 1, 1681
+  size: 506, 352
+  orig: 506, 352
+  offset: 0, 0
+  index: -1
+impact(1)
+  rotate: false
+  xy: 1, 1241
+  size: 505, 191
+  orig: 505, 191
+  offset: 0, 0
+  index: -1
+impact(3)
+  rotate: false
+  xy: 509, 1609
+  size: 506, 424
+  orig: 506, 424
+  offset: 0, 0
+  index: -1
+mac's Extended Minecraft Bold Italic
+  rotate: false
+  xy: 1, 1434
+  size: 506, 245
+  orig: 506, 245
+  offset: 0, 0
+  index: -1
+mac's Minecraft(1)
+  rotate: false
+  xy: 1017, 1845
+  size: 504, 188
+  orig: 504, 188
+  offset: 0, 0
+  index: -1
+selectedTas
+  rotate: false
+  xy: 1017, 1611
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+tas
+  rotate: false
+  xy: 1673, 1803
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+chickenButton
+  rotate: false
+  xy: 1259, 1669
+  size: 222, 174
+  split: 146, 68, 56, 109
+  pad: 34, 41, 33, 74
+  orig: 222, 174
+  offset: 0, 0
+  index: -1
+earthButton
+  rotate: false
+  xy: 1765, 1859
+  size: 222, 174
+  split: 175, 40, 56, 105
+  pad: 28, 35, 38, 61
+  orig: 222, 174
+  offset: 0, 0
+  index: -1
+golButton
+  rotate: false
+  xy: 1, 685
+  size: 222, 174
+  split: 134, 71, 60, 103
+  pad: 27, 35, 35, 72
+  orig: 222, 174
+  offset: 0, 0
+  index: -1
+selctedChickenButton
+  rotate: false
+  xy: 1017, 1655
+  size: 240, 188
+  split: 158, 73, 56, 120
+  pad: 31, 41, 38, 81
+  orig: 240, 188
+  offset: 0, 0
+  index: -1
+selectGolButton
+  rotate: false
+  xy: 1, 861
+  size: 240, 188
+  split: 153, 74, 58, 117
+  pad: 31, 38, 36, 78
+  orig: 240, 188
+  offset: 0, 0
+  index: -1
+selectedSkinyButton
+  rotate: false
+  xy: 509, 1520
+  size: 192, 87
+  split: 80, 78, 45, 34
+  pad: 31, 43, 29, 26
+  orig: 192, 87
+  offset: 0, 0
+  index: -1
+selectedTotButton
+  rotate: false
+  xy: 1, 1051
+  size: 240, 188
+  split: 152, 66, 59, 103
+  pad: 35, 49, 41, 85
+  orig: 240, 188
+  offset: 0, 0
+  index: -1
+selecterEarthButton
+  rotate: false
+  xy: 1523, 1845
+  size: 240, 188
+  split: 190, 46, 60, 112
+  pad: 31, 37, 37, 66
+  orig: 240, 188
+  offset: 0, 0
+  index: -1
+skinyButton
+  rotate: false
+  xy: 1, 602
+  size: 177, 81
+  split: 68, 79, 43, 33
+  pad: 27, 34, 27, 24
+  orig: 177, 81
+  offset: 0, 0
+  index: -1
+textFeildCurser
+  rotate: false
+  xy: 225, 827
+  size: 4, 32
+  orig: 4, 32
+  offset: 0, 0
+  index: -1
+textField
+  rotate: false
+  xy: 1483, 1795
+  size: 188, 48
+  split: 38, 70, 20, 21
+  pad: 23, 23, 13, 13
+  orig: 188, 48
+  offset: 0, 0
+  index: -1
+totButton
+  rotate: false
+  xy: 243, 1065
+  size: 222, 174
+  split: 140, 56, 59, 90
+  pad: 30, 37, 37, 74
+  orig: 222, 174
+  offset: 0, 0
+  index: -1

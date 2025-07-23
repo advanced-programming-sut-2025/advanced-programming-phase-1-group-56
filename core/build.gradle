@@ -19,7 +19,15 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
+
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
 }
+
+repositories {
+  maven { url 'https://jitpack.io' }
+  mavenCentral()
+}
+
+

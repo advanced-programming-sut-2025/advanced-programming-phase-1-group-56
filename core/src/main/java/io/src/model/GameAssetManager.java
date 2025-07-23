@@ -42,9 +42,10 @@ public class GameAssetManager {
     private Texture fishingHover = new Texture("assets/Inventory/fishingHover.png");
     private Texture foragingHover = new Texture("assets/Inventory/ForagingHover.png");
     private Texture tmpBackground = new Texture("assets/Inventory/tmpBackground.png");
-
-
-
+    private Texture energyBar = new Texture("assets/Inventory/energyBar.png");
+    private Texture clock = new Texture("assets/Inventory/clock.png");
+    private Texture clockCursor = new Texture("assets/Inventory/clockCursor.png");
+    private Texture greenBar = new Texture("assets/Inventory/greenBar.png");
     private GameAssetManager(){
 
     }
@@ -183,5 +184,21 @@ public class GameAssetManager {
 
     public Texture getTmpBackground() {
         return tmpBackground;
+    }
+
+    public Texture getEnergyBar() {
+        return energyBar;
+    }
+
+    public Texture getClockCursor() {
+        return clockCursor;
+    }
+
+    public Texture getClock() {
+        return clock;
+    }
+
+    public Texture getGreenBar() {
+        return greenBar;
     }
 }

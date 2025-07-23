@@ -4,42 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="connect logic to graphic">
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/InventoryBackground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar1.1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar2.1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/SkillBar2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/exit to desktop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/exit to menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/exit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/exitMenu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/inventory.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/lockSlot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/map.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/map_summer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/miniMap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/out.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/setting.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/skillBackGround.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/skills.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/slot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/Inventory/social.png" afterDir="false" />
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add inventory">
+      <change afterPath="$PROJECT_DIR$/assets/video/intro.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/video/loop.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/EnergyBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu1Tester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/OreItem.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lwjgl3/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,9 +117,9 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -155,11 +134,11 @@
       <recent name="C:\Users\HP\OneDrive\Desktop\tiledMap\gradleSetup\src\main\java\model\Enums" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\assets\video" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\assets" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\model\MapModule" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\view\GameMenus" />
       <recent name="C:\Users\HP\OneDrive\Desktop\StardewValley\advanced-programming-phase-1-group-56\core\src\main\java\io\src\view\GameMenus\ShopMenus" />
-      <recent name="C:\Users\HP\OneDrive\Desktop\Stardew\advanced-programming-phase-1-group-56\assets" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="io.src.view.GameMenus" />
@@ -259,7 +238,13 @@
       <workItem from="1752859544971" duration="2564000" />
       <workItem from="1752902707482" duration="13778000" />
       <workItem from="1752988488682" duration="19468000" />
-      <workItem from="1753091440519" duration="3215000" />
+      <workItem from="1753091440519" duration="3790000" />
+      <workItem from="1753200718120" duration="3923000" />
+      <workItem from="1753244829699" duration="584000" />
+      <workItem from="1753260186167" duration="9841000" />
+      <workItem from="1753288668655" duration="3652000" />
+      <workItem from="1753298731885" duration="761000" />
+      <workItem from="1753299531416" duration="2566000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -437,7 +422,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752658216058</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="add inventory">
+      <option name="closed" value="true" />
+      <created>1753094889348</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1753094889348</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -478,7 +471,8 @@
     <MESSAGE value="green house and carpenter shop" />
     <MESSAGE value="carpentershop update + npc dar dast handle shodan" />
     <MESSAGE value="graphic environment loaded finally" />
-    <option name="LAST_COMMIT_MESSAGE" value="graphic environment loaded finally" />
+    <MESSAGE value="add inventory" />
+    <option name="LAST_COMMIT_MESSAGE" value="add inventory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

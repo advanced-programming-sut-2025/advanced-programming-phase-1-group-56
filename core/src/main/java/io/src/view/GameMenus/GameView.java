@@ -21,7 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.controller.GameMenuController.GameController;
+import io.src.model.App;
 import io.src.model.Game;
+import io.src.model.GameAssetManager;
 import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Tile;
 
@@ -55,6 +57,7 @@ public class GameView implements Screen {
     private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
+    private EnergyBar energyWindow;
 
 
 
@@ -79,13 +82,19 @@ public class GameView implements Screen {
 
         stage = new Stage(new ScreenViewport());
         invWindow  = new InventoryWindow();
+        energyWindow = new EnergyBar();
+        timeWindow = new TimerWindow();
+        energyWindow.setPosition(Gdx.graphics.getWidth()-50,50);
         invWindow.setVisible(false);
         stage.addActor(invWindow);
+        stage.addActor(energyWindow);
+        stage.addActor(timeWindow);
 
         InputAdapter keyListener = new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == Input.Keys.E) {
+                    App.getMe().addGold(1000);
                     invWindow.setVisible(!invWindow.isVisible());
                 }
                 if (keycode == Input.Keys.ENTER) {
@@ -96,8 +105,6 @@ public class GameView implements Screen {
         };
         multiplexer.addProcessor(keyListener);
         multiplexer.addProcessor(stage);
-        gameMenuInputAdapter = new GameMenuInputAdapter(game, gameController);
-        multiplexer.addProcessor(gameMenuInputAdapter);
         Gdx.input.setInputProcessor(multiplexer);
 
 
@@ -352,12 +359,14 @@ public class GameView implements Screen {
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
         camera.zoom = 0.3f;
 
-        if (invWindow.isVisible()) {
-            stage.act(v);
-            stage.draw();
-        }
 
-        gameMenuInputAdapter.update(v);
+        stage.act(v);
+        stage.draw();
+
+        energyWindow.updateEnergyBar();
+
+        timeWindow.updateGold();
+        timeWindow.updateTime();
 
 
         camera.update();
