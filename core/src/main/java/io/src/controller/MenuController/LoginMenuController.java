@@ -1,5 +1,7 @@
 package io.src.controller.MenuController;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.Gson;
 import io.src.StardewValley;
@@ -48,14 +50,18 @@ public class LoginMenuController extends CommandController {
 
     private void initialize() {
         // login button :
-        menu.getLoginButton().addListener(new ClickListener(
-
-        ));
+        menu.getLoginButton().addListener(new ClickListener() {
+        });
 
         // Register button :
-        menu.getRegisterButton().addListener(new ClickListener(
+        menu.getRegisterButton().addListener(new ClickListener() {
+        });
 
-        ));
+        menu.getExitButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     // logic :

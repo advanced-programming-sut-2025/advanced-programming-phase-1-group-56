@@ -8,15 +8,13 @@ public class SkinManager {
     private static Skin skin;
 
     public static SkinManager getInstance() {
-        if (instance == null) {
+        if (instance == null)
             instance = new SkinManager();
-            skin = new Skin(Gdx.files.internal("skin1/menu_Skin_v0.0.1.json"));
-        }
         return instance;
     }
 
-    public Skin getSkin1() {
-        return skin;
+    public Skin getSkin(String path) {
+        return new Skin(Gdx.files.internal(path));
     }
 
     public void dispose() {

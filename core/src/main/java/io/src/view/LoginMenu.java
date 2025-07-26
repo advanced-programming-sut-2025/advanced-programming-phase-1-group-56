@@ -31,7 +31,6 @@ public class LoginMenu implements AppMenu, Screen {
     private final CheckBox stayLoggedInCheckBox;
     private final TextButton exitButton;
     private final Texture background;
-    private final Window window;
 
     // init :
 
@@ -41,39 +40,43 @@ public class LoginMenu implements AppMenu, Screen {
         Table table = new Table();
         table.setFillParent(true);
         table.center();
-        Skin skin = SkinManager.getInstance().getSkin1();
+        Skin skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
 
+        Label welcomeLabel = new Label("Welcome!", skin, "font-90_PINK");
         Label usernameLabel = new Label("Username:", skin);
         Label passwordLabel = new Label("Password:", skin);
-        loginButton = new TextButton(" Login ", skin);
+        loginButton = new TextButton(" Login ", skin, "button1-2");
         registerButton = new TextButton(" Register ", skin);
         usernameField = new TextField("", skin);
+        usernameField.setAlignment(1);
         passwordField = new TextField("", skin);
+        passwordField.setAlignment(1);
         passwordField.setPasswordCharacter('*');
         passwordField.setPasswordMode(true);
-        stayLoggedInCheckBox = new CheckBox("Stay Logged in", skin);
+        stayLoggedInCheckBox = new CheckBox(" Stay Logged in", skin);
         exitButton = new TextButton("Exit", skin);
         background = new Texture(Gdx.files.internal("background1.jpg"));
-        window = new Window("", skin);
+        Window window = new Window("", skin);
         window.setSize((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
         window.setPosition(((float) Gdx.graphics.getWidth() / 2) - window.getWidth() / 2, ((float) Gdx.graphics.getHeight() / 2) - window.getHeight() / 2);
-        window.add(usernameLabel);
+        int textFieldWidth = 300;
+        window.add(welcomeLabel);
         window.row();
-        window.add(usernameField);
+        window.add(usernameLabel).padTop(15);
         window.row();
-        window.add(passwordLabel);
+        window.add(usernameField).padTop(5).width(textFieldWidth);
         window.row();
-        window.add(passwordField);
+        window.add(passwordLabel).padTop(10);
         window.row();
-        window.add(stayLoggedInCheckBox);
+        window.add(passwordField).padTop(5).width(textFieldWidth);
         window.row();
-        window.add(loginButton);
+        window.add(stayLoggedInCheckBox).padTop(10);
         window.row();
-        window.add(registerButton);
+        window.add(loginButton).padTop(20).width(150);
         window.row();
-        window.add(exitButton);
-
-//        table.add(window);
+        window.add(registerButton).padTop(10);
+        window.row();
+        window.add(exitButton).padTop(10);
 
         stage.addActor(window);
     }

@@ -1,0 +1,126 @@
+
+mainSkin.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+ModernDOS9x14
+  rotate: false
+  xy: 1, 888
+  size: 506, 82
+  orig: 506, 82
+  offset: 0, 0
+  index: -1
+ModernDOS9x14(1)
+  rotate: false
+  xy: 509, 903
+  size: 505, 113
+  orig: 505, 113
+  offset: 0, 0
+  index: -1
+ModernDOS9x14(2)
+  rotate: false
+  xy: 1, 658
+  size: 506, 228
+  orig: 506, 228
+  offset: 0, 0
+  index: -1
+StardewValley
+  rotate: false
+  xy: 1, 972
+  size: 506, 44
+  orig: 506, 44
+  offset: 0, 0
+  index: -1
+StardewValley(1)
+  rotate: false
+  xy: 1, 115
+  size: 504, 111
+  orig: 504, 111
+  offset: 0, 0
+  index: -1
+StardewValley(2)
+  rotate: false
+  xy: 1, 228
+  size: 506, 428
+  orig: 506, 428
+  offset: 0, 0
+  index: -1
+button1_DOWN
+  rotate: false
+  xy: 509, 799
+  size: 50, 50
+  split: 9, 9, 9, 9
+  pad: 14, 14, 14, 14
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+button1_OVER
+  rotate: false
+  xy: 1, 63
+  size: 50, 50
+  split: 9, 9, 9, 9
+  pad: 14, 14, 14, 14
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+button1_UP
+  rotate: false
+  xy: 509, 851
+  size: 50, 50
+  split: 14, 14, 14, 14
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+checkedbx_OFF
+  rotate: false
+  xy: 53, 93
+  size: 20, 20
+  split: 3, 3, 2, 3
+  pad: 0, 0, 0, 0
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+checkedbx_ON
+  rotate: false
+  xy: 509, 777
+  size: 20, 20
+  split: 3, 3, 2, 3
+  pad: 3, 3, 3, 3
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+cursor
+  rotate: false
+  xy: 1016, 992
+  size: 2, 24
+  split: 0, 0, 0, 0
+  orig: 2, 24
+  offset: 0, 0
+  index: -1
+selection
+  rotate: false
+  xy: 561, 835
+  size: 2, 24
+  split: 0, 0, 0, 0
+  orig: 2, 24
+  offset: 0, 0
+  index: -1
+textfield
+  rotate: false
+  xy: 561, 861
+  size: 40, 40
+  split: 9, 9, 9, 9
+  pad: 11, 9, 9, 9
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 1, 21
+  size: 40, 40
+  split: 17, 18, 18, 16
+  pad: 18, 19, 19, 17
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
