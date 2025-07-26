@@ -31,16 +31,24 @@ public class LoginMenu implements AppMenu, Screen {
     private final CheckBox stayLoggedInCheckBox;
     private final TextButton exitButton;
     private final Texture background;
+    private final Window window;
+    private final Window registerWindow;
+    private Label warningLabel;
+    private final Skin skin;
+
+    private final int screenWidth;
+    private final int screenHeight;
 
     // init :
 
     public LoginMenu() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        Table table = new Table();
-        table.setFillParent(true);
-        table.center();
-        Skin skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
+        skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
+
+        int textFieldWidth = 300;
+        screenWidth = Gdx.graphics.getWidth();
+        screenHeight = Gdx.graphics.getHeight();
 
         Label welcomeLabel = new Label("Welcome!", skin, "font-90_PINK");
         Label usernameLabel = new Label("Username:", skin);
@@ -56,10 +64,11 @@ public class LoginMenu implements AppMenu, Screen {
         stayLoggedInCheckBox = new CheckBox(" Stay Logged in", skin);
         exitButton = new TextButton("Exit", skin);
         background = new Texture(Gdx.files.internal("background1.jpg"));
-        Window window = new Window("", skin);
-        window.setSize((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        window.setPosition(((float) Gdx.graphics.getWidth() / 2) - window.getWidth() / 2, ((float) Gdx.graphics.getHeight() / 2) - window.getHeight() / 2);
-        int textFieldWidth = 300;
+        window = new Window("", skin);
+        window.setSize((float) screenWidth / 2, (float) screenHeight / 2);
+        window.setPosition(((float) screenWidth / 2) - window.getWidth() / 2,
+            ((float) screenHeight / 2) - window.getHeight() / 2);
+
         window.add(welcomeLabel);
         window.row();
         window.add(usernameLabel).padTop(15);
@@ -78,7 +87,15 @@ public class LoginMenu implements AppMenu, Screen {
         window.row();
         window.add(exitButton).padTop(10);
 
+        // Register Menu :
+        registerWindow = new Window("", skin);
+        registerWindow.setSize((float) screenWidth / 2, (float) screenHeight / 2);
+        registerWindow.setPosition(((float) screenWidth / 2) - registerWindow.getWidth() / 2,
+            ((float) screenHeight / 2) - registerWindow.getHeight() / 2);
+        registerWindow.setVisible(false);
+
         stage.addActor(window);
+        stage.addActor(registerWindow);
     }
 
     @Override
@@ -108,6 +125,23 @@ public class LoginMenu implements AppMenu, Screen {
 
     // getter
 
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public Window getRegisterWindow() {
+        return registerWindow;
+
+    }
+
+    public Window getWindow() {
+        return window;
+    }
+
     public TextButton getLoginButton() {
         return loginButton;
     }
@@ -133,6 +167,20 @@ public class LoginMenu implements AppMenu, Screen {
     }
 
     //
+
+    public void showWarningLabel(String message) {
+        if (warningLabel != null) {
+            warningLabel.remove();
+        }
+
+        warningLabel = new Label(" " + message, skin, "default-GREEN_warning");
+        warningLabel.setPosition(
+            ((float) screenWidth / 2) - (warningLabel.getWidth() / 2),
+            ((float) screenHeight / 4) - (warningLabel.getHeight() * 2)
+        );
+        stage.addActor(warningLabel);
+    }
+
 
     @Override
     public void pause() {
@@ -170,9 +218,9 @@ public class LoginMenu implements AppMenu, Screen {
             String menu = matcher.group(1).trim();
             System.out.println(LoginMenuController.goToMenu(menu));
         } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(input)).find()) {
-            System.out.println(LoginMenuController.manageLoginUser(matcher, true));
+            System.out.println(LoginMenuController.manageLoginUser(matcher.group(1), matcher.group(2), true));
         } else if ((matcher = LoginMenuCommands.login.getMatcher(input)).find()) {
-            System.out.println(LoginMenuController.manageLoginUser(matcher, false));
+            System.out.println(LoginMenuController.manageLoginUser(matcher.group(1), matcher.group(2), false));
         } else if ((matcher = LoginMenuCommands.forgetPassword.getMatcher(input)).find()) {
             System.out.println(LoginMenuController.manageForgotPassword(matcher));
             if (LoginMenuController.manageForgotPassword(matcher).isSuccess()) {

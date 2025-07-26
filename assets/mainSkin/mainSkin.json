@@ -47,6 +47,9 @@
 	"PINK": {
 		"hex": "ce5252ff"
 	},
+	"RED": {
+		"hex": "ff0000ff"
+	},
 	"WHITE": {
 		"hex": "ffffffff"
 	}
@@ -115,6 +118,26 @@
 	"font-90_PINK": {
 		"font": "baseFont-90",
 		"fontColor": "PINK"
+	},
+	"default-PINK_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"background": "warning_label"
+	},
+	"default-BLACK_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"background": "warning_label"
+	},
+	"default-GREEN_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"background": "warning_label"
+	},
+	"default-RED_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "RED",
+		"background": "warning_label"
 	}
 },
 "TextButtonStyle": {

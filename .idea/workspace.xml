@@ -6,13 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="start create main skin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_OFF.9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_OFF.9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_OFF.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_OFF.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_ON.9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_ON.9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_ON.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_ON.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/SkinManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/SkinManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +75,7 @@
   "keyToString": {
     "Application.Lwjgl3Launcher.executor": "Run",
     "Application.Unnamed.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
     "Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
     "Gradle.gradleSetup [:Main.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -118,7 +118,8 @@
       <updated>1751445315527</updated>
       <workItem from="1751445316868" duration="1459000" />
       <workItem from="1753426192019" duration="100000" />
-      <workItem from="1753552738408" duration="2124000" />
+      <workItem from="1753552738408" duration="2561000" />
+      <workItem from="1753561469023" duration="8802000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -136,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753549876338</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="start create main skin">
+      <option name="closed" value="true" />
+      <created>1753556212356</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1753556212356</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

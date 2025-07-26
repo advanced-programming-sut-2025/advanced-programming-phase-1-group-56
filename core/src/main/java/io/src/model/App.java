@@ -3,20 +3,16 @@ package io.src.model;
 import java.io.*;
 import java.util.ArrayList;
 
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.src.model.Enums.Menu;
 
-
 public class App {
-    private static final String FILE_PATH = "assets\\users.json";
+    private static final String FILE_PATH = "assets//users.json";
     //TODO
     private static final ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
-
-
 
     public static ArrayList<User> getUsers() {
         Gson gson = new Gson();
@@ -75,6 +71,7 @@ public class App {
         }
         return null;
     }
+
     public static Player getMe(){
         return App.getCurrentUser().getCurrentGame().getCurrentPlayer();
     }
