@@ -60,8 +60,6 @@ public class TimerWindow extends Group {
             addActor(digitLabel);
         }
 
-
-
         addActor(clockFrame);
         addActor(arrowPointer);
         addActor(dayLabel);
