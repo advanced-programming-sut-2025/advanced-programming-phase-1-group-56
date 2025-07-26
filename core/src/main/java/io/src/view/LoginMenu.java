@@ -1,72 +1,89 @@
 package io.src.view;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import io.src.StardewValley;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;
 import io.src.model.SkinManager;
 import io.src.model.User;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.awt.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu implements AppMenu, Screen {
     private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
 
+    // fields :
+
+    private final Stage stage;
+    private final TextButton loginButton;
+    private final TextButton registerButton;
+    private final TextField usernameField;
+    private final TextField passwordField;
+    private final CheckBox stayLoggedInCheckBox;
+    private final TextButton exitButton;
+    private final Texture background;
+    private final Window window;
+
+    // init :
+
     public LoginMenu() {
-    }
-
-    private LoginMenuController controller;
-    private Stage stage;
-    private Label label;
-    //    private Table table;
-    private Skin skin;
-    private TextButton loginButton;
-
-    public LoginMenu(LoginMenuController controller) {
-        this.controller = controller;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-//        table = new Table();
-//        table.setFillParent(true);
-//        table.center();
-//        table.setDebug(true);
-        skin = SkinManager.getInstance().getSkin1();
+        Table table = new Table();
+        table.setFillParent(true);
+        table.center();
+        Skin skin = SkinManager.getInstance().getSkin1();
 
-        label = new Label("Hello world!", skin);
-//        table.add(label).pad(10);
-        label.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 200);
+        Label usernameLabel = new Label("Username:", skin);
+        Label passwordLabel = new Label("Password:", skin);
         loginButton = new TextButton(" Login ", skin);
-        loginButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 + 200);
-//        table.add(loginButton).pad(10);
+        registerButton = new TextButton(" Register ", skin);
+        usernameField = new TextField("", skin);
+        passwordField = new TextField("", skin);
+        passwordField.setPasswordCharacter('*');
+        passwordField.setPasswordMode(true);
+        stayLoggedInCheckBox = new CheckBox("Stay Logged in", skin);
+        exitButton = new TextButton("Exit", skin);
+        background = new Texture(Gdx.files.internal("background1.jpg"));
+        window = new Window("", skin);
+        window.setSize((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        window.setPosition(((float) Gdx.graphics.getWidth() / 2) - window.getWidth() / 2, ((float) Gdx.graphics.getHeight() / 2) - window.getHeight() / 2);
+        window.add(usernameLabel);
+        window.row();
+        window.add(usernameField);
+        window.row();
+        window.add(passwordLabel);
+        window.row();
+        window.add(passwordField);
+        window.row();
+        window.add(stayLoggedInCheckBox);
+        window.row();
+        window.add(loginButton);
+        window.row();
+        window.add(registerButton);
+        window.row();
+        window.add(exitButton);
 
-        stage.addActor(label);
-        stage.addActor(loginButton);
+//        table.add(window);
+
+        stage.addActor(window);
     }
 
     @Override
     public void render(float v) {
-        ScreenUtils.clear(1, 01, 01, 1);
+        ScreenUtils.clear(1, 1, 1, 1);
+        StardewValley.getBatch().begin();
+        StardewValley.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        StardewValley.getBatch().end();
         stage.act(v);
         stage.draw();
     }
@@ -85,6 +102,34 @@ public class LoginMenu implements AppMenu, Screen {
     public void resize(int i, int i1) {
         stage.getViewport().update(i, i1, true);
     }
+
+    // getter
+
+    public TextButton getLoginButton() {
+        return loginButton;
+    }
+
+    public TextButton getRegisterButton() {
+        return registerButton;
+    }
+
+    public TextField getUsernameField() {
+        return usernameField;
+    }
+
+    public TextField getPasswordField() {
+        return passwordField;
+    }
+
+    public CheckBox getStayLoggedInCheckBox() {
+        return stayLoggedInCheckBox;
+    }
+
+    public TextButton getExitButton() {
+        return exitButton;
+    }
+
+    //
 
     @Override
     public void pause() {

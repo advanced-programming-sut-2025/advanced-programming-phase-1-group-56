@@ -1,7 +1,8 @@
 package io.src.controller.MenuController;
 
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.Gson;
-import io.src.Main;
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.InfoRegexes;
@@ -22,16 +23,42 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 public class LoginMenuController extends CommandController {
-    private final Main game = Main.getMain();
-    private LoginMenu loginMenu;
+
+    // fields :
+
+    private final StardewValley game;
+    private LoginMenu menu;
+
+    // init :
+
+    public LoginMenuController(StardewValley game) {
+        this.game = game;
+    }
 
     public void init() {
-        loginMenu = new LoginMenu(this);
+        menu = new LoginMenu();
     }
 
     public void run() {
-        game.setScreen(loginMenu);
+        game.setScreen(menu);
+        initialize();
     }
+
+    // UI
+
+    private void initialize() {
+        // login button :
+        menu.getLoginButton().addListener(new ClickListener(
+
+        ));
+
+        // Register button :
+        menu.getRegisterButton().addListener(new ClickListener(
+
+        ));
+    }
+
+    // logic :
 
     public static Result manageRegisterUser(Matcher matcher) {
         Random random = new Random();
@@ -58,7 +85,6 @@ public class LoginMenuController extends CommandController {
         }
         String result = showSecurityQuestion();
         return new Result(true, "Okay, but for the security of your account ,\none of these security questions is required\n" + result + "\n");
-
     }
 
     private static String showSecurityQuestion() {
@@ -81,7 +107,7 @@ public class LoginMenuController extends CommandController {
         }
 
         String stringBuilder = "please enter new password : " + "\nyou can use this : " +
-                               manageMakeRandomPassword(10, "somthing");
+            manageMakeRandomPassword(10, "somthing");
         return new Result(true, stringBuilder);
     }
 
@@ -97,7 +123,6 @@ public class LoginMenuController extends CommandController {
         }
         return new Result(true, username + "your password have been changed!");
     }
-
 
     public static String manageMakeRandomPassword(int length, String password) {
         String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -149,7 +174,6 @@ public class LoginMenuController extends CommandController {
         return new Result(true, "you have successfully logged in!");
     }
 
-
     public static Result manageForgotPassword(Matcher matcher) {
         String username = matcher.group(1).trim();
         if (returnUser(username) == null) {
@@ -170,7 +194,6 @@ public class LoginMenuController extends CommandController {
         }
         return null;
     }
-
 
     public static Result peakSecurityQuestion(Matcher matcher1, Matcher matcher) {
         Random random = new Random();

@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="init Game">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/SkinManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/src/main/java/io/src/lwjgl3/Lwjgl3Launcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,8 +99,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
