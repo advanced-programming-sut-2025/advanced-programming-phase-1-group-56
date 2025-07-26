@@ -1,24 +1,74 @@
 package io.src.view;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;
+import io.src.model.SkinManager;
 import io.src.model.User;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.awt.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu implements AppMenu, Screen {
     private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
-    private LoginMenuController controller;
 
     public LoginMenu() {
     }
 
+    private LoginMenuController controller;
+    private Stage stage;
+    private Label label;
+    //    private Table table;
+    private Skin skin;
+    private TextButton loginButton;
+
     public LoginMenu(LoginMenuController controller) {
         this.controller = controller;
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+//        table = new Table();
+//        table.setFillParent(true);
+//        table.center();
+//        table.setDebug(true);
+        skin = SkinManager.getInstance().getSkin1();
+
+        label = new Label("Hello world!", skin);
+//        table.add(label).pad(10);
+        label.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 - 200);
+        loginButton = new TextButton(" Login ", skin);
+        loginButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2 + 200);
+//        table.add(loginButton).pad(10);
+
+        stage.addActor(label);
+        stage.addActor(loginButton);
+    }
+
+    @Override
+    public void render(float v) {
+        ScreenUtils.clear(1, 01, 01, 1);
+        stage.act(v);
+        stage.draw();
     }
 
     @Override
@@ -27,13 +77,13 @@ public class LoginMenu implements AppMenu, Screen {
     }
 
     @Override
-    public void render(float v) {
-
+    public void dispose() {
+        stage.dispose();
     }
 
     @Override
     public void resize(int i, int i1) {
-
+        stage.getViewport().update(i, i1, true);
     }
 
     @Override
@@ -48,11 +98,6 @@ public class LoginMenu implements AppMenu, Screen {
 
     @Override
     public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
 
     }
 
