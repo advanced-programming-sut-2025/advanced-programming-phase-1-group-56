@@ -3,9 +3,6 @@ package io.src.model;
 public class GameAssetManager {
     private static GameAssetManager gameAssetManager;
 
-
-
-
     private GameAssetManager(){
 
     }

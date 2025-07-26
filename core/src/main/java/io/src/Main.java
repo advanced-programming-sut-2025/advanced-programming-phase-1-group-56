@@ -1,27 +1,29 @@
 package io.src;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.src.controller.GameMenuController.GameController;
+import io.src.controller.MenuController.LoginMenuController;
 
 public class Main extends Game {
     private static Main main;
-    private static SpriteBatch Batch;
+    private SpriteBatch batch;
 
     public static Main getMain() {
-        if (main == null) {
-            main = new Main();
-            Batch = new SpriteBatch();
-        }
         return main;
     }
 
     @Override
     public void create() {
-        GameController gameController = new GameController();
-        gameController.init();
-        gameController.run();
-
+        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+        Gdx.graphics.setFullscreenMode(displayMode);
+        main = this;
+        batch = new SpriteBatch();
+        LoginMenuController controller = new LoginMenuController();
+        controller.init();
+        controller.run();
     }
 
     @Override
@@ -30,6 +32,6 @@ public class Main extends Game {
     }
 
     public SpriteBatch getBatch() {
-        return Batch;
+        return batch;
     }
 }
