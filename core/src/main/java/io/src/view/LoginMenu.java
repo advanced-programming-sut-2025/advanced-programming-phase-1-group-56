@@ -36,6 +36,17 @@ public class LoginMenu implements AppMenu, Screen {
     private Label warningLabel;
     private final Skin skin;
 
+    private final TextButton exitButton2;
+    private final TextButton registerButton2;
+    private final TextButton loginButton2;
+    private final TextField usernameField2;
+    private final TextField passwordField2;
+    private final TextField rePassField;
+    private final TextField nicknameField;
+    private final TextField emailField;
+    private final CheckBox maleCheckBox;
+    private final CheckBox femaleCheckBox;
+
     private final int screenWidth;
     private final int screenHeight;
 
@@ -88,11 +99,53 @@ public class LoginMenu implements AppMenu, Screen {
         window.add(exitButton).padTop(10);
 
         // Register Menu :
+
         registerWindow = new Window("", skin);
         registerWindow.setSize((float) screenWidth / 2, (float) screenHeight / 2);
         registerWindow.setPosition(((float) screenWidth / 2) - registerWindow.getWidth() / 2,
             ((float) screenHeight / 2) - registerWindow.getHeight() / 2);
         registerWindow.setVisible(false);
+
+        exitButton2 = new TextButton("Exit", skin);
+        registerButton2 = new TextButton(" Register ", skin,"button1-2");
+        loginButton2 = new TextButton(" Login ", skin);
+        maleCheckBox = new CheckBox(" Male", skin);
+        femaleCheckBox = new CheckBox(" Female", skin);
+        usernameField2 = new TextField("", skin);
+        passwordField2 = new TextField("", skin);
+        rePassField = new TextField("", skin);
+        nicknameField = new TextField("", skin);
+        emailField = new TextField("", skin);
+        Label welcomeLabel2 = new Label("Welcome!", skin, "font-90_PINK");
+        Label usernameLabel2 = new Label("Username:", skin);
+        Label passwordLabel2 = new Label("Password:", skin);
+        Label rePassLabel2 = new Label("Re-Password:", skin);
+        Label nicknameLabel2 = new Label("Nickname:", skin);
+        Label emailLabel2 = new Label("Email:", skin);
+
+        registerWindow.add(welcomeLabel2).align(2);
+        registerWindow.row();
+        registerWindow.add(usernameLabel2).padTop(20);
+        registerWindow.add(usernameField2).width(textFieldWidth).padTop(20);
+        registerWindow.row();
+        registerWindow.add(passwordLabel2).padTop(10);
+        registerWindow.add(passwordField2).width(textFieldWidth).padTop(10);
+        registerWindow.row();
+        registerWindow.add(rePassLabel2).padTop(10);
+        registerWindow.add(rePassField).width(textFieldWidth).padTop(10);
+        registerWindow.row();
+        registerWindow.add(nicknameLabel2).padTop(10);
+        registerWindow.add(nicknameField).width(textFieldWidth).padTop(10);
+        registerWindow.row();
+        registerWindow.add(emailLabel2).padTop(10);
+        registerWindow.add(emailField).width(textFieldWidth).padTop(10);
+        registerWindow.row();
+        registerWindow.add(maleCheckBox).padTop(10);
+        registerWindow.add(femaleCheckBox).padTop(10);
+        registerWindow.row();
+        registerWindow.add(registerButton2).padTop(20).align(2);
+        registerWindow.add(loginButton2).padTop(10).align(2);
+        registerWindow.add(exitButton2).padTop(10).align(2);
 
         stage.addActor(window);
         stage.addActor(registerWindow);
@@ -124,6 +177,10 @@ public class LoginMenu implements AppMenu, Screen {
     }
 
     // getter
+
+    public TextButton getExitButton2() {
+        return exitButton2;
+    }
 
     public int getScreenWidth() {
         return screenWidth;

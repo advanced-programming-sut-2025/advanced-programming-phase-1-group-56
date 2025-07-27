@@ -81,6 +81,12 @@ public class LoginMenuController extends CommandController {
                 Gdx.app.exit();
             }
         });
+
+        menu.getExitButton2().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     // logic :
