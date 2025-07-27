@@ -1,0 +1,235 @@
+{
+"BitmapFont": {
+	"Bold": {
+		"file": "04B_30__.fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"BoldImpact": {
+		"file": "impact(3).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"Impact": {
+		"file": "impact(1).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"Text": {
+		"file": "mac's Extended Minecraft Bold Italic.fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"WhiteText": {
+		"file": "mac's Minecraft(1).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	}
+},
+"Color": {
+	"AdobeAni": {
+		"hex": "804d00c7"
+	},
+	"Ani": {
+		"hex": "db8053ff"
+	},
+	"Ani3": {
+		"hex": "663333ff"
+	},
+	"Ani5": {
+		"hex": "ff9900ff"
+	},
+	"anishafaf": {
+		"hex": "ffa87bff"
+	},
+	"error": {
+		"hex": "ce1f25ff"
+	},
+	"error2": {
+		"hex": "ad1400ff"
+	},
+	"ordinaryText": {
+		"hex": "221122ff"
+	},
+	"ordinaryTextBoarder": {
+		"hex": "dd9454ff"
+	},
+	"red": {
+		"hex": "ce5252ff"
+	},
+	"redShafaf": {
+		"hex": "ef7373ff"
+	},
+	"text": {
+		"hex": "56160cff"
+	},
+	"textBoarder": {
+		"hex": "e09650ff"
+	},
+	"textBoarderT": {
+		"hex": "c17c3cff"
+	},
+	"white": {
+		"hex": "ffffffff"
+	}
+},
+"CheckBoxStyle": {
+	"default": {
+		"checkboxOn": "selectCheckBox",
+		"checkboxOff": "checkBox",
+		"checkboxOnOver": "selectCheckBox",
+		"checkboxOver": "overCheckbox",
+		"font": "WhiteText",
+		"fontColor": "ordinaryText",
+		"pressedOffsetX": -1,
+		"pressedOffsetY": -2
+	}
+},
+"ImageButtonStyle": {
+	"default": {
+		"imageUp": "tas",
+		"imageDown": "selectedTas",
+		"imageOver": "selectedTas",
+		"pressedOffsetX": -1,
+		"pressedOffsetY": -2
+	}
+},
+"LabelStyle": {
+	"default": {
+		"font": "Text"
+	},
+	"WhiteText": {
+		"font": "WhiteText"
+	},
+	"Impact": {
+		"font": "Impact"
+	},
+	"BoldImpact": {
+		"font": "BoldImpact"
+	},
+	"Bold": {
+		"font": "Bold"
+	}
+},
+"ListStyle": {
+	"default": {
+		"font": "WhiteText",
+		"fontColorSelected": "red",
+		"fontColorUnselected": "AdobeAni",
+		"selection": "selectListBoard",
+		"over": "overList",
+		"background": "background"
+	}
+},
+"ProgressBarStyle": {
+	"default-horizontal": {
+		"background": "vScroll",
+		"knob": "hScrollKnob"
+	},
+	"default-vertical": {
+		"background": "vScroll",
+		"knob": "vScrollKnob"
+	}
+},
+"ScrollPaneStyle": {
+	"default": {
+		"background": "selectListBoard",
+		"hScroll": "hScroll",
+		"hScrollKnob": "hScrollKnob",
+		"vScroll": "vScroll",
+		"vScrollKnob": "vScrollKnob"
+	}
+},
+"SelectBoxStyle": {
+	"default": {
+		"font": "Text",
+		"fontColor": "white",
+		"background": "selectBox",
+		"scrollStyle": "default",
+		"listStyle": "default"
+	}
+},
+"SliderStyle": {
+	"default-horizontal": {
+		"background": "hScroll",
+		"knob": "hScrollKnob",
+		"knobBefore": "selectListBoard"
+	},
+	"default-vertical": {
+		"background": "vScroll",
+		"knob": "vScrollKnob"
+	}
+},
+"TextButtonStyle": {
+	"default": {
+		"font": "Impact",
+		"up": "skinyButton",
+		"down": "selectedSkinyButton",
+		"over": "selectedSkinyButton",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -3
+	},
+	"Strawberry": {
+		"font": "Impact",
+		"up": "totButton",
+		"down": "selectedTotButton",
+		"over": "selectedTotButton",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -3
+	},
+	"Chicken": {
+		"font": "Impact",
+		"up": "chickenButton",
+		"down": "selctedChickenButton",
+		"over": "selctedChickenButton",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -3
+	},
+	"Earth": {
+		"font": "Impact",
+		"up": "earthButton",
+		"down": "selecterEarthButton",
+		"over": "selecterEarthButton",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -3
+	},
+	"Plant": {
+		"font": "Impact",
+		"up": "golButton",
+		"down": "selectGolButton",
+		"over": "selectGolButton",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -3
+	}
+},
+"TextFieldStyle": {
+	"default": {
+		"font": "Text",
+		"fontColor": "white",
+		"background": "textField",
+		"cursor": "textFeildCurser"
+	}
+},
+"TextTooltipStyle": {
+	"default": {
+		"label": "default",
+		"background": "backgroundPedding",
+		"wrapWidth": 250
+	}
+},
+"WindowStyle": {
+	"default": {
+		"background": "background",
+		"titleFont": "Bold"
+	},
+	"Letter": {
+		"background": "window2",
+		"titleFont": "Bold"
+	}
+}
+}

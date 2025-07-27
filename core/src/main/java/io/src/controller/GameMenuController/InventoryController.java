@@ -1,10 +1,15 @@
 package io.src.controller.GameMenuController;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import io.src.controller.CommandController;
-import io.src.model.App;
-import io.src.model.Result;
-import io.src.model.Slot;
+import io.src.model.*;
+import io.src.model.Enums.Items.TrashcanType;
+import io.src.model.items.Inventory;
 import io.src.model.items.Item;
+
+import java.util.ArrayList;
 
 public class InventoryController extends CommandController {
     public static Result inventoryShow() {
@@ -12,7 +17,7 @@ public class InventoryController extends CommandController {
         int counter = 1;
         for (Slot slot : App.getMe().getInventory().getSlots()) {
             output.append(counter).append("-Name: '").append(slot.getItem().getName()).append("' Count:")
-                    .append(slot.getQuantity()).append("\n");
+                .append(slot.getQuantity()).append("\n");
             counter++;
         }
         output.append("\nBaghi mande Puli : ").append(App.getMe().getGold());
@@ -36,7 +41,7 @@ public class InventoryController extends CommandController {
 
         if (App.getMe().getInventory().countItem(item) < amount) {
             return new Result(false, "you do not have enough items " +
-                    App.getMe().getInventory().countItem(item) + "<" + amount);
+                App.getMe().getInventory().countItem(item) + "<" + amount);
         }
 
         int moneyToAdd = amount * item.getFinalPrice() * App.getMe().getCurrentTrashcan().getReturnPercent();
@@ -44,6 +49,72 @@ public class InventoryController extends CommandController {
         App.getMe().getInventory().remove(item, amount);
 
         return new Result(true, "You have trashed: " + itemStr + "*" + amount +
-                "\ntotal cash gets: " + moneyToAdd);
+            "\ntotal cash gets: " + moneyToAdd);
+    }
+
+    public static User returnUser(String username) {
+        ArrayList<User> users = App.getUsers();
+        if (users == null) return null;
+
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public static void swapSlots(Inventory inventory, int fromIndex, int toIndex) {
+        ArrayList<Slot> slots = inventory.getSlots();
+        if (fromIndex < slots.size() && toIndex < inventory.getBackPackType().getCapacity()) {
+            Slot temp = slots.get(fromIndex);
+            slots.set(fromIndex, slots.get(toIndex));
+            slots.set(toIndex, temp);
+        } else if (toIndex >= slots.size()) {
+            Slot moving = slots.get(fromIndex);
+            slots.remove(fromIndex);
+            slots.add(toIndex, moving);
+        }
+    }
+
+    public static Image trashCanImage(Player player) {
+        TrashcanType trashcan1 = player.getCurrentTrashcan();
+        Image trashCan = null;
+        if (trashcan1.equals(TrashcanType.initialTrashcan)) {
+            trashCan = new Image(GameAssetManager.getGameAssetManager().getTrashcan1());
+        } else if (trashcan1.equals(TrashcanType.copperTrashcan)) {
+            trashCan = new Image(GameAssetManager.getGameAssetManager().getTrashcan2());
+        } else if (trashcan1.equals(TrashcanType.ironTrashcan)) {
+            trashCan = new Image(GameAssetManager.getGameAssetManager().getTrashcan3());
+        } else if (trashcan1.equals(TrashcanType.goldTrashcan)) {
+            trashCan = new Image(GameAssetManager.getGameAssetManager().getTrashcan4());
+        } else if (trashcan1.equals(TrashcanType.iridiumTrashcan)) {
+            trashCan = new Image(GameAssetManager.getGameAssetManager().getTrashcan5());
+
+        }
+        return trashCan;
+    }
+
+    public static  Table showSkillsLevel(int level) {
+
+        Table table = new Table();
+        table.defaults().padRight(3f);
+        for (int i = 0; i < 10; i++) {
+            Stack stack = new Stack();
+            Image skillsImage = null;
+            if (i <= level && (i + 1) % 5 != 0) {
+                skillsImage = new Image(GameAssetManager.getGameAssetManager().getFilledSmallSkillBar());
+            } else if (i <= level && (i + 1) % 5 == 0) {
+                skillsImage = new Image(GameAssetManager.getGameAssetManager().getFilledBigSkillBar());
+            } else if (i > level && (i + 1) % 5 != 0) {
+                skillsImage = new Image(GameAssetManager.getGameAssetManager().getEmptySmallSkillBar());
+            } else if (i > level && (i + 1) % 5 == 0) {
+                skillsImage = new Image(GameAssetManager.getGameAssetManager().getEmptyBigSkillBar());
+            }
+            stack.add(skillsImage);
+            table.add(stack).size(33);
+        }
+        return table;
     }
 }
+
