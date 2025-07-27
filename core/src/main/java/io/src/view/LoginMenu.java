@@ -80,7 +80,7 @@ public class LoginMenu implements AppMenu, Screen {
         window.setSize((float) screenWidth / 2, (float) screenHeight / 2);
         window.setPosition(((float) screenWidth / 2) - window.getWidth() / 2,
             ((float) screenHeight / 2) - window.getHeight() / 2);
-        forgetPassButton = new  TextButton("Forget Password?", skin, "default2_PINK");
+        forgetPassButton = new TextButton("Forget Password?", skin, "default2_PINK");
 
         window.add(welcomeLabel);
         window.row();
@@ -198,7 +198,11 @@ public class LoginMenu implements AppMenu, Screen {
 
     // getter
 
-    public TextButton getloginButton2() {
+    public TextButton getForgetPassButton() {
+        return forgetPassButton;
+    }
+
+    public TextButton getLoginButton2() {
         return loginButton2;
     }
 
@@ -206,23 +210,23 @@ public class LoginMenu implements AppMenu, Screen {
         return registerButton2;
     }
 
-    public TextField getusernameField2() {
+    public TextField getUsernameField2() {
         return usernameField2;
     }
 
-    public TextField getpasswordField2() {
+    public TextField getPasswordField2() {
         return passwordField2;
     }
 
-    public TextField getrePassField() {
+    public TextField getRePassField() {
         return rePassField;
     }
 
-    public TextField getnicknameField() {
+    public TextField getNicknameField() {
         return nicknameField;
     }
 
-    public TextField getemailField() {
+    public TextField getEmailField() {
         return emailField;
     }
 
@@ -294,7 +298,6 @@ public class LoginMenu implements AppMenu, Screen {
         stage.addActor(warningLabel);
     }
 
-
     @Override
     public void pause() {
 
@@ -317,11 +320,11 @@ public class LoginMenu implements AppMenu, Screen {
         User tmpUser;
 
         if ((matcher = LoginMenuCommands.register.getMatcher(input)).find()) {
-            System.out.println(LoginMenuController.manageRegisterUser(matcher));
-            if (LoginMenuController.manageRegisterUser(matcher).isSuccess()) {
+            System.out.println(LoginMenuController.manageRegisterUser(matcher.group(1),matcher.group(2),matcher.group(3),matcher.group(4),matcher.group(5),matcher.group(6)));
+            if (LoginMenuController.manageRegisterUser(matcher.group(1),matcher.group(2),matcher.group(3),matcher.group(4),matcher.group(5),matcher.group(6)).isSuccess()) {
                 String input1 = scanner.nextLine();
                 Matcher matcher1;
-                if ((matcher1 = LoginMenuCommands.pickSecurityQuestion.getMatcher(input1)).find() && LoginMenuController.manageRegisterUser(matcher).isSuccess()) {
+                if ((matcher1 = LoginMenuCommands.pickSecurityQuestion.getMatcher(input1)).find() && LoginMenuController.manageRegisterUser(matcher.group(1),matcher.group(2),matcher.group(3),matcher.group(4),matcher.group(5),matcher.group(6)).isSuccess()) {
                     System.out.println(LoginMenuController.peakSecurityQuestion(matcher1, matcher));
                 } else {
                     System.out.println("ok you don't want it!");

@@ -8,14 +8,13 @@ import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.InfoRegexes;
-import io.src.model.Enums.Menu;
 import io.src.model.Enums.SecurityQuestion;
 import io.src.model.MakePasswordSHA_256;
 import io.src.model.Result;
 import io.src.model.User;
 import io.src.view.LoginMenu;
+import io.src.view.MainMenu;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -52,7 +51,9 @@ public class LoginMenuController extends CommandController {
     // UI
 
     private void initialize() {
-        // login button :
+
+        // login :
+
         menu.getLoginButton().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -61,14 +62,15 @@ public class LoginMenuController extends CommandController {
                     menu.getPasswordField().getText(),
                     menu.getStayLoggedInCheckBox().isChecked()
                 );
-
-                if (!result.isSuccess()) {
-                    menu.showWarningLabel(result.getMessage());
+                menu.showWarningLabel(result.getMessage());
+                if (result.isSuccess()) {
+                    MainMenuController controller = new MainMenuController(game);
+                    controller.init();
+                    controller.run();
                 }
             }
         });
 
-        // Register button :
         menu.getRegisterButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 menu.getWindow().setVisible(false);
@@ -79,19 +81,6 @@ public class LoginMenuController extends CommandController {
         menu.getExitButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
-            }
-        });
-
-        menu.getExitButton2().addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
-
-        menu.getloginButton2().addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                menu.getRegisterWindow().setVisible(false);
-                menu.getWindow().setVisible(true);
             }
         });
 
@@ -108,18 +97,56 @@ public class LoginMenuController extends CommandController {
                 menu.getfemaleCheckBox().setChecked(true);
             }
         });
+
+        // forget password.
+
+        // Register :
+
+        menu.getRegisterButton2().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    Result result = manageRegisterUser(
+                        menu.getUsernameField2().getText(),
+                        menu.getPasswordField2().getText(),
+                        menu.getRePassField().getText(),
+                        menu.getNicknameField().getName(),
+                        menu.getEmailField().getText(),
+                        ((menu.getmaleCheckBox().isChecked()) ? "male" : "female")
+                    );
+                    menu.showWarningLabel(" " + result.getMessage());
+                    if (!result.isSuccess()) {
+                        return;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Exception: ");
+                }
+            }
+        });
+
+        menu.getExitButton2().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+        menu.getLoginButton2().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getRegisterWindow().setVisible(false);
+                menu.getWindow().setVisible(true);
+            }
+        });
     }
 
     // logic :
 
-    public static Result manageRegisterUser(Matcher matcher) {
+    public static Result manageRegisterUser(String username, String password, String rePassword, String nickname, String email, String gender) {
         Random random = new Random();
-        String username = matcher.group(1).trim();
-        String password = matcher.group(2).trim().trim();
-        String rePassword = matcher.group(3).trim();
-        String nickName = matcher.group(4).trim();
-        String email = matcher.group(5).trim();
-        String gender = matcher.group(6).trim();
+        username = username.trim();
+        password = username.trim();
+        rePassword = rePassword.trim();
+        nickname = nickname.trim();
+        email = email.trim();
+        gender = gender.trim();
         if (!InfoRegexes.usersName.isValid(username)) {
             return new Result(false, "do yo wanna play game with me?(username is incorrect) you can use " + makeRandomUserName());
         } else if (returnUser(username) != null) {
