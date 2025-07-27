@@ -19,10 +19,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu implements AppMenu, Screen {
-    private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
-
-    // fields :
-
     private final Stage stage;
     private final TextButton loginButton;
     private final TextButton registerButton;
