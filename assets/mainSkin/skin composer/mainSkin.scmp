@@ -3,7 +3,7 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -23,7 +23,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -43,7 +43,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -63,7 +63,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/cursor.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/cursor.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -83,7 +83,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selection.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selection.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -103,7 +103,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/textfield.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/textfield.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -123,7 +123,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_OFF.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_OFF.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -143,7 +143,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_ON.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_ON.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -163,7 +163,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/window.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/window.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -183,7 +183,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/warning_label.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/warning_label.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -205,7 +205,7 @@ atlasData: {
 	]
 	fontDrawables: [
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -225,7 +225,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -245,7 +245,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -265,7 +265,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -285,7 +285,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -305,7 +305,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -386,7 +386,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -394,7 +394,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -402,7 +402,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -410,7 +410,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -418,7 +418,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -426,7 +426,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).fnt
 		}
 	]
 	freeTypeFonts: []
@@ -3896,7 +3896,7 @@ preferences: {
 		value: 30
 	}
 }
-saveFile: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/mainSkin.scmp
+saveFile: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/mainSkin.scmp
 version: 58
 sceneComposer: null
 }

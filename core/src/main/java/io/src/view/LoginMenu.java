@@ -35,6 +35,7 @@ public class LoginMenu implements AppMenu, Screen {
     private final Window registerWindow;
     private Label warningLabel;
     private final Skin skin;
+    private final TextButton forgetPassButton;
 
     private final TextButton exitButton2;
     private final TextButton registerButton2;
@@ -79,6 +80,7 @@ public class LoginMenu implements AppMenu, Screen {
         window.setSize((float) screenWidth / 2, (float) screenHeight / 2);
         window.setPosition(((float) screenWidth / 2) - window.getWidth() / 2,
             ((float) screenHeight / 2) - window.getHeight() / 2);
+        forgetPassButton = new  TextButton("Forget Password?", skin, "default2_PINK");
 
         window.add(welcomeLabel);
         window.row();
@@ -90,9 +92,11 @@ public class LoginMenu implements AppMenu, Screen {
         window.row();
         window.add(passwordField).padTop(5).width(textFieldWidth);
         window.row();
-        window.add(stayLoggedInCheckBox).padTop(10);
+        window.add(forgetPassButton);
         window.row();
-        window.add(loginButton).padTop(20).width(150);
+        window.add(stayLoggedInCheckBox).padTop(15);
+        window.row();
+        window.add(loginButton).padTop(20).width(250).height(65);
         window.row();
         window.add(registerButton).padTop(10);
         window.row();
@@ -106,59 +110,61 @@ public class LoginMenu implements AppMenu, Screen {
             ((float) screenHeight / 2) - registerWindow.getHeight() / 2);
         registerWindow.setVisible(false);
 
-        exitButton2 = new TextButton("Exit", skin);
-        registerButton2 = new TextButton(" Register ", skin,"button1-2");
+        exitButton2 = new TextButton(" Exit ", skin);
+        registerButton2 = new TextButton(" Register ", skin, "button1-2");
         loginButton2 = new TextButton(" Login ", skin);
         maleCheckBox = new CheckBox(" Male", skin);
         femaleCheckBox = new CheckBox(" Female", skin);
         usernameField2 = new TextField("", skin);
+        usernameField2.setAlignment(1);
         passwordField2 = new TextField("", skin);
+        passwordField2.setAlignment(1);
         rePassField = new TextField("", skin);
+        rePassField.setAlignment(1);
+        passwordField2.setPasswordCharacter('*');
+        passwordField2.setPasswordMode(true);
         nicknameField = new TextField("", skin);
+        nicknameField.setAlignment(1);
+        rePassField.setPasswordCharacter('*');
+        rePassField.setPasswordMode(true);
         emailField = new TextField("", skin);
+        emailField.setAlignment(1);
         Label welcomeLabel2 = new Label("Welcome!", skin, "font-90_PINK");
         Label usernameLabel2 = new Label("Username:", skin);
         Label passwordLabel2 = new Label("Password:", skin);
         Label rePassLabel2 = new Label("Re-Password:", skin);
         Label nicknameLabel2 = new Label("Nickname:", skin);
         Label emailLabel2 = new Label("Email:", skin);
-        registerWindow.debug();
+
+        maleCheckBox.setChecked(true);
+        femaleCheckBox.setChecked(false);
+
         registerWindow.add(welcomeLabel2);
         registerWindow.row();
-        Table row2 = new Table();
-        row2.add(usernameLabel2).colspan(2);
-        row2.add(usernameField2).width(textFieldWidth);
-        registerWindow.add(row2);
-        registerWindow.row();
-        Table row3 = new Table();
-        row3.add(passwordLabel2);
-        row3.add(passwordField2).width(textFieldWidth);
-        registerWindow.add(row3).padTop(10);
-        registerWindow.row();
-        Table row4 = new Table();
-        row4.add(rePassLabel2);
-        row4.add(rePassField).width(textFieldWidth);
-        registerWindow.add(row4).padTop(10);
-        registerWindow.row();
-        Table row5 = new Table();
-        row5.add(nicknameLabel2);
-        row5.add(nicknameField).width(textFieldWidth);
-        registerWindow.add(row5).padTop(10);
-        registerWindow.row();
-        Table row6 = new Table();
-        row6.add(emailLabel2);
-        row6.add(emailField).width(textFieldWidth);
-        registerWindow.add(row6).padTop(10);
-        registerWindow.row();
-        Table row7 = new Table();
-        row7.add(maleCheckBox).colspan(2);
-        row7.add(femaleCheckBox);
-        registerWindow.add(row7);
+        Table fields = new Table();
+        fields.add(usernameLabel2);
+        fields.add(usernameField2).width(textFieldWidth);
+        fields.row();
+        fields.add(passwordLabel2).padTop(10);
+        fields.add(passwordField2).width(textFieldWidth).padTop(10);
+        fields.row();
+        fields.add(rePassLabel2).padTop(10);
+        fields.add(rePassField).width(textFieldWidth).padTop(10);
+        fields.row();
+        fields.add(nicknameLabel2).padTop(10);
+        fields.add(nicknameField).width(textFieldWidth).padTop(10);
+        fields.row();
+        fields.add(emailLabel2).padTop(10);
+        fields.add(emailField).width(textFieldWidth).padTop(10);
+        fields.row();
+        fields.add(maleCheckBox).padTop(10);
+        fields.add(femaleCheckBox).padTop(10);
+        registerWindow.add(fields).padTop(20);
         registerWindow.row();
         Table row8 = new Table();
-        row8.add(registerButton2).colspan(3);
-        row8.add(exitButton2);
-        row8.add(loginButton2);
+        row8.add(loginButton2).padRight(10);
+        row8.add(registerButton2).colspan(3).width(250).height(65);
+        row8.add(exitButton2).padLeft(10);
         registerWindow.add(row8).padTop(20);
 
         stage.addActor(window);
@@ -191,6 +197,42 @@ public class LoginMenu implements AppMenu, Screen {
     }
 
     // getter
+
+    public TextButton getloginButton2() {
+        return loginButton2;
+    }
+
+    public TextButton getRegisterButton2() {
+        return registerButton2;
+    }
+
+    public TextField getusernameField2() {
+        return usernameField2;
+    }
+
+    public TextField getpasswordField2() {
+        return passwordField2;
+    }
+
+    public TextField getrePassField() {
+        return rePassField;
+    }
+
+    public TextField getnicknameField() {
+        return nicknameField;
+    }
+
+    public TextField getemailField() {
+        return emailField;
+    }
+
+    public CheckBox getmaleCheckBox() {
+        return maleCheckBox;
+    }
+
+    public CheckBox getfemaleCheckBox() {
+        return femaleCheckBox;
+    }
 
     public TextButton getExitButton2() {
         return exitButton2;

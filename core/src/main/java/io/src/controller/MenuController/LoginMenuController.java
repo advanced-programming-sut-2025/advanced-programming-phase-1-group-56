@@ -45,13 +45,13 @@ public class LoginMenuController extends CommandController {
 
     public void run() {
         game.setScreen(menu);
+        App.getCurrentMenu();
         initialize();
     }
 
     // UI
 
     private void initialize() {
-
         // login button :
         menu.getLoginButton().addListener(new ClickListener() {
             @Override
@@ -85,6 +85,27 @@ public class LoginMenuController extends CommandController {
         menu.getExitButton2().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
+            }
+        });
+
+        menu.getloginButton2().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getRegisterWindow().setVisible(false);
+                menu.getWindow().setVisible(true);
+            }
+        });
+
+        menu.getmaleCheckBox().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getmaleCheckBox().setChecked(true);
+                menu.getfemaleCheckBox().setChecked(false);
+            }
+        });
+
+        menu.getfemaleCheckBox().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getmaleCheckBox().setChecked(false);
+                menu.getfemaleCheckBox().setChecked(true);
             }
         });
     }

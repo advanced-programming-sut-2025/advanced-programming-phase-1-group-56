@@ -12,7 +12,7 @@ public class App {
     //TODO
     private static final ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
-    private static Menu currentMenu = Menu.loginMenu;
+    private static Menu currentMenu = null;
 
     public static ArrayList<User> getUsers() {
         Gson gson = new Gson();
@@ -64,15 +64,15 @@ public class App {
     }
 
     public static User getUserByUsername(String username) {
-        for(User user : getUsers()){
-            if(user.getUsername().equals(username)){
+        for (User user : getUsers()) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
         return null;
     }
 
-    public static Player getMe(){
+    public static Player getMe() {
         return App.getCurrentUser().getCurrentGame().getCurrentPlayer();
     }
 }
