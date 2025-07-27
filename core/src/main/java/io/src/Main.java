@@ -1,23 +1,22 @@
 package io.src;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.src.controller.GameMenuController.GameController;
 
 public class Main extends Game {
     private static Main main;
-    private static SpriteBatch Batch;
+    private static SpriteBatch batch;
 
     public static Main getMain() {
-        if (main == null) {
-            main = new Main();
-            Batch = new SpriteBatch();
-        }
         return main;
     }
 
     @Override
     public void create() {
+        main = this;
+        batch = new SpriteBatch();
         GameController gameController = new GameController();
         gameController.init();
         gameController.run();
@@ -30,6 +29,6 @@ public class Main extends Game {
     }
 
     public SpriteBatch getBatch() {
-        return Batch;
+        return batch;
     }
 }

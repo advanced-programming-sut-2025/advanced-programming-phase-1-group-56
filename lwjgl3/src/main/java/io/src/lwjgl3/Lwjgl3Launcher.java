@@ -7,7 +7,9 @@ import io.src.model.App;
 import io.src.model.Game;
 import io.src.view.AppView;
 
-/** Launches the desktop (LWJGL3) application. */
+/**
+ * Launches the desktop (LWJGL3) application.
+ */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return;

@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.src.model.Enums.Menu;
@@ -15,7 +16,6 @@ public class App {
     private static final ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
-
 
 
     public static ArrayList<User> getUsers() {
@@ -68,14 +68,15 @@ public class App {
     }
 
     public static User getUserByUsername(String username) {
-        for(User user : getUsers()){
-            if(user.getUsername().equals(username)){
+        for (User user : getUsers()) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
         return null;
     }
-    public static Player getMe(){
+
+    public static Player getMe() {
         return App.getCurrentUser().getCurrentGame().getCurrentPlayer();
     }
 }

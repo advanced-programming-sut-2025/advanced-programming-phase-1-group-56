@@ -1,5 +1,11 @@
 package io.src.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.controller.MenuController.ProfileMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
@@ -8,7 +14,7 @@ import io.src.model.Enums.commands.ProfileMenuCommands;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
-public class ProfileMenu implements AppMenu {
+public class ProfileMenu implements AppMenu, Screen {
     @Override
     public void check(Scanner scanner) {
         String input = scanner.nextLine();
@@ -31,5 +37,55 @@ public class ProfileMenu implements AppMenu {
         } else {
             System.out.println("invalid command bro!..");
         }
+    }
+
+    private ProfileMenuController profileMenuController;
+    private Stage stage;
+    private Label label;
+
+    public ProfileMenu(ProfileMenuController controller) {
+        profileMenuController = controller;
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        BitmapFont font = new BitmapFont();
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, Color.WHITE);
+        label = new Label("", labelStyle);
+
+
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float v) {
+
+    }
+
+    @Override
+    public void resize(int i, int i1) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

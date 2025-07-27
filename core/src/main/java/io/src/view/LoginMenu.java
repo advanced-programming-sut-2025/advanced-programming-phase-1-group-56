@@ -1,12 +1,14 @@
 package io.src.view;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;
 import io.src.model.User;
 
+import java.awt.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -14,11 +16,11 @@ public class LoginMenu implements AppMenu, Screen {
     private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
     private LoginMenuController controller;
 
+
     public LoginMenu() {
     }
 
     public LoginMenu(LoginMenuController controller) {
-        this.controller = controller;
     }
 
     @Override
