@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add timer and energybar">
-      <change beforePath="$PROJECT_DIR$/assets/video/intro.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/assets/video/intro.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/video/loop.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/assets/video/loop.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" afterDir="false" />
-    </list>
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add window for dialog and inventory" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -464,7 +460,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="last commit to show mohesen" />
     <MESSAGE value="shop controller 7/7 add animal buying green house&#10; //TODO sell animal / sell item" />
     <MESSAGE value="Start NPC mf" />
     <MESSAGE value="add husbandry" />
@@ -489,7 +484,8 @@
     <MESSAGE value="graphic environment loaded finally" />
     <MESSAGE value="add inventory" />
     <MESSAGE value="add timer and energybar" />
-    <option name="LAST_COMMIT_MESSAGE" value="add timer and energybar" />
+    <MESSAGE value="add window for dialog and inventory" />
+    <option name="LAST_COMMIT_MESSAGE" value="add window for dialog and inventory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
