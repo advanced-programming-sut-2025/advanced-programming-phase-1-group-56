@@ -11,10 +11,7 @@ import io.src.model.Game;
 import io.src.model.User;
 import io.src.view.AppView;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 
 public class StardewValley extends com.badlogic.gdx.Game {
     private Game game;
@@ -28,11 +25,14 @@ public class StardewValley extends com.badlogic.gdx.Game {
     public void create() {
         batch = new SpriteBatch();
         Gson gson = new Gson();
-        User user;
-        try (Reader reader = new FileReader("assets\\StayLoggedIn.json")) {
-            user = gson.fromJson(reader, User.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        User user = null;
+
+        if (new File("assets\\StayLoggedIn.json").exists()) {
+            try (Reader reader = new FileReader("assets\\StayLoggedIn.json")) {
+                user = gson.fromJson(reader, User.class);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         if (user == null) {

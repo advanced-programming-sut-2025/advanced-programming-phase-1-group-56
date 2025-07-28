@@ -3,13 +3,9 @@ package io.src.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.src.Main;
 import io.src.StardewValley;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
@@ -17,23 +13,22 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.MainMenuCommands;
 
 
-import java.security.PrivilegedAction;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class MainMenu implements AppMenu, Screen {
-
+    // fields :
     private final Stage stage;
-    private Texture image;
+    private final Texture image;
+
+//    private final TextButton newButton;
+//    private final TextButton loadButton;
+//    private final
 
     public MainMenu() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         image = new Texture(Gdx.files.internal("background1.jpg"));
-    }
-
-    @Override
-    public void show() {
 
     }
 
@@ -58,6 +53,11 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
+
+    @Override
+    public void show() {
+
+    }
 
     @Override
     public void pause() {

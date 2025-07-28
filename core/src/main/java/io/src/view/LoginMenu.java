@@ -1,7 +1,12 @@
 package io.src.view;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.StardewValley;
@@ -31,6 +36,7 @@ public class LoginMenu implements AppMenu, Screen {
     private Label warningLabel;
     private final int screenWidth;
     private final int screenHeight;
+    ArrayList<Cloud> clouds;
 
     // login menu
     private final TextButton loginButton;
@@ -74,11 +80,13 @@ public class LoginMenu implements AppMenu, Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
-        background = new Texture(Gdx.files.internal("background1.jpg"));
+        background = new Texture(Gdx.files.internal("background2.png"));
         int textFieldWidth = 300;
         int buttonWidth = 150;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
+        System.out.println(screenWidth
+            + " " + screenHeight);
 
         // login menu
 
@@ -286,9 +294,19 @@ public class LoginMenu implements AppMenu, Screen {
 
     @Override
     public void render(float v) {
+        if (Gdx.input.isTouched()) {
+            int x = Gdx.input.getX();
+            int y = Gdx.graphics.getHeight() - Gdx.input.getY();
+            System.out.println("Clicked at: (" + x + ", " + y + ")");
+        }
+
         ScreenUtils.clear(1, 1, 1, 1);
         StardewValley.getBatch().begin();
         StardewValley.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        for (Cloud c : clouds) {
+            c.update(v);
+            c.draw(StardewValley.getBatch());
+        }
         StardewValley.getBatch().end();
         stage.act(v);
         stage.draw();
@@ -296,7 +314,13 @@ public class LoginMenu implements AppMenu, Screen {
 
     @Override
     public void show() {
-
+        clouds = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            float x = (float) (Math.random() * Gdx.graphics.getWidth());
+            float y = 300 + (float) (MathUtils.random(screenHeight / 2 - 400, screenHeight / 2 - 200));
+            float speed = 30 + (float) (Math.random() * 5);
+            clouds.add(new Cloud(new Texture(Gdx.files.internal("cloud" + ((i % 3) + 1) + ".png")), speed, x, y));
+        }
     }
 
     @Override
@@ -515,5 +539,28 @@ public class LoginMenu implements AppMenu, Screen {
         } else {
             System.out.println("invalid command bro!..");
         }
+    }
+}
+
+class Cloud {
+    private final float speed;
+    private final Sprite sprite;
+
+    public Cloud(Texture texture, float speed, float x, float y) {
+        this.sprite = new Sprite(texture);
+        sprite.setScale(2f);
+        this.speed = speed;
+        sprite.setPosition(x, y);
+    }
+
+    public void update(float delta) {
+        float x = sprite.getX() - speed * delta;
+        if (x + (sprite.getWidth() * 2) < 0)
+            x = Gdx.graphics.getWidth() + sprite.getWidth() * 2;
+        sprite.setX(x);
+    }
+
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
     }
 }
