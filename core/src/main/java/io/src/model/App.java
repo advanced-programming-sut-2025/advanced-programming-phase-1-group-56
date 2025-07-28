@@ -68,11 +68,12 @@ public class App {
     }
 
     public static User getUserByUsername(String username) {
-        for (User user : getUsers()) {
-            if (user.getUsername().equals(username)) {
+        for (User user : users)
+            if (user.getUsername().equals(username))
                 return user;
-            }
-        }
+        for (User user : getUsers())
+            if (user.getUsername().equals(username))
+                return user;
         return null;
     }
 
@@ -80,7 +81,12 @@ public class App {
         return App.getCurrentUser().getCurrentGame().getCurrentPlayer();
     }
 
-    public static void setUsers(ArrayList<User> users) {
-        App.users = users;
+    public static void saveUsers() {
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            gson.toJson(users, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

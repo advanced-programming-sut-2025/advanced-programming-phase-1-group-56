@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="add window for dialog and inventory">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/UserBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,6 +63,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "extract.method.default.visibility": "private",
     "git-widget-placeholder": "maz",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56",
@@ -107,6 +107,7 @@
       <workItem from="1753611126708" duration="4152000" />
       <workItem from="1753617805343" duration="2416000" />
       <workItem from="1753669481982" duration="11273000" />
+      <workItem from="1753717454098" duration="4748000" />
     </task>
     <task id="LOCAL-00001" summary="finish register menu">
       <option name="closed" value="true" />

@@ -23,12 +23,13 @@ public class MainMenuController extends CommandController {
         this.game = game;
     }
 
-    public void init(){
+    public void init() {
         menu = new MainMenu();
     }
 
-    public void run(){
+    public void run() {
         game.setScreen(menu);
+        App.init();
         initialize();
     }
 
@@ -41,7 +42,6 @@ public class MainMenuController extends CommandController {
         App.setCurrentUser(null);
         File file = new File(FILE_PATH_FOR_STAY_LOGGED);
         file.delete();
-
         return new Result(true, "You have been logged out!");
     }
 }
