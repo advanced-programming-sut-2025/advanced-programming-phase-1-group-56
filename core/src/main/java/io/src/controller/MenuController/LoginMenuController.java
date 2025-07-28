@@ -2,6 +2,7 @@ package io.src.controller.MenuController;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.Gson;
 import io.src.StardewValley;
@@ -13,11 +14,11 @@ import io.src.model.MakePasswordSHA_256;
 import io.src.model.Result;
 import io.src.model.User;
 import io.src.view.LoginMenu;
-import io.src.view.MainMenu;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.lang.reflect.Array;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class LoginMenuController extends CommandController {
 
     public void run() {
         game.setScreen(menu);
-        App.getCurrentMenu();
+        App.init();
         initialize();
     }
 
@@ -73,7 +74,7 @@ public class LoginMenuController extends CommandController {
 
         menu.getRegisterButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                menu.getWindow().setVisible(false);
+                menu.getLoginWindow().setVisible(false);
                 menu.getRegisterWindow().setVisible(true);
             }
         });
@@ -100,26 +101,24 @@ public class LoginMenuController extends CommandController {
 
         // forget password.
 
+
         // Register :
 
         menu.getRegisterButton2().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                try {
-                    Result result = manageRegisterUser(
-                        menu.getUsernameField2().getText(),
-                        menu.getPasswordField2().getText(),
-                        menu.getRePassField().getText(),
-                        menu.getNicknameField().getName(),
-                        menu.getEmailField().getText(),
-                        ((menu.getmaleCheckBox().isChecked()) ? "male" : "female")
-                    );
-                    menu.showWarningLabel(" " + result.getMessage());
-                    if (!result.isSuccess()) {
-                        return;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Exception: ");
+                Result result = manageRegisterUser(
+                    menu.getUsernameField2().getText(),
+                    menu.getPasswordField2().getText(),
+                    menu.getRePassField().getText(),
+                    menu.getNicknameField().getText(),
+                    menu.getEmailField().getText()
+                );
+                if (!result.isSuccess()) {
+                    menu.showWarningLabel(result.getMessage());
+//                    return;
                 }
+                menu.getRegisterWindow().setVisible(false);
+                menu.getSecurityWindow().setVisible(true);
             }
         });
 
@@ -132,27 +131,36 @@ public class LoginMenuController extends CommandController {
         menu.getLoginButton2().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 menu.getRegisterWindow().setVisible(false);
-                menu.getWindow().setVisible(true);
+                menu.getLoginWindow().setVisible(true);
             }
         });
+
+        // security question :
+
+        for (CheckBox c : menu.getSecurityQuestions()) {
+            c.addListener(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
+                    for (CheckBox cb : menu.getSecurityQuestions())
+                        cb.setChecked(false);
+                    c.setChecked(true);
+                }
+            });
+        }
     }
 
     // logic :
 
-    public static Result manageRegisterUser(String username, String password, String rePassword, String nickname, String email, String gender) {
+    public static Result manageRegisterUser(String username, String password, String rePassword, String nickname, String email) {
         Random random = new Random();
         username = username.trim();
-        password = username.trim();
+        password = password.trim();
         rePassword = rePassword.trim();
         nickname = nickname.trim();
         email = email.trim();
-        gender = gender.trim();
         if (!InfoRegexes.usersName.isValid(username)) {
-            return new Result(false, "do yo wanna play game with me?(username is incorrect) you can use " + makeRandomUserName());
+            return new Result(false, "username is incorrect! you can use :\"" + makeRandomUserName() + "\"");
         } else if (returnUser(username) != null) {
             return new Result(false, "we already have an account with that name");
-        } else if (!InfoRegexes.email.isValid(email)) {
-            return new Result(false, "please enter valid email!");
         } else if (!InfoRegexes.password.isValid(password)) {
             return new Result(false, "please enter valid password!");
         } else if (password.length() < 8) {
@@ -161,9 +169,12 @@ public class LoginMenuController extends CommandController {
             return new Result(false, "please only use special character and letter and number for password! but you can use " + manageMakeRandomPassword(random.nextInt(10, 12), password));
         } else if (!password.equals(rePassword)) {
             return new Result(false, "passwords do not match!");
+        } else if (nickname.isEmpty()) {
+            return new Result(false, "nickname is empty!");
+        } else if (!InfoRegexes.email.isValid(email)) {
+            return new Result(false, "please enter valid email!");
         }
-        String result = showSecurityQuestion();
-        return new Result(true, "Okay, but for the security of your account ,\none of these security questions is required\n" + result + "\n");
+        return new Result(true, "");
     }
 
     private static String showSecurityQuestion() {
@@ -176,6 +187,15 @@ public class LoginMenuController extends CommandController {
                 .append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public static ArrayList<String> getSecurityQuestions() {
+        ArrayList<String> securityQuestions = new ArrayList<>();
+        SecurityQuestion[] questions = SecurityQuestion.values();
+        for (SecurityQuestion question : questions) {
+            securityQuestions.add(question.getQuestion());
+        }
+        return securityQuestions;
     }
 
     public static Result answer(Matcher matcher, Matcher matcher1) {
@@ -283,12 +303,7 @@ public class LoginMenuController extends CommandController {
         String nickName = matcher.group(4).trim();
         String email = matcher.group(5).trim();
         String gender = matcher.group(6).trim();
-        boolean gender1;
-        if (gender.equalsIgnoreCase("male")) {
-            gender1 = true;
-        } else {
-            gender1 = false;
-        }
+        boolean gender1 = gender.equalsIgnoreCase("male");
         int QuestionNumber = Integer.parseInt(matcher1.group(1).trim());
         String answer = matcher1.group(2).trim();
         String answerConfirmation = matcher1.group(3).trim();
@@ -310,17 +325,14 @@ public class LoginMenuController extends CommandController {
     private static String makeRandomUserName() {
         Random random = new Random();
         String newUserName = "username";
-
-        while (returnUser(newUserName) == null) {
-
+        while (returnUser(newUserName) != null) {
             boolean randomBoolean = random.nextBoolean();
             if (randomBoolean) {
                 int randomNumber = random.nextInt(1000);
                 newUserName = "username" + randomNumber;
-            } else {
+            } else
                 newUserName = "username" + "-";
-            }
         }
         return newUserName;
-    }
+    } //
 }

@@ -72,6 +72,24 @@ button1_UP
   orig: 50, 50
   offset: 0, 0
   index: -1
+checkedbx2_OFF
+  rotate: false
+  xy: 53, 51
+  size: 20, 20
+  split: 8, 9, 8, 8
+  pad: 0, 0, 0, 0
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+checkedbx2_ON
+  rotate: false
+  xy: 95, 93
+  size: 20, 20
+  split: 8, 9, 8, 8
+  pad: 0, 0, 0, 0
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
 checkedbx_OFF
   rotate: false
   xy: 589, 881
@@ -100,7 +118,7 @@ cursor
   index: -1
 selection
   rotate: false
-  xy: 53, 47
+  xy: 509, 743
   size: 2, 24
   split: 0, 0, 0, 0
   orig: 2, 24

@@ -9,21 +9,27 @@ import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;
+import io.src.model.Result;
 import io.src.model.SkinManager;
 import io.src.model.User;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class LoginMenu implements AppMenu, Screen {
-    private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
 
     // fields :
-
     private final Stage stage;
+    private final Skin skin;
+    private Label warningLabel;
+    private final int screenWidth;
+    private final int screenHeight;
+
+    // login menu
     private final TextButton loginButton;
     private final TextButton registerButton;
     private final TextField usernameField;
@@ -31,12 +37,11 @@ public class LoginMenu implements AppMenu, Screen {
     private final CheckBox stayLoggedInCheckBox;
     private final TextButton exitButton;
     private final Texture background;
-    private final Window window;
-    private final Window registerWindow;
-    private Label warningLabel;
-    private final Skin skin;
+    private final Window loginWindow;
     private final TextButton forgetPassButton;
 
+    // register menu
+    private final Window registerWindow;
     private final TextButton exitButton2;
     private final TextButton registerButton2;
     private final TextButton loginButton2;
@@ -48,11 +53,15 @@ public class LoginMenu implements AppMenu, Screen {
     private final CheckBox maleCheckBox;
     private final CheckBox femaleCheckBox;
 
-    private final int screenWidth;
-    private final int screenHeight;
+    // forget password :
+
+    // security question :
+    private final Window securityWindow;
+    private final ArrayList<CheckBox> securityQuestions = new ArrayList<>();
+    private final TextField securityField;
+
 
     // init :
-
     public LoginMenu() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -61,6 +70,8 @@ public class LoginMenu implements AppMenu, Screen {
         int textFieldWidth = 300;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
+
+        // login menu
 
         Label welcomeLabel = new Label("Welcome!", skin, "font-90_PINK");
         Label usernameLabel = new Label("Username:", skin);
@@ -76,31 +87,31 @@ public class LoginMenu implements AppMenu, Screen {
         stayLoggedInCheckBox = new CheckBox(" Stay Logged in", skin);
         exitButton = new TextButton("Exit", skin);
         background = new Texture(Gdx.files.internal("background1.jpg"));
-        window = new Window("", skin);
-        window.setSize((float) screenWidth / 2, (float) screenHeight / 2);
-        window.setPosition(((float) screenWidth / 2) - window.getWidth() / 2,
-            ((float) screenHeight / 2) - window.getHeight() / 2);
+        loginWindow = new Window("", skin);
+        loginWindow.setSize((float) screenWidth / 2, (float) screenHeight / 2);
+        loginWindow.setPosition(((float) screenWidth / 2) - loginWindow.getWidth() / 2,
+            ((float) screenHeight / 2) - loginWindow.getHeight() / 2);
         forgetPassButton = new TextButton("Forget Password?", skin, "default2_PINK");
 
-        window.add(welcomeLabel);
-        window.row();
-        window.add(usernameLabel).padTop(15);
-        window.row();
-        window.add(usernameField).padTop(5).width(textFieldWidth);
-        window.row();
-        window.add(passwordLabel).padTop(10);
-        window.row();
-        window.add(passwordField).padTop(5).width(textFieldWidth);
-        window.row();
-        window.add(forgetPassButton);
-        window.row();
-        window.add(stayLoggedInCheckBox).padTop(15);
-        window.row();
-        window.add(loginButton).padTop(20).width(250).height(65);
-        window.row();
-        window.add(registerButton).padTop(10);
-        window.row();
-        window.add(exitButton).padTop(10);
+        loginWindow.add(welcomeLabel);
+        loginWindow.row();
+        loginWindow.add(usernameLabel).padTop(15);
+        loginWindow.row();
+        loginWindow.add(usernameField).padTop(5).width(textFieldWidth);
+        loginWindow.row();
+        loginWindow.add(passwordLabel).padTop(10);
+        loginWindow.row();
+        loginWindow.add(passwordField).padTop(5).width(textFieldWidth);
+        loginWindow.row();
+        loginWindow.add(forgetPassButton);
+        loginWindow.row();
+        loginWindow.add(stayLoggedInCheckBox).padTop(15);
+        loginWindow.row();
+        loginWindow.add(loginButton).padTop(20).width(250).height(65);
+        loginWindow.row();
+        loginWindow.add(registerButton).padTop(10);
+        loginWindow.row();
+        loginWindow.add(exitButton).padTop(10);
 
         // Register Menu :
 
@@ -113,8 +124,8 @@ public class LoginMenu implements AppMenu, Screen {
         exitButton2 = new TextButton(" Exit ", skin);
         registerButton2 = new TextButton(" Register ", skin, "button1-2");
         loginButton2 = new TextButton(" Login ", skin);
-        maleCheckBox = new CheckBox(" Male", skin);
-        femaleCheckBox = new CheckBox(" Female", skin);
+        maleCheckBox = new CheckBox(" Male", skin, "default2");
+        femaleCheckBox = new CheckBox(" Female", skin, "default2");
         usernameField2 = new TextField("", skin);
         usernameField2.setAlignment(1);
         passwordField2 = new TextField("", skin);
@@ -167,8 +178,33 @@ public class LoginMenu implements AppMenu, Screen {
         row8.add(exitButton2).padLeft(10);
         registerWindow.add(row8).padTop(20);
 
-        stage.addActor(window);
+        // forget password :
+
+        // security question :
+
+        securityWindow = new Window("", skin);
+        securityWindow.setSize((float) screenWidth / 2, (float) screenHeight / 2);
+        securityWindow.setPosition(((float) screenWidth / 2) - securityWindow.getWidth() / 2,
+            ((float) screenHeight / 2) - securityWindow.getHeight() / 2);
+        securityWindow.setVisible(false);
+
+        Label securityLabel = new Label("Security Window", skin);
+        securityField = new TextField("", skin);
+        ArrayList<String> questions = LoginMenuController.getSecurityQuestions();
+        for (String question : questions) {
+            CheckBox checkBox = new CheckBox(" " + question, skin, "default2");
+            checkBox.setChecked(false);
+            securityQuestions.add(checkBox);
+            securityWindow.add(checkBox).left().padTop(10);
+            securityWindow.row();
+        }
+        securityQuestions.getFirst().setChecked(true);
+        securityWindow.add(securityField).padTop(25).width(textFieldWidth);
+        securityWindow.row();
+
+        stage.addActor(loginWindow);
         stage.addActor(registerWindow);
+        stage.addActor(securityWindow);
     }
 
     @Override
@@ -197,6 +233,14 @@ public class LoginMenu implements AppMenu, Screen {
     }
 
     // getter
+
+    public ArrayList<CheckBox> getSecurityQuestions() {
+        return securityQuestions;
+    }
+
+    public Window getSecurityWindow() {
+        return securityWindow;
+    }
 
     public TextButton getForgetPassButton() {
         return forgetPassButton;
@@ -242,21 +286,13 @@ public class LoginMenu implements AppMenu, Screen {
         return exitButton2;
     }
 
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
-    }
-
     public Window getRegisterWindow() {
         return registerWindow;
 
     }
 
-    public Window getWindow() {
-        return window;
+    public Window getLoginWindow() {
+        return loginWindow;
     }
 
     public TextButton getLoginButton() {
@@ -320,11 +356,12 @@ public class LoginMenu implements AppMenu, Screen {
         User tmpUser;
 
         if ((matcher = LoginMenuCommands.register.getMatcher(input)).find()) {
-            System.out.println(LoginMenuController.manageRegisterUser(matcher.group(1),matcher.group(2),matcher.group(3),matcher.group(4),matcher.group(5),matcher.group(6)));
-            if (LoginMenuController.manageRegisterUser(matcher.group(1),matcher.group(2),matcher.group(3),matcher.group(4),matcher.group(5),matcher.group(6)).isSuccess()) {
+            Result result = LoginMenuController.manageRegisterUser(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5));
+            System.out.println(result);
+            if (result.isSuccess()) {
                 String input1 = scanner.nextLine();
                 Matcher matcher1;
-                if ((matcher1 = LoginMenuCommands.pickSecurityQuestion.getMatcher(input1)).find() && LoginMenuController.manageRegisterUser(matcher.group(1),matcher.group(2),matcher.group(3),matcher.group(4),matcher.group(5),matcher.group(6)).isSuccess()) {
+                if ((matcher1 = LoginMenuCommands.pickSecurityQuestion.getMatcher(input1)).find()) {
                     System.out.println(LoginMenuController.peakSecurityQuestion(matcher1, matcher));
                 } else {
                     System.out.println("ok you don't want it!");

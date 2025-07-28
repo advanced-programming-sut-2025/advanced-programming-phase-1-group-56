@@ -64,6 +64,16 @@
 		"overFontColor": "PINK",
 		"focusedFontColor": "PINK",
 		"checkedFontColor": "GREEN"
+	},
+	"default2": {
+		"checkboxOn": "checkedbx2_ON",
+		"checkboxOff": "checkedbx2_OFF",
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"overFontColor": "PINK",
+		"focusedFontColor": "PINK",
+		"checkedFontColor": "GREEN"
 	}
 },
 "LabelStyle": {

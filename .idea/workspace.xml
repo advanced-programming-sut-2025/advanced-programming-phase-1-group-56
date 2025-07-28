@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="finish register menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/LoginMenuUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/LoginMenuUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +44,9 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="30S6lzwm4ZDQ9FaNfR9uZuGXks4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -94,6 +100,7 @@
       <workItem from="1753608782592" duration="2290000" />
       <workItem from="1753611126708" duration="4152000" />
       <workItem from="1753617805343" duration="2416000" />
+      <workItem from="1753669481982" duration="11273000" />
     </task>
     <task id="LOCAL-00001" summary="finish register menu">
       <option name="closed" value="true" />
