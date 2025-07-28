@@ -222,6 +222,48 @@
 		"overFontColor": "PINK",
 		"pressedOffsetX": -2,
 		"pressedOffsetY": -2
+	},
+	"inventoryButtonTop-BLACK24": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	},
+	"inventoryButtonTop-PINK24": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	},
+	"inventoryButtonRight-BLACK24": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"up": "inventoryButtonRight_UP",
+		"down": "inventoryButtonTop_DOWN"
+	},
+	"inventoryButtonRight-PINK24": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"up": "inventoryButtonRight_UP",
+		"down": "inventoryButtonTop_DOWN"
+	},
+	"inventoryButtonRight-GREEN24": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"up": "inventoryButtonRight_UP",
+		"down": "inventoryButtonTop_DOWN"
+	},
+	"inventoryButtonTop-GREEN24": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	},
+	"inventoryButtonTop-RED24": {
+		"font": "baseFont2-24",
+		"fontColor": "RED",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
 	}
 },
 "TextFieldStyle": {

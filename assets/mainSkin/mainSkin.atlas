@@ -6,49 +6,49 @@ filter: Linear, Linear
 repeat: none
 ModernDOS9x14
   rotate: false
-  xy: 1, 888
+  xy: 1, 894
   size: 506, 82
   orig: 506, 82
   offset: 0, 0
   index: -1
 ModernDOS9x14(1)
   rotate: false
-  xy: 509, 903
+  xy: 509, 909
   size: 505, 113
   orig: 505, 113
   offset: 0, 0
   index: -1
 ModernDOS9x14(2)
   rotate: false
-  xy: 1, 658
+  xy: 1, 664
   size: 506, 228
   orig: 506, 228
   offset: 0, 0
   index: -1
 StardewValley
   rotate: false
-  xy: 1, 972
+  xy: 1, 978
   size: 506, 44
   orig: 506, 44
   offset: 0, 0
   index: -1
 StardewValley(1)
   rotate: false
-  xy: 1, 115
+  xy: 1, 121
   size: 504, 111
   orig: 504, 111
   offset: 0, 0
   index: -1
 StardewValley(2)
   rotate: false
-  xy: 1, 228
+  xy: 1, 234
   size: 506, 428
   orig: 506, 428
   offset: 0, 0
   index: -1
 button1_DOWN
   rotate: false
-  xy: 1, 11
+  xy: 509, 719
   size: 50, 50
   split: 9, 9, 9, 9
   pad: 14, 14, 14, 14
@@ -57,7 +57,7 @@ button1_DOWN
   index: -1
 button1_OVER
   rotate: false
-  xy: 509, 811
+  xy: 509, 771
   size: 50, 50
   split: 9, 9, 9, 9
   pad: 14, 14, 14, 14
@@ -66,7 +66,7 @@ button1_OVER
   index: -1
 button1_UP
   rotate: false
-  xy: 1, 63
+  xy: 1, 23
   size: 50, 50
   split: 14, 14, 14, 14
   orig: 50, 50
@@ -74,7 +74,7 @@ button1_UP
   index: -1
 checkedbx2_OFF
   rotate: false
-  xy: 53, 51
+  xy: 1, 1
   size: 20, 20
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0
@@ -83,7 +83,7 @@ checkedbx2_OFF
   index: -1
 checkedbx2_ON
   rotate: false
-  xy: 95, 93
+  xy: 97, 99
   size: 20, 20
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0
@@ -92,7 +92,7 @@ checkedbx2_ON
   index: -1
 checkedbx_OFF
   rotate: false
-  xy: 589, 881
+  xy: 589, 887
   size: 20, 20
   split: 3, 3, 2, 3
   pad: 0, 0, 0, 0
@@ -101,7 +101,7 @@ checkedbx_OFF
   index: -1
 checkedbx_ON
   rotate: false
-  xy: 561, 841
+  xy: 563, 847
   size: 20, 20
   split: 3, 3, 2, 3
   pad: 3, 3, 3, 3
@@ -110,15 +110,51 @@ checkedbx_ON
   index: -1
 cursor
   rotate: false
-  xy: 1016, 992
+  xy: 1016, 998
   size: 2, 24
   split: 0, 0, 0, 0
   orig: 2, 24
   offset: 0, 0
   index: -1
+enventoryButtonTop_DOWN
+  rotate: false
+  xy: 509, 611
+  size: 44, 52
+  split: 21, 21, 29, 0
+  pad: 18, 18, 30, 2
+  orig: 44, 52
+  offset: 0, 0
+  index: -1
+enventoryButtonTop_UP
+  rotate: false
+  xy: 509, 665
+  size: 44, 52
+  split: 21, 21, 21, 0
+  pad: 18, 18, 22, 11
+  orig: 44, 52
+  offset: 0, 0
+  index: -1
+inventoryButtonRight_UP
+  rotate: false
+  xy: 509, 823
+  size: 52, 44
+  split: 0, 29, 21, 21
+  pad: 10, 22, 18, 18
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+inventoryButtonTop_DOWN
+  rotate: false
+  xy: 1, 75
+  size: 52, 44
+  split: 0, 29, 21, 21
+  pad: 2, 30, 18, 18
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
 selection
   rotate: false
-  xy: 509, 743
+  xy: 555, 693
   size: 2, 24
   split: 0, 0, 0, 0
   orig: 2, 24
@@ -126,7 +162,7 @@ selection
   index: -1
 textfield
   rotate: false
-  xy: 53, 73
+  xy: 55, 79
   size: 40, 40
   split: 9, 9, 9, 9
   pad: 11, 9, 9, 9
@@ -135,7 +171,7 @@ textfield
   index: -1
 warning_label
   rotate: false
-  xy: 509, 863
+  xy: 509, 869
   size: 78, 38
   split: 33, 14, 0, 0
   pad: 40, 14, 0, 0
@@ -144,7 +180,7 @@ warning_label
   index: -1
 window
   rotate: false
-  xy: 509, 769
+  xy: 509, 569
   size: 40, 40
   split: 17, 18, 18, 16
   pad: 18, 19, 19, 17
