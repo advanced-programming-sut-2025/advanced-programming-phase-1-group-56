@@ -91,7 +91,7 @@ public class Player implements TimeObserver {
 
 
 
-    private float speed = 100f;
+    private float speed = 6.25f;
     private float vx = 0, vy = 0;
 
     public void setVelocity(float vx, float vy) {
@@ -143,7 +143,7 @@ public class Player implements TimeObserver {
         this.energy = new Energy(200);
         this.fainted = false;
         this.gold = 0;
-        this.position = new Position(800, 600);
+        this.position = new Position(64, 41);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();
@@ -335,6 +335,12 @@ public class Player implements TimeObserver {
 
     public Position getPosition() {
         return position;
+    }
+
+    public Position getPixelPosition() {
+        float pX = position.getX() * 16;
+        float pY = position.getY() * 16;
+        return new Position(pX, pY);
     }
 
     public void setPosition(Position position) {

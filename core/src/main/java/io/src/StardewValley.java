@@ -5,10 +5,11 @@ import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Game;
 import io.src.view.AppView;
+import io.src.view.GameMenus.GameView;
 
 public class StardewValley extends com.badlogic.gdx.Game {
     private Game game;
-
+    private GameView gameView;
     public StardewValley() {
 //        this.game = game;
     }
@@ -22,9 +23,11 @@ public class StardewValley extends com.badlogic.gdx.Game {
             return;
         }
         this.game = game;
-        GameController gameController = new GameController(this);
-        gameController.init();
-        gameController.run();
+//        GameController gameController = new GameController(this);
+//        gameController.init();
+//        gameController.run();
+        gameView = new GameView(game);
+        setScreen(gameView);
     }
 
     public Game getGame() {

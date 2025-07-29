@@ -54,7 +54,7 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
-    private final GameController gameController;
+//    private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private EnergyBar energyWindow;
@@ -72,9 +72,10 @@ public class GameView implements Screen {
         generator.dispose();
     }
 
-    public GameView(Game game, GameController gameController) {
+    public GameView(Game game) {
         this.game = game;
-        this.gameController = gameController;
+//        this.gameController = gameController;
+        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
         this.map = new TmxMapLoader().load("Farm1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
@@ -103,6 +104,7 @@ public class GameView implements Screen {
                 return true;
             }
         };
+        multiplexer.addProcessor(gameMenuInputAdapter);
         multiplexer.addProcessor(keyListener);
         multiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(multiplexer);
@@ -252,7 +254,7 @@ public class GameView implements Screen {
         Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 
-        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPosition().getX(),game.getCurrentPlayer().getPosition().getY(), 20, 20 * 2);
+        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(),game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
 //        renderInventory();
     }
 
@@ -322,6 +324,7 @@ public class GameView implements Screen {
         camera.update();
 //        timeWindow.update(LocalTime.now());
         renderer.setView(camera);
+        gameMenuInputAdapter.update(v);
         renderer.render();
 
         renderer.getBatch().begin();
@@ -339,20 +342,20 @@ public class GameView implements Screen {
 //            }
 //        }
         renderer.getBatch().end();
-        float y = game.getCurrentPlayer().getPosition().getY();
-        float x = game.getCurrentPlayer().getPosition().getX();
-        if (game.getCurrentPlayer().getPosition().getY() + 190 >= Gdx.graphics.getHeight()) {
+        float y = game.getCurrentPlayer().getPixelPosition().getY();
+        float x = game.getCurrentPlayer().getPixelPosition().getX();
+        if (y + 190 >= Gdx.graphics.getHeight()) {
             y = Gdx.graphics.getHeight() - 190;
         }
-        if (game.getCurrentPlayer().getPosition().getX() + 930 >= Gdx.graphics.getWidth()) {
+        if (x + 930 >= Gdx.graphics.getWidth()) {
             x = Gdx.graphics.getWidth() - 930;
         }
 
-        if (game.getCurrentPlayer().getPosition().getY() - 150 <= 0) {
+        if (y - 150 <= 0) {
             y = 150;
         }
 
-        if (game.getCurrentPlayer().getPosition().getX() - 290 <= 0) {
+        if (x - 290 <= 0) {
             x = 290;
         }
         camera.position.set(x, y, 0);

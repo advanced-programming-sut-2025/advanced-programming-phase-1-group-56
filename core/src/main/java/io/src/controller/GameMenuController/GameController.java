@@ -14,20 +14,20 @@ import io.src.view.GameMenus.GameMenu1;
 import java.util.Scanner;
 
 public class GameController extends CommandController {
-    private final StardewValley game;
-    private GameMenu1 gameMenu;
-
-    public GameController(StardewValley game) {
-        this.game = game;
-    }
-
-    public void init() {
-        gameMenu = new GameMenu1(this);
-    }
-
-    public void run() {
-        game.setScreen(gameMenu);
-    }
+//    private final StardewValley game;
+//    private GameMenu1 gameMenu;
+//
+//    public GameController(StardewValley game) {
+//        this.game = game;
+//    }
+//
+//    public void init() {
+//        gameMenu = new GameMenu1(this);
+//    }
+//
+//    public void run() {
+//        game.setScreen(gameMenu);
+//    }
 
     public static Result saveGame() {
         for (Player player: App.getCurrentUser().getCurrentGame().getPlayers())
@@ -109,11 +109,11 @@ public class GameController extends CommandController {
         return manageNextTurn();
     }
 
-    public StardewValley getGame() {
-        return game;
-    }
-
-    public GameMenu1 getGameMenu() {
-        return gameMenu;
-    }
+//    public StardewValley getGame() {
+//        return game;
+//    }
+//
+//    public GameMenu1 getGameMenu() {
+//        return gameMenu;
+//    }
 }

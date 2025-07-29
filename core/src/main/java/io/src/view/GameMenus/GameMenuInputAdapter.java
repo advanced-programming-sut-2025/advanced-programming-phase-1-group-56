@@ -16,12 +16,16 @@ import java.util.Set;
 
 public class GameMenuInputAdapter extends InputAdapter {
     private final Game game;
-    private final GameController gameController;
+//    private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
 
-    public GameMenuInputAdapter(Game game, GameController gameController) {
+//    public GameMenuInputAdapter(Game game, GameController gameController) {
+//        this.game = game;
+////        this.gameController = gameController;
+//    }
+    public GameMenuInputAdapter(Game game) {
         this.game = game;
-        this.gameController = gameController;
+//        this.gameController = gameController;
     }
 
     @Override
