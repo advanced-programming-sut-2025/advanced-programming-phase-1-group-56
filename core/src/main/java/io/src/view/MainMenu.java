@@ -28,7 +28,7 @@ public class MainMenu implements AppMenu, Screen {
     public MainMenu() {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        image = new Texture(Gdx.files.internal("background1.jpg"));
+        image = new Texture(Gdx.files.internal("background3.png"));
 
     }
 
