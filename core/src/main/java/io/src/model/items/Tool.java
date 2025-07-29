@@ -41,7 +41,7 @@ public class Tool extends Item {
                     TreeType t = ((Tree) tile.getFixedObject()).getTreeType();
                     switch (t) {
                         case TreeType.BURNT_TREE ->
-                                player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
+                            player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
                         case TreeType.NORMAL_TREE -> player.getInventory().add(new Etc((EtcType) t.fruit), 1);
                         case TreeType.TREE_BARK -> player.getInventory().add(new Etc((EtcType) t.fruit), 1);
                         default -> player.getInventory().add(new Etc((EtcType) TreeType.NORMAL_TREE.fruit), 1);
@@ -98,7 +98,7 @@ public class Tool extends Item {
                     }
                     player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else if (tile.getFixedObject() == null && (tile.getTileType() == TileType.PlowedSoil || tile.getTileType() == TileType.WaterPlowedSoil
-                        || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
+                    || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
                     tile.setTileType(TileType.Soil);
                     player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else if (tile.getFixedObject() instanceof DroppedItem) {
@@ -145,7 +145,7 @@ public class Tool extends Item {
                         player.getInventory().add(new Fish(fishType), quantity);
                     } else {
                         ArrayList<FishType> seasonFishes = FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
-                        player.getInventory().add(new Fish(seasonFishes.get((int)(Math.random() * seasonFishes.size()))), quantity);
+                        player.getInventory().add(new Fish(seasonFishes.get((int) (Math.random() * seasonFishes.size()))), quantity);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
@@ -227,5 +227,10 @@ public class Tool extends Item {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    @Override
+    public String getAssetName() {
+        return toolType.getAssetName();
     }
 }

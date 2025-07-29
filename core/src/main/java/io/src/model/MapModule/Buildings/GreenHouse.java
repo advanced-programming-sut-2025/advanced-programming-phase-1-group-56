@@ -58,5 +58,10 @@ public class GreenHouse extends Building implements TimeObserver {
 
     }
 
+    @Override
+    public String getAssetName() {
+        return "Green_House" + ((broken)?"_Broken":"_Built");
+    }
+
     //TODO add tiles and field to this after adding items
 }
