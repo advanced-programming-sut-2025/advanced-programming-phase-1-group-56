@@ -1,14 +1,21 @@
 package io.src.controller.MenuController;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.Gson;
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.InfoRegexes;
+import io.src.model.Enums.Menu;
 import io.src.model.Enums.SecurityQuestion;
 import io.src.model.MakePasswordSHA_256;
 import io.src.model.Result;
 import io.src.model.User;
+import io.src.view.LoginMenu;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -20,6 +27,63 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 public class LoginMenuController extends CommandController {
+
+    // fields :
+
+    private final StardewValley game;
+    private LoginMenu menu;
+
+    // init :
+
+    public LoginMenuController(StardewValley game) {
+        this.game = game;
+    }
+
+    public void init() {
+        menu = new LoginMenu();
+    }
+
+    public void run() {
+        game.setScreen(menu);
+        initialize();
+    }
+
+    // UI
+
+    private void initialize() {
+
+        // login button :
+        menu.getLoginButton().addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Result result = manageLoginUser(
+                    menu.getUsernameField().getText(),
+                    menu.getPasswordField().getText(),
+                    menu.getStayLoggedInCheckBox().isChecked()
+                );
+
+                if (!result.isSuccess()) {
+                    menu.showWarningLabel(result.getMessage());
+                }
+            }
+        });
+
+        // Register button :
+        menu.getRegisterButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getWindow().setVisible(false);
+                menu.getRegisterWindow().setVisible(true);
+            }
+        });
+
+        menu.getExitButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+    }
+
+    // logic :
 
     public static Result manageRegisterUser(Matcher matcher) {
         Random random = new Random();
@@ -46,7 +110,6 @@ public class LoginMenuController extends CommandController {
         }
         String result = showSecurityQuestion();
         return new Result(true, "Okay, but for the security of your account ,\none of these security questions is required\n" + result + "\n");
-
     }
 
     private static String showSecurityQuestion() {
@@ -54,9 +117,9 @@ public class LoginMenuController extends CommandController {
         SecurityQuestion[] questions = SecurityQuestion.values();
         for (int i = 0; i < questions.length; i++) {
             stringBuilder.append((i + 1))
-                    .append(". ")
-                    .append(questions[i].getQuestion())
-                    .append("\n");
+                .append(". ")
+                .append(questions[i].getQuestion())
+                .append("\n");
         }
         return stringBuilder.toString();
     }
@@ -69,7 +132,7 @@ public class LoginMenuController extends CommandController {
         }
 
         String stringBuilder = "please enter new password : " + "\nyou can use this : " +
-                manageMakeRandomPassword(10, "somthing");
+            manageMakeRandomPassword(10, "somthing");
         return new Result(true, stringBuilder);
     }
 
@@ -85,7 +148,6 @@ public class LoginMenuController extends CommandController {
         }
         return new Result(true, username + "your password have been changed!");
     }
-
 
     public static String manageMakeRandomPassword(int length, String password) {
         String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -112,9 +174,9 @@ public class LoginMenuController extends CommandController {
         return tmpPassword.toString();
     }
 
-    public static Result manageLoginUser(Matcher matcher, boolean stayLoggedIn) {
-        String username = matcher.group(1).trim();
-        String password = matcher.group(2);
+    public static Result manageLoginUser(String username, String password, boolean stayLoggedIn) {
+        username = username.trim();
+        password = password.trim();
 
         User user = returnUser(username);
         if (user == null) {
@@ -122,21 +184,21 @@ public class LoginMenuController extends CommandController {
         }
 
         String hashedInputPassword = MakePasswordSHA_256.hashPassword(password, user.getSalt());
+
         if (!user.getPassword().equals(hashedInputPassword)) return new Result(false, "incorrect password");
 
         if (stayLoggedIn) {
             Gson gson = new Gson();
             try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
                 gson.toJson(user, writer);
-                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
         App.setCurrentUser(user);
         return new Result(true, "you have successfully logged in!");
     }
-
 
     public static Result manageForgotPassword(Matcher matcher) {
         String username = matcher.group(1).trim();
@@ -158,7 +220,6 @@ public class LoginMenuController extends CommandController {
         }
         return null;
     }
-
 
     public static Result peakSecurityQuestion(Matcher matcher1, Matcher matcher) {
         Random random = new Random();
