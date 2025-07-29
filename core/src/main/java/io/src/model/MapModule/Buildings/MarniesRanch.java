@@ -1,4 +1,5 @@
 package io.src.model.MapModule.Buildings;
+import io.src.model.App;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Stores.CarpenterShopProducts;
 import io.src.model.Enums.Stores.FishShopProducts;
@@ -36,5 +37,10 @@ public class MarniesRanch extends Store {
             }
         }
         return null;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Marnies_Ranch_Shop" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }

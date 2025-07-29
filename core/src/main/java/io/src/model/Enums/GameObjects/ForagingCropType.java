@@ -3,6 +3,7 @@ package io.src.model.Enums.GameObjects;
 import io.src.model.Enums.Items.FoodType;
 import io.src.model.Enums.Items.FruitType;
 import io.src.model.Enums.WeatherAndTime.Seasons;
+import org.jetbrains.annotations.Nullable;
 
 public enum ForagingCropType {
     COMMON_MUSHROOM(FoodType.COMMON_MUSHROOM, new Seasons[]{Seasons.Summer, Seasons.Fall, Seasons.Spring, Seasons.Winter}, 40, 38,""),
@@ -33,7 +34,7 @@ public enum ForagingCropType {
     public final Seasons[] season;
     public final int baseSellPrice;
     public final int energy;
-    public final String assetName;
+    private final String assetName;
 
     ForagingCropType(FoodType name, Seasons[] season, int baseSellPrice, int energy,String assetName) {
         this.cropItem = name;
@@ -54,5 +55,16 @@ public enum ForagingCropType {
         }
         return null;
     }
+
+    @Nullable
+    public String getAssetName() {
+        return switch (assetName) {
+            case "null" -> null;
+            case "" -> cropItem.getAssetName().replace(" ", "_");
+            default -> assetName;
+        };
+    }
+
+
 
 }

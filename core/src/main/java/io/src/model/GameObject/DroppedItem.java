@@ -4,7 +4,9 @@ import io.src.model.MapModule.Position;
 import io.src.model.items.Item;
 
 public class DroppedItem extends GameObject {
-    private Item item;////
+    private Item item;
+
+    /// /
 
     public DroppedItem(Item item, Position position) {
         super(true, position);
@@ -17,5 +19,10 @@ public class DroppedItem extends GameObject {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    @Override
+    public String getAssetName() {
+        return item.getAssetName();
     }
 }

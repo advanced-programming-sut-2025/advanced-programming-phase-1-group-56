@@ -59,17 +59,22 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
     @Override
 
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(artisanGoodType == null || artisanGood != null)
+        if (artisanGoodType == null || artisanGood != null)
             return;
-        if(newDay){
-            processTime-=11;
-        }else{
+        if (newDay) {
+            processTime -= 11;
+        } else {
             processTime--;
         }
 
-        if(processTime <= 0){
+        if (processTime <= 0) {
             finishMakeArtisanGood(new ArtisanGood(artisanGoodType));
             artisanGoodType = null;
         }
+    }
+
+    @Override
+    public String getAssetName() {
+        return artisanGoodType.getAssetName();
     }
 }

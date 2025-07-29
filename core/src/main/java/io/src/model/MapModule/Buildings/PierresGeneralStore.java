@@ -1,5 +1,6 @@
 package io.src.model.MapModule.Buildings;
 
+import io.src.model.App;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.Enums.Stores.PierreGeneralStoreProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
@@ -36,5 +37,10 @@ public class PierresGeneralStore extends Store {
 
     public void setDailyProductList(ArrayList<NpcProduct> dailyProductList) {
         this.dailyProductList = dailyProductList;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Pierre_General_Store_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }
