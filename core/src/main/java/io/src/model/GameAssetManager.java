@@ -34,6 +34,11 @@ public class GameAssetManager {
     }
 
     public void fillTheDictionary(Path root) {
+        int a;
+        String b;
+        String c;
+        String d;
+        String e;
         for (File f : Objects.requireNonNull(root.toFile().listFiles())) {
             if (f == null) continue;
             if (f.isDirectory()) {
