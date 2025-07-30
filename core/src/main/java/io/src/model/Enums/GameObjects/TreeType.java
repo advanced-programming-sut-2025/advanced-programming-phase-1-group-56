@@ -71,14 +71,15 @@ public enum TreeType implements Saleable, initialPlant {
     }
 
     public String getAssetNameByStageAndSeason(int stage) {
+        stage++;
         Seasons s = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
-        if(this == TreeType.TREE_BARK){
+        if (this == TreeType.TREE_BARK) {
             return "Wood";
         }
         if (stage < 0 || stage > 5) {
             return null;
         } else if (stage == 5)
-            return getAssetName() + "_Stage_5_0" + s.ordinal();
+            return getAssetName() + "_Stage_5_0" + (s.ordinal()+1);
         else
             return getAssetName() + "_Stage_" + stage;
     }
