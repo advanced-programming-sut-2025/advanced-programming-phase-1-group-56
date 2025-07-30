@@ -337,7 +337,9 @@ public class GameView implements Screen {
                 GameObject go = tile.getFixedObject();
                 if (go != null) {
                     String assetName = go.getAssetName();
-                    Texture objectTexture = new Texture(Gdx.files.internal(assetName));
+                    System.out.println(assetName);
+                    System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
+                    Texture objectTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
 //                    TextureRegion region = go.getTextureRegion(); // یا sprite
                     float worldX = tile.getPosition().getX() * TILE_SIZE;
                     float worldY = tile.getPosition().getY() * TILE_SIZE;

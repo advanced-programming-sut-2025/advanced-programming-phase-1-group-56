@@ -7,10 +7,10 @@ import io.src.model.items.Saleable;
 import org.jetbrains.annotations.Nullable;
 
 public enum TreeType implements Saleable, initialPlant {
-    TREE_BARK("Tree Bark", null, -1, EtcType.WOOD, -1, -1, -1, false, -1, null, "wood"),
+    TREE_BARK("Tree Bark", null, -1, EtcType.WOOD, -1, -1, -1, false, -1, null, "Wood"),
     BURNT_TREE("Burnt Tree", null, -1, MineralItemType.COAL_ORE, -1, -1, -1, false, -1, null, ""),
     //TODO tree_stage_0 == burnt tree handle this fucking shit
-    NORMAL_TREE("Normal Tree", null, -1, EtcType.WOOD, -1, 0, -1, false, -1, null, ""),
+    NORMAL_TREE("Normal Tree", null, -1, EtcType.WOOD, -1, 0, -1, false, -1, null, "Apple"),
     //TODO idk wtf is exactly the normal tree
     //source
     APRICOT_TREE("Apricot Tree", SeedType.APRICOT_SAPLING, 7, FruitType.APRICOT, 28, 1, 59, true, 38, new Seasons[]{Seasons.Spring}, "Apricot"),
@@ -72,6 +72,9 @@ public enum TreeType implements Saleable, initialPlant {
 
     public String getAssetNameByStageAndSeason(int stage) {
         Seasons s = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
+        if(this == TreeType.TREE_BARK){
+            return "Wood";
+        }
         if (stage < 0 || stage > 5) {
             return null;
         } else if (stage == 5)
