@@ -25,4 +25,9 @@ public class Home extends Building {
     public void setMyRefrigerator(Refrigerator myRefrigerator) {
         this.myRefrigerator = myRefrigerator;
     }
+
+    @Override
+    public String getAssetName() {
+        return "Player_House";
+    }
 }

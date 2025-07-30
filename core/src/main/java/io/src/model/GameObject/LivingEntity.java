@@ -23,4 +23,9 @@ public class LivingEntity extends GameObject implements Movable {
 //        //TODO
     }
 
+    @Override
+    public String getAssetName() {
+        //TODO
+        return "";
+    }
 }

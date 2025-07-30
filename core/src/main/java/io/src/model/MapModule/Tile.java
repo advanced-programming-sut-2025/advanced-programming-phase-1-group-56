@@ -24,7 +24,7 @@ public class Tile extends Node {
     }
 
     public boolean isWalkable() {
-        boolean objectWalk = fixedObject == null || fixedObject.isWalkable();
+        boolean objectWalk = (fixedObject == null || fixedObject.isWalkable());
         if (
                 fixedObject != null &&
                         fixedObject instanceof Building b &&

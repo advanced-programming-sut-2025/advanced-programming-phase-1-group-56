@@ -19,4 +19,9 @@ public class Refrigerator extends GameObject {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
+
+    @Override
+    public String getAssetName() {
+        return "Refrigerator_State1";
+    }
 }

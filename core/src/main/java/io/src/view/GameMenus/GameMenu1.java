@@ -17,6 +17,10 @@ public class GameMenu1 implements Screen {
 
     public GameMenu1(GameController gameController) {
         myGame = gameController.getGame().getGame();
+        if (myGame == null) {
+            System.out.println("game is null");
+            return;
+        }
         this.gameController = gameController;
         initializeGame();
     }
