@@ -217,7 +217,6 @@ public class GameMenu implements AppMenu {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
                         App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 11 pm.");
-
                     }
                     App.setCurrentMenu(Menu.JojaMartMenu);
                     System.out.println("welcome to Joja Mart");

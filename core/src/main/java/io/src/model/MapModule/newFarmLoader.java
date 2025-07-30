@@ -150,7 +150,8 @@ public class newFarmLoader {
                         for (int j = tileX; j < tileX + objWidth; j++) {
 //                                System.out.println(i);
 //                                System.out.println(j);
-                            tiles[i][j].setFixedObject(gameObject);
+//                            tiles[i][j].setFixedObject(gameObject);
+                            tiles[i][j].setWalkable(false);
                         }
                     }
                 }

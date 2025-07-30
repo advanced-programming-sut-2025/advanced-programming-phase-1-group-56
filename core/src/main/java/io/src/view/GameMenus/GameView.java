@@ -33,8 +33,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameView implements Screen {
+//import static io.src.model.MapModule.newFarmLoader.TILE_SIZE;
 
+public class GameView implements Screen {
+    private static final int TILE_SIZE = 16;
     private final Game game;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
@@ -330,17 +332,19 @@ public class GameView implements Screen {
         renderer.getBatch().begin();
         renderPlayer();
 
-//        for (Tile[] row : yourTiles) {
-//            for (Tile tile : row) {
-//                GameObject go = tile.getFixedObject();
-//                if (go != null) {
+        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
+            for (Tile tile : row) {
+                GameObject go = tile.getFixedObject();
+                if (go != null) {
+                    String assetName = go.getAssetName();
+                    Texture objectTexture = new Texture(Gdx.files.internal(assetName));
 //                    TextureRegion region = go.getTextureRegion(); // یا sprite
-//                    float worldX = tile.getPosition().getX() * TILE_SIZE;
-//                    float worldY = tile.getPosition().getY() * TILE_SIZE;
-//                    renderer.getBatch().draw(region, worldX, worldY);
-//                }
-//            }
-//        }
+                    float worldX = tile.getPosition().getX() * TILE_SIZE;
+                    float worldY = tile.getPosition().getY() * TILE_SIZE;
+                    renderer.getBatch().draw(objectTexture, worldX, worldY);
+                }
+            }
+        }
         renderer.getBatch().end();
         float y = game.getCurrentPlayer().getPixelPosition().getY();
         float x = game.getCurrentPlayer().getPixelPosition().getX();

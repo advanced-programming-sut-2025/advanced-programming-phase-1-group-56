@@ -12,7 +12,7 @@ public class App {
     //TODO
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
-    private static Menu currentMenu = null;
+    private static Menu currentMenu = Menu.loginMenu;
 
     public static void init() {
         users = getUsers();

@@ -37,27 +37,29 @@ public class StardewValley extends com.badlogic.gdx.Game {
 //        gameController.run();
         gameView = new GameView(game);
         setScreen(gameView);
-        batch = new SpriteBatch();
-        Gson gson = new Gson();
-        User user = null;
 
-        if (new File("assets\\StayLoggedIn.json").exists()) {
-            try (Reader reader = new FileReader("assets\\StayLoggedIn.json")) {
-                user = gson.fromJson(reader, User.class);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
-        if (user == null) {
-            LoginMenuController loginMenuController = new LoginMenuController(this);
-            loginMenuController.init();
-            loginMenuController.run();
-        } else {
-            MainMenuController mainMenuController = new MainMenuController(this);
-            mainMenuController.init();
-            mainMenuController.run();
-        }
+//        batch = new SpriteBatch();
+//        Gson gson = new Gson();
+//        User user = null;
+//
+//        if (new File("assets\\StayLoggedIn.json").exists()) {
+//            try (Reader reader = new FileReader("assets\\StayLoggedIn.json")) {
+//                user = gson.fromJson(reader, User.class);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
+//        if (user == null) {
+//            LoginMenuController loginMenuController = new LoginMenuController(this);
+//            loginMenuController.init();
+//            loginMenuController.run();
+//        } else {
+//            MainMenuController mainMenuController = new MainMenuController(this);
+//            mainMenuController.init();
+//            mainMenuController.run();
+//        }
     }
 
     public Game getGame() {
