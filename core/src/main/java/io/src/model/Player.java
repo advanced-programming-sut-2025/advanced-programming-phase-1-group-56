@@ -101,7 +101,7 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
-        System.out.println("vx: " +position.getX() +  vx + " vy: " +" " + position.getY());
+        subtractEnergy(delta/3);
     }
 
     public boolean tryMove(float dx, float dy) {

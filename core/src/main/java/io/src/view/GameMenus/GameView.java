@@ -341,10 +341,33 @@ public class GameView implements Screen {
             String assetName = go.getAssetName();
             TextureRegion region;
             if (go instanceof PlayerObject) {
+
+
                 renderPlayer();
+
+
+                //Debug
+
+                //GREEN HIT BOX
+//                Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+//                pixmap.setColor(0, 1, 0, 1);
+//                pixmap.fill();
+//                Texture texture = new Texture(pixmap);
+//                TextureRegion greenRegion = new TextureRegion(texture);
+//                float worldX = App.getMe().getPixelPosition().getX();
+//                float worldY = App.getMe().getPixelPosition().getY();
+//                renderer.getBatch().draw(greenRegion,
+//                    worldX, worldY,
+//                    16,  // Origin X (مرکز تصویر)
+//                    16, // Origin Y
+//                    16, 16, // اندازه اصلی
+//                    0.9f, 0.9f, // scaleX, scaleY
+//                    0); // rotation
+
                 continue;
             }
-
+//            System.out.println(assetName);
+//            System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
             if (!gameObjectTextureMap.containsKey(assetName)) {
                 Texture texture = new Texture(Gdx.files.internal(
                     GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
@@ -355,7 +378,7 @@ public class GameView implements Screen {
                 region = gameObjectTextureMap.get(assetName);
             }
 
-            float worldX = go.getPosition().getX() * TILE_SIZE- (float) (region.getRegionWidth() / 2);
+            float worldX = go.getPosition().getX() * TILE_SIZE - (float) (region.getRegionWidth() / 2);
             float worldY = go.getPosition().getY() * TILE_SIZE;
 
 
@@ -372,29 +395,30 @@ public class GameView implements Screen {
         }
 
 
-        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-        pixmap.setColor(1, 0, 0, 1);
-        pixmap.fill();
-        Texture texture = new Texture(pixmap);
-        TextureRegion redRegion = new TextureRegion(texture);
-
-        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
-            for (Tile tile : row) {
-                if (tile.isWalkable()) continue;
-                float worldX = tile.getPosition().getX() * TILE_SIZE;
-                float worldY = tile.getPosition().getY() * TILE_SIZE;
-
-                TextureRegion region = new TextureRegion(redRegion);
-                renderer.getBatch().draw(region,
-                    worldX, worldY,
-                    16,  // Origin X (مرکز تصویر)
-                    16, // Origin Y
-                    16, 16, // اندازه اصلی
-                    0.9f, 0.9f, // scaleX, scaleY
-                    0); // rotation
-
-            }
-        }
+        //RED HIT BOXES
+//        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+//        pixmap.setColor(1, 0, 0, 1);
+//        pixmap.fill();
+//        Texture texture = new Texture(pixmap);
+//        TextureRegion redRegion = new TextureRegion(texture);
+//
+//        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
+//            for (Tile tile : row) {
+//                if (tile.isWalkable()) continue;
+//                float worldX = tile.getPosition().getX() * TILE_SIZE;
+//                float worldY = tile.getPosition().getY() * TILE_SIZE;
+//
+//                TextureRegion region = new TextureRegion(redRegion);
+//                renderer.getBatch().draw(region,
+//                    worldX, worldY,
+//                    16,  // Origin X (مرکز تصویر)
+//                    16, // Origin Y
+//                    16, 16, // اندازه اصلی
+//                    0.9f, 0.9f, // scaleX, scaleY
+//                    0); // rotation
+//
+//            }
+//        }
 
         renderer.getBatch().end();
         float y = game.getCurrentPlayer().getPixelPosition().getY();

@@ -1,18 +1,15 @@
 package io.src.view.GameMenus;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
-import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Game;
+import io.src.model.MapModule.Position;
+import io.src.model.MapModule.Tile;
 import io.src.model.Player;
-
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+
 
 public class GameMenuInputAdapter extends InputAdapter {
     private final Game game;
@@ -79,6 +76,16 @@ public class GameMenuInputAdapter extends InputAdapter {
         float vx = 0, vy = 0;
         int dir = 0;
 
+        if (keysHeld.contains(Input.Keys.J)) {
+            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
+            Position pos = App.getMe().getPosition();
+            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
+                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
+                    tiles[i][j].setWalkable(true);
+                }
+            }
+        }
+
         if (keysHeld.contains(Input.Keys.W)) {
             vy += 1;
             dir = 3;
@@ -96,26 +103,53 @@ public class GameMenuInputAdapter extends InputAdapter {
             dir = 2;
         }
 
-        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX() + vx, player.getPosition().getY() + vy).isWalkable()) {
+        float ph = 0.8f;
+        float pw = 0.8f;
+        Position pos = App.getMe().getPosition();
+
+        // RIGHT
+        if (vx == 1 &&
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw + (vx / 8), pos.getY()).isWalkable() ||
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw + (vx / 8), pos.getY() + ph).isWalkable()
+        ) {
             vx = 0;
-            vy = 0;
         }
-        //System.out.println(vx + " " + vy);
+
+        //LEFT
+        if (vx == -1 &&
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + (vx / 8), pos.getY()).isWalkable() ||
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + (vx / 8), pos.getY() + ph).isWalkable()
+        ) {
+            vx = 0; //can not move left
+        }
+
+        // UP
+        if (vy == 1 &&
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw, pos.getY() + ph + (vy /8)).isWalkable() ||
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX(), pos.getY() + ph + (vy / 8)).isWalkable()
+        ) {
+            vy = 0;//can not move up
+        }
+
+        //DOWN
+        if (vy == -1 &&
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw, pos.getY() + (vy / 8)).isWalkable() ||
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX(), pos.getY() + (vy /8)).isWalkable()
+        ) {
+            vy = 0; //can not move down
+        }
 
 
         if (vx != 0 && vy != 0) {
-            vx /= (float) Math.sqrt(2);
-            vy /= (float) Math.sqrt(2);
+            float norm = (float) Math.sqrt(vx * vx + vy * vy);
+            vx /= norm;
+            vy /= norm;
         }
 
 
-        //System.out.println(player.getPosition().getX() + "," + player.getPosition().getY());
-        player.setMovingDirection(dir);
-
         float speed = player.getSpeed();
-
+        player.setMovingDirection(dir);
         player.setVelocity(vx * speed, vy * speed);
-
         player.update(delta);
     }
 

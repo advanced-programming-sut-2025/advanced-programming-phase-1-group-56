@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.*;
+import io.src.model.App;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.Enums.Items.MineralItemType;
@@ -99,12 +100,11 @@ public class newFarmLoader {
             }
         }
 
-        // 4. (اختیاری) اگر یک آبجکت‌لِیِر دارید:
 //        TiledMapTileLayer objLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Object Layer 1");
 //        if (objLayer != null) {
 //            for (int row = 0; row < height; row++) {
 //                for (int col = 0; col < width; col++) {
-//                    // فرض کنید هر آبجکت یک property به نام "objectType" داشته باشد:
+
 //                    TiledMapTileLayer.Cell cell = objLayer.getCell(col, row);
 //                    if (cell != null && cell.getTile() != null) {
 //                        MapProperties props = cell.getTile().getProperties();
@@ -124,7 +124,7 @@ public class newFarmLoader {
                 if (!(obj instanceof RectangleMapObject)) continue;
 
                 RectangleMapObject rectObj = (RectangleMapObject) obj;
-                String name = obj.getName(); // مثل PlayerHome، MailBox، ...
+                String name = obj.getName();
 
                 float x = rectObj.getRectangle().x;
                 float y = rectObj.getRectangle().y;
@@ -133,8 +133,7 @@ public class newFarmLoader {
                 int objHeight = (int) (rectObj.getRectangle().height / 16);
 
 
-                // تبدیل پیکسل به مختصات تایل
-                int tileX = (int) (x / 16); // چون تایل‌ها 16×16 هستند
+                int tileX = (int) (x / 16);
                 int tileY = (int) (y / 16);
 
 
@@ -196,18 +195,39 @@ public class newFarmLoader {
         }
 
         if (location instanceof Farm) {
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
+            for (int i = 5; i < height - 5; i++) {
+                for (int j = 5; j < width - 5; j++) {
                     if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
                         int rand = (int) (Math.random() * 100);
                         GameObject go = null;
+                        boolean cont = false;
+                        for (int k = i - 1; k < i + 1; k++) {
+                            for (int l = j - 1; l < j + 1; l++) {
+                                if (tiles[k][l].getFixedObject() != null & tiles[k][l].getFixedObject() instanceof Tree) {
+                                    cont = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(cont) continue;
                         if (rand <= 10) {
                             if (rand < 1) {
                                 go = new ForagingMineral(false, new Position(j, i), MineralItemType.STONE);
                             } else if (rand < 4) {
-                                Tree tree = new Tree(TreeType.APPLE_TREE, new Position(j, i));
+                                int randomTreeType = (int) (Math.random() * (TreeType.values().length - 8)) + 5;
+                                TreeType treeType = TreeType.values()[randomTreeType];
+                                Tree tree = new Tree(treeType, new Position(j, i));
                                 tree.setCurrentStage(4);
-                                go = tree;
+                                GameObject obj = tree;
+                                for (int k = i - 2; k < i + 2; k++) {
+                                    for (int l = j - 2; l < j + 2; l++) {
+                                        if (tiles[k][l].getFixedObject() != null & tiles[k][l].getFixedObject() instanceof Tree) {
+                                            obj = null;
+                                            break;
+                                        }
+                                    }
+                                }
+                                go = obj;
                             } else if (rand < 5 && !tmxPath.contains("Farm1")) {
                                 go = new Grass(true, new Position(j, i), GrassType.NormalGrass);
                             } else if (rand < 7 && !tmxPath.contains("Farm1")) {
@@ -237,7 +257,6 @@ public class newFarmLoader {
                 }
             }
         }
-
 
         return tiles;
     }
