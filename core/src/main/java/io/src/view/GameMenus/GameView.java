@@ -1,6 +1,5 @@
 package io.src.view.GameMenus;
 
-import box2dLight.RayHandler;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -8,34 +7,29 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.GameObject;
+import io.src.model.GameObject.PlayerObject;
+import io.src.model.GameObject.Tree;
+import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 
-import java.awt.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
 
-//import static io.src.model.MapModule.newFarmLoader.TILE_SIZE;
 
 public class GameView implements Screen {
+    private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private static final int TILE_SIZE = 16;
     private final Game game;
     private final TiledMap map;
@@ -56,14 +50,10 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
-//    private final GameController gameController;
+    //    private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private EnergyBar energyWindow;
-
-
-
-
 
 
     private void loadFont() {
@@ -84,10 +74,10 @@ public class GameView implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         stage = new Stage(new ScreenViewport());
-        invWindow  = new InventoryWindow();
+        invWindow = new InventoryWindow();
         energyWindow = new EnergyBar();
         timeWindow = new TimerWindow();
-        energyWindow.setPosition(Gdx.graphics.getWidth()-50,50);
+        energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
         stage.addActor(invWindow);
         stage.addActor(energyWindow);
@@ -154,21 +144,21 @@ public class GameView implements Screen {
 
 
 //    public void render() {
-    ////        batch.setProjectionMatrix(camera.combined);
-    ////        batch.begin();
-    ////
-    ////        Texture texture = ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture();
-    ////        batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    ////
-    ////        renderPlayer();
-    ////
-    ////        batch.end();
+
+    /// /        batch.setProjectionMatrix(camera.combined);
+    /// /        batch.begin();
+    /// /
+    /// /        Texture texture = ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture();
+    /// /        batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    /// /
+    /// /        renderPlayer();
+    /// /
+    /// /        batch.end();
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
 //        camera.zoom = 0.3f;
 //
 //        camera.update();
 //    }
-
 
 
 //    private void renderTiles() {
@@ -242,11 +232,6 @@ public class GameView implements Screen {
 //
 //        batch.setColor(1f, 1f, 1f, 1f);
 //    }
-
-
-
-
-
     private void renderPlayer() {
 
         moveDirection = game.getCurrentPlayer().getMovingDirection();
@@ -256,7 +241,7 @@ public class GameView implements Screen {
         Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
         TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 
-        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(),game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
+        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
 //        renderInventory();
     }
 
@@ -332,21 +317,85 @@ public class GameView implements Screen {
         renderer.getBatch().begin();
         renderPlayer();
 
+
+        ArrayList<GameObject> objects = new ArrayList<>();
         for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : row) {
                 GameObject go = tile.getFixedObject();
                 if (go != null) {
-                    String assetName = go.getAssetName();
-                    System.out.println(assetName);
-                    System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
-                    Texture objectTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
-//                    TextureRegion region = go.getTextureRegion(); // یا sprite
-                    float worldX = tile.getPosition().getX() * TILE_SIZE;
-                    float worldY = tile.getPosition().getY() * TILE_SIZE;
-                    renderer.getBatch().draw(objectTexture, worldX, worldY);
+                    objects.add(go);
                 }
             }
         }
+        Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
+        PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
+        objects.add(me);
+        objects.sort(
+            Comparator
+                .comparingInt((GameObject o) -> (int) -o.getPosition().getY())
+                .thenComparingInt(o -> (int) o.getPosition().getX())
+        );
+
+
+        for (GameObject go : objects) {
+            String assetName = go.getAssetName();
+            TextureRegion region;
+            if (go instanceof PlayerObject) {
+                renderPlayer();
+                continue;
+            }
+
+            if (!gameObjectTextureMap.containsKey(assetName)) {
+                Texture texture = new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
+                ));
+                region = new TextureRegion(texture);
+                gameObjectTextureMap.put(assetName, region);
+            } else {
+                region = gameObjectTextureMap.get(assetName);
+            }
+
+            float worldX = go.getPosition().getX() * TILE_SIZE- (float) (region.getRegionWidth() / 2);
+            float worldY = go.getPosition().getY() * TILE_SIZE;
+
+
+            if (go instanceof Tree tree && tree.isComplete()) {
+                worldX -= 16;
+            }
+            // Origin X وسط، Origin Y بالا
+            renderer.getBatch().draw(region,
+                worldX, worldY,
+                region.getRegionWidth(), 0,
+                region.getRegionWidth(), region.getRegionHeight(),
+                0.5f, 0.5f, 0);
+
+        }
+
+
+        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+        pixmap.setColor(1, 0, 0, 1);
+        pixmap.fill();
+        Texture texture = new Texture(pixmap);
+        TextureRegion redRegion = new TextureRegion(texture);
+
+        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
+            for (Tile tile : row) {
+                if (tile.isWalkable()) continue;
+                float worldX = tile.getPosition().getX() * TILE_SIZE;
+                float worldY = tile.getPosition().getY() * TILE_SIZE;
+
+                TextureRegion region = new TextureRegion(redRegion);
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                    16, // Origin Y
+                    16, 16, // اندازه اصلی
+                    0.9f, 0.9f, // scaleX, scaleY
+                    0); // rotation
+
+            }
+        }
+
         renderer.getBatch().end();
         float y = game.getCurrentPlayer().getPixelPosition().getY();
         float x = game.getCurrentPlayer().getPixelPosition().getX();

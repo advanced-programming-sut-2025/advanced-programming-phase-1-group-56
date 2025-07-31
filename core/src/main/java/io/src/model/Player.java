@@ -33,6 +33,8 @@ public class Player implements TimeObserver {
     //Identity
 //    private String name;
     private final UUID userId;
+    public static final int BODY_WIDTH = 16;
+    public static final int BODY_HEIGHT = 32;
     @Expose(serialize = false, deserialize = false)
     private User user;
     private boolean gender;
@@ -89,8 +91,6 @@ public class Player implements TimeObserver {
     private Player partner = null;
 
 
-
-
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
 
@@ -101,10 +101,11 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
+        System.out.println("vx: " +position.getX() +  vx + " vy: " +" " + position.getY());
     }
 
     public boolean tryMove(float dx, float dy) {
-        position.ChangePosition(dx,dy);
+        position.ChangePosition(dx, dy);
 
 //        if (newX < 0 || newX >= tiles.length || newY < 0 || newY >= tiles[0].length) return false;
 
@@ -150,6 +151,7 @@ public class Player implements TimeObserver {
 //        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
     }
+
     public int getMovingDirection() {
         return movingDirection;
     }
@@ -337,6 +339,7 @@ public class Player implements TimeObserver {
         return position;
     }
 
+
     public Position getPixelPosition() {
         float pX = position.getX() * 16;
         float pY = position.getY() * 16;
@@ -489,7 +492,7 @@ public class Player implements TimeObserver {
 
     public void teleportToHome() {
         this.setCurrentGameLocation(this.getPlayerFarm());
-        this.setPosition(new Position(getDefaultHome().getPosition().getX()+5, getDefaultHome().getPosition().getY() +12));
+        this.setPosition(new Position(getDefaultHome().getPosition().getX() + 5, getDefaultHome().getPosition().getY() + 12));
     }
 
     public float getSpeed() {

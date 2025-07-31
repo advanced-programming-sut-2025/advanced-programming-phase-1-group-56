@@ -16,12 +16,13 @@ import java.util.Set;
 
 public class GameMenuInputAdapter extends InputAdapter {
     private final Game game;
-//    private final GameController gameController;
+    //    private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
 
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
-////        this.gameController = gameController;
+
+    /// /        this.gameController = gameController;
 //    }
     public GameMenuInputAdapter(Game game) {
         this.game = game;
@@ -95,21 +96,20 @@ public class GameMenuInputAdapter extends InputAdapter {
             dir = 2;
         }
 
-        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX()+vx , player.getPosition().getY()+vy).isWalkable()){
+        if (!App.getMe().getCurrentGameLocation().getTileByPosition(player.getPosition().getX() + vx, player.getPosition().getY() + vy).isWalkable()) {
             vx = 0;
             vy = 0;
         }
-        System.out.println(vx + " " + vy);
+        //System.out.println(vx + " " + vy);
 
 
-        if(vx !=0 && vy !=0) {
-            vx/=(float) Math.sqrt(2);
-            vy/=(float) Math.sqrt(2);
+        if (vx != 0 && vy != 0) {
+            vx /= (float) Math.sqrt(2);
+            vy /= (float) Math.sqrt(2);
         }
 
 
-
-        System.out.println(player.getPosition().getX() + "," + player.getPosition().getY());
+        //System.out.println(player.getPosition().getX() + "," + player.getPosition().getY());
         player.setMovingDirection(dir);
 
         float speed = player.getSpeed();
