@@ -1,12 +1,15 @@
 package io.src.view.GameMenus;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import io.src.model.App;
+import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -125,7 +128,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         // UP
         if (vy == 1 &&
-            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw, pos.getY() + ph + (vy /8)).isWalkable() ||
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw, pos.getY() + ph + (vy / 8)).isWalkable() ||
             !player.getCurrentGameLocation().getTileByPosition(pos.getX(), pos.getY() + ph + (vy / 8)).isWalkable()
         ) {
             vy = 0;//can not move up
@@ -134,7 +137,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         //DOWN
         if (vy == -1 &&
             !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw, pos.getY() + (vy / 8)).isWalkable() ||
-            !player.getCurrentGameLocation().getTileByPosition(pos.getX(), pos.getY() + (vy /8)).isWalkable()
+            !player.getCurrentGameLocation().getTileByPosition(pos.getX(), pos.getY() + (vy / 8)).isWalkable()
         ) {
             vy = 0; //can not move down
         }
@@ -151,8 +154,17 @@ public class GameMenuInputAdapter extends InputAdapter {
         player.setMovingDirection(dir);
         player.setVelocity(vx * speed, vy * speed);
         player.update(delta);
+        applyPositionEffect();
     }
 
+
+    private void applyPositionEffect() {
+        Position position = App.getMe().getPosition();
+        if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper) {
+            App.getMe().setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
+            App.getMe().setPosition(new Position(30,30));
+        }
+    }
 
     private void performAction(int screenX, int screenY) {
 //        OrthographicCamera camera = game.getCamera();

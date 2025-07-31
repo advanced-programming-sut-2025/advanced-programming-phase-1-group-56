@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.model.App;
+import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.GameObject;
@@ -68,7 +69,7 @@ public class GameView implements Screen {
         this.game = game;
 //        this.gameController = gameController;
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
-        this.map = new TmxMapLoader().load("Farm1.tmx");
+        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -318,15 +319,7 @@ public class GameView implements Screen {
         renderPlayer();
 
 
-        ArrayList<GameObject> objects = new ArrayList<>();
-        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
-            for (Tile tile : row) {
-                GameObject go = tile.getFixedObject();
-                if (go != null) {
-                    objects.add(go);
-                }
-            }
-        }
+        ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
         Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
         PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
         objects.add(me);
@@ -396,29 +389,29 @@ public class GameView implements Screen {
 
 
         //RED HIT BOXES
-//        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-//        pixmap.setColor(1, 0, 0, 1);
-//        pixmap.fill();
-//        Texture texture = new Texture(pixmap);
-//        TextureRegion redRegion = new TextureRegion(texture);
-//
-//        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
-//            for (Tile tile : row) {
-//                if (tile.isWalkable()) continue;
-//                float worldX = tile.getPosition().getX() * TILE_SIZE;
-//                float worldY = tile.getPosition().getY() * TILE_SIZE;
-//
-//                TextureRegion region = new TextureRegion(redRegion);
-//                renderer.getBatch().draw(region,
-//                    worldX, worldY,
-//                    16,  // Origin X (مرکز تصویر)
-//                    16, // Origin Y
-//                    16, 16, // اندازه اصلی
-//                    0.9f, 0.9f, // scaleX, scaleY
-//                    0); // rotation
-//
-//            }
-//        }
+        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+        pixmap.setColor(1, 0, 0, 1);
+        pixmap.fill();
+        Texture texture = new Texture(pixmap);
+        TextureRegion redRegion = new TextureRegion(texture);
+
+        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
+            for (Tile tile : row) {
+                if (tile.getTileType()!= TileType.Wrapper) continue;
+                float worldX = tile.getPosition().getX() * TILE_SIZE;
+                float worldY = tile.getPosition().getY() * TILE_SIZE;
+
+                TextureRegion region = new TextureRegion(redRegion);
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                    16, // Origin Y
+                    16, 16, // اندازه اصلی
+                    0.9f, 0.9f, // scaleX, scaleY
+                    0); // rotation
+
+            }
+        }
 
         renderer.getBatch().end();
         float y = game.getCurrentPlayer().getPixelPosition().getY();

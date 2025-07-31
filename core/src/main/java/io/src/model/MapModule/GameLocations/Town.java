@@ -1,6 +1,8 @@
 package io.src.model.MapModule.GameLocations;
 
 import io.src.model.App;
+import io.src.model.Enums.GameLocationType;
+import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Buildings.Store;
 import io.src.model.TimeSystem.DateTime;
@@ -16,7 +18,8 @@ public class Town extends GameLocation implements TimeObserver {
         return NPCs;
     }
 
-    public Town(){
+    public Town(GameLocationType type) {
+        super(type);
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
@@ -26,13 +29,21 @@ public class Town extends GameLocation implements TimeObserver {
 
     }
 
+    @Override
+    public ArrayList<GameObject> getGameObjects() {
+        super.getGameObjects().clear();
+        super.getGameObjects().addAll(NPCs);
+        super.getGameObjects().addAll(stores);
+        return super.getGameObjects();
+    }
+
     public ArrayList<Store> getStores() {
         return stores;
     }
 
     public NPC getNpcByName(String name) {
         for (NPC npc : NPCs) {
-            if(name.equalsIgnoreCase(npc.getType().getName())) {
+            if (name.equalsIgnoreCase(npc.getType().getName())) {
                 return npc;
             }
         }

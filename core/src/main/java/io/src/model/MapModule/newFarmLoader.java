@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.*;
 import io.src.model.App;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.Enums.Items.MineralItemType;
@@ -209,7 +210,7 @@ public class newFarmLoader {
                                 }
                             }
                         }
-                        if(cont) continue;
+                        if (cont) continue;
                         if (rand <= 10) {
                             if (rand < 1) {
                                 go = new ForagingMineral(false, new Position(j, i), MineralItemType.STONE);
@@ -239,6 +240,10 @@ public class newFarmLoader {
                             }
                         }
                         tiles[i][j].setFixedObject(go);
+                        if (go != null) {
+                            location.getGameObjects().add(go);
+                        }
+
                     }
                 }
             }
@@ -337,11 +342,14 @@ public class newFarmLoader {
 
     public static GameLocation loadTheLocation(String locationName) {
         GameLocation location;
-        if (locationName.contains("Farm")) {
-            location = new Farm();
+        if (locationName.contains("Farm1")) {
+            location = new Farm(GameLocationType.Farm1);
+
+        } else if (locationName.contains("Farm2")) {
+            location = new Farm(GameLocationType.Farm2);
 
         } else {
-            location = new Town();
+            location = new Town(GameLocationType.Town);
 
         }
         Tile[][] farmTileSet = load(locationName + ".tmx", location);
