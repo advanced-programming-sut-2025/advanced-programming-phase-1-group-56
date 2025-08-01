@@ -139,9 +139,10 @@ public class newFarmLoader {
 
 
                 // چون در Tiled محور Y از پایین شروع میشه و در آرایه ما از بالا:
-                tileY = height - 1 - tileY;
+//                tileY = height - 1 - tileY;
 
                 GameObject gameObject = createGameObjectFromObject(name, obj.getProperties(), tileX, tileY, objWidth, objHeight, location);
+                tiles[tileY][tileX].setFixedObject(gameObject);
                 if (gameObject != null
                     && tileY >= 0 && tileY + objHeight < height
                     && tileX >= 0 && tileX + objWidth < width) {
@@ -150,7 +151,8 @@ public class newFarmLoader {
 //                                System.out.println(i);
 //                                System.out.println(j);
 //                            tiles[i][j].setFixedObject(gameObject);
-                            tiles[i][j].setWalkable(false);
+                            tiles[i][j].setWalkable(gameObject.isWalkable());
+
                         }
                     }
                 }

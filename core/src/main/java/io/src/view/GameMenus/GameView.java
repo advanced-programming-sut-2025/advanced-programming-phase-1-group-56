@@ -324,7 +324,7 @@ public class GameView implements Screen {
         renderer.render();
 
         renderer.getBatch().begin();
-        renderPlayer();
+//        renderPlayer();
 
 
         ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
