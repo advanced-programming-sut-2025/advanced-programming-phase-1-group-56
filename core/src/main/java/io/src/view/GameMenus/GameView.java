@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -332,8 +333,9 @@ public class GameView implements Screen {
         objects.add(me);
         objects.sort(
             Comparator
-                .comparingInt((GameObject o) -> (int) -o.getPosition().getY())
+                .comparingDouble((GameObject o) -> -o.getPosition().getY())
                 .thenComparingInt(o -> (int) o.getPosition().getX())
+//                .thenComparingDouble()
         );
 
 
@@ -445,6 +447,24 @@ public class GameView implements Screen {
         //DEBUG
         float y = game.getCurrentPlayer().getPixelPosition().getY();
         float x = game.getCurrentPlayer().getPixelPosition().getX();
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        int mapWidth = layer.getWidth() * TILE_SIZE;
+        int mapHeight = layer.getHeight() * TILE_SIZE;
+
+        if (y + 170 >= mapHeight) {
+            y = mapHeight - 182;
+        }
+        if (x + 300 >= mapWidth) {
+            x = mapWidth - 300;
+        }
+
+        if (y - 150 <= 0) {
+            y = 150;
+        }
+
+        if (x - 290 <= 0) {
+            x = 290;
+        }
 
         camera.position.set(x, y, 0);
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);

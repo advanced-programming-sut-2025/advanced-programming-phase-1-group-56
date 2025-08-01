@@ -142,8 +142,8 @@ public class newFarmLoader {
 //                tileY = height - 1 - tileY;
 
                 GameObject gameObject = createGameObjectFromObject(name, obj.getProperties(), tileX, tileY, objWidth, objHeight, location);
-                tiles[tileY][tileX].setFixedObject(gameObject);
                 if (gameObject != null) {
+                    tiles[tileY][tileX].setFixedObject(gameObject);
                     location.getGameObjects().add(gameObject);
                 }
                 if (gameObject != null
