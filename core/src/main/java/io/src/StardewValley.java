@@ -16,7 +16,9 @@ import java.io.*;
 
 public class StardewValley extends com.badlogic.gdx.Game {
     private Game game;
+
     private GameView gameView;
+
     private static SpriteBatch batch;
 
     public StardewValley() {
@@ -36,6 +38,7 @@ public class StardewValley extends com.badlogic.gdx.Game {
 //        gameController.init();
 //        gameController.run();
         gameView = new GameView(game);
+        App.setStardewValley(this);
         setScreen(gameView);
 
 
@@ -72,5 +75,9 @@ public class StardewValley extends com.badlogic.gdx.Game {
 
     public static SpriteBatch getBatch() {
         return batch;
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 }

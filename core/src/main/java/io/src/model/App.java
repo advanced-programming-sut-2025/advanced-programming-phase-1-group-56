@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.src.StardewValley;
 import io.src.model.Enums.Menu;
 
 public class App {
@@ -13,6 +14,7 @@ public class App {
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
+    private static StardewValley stardewValley;
 
     public static void init() {
         users = getUsers();
@@ -88,5 +90,13 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static StardewValley getStardewValley() {
+        return stardewValley;
+    }
+
+    public static void setStardewValley(StardewValley stardewValley) {
+        App.stardewValley = stardewValley;
     }
 }

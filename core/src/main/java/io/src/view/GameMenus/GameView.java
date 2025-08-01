@@ -33,8 +33,8 @@ public class GameView implements Screen {
     private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private static final int TILE_SIZE = 16;
     private final Game game;
-    private final TiledMap map;
-    private final OrthogonalTiledMapRenderer renderer;
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
     //    private SpriteBatch batch;
 //    private TextureRegion[][] tileTextures;
 //    private Map<String, TextureRegion> textures;
@@ -55,6 +55,14 @@ public class GameView implements Screen {
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private EnergyBar energyWindow;
+
+
+    public void updateMap() {
+        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
+        renderer = new OrthogonalTiledMapRenderer(map, 1f);
+        loadTextures();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    }
 
 
     private void loadFont() {
@@ -397,7 +405,7 @@ public class GameView implements Screen {
 
         for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : row) {
-                if (tile.getTileType()!= TileType.Wrapper) continue;
+                if (tile.getTileType() != TileType.Wrapper) continue;
                 float worldX = tile.getPosition().getX() * TILE_SIZE;
                 float worldY = tile.getPosition().getY() * TILE_SIZE;
 
@@ -416,19 +424,19 @@ public class GameView implements Screen {
         renderer.getBatch().end();
         float y = game.getCurrentPlayer().getPixelPosition().getY();
         float x = game.getCurrentPlayer().getPixelPosition().getX();
-        if (y + 190 >= Gdx.graphics.getHeight()) {
-            y = Gdx.graphics.getHeight() - 190;
+        if (y + 0 >= Gdx.graphics.getHeight()) {
+            y = Gdx.graphics.getHeight() - 0;
         }
-        if (x + 930 >= Gdx.graphics.getWidth()) {
-            x = Gdx.graphics.getWidth() - 930;
-        }
-
-        if (y - 150 <= 0) {
-            y = 150;
+        if (x + 0 >= Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - 0;
         }
 
-        if (x - 290 <= 0) {
-            x = 290;
+        if (y - 0 <= 0) {
+            y = 0;
+        }
+
+        if (x - 0 <= 0) {
+            x = 0;
         }
         camera.position.set(x, y, 0);
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
