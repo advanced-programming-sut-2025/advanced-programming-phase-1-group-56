@@ -41,6 +41,6 @@ public class MarniesRanch extends Store {
 
     @Override
     public String getAssetName() {
-        return "Marnies_Ranch_Shop" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
+        return "Marnies_Ranch_Shop_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }

@@ -162,18 +162,18 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     private void applyPositionEffect() {
         Position position = App.getMe().getPosition();
-        if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper &&
+        if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper&&
             App.getMe().getCurrentGameLocation() instanceof Farm
         ) {
             App.getMe().setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
             App.getStardewValley().getGameView().updateMap();
-            App.getMe().setPosition(new Position(30, 30));
-        } else if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper &&
+            App.getMe().setPosition(new Position(30,30));
+        }else if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper&&
             App.getMe().getCurrentGameLocation() instanceof Town
         ) {
             App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm());
             App.getStardewValley().getGameView().updateMap();
-            App.getMe().setPosition(new Position(30, 30));
+            App.getMe().setPosition(new Position(30,30));
         }
     }
 

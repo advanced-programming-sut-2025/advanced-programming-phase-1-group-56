@@ -143,6 +143,9 @@ public class newFarmLoader {
 
                 GameObject gameObject = createGameObjectFromObject(name, obj.getProperties(), tileX, tileY, objWidth, objHeight, location);
                 tiles[tileY][tileX].setFixedObject(gameObject);
+                if (gameObject != null) {
+                    location.getGameObjects().add(gameObject);
+                }
                 if (gameObject != null
                     && tileY >= 0 && tileY + objHeight < height
                     && tileX >= 0 && tileX + objWidth < width) {
@@ -198,8 +201,8 @@ public class newFarmLoader {
         }
 
         if (location instanceof Farm) {
-            for (int i = 5; i < height - 5; i++) {
-                for (int j = 5; j < width - 5; j++) {
+            for (int i = 8; i < height - 8; i++) {
+                for (int j = 8; j < width - 8; j++) {
                     if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
                         int rand = (int) (Math.random() * 100);
                         GameObject go = null;

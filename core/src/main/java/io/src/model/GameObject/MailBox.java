@@ -22,6 +22,6 @@ public class MailBox extends GameObject {
 
     @Override
     public String getAssetName() {
-        return "Vanity_MailBox_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
+        return "Farm_Mailbox";
     }
 }

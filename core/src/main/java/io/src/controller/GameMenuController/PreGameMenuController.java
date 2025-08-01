@@ -95,8 +95,8 @@ public class PreGameMenuController extends CommandController {
 
 
         GameMap map = new GameMap();
-//        Town town = (Town) loadTheLocation("assets\\Town4");
-        Town town = loadTheTown();
+        Town town = (Town) loadTheLocation("assets\\Town4");
+//        Town town = loadTheTown();
 
         switch (playersToPlay.size()) {
             case 2: {

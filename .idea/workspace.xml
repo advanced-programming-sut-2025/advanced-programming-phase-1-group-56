@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="town isn't scaled">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Farm1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/GrassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/GrassType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/MineralItemType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/MineralItemType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
     </list>
@@ -84,28 +89,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Lwjgl3Launcher.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
-    "Gradle.gradleSetup [:Main.main()].executor": "Run",
-    "Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "nima2",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nima2&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Lwjgl3Launcher" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.src.lwjgl3.Lwjgl3Launcher" />
@@ -137,7 +142,7 @@
       <workItem from="1753561469023" duration="8802000" />
       <workItem from="1753682647361" duration="4586000" />
       <workItem from="1753802716669" duration="6891000" />
-      <workItem from="1754059521069" duration="2145000" />
+      <workItem from="1754059521069" duration="7767000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -163,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753556212356</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="town isn't scaled">
+      <option name="closed" value="true" />
+      <created>1754061700947</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754061700947</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
