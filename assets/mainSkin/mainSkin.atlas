@@ -4,6 +4,20 @@ size: 1024, 1024
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+ExitButton_DOWN
+  rotate: false
+  xy: 509, 527
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+ExitButton_UP
+  rotate: false
+  xy: 97, 79
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
 ModernDOS9x14
   rotate: false
   xy: 1, 894
@@ -83,7 +97,7 @@ checkedbx2_OFF
   index: -1
 checkedbx2_ON
   rotate: false
-  xy: 97, 99
+  xy: 135, 99
   size: 20, 20
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0

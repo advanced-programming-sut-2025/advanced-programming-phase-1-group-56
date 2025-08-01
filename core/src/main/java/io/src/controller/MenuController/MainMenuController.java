@@ -1,5 +1,8 @@
 package io.src.controller.MenuController;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
@@ -34,7 +37,11 @@ public class MainMenuController extends CommandController {
     }
 
     private void initialize() {
-
+        menu.getExitButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     public static Result manageUserLogout() {

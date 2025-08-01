@@ -54,6 +54,12 @@
 		"hex": "ffffffff"
 	}
 },
+"ButtonStyle": {
+	"ExitButton": {
+		"up": "ExitButton_UP",
+		"down": "ExitButton_DOWN"
+	}
+},
 "CheckBoxStyle": {
 	"default": {
 		"checkboxOn": "checkedbx_ON",
