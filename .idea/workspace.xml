@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add window for dialog and inventory">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/TCPClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Lobby.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/NetworkCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" afterDir="false" />
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add lobby">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +250,11 @@
       <workItem from="1753787051499" duration="94000" />
       <workItem from="1753809649979" duration="641000" />
       <workItem from="1753811212067" duration="641000" />
-      <workItem from="1753859538160" duration="15335000" />
+      <workItem from="1753859538160" duration="15433000" />
+      <workItem from="1754063414657" duration="7482000" />
+      <workItem from="1754078941888" duration="5388000" />
+      <workItem from="1754123594791" duration="13273000" />
+      <workItem from="1754150317944" duration="3000000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -466,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753514007277</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="add lobby">
+      <option name="closed" value="true" />
+      <created>1753953021713</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1753953021713</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -484,7 +490,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="shop controller 7/7 add animal buying green house&#10; //TODO sell animal / sell item" />
     <MESSAGE value="Start NPC mf" />
     <MESSAGE value="add husbandry" />
     <MESSAGE value="minor changes on fields" />
@@ -509,7 +514,8 @@
     <MESSAGE value="add inventory" />
     <MESSAGE value="add timer and energybar" />
     <MESSAGE value="add window for dialog and inventory" />
-    <option name="LAST_COMMIT_MESSAGE" value="add window for dialog and inventory" />
+    <MESSAGE value="add lobby" />
+    <option name="LAST_COMMIT_MESSAGE" value="add lobby" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

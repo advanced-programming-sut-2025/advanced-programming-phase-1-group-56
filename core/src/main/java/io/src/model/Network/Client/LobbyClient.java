@@ -4,27 +4,45 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import io.src.model.GameAssetManager;
+import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static io.src.controller.Network.ClientController.sendJoinMessageToServer;
 
 public class LobbyClient extends ApplicationAdapter {
     private Stage stage;
     private TCPClient client;
-    private List<String> lobbyListUI;
-    private LobbyData[] lastLobbyList;
+    private Table lobbyItemsTable;
+    private Lobby[] lastLobbyList;
     private ArrayList<String> onlineUser = new ArrayList<>();
+    private List<String> onlineListUI;
     private Skin skin;
     private Gson gson = new Gson();
     private String username;
+    private Label isSuccessfulLabel;
+    private Lobby selectedLobby = null;
+    private ScrollPane lobbyScrollPane;
+
 
     @Override
     public void create() {
@@ -32,44 +50,161 @@ public class LobbyClient extends ApplicationAdapter {
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("assets/Export/menu_Skin_v0.0.1.json"));
 
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
+        username = "mehdi";
 
-        username = "User_" + System.currentTimeMillis();
-        lobbyListUI = new List<>(skin);
-        ScrollPane scrollPane = new ScrollPane(lobbyListUI, skin);
+        //background
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        Texture whiteTexture = new Texture(pixmap);
+        skin.add("white", new TextureRegionDrawable(new TextureRegion(whiteTexture)));
 
-        TextButton createLobbyBtn = new TextButton("Create Lobby", skin);
-        TextButton joinLobbyBtn = new TextButton("Join Selected", skin);
-        TextButton refreshBtn = new TextButton("Refresh", skin);
+        //isSuccessfulCommand
+        isSuccessfulLabel = new Label("", skin);
+        isSuccessfulLabel.setColor(Color.RED);
+        isSuccessfulLabel.setFontScale(1.2f);
+        isSuccessfulLabel.setPosition(70, 100);
+        isSuccessfulLabel.setVisible(false);
 
-        table.add(new Label("Lobbies", skin)).padBottom(10).row();
-        table.add(scrollPane).width(300).height(200).padBottom(10).row();
-        table.add(createLobbyBtn).padBottom(5).row();
-        table.add(joinLobbyBtn).padBottom(5).row();
-        table.add(refreshBtn);
+        //background
+        Image bgImage = new Image(GameAssetManager.getGameAssetManager().getCoopBackground());
+        bgImage.setSize(1920, 1080);
+        stage.addActor(bgImage);
 
-        // Events
-        createLobbyBtn.addListener(new ClickListener() {
+        //Main panel
+        Table panel = new Table();
+        panel.setSize(600, 800);
+        panel.setPosition((1920 - 600) / 2f, (1080 - 900) / 2f);
+
+        //OnlineUsers
+        onlineListUI = new List<>(skin);
+        ScrollPane onlineScrollPane = new ScrollPane(onlineListUI, skin);
+        onlineScrollPane.setFadeScrollBars(false);
+        Label onlineLabel = new Label("USERS", skin);
+
+        Table onlineTable = new Table();
+        onlineTable.top().left();
+        onlineTable.add(onlineLabel).row();
+        onlineTable.add(onlineScrollPane).width(130).height(500);
+        onlineTable.setPosition(1360, 875);
+
+        //lobbies
+        lobbyItemsTable = new Table();
+        lobbyItemsTable.top().left();
+
+        lobbyScrollPane = new ScrollPane(lobbyItemsTable, skin);
+        lobbyScrollPane.setFadeScrollBars(false);
+        lobbyScrollPane.setScrollingDisabled(true, false);
+
+        Label lobbyLabel = new Label("LOBBIES", skin);
+
+        Table lobbyTable = new Table();
+        lobbyTable.top().left();
+        lobbyTable.add(lobbyLabel).padBottom(5).row();
+        lobbyTable.add(lobbyScrollPane).width(800).height(500);
+
+        //button
+        TextButton createButton = new TextButton("Create", skin);
+        TextButton joinButton = new TextButton("Join", skin);
+        TextButton refreshButton = new TextButton("Refresh", skin);
+
+        Table buttonTable = new Table();
+        buttonTable.add(createButton).pad(10);
+        buttonTable.add(joinButton).pad(10);
+        buttonTable.add(refreshButton).pad(10);
+
+        //content
+        Table content = new Table();
+        content.top();
+        content.add(lobbyTable).right().pad(10);
+        content.row();
+        content.add(buttonTable).colspan(3).center().padTop(30);
+
+        panel.add(content).expand().fill();
+        stage.addActor(panel);
+        stage.addActor(onlineTable);
+        stage.addActor(isSuccessfulLabel);
+
+        //passwordfill
+        Label idLabel = new Label("Lobby ID:", skin);
+        TextField idField = new TextField("", skin);
+        idField.setMessageText("Enter Lobby ID");
+
+        Label passLabel = new Label("Password:", skin);
+        TextField passField = new TextField("", skin);
+        passField.setPasswordMode(true);
+        passField.setPasswordCharacter('*');
+        passField.setMessageText("Enter Password");
+
+        TextButton joinByIdBtn = new TextButton("Join by ID", skin);
+
+        Table joinByIdTable = new Table();
+        joinByIdTable.bottom().left().pad(15);
+        joinByIdTable.add(idLabel).padRight(5);
+        joinByIdTable.add(idField).width(120).padRight(10);
+        joinByIdTable.row();
+        joinByIdTable.add(passLabel).padTop(5).padRight(5);
+        joinByIdTable.add(passField).width(120).padTop(5).padRight(10);
+        joinByIdTable.row();
+        joinByIdTable.add(joinByIdBtn).colspan(2).padTop(10).center();
+        stage.addActor(joinByIdTable);
+
+        //buttons
+        joinByIdBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String lobbyId = idField.getText().trim();
+                String password = passField.getText().trim();
+                if (lobbyId.isEmpty()) {
+                    System.out.println("Lobby ID cannot be empty!");
+                    return;
+                }
+                sendJoinLobby(lobbyId, password);
+            }
+        });
+
+        createButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 createLobbyDialog();
             }
         });
 
-        joinLobbyBtn.addListener(new ClickListener() {
+        joinButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 joinSelectedLobby();
             }
         });
 
-        refreshBtn.addListener(new ClickListener() {
+        refreshButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 requestLobbyList();
             }
         });
 
         connectToServer();
+        requestOnlineUsers();
+    }
+
+
+    private void showSuccessMessage(String text) {
+        isSuccessfulLabel.setText(text);
+        isSuccessfulLabel.setVisible(true);
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                Gdx.app.postRunnable(() -> isSuccessfulLabel.setVisible(false));
+            }
+        }, 3);
+    }
+
+
+    private void updateOnlineList(ArrayList<String> users) {
+        this.onlineUser = users;
+
+        Gdx.app.postRunnable(() -> {
+            onlineListUI.setItems(users.toArray(new String[0]));
+        });
     }
 
     private void connectToServer() {
@@ -82,20 +217,122 @@ public class LobbyClient extends ApplicationAdapter {
                     while (true) {
                         String msgStr = client.receive();
                         Message msg1 = gson.fromJson(msgStr, Message.class);
+                        System.out.println(msgStr);
 
-                        if (msg1.getFromBody("commandType").equals(NetworkCommand.list_lobbies)) {
-                            lastLobbyList = gson.fromJson(msg1.getFromBody("Lobbies List").toString(), LobbyData[].class);
-                            String[] names = new String[lastLobbyList.length];
-                            for (int i = 0; i < lastLobbyList.length; i++) {
-                                names[i] = lastLobbyList[i].getName() + (lastLobbyList[i].isPrivate() ? " (Private)" : "");
-                            }
-                            Gdx.app.postRunnable(() -> lobbyListUI.setItems(names));
-                        } else if (msg1.getFromBody("commandType").equals(NetworkCommand.online_Users)) {
-                            ArrayList<String> users = gson.fromJson(msg1.getFromBody("Users List").toString(), ArrayList.class);
-                            Gdx.app.postRunnable(() -> onlineUser = users);
+                        Object cmdObj = msg1.getFromBody("commandType");
+                        if (cmdObj == null) continue;
+
+                        NetworkCommand command;
+                        try {
+                            command = NetworkCommand.valueOf(cmdObj.toString());
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Unknown command type: " + cmdObj);
+                            continue;
                         }
+
+                        switch (command) {
+                            case list_lobbies -> {
+                                ArrayList<?> rawList = (ArrayList<?>) msg1.getFromBody("Lobbies List");
+                                ArrayList<Lobby> lobbies = new ArrayList<>();
+                                for (Object obj : rawList) {
+                                    lobbies.add(gson.fromJson(gson.toJson(obj), Lobby.class));
+                                }
+                                lastLobbyList = lobbies.toArray(new Lobby[0]);
+                                Gdx.app.postRunnable(() -> {
+                                    lobbyItemsTable.clear();
+                                    lobbyItemsTable.top().left();
+
+                                    ArrayList<Table> lobbyContainers = new ArrayList<>();
+
+                                    for (Lobby lobby : lobbies) {
+                                        String lobbyName = "LOBBY'S NAME: " + lobby.getName() + (lobby.isPrivate() ? " (Private)" : "");
+                                        Label lobbyLabelItem = new Label(lobbyName, skin);
+                                        lobbyLabelItem.setFontScale(1.2f);
+                                        lobbyLabelItem.setColor(Color.WHITE);
+
+                                        Pixmap defaultPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+                                        defaultPixmap.setColor(Color.BLUE);
+                                        defaultPixmap.fill();
+                                        Drawable defaultBackground = new TextureRegionDrawable(new TextureRegion(new Texture(defaultPixmap)));
+
+                                        Pixmap selectedPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+                                        selectedPixmap.setColor(Color.TAN);
+                                        selectedPixmap.fill();
+                                        Drawable selectedBackground = new TextureRegionDrawable(new TextureRegion(new Texture(selectedPixmap)));
+
+                                        // Table
+                                        Table lobbyItemContainer = new Table(skin);
+                                        lobbyItemContainer.setBackground(defaultBackground);
+                                        lobbyItemContainer.add(lobbyLabelItem).left().pad(10).expandX().fillX();
+
+                                        lobbyContainers.add(lobbyItemContainer);
+
+                                        // Tooltip
+                                        String tooltipText = "Members: " + lobby.getMembers().size() + "\n" +
+                                            String.join(", ", lobby.getMembers());
+                                        Label.LabelStyle tooltipStyle = new Label.LabelStyle(skin.get(Label.LabelStyle.class));
+                                        tooltipStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(pixmapFromColor(Color.CORAL))));
+                                        Label tooltipLabel = new Label(tooltipText, tooltipStyle);
+
+                                        Tooltip<Label> tooltip = new Tooltip<>(tooltipLabel);
+                                        tooltip.setInstant(true);
+                                        TooltipManager.getInstance().initialTime = 0.1f;
+                                        lobbyLabelItem.addListener(tooltip);
+
+                                        lobbyItemContainer.addListener(new ClickListener() {
+                                            @Override
+                                            public void clicked(InputEvent event, float x, float y) {
+                                                selectedLobby = lobby;
+
+                                                for (Table table : lobbyContainers) {
+                                                    table.setBackground(defaultBackground);
+                                                }
+                                                lobbyItemContainer.setBackground(selectedBackground);
+                                            }
+                                        });
+                                        lobbyItemsTable.add(lobbyItemContainer).padBottom(15).expandX().fillX().row();
+                                    }
+
+                                    lobbyItemsTable.invalidateHierarchy();
+                                });
+                            }
+
+                            case online_Users -> {
+                                Object usersObj = msg1.getFromBody("Users List");
+                                if (usersObj instanceof ArrayList<?>) {
+                                    ArrayList<?> rawList = (ArrayList<?>) usersObj;
+                                    ArrayList<String> users = new ArrayList<>();
+                                    for (Object obj : rawList) {
+                                        if (obj instanceof String s) users.add(s);
+                                    }
+                                    updateOnlineList(users);
+                                }
+                            }
+                            case create_lobby -> {
+                                //TODO
+                                if (msg1.getFromBody("isSuccessful").equals(true)) {
+                                    showSuccessMessage("Successfully Created Lobby");
+                                } else {
+                                    System.out.println("yes");
+                                    showSuccessMessage("Failed to Create Lobby");
+                                }
+                            }
+                            case join_lobby -> {
+                                if (msg1.getFromBody("isSuccessful").equals(true)) {
+                                    showSuccessMessage("Successfully Joined Lobby");
+                                } else {
+
+                                    showSuccessMessage("Failed to Join Lobby");
+                                }
+                            }
+
+                            default -> System.out.println("Unhandled command: " + command);
+                        }
+
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }).start();
 
         } catch (Exception e) {
@@ -103,29 +340,43 @@ public class LobbyClient extends ApplicationAdapter {
         }
     }
 
+    private Pixmap pixmapFromColor(Color color) {
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(color);
+        pixmap.fill();
+        return pixmap;
+    }
+
+
     private void requestLobbyList() {
         HashMap<String, Object> body = new HashMap<>();
         body.put("commandType", NetworkCommand.list_lobbies);
         Message.Type type = Message.Type.command;
-        client.send(gson.toJson(new Message(body,type)));
+        client.send(gson.toJson(new Message(body, type)));
     }
 
     private void createLobbyDialog() {
-        Dialog dialog = new Dialog("Create Lobby", skin);
+        Dialog dialog = new Dialog("", skin);
+        dialog.setColor(Color.CORAL);
 
         TextField lobbyNameField = new TextField("", skin);
+        TextField passwordField = new TextField("", skin);
+        passwordField.setPasswordMode(true);
+        passwordField.setPasswordCharacter('*');
         CheckBox privateCheck = new CheckBox("Private", skin);
         CheckBox visibleCheck = new CheckBox("Visible", skin);
 
-
-        dialog.getContentTable().add(new Label("Lobby Name:", skin));
-        dialog.getContentTable().row();
-        dialog.getContentTable().add(lobbyNameField).width(200).row();
+        dialog.getContentTable().add(new Label("LOBBY NAME: ", skin)).padTop(20).row();
+        dialog.getContentTable().add(lobbyNameField).width(300).row();
+        dialog.getContentTable().add(new Label("PASSWORD: (if it's private!)", skin)).row();
+        dialog.getContentTable().add(passwordField).width(300).row();
         dialog.getContentTable().add(privateCheck).row();
-        dialog.getContentTable().add(visibleCheck).row();
+        dialog.getContentTable().add(visibleCheck).padRight(10).row();
 
         TextButton createBtn = new TextButton("Create", skin);
         TextButton cancelBtn = new TextButton("Cancel", skin);
+        createBtn.setColor(Color.FOREST);
+        cancelBtn.setColor(Color.SCARLET);
 
         dialog.button(createBtn);
         dialog.button(cancelBtn);
@@ -134,6 +385,7 @@ public class LobbyClient extends ApplicationAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 String lobbyName = lobbyNameField.getText().trim();
+                String password = passwordField.getText().trim();
                 if (lobbyName.isEmpty()) {
                     System.out.println("Lobby name cannot be empty!");
                     return;
@@ -143,29 +395,13 @@ public class LobbyClient extends ApplicationAdapter {
                 body.put("commandType", NetworkCommand.create_lobby);
                 body.put("ownerName", username);
                 body.put("lobbyName", lobbyName);
-                //TODO
-                body.put("password", 7);
-                //
+                body.put("password", password);
                 body.put("isPrivate", isPrivate);
                 body.put("isVisible", visibleCheck.isChecked());
-
                 Message.Type type = Message.Type.command;
-                client.send(gson.toJson(new Message(body,type)));
-                String msgStr = null;
-                try {
-                    msgStr = client.receive();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                Message msg1 = gson.fromJson(msgStr, Message.class);
-                if(msg1.getFromBody("commandType").equals(NetworkCommand.create_lobby)) {
-                    if(msg1.getFromBody("isSuccessful").equals("yes")) {
-                        System.out.println("have successfully created lobby!");
-                    }
-                }
+                client.send(gson.toJson(new Message(body, type)));
                 dialog.hide();
                 requestLobbyList();
-
             }
         });
         cancelBtn.addListener(new ClickListener() {
@@ -176,58 +412,70 @@ public class LobbyClient extends ApplicationAdapter {
         });
 
         dialog.show(stage);
+        dialog.setSize(500, 420);
+        dialog.setPosition(
+            (stage.getWidth() - dialog.getWidth()) / 2,
+            (stage.getHeight() - dialog.getHeight()) / 2
+        );
     }
 
     private void joinSelectedLobby() {
-        String selectedName = lobbyListUI.getSelected();
-        if (selectedName != null) {
-            for (LobbyData lobby : lastLobbyList) {
-                String nameWithPrivacy = lobby.getName() + (lobby.isPrivate() ? " (Private)" : "");
-                if (nameWithPrivacy.equals(selectedName)) {
-                    if (lobby.isPrivate()) {
-                        askPasswordAndJoin(lobby.getId());
-                    } else {
-                        sendJoinLobby(lobby.getId(), null);
-                    }
-
-                    break;
-                }
+        if (selectedLobby != null) {
+            if (selectedLobby.isPrivate()) {
+                askPasswordAndJoin(selectedLobby.getId());
+            } else {
+                sendJoinLobby(selectedLobby.getId(), null);
             }
+        } else {
+            System.out.println("No lobby selected.");
         }
     }
 
+
     private void askPasswordAndJoin(String lobbyId) {
-        Dialog dialog = new Dialog("Enter Password", skin);
-        TextField passwordField = new TextField("", skin);
-        passwordField.setPasswordMode(true);
-        passwordField.setPasswordCharacter('*');
+        Dialog dialog = new Dialog("", skin) {
+            TextField passwordField;
 
-        dialog.text("Password:");
-        dialog.getContentTable().add(passwordField).width(200);
+            {
+                passwordField = new TextField("", skin);
+                passwordField.setPasswordMode(true);
+                passwordField.setPasswordCharacter('*');
 
-        dialog.button("Join", true);
-        dialog.button("Cancel", false);
+                getContentTable().pad(20);
+                getContentTable().add(new Label("Enter Password:", skin)).padBottom(10).row();
+                getContentTable().add(passwordField).width(220).padBottom(20).row();
 
-        dialog.result(result -> {
-            if ((Boolean) result) {
-                String password = passwordField.getText();
-                sendJoinLobby(lobbyId, password);
+                TextButton joinBtn = new TextButton("Join", skin);
+                TextButton cancelBtn = new TextButton("Cancel", skin);
+
+                button(joinBtn, true);
+                button(cancelBtn, false);
+
+                joinBtn.setColor(Color.FOREST);
+                cancelBtn.setColor(Color.SCARLET);
             }
-        });
+
+            @Override
+            protected void result(Object object) {
+                if (Boolean.TRUE.equals(object)) {
+                    String password = passwordField.getText();
+                    sendJoinLobby(lobbyId, password);
+                }
+            }
+        };
 
         dialog.show(stage);
+        dialog.setSize(350, 220);
+        dialog.setPosition(
+            (stage.getWidth() - dialog.getWidth()) / 2,
+            (stage.getHeight() - dialog.getHeight()) / 2
+        );
     }
+
 
     private void sendJoinLobby(String lobbyId, String password) {
-        HashMap<String, Object> body = new HashMap<>();
-        body.put("commandType", NetworkCommand.join_lobby);
-        body.put("username", username);
-        body.put("lobbyId", lobbyId);
-        body.put("password", password);
-        Message.Type type = Message.Type.command;
-        client.send(gson.toJson(new Message(body,type)));
+        client.send(gson.toJson(sendJoinMessageToServer(lobbyId, password, username)));
     }
-
 
     @Override
     public void render() {
@@ -240,25 +488,22 @@ public class LobbyClient extends ApplicationAdapter {
         stage.dispose();
         try {
             client.close();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
+
+    private void requestOnlineUsers() {
+
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("commandType", NetworkCommand.online_Users);
+        client.send(gson.toJson(new Message(body, Message.Type.command)));
+    }
+
 
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Lobby Client");
-        config.setWindowedMode(1000, 800);
+        config.setWindowedMode(1920, 1080);
         new Lwjgl3Application(new LobbyClient(), config);
     }
-
-
-    public static class LobbyData {
-        private String id;
-        private String name;
-        private boolean isPrivate;
-
-        public String getId() { return id; }
-        public String getName() { return name; }
-        public boolean isPrivate() { return isPrivate; }
-    }
-
 }

@@ -1,6 +1,7 @@
 package io.src.model.Network.Server;
 
 import com.google.gson.Gson;
+import io.src.controller.Network.ServerController;
 import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
@@ -33,10 +34,11 @@ public class LobbyServer {
 
         while (true) {
             Socket socket = serverSocket.accept();
-            ClientHandler handler = new ClientHandler(socket, this);
+            ClientHandler handler = new ClientHandler(socket, this,"mohsen");
             clients.add(handler);
+
             new Thread(handler).start();
-            broadcastOnlineUsers();
+
         }
     }
 
@@ -48,8 +50,9 @@ public class LobbyServer {
 
         HashMap<String, Object> body = new HashMap<>();
         body.put("commandType", NetworkCommand.online_Users);
-        body.put("Lobbies List", usernames);
+        body.put("Users List", usernames);
         Message.Type type = Message.Type.response;
+        System.out.println(123);
         sendToAll(new Message(body, type));
     }
 
@@ -65,7 +68,13 @@ public class LobbyServer {
     public void sendLobbyListToClient(ClientHandler client) {
         HashMap<String, Object> body = new HashMap<>();
         body.put("commandType", NetworkCommand.list_lobbies);
-        body.put("Lobbies List", lobbies);
+        ArrayList<Lobby> lobbies1 = new ArrayList<>();
+        for(Lobby lobby : lobbies) {
+            if(lobby.getOwner().equals(client.getUsername())||lobby.isVisible()){
+                lobbies1.add(lobby);
+            }
+        }
+        body.put("Lobbies List", lobbies1);
         Message.Type type = Message.Type.response;
         client.sendMessage(gson.toJson(new Message(body, type)));
     }
@@ -73,7 +82,13 @@ public class LobbyServer {
     public void broadcastLobbyList() {
         HashMap<String, Object> body = new HashMap<>();
         body.put("commandType", NetworkCommand.list_lobbies);
-        body.put("Lobbies List", lobbies);
+        ArrayList<Lobby> lobbies1 = new ArrayList<>();
+        for(Lobby lobby : lobbies) {
+            if(lobby.isVisible()){
+                lobbies1.add(lobby);
+            }
+        }
+        body.put("Lobbies List", lobbies1);
         Message.Type type = Message.Type.response;
         sendToAll(new Message(body, type));
     }
@@ -86,15 +101,14 @@ public class LobbyServer {
     }
 
     public Lobby createLobby(String name, String owner, boolean isPrivate, String password,boolean isVisible) {
-        for(Lobby lobby : lobbies){
-            if(lobby.getName().equals(name)){
-                return null;
-            }
-        }
+//        for(Lobby lobby : lobbies){
+//            if(lobby.getName().equals(name)||lobby.getOwner().equals(owner)){
+//                return null;
+//            }
+//        }
+
         Lobby lobby = new Lobby(UUID.randomUUID().toString(), name, owner, isPrivate,isVisible, password);
-        lobby.addMember(owner);
         lobbies.add(lobby);
-        broadcastLobbyList();
         return lobby;
     }
 
@@ -121,18 +135,12 @@ public class LobbyServer {
     }
 
     public void leaveLobby(String username) {
-        for (Lobby lobby : lobbies) {
-            if (lobby.getOwner().equals(username)) {
-                removeLobby(lobby.getId(), lobby.getOwner());
-            } else if (lobby.getMembers().remove(username)) {
-                break;
-            }
-        }
+        ServerController.leaveLobby(username,(ArrayList<Lobby>) lobbies);
         broadcastOnlineUsers();
     }
 
     public void removeLobby(String lobbyId, String requester) {
-        lobbies.removeIf(l -> l.getId().equals(lobbyId) && l.getOwner().equals(requester));
+        ServerController.removeLobby(lobbyId,requester, (ArrayList<Lobby>) lobbies);
         broadcastLobbyList();
     }
 

@@ -2,12 +2,16 @@ package io.src.model.Network.Server;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import io.src.controller.Network.ServerController;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
+
+import static io.src.controller.Network.ServerController.sendCreateMessage;
+import static io.src.controller.Network.ServerController.sendJoinMessage;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
@@ -16,7 +20,8 @@ public class ClientHandler implements Runnable {
     private PrintWriter out;
     private final Gson gson = new Gson();
 
-    public ClientHandler(Socket socket, LobbyServer server) {
+    public ClientHandler(Socket socket, LobbyServer server, String username) {
+        this.username = username;
         this.socket = socket;
         this.server = server;
     }
@@ -41,37 +46,28 @@ public class ClientHandler implements Runnable {
             while ((line = in.readLine()) != null) {
                 try {
                     Message msg = gson.fromJson(line, Message.class);
+                    NetworkCommand command;
                     if (msg == null ) continue;
-                    switch (msg.getFromBody("commandType")) {
+                    try {
+                        command = NetworkCommand.valueOf(msg.getFromBody("commandType"));
+                    } catch (IllegalArgumentException e) {
+                        throw new IllegalStateException("Unexpected value: " + msg.getFromBody("commandType"));
+                    }
+                    switch (command) {
                         case NetworkCommand.join_lobby -> {
-                            this.username = msg.getFromBody("username");
-                            String lobbyId = msg.getFromBody("lobbyId");
-                            String password = msg.getFromBody("password");
-                            boolean success = server.joinLobby(username, lobbyId, password);
-                            if (success) {
-                                sendMessage(gson.toJson(new Message(NetworkCommand.join_lobby, "server", msg.getLobbyId(), "joined", null)));
-                            } else {
-                                sendMessage(gson.toJson(new Message(NetworkCommand.error, "server", null, "Join failed (maybe wrong password or full lobby)", null)));
-                            }
+                            System.out.println("Joining lobby");
+                            sendMessage(gson.toJson(sendJoinMessage(msg,server)));
                         }
                         case NetworkCommand.create_lobby -> {
-                            String owner = msg.getFromBody("ownerName");
-                            String lobbyName = msg.getFromBody("lobbyName");
-                            String password = msg.getFromBody("password");
-                            String isPrivate1 = msg.getFromBody("isPrivate");
-                            String isVisible1 = msg.getFromBody("isVisible");
-                            boolean isPrivate = isPrivate1.equals("yes");
-                            boolean isVisible = isVisible1.equals("yes");
-
-                            boolean success = server.createLobby(lobbyName,owner,isPrivate,password,isVisible) != null;
-                            HashMap<String, Object> body = new HashMap<>();
-                            body.put("commandType", NetworkCommand.create_lobby);
-                            body.put("isSuccessful", success);
-                            Message.Type type = Message.Type.response;
-                            sendMessage(gson.toJson(new Message(body, type)));
+                            System.out.println(10);
+                            sendMessage(gson.toJson(sendCreateMessage(msg,server)));
                         }
                         case NetworkCommand.list_lobbies -> {
+                            System.out.println(2);
                             server.sendLobbyListToClient(this);
+                        }
+                        case NetworkCommand.online_Users -> {
+                            server.broadcastOnlineUsers();
                         }
 //                        case NetworkCommand.leave_lobby -> {
 //                            server.leaveLobby(msg.getSender());
@@ -86,9 +82,15 @@ public class ClientHandler implements Runnable {
 //                            server.sendChatToLobby(msg);
 //                        }
 //                        default -> sendMessage(gson.toJson(new Message(NetworkCommand.error, "server", null, "Unknown command", null)));
+                        default ->
+                            throw new IllegalStateException("Unexpected value: " + msg.getFromBody("commandType"));
                     }
                 } catch (JsonSyntaxException e) {
-                    sendMessage(gson.toJson(new Message(NetworkCommand.error, "server", null, "Invalid message format", null)));
+                    HashMap<String, Object> body = new HashMap<>();
+                    body.put("commandType", NetworkCommand.error);
+                    body.put("ERROR","THERE IS NO COMMAND TYPE:");
+                    Message.Type type = Message.Type.response;
+                    sendMessage(gson.toJson(new Message(body, type)));
                 }
             }
         } catch (IOException e) {

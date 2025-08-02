@@ -8,7 +8,8 @@ import io.src.model.items.Inventory;
 public class GameAssetManager {
     private static GameAssetManager gameAssetManager;
 
-
+    //CO_OP
+    private Texture coopBackground =  new Texture("assets/coop_background.jpg");
     //Inventory
     private Texture InventoryBackGround = new Texture("assets/Inventory/InventoryBackground.png");
     private Texture closeTab = new Texture("assets/Inventory/exit.png");
@@ -200,5 +201,9 @@ public class GameAssetManager {
 
     public Texture getGreenBar() {
         return greenBar;
+    }
+
+    public Texture getCoopBackground() {
+        return coopBackground;
     }
 }
