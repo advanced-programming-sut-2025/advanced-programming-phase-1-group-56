@@ -28,8 +28,8 @@ public class MainMenu implements AppMenu, Screen {
     private final Skin skin;
 
     private final Button exitButton;
-    private final TextButton newButton;
-    private final TextButton loadButton;
+    private final Button newButton;
+    private final Button loadButton;
 //    private final
 
     public MainMenu() {
@@ -46,26 +46,26 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(exitButton);
 
         Table buttonTable = new Table();
-        buttonTable.setFillParent(true);
-        newButton = new TextButton("NEW", skin);
-        buttonTable.add(newButton);
-        loadButton = new TextButton("LOAD", skin);
-        buttonTable.add(loadButton);
+        newButton = new Button(skin, "newButton");
+        loadButton = new Button(skin, "loadButton");
+
+        buttonTable.add(newButton).width(newButton.getWidth()).height(newButton.getHeight()).pad(25);
+        buttonTable.add(loadButton).width(loadButton.getWidth()).height(loadButton.getHeight()).pad(25);
+        buttonTable.setPosition((float) Gdx.graphics.getWidth() / 2,
+            (float) (((double) Gdx.graphics.getHeight() / 2)));
         stage.addActor(buttonTable);
     }
 
     @Override
     public void render(float v) {
-        int stardewWidth = 398 * 3;
-        int stardewHeight = 187 * 3;
-
         ScreenUtils.clear(0, 0, 0, 1);
         StardewValley.getBatch().begin();
         StardewValley.getBatch().draw(image, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         StardewValley.getBatch().draw(stardewValleyImage,
-            ((float) Gdx.graphics.getWidth() / 2) - ((float) stardewWidth / 2),
-            ((float) Gdx.graphics.getHeight() / 2) - ((float) stardewHeight / 2),
-            stardewWidth, stardewHeight);
+            ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
+            ((float) Gdx.graphics.getHeight() / 2) - 187,
+            (float) (398 * 3),
+            (float) (187 * 3));
         StardewValley.getBatch().end();
         stage.act(v);
         stage.draw();
