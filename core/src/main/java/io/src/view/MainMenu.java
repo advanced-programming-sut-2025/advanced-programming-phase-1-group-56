@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.src.StardewValley;
 import io.src.controller.MenuController.MainMenuController;
@@ -27,33 +24,69 @@ public class MainMenu implements AppMenu, Screen {
     private final Texture stardewValleyImage;
     private final Skin skin;
 
+    private final Button logoutButton;
     private final Button exitButton;
     private final Button newButton;
     private final Button loadButton;
-//    private final
+    private final Button coopButton;
+    private final Button aboutButton;
+
+    private final Button back_about_Button;
+    private final Table aboutTable;
 
     public MainMenu() {
+        // essential
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         image = new Texture(Gdx.files.internal("background3.png"));
         skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
         stardewValleyImage = new Texture(Gdx.files.internal("StardewValley.png"));
 
-        exitButton = new Button(skin, "ExitButton");
-        float exitButtonPadding = exitButton.getWidth();
-        exitButton.setPosition(Gdx.graphics.getWidth() - exitButton.getWidth() - exitButtonPadding / 2,
-            Gdx.graphics.getHeight() - exitButton.getHeight() - exitButtonPadding / 2);
-        stage.addActor(exitButton);
+        // exitButton
 
         Table buttonTable = new Table();
         newButton = new Button(skin, "newButton");
         loadButton = new Button(skin, "loadButton");
+        coopButton = new Button(skin, "co-opButton");
+        logoutButton = new Button(skin, "exitButton");
 
-        buttonTable.add(newButton).width(newButton.getWidth()).height(newButton.getHeight()).pad(25);
-        buttonTable.add(loadButton).width(loadButton.getWidth()).height(loadButton.getHeight()).pad(25);
+        buttonTable.add(newButton).width(newButton.getWidth()).height(newButton.getHeight()).pad(5);
+        buttonTable.add(loadButton).width(loadButton.getWidth()).height(loadButton.getHeight()).pad(5);
+        buttonTable.add(coopButton).width(coopButton.getWidth()).height(coopButton.getHeight()).pad(5);
+        buttonTable.add(logoutButton).width(logoutButton.getWidth()).height(logoutButton.getHeight()).pad(5);
         buttonTable.setPosition((float) Gdx.graphics.getWidth() / 2,
-            (float) (((double) Gdx.graphics.getHeight() / 2)));
+            newButton.getHeight() - 75);
         stage.addActor(buttonTable);
+
+        // about button
+        aboutButton = new Button(skin, "aboutButton");
+        aboutButton.setPosition((float) (Gdx.graphics.getWidth() - (aboutButton.getWidth() * 1.5)),
+            buttonTable.getY() - newButton.getHeight() / 2);
+        stage.addActor(aboutButton);
+
+        // exit button
+        exitButton = new Button(skin, "ExitButton");
+        exitButton.setPosition(Gdx.graphics.getWidth() - exitButton.getWidth() - 20,
+            Gdx.graphics.getHeight() - exitButton.getHeight() - 20);
+        stage.addActor(exitButton);
+
+        //
+        aboutTable = new Table();
+        aboutTable.setFillParent(true);
+
+        back_about_Button = new Button(skin, "backButton");
+        Label aboutText = new Label("About...", skin, "default-WHITE");
+        aboutText.setWrap(true);
+        // about
+        ScrollPane aboutWindow = new ScrollPane(aboutText, skin);
+        aboutWindow.setFadeScrollBars(false);
+        aboutWindow.setScrollingDisabled(true, false);
+        aboutTable.setFillParent(true);
+        aboutTable.setVisible(false);
+        aboutTable.add(aboutWindow).width().height(aboutWindow.getHeight());
+        aboutTable.add(back_about_Button).width(back_about_Button.getWidth());
+
+        stage.addActor(aboutTable);
     }
 
     @Override
@@ -63,7 +96,7 @@ public class MainMenu implements AppMenu, Screen {
         StardewValley.getBatch().draw(image, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         StardewValley.getBatch().draw(stardewValleyImage,
             ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
-            ((float) Gdx.graphics.getHeight() / 2) - 187,
+            ((float) Gdx.graphics.getHeight() / 2) - (float) 187 / 2,
             (float) (398 * 3),
             (float) (187 * 3));
         StardewValley.getBatch().end();
@@ -83,8 +116,36 @@ public class MainMenu implements AppMenu, Screen {
 
     //
 
+    public Button getLogoutButton() {
+        return logoutButton;
+    }
+
     public Button getExitButton() {
         return exitButton;
+    }
+
+    public Button getNewButton() {
+        return newButton;
+    }
+
+    public Button getLoadButton() {
+        return loadButton;
+    }
+
+    public Button getCoopButton() {
+        return coopButton;
+    }
+
+    public Button getAboutButton() {
+        return aboutButton;
+    }
+
+    public Table getAboutWindow() {
+        return aboutTable;
+    }
+
+    public Button getBack_about_Button() {
+        return back_about_Button;
     }
 
     @Override

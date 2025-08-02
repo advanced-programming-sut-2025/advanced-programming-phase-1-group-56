@@ -68,6 +68,26 @@
 		"up": "loadButton2_UP",
 		"down": "loadButton2_UP",
 		"over": "loadButton2_DOWN"
+	},
+	"co-opButton": {
+		"up": "co-opButton_UP",
+		"down": "co-opButton_UP",
+		"over": "co-opButton_DOWN"
+	},
+	"aboutButton": {
+		"up": "questionButton_UP",
+		"down": "questionButton_UP",
+		"over": "questionButton_DOWN"
+	},
+	"exitButton": {
+		"up": "exitButton2_UP",
+		"down": "exitButton2_UP",
+		"over": "exitButton2_DOWN"
+	},
+	"backButton": {
+		"up": "backButton_UP",
+		"down": "backButton_UP",
+		"over": "backButton_DOWN"
 	}
 },
 "CheckBoxStyle": {
@@ -173,6 +193,11 @@
 		"font": "baseFont2-24",
 		"fontColor": "RED",
 		"background": "warning_label"
+	}
+},
+"ScrollPaneStyle": {
+	"default": {
+		"background": "windowsBackground"
 	}
 },
 "TextButtonStyle": {
@@ -345,6 +370,10 @@
 		"background": "window",
 		"titleFont": "baseFont2-24",
 		"titleFontColor": "WHITE"
+	},
+	"default2": {
+		"titleFont": "baseFont2-24",
+		"stageBackground": "stageBackGround"
 	}
 }
 }
