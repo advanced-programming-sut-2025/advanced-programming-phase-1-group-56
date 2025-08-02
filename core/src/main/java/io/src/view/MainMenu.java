@@ -3,6 +3,7 @@ package io.src.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -12,8 +13,10 @@ import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.MainMenuCommands;
 import io.src.model.SkinManager;
+import io.src.model.UI_Models.Cloud;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -22,6 +25,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Stage stage;
     private final Texture image;
     private final Texture stardewValleyImage;
+    private ArrayList<Cloud> clouds;
     private final Skin skin;
 
     private final Button logoutButton;
@@ -70,21 +74,19 @@ public class MainMenu implements AppMenu, Screen {
             Gdx.graphics.getHeight() - exitButton.getHeight() - 20);
         stage.addActor(exitButton);
 
-        //
+        // about
         aboutTable = new Table();
         aboutTable.setFillParent(true);
-
+        aboutTable.setVisible(false);
         back_about_Button = new Button(skin, "backButton");
         Label aboutText = new Label("About...", skin, "default-WHITE");
         aboutText.setWrap(true);
-        // about
         ScrollPane aboutWindow = new ScrollPane(aboutText, skin);
         aboutWindow.setFadeScrollBars(false);
         aboutWindow.setScrollingDisabled(true, false);
-        aboutTable.setFillParent(true);
-        aboutTable.setVisible(false);
-        aboutTable.add(aboutWindow).width().height(aboutWindow.getHeight());
-        aboutTable.add(back_about_Button).width(back_about_Button.getWidth());
+        aboutTable.add(aboutWindow).width((float) Gdx.graphics.getWidth() / 2).height((float) Gdx.graphics.getHeight() / 2);
+        aboutTable.row();
+        aboutTable.add(back_about_Button).width(back_about_Button.getWidth()).right();
 
         stage.addActor(aboutTable);
     }
@@ -94,6 +96,10 @@ public class MainMenu implements AppMenu, Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         StardewValley.getBatch().begin();
         StardewValley.getBatch().draw(image, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        for (Cloud c : clouds) {
+            c.update(v);
+            c.draw(StardewValley.getBatch());
+        }
         StardewValley.getBatch().draw(stardewValleyImage,
             ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
             ((float) Gdx.graphics.getHeight() / 2) - (float) 187 / 2,
@@ -150,7 +156,13 @@ public class MainMenu implements AppMenu, Screen {
 
     @Override
     public void show() {
-
+        clouds = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            float x = (float) (Math.random() * Gdx.graphics.getWidth());
+            float y = 300 + (float) (MathUtils.random(0, Gdx.graphics.getHeight() - 400));
+            float speed = 10 + (float)(Math.random() * 50);
+            clouds.add(new Cloud(new Texture(Gdx.files.internal("cloud" + ((i % 3) + 1) + ".png")), speed, x, y));
+        }
     }
 
     @Override

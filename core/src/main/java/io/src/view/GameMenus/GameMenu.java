@@ -1,38 +1,61 @@
 package io.src.view.GameMenus;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.src.controller.GameMenuController.*;
 import io.src.model.App;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.commands.GameCommands.*;
-import io.src.model.Game;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
-import io.src.model.MapModule.GameMap;
 import io.src.model.MapModule.Position;
 import io.src.model.Player;
 import io.src.model.States.Energy;
-import io.src.model.States.WeatherState;
-import io.src.model.TimeSystem.TimeSystem;
-import io.src.model.User;
 import io.src.view.AppMenu;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GameMenu implements AppMenu {
+public class GameMenu implements AppMenu , Screen {
+
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
 
     @Override
     public void check(Scanner scanner) {
@@ -60,7 +83,7 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = PreGameMenuCommands.newGameRegex.getMatcher(input)) != null) {
             try {
-                String message = PreGameMenuController.manageNewGame(matcher.group(1).trim().trim(), scanner).message();
+                String message = PreGameMenuController.manageNewGame(matcher.group(1).trim(), scanner).message();
                 System.out.println(message);
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
@@ -552,8 +575,4 @@ public class GameMenu implements AppMenu {
             return false;
         }
     }
-
-
 }
-
-

@@ -290,12 +290,6 @@ public class LoginMenu implements AppMenu, Screen {
 
     @Override
     public void render(float v) {
-        if (Gdx.input.isTouched()) {
-            int x = Gdx.input.getX();
-            int y = Gdx.graphics.getHeight() - Gdx.input.getY();
-            System.out.println("Clicked at: (" + x + ", " + y + ")");
-        }
-
         ScreenUtils.clear(1, 1, 1, 1);
         StardewValley.getBatch().begin();
         StardewValley.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
