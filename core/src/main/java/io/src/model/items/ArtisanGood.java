@@ -21,6 +21,11 @@ public class ArtisanGood extends Item {
         return artisanGoodType.getSellPrice();
     }
 
+    @Override
+    public String getAssetName() {
+        return artisanGoodType.getAssetName();
+    }
+
 //    public void setSellPrice(int sellPrice) {
 //        this.sellPrice = sellPrice;
 //    }

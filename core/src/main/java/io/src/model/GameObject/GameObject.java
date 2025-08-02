@@ -49,4 +49,6 @@ public abstract class GameObject {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+    public abstract String getAssetName();
 }

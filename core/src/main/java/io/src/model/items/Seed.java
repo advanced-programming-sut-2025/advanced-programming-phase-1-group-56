@@ -22,6 +22,12 @@ public class Seed extends Item {
     public int getPrice() {
         return -1;
     }
+
+    @Override
+    public String getAssetName() {
+        return seedType.getAssetName();
+    }
+
     public initialPlant getCrop(){
         return seedType.cropType;
     }
