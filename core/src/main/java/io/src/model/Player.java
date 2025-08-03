@@ -2,6 +2,7 @@ package io.src.model;
 
 import io.src.model.Activities.*;
 import io.src.model.Enums.BackPackType;
+import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 
 import io.src.model.Enums.Items.TrashcanType;
@@ -40,6 +41,8 @@ public class Player implements TimeObserver {
     private boolean gender;
     private double energyUsage = 0;
     private int movingDirection = 0;
+    private Direction currentDirection = Direction.DOWN;
+    private Direction lastDirection = Direction.DOWN;
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -101,7 +104,7 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
-        subtractEnergy(delta/3);
+        subtractEnergy(delta / 3);
     }
 
     public boolean tryMove(float dx, float dy) {
@@ -152,12 +155,25 @@ public class Player implements TimeObserver {
         interactWithPartnerToday = false;
     }
 
-    public int getMovingDirection() {
-        return movingDirection;
+    //    public Direction getMovingDirection() {
+//        return movingDirection;
+//    }
+    public Direction getLastDirection() {
+        return lastDirection;
     }
 
-    public void setMovingDirection(int direction) {
-        this.movingDirection = direction;
+    //    public void setMovingDirection(Direction direction) {
+//        this.movingDirection = direction;
+//    }
+    public void setMovingDirection(Direction d) {
+        if (d != null) {
+            currentDirection = d;
+            lastDirection = d;
+        }
+    }
+
+    public boolean isMoving() {
+        return vx != 0 || vy != 0;
     }
 
     public ArrayList<Skill> getSkills() {
