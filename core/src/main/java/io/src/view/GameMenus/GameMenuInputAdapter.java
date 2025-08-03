@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import io.src.model.App;
+import io.src.model.Enums.Direction;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.MapModule.GameLocations.Farm;
@@ -79,7 +80,7 @@ public class GameMenuInputAdapter extends InputAdapter {
     public void update(float delta) {
         Player player = game.getCurrentPlayer();
         float vx = 0, vy = 0;
-        int dir = 0;
+        Direction dir = null;
 
         if (keysHeld.contains(Input.Keys.J)) {
             Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
@@ -93,19 +94,19 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         if (keysHeld.contains(Input.Keys.W)) {
             vy += 1;
-            dir = 3;
+            dir = Direction.UP;
         }
         if (keysHeld.contains(Input.Keys.S)) {
             vy -= 1;
-            dir = 1;
+            dir = Direction.DOWN;
         }
         if (keysHeld.contains(Input.Keys.A)) {
             vx -= 1;
-            dir = 4;
+            dir = Direction.LEFT;
         }
         if (keysHeld.contains(Input.Keys.D)) {
             vx += 1;
-            dir = 2;
+            dir = Direction.RIGHT;
         }
 
         float ph = 0.8f;

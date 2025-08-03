@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.model.App;
+import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
@@ -22,6 +24,7 @@ import io.src.model.GameObject.*;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
+import io.src.model.Player;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -41,6 +44,7 @@ public class GameView implements Screen {
     private GlyphLayout layout = new GlyphLayout();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
+    private AnimationManager animMgr;
     private float stateTime = 0f;
     private int moveDirection = 0;
     private Texture pixel; // Add this
@@ -126,130 +130,67 @@ public class GameView implements Screen {
 //
 
         playerAtlas = new TextureAtlas(Gdx.files.internal("sprites_player.atlas"));
+        animMgr = new AnimationManager(playerAtlas);
 
-        for (int i = 14; i > 9; i--) {
-            Array<TextureRegion> walkFrames = new Array<>();
-            if (i == 14) {
-                for (int j = 0; j < 4; j++) {
-                    String region = "player_" + 13 + "_" + 0;
-                    walkFrames.add(playerAtlas.findRegion(region));
-                }
-            } else {
-                for (int j = 0; j < 4; j++) {
-                    String region = "player_" + i + "_" + j;
-                    walkFrames.add(playerAtlas.findRegion(region));
-                }
-            }
-            playerAnimations.add(new Animation<>(0.15f, walkFrames, Animation.PlayMode.LOOP));
-        }
 
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 1);
-        pixmap.fill();
-        pixel = new Texture(pixmap);
-        pixmap.dispose();
+//        for (int i = 14; i > 9; i--) {
+//            Array<TextureRegion> walkFrames = new Array<>();
+//            if (i == 14) {
+//                for (int j = 0; j < 4; j++) {
+//                    String region = "player_" + 13 + "_" + 0;
+//                    walkFrames.add(playerAtlas.findRegion(region));
+//                }
+//            } else {
+//                for (int j = 0; j < 4; j++) {
+//                    String region = "player_" + i + "_" + j;
+//                    walkFrames.add(playerAtlas.findRegion(region));
+//                }
+//            }
+//            playerAnimations.add(new Animation<>(0.15f, walkFrames, Animation.PlayMode.LOOP));
+//        }
+//
+//        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+//        pixmap.setColor(0, 0, 0, 1);
+//        pixmap.fill();
+//        pixel = new Texture(pixmap);
+//        pixmap.dispose();
     }
 
-
-//    public void render() {
-
-    /// /        batch.setProjectionMatrix(camera.combined);
-    /// /        batch.begin();
-    /// /
-    /// /        Texture texture = ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture();
-    /// /        batch.draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    /// /
-    /// /        renderPlayer();
-    /// /
-    /// /        batch.end();
-//        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
-//        camera.zoom = 0.3f;
-//
-//        camera.update();
-//    }
-
-
-//    private void renderTiles() {
-//        TileDescriptionId[][] tiles = game.getTiles();
-//
-//        float camX = game.getCamera().position.x;
-//        float camY = game.getCamera().position.y;
-//        float viewportWidth = game.getCamera().viewportWidth;
-//        float viewportHeight = game.getCamera().viewportHeight;
-//
-//        int tileSize = StardewMini.TILE_SIZE;
-//
-//        float cameraLeft = camX - viewportWidth / 2;
-//        float cameraBottom = camY - viewportHeight / 2;
-//
-//        int startX = Math.max(0, (int) (cameraLeft / tileSize) - 2);
-//        int startY = Math.max(0, (int) (cameraBottom / tileSize) - 2);
-//        int endX = Math.min(tiles.length, (int) ((camX + viewportWidth / 2) / tileSize) + 2);
-//        int endY = Math.min(tiles[0].length, (int) ((camY + viewportHeight / 2) / tileSize) + 2);
-//
-//        // Render base tiles
-//        for (int x = startX; x < endX; x++) {
-//            for (int y = startY; y < endY; y++) {
-//                TileDescriptionId id = tiles[x][y];
-//                if (id != null) {
-//                    float drawX = x * tileSize - cameraLeft;
-//                    float drawY = y * tileSize - cameraBottom;
-//
-//                    GrowingCrop crop = game.getGrowingCrops().get(new Point(x, y));
-//                    if (crop != null && crop.watered()) {
-//                        batch.setColor(0.7f, 0.7f, 0.7f, 1f);
-//                    } else {
-//                        batch.setColor(1f, 1f, 1f, 1f);
-//                    }
-//
-//                    TextureRegion texture = textures.get(id.name());
-//                    if (texture != null) {
-//                        batch.draw(texture, drawX, drawY, tileSize, tileSize);
-//                    }
-//                }
-//            }
-//        }
-//
-//        // Render crops on top
-//        for (Map.Entry<Point, GrowingCrop> entry : game.getGrowingCrops().entrySet()) {
-//            Point point = entry.getKey();
-//            GrowingCrop crop = entry.getValue();
-//
-//            int x = point.x;
-//            int y = point.y;
-//
-//            if (x >= startX && x < endX && y >= startY && y < endY) {
-//                float drawX = x * tileSize - cameraLeft;
-//                float drawY = y * tileSize - cameraBottom;
-//
-//                int growth = crop.getGrowth();
-//                CarrotStages cs;
-//
-//                if (growth < 2) cs = CarrotStages.CARROT_STAGE_1;
-//                else if (growth < 4) cs = CarrotStages.CARROT_STAGE_2;
-//                else if (growth < 6) cs = CarrotStages.CARROT_STAGE_3;
-//                else cs = CarrotStages.CARROT_STAGE_4;
-//
-//                TextureRegion cropTexture = textures.get(cs.name());
-//                if (cropTexture != null) {
-//                    batch.setColor(1f, 1f, 1f, 1f);
-//                    batch.draw(cropTexture, drawX, drawY, tileSize, tileSize);
-//                }
-//            }
-//        }
-//
-//        batch.setColor(1f, 1f, 1f, 1f);
-//    }
     private void renderPlayer() {
 
-        moveDirection = game.getCurrentPlayer().getMovingDirection();
-
         stateTime += Gdx.graphics.getDeltaTime();
+        Player p = game.getCurrentPlayer();
+        AnimationKey key;
+        if (p.isMoving()) {
+            switch(p.getLastDirection()) {
+                case UP:    key = AnimationKey.WALK_UP;    break;
+                case DOWN:  key = AnimationKey.WALK_DOWN;  break;
+                case LEFT:  key = AnimationKey.WALK_LEFT;  break;
+                default:    key = AnimationKey.WALK_RIGHT; break;
+            }
+        } else {
+            switch(p.getLastDirection()) {
+                case UP:    key = AnimationKey.IDLE_UP;    break;
+                case DOWN:  key = AnimationKey.IDLE_DOWN;  break;
+                case LEFT:  key = AnimationKey.IDLE_LEFT;  break;
+                default:    key = AnimationKey.IDLE_RIGHT; break;
+            }
+        }
+        Animation<TextureRegion> anim = animMgr.get(key);
+        TextureRegion frame = anim.getKeyFrame(stateTime, true);
+        renderer.getBatch().draw(
+            frame,
+            p.getPixelPosition().getX(), p.getPixelPosition().getY(),
+            20, 40 );
 
-        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
-        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
-
-        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
+//        moveDirection = game.getCurrentPlayer().getMovingDirection();
+//
+//        stateTime += Gdx.graphics.getDeltaTime();
+//
+//        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
+//        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
+//
+//        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
 //        renderInventory();
     }
 
@@ -332,8 +273,9 @@ public class GameView implements Screen {
         objects.add(me);
         objects.sort(
             Comparator
-                .comparingInt((GameObject o) -> (int) -o.getPosition().getY())
+                .comparingDouble((GameObject o) -> -o.getPosition().getY())
                 .thenComparingInt(o -> (int) o.getPosition().getX())
+//                .thenComparingDouble()
         );
 
 
@@ -445,6 +387,24 @@ public class GameView implements Screen {
         //DEBUG
         float y = game.getCurrentPlayer().getPixelPosition().getY();
         float x = game.getCurrentPlayer().getPixelPosition().getX();
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        int mapWidth = layer.getWidth() * TILE_SIZE;
+        int mapHeight = layer.getHeight() * TILE_SIZE;
+
+        if (y + 170 >= mapHeight) {
+            y = mapHeight - 182;
+        }
+        if (x + 300 >= mapWidth) {
+            x = mapWidth - 300;
+        }
+
+        if (y - 150 <= 0) {
+            y = 150;
+        }
+
+        if (x - 290 <= 0) {
+            x = 290;
+        }
 
         camera.position.set(x, y, 0);
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
