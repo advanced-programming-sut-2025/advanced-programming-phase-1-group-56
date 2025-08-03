@@ -283,7 +283,7 @@ public class TownLoader {
 
     public static Town loadTheTown() {
         Town town = new Town(GameLocationType.Town);
-        Tile[][] townTileSet = load(town, "assets\\Town4.tmj");
+        Tile[][] townTileSet = load(town, "assets\\gameLocations\\Town4.tmj");
         town.setTiles(townTileSet);
         //TODO npc registry
         //done

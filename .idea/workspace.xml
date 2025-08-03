@@ -6,14 +6,44 @@
   <component name="ChangeListManager">
     <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="town isn't scaled">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Farm1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Farm1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm1.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm1.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm2.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Farm2.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/PHASE0_UML.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Town4.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Town4.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/1.5.6_standard_far.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/1.6_meadow_close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/654px-Pelican_Town.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/654px-Pelican_Town_TR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/709px-TownDistances.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/StandardFarmDistances.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/TownForageLocations.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/imagesAndassets/map123.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/654px-Pelican_Town_TR.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/Farm-project.tiled-session" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/FarmTile.tsj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/FarmTile.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/FarmTile2.tsj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/FarmTile2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/TownForageLocations.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/TreeTile1.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/hello.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/hello2.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/hello3.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/jsonFarmMap.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/jsonFarmMap2.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/pelicanTownTile.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/untitled.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/untitled.tmx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/untitled2.tmj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tiledMap/tiledProject/untitled2.tmx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/GrassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/GrassType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/MineralItemType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/MineralItemType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameLocationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameLocationType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/TownLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/TownLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,6 +173,7 @@
       <workItem from="1753682647361" duration="4586000" />
       <workItem from="1753802716669" duration="6891000" />
       <workItem from="1754059521069" duration="7767000" />
+      <workItem from="1754214353734" duration="1361000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />

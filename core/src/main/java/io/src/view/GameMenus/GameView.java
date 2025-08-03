@@ -44,7 +44,7 @@ public class GameView implements Screen {
     private float stateTime = 0f;
     private int moveDirection = 0;
     private Texture pixel; // Add this
-    public Image background = new Image(new Texture(Gdx.files.internal("Farm2.png")));
+    public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
     private final OrthographicCamera camera = new OrthographicCamera();
     private Stage stage;
     private TimerWindow timeWindow;
@@ -76,7 +76,7 @@ public class GameView implements Screen {
         this.game = game;
 //        this.gameController = gameController;
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
-        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
+        this.map = new TmxMapLoader().load( App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
