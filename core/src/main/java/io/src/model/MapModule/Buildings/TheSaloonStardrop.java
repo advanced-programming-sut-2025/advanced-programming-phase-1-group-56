@@ -1,5 +1,6 @@
 package io.src.model.MapModule.Buildings;
 
+import io.src.model.App;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.Enums.Stores.StardropSaloonProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
@@ -25,7 +26,7 @@ public class TheSaloonStardrop extends Store {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay){
+        if (newDay) {
             dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
         }
     }
@@ -33,5 +34,12 @@ public class TheSaloonStardrop extends Store {
     @Override
     public ArrayList<NpcProduct> getDailyProductList() {
         return dailyProductList;
+    }
+
+
+    @Override
+    public String getAssetName() {
+        return "The_Sallon_Stardrop_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString()
+            + ((App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > 18) ? "_Night" : "");
     }
 }

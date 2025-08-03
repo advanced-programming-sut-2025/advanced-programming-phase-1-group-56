@@ -1,5 +1,6 @@
 package io.src.model.MapModule.Buildings;
 
+import io.src.model.App;
 import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.Stores.CarpenterShopProducts;
 import io.src.model.Enums.Stores.FishShopProducts;
@@ -45,5 +46,10 @@ public class CarpentersShop extends Store {
             }
         }
         return null;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Carpenter_Shop_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }

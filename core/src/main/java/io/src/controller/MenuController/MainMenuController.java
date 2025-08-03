@@ -1,5 +1,8 @@
 package io.src.controller.MenuController;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
@@ -35,6 +38,36 @@ public class MainMenuController extends CommandController {
 
     private void initialize() {
 
+        menu.getExitButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+        menu.getLogoutButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                Result result = manageUserLogout();
+                if (result.isSuccess()) {
+                    LoginMenuController controller = new LoginMenuController(game);
+                    controller.init();
+                    controller.run();
+                }
+            }
+        });
+
+        menu.getAboutButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getAboutWindow().setVisible(true);
+                menu.getAboutButton().setVisible(false);
+            }
+        });
+
+        menu.getBack_about_Button().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                menu.getAboutButton().setVisible(true);
+                menu.getAboutWindow().setVisible(false);
+            }
+        });
     }
 
     public static Result manageUserLogout() {

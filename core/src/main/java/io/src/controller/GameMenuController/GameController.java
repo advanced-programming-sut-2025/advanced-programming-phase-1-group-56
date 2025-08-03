@@ -30,29 +30,26 @@ public class GameController extends CommandController {
     }
 
     public static Result saveGame() {
-        for (Player player: App.getCurrentUser().getCurrentGame().getPlayers())
-        {
+        for (Player player : App.getCurrentUser().getCurrentGame().getPlayers())
             player.getUser().setGold(player.getGold());
-        }
-        return new Result(true,"saved  game");
+        return new Result(true, "saved  game");
     }
 
     public static Result exitGame() {
-        boolean isPLayerOwner= App.getCurrentUser().getCurrentGame().getStarterPlayer().equals(
-                App.getCurrentUser().getCurrentGame().getCurrentPlayer());
-        if(isPLayerOwner) {
+        boolean isPLayerOwner = App.getCurrentUser().getCurrentGame().getStarterPlayer().equals(
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer());
+        if (isPLayerOwner) {
             System.out.println("Going to exit game...");
             Result res = saveGame();
 
-            for (Player player: App.getCurrentUser().getCurrentGame().getPlayers()){
-                player.getUser().setGold(Math.max(player.getGold(),player.getGold()));
+            for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+                player.getUser().setGold(Math.max(player.getGold(), player.getGold()));
             }
             App.setCurrentMenu(Menu.mainMenu);
             App.getCurrentUser().setCurrentGame(null);
             return res;
-        }
-        else {
-            return new Result(false,"you are not owner of this game to exit game");
+        } else {
+            return new Result(false, "you are not owner of this game to exit game");
         }
     }
 
@@ -61,12 +58,12 @@ public class GameController extends CommandController {
         int startOfCycleIndex = game.getPlayers().indexOf(game.getCurrentPlayer());
         int playerCount = game.getPlayers().size();
         for (int i = 1; i < playerCount; i++) {
-            Player playerToVote = game.getPlayers().get(startOfCycleIndex+i % playerCount);
-            System.out.println("Game Is Going to be TERMINATED.\nif you vote Type(DELETE,I KNOW WHAT I'M DOING)"+
-                    "\nType AnyThing else to Cancel The Process..");
+            Player playerToVote = game.getPlayers().get(startOfCycleIndex + i % playerCount);
+            System.out.println("Game Is Going to be TERMINATED.\nif you vote Type(DELETE,I KNOW WHAT I'M DOING)" +
+                "\nType AnyThing else to Cancel The Process..");
             String input = scanner.nextLine();
-            if(input.equalsIgnoreCase("DELETE,I KNOW WHAT I'M DOING")) {
-                return new Result(false,"Process cancelled by player");
+            if (input.equalsIgnoreCase("DELETE,I KNOW WHAT I'M DOING")) {
+                return new Result(false, "Process cancelled by player");
             }
         }
 
@@ -77,34 +74,33 @@ public class GameController extends CommandController {
             player.getUser().setCurrentGame(null);
 
         }
-        return new Result(true,"Mission Failed Successfully... ):");
+        return new Result(true, "Mission Failed Successfully... ):");
     }
 
     public static Result manageNextTurn() {
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().setEnergyUsage(0);
-        Game game =App.getCurrentUser().getCurrentGame();
+        Game game = App.getCurrentUser().getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
-        int indexOfCurrent= game.getPlayers().indexOf(currentPlayer);
+        int indexOfCurrent = game.getPlayers().indexOf(currentPlayer);
 
-        boolean isEndOfCycle = indexOfCurrent+1>=game.getPlayers().size();
-        int indexOfNext = (isEndOfCycle)?0:indexOfCurrent+1;
+        boolean isEndOfCycle = indexOfCurrent + 1 >= game.getPlayers().size();
+        int indexOfNext = (isEndOfCycle) ? 0 : indexOfCurrent + 1;
         game.setCurrentPlayer(game.getPlayers().get(indexOfNext));
-        if(isEndOfCycle){
+        if (isEndOfCycle) {
             App.getCurrentUser().getCurrentGame().getTimeSystem().nextHour();
         }
 
         //TODO add every thing that should be done
         //Here is the start of the next player turn do every thing needed
-        if(App.getMe().isFainted())
-        {
+        if (App.getMe().isFainted()) {
             skipTurn();
         }
 
-        return new Result(true,currentPlayer.getUser().getName() +" turn ended.. its now turn of :" +
-                game.getCurrentPlayer().getUser().getName());
+        return new Result(true, currentPlayer.getUser().getName() + " turn ended.. its now turn of :" +
+            game.getCurrentPlayer().getUser().getName());
     }
 
-    public static Result skipTurn(){
+    public static Result skipTurn() {
         System.out.println("Skipping turn...");
         return manageNextTurn();
     }

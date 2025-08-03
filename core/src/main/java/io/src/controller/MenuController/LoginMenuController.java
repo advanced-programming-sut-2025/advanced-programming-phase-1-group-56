@@ -43,11 +43,11 @@ public class LoginMenuController extends CommandController {
 
     public void init() {
         menu = new LoginMenu();
+        App.init();
     }
 
     public void run() {
         game.setScreen(menu);
-        App.init();
         initialize();
     }
 

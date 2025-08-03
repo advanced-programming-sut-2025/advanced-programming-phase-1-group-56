@@ -27,9 +27,8 @@ public class Tree extends GameObject implements TimeObserver {
     private int harvestDayRegrowth;
     private boolean isComplete;
 
-    public Tree (TreeType treeType, Position position)
-    {
-        super(false,position);
+    public Tree(TreeType treeType, Position position) {
+        super(false, position);
         this.treeType = treeType;
         this.isWateredToday = false;
         this.isFertilizerToday = false;
@@ -78,7 +77,7 @@ public class Tree extends GameObject implements TimeObserver {
         this.currentStage = currentStage;
     }
 
-//    public HashMap<Item, Integer> getItemsGiven() {
+    //    public HashMap<Item, Integer> getItemsGiven() {
 //        return itemsGiven;
 //    }
     public void setWateredToday(boolean wateredToday) {
@@ -111,18 +110,18 @@ public class Tree extends GameObject implements TimeObserver {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay) {
-            if(!(treeType == TreeType.TREE_BARK || treeType == TreeType.BURNT_TREE ||  treeType == TreeType.NORMAL_TREE)) {
-                if(!isWateredToday) {
+        if (newDay) {
+            if (!(treeType == TreeType.TREE_BARK || treeType == TreeType.BURNT_TREE || treeType == TreeType.NORMAL_TREE)) {
+                if (!isWateredToday) {
                     daysWithNoWater++;
                 }
-                if(deluxeRetainingSoil){
+                if (deluxeRetainingSoil) {
                     daysWithNoWater = 0;
                 }
                 countCurrentStage++;
                 harvestDayRegrowth++;
                 int countCurrentStage1 = 7;
-                if(speedGro){
+                if (speedGro) {
                     countCurrentStage1--;
                 }
                 if (currentStage == 3 && countCurrentStage == countCurrentStage1 && isComplete == false) {
@@ -137,11 +136,11 @@ public class Tree extends GameObject implements TimeObserver {
                 }
                 isWateredToday = false;
             }
-        } else{
-            if(isWateredToday) {
+        } else {
+            if (isWateredToday) {
                 daysWithNoWater = 0;
             }
-            if(App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() != WeatherType.Sunny){
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() != WeatherType.Sunny) {
                 this.isWateredToday = true;
             }
         }
@@ -193,5 +192,10 @@ public class Tree extends GameObject implements TimeObserver {
 
     public void setComplete(boolean complete) {
         isComplete = complete;
+    }
+
+    @Override
+    public String getAssetName() {
+        return treeType.getAssetNameByStageAndSeason(currentStage);
     }
 }

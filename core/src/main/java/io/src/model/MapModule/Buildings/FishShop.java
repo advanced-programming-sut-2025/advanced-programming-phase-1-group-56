@@ -1,5 +1,6 @@
 package io.src.model.MapModule.Buildings;
 
+import io.src.model.App;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.MapModule.Position;
@@ -31,5 +32,10 @@ public class FishShop extends Store {
     @Override
     public ArrayList<NpcProduct> getDailyProductList() {
         return dailyProductList;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Fish_Shop_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }

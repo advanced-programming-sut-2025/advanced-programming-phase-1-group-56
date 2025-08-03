@@ -54,6 +54,42 @@
 		"hex": "ffffffff"
 	}
 },
+"ButtonStyle": {
+	"ExitButton": {
+		"up": "ExitButton_UP",
+		"down": "ExitButton_DOWN"
+	},
+	"newButton": {
+		"up": "newButton2_UP",
+		"down": "newButton2_UP",
+		"over": "newButton2_OVER"
+	},
+	"loadButton": {
+		"up": "loadButton2_UP",
+		"down": "loadButton2_UP",
+		"over": "loadButton2_DOWN"
+	},
+	"co-opButton": {
+		"up": "co-opButton_UP",
+		"down": "co-opButton_UP",
+		"over": "co-opButton_DOWN"
+	},
+	"aboutButton": {
+		"up": "questionButton_UP",
+		"down": "questionButton_UP",
+		"over": "questionButton_DOWN"
+	},
+	"exitButton": {
+		"up": "exitButton2_UP",
+		"down": "exitButton2_UP",
+		"over": "exitButton2_DOWN"
+	},
+	"backButton": {
+		"up": "backButton_UP",
+		"down": "backButton_UP",
+		"over": "backButton_DOWN"
+	}
+},
 "CheckBoxStyle": {
 	"default": {
 		"checkboxOn": "checkedbx_ON",
@@ -74,6 +110,15 @@
 		"overFontColor": "PINK",
 		"focusedFontColor": "PINK",
 		"checkedFontColor": "GREEN"
+	}
+},
+"ImageTextButtonStyle": {
+	"button1-2": {
+		"font": "font2-30",
+		"fontColor": "PINK",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
 	}
 },
 "LabelStyle": {
@@ -148,6 +193,11 @@
 		"font": "baseFont2-24",
 		"fontColor": "RED",
 		"background": "warning_label"
+	}
+},
+"ScrollPaneStyle": {
+	"default": {
+		"background": "windowsBackground"
 	}
 },
 "TextButtonStyle": {
@@ -264,6 +314,15 @@
 		"fontColor": "RED",
 		"up": "enventoryButtonTop_UP",
 		"down": "enventoryButtonTop_DOWN"
+	},
+	"newButton": {
+		"font": "font2-30",
+		"fontColor": "PINK",
+		"downFontColor": "PINK",
+		"overFontColor": "GREEN",
+		"up": "newButton_UP",
+		"down": "newButton_DOWN",
+		"over": "newButton_OVER"
 	}
 },
 "TextFieldStyle": {
@@ -311,6 +370,10 @@
 		"background": "window",
 		"titleFont": "baseFont2-24",
 		"titleFontColor": "WHITE"
+	},
+	"default2": {
+		"titleFont": "baseFont2-24",
+		"stageBackground": "stageBackGround"
 	}
 }
 }
