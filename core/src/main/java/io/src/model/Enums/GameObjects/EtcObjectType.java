@@ -1,5 +1,7 @@
 package io.src.model.Enums.GameObjects;
 
+import io.src.model.App;
+import io.src.model.Enums.WeatherAndTime.Seasons;
 import org.jetbrains.annotations.Nullable;
 
 public enum EtcObjectType {
@@ -40,7 +42,36 @@ public enum EtcObjectType {
     QUALITY_SPRINKLER("Quality Sprinkler", 0, ""),
     SCARE_CROW("Scare Crow", 0, ""),
     DELUXE_SCARE_CROW("Deluxe Scarecrow", 0, ""),
-    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0, "");
+    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0, ""),
+    VANITY_TREE1("Vanity Tree1", 0, ""),
+    VANITY_TREE2("Vanity Tree2" , 0 , ""),
+    VANITY_TREE3("Vanity Tree1", 0, ""),
+    LANTERN("Lantern", 0, ""),
+    GRAVEKAG("Gravekag", 0, ""),
+    GRAVEFROOM("Gravefrom", 0, ""),
+    GRAVESAF("Gravesaf", 0, ""),
+    JOJAMARTBILBOARD("Jojamartbilboard", 0, ""),
+    CANEX("Canex", 0, ""),
+    CANEXDESK("Canex Desk", 0, ""),
+    CANEXCHAIR("Canex Chair", 0, ""),
+    BIGBUSH1("Bigbush1", 0, ""),
+    BIGBUSH2("Bigbush2", 0, ""),
+    SMALLBUSH1("Smallbush1", 0, ""),
+    SMALLBUSH2("Smallbush2", 0, ""),
+    FENCE11TOP("Fence11Top", 0, ""),
+    FENCE11LEFT("Fence11Left", 0, ""),
+    FENCE11RIGHT("Fence11Right", 0, ""),
+    BUILDING3("Building3", 0, ""),
+    LIBRARY("Library", 0, ""),
+    SORSORE("Sorsore", 0, ""),
+    ALAKOLANG("Alakolang", 0, ""),
+    VANITYMAILBOX("VanityMailbox", 0, ""),
+    KUNDE("Kunde", 0, ""),
+    BROWNPOT1("BROWNPOT1", 0, ""),
+    NARROWBUSH1("NarrowBush1", 0, ""),
+    FAVARE("Favare", 0, ""),
+    ;
+
 
     public final String name;
     public final int value;
@@ -60,6 +91,14 @@ public enum EtcObjectType {
             case "" -> name.replace(" ", "_");
             default -> assetName;
         };
+    }
+
+    public String getAssetNameBySeason() {
+        Seasons s = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
+        if (this == EtcObjectType.SPRINKLER || this == EtcObjectType.QUALITY_SPRINKLER ||this == EtcObjectType.SCARE_CROW ||this == EtcObjectType.DELUXE_SCARE_CROW ||this == EtcObjectType.IRIDIUM_SPRINKLER) {
+            return getAssetName();
+        }
+        return getAssetName() + "_" + s.toString();
     }
 
 }

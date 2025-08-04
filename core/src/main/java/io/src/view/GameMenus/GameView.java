@@ -137,8 +137,8 @@ public class GameView implements Screen {
 //        }
 //
 
-        playerAtlas = new TextureAtlas(Gdx.files.internal("sprites_player.atlas"));
-        animMgr = new AnimationManager(playerAtlas);
+//        playerAtlas = new TextureAtlas(Gdx.files.internal("sprites_player.atlas"));
+//        animMgr = new AnimationManager(playerAtlas);
 
 
 //        for (int i = 14; i > 9; i--) {
@@ -163,6 +163,8 @@ public class GameView implements Screen {
 //        pixel = new Texture(pixmap);
 //        pixmap.dispose();
     }
+
+    //commitTest
 
     private void renderPlayer() {
 

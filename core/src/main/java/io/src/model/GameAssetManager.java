@@ -22,7 +22,7 @@ public class GameAssetManager {
     private static GameAssetManager gameAssetManager;
     private final HashMap<String, String> assetsDictionary = new HashMap<>();
     private final HashMap<String, String> atlasDictionary = new HashMap<>();
-    private static final Path root_path = Paths.get("assets\\Stardew_Valley_Images");
+    private static final Path root_path = Paths.get("assets");
     private static final Path assetsJsonPath = Paths.get("assets\\Stardew_Valley_Images\\assets_dictionary.json");
     private static final Path atlasJsonPath = Paths.get("assets\\Stardew_Valley_Images\\atlas_dictionary.json");
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.*;
 import io.src.model.App;
 import io.src.model.Enums.GameLocationType;
+import io.src.model.Enums.GameObjects.EtcObjectType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.Enums.Items.MineralItemType;
@@ -137,7 +138,7 @@ public class newFarmLoader {
                 // چون در Tiled محور Y از پایین شروع میشه و در آرایه ما از بالا:
 //                tileY = height - 1 - tileY;
 
-                GameObject gameObject = createGameObjectFromObject(name, obj.getProperties(), tileX, tileY, objWidth, objHeight, location);
+                GameObject gameObject = createGameObjectFromObject(name, obj.getProperties(), x, y, objWidth, objHeight, location);
                 if (gameObject != null) {
                     tiles[tileY][tileX].setFixedObject(gameObject);
                     location.getGameObjects().add(gameObject);
@@ -267,8 +268,8 @@ public class newFarmLoader {
         return tiles;
     }
 
-    private static GameObject createGameObjectFromObject(String name, MapProperties properties, int x, int y, int objWidth, int objHeight, GameLocation location) {
-        Position pos = new Position(x, y);
+    private static GameObject createGameObjectFromObject(String name, MapProperties properties, float x, float y, int objWidth, int objHeight, GameLocation location) {
+        Position pos = new Position(x/16, y/16);
 
         switch (name.toLowerCase()) {
             case "playerhome" -> {
@@ -333,6 +334,9 @@ public class newFarmLoader {
                 int doorX = Integer.parseInt(properties.get("doorX", String.class));
                 int doorY = Integer.parseInt(properties.get("doorY", String.class));
                 return new MarniesRanch(pos, false, "MarniesRanch", new Position(x + 1, y + 6), objHeight, objWidth);
+            }
+            case "vanitytree2" -> {
+                return new EtcObject(false , pos , EtcObjectType.VANITY_TREE2);
             }
 
             default -> {
