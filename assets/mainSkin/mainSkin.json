@@ -62,17 +62,20 @@
 	"newButton": {
 		"up": "newButton2_UP",
 		"down": "newButton2_UP",
-		"over": "newButton2_OVER"
+		"over": "newButton2_OVER",
+		"disabled": "newButton2_UP"
 	},
 	"loadButton": {
 		"up": "loadButton2_UP",
 		"down": "loadButton2_UP",
-		"over": "loadButton2_DOWN"
+		"over": "loadButton2_DOWN",
+		"disabled": "loadButton2_UP"
 	},
 	"co-opButton": {
 		"up": "co-opButton_UP",
 		"down": "co-opButton_UP",
-		"over": "co-opButton_DOWN"
+		"over": "co-opButton_DOWN",
+		"disabled": "co-opButton_UP"
 	},
 	"aboutButton": {
 		"up": "questionButton_UP",
@@ -82,7 +85,8 @@
 	"exitButton": {
 		"up": "exitButton2_UP",
 		"down": "exitButton2_UP",
-		"over": "exitButton2_DOWN"
+		"over": "exitButton2_DOWN",
+		"disabled": "exitButton2_UP"
 	},
 	"backButton": {
 		"up": "backButton_UP",
@@ -198,6 +202,9 @@
 "ScrollPaneStyle": {
 	"default": {
 		"background": "windowsBackground"
+	},
+	"default2": {
+		"background": "stageBackGround"
 	}
 },
 "TextButtonStyle": {
@@ -372,6 +379,7 @@
 		"titleFontColor": "WHITE"
 	},
 	"default2": {
+		"background": "windowsBackground",
 		"titleFont": "baseFont2-24",
 		"stageBackground": "stageBackGround"
 	}

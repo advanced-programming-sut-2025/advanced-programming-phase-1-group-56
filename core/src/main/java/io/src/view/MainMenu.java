@@ -15,7 +15,6 @@ import io.src.model.Enums.commands.MainMenuCommands;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -36,7 +35,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
 
     private final Button back_about_Button;
-    private final Table aboutTable;
+    private final Window aboutWindow;
 
     public MainMenu() {
         // essential
@@ -75,20 +74,34 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(exitButton);
 
         // about
-        aboutTable = new Table();
-        aboutTable.setFillParent(true);
-        aboutTable.setVisible(false);
+        aboutWindow = new Window("", skin, "default2");
+        aboutWindow.setVisible(false);
+        aboutWindow.setSize((float) ((float) Gdx.graphics.getWidth() / 1.2), (float) ((float) Gdx.graphics.getHeight() / 1.5));
+        aboutWindow.setPosition(((float) Gdx.graphics.getWidth() / 2) - (aboutWindow.getWidth() / 2), ((float) Gdx.graphics.getHeight() / 2) - (aboutWindow.getHeight() / 2));
         back_about_Button = new Button(skin, "backButton");
-        Label aboutText = new Label("About...", skin, "default-WHITE");
+        back_about_Button.setPosition((float) ((float) Gdx.graphics.getWidth() - back_about_Button.getWidth() * 1.2), back_about_Button.getHeight() / 4);
+        back_about_Button.setVisible(false);
+        Table aboutTable = new Table();
+        aboutTable.setFillParent(true);
+        aboutTable.align(1);
+        aboutTable.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
+        Label aboutText = new Label("Team Members:\n    Nima Nazary\n    Mohsen Zare\n    Mahdi Ashiyani\n    Mohammad Amin Zeinalian\n", skin, "default-WHITE");
         aboutText.setWrap(true);
-        ScrollPane aboutWindow = new ScrollPane(aboutText, skin);
-        aboutWindow.setFadeScrollBars(false);
-        aboutWindow.setScrollingDisabled(true, false);
-        aboutTable.add(aboutWindow).width((float) Gdx.graphics.getWidth() / 2).height((float) Gdx.graphics.getHeight() / 2);
+        Texture logoNoBackground = new Texture(Gdx.files.internal("Logo No Background.png"));
+        Image logo = new Image(logoNoBackground);
+        aboutTable.add(logo).width(logo.getWidth()*2).height(logo.getHeight()*2).pad(5);
         aboutTable.row();
-        aboutTable.add(back_about_Button).width(back_about_Button.getWidth()).right();
-
-        stage.addActor(aboutTable);
+        aboutTable.add(aboutText).width(logo.getWidth()*2).pad(5);
+        ScrollPane aboutScrollPane = new ScrollPane(aboutTable, skin, "default2");
+        aboutScrollPane.setFadeScrollBars(false);
+        aboutScrollPane.setScrollingDisabled(true, false);
+        aboutScrollPane.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
+        aboutWindow.add(aboutScrollPane).pad(5);
+        aboutWindow.setModal(false);
+        aboutWindow.setMovable(false);
+        stage.addActor(aboutWindow);
+        back_about_Button.toFront();
+        stage.addActor(back_about_Button);
     }
 
     @Override
@@ -107,6 +120,7 @@ public class MainMenu implements AppMenu, Screen {
             (float) (187 * 3));
         StardewValley.getBatch().end();
         stage.act(v);
+        back_about_Button.toFront();
         stage.draw();
     }
 
@@ -147,7 +161,7 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     public Table getAboutWindow() {
-        return aboutTable;
+        return aboutWindow;
     }
 
     public Button getBack_about_Button() {
@@ -160,7 +174,7 @@ public class MainMenu implements AppMenu, Screen {
         for (int i = 0; i < 10; i++) {
             float x = (float) (Math.random() * Gdx.graphics.getWidth());
             float y = 300 + (float) (MathUtils.random(0, Gdx.graphics.getHeight() - 400));
-            float speed = 10 + (float)(Math.random() * 50);
+            float speed = 10 + (float) (Math.random() * 50);
             clouds.add(new Cloud(new Texture(Gdx.files.internal("cloud" + ((i % 3) + 1) + ".png")), speed, x, y));
         }
     }

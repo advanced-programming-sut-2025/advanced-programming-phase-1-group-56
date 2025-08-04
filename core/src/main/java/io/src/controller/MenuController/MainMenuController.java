@@ -57,17 +57,31 @@ public class MainMenuController extends CommandController {
 
         menu.getAboutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                menu.getAboutWindow().setVisible(true);
-                menu.getAboutButton().setVisible(false);
+                setAboutMenu(true);
             }
         });
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                menu.getAboutButton().setVisible(true);
-                menu.getAboutWindow().setVisible(false);
+                setAboutMenu(false);
             }
         });
+    }
+
+    private void setAboutMenu(boolean state){
+        // state :
+        menu.getAboutWindow().setVisible(state);
+        menu.getBack_about_Button().setVisible(state);
+
+        // not state :
+        menu.getAboutButton().setVisible(!state);
+        menu.getExitButton().setVisible(!state);
+
+        // disable
+        menu.getLoadButton().setDisabled(!state);
+        menu.getLogoutButton().setDisabled(!state);
+        menu.getNewButton().setDisabled(!state);
+        menu.getCoopButton().setDisabled(!state);
     }
 
     public static Result manageUserLogout() {
