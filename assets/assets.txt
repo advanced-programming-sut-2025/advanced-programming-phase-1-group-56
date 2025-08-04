@@ -1,0 +1,196 @@
+AVATAR/Abigail.png
+AVATAR/Alex.png
+AVATAR/Birdie.png
+AVATAR/Elliot.png
+AVATAR/Emily.png
+AVATAR/Gus.png
+AVATAR/Haley.png
+AVATAR/Harvey.png
+AVATAR/Jas.png
+AVATAR/Jodi.png
+AVATAR/Kent.png
+AVATAR/Leah.png
+AVATAR/Leo.png
+AVATAR/Lewis.png
+AVATAR/Linus.png
+AVATAR/Maru.png
+AVATAR/Pam.png
+AVATAR/Penny.png
+AVATAR/Pierre.png
+AVATAR/Professor Snail.png
+AVATAR/Robin.png
+AVATAR/Sam JojaMart.png
+AVATAR/Sam.png
+AVATAR/Sandy.png
+AVATAR/Sebastian.png
+AVATAR/Shane JojaMart.png
+AVATAR/Shane.png
+AVATAR/Vincent.png
+AVATAR/Willy.png
+AVATAR/final/avatar1.1.1.png
+AVATAR/final/avatar1.1.2.png
+AVATAR/final/avatar1.1.3.png
+AVATAR/final/avatar1.1.4.png
+AVATAR/final/avatar1.1.png
+AVATAR/final/avatarBack.png
+AVATAR/final/avatarBackGround.psb
+AVATAR/final/avatarProfile.psb
+Cloud1.png
+Cloud2.png
+Cloud3.png
+Cursor.png
+Farm1.png
+Farm1.tmj
+Farm1.tmx
+Farm2.png
+Farm2.tmj
+Farm2.tmx
+Logo No Background.png
+PHASE0_UML.jpg
+StardewMusic/Fall Theme 1.mp3
+StardewMusic/Michael_Hunter__San_Andreas.mp3
+StardewMusic/Spring Theme 1.mp3
+StardewMusic/Stardew Valley Theme.mp3
+StardewMusic/Summer Theme 1.mp3
+StardewMusic/Winter Theme 1.mp3
+StardewValley.png
+StardewValley.ttf
+StayLoggedIn.json
+Town4.tmj
+Town4.tmx
+background1.jpg
+background2.png
+background3.png
+leaf1.png
+leaf2.png
+libgdx.png
+loginMenuTreeLeftDown1.png
+loginMenuTreeRightDown1.png
+mainSkin/ModernDOS9x14(1).fnt
+mainSkin/ModernDOS9x14(2).fnt
+mainSkin/ModernDOS9x14.fnt
+mainSkin/StardewValley(1).fnt
+mainSkin/StardewValley(2).fnt
+mainSkin/StardewValley.fnt
+mainSkin/mainSkin.atlas
+mainSkin/mainSkin.json
+mainSkin/mainSkin.png
+mainSkin/skin composer/ExitButton_DOWN.png
+mainSkin/skin composer/ExitButton_UP.png
+mainSkin/skin composer/ModernDOS9x14(1).fnt
+mainSkin/skin composer/ModernDOS9x14(1).png
+mainSkin/skin composer/ModernDOS9x14(2).fnt
+mainSkin/skin composer/ModernDOS9x14(2).png
+mainSkin/skin composer/ModernDOS9x14.fnt
+mainSkin/skin composer/ModernDOS9x14.png
+mainSkin/skin composer/ModernDOS9x14.ttf
+mainSkin/skin composer/StardewValley(1).fnt
+mainSkin/skin composer/StardewValley(1).png
+mainSkin/skin composer/StardewValley(2).fnt
+mainSkin/skin composer/StardewValley(2).png
+mainSkin/skin composer/StardewValley.fnt
+mainSkin/skin composer/StardewValley.png
+mainSkin/skin composer/StardewValley.ttf
+mainSkin/skin composer/backButton.png
+mainSkin/skin composer/backButton_D.png
+mainSkin/skin composer/backButton_DOWN.png
+mainSkin/skin composer/backButton_UP.png
+mainSkin/skin composer/button1.psd
+mainSkin/skin composer/button1_DOWN.9.png
+mainSkin/skin composer/button1_DOWN.png
+mainSkin/skin composer/button1_OVER.9.png
+mainSkin/skin composer/button1_OVER.png
+mainSkin/skin composer/button1_UP.9.png
+mainSkin/skin composer/button1_UP.png
+mainSkin/skin composer/checkedbx2_OFF.9.png
+mainSkin/skin composer/checkedbx2_OFF.png
+mainSkin/skin composer/checkedbx2_ON.9.png
+mainSkin/skin composer/checkedbx2_ON.png
+mainSkin/skin composer/checkedbx_OFF.9.png
+mainSkin/skin composer/checkedbx_OFF.png
+mainSkin/skin composer/checkedbx_ON.9.png
+mainSkin/skin composer/checkedbx_ON.png
+mainSkin/skin composer/co-opButton_DOWN.png
+mainSkin/skin composer/co-opButton_UP.png
+mainSkin/skin composer/cursor.9.png
+mainSkin/skin composer/cursor.png
+mainSkin/skin composer/enventoryButtonTop_DOWN.9.png
+mainSkin/skin composer/enventoryButtonTop_DOWN.png
+mainSkin/skin composer/enventoryButtonTop_UP.9.png
+mainSkin/skin composer/enventoryButtonTop_UP.png
+mainSkin/skin composer/exitButton2_DOWN.png
+mainSkin/skin composer/exitButton2_UP.png
+mainSkin/skin composer/inventoryButton.psd
+mainSkin/skin composer/inventoryButtonBottom_DOWN.9.png
+mainSkin/skin composer/inventoryButtonBottom_UP.9.png
+mainSkin/skin composer/inventoryButtonRight_UP.9.png
+mainSkin/skin composer/inventoryButtonRight_UP.png
+mainSkin/skin composer/inventoryButtonTop_DOWN.9.png
+mainSkin/skin composer/inventoryButtonTop_DOWN.png
+mainSkin/skin composer/labelBackGround.9.png
+mainSkin/skin composer/labelBackGround.png
+mainSkin/skin composer/loadButton2_DOWN.png
+mainSkin/skin composer/loadButton2_UP.png
+mainSkin/skin composer/mainSkin.scmp
+mainSkin/skin composer/mainSkin_data/Title Screen.psd
+mainSkin/skin composer/newButton2_OVER.png
+mainSkin/skin composer/newButton2_UP.png
+mainSkin/skin composer/newButton_DOWN.9.png
+mainSkin/skin composer/newButton_DOWN.png
+mainSkin/skin composer/newButton_OVER.9.png
+mainSkin/skin composer/newButton_OVER.png
+mainSkin/skin composer/newButton_UP.9.png
+mainSkin/skin composer/newButton_UP.png
+mainSkin/skin composer/questionButton_DOWN.png
+mainSkin/skin composer/questionButton_UP.png
+mainSkin/skin composer/selection.9.png
+mainSkin/skin composer/selection.png
+mainSkin/skin composer/stageBackGround.9.png
+mainSkin/skin composer/stageBackGround.png
+mainSkin/skin composer/stageBackGround_empty.9.png
+mainSkin/skin composer/stageBackGround_empty.png
+mainSkin/skin composer/textfield.9.png
+mainSkin/skin composer/textfield.png
+mainSkin/skin composer/warning_label.9.png
+mainSkin/skin composer/warning_label.png
+mainSkin/skin composer/window.9.png
+mainSkin/skin composer/window.png
+mainSkin/skin composer/windowsBackground.9.png
+mainSkin/skin composer/windowsBackground.png
+mountains.png
+player.png
+skin1/StardewValley(1).fnt
+skin1/StardewValley(4).fnt
+skin1/StardewValley.fnt
+skin1/menu_Skin_v0.0.1.atlas
+skin1/menu_Skin_v0.0.1.json
+skin1/menu_Skin_v0.0.1.png
+sprites_player.atlas
+tiledMap/imagesAndassets/1.5.6_standard_far.png
+tiledMap/imagesAndassets/1.6_meadow_close.png
+tiledMap/imagesAndassets/654px-Pelican_Town.png
+tiledMap/imagesAndassets/654px-Pelican_Town_TR.png
+tiledMap/imagesAndassets/709px-TownDistances.png
+tiledMap/imagesAndassets/Broken_Greenhouse.png
+tiledMap/imagesAndassets/StandardFarmDistances.png
+tiledMap/imagesAndassets/TownForageLocations.png
+tiledMap/imagesAndassets/map123.png
+tiledMap/tiledProject/654px-Pelican_Town_TR.tsx
+tiledMap/tiledProject/Farm-project.tiled-session
+tiledMap/tiledProject/FarmTile.tsj
+tiledMap/tiledProject/FarmTile.tsx
+tiledMap/tiledProject/FarmTile2.tsj
+tiledMap/tiledProject/FarmTile2.tsx
+tiledMap/tiledProject/TownForageLocations.tsx
+tiledMap/tiledProject/TreeTile1.tsx
+tiledMap/tiledProject/hello.tmj
+tiledMap/tiledProject/hello2.tmj
+tiledMap/tiledProject/hello3.tmj
+tiledMap/tiledProject/jsonFarmMap.tmj
+tiledMap/tiledProject/jsonFarmMap2.tmj
+tiledMap/tiledProject/pelicanTownTile.tsx
+tiledMap/tiledProject/untitled.tmj
+tiledMap/tiledProject/untitled.tmx
+tiledMap/tiledProject/untitled2.tmj
+tiledMap/tiledProject/untitled2.tmx
+users.json
