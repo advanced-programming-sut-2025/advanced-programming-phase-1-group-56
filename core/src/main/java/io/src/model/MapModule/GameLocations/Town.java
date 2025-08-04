@@ -29,11 +29,22 @@ public class Town extends GameLocation implements TimeObserver {
 
     }
 
+    public void updateGameObjects() {
+        for (NPC npc : NPCs) {
+            if (!super.getGameObjects().contains(npc)) {
+                super.getGameObjects().add(npc);
+            }
+        }
+        for (Store store : this.stores) {
+            if (!super.getGameObjects().contains(store)) {
+                super.getGameObjects().add(store);
+            }
+        }
+    }
+
     @Override
     public ArrayList<GameObject> getGameObjects() {
-        super.getGameObjects().clear();
-        super.getGameObjects().addAll(NPCs);
-        super.getGameObjects().addAll(stores);
+
         return super.getGameObjects();
     }
 

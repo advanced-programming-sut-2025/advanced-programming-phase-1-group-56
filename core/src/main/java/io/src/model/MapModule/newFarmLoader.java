@@ -269,7 +269,10 @@ public class newFarmLoader {
     }
 
     private static GameObject createGameObjectFromObject(String name, MapProperties properties, float x, float y, int objWidth, int objHeight, GameLocation location) {
-        Position pos = new Position(x/16, y/16);
+        Position pos = new Position(x / 16, y / 16);
+        if (location instanceof Town) {
+            System.out.println("wanna add an " + name.toLowerCase());
+        }
 
         switch (name.toLowerCase()) {
             case "playerhome" -> {
@@ -336,7 +339,7 @@ public class newFarmLoader {
                 return new MarniesRanch(pos, false, "MarniesRanch", new Position(x + 1, y + 6), objHeight, objWidth);
             }
             case "vanitytree2" -> {
-                return new EtcObject(false , pos , EtcObjectType.VANITY_TREE2);
+                return new EtcObject(false, pos, EtcObjectType.VANITY_TREE2);
             }
 
             default -> {
@@ -355,10 +358,12 @@ public class newFarmLoader {
 
         } else {
             location = new Town(GameLocationType.Town);
-
         }
         Tile[][] farmTileSet = load(locationName + ".tmx", location);
         location.setTiles(farmTileSet);
+        if (location instanceof Town town) {
+            town.updateGameObjects();
+        }
         return location;
 
     }

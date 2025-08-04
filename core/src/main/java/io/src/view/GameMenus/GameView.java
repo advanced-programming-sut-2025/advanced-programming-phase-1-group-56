@@ -22,6 +22,7 @@ import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
+import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.Player;
 
@@ -433,10 +434,10 @@ public class GameView implements Screen {
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
 
-            if (assetName.contains("Vanity_Tree2_Spring")){
-                System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
-                System.out.println(worldX + "   " + worldY);
-            }
+//            if (App.getMe().getCurrentGameLocation() instanceof Town){
+//                System.out.println(assetName + "'  asset :'" + GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
+//                    + "'location: " + worldX + "   " + worldY);
+//            }
 
             if (go instanceof Tree tree && tree.isComplete()) {
                 worldX -= 16;
