@@ -12,13 +12,16 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
+import io.src.model.Enums.Direction;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Position;
 import io.src.model.Player;
 
@@ -40,8 +43,9 @@ public class GameView implements Screen {
     private GlyphLayout layout = new GlyphLayout();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
-    private AnimationManager animMgr;
+    private AnimationManager animationManager;
     private float stateTime = 0f;
+    private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private int moveDirection = 0;
     private Texture pixel; // Add this
     public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
@@ -69,7 +73,7 @@ public class GameView implements Screen {
     public void updateMap() {
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
-        loadTextures();
+//        loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
@@ -88,7 +92,7 @@ public class GameView implements Screen {
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
-        loadTextures();
+//        loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         stage = new Stage(new ScreenViewport());
@@ -125,54 +129,31 @@ public class GameView implements Screen {
     }
 
     private void loadTextures() {
-//        textures = new HashMap<>();
-
-//        for (TileDescriptionId id : TileDescriptionId.values()) {
-//            String path = id.getIconPath();
-//            textures.put(id.name(), new TextureRegion(new Texture(Gdx.files.internal(path))));
-//        }
-//        for (ItemDescriptionId id : ItemDescriptionId.values()) {
-//            String path = id.getIconPath();
-//            textures.put(id.name(), new TextureRegion(new Texture(Gdx.files.internal(path))));
-//        }
-//
-
-//        playerAtlas = new TextureAtlas(Gdx.files.internal("sprites_player.atlas"));
-//        animMgr = new AnimationManager(playerAtlas);
-
-
-//        for (int i = 14; i > 9; i--) {
-//            Array<TextureRegion> walkFrames = new Array<>();
-//            if (i == 14) {
-//                for (int j = 0; j < 4; j++) {
-//                    String region = "player_" + 13 + "_" + 0;
-//                    walkFrames.add(playerAtlas.findRegion(region));
-//                }
-//            } else {
-//                for (int j = 0; j < 4; j++) {
-//                    String region = "player_" + i + "_" + j;
-//                    walkFrames.add(playerAtlas.findRegion(region));
-//                }
-//            }
-//            playerAnimations.add(new Animation<>(0.15f, walkFrames, Animation.PlayMode.LOOP));
-//        }
-//
-//        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-//        pixmap.setColor(0, 0, 0, 1);
-//        pixmap.fill();
-//        pixel = new Texture(pixmap);
-//        pixmap.dispose();
     }
 
     //commitTest
 
-    private void renderPlayer() {
 
-        stateTime += Gdx.graphics.getDeltaTime();
-        Player p = game.getCurrentPlayer();
+    private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
+        Animation<TextureRegion> animation = animationManager.get(characterName, key);
+        if (animation == null) return;
+
+        if (!stateTimeMap.containsKey(characterName)) {
+            stateTimeMap.put(characterName, 0f);
+        }
+        float newStateTime = stateTimeMap.get(characterName) + Gdx.graphics.getDeltaTime();
+        stateTimeMap.put(characterName, newStateTime);
+
+        TextureRegion frame = animation.getKeyFrame(newStateTime);
+        renderer.getBatch().draw(frame, x, y);
+    }
+
+    private void renderPlayer() {
+        Player player = App.getMe();
+        float x = player.getPixelPosition().getX(), y = player.getPixelPosition().getY();
         AnimationKey key;
-        if (p.isMoving()) {
-            switch (p.getLastDirection()) {
+        if (player.isMoving()) {
+            switch (player.getLastDirection()) {
                 case UP:
                     key = AnimationKey.WALK_UP;
                     break;
@@ -187,7 +168,7 @@ public class GameView implements Screen {
                     break;
             }
         } else {
-            switch (p.getLastDirection()) {
+            switch (player.getLastDirection()) {
                 case UP:
                     key = AnimationKey.IDLE_UP;
                     break;
@@ -202,23 +183,123 @@ public class GameView implements Screen {
                     break;
             }
         }
-        Animation<TextureRegion> anim = animMgr.get(key);
-        TextureRegion frame = anim.getKeyFrame(stateTime, true);
-        renderer.getBatch().draw(
-            frame,
-            p.getPixelPosition().getX(), p.getPixelPosition().getY(),
-            20, 40);
 
-//        moveDirection = game.getCurrentPlayer().getMovingDirection();
+        renderCharacter("player", key, x, y);
+    }
+
+
+    private void renderNPCs(NPC npc) {
+        String name = npc.getType().getName(); // مثل "grandma"
+        float x = npc.getPixelPosition().getX(), y = npc.getPixelPosition().getY();
+
+        AnimationKey key;
+        if (npc.isMoving()) {
+            switch (npc.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.WALK_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.WALK_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.WALK_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.WALK_RIGHT;
+                    break;
+            }
+        } else {
+            switch (npc.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.IDLE_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.IDLE_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.IDLE_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.IDLE_RIGHT;
+                    break;
+            }
+        }
+//        AnimationKey key = moving
+//            ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
+//            : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
+
+        renderCharacter(name, key, x, y);
+
+    }
+
+//    private void renderNPCs(SpriteBatch batch, float deltaTime) {
+//        for (NPC npc : game.getNPCs()) {
+//            String id = npc.getId(); // مثل "grandma"
+//            String dir = npc.getDirection();
+//            boolean moving = npc.isMoving();
+//            float x = npc.getX(), y = npc.getY();
+//
+//            AnimationKey key = moving
+//                ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
+//                : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
+//
+//            renderCharacter(batch, deltaTime, id, key, x, y);
+//        }
+//    }
+
+//    private void renderPlayer() {
 //
 //        stateTime += Gdx.graphics.getDeltaTime();
+//        Player p = game.getCurrentPlayer();
+//        AnimationKey key;
+//        if (p.isMoving()) {
+//            switch (p.getLastDirection()) {
+//                case UP:
+//                    key = AnimationKey.WALK_UP;
+//                    break;
+//                case DOWN:
+//                    key = AnimationKey.WALK_DOWN;
+//                    break;
+//                case LEFT:
+//                    key = AnimationKey.WALK_LEFT;
+//                    break;
+//                default:
+//                    key = AnimationKey.WALK_RIGHT;
+//                    break;
+//            }
+//        } else {
+//            switch (p.getLastDirection()) {
+//                case UP:
+//                    key = AnimationKey.IDLE_UP;
+//                    break;
+//                case DOWN:
+//                    key = AnimationKey.IDLE_DOWN;
+//                    break;
+//                case LEFT:
+//                    key = AnimationKey.IDLE_LEFT;
+//                    break;
+//                default:
+//                    key = AnimationKey.IDLE_RIGHT;
+//                    break;
+//            }
+//        }
+//        Animation<TextureRegion> anim = animMgr.get(key);
+//        TextureRegion frame = anim.getKeyFrame(stateTime, true);
+//        renderer.getBatch().draw(
+//            frame,
+//            p.getPixelPosition().getX(), p.getPixelPosition().getY(),
+//            20, 40);
 //
-//        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
-//        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
-//
-//        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
-//        renderInventory();
-    }
+////        moveDirection = game.getCurrentPlayer().getMovingDirection();
+////
+////        stateTime += Gdx.graphics.getDeltaTime();
+////
+////        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
+////        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
+////
+////        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
+////        renderInventory();
+//    }
 
 
 //    private void renderInventory() {
@@ -360,8 +441,6 @@ public class GameView implements Screen {
         }
 
 
-
-
         //RED HIT BOXES
 //        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
 //        pixmap.setColor(1, 0, 0, 1);
@@ -425,7 +504,6 @@ public class GameView implements Screen {
 
         timeWindow.updateGold();
         timeWindow.updateTime();
-
 
 
         camera.update();
