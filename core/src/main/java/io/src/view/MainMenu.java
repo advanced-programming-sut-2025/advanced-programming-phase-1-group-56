@@ -83,8 +83,6 @@ public class MainMenu implements AppMenu, Screen {
         back_about_Button.setPosition((float) ((float) Gdx.graphics.getWidth() - back_about_Button.getWidth() * 1.2), back_about_Button.getHeight() / 4);
         back_about_Button.setVisible(false);
         Table aboutTable = new Table();
-//        aboutTable.setFillParent(true);
-//        aboutTable.align(1);
         aboutTable.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
         Label aboutLabel = new Label("\n\n\n\nStardew Valley created by :\n\n", skin, "default-PURPLE");
         Label aboutLabel2 = new Label("Group-56\n\n", skin, "font2-45_WHITE");
@@ -138,6 +136,7 @@ public class MainMenu implements AppMenu, Screen {
 
     @Override
     public void dispose() {
+
         stage.dispose();
     }
 
