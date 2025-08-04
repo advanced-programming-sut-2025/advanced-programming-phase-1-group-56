@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
-import io.src.model.Enums.Stores.BlackSmithProducts;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.MapModule.Buildings.*;
@@ -15,8 +14,6 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
-import io.src.model.items.Fish;
-
 import java.util.HashSet;
 import java.util.Set;
 
