@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.2.0 : main menu finish about">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAudioManager.java" afterDir="false" />
+    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.2.1 : add play music option">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +121,7 @@
       <workItem from="1754132288597" duration="9318000" />
       <workItem from="1754186922923" duration="2734000" />
       <workItem from="1754308671742" duration="4263000" />
-      <workItem from="1754301262026" duration="6245000" />
+      <workItem from="1754301262026" duration="7114000" />
     </task>
     <task id="LOCAL-00001" summary="finish register menu">
       <option name="closed" value="true" />
@@ -214,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754309484147</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="v0.2.1 : add play music option">
+      <option name="closed" value="true" />
+      <created>1754310958017</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754310958017</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +238,7 @@
     <MESSAGE value="v0.1.6 : new menu about" />
     <MESSAGE value="v0.1.7 : new menu about" />
     <MESSAGE value="v0.2.0 : main menu finish about" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.2.0 : main menu finish about" />
+    <MESSAGE value="v0.2.1 : add play music option" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.2.1 : add play music option" />
   </component>
 </project>
