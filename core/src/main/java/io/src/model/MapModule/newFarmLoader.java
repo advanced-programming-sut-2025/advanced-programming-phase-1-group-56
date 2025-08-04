@@ -42,21 +42,17 @@ public class newFarmLoader {
 
         Tile[][] tiles = new Tile[height][width];
 
-        // 2. پیمایش هر سلّول
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                // توجه: LibGDX مختصات (0,0) پایین-چپ است، پس اگر تابع Tile می‌خواهد مبدأ بالا-چپ،
-                // باید y را invert کنید. ولی اگر شما Tile می‌پذیرد پایین-چپ، همین استفاده کنید:
                 TiledMapTileLayer.Cell cell = layer.getCell(col, row);
 
-                boolean isWalkable = true;       // مقدار پیش‌فرض
+                boolean isWalkable = true;
                 TileType tileType = TileType.Default;
-                GameObject fixedObject = null;      // بعداً پاک کنید یا اختصاص دهید
+                GameObject fixedObject = null;
 
                 if (cell != null && cell.getTile() != null) {
                     MapProperties props = cell.getTile().getProperties();
 
-                    // 2.1 خواندن walkability
                     if (props.containsKey("walkability")) {
                         String w = props.get("walkability", String.class);
                         isWalkable = Boolean.parseBoolean(w);

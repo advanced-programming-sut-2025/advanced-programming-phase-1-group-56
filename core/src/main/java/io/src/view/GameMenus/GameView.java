@@ -2,28 +2,24 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
 import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
-import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
-import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
-import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 
 import java.util.ArrayList;
@@ -58,7 +54,17 @@ public class GameView implements Screen {
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private EnergyBar energyWindow;
+    private ScreenTransition transitionManager;
+    private ShapeRenderer shapeRenderer;
 
+    public void updateMapWithFade(Runnable afterFadeOut) {
+        transitionManager.start(() -> {
+            gameMenuInputAdapter.setStopMoving(true);
+            afterFadeOut.run(); // تغییرات position و location
+            updateMap();
+            gameMenuInputAdapter.setStopMoving(false);
+        });
+    }
 
     public void updateMap() {
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
@@ -80,7 +86,7 @@ public class GameView implements Screen {
         this.game = game;
 //        this.gameController = gameController;
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
-        this.map = new TmxMapLoader().load( App.getMe().getCurrentGameLocation().getType().getAssetName());
+        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -113,6 +119,8 @@ public class GameView implements Screen {
         multiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(multiplexer);
 
+        transitionManager = new ScreenTransition();
+        shapeRenderer = new ShapeRenderer();
 
     }
 
@@ -162,18 +170,34 @@ public class GameView implements Screen {
         Player p = game.getCurrentPlayer();
         AnimationKey key;
         if (p.isMoving()) {
-            switch(p.getLastDirection()) {
-                case UP:    key = AnimationKey.WALK_UP;    break;
-                case DOWN:  key = AnimationKey.WALK_DOWN;  break;
-                case LEFT:  key = AnimationKey.WALK_LEFT;  break;
-                default:    key = AnimationKey.WALK_RIGHT; break;
+            switch (p.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.WALK_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.WALK_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.WALK_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.WALK_RIGHT;
+                    break;
             }
         } else {
-            switch(p.getLastDirection()) {
-                case UP:    key = AnimationKey.IDLE_UP;    break;
-                case DOWN:  key = AnimationKey.IDLE_DOWN;  break;
-                case LEFT:  key = AnimationKey.IDLE_LEFT;  break;
-                default:    key = AnimationKey.IDLE_RIGHT; break;
+            switch (p.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.IDLE_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.IDLE_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.IDLE_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.IDLE_RIGHT;
+                    break;
             }
         }
         Animation<TextureRegion> anim = animMgr.get(key);
@@ -181,7 +205,7 @@ public class GameView implements Screen {
         renderer.getBatch().draw(
             frame,
             p.getPixelPosition().getX(), p.getPixelPosition().getY(),
-            20, 40 );
+            20, 40);
 
 //        moveDirection = game.getCurrentPlayer().getMovingDirection();
 //
@@ -308,11 +332,8 @@ public class GameView implements Screen {
 
                 continue;
             }
-            if(App.getMe().getCurrentGameLocation() instanceof Town){
-                System.out.println(go.getClass());
-                System.out.println(assetName);
-                System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
-            }
+
+
             if (!gameObjectTextureMap.containsKey(assetName)) {
                 Texture texture = new Texture(Gdx.files.internal(
                     GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
@@ -324,36 +345,19 @@ public class GameView implements Screen {
             }
 
 
-            if (go instanceof Tree || go instanceof ForagingMineral || go instanceof ForagingCrop) {
-
-                float worldX = go.getPosition().getX() * TILE_SIZE - (float) (region.getRegionWidth() / 2);
-                float worldY = go.getPosition().getY() * TILE_SIZE;
-
-
-                if (go instanceof Tree tree && tree.isComplete()) {
-                    worldX -= 16;
-                }
-
-                renderer.getBatch().draw(region,
-                    worldX, worldY,
-                    region.getRegionWidth(), 0,
-                    region.getRegionWidth(), region.getRegionHeight(),
-                    0.5f, 0.5f, 0);
-
-            } else {
-
-
-                float worldX = go.getPosition().getX() * TILE_SIZE;
-                float worldY = go.getPosition().getY() * TILE_SIZE;
-                renderer.getBatch().draw(region,
-                    worldX, worldY,
-                    region.getRegionWidth(), 0,
-                    region.getRegionWidth(), region.getRegionHeight(),
-                    1f, 1f, 0);
+            float worldX = go.getPosition().getX() * TILE_SIZE;
+            float worldY = go.getPosition().getY() * TILE_SIZE;
+            if (go instanceof Tree tree && tree.isComplete()) {
+                worldX -= 16;
             }
-
-
+            renderer.getBatch().draw(region,
+                worldX, worldY,
+                region.getRegionWidth(), 0,
+                region.getRegionWidth(), region.getRegionHeight(),
+                1f, 1f, 0);
         }
+
+
 
 
         //RED HIT BOXES
@@ -380,8 +384,10 @@ public class GameView implements Screen {
 //
 //            }
 //        }
-
         renderer.getBatch().end();
+
+        transitionManager.update(v);
+        transitionManager.render(shapeRenderer);
 
 
         //DEBUG
@@ -391,7 +397,7 @@ public class GameView implements Screen {
         int mapWidth = layer.getWidth() * TILE_SIZE;
         int mapHeight = layer.getHeight() * TILE_SIZE;
 
-        if (y + 170 >= mapHeight) {
+        if (y + 182 >= mapHeight) {
             y = mapHeight - 182;
         }
         if (x + 300 >= mapWidth) {
@@ -410,7 +416,6 @@ public class GameView implements Screen {
 //        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
         camera.zoom = 0.3f;
 
-
         stage.act(v);
         stage.draw();
 
@@ -418,6 +423,7 @@ public class GameView implements Screen {
 
         timeWindow.updateGold();
         timeWindow.updateTime();
+
 
 
         camera.update();
