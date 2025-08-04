@@ -24,6 +24,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Stage stage;
     private final Texture image;
     private final Texture stardewValleyImage;
+    private final ScrollPane aboutScrollPane;
     private ArrayList<Cloud> clouds;
     private final Skin skin;
 
@@ -82,17 +83,23 @@ public class MainMenu implements AppMenu, Screen {
         back_about_Button.setPosition((float) ((float) Gdx.graphics.getWidth() - back_about_Button.getWidth() * 1.2), back_about_Button.getHeight() / 4);
         back_about_Button.setVisible(false);
         Table aboutTable = new Table();
-        aboutTable.setFillParent(true);
-        aboutTable.align(1);
+//        aboutTable.setFillParent(true);
+//        aboutTable.align(1);
         aboutTable.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
-        Label aboutText = new Label("Team Members:\n    Nima Nazary\n    Mohsen Zare\n    Mahdi Ashiyani\n    Mohammad Amin Zeinalian\n", skin, "default-WHITE");
+        Label aboutLabel = new Label("\n\n\n\nStardew Valley created by :\n\n", skin, "default-PURPLE");
+        Label aboutLabel2 = new Label("Group-56\n\n", skin, "font2-45_WHITE");
+        Label aboutText = new Label("\nGroup Members:\n\n\n    -Nima Nazary\n\n    -Mohsen Zare\n\n    -Mahdi Ashiyani\n\n    -Mohammad Amin Zeinalian\n\n", skin, "default-WHITE");
         aboutText.setWrap(true);
         Texture logoNoBackground = new Texture(Gdx.files.internal("Logo No Background.png"));
         Image logo = new Image(logoNoBackground);
-        aboutTable.add(logo).width(logo.getWidth()*2).height(logo.getHeight()*2).pad(5);
+        aboutTable.add(logo).width(logo.getWidth()*3).height(logo.getHeight()*3).pad(5);
+        aboutTable.row();
+        aboutTable.add(aboutLabel).pad(5);
+        aboutTable.row();
+        aboutTable.add(aboutLabel2).pad(5);
         aboutTable.row();
         aboutTable.add(aboutText).width(logo.getWidth()*2).pad(5);
-        ScrollPane aboutScrollPane = new ScrollPane(aboutTable, skin, "default2");
+        aboutScrollPane = new ScrollPane(aboutTable, skin, "default2");
         aboutScrollPane.setFadeScrollBars(false);
         aboutScrollPane.setScrollingDisabled(true, false);
         aboutScrollPane.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
@@ -135,6 +142,14 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
+
+    public ScrollPane getScrollPane() {
+        return aboutScrollPane;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 
     public Button getLogoutButton() {
         return logoutButton;

@@ -64,11 +64,15 @@ public class MainMenuController extends CommandController {
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 setAboutMenu(false);
+                menu.getScrollPane().setScrollPercentY(0.0f);
             }
         });
     }
 
     private void setAboutMenu(boolean state){
+        if (state)
+            menu.getStage().setScrollFocus(menu.getScrollPane());
+
         // state :
         menu.getAboutWindow().setVisible(state);
         menu.getBack_about_Button().setVisible(state);
@@ -78,10 +82,10 @@ public class MainMenuController extends CommandController {
         menu.getExitButton().setVisible(!state);
 
         // disable
-        menu.getLoadButton().setDisabled(!state);
-        menu.getLogoutButton().setDisabled(!state);
-        menu.getNewButton().setDisabled(!state);
-        menu.getCoopButton().setDisabled(!state);
+        menu.getLoadButton().setDisabled(state);
+        menu.getLogoutButton().setDisabled(state);
+        menu.getNewButton().setDisabled(state);
+        menu.getCoopButton().setDisabled(state);
     }
 
     public static Result manageUserLogout() {

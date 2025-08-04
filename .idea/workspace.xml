@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.1.6 : new menu">
+    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.1.7 : new menu about">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Cursor.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
@@ -121,7 +124,8 @@
       <workItem from="1754103544777" duration="13456000" />
       <workItem from="1754132288597" duration="9318000" />
       <workItem from="1754186922923" duration="2734000" />
-      <workItem from="1754308671742" duration="4240000" />
+      <workItem from="1754308671742" duration="4263000" />
+      <workItem from="1754301262026" duration="4476000" />
     </task>
     <task id="LOCAL-00001" summary="finish register menu">
       <option name="closed" value="true" />
@@ -195,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754141983173</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="v0.1.7 : new menu about">
+      <option name="closed" value="true" />
+      <created>1754313605334</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1754313605334</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +223,8 @@
     <MESSAGE value="v0.1.4 : main menu" />
     <MESSAGE value="v0.1.5 : main menu" />
     <MESSAGE value="v0.1.6 : new menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.1.6 : new menu" />
+    <MESSAGE value="v0.1.6 : new menu about" />
+    <MESSAGE value="v0.1.7 : new menu about" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.1.7 : new menu about" />
   </component>
 </project>

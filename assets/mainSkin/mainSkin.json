@@ -47,6 +47,9 @@
 	"PINK": {
 		"hex": "ce5252ff"
 	},
+	"PURPLE": {
+		"hex": "6e2bffff"
+	},
 	"RED": {
 		"hex": "ff0000ff"
 	},
@@ -197,6 +200,14 @@
 		"font": "baseFont2-24",
 		"fontColor": "RED",
 		"background": "warning_label"
+	},
+	"default-PURPLE": {
+		"font": "baseFont2-24",
+		"fontColor": "PURPLE"
+	},
+	"font2-45_WHITE": {
+		"font": "basefont2-45",
+		"fontColor": "WHITE"
 	}
 },
 "ScrollPaneStyle": {
@@ -204,7 +215,7 @@
 		"background": "windowsBackground"
 	},
 	"default2": {
-		"background": "stageBackGround"
+		"background": "stageBackGround_empty"
 	}
 },
 "TextButtonStyle": {
