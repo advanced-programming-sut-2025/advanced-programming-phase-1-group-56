@@ -166,6 +166,7 @@ public class GameView implements Screen {
 
     private void renderPlayer() {
         //I MAYBE CHANGED RENDER PLAYER FOR TEST COMMITING
+        //A Comment FOR TEST
         stateTime += Gdx.graphics.getDeltaTime();
         Player p = game.getCurrentPlayer();
         AnimationKey key;
