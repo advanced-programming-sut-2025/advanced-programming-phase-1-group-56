@@ -14,6 +14,7 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.MainMenuCommands;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
+import io.src.view.InnerMenus.AvatarMenu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,8 +26,8 @@ public class MainMenu implements AppMenu, Screen {
     private final Texture image;
     private final Texture stardewValleyImage;
     private final ScrollPane aboutScrollPane;
+    private final AvatarMenu avatarMenu;
     private ArrayList<Cloud> clouds;
-    private final Skin skin;
 
     private final Button logoutButton;
     private final Button exitButton;
@@ -43,7 +44,7 @@ public class MainMenu implements AppMenu, Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         image = new Texture(Gdx.files.internal("background3.png"));
-        skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
+        Skin skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
         stardewValleyImage = new Texture(Gdx.files.internal("StardewValley.png"));
 
         // exitButton
@@ -90,13 +91,13 @@ public class MainMenu implements AppMenu, Screen {
         aboutText.setWrap(true);
         Texture logoNoBackground = new Texture(Gdx.files.internal("Logo No Background.png"));
         Image logo = new Image(logoNoBackground);
-        aboutTable.add(logo).width(logo.getWidth()*3).height(logo.getHeight()*3).pad(5);
+        aboutTable.add(logo).width(logo.getWidth() * 3).height(logo.getHeight() * 3).pad(5);
         aboutTable.row();
         aboutTable.add(aboutLabel).pad(5);
         aboutTable.row();
         aboutTable.add(aboutLabel2).pad(5);
         aboutTable.row();
-        aboutTable.add(aboutText).width(logo.getWidth()*2).pad(5);
+        aboutTable.add(aboutText).width(logo.getWidth() * 2).pad(5);
         aboutScrollPane = new ScrollPane(aboutTable, skin, "default2");
         aboutScrollPane.setFadeScrollBars(false);
         aboutScrollPane.setScrollingDisabled(true, false);
@@ -107,6 +108,13 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(aboutWindow);
         back_about_Button.toFront();
         stage.addActor(back_about_Button);
+
+        // Avatar Menu :
+        avatarMenu = new AvatarMenu(skin, avatarID -> {
+            System.out.println("something happened + " + avatarID);
+        });
+        avatarMenu.setVisible(false);
+        stage.addActor(avatarMenu);
     }
 
     @Override
@@ -118,11 +126,12 @@ public class MainMenu implements AppMenu, Screen {
             c.update(v);
             c.draw(StardewValley.getBatch());
         }
-        StardewValley.getBatch().draw(stardewValleyImage,
-            ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
-            ((float) Gdx.graphics.getHeight() / 2) - (float) 187 / 2,
-            (float) (398 * 3),
-            (float) (187 * 3));
+        if (newButton.isVisible())
+            StardewValley.getBatch().draw(stardewValleyImage,
+                ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
+                ((float) Gdx.graphics.getHeight() / 2) - (float) 187 / 2,
+                (float) (398 * 3),
+                (float) (187 * 3));
         StardewValley.getBatch().end();
         stage.act(v);
         back_about_Button.toFront();
@@ -141,6 +150,10 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
+
+    public AvatarMenu getAvatarMenu() {
+        return avatarMenu;
+    }
 
     public ScrollPane getScrollPane() {
         return aboutScrollPane;

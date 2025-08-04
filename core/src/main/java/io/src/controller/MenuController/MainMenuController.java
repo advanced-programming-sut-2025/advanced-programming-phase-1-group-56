@@ -63,13 +63,34 @@ public class MainMenuController extends CommandController {
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                setAboutMenu(false);
-                menu.getScrollPane().setScrollPercentY(0.0f);
+                if (menu.getNewButton().isVisible()) {
+                    setAboutMenu(false);
+                    menu.getScrollPane().setScrollPercentY(0.0f);
+                } else {
+                    setNewMenu(true);
+                }
+            }
+        });
+
+        menu.getNewButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                setNewMenu(false);
             }
         });
     }
 
-    private void setAboutMenu(boolean state){
+    private void setNewMenu(boolean state) {
+        menu.getNewButton().setVisible(state);
+        menu.getLoadButton().setVisible(state);
+        menu.getCoopButton().setVisible(state);
+        menu.getLogoutButton().setVisible(state);
+        menu.getAboutButton().setVisible(state);
+
+        menu.getBack_about_Button().setVisible(!state);
+        menu.getAvatarMenu().setVisible(!state);
+    }
+
+    private void setAboutMenu(boolean state) {
         if (state)
             menu.getStage().setScrollFocus(menu.getScrollPane());
 
@@ -92,7 +113,8 @@ public class MainMenuController extends CommandController {
         App.setCurrentMenu(Menu.loginMenu);
         App.setCurrentUser(null);
         File file = new File(FILE_PATH_FOR_STAY_LOGGED);
-        file.delete();
+        if (!file.delete())
+            return new Result(false, "");
         return new Result(true, "You have been logged out!");
     }
 }
