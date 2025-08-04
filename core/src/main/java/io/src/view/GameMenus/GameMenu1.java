@@ -52,7 +52,7 @@ public class GameMenu1 implements Screen {
 //        myGame = new Game(players,gameMap,timeSystem,weatherState);'
 //        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
 //        Gdx.input.setInputProcessor(gameMenuInputAdapter);
-        gameView = new GameView(myGame);
+//        gameView = new GameView(myGame);
 
 
     }

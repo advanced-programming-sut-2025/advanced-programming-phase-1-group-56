@@ -43,7 +43,7 @@ public class GameView implements Screen {
     private GlyphLayout layout = new GlyphLayout();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
-    private AnimationManager animationManager;
+    private AnimationManager animationManager = new AnimationManager();
     private float stateTime = 0f;
     private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private int moveDirection = 0;
@@ -188,7 +188,7 @@ public class GameView implements Screen {
     }
 
 
-    private void renderNPCs(NPC npc) {
+    private void renderNPC(NPC npc) {
         String name = npc.getType().getName(); // مثل "grandma"
         float x = npc.getPixelPosition().getX(), y = npc.getPixelPosition().getY();
 
@@ -417,6 +417,8 @@ public class GameView implements Screen {
             }
 
 
+
+
             if (!gameObjectTextureMap.containsKey(assetName)) {
                 Texture texture = new Texture(Gdx.files.internal(
                     GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
@@ -430,6 +432,12 @@ public class GameView implements Screen {
 
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
+
+            if (assetName.contains("Vanity_Tree2_Spring")){
+                System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
+                System.out.println(worldX + "   " + worldY);
+            }
+
             if (go instanceof Tree tree && tree.isComplete()) {
                 worldX -= 16;
             }
