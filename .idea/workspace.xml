@@ -4,9 +4,104 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.3.0 : start avatar menu and edit avatars in photoshop">
+    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.3.1 : add assets to repo">
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/ModernDOS9x14(1).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/ModernDOS9x14(2).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/ModernDOS9x14.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/StardewValley(1).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/StardewValley(2).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/StardewValley.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ExitButton_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ExitButton_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14(1).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14(1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14(2).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14(2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/ModernDOS9x14.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley(1).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley(1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley(2).fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley(2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/StardewValley.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/backButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/backButton_D.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/backButton_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/backButton_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1_DOWN.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1_OVER.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1_OVER.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1_UP.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/button1_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx2_OFF.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx2_OFF.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx2_ON.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx2_ON.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_OFF.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_OFF.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_ON.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/checkedbx_ON.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/co-opButton_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/co-opButton_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/cursor.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/cursor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/enventoryButtonTop_DOWN.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/enventoryButtonTop_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/enventoryButtonTop_UP.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/enventoryButtonTop_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/exitButton2_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/exitButton2_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButton.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonBottom_DOWN.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonBottom_UP.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonRight_UP.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonRight_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonTop_DOWN.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonTop_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/labelBackGround.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/labelBackGround.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/loadButton2_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/loadButton2_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin_data/Title Screen.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton2_OVER.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton2_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton_DOWN.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton_OVER.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton_OVER.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton_UP.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/newButton_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/questionButton_DOWN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/questionButton_UP.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/selection.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/selection.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/stageBackGround.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/stageBackGround.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/stageBackGround_empty.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/stageBackGround_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/textfield.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/textfield.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/warning_label.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/warning_label.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/window.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/window.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/windowsBackground.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/windowsBackground.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/CommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/CommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/AvatarMenu.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +219,8 @@
       <workItem from="1754308671742" duration="4263000" />
       <workItem from="1754301262026" duration="7128000" />
       <workItem from="1754334769970" duration="4234000" />
-      <workItem from="1754340486871" duration="10000" />
+      <workItem from="1754340486871" duration="110000" />
+      <workItem from="1754370715422" duration="3796000" />
     </task>
     <task id="LOCAL-00001" summary="finish register menu">
       <option name="closed" value="true" />
@@ -238,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754340334479</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="v0.3.1 : add assets to repo">
+      <option name="closed" value="true" />
+      <created>1754340519848</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1754340519848</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +363,7 @@
     <MESSAGE value="v0.2.0 : main menu finish about" />
     <MESSAGE value="v0.2.1 : add play music option" />
     <MESSAGE value="v0.3.0 : start avatar menu and edit avatars in photoshop" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.3.0 : start avatar menu and edit avatars in photoshop" />
+    <MESSAGE value="v0.3.1 : add assets to repo" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.3.1 : add assets to repo" />
   </component>
 </project>

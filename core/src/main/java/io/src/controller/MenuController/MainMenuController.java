@@ -66,8 +66,10 @@ public class MainMenuController extends CommandController {
                 if (menu.getNewButton().isVisible()) {
                     setAboutMenu(false);
                     menu.getScrollPane().setScrollPercentY(0.0f);
+                    System.out.println("back about button clicked");
                 } else {
                     setNewMenu(true);
+                    System.out.println("new button clicked");
                 }
             }
         });
@@ -85,6 +87,7 @@ public class MainMenuController extends CommandController {
         menu.getCoopButton().setVisible(state);
         menu.getLogoutButton().setVisible(state);
         menu.getAboutButton().setVisible(state);
+        menu.getExitButton().setVisible(state);
 
         menu.getBack_about_Button().setVisible(!state);
         menu.getAvatarMenu().setVisible(!state);
