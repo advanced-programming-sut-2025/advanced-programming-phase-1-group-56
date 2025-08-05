@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.2.1 : add play music option">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
+    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.3.0 : start avatar menu and edit avatars in photoshop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +61,7 @@
     "extract.method.default.visibility": "private",
     "git-widget-placeholder": "maz",
     "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -98,11 +95,12 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="" />
@@ -127,6 +125,7 @@
       <workItem from="1754308671742" duration="4263000" />
       <workItem from="1754301262026" duration="7128000" />
       <workItem from="1754334769970" duration="4161000" />
+      <workItem from="1754393987782" duration="650000" />
     </task>
     <task id="LOCAL-00001" summary="finish register menu">
       <option name="closed" value="true" />
@@ -237,6 +236,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="finish register menu" />
