@@ -13,6 +13,16 @@ public abstract class Building extends GameObject {
      protected final int width;
      protected final BuildingType buildingType;
 
+    public Position getInitialPosition() {
+        return initialPosition;
+    }
+
+    public void setInitialPosition(Position initialPosition) {
+        this.initialPosition = initialPosition;
+    }
+
+    protected Position initialPosition;
+
     public GameLocation getIndoor() {
         return indoor;
     }

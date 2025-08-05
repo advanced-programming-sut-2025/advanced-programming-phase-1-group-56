@@ -17,6 +17,17 @@ public enum GameLocationType {
 
     private final String assetName;
 
+    public static GameLocationType getGameLocationTypeByName(String assetName) {
+        assetName = assetName.substring(assetName.lastIndexOf("\\") + 1);
+        System.out.println(assetName);
+        for (GameLocationType gameLocationType : GameLocationType.values()) {
+            if (gameLocationType.getAssetName().contains(assetName)) {
+                return gameLocationType;
+            }
+        }
+        return null;
+    }
+
 
     GameLocationType(String assetName) {
         this.assetName = assetName;

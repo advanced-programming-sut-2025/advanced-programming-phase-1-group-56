@@ -64,7 +64,8 @@ public class GameMenu implements AppMenu {
                 System.out.println(message);
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
-                System.out.println(e.getMessage());
+                e.printStackTrace();
+//                System.out.println(e.getMessage());
             }
             return true;
         } else if (PreGameMenuCommands.loadGame.getMatcher(input) != null) {//load game

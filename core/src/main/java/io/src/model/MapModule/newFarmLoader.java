@@ -1,12 +1,10 @@
 package io.src.model.MapModule;
 
-import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.*;
-import io.src.model.App;
 import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.GameObjects.EtcObjectType;
 import io.src.model.Enums.GameObjects.TreeType;
@@ -162,24 +160,62 @@ public class newFarmLoader {
                     if (location instanceof Town && gameObject instanceof Store) {
                         ((Town) location).getStores().add((Store) gameObject);
                         NPC newNPC;
-                        int dX = (int) ((Building) gameObject).getDoorPosition().getX();
-                        int dY = (int) ((Building) gameObject).getDoorPosition().getY() + 2;
+                        int dX = (int) ((Building) gameObject).getDoorPosition().getX()/16;
+                        int dY = (int) ((((Building) gameObject).getDoorPosition().getY() /16));
+                        System.out.println(dY);
                         if (gameObject instanceof PierresGeneralStore) {
-                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY));
+                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY-2));
                             ((Town) location).getNPCs().add(newNPC);
                             tiles[dY][dX].setFixedObject(newNPC);
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
+                            tiles[dY-1][dX+1].setWalkable(true);
+//                            tiles[dY-1][dX+1].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof TheSaloonStardrop) {
-                            newNPC = NpcType.LEAH.getNPC(new Position(dX, dY));
+                            newNPC = NpcType.LEAH.getNPC(new Position(dX, dY-2));
                             ((Town) location).getNPCs().add(newNPC);
                             tiles[dY][dX].setFixedObject(newNPC);
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
+//                            tiles[dY-1][dX].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof Blacksmith) {
-                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY));
+                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
                             ((Town) location).getNPCs().add(newNPC);
                             tiles[dY][dX].setFixedObject(newNPC);
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
                         } else if (gameObject instanceof CarpentersShop) {
-                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY));
+                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
                             ((Town) location).getNPCs().add(newNPC);
                             tiles[dY][dX].setFixedObject(newNPC);
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
+                        } else if (gameObject instanceof MarniesRanch) {
+
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY][dX+1].setWalkable(true);
+                            tiles[dY][dX+1].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
+                            tiles[dY-1][dX+1].setWalkable(true);
+                        } else if (gameObject instanceof FishShop) {
+
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+
+                        } else if (gameObject instanceof JojaMart) {
+
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY][dX+1].setWalkable(true);
+                            tiles[dY][dX+1].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
+                            tiles[dY-1][dX+1].setWalkable(true);
+
                         }
 //                        else if (gameObject instanceof JojaMart) {
 //                            newNPC = NpcType.ROBIN.getNPC(new Position(dX,dY));
@@ -191,6 +227,27 @@ public class newFarmLoader {
 //                        }
                     } else if (location instanceof Farm && gameObject instanceof Building) {
                         ((Farm) location).getBuildings().add((Building) gameObject);
+                        int dX = (int) ((Building) gameObject).getDoorPosition().getX();
+                        int dY = (int) (height - (((Building) gameObject).getDoorPosition().getY() /16));
+                        System.out.println(dY);
+                        if (gameObject instanceof Home){
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY-1][dX].setWalkable(true);
+                            tiles[dY-2][dX].setWalkable(true);
+                            tiles[dY-1][dX-1].setWalkable(true);
+                            tiles[dY-1][dX-2].setWalkable(true);
+                            tiles[dY-1][dX-3].setWalkable(true);
+                            tiles[dY-1][dX-4].setWalkable(true);
+                            tiles[dY-1][dX-5].setWalkable(true);
+                            tiles[dY-1][dX+1].setWalkable(true);
+                            tiles[dY-1][dX+2].setWalkable(true);
+                            tiles[dY-2][dX-1].setWalkable(true);
+                            tiles[dY-2][dX+1].setWalkable(true);
+                        } else if (gameObject instanceof GreenHouse) {
+                            tiles[dY][dX].setWalkable(true);
+                            tiles[dY][dX].setTileType(TileType.Wrapper);
+                        }
                     }
 
                 }
@@ -280,8 +337,9 @@ public class newFarmLoader {
                 int doorY = Integer.parseInt(properties.get("doorY", String.class));
 //                int objWidth = properties.get("width", Integer.class);
 //                int objHeight = properties.get("height", Integer.class);
-
-                return new Home(pos, false, "PlayerHome", new Position((float) doorX / 16, (float) doorY / 16), objWidth, objHeight);
+                Home home = new Home(pos, false, "PlayerHome", new Position((float) doorX / 16, (float) doorY / 16), objWidth, objHeight);
+                System.out.println(home.getBuildingType().getAssetName());
+                return home;
 //            new Home(new Position(tx, ty),false, "PlayerHome", new Position(tx+4, ty+4), objHeight, objWidth);
             }
             case "mailbox" -> {
@@ -341,6 +399,87 @@ public class newFarmLoader {
             case "vanitytree2" -> {
                 return new EtcObject(false, pos, EtcObjectType.VANITY_TREE2);
             }
+            case "vanitytree1" -> {
+                return new EtcObject(false, pos, EtcObjectType.VANITY_TREE1);
+            }
+            case "vanitytree3" -> {
+                return new EtcObject(false, pos, EtcObjectType.VANITY_TREE3);
+            }
+            case "vanitypinkfu" -> {
+                return new EtcObject(false, pos, EtcObjectType.PINKFU_TREE);
+            }
+            case "vanitybigbush1" -> {
+                return new EtcObject(false, pos, EtcObjectType.BIGBUSH1);
+            }
+            case "vanitybigbush2" -> {
+                return new EtcObject(false, pos, EtcObjectType.BIGBUSH2);
+            }
+            case "vanitysmallbush1" -> {
+                return new EtcObject(false, pos, EtcObjectType.SMALLBUSH1);
+            }
+            case "vanitysmallbush2" -> {
+                return new EtcObject(false, pos, EtcObjectType.SMALLBUSH2);
+            }
+            case "kunde" -> {
+                return new EtcObject(false, pos, EtcObjectType.KUNDE);
+            }
+            case "vanitynarrowbush1" -> {
+                return new EtcObject(false, pos, EtcObjectType.NARROWBUSH1);
+            }
+            case "favare" -> {
+                return new EtcObject(false, pos, EtcObjectType.FAVARE);
+            }
+            case "lantern" -> {
+                return new EtcObject(false, pos, EtcObjectType.LANTERN);
+            }
+            case "alakolang" -> {
+                return new EtcObject(false, pos, EtcObjectType.ALAKOLANG);
+            }
+            case "sorsore" -> {
+                return new EtcObject(false, pos, EtcObjectType.SORSORE);
+            }
+            case "gravekag" -> {
+                return new EtcObject(false, pos, EtcObjectType.GRAVEKAG);
+            }
+            case "gravefroo" -> {
+                return new EtcObject(false, pos, EtcObjectType.GRAVEFROO);
+            }
+            case "gravesaf" -> {
+                return new EtcObject(false, pos, EtcObjectType.GRAVESAF);
+            }
+            case "vanitymailbox" -> {
+                return new EtcObject(false, pos, EtcObjectType.VANITYMAILBOX);
+            }
+            case "brownpot1" -> {
+                return new EtcObject(false, pos, EtcObjectType.BROWNPOT1);
+            }
+            case "jojamartbilboard" -> {
+                return new EtcObject(false, pos, EtcObjectType.JOJAMARTBILBOARD);
+            }
+            case "canex" -> {
+                return new EtcObject(false, pos, EtcObjectType.CANEX);
+            }
+            case "canexdesk" -> {
+                return new EtcObject(false, pos, EtcObjectType.CANEXDESK);
+            }
+            case "canexchair" -> {
+                return new EtcObject(false, pos, EtcObjectType.CANEXCHAIR);
+            }
+            case "vanityshop1" -> {
+                return new EtcObject(false, pos, EtcObjectType.VANITYSHOP1);
+            }
+            case "vanitybuilding2" -> {
+                return new EtcObject(false, pos, EtcObjectType.BUILDING2);
+            }
+            case "vanityfence11top" -> {
+                return new EtcObject(false, pos, EtcObjectType.FENCE11TOP);
+            }
+            case "vanityfence11left" -> {
+                return new EtcObject(false, pos, EtcObjectType.FENCE11LEFT);
+            }
+            case "vanityfence11right" -> {
+                return new EtcObject(false, pos, EtcObjectType.FENCE11RIGHT);
+            }
 
             default -> {
                 return null;
@@ -356,8 +495,10 @@ public class newFarmLoader {
         } else if (locationName.contains("Farm2")) {
             location = new Farm(GameLocationType.Farm2);
 
-        } else {
+        } else if (locationName.contains("Town4")){
             location = new Town(GameLocationType.Town);
+        } else {
+            location = new GameLocation(GameLocationType.getGameLocationTypeByName(locationName));
         }
         Tile[][] farmTileSet = load(locationName + ".tmx", location);
         location.setTiles(farmTileSet);

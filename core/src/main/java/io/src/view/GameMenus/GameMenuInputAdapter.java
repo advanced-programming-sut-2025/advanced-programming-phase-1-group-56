@@ -180,8 +180,8 @@ public class GameMenuInputAdapter extends InputAdapter {
                 if (b.getDoorPosition().isNear(App.getMe().getPosition(), 4)) {
                     isNearADoor = true;
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                        App.getMe().setPosition(b.getInitialPosition());//TODO
                         App.getMe().setCurrentGameLocation(b.getIndoor());
-                        //App.getMe().setPosition(b.getInitialPosition);//TODO
                     });
                 }
             }
@@ -274,7 +274,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                 if (store.getDoorPosition().isNear(App.getMe().getPosition(), 3)) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
                         App.getMe().setCurrentGameLocation(store.getIndoor());
-                        App.getMe().setPosition(new Position(41, 1));//TODO
+                        App.getMe().setPosition(store.getInitialPosition());//TODO
                     });
                 }
 
@@ -297,8 +297,8 @@ public class GameMenuInputAdapter extends InputAdapter {
             for (Building building : App.getMe().getPlayerFarm().getBuildings()) {
                 if (App.getMe().getCurrentGameLocation().equals(building.getIndoor())) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
-                        App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm());
                         App.getMe().setPosition(new Position(building.getDoorPosition().getX(), building.getDoorPosition().getY() - 2));//TODO
+                        App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm());
                     });
                 }
             }

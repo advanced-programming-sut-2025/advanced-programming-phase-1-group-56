@@ -2,6 +2,7 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -18,12 +19,15 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
+import io.src.model.Enums.GameObjects.EtcObjectType;
+import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
+import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 
 import java.util.ArrayList;
@@ -439,9 +443,15 @@ public class GameView implements Screen {
 //                    + "'location: " + worldX + "   " + worldY);
 //            }
 
-            if (go instanceof Tree tree && tree.isComplete()) {
+            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE1 ||
+                ((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE3)) {
                 worldX -= 16;
             }
+
+            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType()== EtcObjectType.PINKFU_TREE){
+                worldX -= 24;
+            }
+
             renderer.getBatch().draw(region,
                 worldX, worldY,
                 region.getRegionWidth(), 0,
@@ -451,29 +461,29 @@ public class GameView implements Screen {
 
 
         //RED HIT BOXES
-//        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-//        pixmap.setColor(1, 0, 0, 1);
-//        pixmap.fill();
-//        Texture texture = new Texture(pixmap);
-//        TextureRegion redRegion = new TextureRegion(texture);
-//
-//        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
-//            for (Tile tile : row) {
-//                if (tile.isWalkable()) continue;
-//                float worldX = tile.getPosition().getX() * TILE_SIZE;
-//                float worldY = tile.getPosition().getY() * TILE_SIZE;
-//
-//                TextureRegion region = new TextureRegion(redRegion);
-//                renderer.getBatch().draw(region,
-//                    worldX, worldY,
-//                    16,  // Origin X (مرکز تصویر)
-//                    16, // Origin Y
-//                    16, 16, // اندازه اصلی
-//                    0.9f, 0.9f, // scaleX, scaleY
-//                    0); // rotation
-//
-//            }
-//        }
+        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+        pixmap.setColor(1, 0, 0, 1);
+        pixmap.fill();
+        Texture texture = new Texture(pixmap);
+        TextureRegion redRegion = new TextureRegion(texture);
+
+        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
+            for (Tile tile : row) {
+                if (tile.getTileType()!= TileType.Wrapper) continue;
+                float worldX = tile.getPosition().getX() * TILE_SIZE;
+                float worldY = tile.getPosition().getY() * TILE_SIZE;
+
+                TextureRegion region = new TextureRegion(redRegion);
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                    16, // Origin Y
+                    16, 16, // اندازه اصلی
+                    0.9f, 0.9f, // scaleX, scaleY
+                    0); // rotation
+
+            }
+        }
         renderer.getBatch().end();
 
         transitionManager.update(v);
