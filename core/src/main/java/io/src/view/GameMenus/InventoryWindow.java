@@ -40,12 +40,9 @@ public class InventoryWindow extends Group {
     private final DragAndDrop dragAndDrop = new DragAndDrop();
 
     public InventoryWindow() {
-        this.player = new Player(InventoryController.returnUser("Mohsen"));
-        player.getSkillByName("Farming").setLevel(2);
-        player.getInventory().add(new Tool(ToolType.AXE_WOODEN), 1);
-        player.getInventory().add(new Tool(ToolType.PICK_WOODEN), 1);
+        player = App.getMe();
         setSize(750, 580);
-        setPosition(100, 100);
+        setPosition((Gdx.graphics.getWidth() - 750) / 2f, (Gdx.graphics.getHeight() - 580) / 2f);
 
         background = new Image(GameAssetManager.getGameAssetManager().getInventoryBackGround());
         background.setSize(getWidth(), getHeight() + 10);
@@ -349,6 +346,7 @@ public class InventoryWindow extends Group {
             if (i < slots.size()) {
                 Slot slot = slots.get(i);
                 Item item = slot.getItem();
+                String assetName = item.getAssetName();
                 int quantity = slot.getQuantity();
                 Label label = null;
                 stack.setTouchable(Touchable.enabled);
@@ -356,7 +354,7 @@ public class InventoryWindow extends Group {
                 addDragAndDrop(dragAndDrop, stack, i, inventory);
 
                 if (item != null && quantity > 0) {
-                    itemImage = new Image(new Texture("assets/Axe.png"));
+                    itemImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName))));
                     itemImage.setOrigin(Align.center);
                     itemImage.setScale(0.8f);
                     itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
@@ -406,10 +404,11 @@ public class InventoryWindow extends Group {
                 System.out.println("drag started");
                 Slot slot = inventory.getSlots().get(index);
                 Item item = slot.getItem();
+                String assetName = item.getAssetName();
                 if (item == null) return null;
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(index);
-                Texture itemTexture = new Texture("assets/Axe.png");
+                Texture itemTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
                 Image dragImage = new Image(itemTexture);
                 dragImage.setSize(50, 50);
                 payload.setDragActor(dragImage);

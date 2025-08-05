@@ -23,12 +23,13 @@ public class GameMenuInputAdapter extends InputAdapter {
     //    private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
     private boolean stopMoving = false;
-
+    private static GameMenuInputAdapter gameMenuInputAdapter;
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
 
     /// /        this.gameController = gameController;
 //    }
+
     public GameMenuInputAdapter(Game game) {
         this.game = game;
 //        this.gameController = gameController;
@@ -46,6 +47,24 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keycode == Input.Keys.ESCAPE) {
             Gdx.app.exit();
             return true;
+        }
+
+        if(keycode == Input.Keys.B) {
+            if(GameView.getInvWindow().isVisible()) {
+                Gdx.input.setInputProcessor(this);
+            } else{
+                Gdx.input.setInputProcessor(GameView.getStage());
+            }
+            GameView.getCraftingWindow().setVisible(!GameView.getCraftingWindow().isVisible());
+        }
+
+        if(keycode == Input.Keys.E) {
+            if(GameView.getInvWindow().isVisible()) {
+                Gdx.input.setInputProcessor(this);
+            } else{
+                Gdx.input.setInputProcessor(GameView.getStage());
+            }
+            GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
         }
 
 //        if (keycode == Input.Keys.N) {

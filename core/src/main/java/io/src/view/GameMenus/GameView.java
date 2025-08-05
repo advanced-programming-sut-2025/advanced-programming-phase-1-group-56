@@ -11,6 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -55,9 +57,9 @@ public class GameView implements Screen {
     private Texture pixel; // Add this
     public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
     private final OrthographicCamera camera = new OrthographicCamera();
-    private Stage stage;
+    private static Stage stage;
     private TimerWindow timeWindow;
-    private InventoryWindow invWindow;
+    private static InventoryWindow invWindow;
     private DialogWindow dialogWindow;
     //    private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
@@ -65,7 +67,7 @@ public class GameView implements Screen {
     private EnergyBar energyWindow;
     private ScreenTransition transitionManager;
     private ShapeRenderer shapeRenderer;
-
+    private static craftingWindow craftingWindow;
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
             gameMenuInputAdapter.setStopMoving(true);
@@ -104,8 +106,11 @@ public class GameView implements Screen {
         invWindow = new InventoryWindow();
         energyWindow = new EnergyBar();
         timeWindow = new TimerWindow();
+        craftingWindow = new craftingWindow(App.getMe());
         energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
+        craftingWindow.setVisible(false);
+        stage.addActor(craftingWindow);
         stage.addActor(invWindow);
         stage.addActor(energyWindow);
         stage.addActor(timeWindow);
@@ -123,6 +128,23 @@ public class GameView implements Screen {
                 return true;
             }
         };
+
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.B) {
+                    craftingWindow.setVisible(false);
+                    Gdx.input.setInputProcessor(gameMenuInputAdapter);
+                    return true;
+                } else if(keycode == Input.Keys.E) {
+                    invWindow.setVisible(false);
+                    Gdx.input.setInputProcessor(gameMenuInputAdapter);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         multiplexer.addProcessor(gameMenuInputAdapter);
         multiplexer.addProcessor(keyListener);
         multiplexer.addProcessor(stage);
@@ -558,13 +580,20 @@ public class GameView implements Screen {
     public void dispose() {
 
     }
+    public static craftingWindow getCraftingWindow() {
+        return craftingWindow;
+    }
 
-    public InventoryWindow getInvWindow() {
+    public static InventoryWindow getInvWindow() {
         return invWindow;
     }
 
     public void setInvWindow(InventoryWindow invWindow) {
         this.invWindow = invWindow;
+    }
+
+    public static Stage getStage() {
+        return stage;
     }
 
 }
