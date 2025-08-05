@@ -159,7 +159,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             vy /= norm;
         }
 
-
         float speed = player.getSpeed();
         player.setMovingDirection(dir);
         player.setVelocity(vx * speed, vy * speed);
@@ -198,11 +197,25 @@ public class GameMenuInputAdapter extends InputAdapter {
                 });
             }
         }
-        //FROM TOWN TO FARM
         else if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper &&
             App.getMe().getCurrentGameLocation() instanceof Town
         ) {
             Player player = App.getMe();
+            //From Town to Building
+            System.out.println("player position : " +App.getMe().getPosition().getX() + " " + App.getMe().getPosition().getY());
+            for (Store store : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getStores()) {
+                System.out.println(store.getName() + " door position :" + store.getDoorPosition().getX() + " " + store.getDoorPosition().getY());
+                if (store.getDoorPosition().isNear(App.getMe().getPosition(), 3)) {
+                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                        App.getMe().setCurrentGameLocation(store.getIndoor());
+                        App.getMe().setPosition(store.getInitialPosition());//TODO
+                    });
+                }
+
+            }
+
+            //FROM TOWN TO FARM
+
             if (player.getPosition().isNear(new Position(5, 55), 8)) {
                 if (player.getFarmPosition() == FarmPosition.LEFT) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
@@ -267,19 +280,11 @@ public class GameMenuInputAdapter extends InputAdapter {
 
             }
 
-        }//From Town to Building
-        else if (App.getMe().getCurrentGameLocation() instanceof Town &&
-            App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).getTileType() == TileType.Wrapper) {
-            for (Store store : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getStores()) {
-                if (store.getDoorPosition().isNear(App.getMe().getPosition(), 3)) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
-                        App.getMe().setCurrentGameLocation(store.getIndoor());
-                        App.getMe().setPosition(store.getInitialPosition());//TODO
-                    });
-                }
-
-            }
         }
+//        else if (App.getMe().getCurrentGameLocation() instanceof Town &&
+//            App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).getTileType() == TileType.Wrapper) {
+//
+//        }
         //Current GameLocation is an Indoor
         else if (!(App.getMe().getCurrentGameLocation() instanceof Town) && !(App.getMe().getCurrentGameLocation() instanceof Farm)
             && App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).getTileType() == TileType.Wrapper

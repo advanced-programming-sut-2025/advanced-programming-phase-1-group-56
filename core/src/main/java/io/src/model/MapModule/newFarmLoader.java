@@ -160,37 +160,40 @@ public class newFarmLoader {
                     if (location instanceof Town && gameObject instanceof Store) {
                         ((Town) location).getStores().add((Store) gameObject);
                         NPC newNPC;
-                        int dX = (int) ((Building) gameObject).getDoorPosition().getX()/16;
-                        int dY = (int) ((((Building) gameObject).getDoorPosition().getY() /16));
+                        int dX = (int) ((Building) gameObject).getDoorPosition().getX();
+                        int dY = (int) (height - 1 -((Building) gameObject).getDoorPosition().getY());
+                        ((Store) gameObject).setDoorPosition(new Position(dX , dY));
                         System.out.println(dY);
                         if (gameObject instanceof PierresGeneralStore) {
-                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY-2));
-                            ((Town) location).getNPCs().add(newNPC);
-                            tiles[dY][dX].setFixedObject(newNPC);
+//                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY));
+//                            ((Town) location).getNPCs().add(newNPC);
+//                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
+                            tiles[dY][dX+1].setWalkable(true);
+                            tiles[dY][dX+1].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
                             tiles[dY-1][dX+1].setWalkable(true);
 //                            tiles[dY-1][dX+1].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof TheSaloonStardrop) {
-                            newNPC = NpcType.LEAH.getNPC(new Position(dX, dY-2));
-                            ((Town) location).getNPCs().add(newNPC);
-                            tiles[dY][dX].setFixedObject(newNPC);
+//                            newNPC = NpcType.LEAH.getNPC(new Position(dX, dY-3));
+//                            ((Town) location).getNPCs().add(newNPC);
+//                            tiles[dY-3][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
 //                            tiles[dY-1][dX].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof Blacksmith) {
-                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
-                            ((Town) location).getNPCs().add(newNPC);
-                            tiles[dY][dX].setFixedObject(newNPC);
+//                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
+//                            ((Town) location).getNPCs().add(newNPC);
+//                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
                         } else if (gameObject instanceof CarpentersShop) {
-                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
-                            ((Town) location).getNPCs().add(newNPC);
-                            tiles[dY][dX].setFixedObject(newNPC);
+//                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
+//                            ((Town) location).getNPCs().add(newNPC);
+//                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
@@ -202,6 +205,8 @@ public class newFarmLoader {
                             tiles[dY][dX+1].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
                             tiles[dY-1][dX+1].setWalkable(true);
+                            tiles[dY-2][dX].setWalkable(true);
+                            tiles[dY-2][dX+1].setWalkable(true);
                         } else if (gameObject instanceof FishShop) {
 
                             tiles[dY][dX].setWalkable(true);
@@ -228,7 +233,8 @@ public class newFarmLoader {
                     } else if (location instanceof Farm && gameObject instanceof Building) {
                         ((Farm) location).getBuildings().add((Building) gameObject);
                         int dX = (int) ((Building) gameObject).getDoorPosition().getX();
-                        int dY = (int) (height - (((Building) gameObject).getDoorPosition().getY() /16));
+                        int dY = (int) (height - 1 -((Building) gameObject).getDoorPosition().getY());
+                        ((Building) gameObject).setDoorPosition(new Position(dX , dY));
                         System.out.println(dY);
                         if (gameObject instanceof Home){
                             tiles[dY][dX].setWalkable(true);
@@ -327,6 +333,7 @@ public class newFarmLoader {
 
     private static GameObject createGameObjectFromObject(String name, MapProperties properties, float x, float y, int objWidth, int objHeight, GameLocation location) {
         Position pos = new Position(x / 16, y / 16);
+
         if (location instanceof Town) {
             System.out.println("wanna add an " + name.toLowerCase());
         }
@@ -389,12 +396,12 @@ public class newFarmLoader {
             case "fishshop" -> {
                 int doorX = Integer.parseInt(properties.get("doorX", String.class));
                 int doorY = Integer.parseInt(properties.get("doorY", String.class));
-                return new FishShop(pos, false, "FishShop", new Position(x + 1, y + 5), objHeight, objWidth);
+                return new FishShop(pos, false, "FishShop", new Position(doorX / 16, doorY / 16), objHeight, objWidth);
             }
             case "marniesranch" -> {
                 int doorX = Integer.parseInt(properties.get("doorX", String.class));
                 int doorY = Integer.parseInt(properties.get("doorY", String.class));
-                return new MarniesRanch(pos, false, "MarniesRanch", new Position(x + 1, y + 6), objHeight, objWidth);
+                return new MarniesRanch(pos, false, "MarniesRanch", new Position(doorX / 16, doorY / 16), objHeight, objWidth);
             }
             case "vanitytree2" -> {
                 return new EtcObject(false, pos, EtcObjectType.VANITY_TREE2);

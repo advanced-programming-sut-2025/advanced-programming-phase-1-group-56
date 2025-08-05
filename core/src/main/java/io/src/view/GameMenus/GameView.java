@@ -421,7 +421,8 @@ public class GameView implements Screen {
                 continue;
             }
 
-
+//            System.out.println(assetName);
+//            System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
 
 
             if (!gameObjectTextureMap.containsKey(assetName)) {
@@ -469,7 +470,7 @@ public class GameView implements Screen {
 
         for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : row) {
-                if (tile.getTileType()!= TileType.Wrapper) continue;
+                if (tile.isWalkable()) continue;
                 float worldX = tile.getPosition().getX() * TILE_SIZE;
                 float worldY = tile.getPosition().getY() * TILE_SIZE;
 
