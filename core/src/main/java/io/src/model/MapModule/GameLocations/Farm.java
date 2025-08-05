@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import io.src.controller.GameMenuController.FarmingController;
 import io.src.model.App;
 import io.src.model.Enums.FarmPosition;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.GameObject.Crop;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.Tree;
@@ -24,8 +25,14 @@ public class Farm extends GameLocation implements TimeObserver {
     @Expose(serialize = false, deserialize = false)
     private Player player;
 
-    public Farm() {
+    public Farm(GameLocationType type) {
+        super(type);
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+    }
+
+    @Override
+    public ArrayList<GameObject> getCopyOfGameObjects() {
+        return new ArrayList<>(allGameObjects);
     }
 
 
@@ -41,16 +48,16 @@ public class Farm extends GameLocation implements TimeObserver {
             for (GameObject gameObject : readAllGameObjectsFromTiles()) {
                 if (gameObject instanceof Tree tree) {
                     if (tree.getDaysWithNoWater() >= 2) {
-                        int x = (int)tree.getPosition().getX();
-                        int y = (int)tree.getPosition().getY();
-                        this.getTileByPosition(x,y).setFixedObject(null);
+                        int x = (int) tree.getPosition().getX();
+                        int y = (int) tree.getPosition().getY();
+                        this.getTileByPosition(x, y).setFixedObject(null);
 //                        allGameObjects.remove(tree);
                     }
                 } else if (gameObject instanceof Crop crop) {
                     if ((crop.getDaysWithNoWater() >= 2 || crop.isIs1time())) {
-                        int x = (int)crop.getPosition().getX();
-                        int y = (int)crop.getPosition().getY();
-                        this.getTileByPosition(x,y).setFixedObject(null);
+                        int x = (int) crop.getPosition().getX();
+                        int y = (int) crop.getPosition().getY();
+                        this.getTileByPosition(x, y).setFixedObject(null);
 //                        allGameObjects.remove(crop);
                     }
                 }
@@ -58,6 +65,10 @@ public class Farm extends GameLocation implements TimeObserver {
         }
     }
 
+    @Override
+    public ArrayList<GameObject> getGameObjects() {
+        return this.allGameObjects;
+    }
 
     public ArrayList<Building> getBuildings() {
         return buildings;
@@ -106,7 +117,7 @@ public class Farm extends GameLocation implements TimeObserver {
 //                        }
 //                    }
                     //if (!found) {
-                        allGameObjects.add(tile.getFixedObject());
+                    allGameObjects.add(tile.getFixedObject());
                     //}
                 }
             }

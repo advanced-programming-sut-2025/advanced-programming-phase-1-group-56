@@ -1,13 +1,17 @@
 package io.src.model.MapModule.Buildings;
+import io.src.model.App;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Stores.CarpenterShopProducts;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.Enums.Stores.MarniesRanchProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 
 import java.util.ArrayList;
+
+import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class MarniesRanch extends Store {
     public MarniesRanch( Position startingPosition,boolean walkable, String name, Position doorPosition, int height, int width) {
@@ -15,6 +19,9 @@ public class MarniesRanch extends Store {
         dailyProductList = MarniesRanchProducts.getProducts(MarniesRanchProducts.class);
         setOpeningHour(9);
         setClosingHour(16);
+        GameLocation indoor = loadTheLocation("assets\\gameLocations\\Marnies_Ranch_Indoor");
+        setIndoor(indoor);
+        setInitialPosition(new Position(12 , 2));
     }
 
     @Override
@@ -36,5 +43,10 @@ public class MarniesRanch extends Store {
             }
         }
         return null;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Marnies_Ranch_Shop_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }

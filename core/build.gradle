@@ -14,10 +14,7 @@ dependencies {
   implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.2")
   implementation("junit:junit:4.13.2")
   implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-  runtimeOnly "com.badlogicgames.gdx:gdx-platform:1.12.0:natives-desktop"
-  runtimeOnly "com.badlogicgames.gdx:gdx-freetype-platform:1.12.0:natives-desktop"
-  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 
 
   if(enableGraalNative == 'true') {

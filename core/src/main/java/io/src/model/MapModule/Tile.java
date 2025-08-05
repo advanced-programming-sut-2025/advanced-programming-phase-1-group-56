@@ -1,6 +1,9 @@
 package io.src.model.MapModule;
 
 import com.google.gson.annotations.Expose;
+import io.src.model.App;
+import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.MapModule.GameLocations.Town;
 import kotlin.jvm.Transient;
 import io.src.model.Enums.TileType;
 import io.src.model.GameObject.GameObject;
@@ -24,13 +27,16 @@ public class Tile extends Node {
     }
 
     public boolean isWalkable() {
-        boolean objectWalk = fixedObject == null || fixedObject.isWalkable();
-        if (
-                fixedObject != null &&
-                        fixedObject instanceof Building b &&
-                        b.getDoorPosition().getX() == this.getPosition().getX() &&
-                        b.getDoorPosition().getY() == this.getPosition().getY()
-        ) return true;
+        boolean objectWalk = (fixedObject == null || fixedObject.isWalkable());
+//        if(App.getMe().getCurrentGameLocation() instanceof Town || App.getMe().getCurrentGameLocation() instanceof Farm){
+//
+//        }
+//        if (
+//                fixedObject != null &&
+//                        fixedObject instanceof Building b &&
+//                        b.getDoorPosition().getX() == this.getPosition().getX() &&
+//                        b.getDoorPosition().getY() == this.getPosition().getY()
+//        ) return true;
         return isWalkable && objectWalk;
     }
 

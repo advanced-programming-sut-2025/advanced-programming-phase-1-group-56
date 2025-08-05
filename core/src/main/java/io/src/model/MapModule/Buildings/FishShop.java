@@ -1,11 +1,15 @@
 package io.src.model.MapModule.Buildings;
 
+import io.src.model.App;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 
 import java.util.ArrayList;
+
+import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class FishShop extends Store {
     private ArrayList<NpcProduct> dailyProductList;
@@ -14,6 +18,9 @@ public class FishShop extends Store {
         dailyProductList = FishShopProducts.getProducts(FishShopProducts.class);
         setOpeningHour(9);
         setClosingHour(17);
+        GameLocation indoor = loadTheLocation("assets\\gameLocations\\Fish_Shop_Indoor");
+        setIndoor(indoor);
+        setInitialPosition(new Position(5 , 2));
     }
 
     @Override
@@ -31,5 +38,10 @@ public class FishShop extends Store {
     @Override
     public ArrayList<NpcProduct> getDailyProductList() {
         return dailyProductList;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Fish_Shop_" + App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().toString();
     }
 }

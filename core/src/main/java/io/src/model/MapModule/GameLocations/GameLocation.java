@@ -1,6 +1,8 @@
 package io.src.model.MapModule.GameLocations;
 
 import io.src.model.App;
+import io.src.model.Enums.GameLocationType;
+import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Network;
 import io.src.model.MapModule.Node;
 import io.src.model.MapModule.Position;
@@ -10,18 +12,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameLocation extends Network {
-//    ArrayList<Tile> tiles = new ArrayList<>();
-    Tile[][] tiles;
-//    ArrayList<Building> buildings;
-//    ArrayList<NPC> NPcs = new ArrayList<>();////
+    protected Tile[][] tiles;
 
-
-    public Tile getTileByPosition(int x, int y){
-        return tiles[y][x];
+    public GameLocationType getType() {
+        return type;
     }
 
-    public Tile getTileByPosition(Position pos){
-        return tiles[(int)pos.getY()][(int)pos.getX()];
+    protected GameLocationType type;
+
+    protected final ArrayList<GameObject> gameObjects = new ArrayList<>();
+
+    public GameLocation(GameLocationType type) {
+        this.type = type;
+    }
+
+
+    public Tile getTileByPosition(float x, float y) {
+        return tiles[(int) y][(int) x];
+    }
+
+
+    public Tile getTileByPosition(Position pos) {
+        return tiles[(int) pos.getY()][(int) pos.getX()];
     }
 
     @Override
@@ -41,18 +53,35 @@ public class GameLocation extends Network {
         this.tiles = tiles;
     }
 
-    public boolean isWithinBounds(int x, int y, int width,int height) {
+    public boolean isWithinBounds(int x, int y, int width, int height) {
         return x >= 0 && x + width <= tiles[0].length && y >= 0 && y + height <= tiles.length;
     }
 
     public boolean isPlantingLand() {
-            boolean isFarm = this instanceof Farm;
-            boolean isPlayerGreenhouse = this == App.getMe().getPlayerFarm().getGreenHouse().getIndoor();
-            boolean isPartnerGreenhouse = false;
-            if (App.getMe().getPartner() != null) {
-                isPartnerGreenhouse = this == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor();
-            }
-            return isFarm || isPlayerGreenhouse || isPartnerGreenhouse;
+        boolean isFarm = this instanceof Farm;
+        boolean isPlayerGreenhouse = this == App.getMe().getPlayerFarm().getGreenHouse().getIndoor();
+        boolean isPartnerGreenhouse = false;
+        if (App.getMe().getPartner() != null) {
+            isPartnerGreenhouse = this == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor();
+        }
+        return isFarm || isPlayerGreenhouse || isPartnerGreenhouse;
 
+    }
+
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public ArrayList<GameObject> getCopyOfGameObjects() {
+        return new ArrayList<>(gameObjects);
+    }
+
+    public void addGameObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
+    }
+
+    public void removeGameObject(GameObject gameObject) {
+        gameObjects.remove(gameObject);
     }
 }

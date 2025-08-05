@@ -69,4 +69,9 @@ public class NPC extends LivingEntity implements TimeObserver {
             }
         }
     }
+    @Override
+    public String getAssetName(){
+        //TODO
+        return "Fiber_Grass1";
+    }
 }

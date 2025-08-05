@@ -39,17 +39,17 @@ public class GameMenu implements AppMenu {
         String input = scanner.nextLine();
 
         if (!(
-                GameCheck(input, scanner) ||
-                        DateTimeCheck(input) ||
-                        WeatherCheck(input) ||
-                        EnergyAndSkillsCheck(input) ||
-                        ToolsCheck(input) ||
-                        FarmingCheck(input) ||
-                        HusbandryCheck(input) ||
-                        ArtisanCheck(input) ||
-                        TradeCheck(input) ||
-                        RelationShipCheck(input) ||
-                        NPCCheck(input)
+            GameCheck(input, scanner) ||
+                DateTimeCheck(input) ||
+                WeatherCheck(input) ||
+                EnergyAndSkillsCheck(input) ||
+                ToolsCheck(input) ||
+                FarmingCheck(input) ||
+                HusbandryCheck(input) ||
+                ArtisanCheck(input) ||
+                TradeCheck(input) ||
+                RelationShipCheck(input) ||
+                NPCCheck(input)
         )
         ) {
             System.out.println("Invalid command!");
@@ -64,7 +64,8 @@ public class GameMenu implements AppMenu {
                 System.out.println(message);
             } catch (Exception e) {
                 System.out.println("exception threw by manageNewGame");
-                System.out.println(e.getMessage());
+                e.printStackTrace();
+//                System.out.println(e.getMessage());
             }
             return true;
         } else if (PreGameMenuCommands.loadGame.getMatcher(input) != null) {//load game
@@ -95,13 +96,13 @@ public class GameMenu implements AppMenu {
             setCurrentStoreOrBuilding();
             System.out.println(MapController.printMap());
             return true;
-        } else if((matcher = Pattern.compile("\\s*ef\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s*").matcher(input)).matches()) {
-            int x1 =Integer.parseInt(matcher.group(1).trim());
+        } else if ((matcher = Pattern.compile("\\s*ef\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s*").matcher(input)).matches()) {
+            int x1 = Integer.parseInt(matcher.group(1).trim());
             int y1 = Integer.parseInt(matcher.group(2).trim());
             int x2 = Integer.parseInt(matcher.group(3).trim());
-            int y2 =Integer.parseInt(matcher.group(4).trim());
-            System.out.printf("emptying field: from <%d,%d> to <%d, %d>\n",x1,y1,x2,y2);
-            for (int i = x1; i < x2 ; i++) {
+            int y2 = Integer.parseInt(matcher.group(4).trim());
+            System.out.printf("emptying field: from <%d,%d> to <%d, %d>\n", x1, y1, x2, y2);
+            for (int i = x1; i < x2; i++) {
                 for (int j = y1; j < y2; j++) {
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setWalkable(true);
                     App.getMe().getPlayerFarm().getTileByPosition(new Position(i, j)).setTileType(TileType.Soil);
@@ -109,28 +110,26 @@ public class GameMenu implements AppMenu {
                 }
             }
             return true;
-        }else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
+        } else if ((matcher = CraftingCommand.cheatCode.getMatcher(input)) != null) {
             System.out.println(CraftingController.cheatAddItem(matcher));
             return true;
         } else if ((matcher = GameCommands.Walk.getMatcher(input)).find()) {
 
             boolean isCorrect;
             Energy energy = new Energy(0);
-            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy).isSuccess();
+            isCorrect = MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()), energy).isSuccess();
             if (isCorrect) {
-                if(energy.getEnergy() > App.getMe().getEnergy().getEnergy()) {
-                    System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy));
+                if (energy.getEnergy() > App.getMe().getEnergy().getEnergy()) {
+                    System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()), energy));
                     String input1 = scanner.nextLine();
                     if (input1.equalsIgnoreCase("yes")) {
                         System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                     }
-                }
-                else{
+                } else {
                     System.out.println(MapController.movePlayer(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim())));
                 }
-            }
-            else{
-                System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()),energy));
+            } else {
+                System.out.println(MapController.calculateMoveEnergy(Integer.parseInt(matcher.group(1).trim()), Integer.parseInt(matcher.group(2).trim()), energy));
             }
 
 
@@ -152,7 +151,7 @@ public class GameMenu implements AppMenu {
         } else if ((matcher = GameCommands.eatFood.getMatcher(input)).find()) {
             System.out.println(CookingController.eatFood(matcher));
             return true;
-        } else if(input.equalsIgnoreCase("exit")) {
+        } else if (input.equalsIgnoreCase("exit")) {
             App.setCurrentMenu(Menu.exitMenu);
             return true;
         }
@@ -164,13 +163,12 @@ public class GameMenu implements AppMenu {
         Player player = App.getMe();
         if (player.getCurrentGameLocation().getTileByPosition(player.getPosition()).getTileType() == TileType.Wrapper) {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
-            if(player.getCurrentGameLocation().equals(App.getMe().getPlayerFarm().getGreenHouse().getIndoor())){
+            if (player.getCurrentGameLocation().equals(App.getMe().getPlayerFarm().getGreenHouse().getIndoor())) {
                 player.setCurrentGameLocation(App.getMe().getPlayerFarm());
                 Position position = App.getMe().getPlayerFarm().getGreenHouse().getDoorPosition();
-                player.setPosition(new Position(position.getX(), position.getY() +2));
+                player.setPosition(new Position(position.getX(), position.getY() + 2));
                 System.out.println("backing to farm from greenhouse");
-            }
-             else if (player.getCurrentGameLocation() instanceof Farm) {
+            } else if (player.getCurrentGameLocation() instanceof Farm) {
                 player.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
                 if ((player.getFarmPosition() == FarmPosition.LEFT)) {
 //                    player.getPosition().getX() == 0 player.getPosition().getY() == 52;
@@ -214,54 +212,53 @@ public class GameMenu implements AppMenu {
                 }
             }
 
-        } else if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(), (int)player.getPosition().getY()).getFixedObject() instanceof Building building) {
+        } else if (player.getCurrentGameLocation().getTileByPosition((int) player.getPosition().getX(), (int) player.getPosition().getY()).getFixedObject() instanceof Building building) {
             if (player.getPosition().equals(building.getDoorPosition())) {
                 if (building instanceof JojaMart) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 11 pm.");
-
                     }
                     App.setCurrentMenu(Menu.JojaMartMenu);
                     System.out.println("welcome to Joja Mart");
                 } else if (building instanceof Blacksmith) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((Blacksmith) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((Blacksmith) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((Blacksmith) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 4 pm.");
                     }
                     App.setCurrentMenu(Menu.BlackSmithMenu);
                     System.out.println("welcome to Black Smith");
                 } else if (building instanceof CarpentersShop) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((CarpentersShop) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((CarpentersShop) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((CarpentersShop) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 8 pm.");
                     }
                     App.setCurrentMenu(Menu.CarpenterShopMenu);
                     System.out.println("welcome to Carpenters Shop");
                 } else if (building instanceof MarniesRanch) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((MarniesRanch) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((MarniesRanch) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((MarniesRanch) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 4 pm.");
                     }
                     App.setCurrentMenu(Menu.MarniesRanchMenu);
                     System.out.println("welcome to Marnies Ranch");
                 } else if (building instanceof PierresGeneralStore) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((PierresGeneralStore) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((PierresGeneralStore) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((PierresGeneralStore) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 5 pm.");
                     }
                     App.setCurrentMenu(Menu.PierresGeneralStoreMenu);
                     System.out.println("welcome to Pirrer Store");
                 } else if (building instanceof TheSaloonStardrop) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((TheSaloonStardrop) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((TheSaloonStardrop) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((TheSaloonStardrop) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 12 am to 12 pm.");
                     }
                     App.setCurrentMenu(Menu.TheSaloonStarDropMenu);
                     System.out.println("welcome to Saloon Star Drop");
                 } else if (building instanceof FishShop) {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((FishShop) building).getOpeningHour() ||
-                            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((FishShop) building).getClosingHour()) {
+                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((FishShop) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 5 pm.");
                     }
                     App.setCurrentMenu(Menu.FishShopMenu);
@@ -413,8 +410,8 @@ public class GameMenu implements AppMenu {
         } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
             System.out.println(HusbandryController.sellAnimal(matcher));
             return true;
-        } else if((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
-            System.out.println(HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)),matcher.group(3)));
+        } else if ((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
+            System.out.println(HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), matcher.group(3)));
             return true;
         }
         return false;
