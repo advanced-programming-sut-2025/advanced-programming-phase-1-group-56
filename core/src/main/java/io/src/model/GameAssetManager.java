@@ -26,7 +26,7 @@ public class GameAssetManager {
     private static final Path assetsJsonPath = Paths.get("assets\\Stardew_Valley_Images\\assets_dictionary.json");
     private static final Path atlasJsonPath = Paths.get("assets\\Stardew_Valley_Images\\atlas_dictionary.json");
 
-
+    private Texture craftingBackground = new Texture("assets/Inventory/craftingBackground.png");
     //Inventory
     private Texture InventoryBackGround = new Texture("assets/Inventory/InventoryBackground.png");
     private Texture closeTab = new Texture("assets/Inventory/exit.png");
@@ -278,5 +278,9 @@ public class GameAssetManager {
 
     public Texture getGreenBar() {
         return greenBar;
+    }
+
+    public Texture getCraftingBackground() {
+        return craftingBackground;
     }
 }
