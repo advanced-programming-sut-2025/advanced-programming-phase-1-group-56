@@ -6,77 +6,77 @@ filter: Linear, Linear
 repeat: none
 ExitButton_DOWN
   rotate: false
-  xy: 885, 6
+  xy: 609, 20
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: -1
 ExitButton_UP
   rotate: false
-  xy: 745, 38
+  xy: 571, 20
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: -1
 ModernDOS9x14
   rotate: false
-  xy: 1, 891
+  xy: 1, 890
   size: 506, 82
   orig: 506, 82
   offset: 0, 0
   index: -1
 ModernDOS9x14(1)
   rotate: false
-  xy: 509, 906
+  xy: 509, 905
   size: 505, 113
   orig: 505, 113
   offset: 0, 0
   index: -1
 ModernDOS9x14(2)
   rotate: false
-  xy: 1, 661
+  xy: 1, 660
   size: 506, 228
   orig: 506, 228
   offset: 0, 0
   index: -1
 StardewValley
   rotate: false
-  xy: 1, 975
+  xy: 1, 974
   size: 506, 44
   orig: 506, 44
   offset: 0, 0
   index: -1
 StardewValley(1)
   rotate: false
-  xy: 1, 118
+  xy: 1, 117
   size: 504, 111
   orig: 504, 111
   offset: 0, 0
   index: -1
 StardewValley(2)
   rotate: false
-  xy: 1, 231
+  xy: 1, 230
   size: 506, 428
   orig: 506, 428
   offset: 0, 0
   index: -1
 backButton_DOWN
   rotate: false
-  xy: 217, 29
+  xy: 217, 28
   size: 214, 87
   orig: 214, 87
   offset: 0, 0
   index: -1
 backButton_UP
   rotate: false
-  xy: 1, 29
+  xy: 1, 28
   size: 214, 87
   orig: 214, 87
   offset: 0, 0
   index: -1
 button1_DOWN
   rotate: false
-  xy: 951, 94
+  xy: 859, 47
   size: 50, 50
   split: 9, 9, 9, 9
   pad: 14, 14, 14, 14
@@ -85,7 +85,7 @@ button1_DOWN
   index: -1
 button1_OVER
   rotate: false
-  xy: 899, 94
+  xy: 965, 93
   size: 50, 50
   split: 9, 9, 9, 9
   pad: 14, 14, 14, 14
@@ -94,7 +94,7 @@ button1_OVER
   index: -1
 button1_UP
   rotate: false
-  xy: 847, 94
+  xy: 913, 93
   size: 50, 50
   split: 14, 14, 14, 14
   orig: 50, 50
@@ -102,7 +102,7 @@ button1_UP
   index: -1
 checkedbx2_OFF
   rotate: false
-  xy: 1, 7
+  xy: 993, 839
   size: 20, 20
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0
@@ -111,7 +111,7 @@ checkedbx2_OFF
   index: -1
 checkedbx2_ON
   rotate: false
-  xy: 923, 26
+  xy: 993, 817
   size: 20, 20
   split: 8, 9, 8, 8
   pad: 0, 0, 0, 0
@@ -120,7 +120,7 @@ checkedbx2_ON
   index: -1
 checkedbx_OFF
   rotate: false
-  xy: 487, 56
+  xy: 993, 883
   size: 20, 20
   split: 3, 3, 2, 3
   pad: 0, 0, 0, 0
@@ -129,7 +129,7 @@ checkedbx_OFF
   index: -1
 checkedbx_ON
   rotate: false
-  xy: 993, 884
+  xy: 993, 861
   size: 20, 20
   split: 3, 3, 2, 3
   pad: 3, 3, 3, 3
@@ -138,21 +138,21 @@ checkedbx_ON
   index: -1
 co-opButton_DOWN
   rotate: false
-  xy: 751, 336
+  xy: 751, 335
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 co-opButton_UP
   rotate: false
-  xy: 751, 526
+  xy: 751, 525
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 cursor
   rotate: false
-  xy: 509, 52
+  xy: 1016, 994
   size: 2, 24
   split: 0, 0, 0, 0
   orig: 2, 24
@@ -160,7 +160,7 @@ cursor
   index: -1
 enventoryButtonTop_DOWN
   rotate: false
-  xy: 839, 40
+  xy: 807, 25
   size: 44, 52
   split: 21, 21, 29, 0
   pad: 18, 18, 30, 2
@@ -169,7 +169,7 @@ enventoryButtonTop_DOWN
   index: -1
 enventoryButtonTop_UP
   rotate: false
-  xy: 793, 46
+  xy: 761, 25
   size: 44, 52
   split: 21, 21, 21, 0
   pad: 18, 18, 22, 11
@@ -178,21 +178,21 @@ enventoryButtonTop_UP
   index: -1
 exitButton2_DOWN
   rotate: false
-  xy: 751, 146
+  xy: 751, 145
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 exitButton2_UP
   rotate: false
-  xy: 509, 146
+  xy: 509, 145
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 inventoryButtonRight_UP
   rotate: false
-  xy: 793, 100
+  xy: 859, 99
   size: 52, 44
   split: 0, 29, 21, 21
   pad: 10, 22, 18, 18
@@ -201,44 +201,69 @@ inventoryButtonRight_UP
   index: -1
 inventoryButtonTop_DOWN
   rotate: false
-  xy: 433, 32
+  xy: 433, 31
   size: 52, 44
   split: 0, 29, 21, 21
   pad: 2, 30, 18, 18
   orig: 52, 44
   offset: 0, 0
   index: -1
+labelBackGround
+  rotate: false
+  xy: 1, 7
+  size: 42, 19
+  split: 22, 19, 8, 10
+  pad: 17, 17, 5, 6
+  orig: 42, 19
+  offset: 0, 0
+  index: -1
+leftButton_OVER
+  rotate: false
+  xy: 711, 33
+  size: 48, 44
+  split: 0, 0, 0, 0
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+leftButton_UP
+  rotate: false
+  xy: 661, 33
+  size: 48, 44
+  split: 0, 0, 0, 0
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
 loadButton2_DOWN
   rotate: false
-  xy: 509, 336
+  xy: 509, 335
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 loadButton2_UP
   rotate: false
-  xy: 751, 716
+  xy: 751, 715
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 newButton2_OVER
   rotate: false
-  xy: 509, 526
+  xy: 509, 525
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 newButton2_UP
   rotate: false
-  xy: 509, 716
+  xy: 509, 715
   size: 240, 188
   orig: 240, 188
   offset: 0, 0
   index: -1
 newButton_DOWN
   rotate: false
-  xy: 931, 48
+  xy: 899, 1
   size: 44, 44
   split: 11, 31, 13, 29
   pad: 12, 14, 14, 29
@@ -247,7 +272,7 @@ newButton_DOWN
   index: -1
 newButton_OVER
   rotate: false
-  xy: 977, 48
+  xy: 945, 1
   size: 44, 44
   split: 11, 31, 13, 29
   pad: 12, 14, 14, 29
@@ -256,7 +281,7 @@ newButton_OVER
   index: -1
 newButton_UP
   rotate: false
-  xy: 885, 48
+  xy: 853, 1
   size: 44, 44
   split: 11, 31, 13, 29
   pad: 12, 14, 14, 29
@@ -265,21 +290,37 @@ newButton_UP
   index: -1
 questionButton_DOWN
   rotate: false
-  xy: 587, 63
+  xy: 587, 62
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 questionButton_UP
   rotate: false
-  xy: 513, 63
+  xy: 513, 62
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
+rightButton_OVER
+  rotate: false
+  xy: 961, 47
+  size: 48, 44
+  split: 0, 0, 0, 0
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+rightButton_UP
+  rotate: false
+  xy: 911, 47
+  size: 48, 44
+  split: 0, 0, 0, 0
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
 selection
   rotate: false
-  xy: 1016, 995
+  xy: 1011, 67
   size: 2, 24
   split: 0, 0, 0, 0
   orig: 2, 24
@@ -287,7 +328,15 @@ selection
   index: -1
 stageBackGround
   rotate: false
-  xy: 661, 80
+  xy: 661, 79
+  size: 64, 64
+  split: 0, 0, 0, 0
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stageBackGround_empty
+  rotate: false
+  xy: 793, 79
   size: 64, 64
   split: 0, 0, 0, 0
   orig: 64, 64
@@ -295,7 +344,7 @@ stageBackGround
   index: -1
 textfield
   rotate: false
-  xy: 661, 38
+  xy: 487, 20
   size: 40, 40
   split: 9, 9, 9, 9
   pad: 11, 9, 9, 9
@@ -304,7 +353,7 @@ textfield
   index: -1
 warning_label
   rotate: false
-  xy: 433, 78
+  xy: 433, 77
   size: 78, 38
   split: 33, 14, 0, 0
   pad: 40, 14, 0, 0
@@ -313,7 +362,7 @@ warning_label
   index: -1
 window
   rotate: false
-  xy: 703, 38
+  xy: 529, 20
   size: 40, 40
   split: 17, 18, 18, 16
   pad: 18, 19, 19, 17
@@ -322,7 +371,7 @@ window
   index: -1
 windowsBackground
   rotate: false
-  xy: 727, 80
+  xy: 727, 79
   size: 64, 64
   split: 28, 29, 29, 29
   pad: 21, 29, 21, 21

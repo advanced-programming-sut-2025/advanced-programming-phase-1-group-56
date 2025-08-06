@@ -14,7 +14,7 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.MainMenuCommands;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
-
+import io.src.view.InnerMenus.AvatarMenu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,8 +25,9 @@ public class MainMenu implements AppMenu, Screen {
     private final Stage stage;
     private final Texture image;
     private final Texture stardewValleyImage;
+    private final ScrollPane aboutScrollPane;
+    private final AvatarMenu avatarMenu;
     private ArrayList<Cloud> clouds;
-    private final Skin skin;
 
     private final Button logoutButton;
     private final Button exitButton;
@@ -36,14 +37,14 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
 
     private final Button back_about_Button;
-    private final Table aboutTable;
+    private final Window aboutWindow;
 
     public MainMenu() {
         // essential
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         image = new Texture(Gdx.files.internal("background3.png"));
-        skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
+        Skin skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
         stardewValleyImage = new Texture(Gdx.files.internal("StardewValley.png"));
 
         // exitButton
@@ -75,20 +76,45 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(exitButton);
 
         // about
-        aboutTable = new Table();
-        aboutTable.setFillParent(true);
-        aboutTable.setVisible(false);
+        aboutWindow = new Window("", skin, "default2");
+        aboutWindow.setVisible(false);
+        aboutWindow.setSize((float) ((float) Gdx.graphics.getWidth() / 1.2), (float) ((float) Gdx.graphics.getHeight() / 1.5));
+        aboutWindow.setPosition(((float) Gdx.graphics.getWidth() / 2) - (aboutWindow.getWidth() / 2), ((float) Gdx.graphics.getHeight() / 2) - (aboutWindow.getHeight() / 2));
         back_about_Button = new Button(skin, "backButton");
-        Label aboutText = new Label("About...", skin, "default-WHITE");
+        back_about_Button.setPosition((float) ((float) Gdx.graphics.getWidth() - back_about_Button.getWidth() * 1.2), back_about_Button.getHeight() / 4);
+        back_about_Button.setVisible(false);
+        Table aboutTable = new Table();
+        aboutTable.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
+        Label aboutLabel = new Label("\n\n\n\nStardew Valley created by :\n\n", skin, "default-PURPLE");
+        Label aboutLabel2 = new Label("Group-56\n\n", skin, "font2-45_WHITE");
+        Label aboutText = new Label("\nGroup Members:\n\n\n    -Nima Nazary\n\n    -Mohsen Zare\n\n    -Mahdi Ashiyani\n\n    -Mohammad Amin Zeinalian\n\n", skin, "default-WHITE");
         aboutText.setWrap(true);
-        ScrollPane aboutWindow = new ScrollPane(aboutText, skin);
-        aboutWindow.setFadeScrollBars(false);
-        aboutWindow.setScrollingDisabled(true, false);
-        aboutTable.add(aboutWindow).width((float) Gdx.graphics.getWidth() / 2).height((float) Gdx.graphics.getHeight() / 2);
+        Texture logoNoBackground = new Texture(Gdx.files.internal("Logo No Background.png"));
+        Image logo = new Image(logoNoBackground);
+        aboutTable.add(logo).width(logo.getWidth() * 3).height(logo.getHeight() * 3).pad(5);
         aboutTable.row();
-        aboutTable.add(back_about_Button).width(back_about_Button.getWidth()).right();
+        aboutTable.add(aboutLabel).pad(5);
+        aboutTable.row();
+        aboutTable.add(aboutLabel2).pad(5);
+        aboutTable.row();
+        aboutTable.add(aboutText).width(logo.getWidth() * 2).pad(5);
+        aboutScrollPane = new ScrollPane(aboutTable, skin, "default2");
+        aboutScrollPane.setFadeScrollBars(false);
+        aboutScrollPane.setScrollingDisabled(true, false);
+        aboutScrollPane.setSize(aboutWindow.getWidth(), aboutWindow.getHeight());
+        aboutWindow.add(aboutScrollPane).pad(5);
+        aboutWindow.setModal(false);
+        aboutWindow.setMovable(false);
+        stage.addActor(aboutWindow);
+        back_about_Button.toFront();
+        stage.addActor(back_about_Button);
 
-        stage.addActor(aboutTable);
+        // Avatar Menu :
+        avatarMenu = new AvatarMenu(skin, avatarID -> {
+            System.out.println("something happened + " + avatarID);
+        });
+        avatarMenu.setVisible(false);
+        stage.addActor(avatarMenu);
     }
 
     @Override
@@ -100,13 +126,15 @@ public class MainMenu implements AppMenu, Screen {
             c.update(v);
             c.draw(StardewValley.getBatch());
         }
-        StardewValley.getBatch().draw(stardewValleyImage,
-            ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
-            ((float) Gdx.graphics.getHeight() / 2) - (float) 187 / 2,
-            (float) (398 * 3),
-            (float) (187 * 3));
+        if (newButton.isVisible())
+            StardewValley.getBatch().draw(stardewValleyImage,
+                ((float) Gdx.graphics.getWidth() / 2) - (float) (398 * 3) / 2,
+                ((float) Gdx.graphics.getHeight() / 2) - (float) 187 / 2,
+                (float) (398 * 3),
+                (float) (187 * 3));
         StardewValley.getBatch().end();
         stage.act(v);
+        back_about_Button.toFront();
         stage.draw();
     }
 
@@ -117,10 +145,23 @@ public class MainMenu implements AppMenu, Screen {
 
     @Override
     public void dispose() {
+
         stage.dispose();
     }
 
     //
+
+    public AvatarMenu getAvatarMenu() {
+        return avatarMenu;
+    }
+
+    public ScrollPane getScrollPane() {
+        return aboutScrollPane;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 
     public Button getLogoutButton() {
         return logoutButton;
@@ -147,7 +188,7 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     public Table getAboutWindow() {
-        return aboutTable;
+        return aboutWindow;
     }
 
     public Button getBack_about_Button() {
@@ -160,7 +201,7 @@ public class MainMenu implements AppMenu, Screen {
         for (int i = 0; i < 10; i++) {
             float x = (float) (Math.random() * Gdx.graphics.getWidth());
             float y = 300 + (float) (MathUtils.random(0, Gdx.graphics.getHeight() - 400));
-            float speed = 10 + (float)(Math.random() * 50);
+            float speed = 10 + (float) (Math.random() * 50);
             clouds.add(new Cloud(new Texture(Gdx.files.internal("cloud" + ((i % 3) + 1) + ".png")), speed, x, y));
         }
     }

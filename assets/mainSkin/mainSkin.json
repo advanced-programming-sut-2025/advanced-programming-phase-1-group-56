@@ -47,11 +47,17 @@
 	"PINK": {
 		"hex": "ce5252ff"
 	},
+	"PURPLE": {
+		"hex": "6e2bffff"
+	},
 	"RED": {
 		"hex": "ff0000ff"
 	},
 	"WHITE": {
 		"hex": "ffffffff"
+	},
+	"ZERESHK": {
+		"hex": "56160cff"
 	}
 },
 "ButtonStyle": {
@@ -62,17 +68,20 @@
 	"newButton": {
 		"up": "newButton2_UP",
 		"down": "newButton2_UP",
-		"over": "newButton2_OVER"
+		"over": "newButton2_OVER",
+		"disabled": "newButton2_UP"
 	},
 	"loadButton": {
 		"up": "loadButton2_UP",
 		"down": "loadButton2_UP",
-		"over": "loadButton2_DOWN"
+		"over": "loadButton2_DOWN",
+		"disabled": "loadButton2_UP"
 	},
 	"co-opButton": {
 		"up": "co-opButton_UP",
 		"down": "co-opButton_UP",
-		"over": "co-opButton_DOWN"
+		"over": "co-opButton_DOWN",
+		"disabled": "co-opButton_UP"
 	},
 	"aboutButton": {
 		"up": "questionButton_UP",
@@ -82,12 +91,23 @@
 	"exitButton": {
 		"up": "exitButton2_UP",
 		"down": "exitButton2_UP",
-		"over": "exitButton2_DOWN"
+		"over": "exitButton2_DOWN",
+		"disabled": "exitButton2_UP"
 	},
 	"backButton": {
 		"up": "backButton_UP",
 		"down": "backButton_UP",
 		"over": "backButton_DOWN"
+	},
+	"rightButton": {
+		"up": "rightButton_UP",
+		"down": "rightButton_UP",
+		"over": "rightButton_OVER"
+	},
+	"leftButton": {
+		"up": "leftButton_UP",
+		"down": "leftButton_UP",
+		"over": "leftButton_OVER"
 	}
 },
 "CheckBoxStyle": {
@@ -193,11 +213,27 @@
 		"font": "baseFont2-24",
 		"fontColor": "RED",
 		"background": "warning_label"
+	},
+	"default-PURPLE": {
+		"font": "baseFont2-24",
+		"fontColor": "PURPLE"
+	},
+	"font2-45_WHITE": {
+		"font": "basefont2-45",
+		"fontColor": "WHITE"
+	},
+	"labelBack-24_ZERESHK": {
+		"font": "baseFont2-24",
+		"fontColor": "ZERESHK",
+		"background": "labelBackGround"
 	}
 },
 "ScrollPaneStyle": {
 	"default": {
 		"background": "windowsBackground"
+	},
+	"default2": {
+		"background": "stageBackGround_empty"
 	}
 },
 "TextButtonStyle": {
@@ -372,6 +408,7 @@
 		"titleFontColor": "WHITE"
 	},
 	"default2": {
+		"background": "windowsBackground",
 		"titleFont": "baseFont2-24",
 		"stageBackground": "stageBackGround"
 	}

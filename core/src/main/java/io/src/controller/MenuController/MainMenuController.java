@@ -57,24 +57,67 @@ public class MainMenuController extends CommandController {
 
         menu.getAboutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                menu.getAboutWindow().setVisible(true);
-                menu.getAboutButton().setVisible(false);
+                setAboutMenu(true);
             }
         });
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                menu.getAboutButton().setVisible(true);
-                menu.getAboutWindow().setVisible(false);
+                if (menu.getNewButton().isVisible()) {
+                    setAboutMenu(false);
+                    menu.getScrollPane().setScrollPercentY(0.0f);
+                    System.out.println("back about button clicked");
+                } else {
+                    setNewMenu(true);
+                    System.out.println("new button clicked");
+                }
             }
         });
+
+        menu.getNewButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                setNewMenu(false);
+            }
+        });
+    }
+
+    private void setNewMenu(boolean state) {
+        menu.getNewButton().setVisible(state);
+        menu.getLoadButton().setVisible(state);
+        menu.getCoopButton().setVisible(state);
+        menu.getLogoutButton().setVisible(state);
+        menu.getAboutButton().setVisible(state);
+        menu.getExitButton().setVisible(state);
+
+        menu.getBack_about_Button().setVisible(!state);
+        menu.getAvatarMenu().setVisible(!state);
+    }
+
+    private void setAboutMenu(boolean state) {
+        if (state)
+            menu.getStage().setScrollFocus(menu.getScrollPane());
+
+        // state :
+        menu.getAboutWindow().setVisible(state);
+        menu.getBack_about_Button().setVisible(state);
+
+        // not state :
+        menu.getAboutButton().setVisible(!state);
+        menu.getExitButton().setVisible(!state);
+
+        // disable
+        menu.getLoadButton().setDisabled(state);
+        menu.getLogoutButton().setDisabled(state);
+        menu.getNewButton().setDisabled(state);
+        menu.getCoopButton().setDisabled(state);
     }
 
     public static Result manageUserLogout() {
         App.setCurrentMenu(Menu.loginMenu);
         App.setCurrentUser(null);
         File file = new File(FILE_PATH_FOR_STAY_LOGGED);
-        file.delete();
+        if (!file.delete())
+            return new Result(false, "");
         return new Result(true, "You have been logged out!");
     }
 }
