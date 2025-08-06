@@ -17,7 +17,6 @@ public enum Menu {
     loginMenu(new LoginMenu()),
     mainMenu(new MainMenu()),
     profileMenu(new ProfileMenu()),
-    avatarMenu(new AvatarMenu()),
     gameMenu(new GameMenu()),
     HouseMenu(new HouseMenu()),
     exitMenu(new ExitMenu()),
