@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.3.0 : start avatar menu and edit avatars in photoshop">
+    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="what's happened for branches?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatar1.1.1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatar1.1.2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatar1.1.3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatar1.1.4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatar1.1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/Sandy/profile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatarProfile.psb" beforeDir="false" afterPath="$PROJECT_DIR$/assets/AVATAR/final/avatarProfile.psb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/assets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/assets.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
