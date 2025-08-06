@@ -8,13 +8,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class AvatarMenu extends Window {
     public AvatarMenu(Skin skin, AvatarSelectionListener listener) {
         super("", skin);
 
+        ArrayList<String> avatars = new ArrayList<>();
+
+        File[] avatarsPath = new File("AVATAR/final").listFiles(File::isDirectory);
+        if (avatarsPath != null) {
+            for (File file : avatarsPath) {
+                System.out.println(file.getName());
+            }
+        }
+
         int avatarScale = 4;
         Image avatarBackground = new Image(new Texture("AVATAR/final/avatarBack.png"));
-        Image avatarImage = new Image(new Texture("AVATAR/final/avatar1.1.1.png"));
+        Image avatarImage = new Image(new Texture("AVATAR/final/Sandy/front.png"));
         avatarImage.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 listener.onAvatarSelected(1);
