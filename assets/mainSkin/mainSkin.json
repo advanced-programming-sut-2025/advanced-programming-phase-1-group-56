@@ -55,6 +55,9 @@
 	},
 	"WHITE": {
 		"hex": "ffffffff"
+	},
+	"ZERESHK": {
+		"hex": "56160cff"
 	}
 },
 "ButtonStyle": {
@@ -95,6 +98,16 @@
 		"up": "backButton_UP",
 		"down": "backButton_UP",
 		"over": "backButton_DOWN"
+	},
+	"rightButton": {
+		"up": "rightButton_UP",
+		"down": "rightButton_UP",
+		"over": "rightButton_OVER"
+	},
+	"leftButton": {
+		"up": "leftButton_UP",
+		"down": "leftButton_UP",
+		"over": "leftButton_OVER"
 	}
 },
 "CheckBoxStyle": {
@@ -208,6 +221,11 @@
 	"font2-45_WHITE": {
 		"font": "basefont2-45",
 		"fontColor": "WHITE"
+	},
+	"labelBack-24_ZERESHK": {
+		"font": "baseFont2-24",
+		"fontColor": "ZERESHK",
+		"background": "labelBackGround"
 	}
 },
 "ScrollPaneStyle": {

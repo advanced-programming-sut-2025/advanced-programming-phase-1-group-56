@@ -129,6 +129,10 @@ mainSkin/skin composer/inventoryButtonTop_DOWN.9.png
 mainSkin/skin composer/inventoryButtonTop_DOWN.png
 mainSkin/skin composer/labelBackGround.9.png
 mainSkin/skin composer/labelBackGround.png
+mainSkin/skin composer/leftButton_OVER.9.png
+mainSkin/skin composer/leftButton_OVER.png
+mainSkin/skin composer/leftButton_UP.9.png
+mainSkin/skin composer/leftButton_UP.png
 mainSkin/skin composer/loadButton2_DOWN.png
 mainSkin/skin composer/loadButton2_UP.png
 mainSkin/skin composer/mainSkin.scmp
@@ -143,6 +147,10 @@ mainSkin/skin composer/newButton_UP.9.png
 mainSkin/skin composer/newButton_UP.png
 mainSkin/skin composer/questionButton_DOWN.png
 mainSkin/skin composer/questionButton_UP.png
+mainSkin/skin composer/rightButton_OVER.9.png
+mainSkin/skin composer/rightButton_OVER.png
+mainSkin/skin composer/rightButton_UP.9.png
+mainSkin/skin composer/rightButton_UP.png
 mainSkin/skin composer/selection.9.png
 mainSkin/skin composer/selection.png
 mainSkin/skin composer/stageBackGround.9.png
