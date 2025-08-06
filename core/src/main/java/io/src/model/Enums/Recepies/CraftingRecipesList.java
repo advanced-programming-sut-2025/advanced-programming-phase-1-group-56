@@ -124,6 +124,7 @@ public enum CraftingRecipesList implements Saleable {
         return null;
     }
 
+
     @Nullable
     public String getAssetName() {
         return switch (assetName) {

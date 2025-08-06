@@ -16,23 +16,28 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.App;
+import io.src.model.Enums.Items.FoodType;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
+import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.GameAssetManager;
 import io.src.model.Player;
 import io.src.model.Slot;
 import io.src.model.items.CraftingTool;
+import io.src.model.items.Food;
 import io.src.model.items.Inventory;
 import io.src.model.items.Item;
 
 import java.time.Clock;
 import java.util.ArrayList;
 
+import static io.src.controller.GameMenuController.CookingController.*;
 import static io.src.controller.GameMenuController.CraftingController.*;
 
-public class craftingWindow extends Group {
+public class FoodWindow extends Group {
     private Group group;
     private Image background;
     private Player player;
@@ -40,11 +45,11 @@ public class craftingWindow extends Group {
     private Table table;
     private Label errorLabel;
     private Table infoPanel;
-    private ArrayList<CraftingRecipesList> unlocked = haveCraftingRecipes();
-    private ArrayList<CraftingRecipesList> canCraft = havenotCraftingRecipes();
-    private ArrayList<CraftingRecipesList> all = returnCraftingRecipes();
+    private ArrayList<FoodRecipesList> unlocked = haveFoodRecipes();
+    private ArrayList<FoodRecipesList> canCraft = foodNotCraftingRecipes();
+    private ArrayList<FoodRecipesList> all = returnFoodRecipes();
 
-    public craftingWindow(Player player) {
+    public FoodWindow(Player player) {
         this.player = player;
         errorLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
         errorLabel.setAlignment(Align.center);
@@ -87,18 +92,18 @@ public class craftingWindow extends Group {
 
 
         float[][] positions = new float[][]{
-            {30, 450}, {120, 470}, {230, 440}, {330, 460}, {430, 440},
-            {520, 470}, {620, 450}, {80, 370}, {180, 350}, {270, 340},
+            {10, 450},{25,450}, {120, 470}, {230, 440}, {330, 460}, {430, 440},
+            {520, 470}, {620, 450}, {80, 370}, {180, 350},{210,350}, {270, 340},
             {370, 380}, {470, 350}, {570, 350}, {670, 360}, {50, 270},
             {150, 270}, {250, 270}, {350, 280}, {450, 270}, {550, 260},
-            {650, 260}
+            {650, 260},
         };
 
         for (int i = 0; i < all.size(); i++) {
-            CraftingRecipesList recipe = all.get(i);
+            FoodRecipesList recipe = all.get(i);
             String assetName = recipe.getAssetName();
-            Texture itemTexture = assetName.equals("Charcoal_Klin")
-                ? GameAssetManager.getGameAssetManager().getCharcoal_Klin()
+            Texture itemTexture = assetName.equals("Triple_shot_Espresso")
+                ? GameAssetManager.getGameAssetManager().getTripleShotEspresso()
                 : new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
 
             Image icon = new Image(itemTexture);
@@ -107,39 +112,6 @@ public class craftingWindow extends Group {
             stack.setTransform(true);
             stack.add(icon);
 
-//            Table tooltipTable = new Table();
-//            tooltipTable.setVisible(false);
-//            tooltipTable.setBackground(new TextureRegionDrawable(new TextureRegion(
-//                GameAssetManager.getGameAssetManager().getToolTipBackground()
-//            )));
-//
-//            Label tooltipLabel = new Label(
-//                recipe.name() + "\n" + CraftingController.Ingredients(recipe),
-//                GameAssetManager.getGameAssetManager().getSkin()
-//            );
-//            tooltipLabel.setFontScale(0.6f);
-//            tooltipLabel.setColor(Color.WHITE);
-//
-//            tooltipTable.add(tooltipLabel).pad(5);
-//            tooltipTable.pack();
-//
-//            tooltipTable.setPosition(stack.getX(), stack.getY() + stack.getHeight() + 5);
-//            stack.addActor(tooltipTable);
-//
-//
-//
-//
-//            stack.addListener(new InputListener() {
-//                @Override
-//                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-//                    tooltipTable.setVisible(true);
-//                }
-//
-//                @Override
-//                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-//                    tooltipTable.setVisible(false);
-//                }
-//            });
             stack.addListener(new InputListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -175,19 +147,19 @@ public class craftingWindow extends Group {
 
         return recipesTable;
     }
-    private void updateInfoPanel(CraftingRecipesList recipe) {
+    private void updateInfoPanel(FoodRecipesList recipe) {
         infoPanel.clear();
         Label nameLabel = new Label(recipe.name(), GameAssetManager.getGameAssetManager().getSkin());
         nameLabel.setFontScale(1f);
         nameLabel.setColor(Color.GOLD);
 
-        Label ingredientsLabel = new Label(CraftingController.Ingredients(recipe), GameAssetManager.getGameAssetManager().getSkin());
+        Label ingredientsLabel = new Label(CookingController.Ingredients(recipe), GameAssetManager.getGameAssetManager().getSkin());
         ingredientsLabel.setFontScale(0.8f);
         ingredientsLabel.setColor(Color.WHITE);
 
         String assetName = recipe.getAssetName();
-        Texture previewTexture = assetName.equals("Charcoal_Klin")
-            ? GameAssetManager.getGameAssetManager().getCharcoal_Klin()
+        Texture previewTexture = assetName.equals("Triple_shot_Espresso")
+            ? GameAssetManager.getGameAssetManager().getTripleShotEspresso()
             : new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
         Image previewImage = new Image(previewTexture);
         previewImage.setSize(48, 48);
@@ -307,14 +279,15 @@ public class craftingWindow extends Group {
                         InventoryController.swapSlots(inventory, fromIndex, toIndex);
                         refreshInventory();
                     }
-                } else if (payload.getObject() instanceof CraftingRecipesList) {
-                    CraftingRecipesList recipe = (CraftingRecipesList) payload.getObject();
-                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
+                } else if (payload.getObject() instanceof FoodRecipesList) {
+                    FoodRecipesList recipe = (FoodRecipesList) payload.getObject();
+                    if (!unlocked.contains(recipe) && !canCraft.contains(recipe)) {
                         showErrorLabel("it's not open for you!");
-                    } else if (CraftingController.havaIngredient(recipe)) {
-                        Item crafted = new CraftingTool(recipe);
-                        if (inventory.add(crafted, 1)) {
-                            showErrorLabel("Crafted: " + crafted.getAssetName());
+                    } else if (unlocked.contains(recipe)) {
+                        FoodType foodType = FoodType.fromName(recipe.getName());
+                        Item food = new Food(foodType);
+                        if (inventory.add(food, 1)) {
+                            showErrorLabel("Crafted: " + food.getAssetName());
                             refreshInventory();
                         } else {
                             showErrorLabel("Inventory is full!");
@@ -349,7 +322,7 @@ public class craftingWindow extends Group {
 
     }
 
-    private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
+    private void addRecipeDragAndDrop(Stack stack, FoodRecipesList recipe) {
         dragAndDrop.addSource(new DragAndDrop.Source(stack) {
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 System.out.println("Start drag: " + recipe.name());

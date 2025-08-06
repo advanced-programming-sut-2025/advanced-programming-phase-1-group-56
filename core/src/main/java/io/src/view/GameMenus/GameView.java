@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -22,6 +23,7 @@ import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
+import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
@@ -68,6 +70,9 @@ public class GameView implements Screen {
     private ScreenTransition transitionManager;
     private ShapeRenderer shapeRenderer;
     private static craftingWindow craftingWindow;
+    private static InventoryBar inventoryBar;
+    private static Label itemLabel;
+    private static FoodWindow foodWindow;
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
             gameMenuInputAdapter.setStopMoving(true);
@@ -96,24 +101,35 @@ public class GameView implements Screen {
     public GameView(Game game) {
         this.game = game;
 //        this.gameController = gameController;
-        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
 //        loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         stage = new Stage(new ScreenViewport());
+        itemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
         invWindow = new InventoryWindow();
         energyWindow = new EnergyBar();
         timeWindow = new TimerWindow();
         craftingWindow = new craftingWindow(App.getMe());
+        inventoryBar = new InventoryBar();
+        foodWindow = new FoodWindow(App.getMe());
         energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
         craftingWindow.setVisible(false);
+        foodWindow.setVisible(false);
+
         stage.addActor(craftingWindow);
         stage.addActor(invWindow);
         stage.addActor(energyWindow);
         stage.addActor(timeWindow);
+        stage.addActor(inventoryBar);
+        stage.addActor(itemLabel);
+        stage.addActor(foodWindow);
+        itemLabel.setPosition(930,200);
+
+        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
+
 
         InputAdapter keyListener = new InputAdapter() {
             @Override
@@ -138,6 +154,10 @@ public class GameView implements Screen {
                     return true;
                 } else if(keycode == Input.Keys.E) {
                     invWindow.setVisible(false);
+                    Gdx.input.setInputProcessor(gameMenuInputAdapter);
+                    return true;
+                } else if(keycode == Input.Keys.F) {
+                    foodWindow.setVisible(false);
                     Gdx.input.setInputProcessor(gameMenuInputAdapter);
                     return true;
                 }
@@ -546,6 +566,9 @@ public class GameView implements Screen {
 
         timeWindow.updateGold();
         timeWindow.updateTime();
+        if(App.getMe().getCurrentItem()!=null){
+            itemLabel.setText(App.getMe().getCurrentItem().getName());
+        }
 
 
         camera.update();
@@ -579,6 +602,9 @@ public class GameView implements Screen {
     @Override
     public void dispose() {
 
+    }
+    public static FoodWindow foodWindow(){
+        return foodWindow;
     }
     public static craftingWindow getCraftingWindow() {
         return craftingWindow;

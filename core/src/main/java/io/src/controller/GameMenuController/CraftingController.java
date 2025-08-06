@@ -17,8 +17,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 
 public class CraftingController extends CommandController {
-    public static Result craftingItemController(String ItemName) {
-        CraftingRecipesList recipe = returnCraftingRecipe(ItemName);
+    public static Result craftingItemController(CraftingRecipesList recipe) {
         if (recipe == null) {
             return new Result(true, "you can't Craft this Recipe!");
         } else if (!havaIngredient(recipe)) {
@@ -57,8 +56,8 @@ public class CraftingController extends CommandController {
             .getToolRecipes();
         ArrayList<CraftingRecipesList> craftingRecipes = new ArrayList<>();
         System.out.println(craftToolsRecipe);
-        for(CraftingRecipesList cr : craftToolsRecipe){
-            if(havaIngredient(cr)){
+        for (CraftingRecipesList cr : craftToolsRecipe) {
+            if (havaIngredient(cr)) {
                 craftingRecipes.add(cr);
             }
         }
@@ -72,8 +71,8 @@ public class CraftingController extends CommandController {
             .getCurrentPlayer()
             .getToolRecipes();
         ArrayList<CraftingRecipesList> craftingRecipes = new ArrayList<>();
-        for(CraftingRecipesList cr : craftToolsRecipe){
-            if(!havaIngredient(cr)){
+        for (CraftingRecipesList cr : craftToolsRecipe) {
+            if (!havaIngredient(cr)) {
                 craftingRecipes.add(cr);
             }
         }
@@ -319,6 +318,48 @@ public class CraftingController extends CommandController {
         return tmpString.toString();
     }
 
+    public static String Ingredients(CraftingRecipesList craftTool) {
+        StringBuilder tmpString = new StringBuilder();
+        java.util.function.Function<String, String> wrapLine = (text) -> {
+            StringBuilder wrapped = new StringBuilder();
+            int lineLength = 0;
+            for (String word : text.split(" ")) {
+                if (lineLength + word.length() > 20) {
+                    wrapped.append("\n");
+                    lineLength = 0;
+                }
+                wrapped.append(word).append(" ");
+                lineLength += word.length() + 1;
+            }
+            return wrapped.toString();
+        };
+        if(craftTool.description!=null){
+            tmpString.append("Description : ")
+                .append(wrapLine.apply(craftTool.description))
+                .append("\n");
+        }
+
+
+        tmpString.append("Ingredients : \n");
+        for (int i = 0; i < craftTool.ingredients.length; i++) {
+            Slot ingredient = craftTool.ingredients[i];
+            String ingredientText = ingredient.getQuantity() + " " + ingredient.getItem().getName();
+            tmpString.append(wrapLine.apply(ingredientText));
+
+            if (i != craftTool.ingredients.length - 1) {
+                tmpString.append(",\n");
+            } else {
+                tmpString.append("\n");
+            }
+        }
+
+        tmpString.append("Sell Price : ")
+            .append(craftTool.sellPrice);
+
+        return tmpString.toString();
+    }
+
+
     private static CraftingRecipesList returnCraftingRecipe(String ItemName) {
         for (CraftingRecipesList craftTool : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
             if (craftTool.name.equals(ItemName)) {
@@ -332,7 +373,8 @@ public class CraftingController extends CommandController {
         for (Slot ingredient : craftTool.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
+                if (slot.getItem() != null &&
+                    slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
                     break;
                 }
@@ -341,28 +383,24 @@ public class CraftingController extends CommandController {
                 return false;
             }
         }
-        for (Slot ingredient : craftTool.ingredients) {
-            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (ingredient.getItem().getName().equals(slot.getItem().getName())) {
-                    int sum = 0;
-                    for (Slot slot1 : App.getCurrentUser()
-                        .getCurrentGame()
-                        .getCurrentPlayer()
-                        .getInventory()
-                        .getSlots()) {
-                        if (slot1.getItem().getName().equals(ingredient.getItem().getName())) {
-                            sum += slot1.getQuantity();
-                        }
-                    }
-                    if (sum < ingredient.getQuantity()) {
-                        return false;
-                    }
 
+        for (Slot ingredient : craftTool.ingredients) {
+            int sum = 0;
+            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if (slot.getItem() != null &&
+                    slot.getItem().getName().equals(ingredient.getItem().getName())) {
+                    sum += slot.getQuantity();
                 }
             }
+
+            if (sum < ingredient.getQuantity()) {
+                return false;
+            }
         }
+
         return true;
     }
+
 
     private static Item returnInventoryItemByName(String itemName) {
         for (Slot slot : App.getCurrentUser()

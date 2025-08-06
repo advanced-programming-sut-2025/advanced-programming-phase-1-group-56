@@ -346,6 +346,7 @@ public class InventoryWindow extends Group {
             if (i < slots.size()) {
                 Slot slot = slots.get(i);
                 Item item = slot.getItem();
+
                 String assetName = item.getAssetName();
                 int quantity = slot.getQuantity();
                 Label label = null;
@@ -435,6 +436,10 @@ public class InventoryWindow extends Group {
                 }
             }
         });
+    }
+    public void refreshInventory(){
+        contentGroup.clear();
+        showInventoryTab();
     }
 
 

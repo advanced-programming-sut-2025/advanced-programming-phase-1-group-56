@@ -3,6 +3,7 @@ package io.src.model.items;
 
 import io.src.model.Enums.BackPackType;
 import io.src.model.Slot;
+import io.src.view.GameMenus.InventoryBar;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,7 +31,7 @@ public class Inventory {
         this.capacity = capacity;
     }
 
-    public void add(Item item, int quantity) {
+    public boolean add(Item item, int quantity) {
         for (Slot slot : slots) {
             if (quantity <= 0) {
                 break;
@@ -56,9 +57,15 @@ public class Inventory {
                 slots.add(new Slot(item, item.maxStackSize));
                 quantity -= item.maxStackSize;
             }
+            InventoryBar.getInstance().refreshInventory();
+            return true;
         }
 
+
         slots.removeIf(slot -> slot.getQuantity() == 0);
+        InventoryBar.getInstance().refreshInventory();
+        return false;
+
 
     }
 
@@ -80,6 +87,7 @@ public class Inventory {
                 }
             }
         }
+        InventoryBar.getInstance().refreshInventory();
     }
 
 

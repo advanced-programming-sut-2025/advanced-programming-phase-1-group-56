@@ -3,6 +3,7 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
@@ -62,9 +63,19 @@ public class GameMenuInputAdapter extends InputAdapter {
             if(GameView.getInvWindow().isVisible()) {
                 Gdx.input.setInputProcessor(this);
             } else{
+                GameView.getInvWindow().refreshInventory();
                 Gdx.input.setInputProcessor(GameView.getStage());
             }
             GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
+        }
+
+        if(keycode == Input.Keys.F) {
+            if(GameView.foodWindow().isVisible()) {
+                Gdx.input.setInputProcessor(this);
+            } else{
+                Gdx.input.setInputProcessor(GameView.getStage());
+            }
+            GameView.foodWindow().setVisible(!GameView.getInvWindow().isVisible());
         }
 
 //        if (keycode == Input.Keys.N) {
@@ -82,10 +93,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        int current = game.getCurrentPlayer().getSelectedSlot();
-        int size = game.getCurrentPlayer().getCurrentBackpack().getCapacity();
-        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
-        game.getCurrentPlayer().setSelectedSlot(next);
+        InventoryBar.getInstance().scrolled(amountX, amountY);
         return true;
     }
 

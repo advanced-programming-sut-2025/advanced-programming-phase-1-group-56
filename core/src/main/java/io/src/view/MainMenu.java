@@ -83,8 +83,7 @@ public class MainMenu implements AppMenu, Screen {
         } else if ((matcher = MainMenuCommands.goMenu.getMatcher(input)).find()) {
             String menu = matcher.group(1).trim();
             System.out.println(MainMenuController.goToMenu(menu).message());
-        } else if ((MainMenuCommands.logout.getMatcher(input)).find()) {
-            System.out.println(MainMenuController.manageUserLogout().message());
+        } else if ((MainMenuCommands.logout.getMatcher(input)).find()) {System.out.println(MainMenuController.manageUserLogout().message());
         } else if ((MainMenuCommands.back.getMatcher(input)).find()) {
             App.setCurrentMenu(Menu.loginMenu);
             System.out.println("you are in login menu now!");
