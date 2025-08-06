@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.src.StardewValley;
+import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
@@ -110,8 +111,11 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(back_about_Button);
 
         // Avatar Menu :
-        avatarMenu = new AvatarMenu(skin, avatarID -> {
-            System.out.println("something happened + " + avatarID);
+        avatarMenu = new AvatarMenu(skin, new AvatarMenu.AvatarSelectionListener() {
+            @Override
+            public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar) {
+                PreGameMenuController.manageSoloGame(farmName, name, farmPosition, avatar);
+            }
         });
         avatarMenu.setVisible(false);
         stage.addActor(avatarMenu);

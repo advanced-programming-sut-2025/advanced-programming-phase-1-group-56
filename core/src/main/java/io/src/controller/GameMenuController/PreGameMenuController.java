@@ -14,6 +14,8 @@ import io.src.model.TimeSystem.TimeSystem;
 import io.src.model.items.Tool;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import static io.src.model.MapModule.Farm2Loader.loadTheFarm2;
@@ -22,6 +24,50 @@ import static io.src.model.MapModule.TownLoader.loadTheTown;
 import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class PreGameMenuController extends CommandController {
+
+
+    public static Result manageSoloGame(String farmName, String playerName, String farmPosition, String avatar) {
+        System.out.println("Check");
+        Game newGame = new Game(null, null, null, null);
+
+        App.getCurrentUser().setCurrentGame(newGame);
+        TimeSystem timeSystem = new TimeSystem(1, 9);
+        newGame.setTimeSystem(timeSystem); // 1/4 set
+
+        Player player = new Player(App.getCurrentUser());
+        player.setFarmPosition(FarmPosition.LEFT);
+
+        WeatherState weatherState = new WeatherState();
+        newGame.setWeatherState(weatherState);// 2/4 set
+
+        newGame.setPlayers(new ArrayList<>(List.of(player)));// 3/4
+
+        GameMap map = new GameMap();
+        Town town = loadTheTown();
+
+        Farm farm1 = (Farm) loadTheLocation("assets\\Farm1");
+        farm1.setPosition(FarmPosition.LEFT);
+        player.setFarmPosition(FarmPosition.LEFT);
+        farm1.setPlayer(player);
+        player.setPlayerFarm(farm1);
+        player.setCurrentGameLocation(farm1);
+
+        map.setFarm1(farm1).setPelikanTown(town);
+
+        newGame.setGameMap(map);// 4/4
+
+        App.getCurrentUser().setGameId(newGame.getGameId());
+        App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
+        GivePlayersInitialItem(newGame);
+        newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
+        newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
+
+        App.getCurrentUser().setGameId(newGame.getGameId());
+        App.getCurrentUser().setCurrentGame(newGame);
+        App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
+
+        return new Result(true, "successfully added game with id:" + newGame.getGameId());
+    }
 
     public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
@@ -166,7 +212,6 @@ public class PreGameMenuController extends CommandController {
                     playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
-
                     Farm farm2 = (Farm) loadTheLocation("assets\\Farm2");
 //                Farm farm2 = loadTheFarm2("assets\\Farm2");
                     farm2.setPosition(FarmPosition.UP);
@@ -175,7 +220,6 @@ public class PreGameMenuController extends CommandController {
                     playersToPlay.get(1).setPlayerFarm(farm2);
                     playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
                     playersToPlay.get(1).setCurrentGameLocation(farm2);
-
 
 
                     Farm farm3 = (Farm) loadTheLocation("assets\\Farm1");
@@ -199,7 +243,7 @@ public class PreGameMenuController extends CommandController {
 
 
                     map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(farm4).setPelikanTown(town);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -217,7 +261,7 @@ public class PreGameMenuController extends CommandController {
         //FriendShips
         for (Player player1 : playersToPlay) {
             for (Player player2 : playersToPlay) {
-                if(player2.equals(player1))
+                if (player2.equals(player1))
                     continue;
                 player1.getFriendShips().add(new Friendship(player2));
             }
@@ -230,7 +274,7 @@ public class PreGameMenuController extends CommandController {
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
 
-        for (User user: usersToPlay) {
+        for (User user : usersToPlay) {
             user.setGameId(newGame.getGameId());
             user.setCurrentGame(newGame);
             user.setNumOfGames(user.getNumOfGames() + 1);
@@ -242,14 +286,13 @@ public class PreGameMenuController extends CommandController {
     private static void GivePlayersInitialItem(Game newGame) {
         for (Player player : newGame.getPlayers()) {
             App.getCurrentUser().getCurrentGame().setCurrentPlayer(player);
-            player.getInventory().add(new Tool(ToolType.AXE_WOODEN),1);
-            player.getInventory().add(new Tool(ToolType.PICK_WOODEN),1);
-            player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC),1);
-            player.getInventory().add(new Tool(ToolType.HOE_WOODEN),1);
-            player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
+            player.getInventory().add(new Tool(ToolType.AXE_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.PICK_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC), 1);
+            player.getInventory().add(new Tool(ToolType.HOE_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.CAN_WOODEN), 1);
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
-            //player.teleportToHome();
             player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
             player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
             player.addFoodRecipes(FoodRecipesList.SALAD);
@@ -258,9 +301,6 @@ public class PreGameMenuController extends CommandController {
 
     public static Result loadGame() {
         String gameId = App.getCurrentUser().getGameId();
-        //Game gameToLoad= something .... ;
-        //TODO
-        //gameToLoad.setStarterPlayer(gameToLoad.getPlayerByUser(App.getCurrentUser()));
         return new Result(true, "successfully loaded game with id:" + gameId);
     }
 }

@@ -3,12 +3,15 @@ package io.src.view.InnerMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.Select;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -17,12 +20,11 @@ import java.util.Arrays;
 
 public class AvatarMenu extends Window {
 
-    private final Button leftDirect;
-    private final Button rightDirect;
-    private final Button leftDirect1;
-    private final Button rightDirect1;
     private final ArrayList<String> avatars;
     private final ArrayList<String> directs;
+    private final TextField farmNameField;
+    private final TextField nameField;
+    private final SelectBox<String> farmPosition;
     private int avatarIndex;
     private Texture avatarTex;
     private final Image avatarImage;
@@ -51,8 +53,8 @@ public class AvatarMenu extends Window {
 
         Table row1 = new Table();
         Table avatarTable = new Table();
-        leftDirect = new Button(skin, "leftButton");
-        rightDirect = new Button(skin, "rightButton");
+        Button leftDirect = new Button(skin, "leftButton");
+        Button rightDirect = new Button(skin, "rightButton");
 
         avatarTable.add(leftDirect).padRight(-20).bottom();
 
@@ -78,43 +80,49 @@ public class AvatarMenu extends Window {
         avatarProfile = new Image(avatarProfileTx);
         Stack profileStack = getStack(skin);
 
-        leftDirect1 = new Button(skin, "leftButton");
-        rightDirect1 = new Button(skin, "rightButton");
+        Button leftDirect1 = new Button(skin, "leftButton");
+        Button rightDirect1 = new Button(skin, "rightButton");
         profileTable.add(leftDirect1).padRight(-25);
         profileTable.add(profileStack).width(avatarProfileTx.getWidth() * 3).height(avatarProfileTx.getHeight() * 3);
         leftDirect1.toFront();
         profileTable.add(rightDirect1).padLeft(-20);
 
-        row1.add(profileTable).padLeft(70).padTop(50);
+        row1.add(profileTable).padLeft(120).padTop(50);
 
         add(row1).row();
 
         Table fields = new Table();
 
-        TextField nameField = new TextField("", skin);
+        nameField = new TextField("", skin);
+        nameField.setAlignment(Align.center);
         Label nameLabel = new Label("Name:", skin, "default-PINK");
-        fields.add(nameLabel).padTop(100).padLeft(50);
+        fields.add(nameLabel).padTop(100).padLeft(50).padRight(30);
         fields.add(nameField).padTop(100).width(300).row();
 
-        TextField farmNameField = new TextField("", skin);
-        Label farmNameLabel = new Label("farm name:", skin, "default-PINK");
-        fields.add(farmNameLabel).padTop(10).padLeft(50);
+        farmNameField = new TextField("", skin);
+        farmNameField.setAlignment(Align.center);
+        Label farmNameLabel = new Label("Farm Name:", skin, "default-PINK");
+        fields.add(farmNameLabel).padTop(10).padLeft(50).padRight(30);
         fields.add(farmNameField).padTop(10).width(300).row();
 
-        TextField favoriteThingsField = new TextField("", skin);
-        Label favoriteThingsLabel = new Label("favorite thing:", skin, "default-PINK");
-        fields.add(favoriteThingsLabel).padTop(10).padLeft(50);
-        fields.add(favoriteThingsField).padTop(10).width(300).row();
-
+        Label farmPositionLabel = new Label("Farm Position: ", skin, "default-PINK");
+        farmPosition = new SelectBox<>(skin);
+        farmPosition.setItems("Left", "Right", "Top", "Bottom");
+        farmPosition.setSelected("Left");
+        fields.add(farmPositionLabel).padTop(10).padLeft(50).padRight(30);
+        fields.add(farmPosition).width(300).padTop(10);
         add(fields);
 
+        Button okButton = new Button(skin, "okButton");
+        okButton.setDisabled(true);
+        add(okButton).bottom().padRight(10).padBottom(-35);
+
         // Set size of window
-        setSize(Gdx.graphics.getWidth() / 2.5f, Gdx.graphics.getHeight() / 1.2f);
+        setSize(Gdx.graphics.getWidth() / 2.5f, Gdx.graphics.getHeight() / 1.8f);
         setPosition(
             (Gdx.graphics.getWidth() - getWidth()) / 2f,
             (Gdx.graphics.getHeight() - getHeight()) / 2f
         );
-
 
         leftDirect.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -178,6 +186,31 @@ public class AvatarMenu extends Window {
             }
         });
 
+        okButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                if(okButton.isDisabled()) return;
+                String name = nameField.getText();
+                String farm = farmNameField.getText();
+                String position = farmPosition.getSelected();
+                String direction = directs.get(directIndex);
+                listener.onAvatarSelected(name, farm, position, avatars.get(avatarIndex));
+            }
+        });
+
+        nameField.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
+            }
+        });
+
+        farmNameField.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
+            }
+        });
+
         setMovable(false);
         setModal(true);
     }
@@ -211,6 +244,6 @@ public class AvatarMenu extends Window {
     }
 
     public interface AvatarSelectionListener {
-        void onAvatarSelected(int avatarID);
+        void onAvatarSelected(String name, String farmName, String farmPosition, String avatar);
     }
 }
