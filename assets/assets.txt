@@ -110,15 +110,61 @@ AVATAR/final/Sandy/right.png
 AVATAR/final/avatarBack.png
 AVATAR/final/avatarBackGround.psb
 AVATAR/final/avatarProfile.psb
+Axe.png
+Copper_Pickaxe.png
 Cursor.png
-Farm1.png
-Farm1.tmj
-Farm1.tmx
-Farm2.png
-Farm2.tmj
-Farm2.tmx
+Export/StardewValley(1).fnt
+Export/StardewValley(4).fnt
+Export/StardewValley.fnt
+Export/menu_Skin_v0.0.1.atlas
+Export/menu_Skin_v0.0.1.json
+Export/menu_Skin_v0.0.1.png
+Inventory/1.png
+Inventory/2.png
+Inventory/3.png
+Inventory/4.png
+Inventory/5.png
+Inventory/ForagingHover.png
+Inventory/InventoryBackground.png
+Inventory/SkillBar1.1.png
+Inventory/SkillBar1.png
+Inventory/SkillBar2.1.png
+Inventory/SkillBar2.png
+Inventory/clock.png
+Inventory/clockCursor.png
+Inventory/energyBar.png
+Inventory/exit to desktop down.png
+Inventory/exit to desktop.png
+Inventory/exit to menu down.png
+Inventory/exit to menu.png
+Inventory/exit.png
+Inventory/exitMenu.png
+Inventory/farmingHover.png
+Inventory/fishingHover.png
+Inventory/greenBar.png
+Inventory/inventory.png
+Inventory/lockSlot.png
+Inventory/map.png
+Inventory/map_summer.png
+Inventory/miniMap.png
+Inventory/miningHover.png
+Inventory/out.png
+Inventory/setting.png
+Inventory/skillBackGround.png
+Inventory/skills.png
+Inventory/slot.png
+Inventory/social.png
+Inventory/tmpBackground.png
+LibGdx-Skin-main/04B_30__.fnt
+LibGdx-Skin-main/NzSkin.atlas
+LibGdx-Skin-main/NzSkin.json
+LibGdx-Skin-main/NzSkin.png
+LibGdx-Skin-main/README.md
+LibGdx-Skin-main/impact(1).fnt
+LibGdx-Skin-main/impact(3).fnt
+LibGdx-Skin-main/mac's Extended Minecraft Bold Italic.fnt
+LibGdx-Skin-main/mac's Minecraft(1).fnt
 Logo No Background.png
-PHASE0_UML.jpg
 StardewMusic/Fall Theme 1.mp3
 StardewMusic/Michael_Hunter__San_Andreas.mp3
 StardewMusic/Spring Theme 1.mp3
@@ -128,14 +174,9 @@ StardewMusic/Winter Theme 1.mp3
 StardewValley.png
 StardewValley.ttf
 StayLoggedIn.json
-Town4.tmj
-Town4.tmx
 background1.jpg
 background2.png
 background3.png
-cloud1.png
-cloud2.png
-cloud3.png
 leaf1.png
 leaf2.png
 libgdx.png
@@ -271,31 +312,5 @@ skin1/menu_Skin_v0.0.1.atlas
 skin1/menu_Skin_v0.0.1.json
 skin1/menu_Skin_v0.0.1.png
 sprites_player.atlas
-tiledMap/imagesAndassets/1.5.6_standard_far.png
-tiledMap/imagesAndassets/1.6_meadow_close.png
-tiledMap/imagesAndassets/654px-Pelican_Town.png
-tiledMap/imagesAndassets/654px-Pelican_Town_TR.png
-tiledMap/imagesAndassets/709px-TownDistances.png
-tiledMap/imagesAndassets/Broken_Greenhouse.png
-tiledMap/imagesAndassets/StandardFarmDistances.png
-tiledMap/imagesAndassets/TownForageLocations.png
-tiledMap/imagesAndassets/map123.png
-tiledMap/tiledProject/654px-Pelican_Town_TR.tsx
-tiledMap/tiledProject/Farm-project.tiled-session
-tiledMap/tiledProject/FarmTile.tsj
-tiledMap/tiledProject/FarmTile.tsx
-tiledMap/tiledProject/FarmTile2.tsj
-tiledMap/tiledProject/FarmTile2.tsx
-tiledMap/tiledProject/TownForageLocations.tsx
-tiledMap/tiledProject/TreeTile1.tsx
-tiledMap/tiledProject/hello.tmj
-tiledMap/tiledProject/hello2.tmj
-tiledMap/tiledProject/hello3.tmj
-tiledMap/tiledProject/jsonFarmMap.tmj
-tiledMap/tiledProject/jsonFarmMap2.tmj
-tiledMap/tiledProject/pelicanTownTile.tsx
-tiledMap/tiledProject/untitled.tmj
-tiledMap/tiledProject/untitled.tmx
-tiledMap/tiledProject/untitled2.tmj
-tiledMap/tiledProject/untitled2.tmx
 users.json
+video/intro.mp4
