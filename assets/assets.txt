@@ -171,6 +171,9 @@ LibGdx-Skin-main/impact(3).fnt
 LibGdx-Skin-main/mac's Extended Minecraft Bold Italic.fnt
 LibGdx-Skin-main/mac's Minecraft(1).fnt
 Logo No Background.png
+SFXs/click1.mp3
+SFXs/click2.mp3
+SFXs/walk1.mp3
 StardewMusic/Fall Theme 1.mp3
 StardewMusic/Michael_Hunter__San_Andreas.mp3
 StardewMusic/Spring Theme 1.mp3

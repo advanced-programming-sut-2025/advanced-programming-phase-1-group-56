@@ -47,7 +47,6 @@ public class PreGameMenuController extends CommandController {
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
 
-
         GameMap map = new GameMap();
 
         Town town = (Town) loadTheLocation("assets\\gameLocations\\Town4");

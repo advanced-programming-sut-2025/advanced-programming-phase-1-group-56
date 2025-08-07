@@ -43,14 +43,20 @@ public class GameAudioManager {
         if (currentMusic != null) currentMusic.play();
     }
 
-    public void playSound(String path) {
+    public void playSound(String path, boolean loop, float volume) {
         Sound sfx = sounds.get(path);
         if (sfx == null) {
             sfx = Gdx.audio.newSound(Gdx.files.internal(path));
             sounds.put(path, sfx);
         }
-        sfx.play();
+
+        if (loop) {
+            sfx.loop(volume);
+        } else {
+            sfx.play(volume);
+        }
     }
+
 
     public void dispose() {
         if (currentMusic != null) currentMusic.dispose();

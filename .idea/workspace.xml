@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="v0.3.3 avatar  design">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/ProfileMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/SettingMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/ShopMenu.java" afterDir="false" />
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="v0.4.1: initial commit after merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/StayLoggedIn.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/StayLoggedIn.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/assets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/assets.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/background3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/background3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/users.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAudioManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAudioManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +205,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754321610759</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v0.4.1: initial commit after merge">
+      <option name="closed" value="true" />
+      <created>1754550895861</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1754550895861</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,6 +227,7 @@
     <MESSAGE value="some assets have been changed" />
     <MESSAGE value="wrapper debugging" />
     <MESSAGE value="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht" />
-    <option name="LAST_COMMIT_MESSAGE" value="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht" />
+    <MESSAGE value="v0.4.1: initial commit after merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.4.1: initial commit after merge" />
   </component>
 </project>

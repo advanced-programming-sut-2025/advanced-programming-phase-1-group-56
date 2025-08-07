@@ -7,6 +7,7 @@ import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
+import io.src.model.GameAudioManager;
 import io.src.model.Result;
 import io.src.view.MainMenu;
 
@@ -38,6 +39,19 @@ public class MainMenuController extends CommandController {
 
     private void initialize() {
 
+        menu.getCoopButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound("SFXs/click2.mp3", false, 1f);
+            }
+        });
+
+        menu.getLoadButton().addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
+            }
+        });
+
         menu.getExitButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();
@@ -46,6 +60,7 @@ public class MainMenuController extends CommandController {
 
         menu.getLogoutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
                 Result result = manageUserLogout();
                 if (result.isSuccess()) {
                     LoginMenuController controller = new LoginMenuController(game);
@@ -57,12 +72,14 @@ public class MainMenuController extends CommandController {
 
         menu.getAboutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
                 setAboutMenu(true);
             }
         });
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
                 if (menu.getNewButton().isVisible()) {
                     setAboutMenu(false);
                     menu.getScrollPane().setScrollPercentY(0.0f);
@@ -76,6 +93,7 @@ public class MainMenuController extends CommandController {
 
         menu.getNewButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
                 setNewMenu(false);
             }
         });
