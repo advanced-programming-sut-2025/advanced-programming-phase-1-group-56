@@ -18,6 +18,7 @@ import io.src.model.TimeSystem.TimeObserver;
 import java.util.ArrayList;
 
 public class Farm extends GameLocation implements TimeObserver {
+    private String name;
     private FarmPosition position;
     private final ArrayList<Building> buildings = new ArrayList<>();
     private final ArrayList<GameObject> allGameObjects = new ArrayList<>();
@@ -128,4 +129,11 @@ public class Farm extends GameLocation implements TimeObserver {
         return null;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

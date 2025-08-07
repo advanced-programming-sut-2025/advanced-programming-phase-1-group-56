@@ -11,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.Select;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -107,18 +105,18 @@ public class AvatarMenu extends Window {
 
         Label farmPositionLabel = new Label("Farm Position: ", skin, "default-PINK");
         farmPosition = new SelectBox<>(skin);
-        farmPosition.setItems("Left", "Right", "Top", "Bottom");
+        farmPosition.setItems("Left", "Right", "Up", "Down");
         farmPosition.setSelected("Left");
         fields.add(farmPositionLabel).padTop(10).padLeft(50).padRight(30);
         fields.add(farmPosition).width(300).padTop(10);
-        add(fields);
+        add(fields).padBottom(15);
 
         Button okButton = new Button(skin, "okButton");
         okButton.setDisabled(true);
-        add(okButton).bottom().padRight(10).padBottom(-35);
+        add(okButton).bottom().padRight(10).padBottom(15);
 
         // Set size of window
-        setSize(Gdx.graphics.getWidth() / 2.5f, Gdx.graphics.getHeight() / 1.8f);
+        pack();
         setPosition(
             (Gdx.graphics.getWidth() - getWidth()) / 2f,
             (Gdx.graphics.getHeight() - getHeight()) / 2f
@@ -220,7 +218,6 @@ public class AvatarMenu extends Window {
         profileContainer.size(avatarProfileTx.getWidth() * 3, avatarProfileTx.getHeight() * 3);
         avatarName = new Label(avatars.get(avatarIndex).substring(avatars.get(avatarIndex).lastIndexOf("final/") + 6, avatars.get(avatarIndex).lastIndexOf('/')), skin, "labelBack-24_ZERESHK");
         nameContainer = new Container<>(avatarName);
-//        nameContainer.size(avatarName.getWidth(), avatarName.getHeight());
         nameContainer.align(Align.bottom);
         nameContainer.padBottom(-5);
         Stack profileStack = new Stack();

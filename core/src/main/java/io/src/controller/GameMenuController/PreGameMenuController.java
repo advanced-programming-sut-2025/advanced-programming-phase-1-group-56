@@ -24,10 +24,14 @@ import static io.src.model.MapModule.TownLoader.loadTheTown;
 import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class PreGameMenuController extends CommandController {
-
-
     public static Result manageSoloGame(String farmName, String playerName, String farmPosition, String avatar) {
-        System.out.println("Check");
+        FarmPosition farmPosition1 = switch (farmPosition) {
+            case "left" -> FarmPosition.LEFT;
+            case "right" -> FarmPosition.RIGHT;
+            case "top" -> FarmPosition.UP;
+            default -> FarmPosition.DOWN;
+        };
+
         Game newGame = new Game(null, null, null, null);
 
         App.getCurrentUser().setCurrentGame(newGame);
@@ -35,7 +39,8 @@ public class PreGameMenuController extends CommandController {
         newGame.setTimeSystem(timeSystem); // 1/4 set
 
         Player player = new Player(App.getCurrentUser());
-        player.setFarmPosition(FarmPosition.LEFT);
+        player.setName(playerName);
+        player.setFarmPosition(farmPosition1);
 
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
@@ -46,8 +51,9 @@ public class PreGameMenuController extends CommandController {
         Town town = loadTheTown();
 
         Farm farm1 = (Farm) loadTheLocation("assets\\Farm1");
-        farm1.setPosition(FarmPosition.LEFT);
-        player.setFarmPosition(FarmPosition.LEFT);
+        farm1.setName(farmName);
+        farm1.setPosition(farmPosition1);
+        player.setFarmPosition(farmPosition1);
         farm1.setPlayer(player);
         player.setPlayerFarm(farm1);
         player.setCurrentGameLocation(farm1);

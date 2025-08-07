@@ -232,6 +232,8 @@ mainSkin/skin composer/okButton_UP.9.png
 mainSkin/skin composer/okButton_UP.png
 mainSkin/skin composer/questionButton_DOWN.png
 mainSkin/skin composer/questionButton_UP.png
+mainSkin/skin composer/randomButton_OVER.png
+mainSkin/skin composer/randomButton_UP.png
 mainSkin/skin composer/rightButton_OVER.9.png
 mainSkin/skin composer/rightButton_OVER.png
 mainSkin/skin composer/rightButton_UP.9.png
@@ -248,8 +250,12 @@ mainSkin/skin composer/stageBackGround.9.png
 mainSkin/skin composer/stageBackGround.png
 mainSkin/skin composer/stageBackGround_empty.9.png
 mainSkin/skin composer/stageBackGround_empty.png
+mainSkin/skin composer/styleButton_OVER.png
+mainSkin/skin composer/styleButton_UP.png
 mainSkin/skin composer/textfield.9.png
 mainSkin/skin composer/textfield.png
+mainSkin/skin composer/upButton_DOWN.png
+mainSkin/skin composer/upButton_UP.png
 mainSkin/skin composer/warning_label.9.png
 mainSkin/skin composer/warning_label.png
 mainSkin/skin composer/window.9.png

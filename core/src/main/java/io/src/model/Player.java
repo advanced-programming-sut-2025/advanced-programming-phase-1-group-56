@@ -31,7 +31,7 @@ import java.util.UUID;
 
 public class Player implements TimeObserver {
     //Identity
-//    private String name;
+    private String name;
     private final UUID userId;
     @Expose(serialize = false, deserialize = false)
     private User user;
@@ -86,7 +86,6 @@ public class Player implements TimeObserver {
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
 
     private Player partner = null;
-
 
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
@@ -200,7 +199,6 @@ public class Player implements TimeObserver {
         this.currentTrashcan = currentTrashcan;
     }
 
-
     public ArrayList<CraftingRecipesList> getToolRecipes() {
         return toolRecipes;
     }
@@ -224,7 +222,6 @@ public class Player implements TimeObserver {
     public void addFriendShips(Friendship friendShip) {
         this.friendShips.add(friendShip);
     }
-
 
     public Farm getPlayerFarm() {
         return playerFarm;
@@ -351,7 +348,6 @@ public class Player implements TimeObserver {
         this.position = position;
     }
 
-
     public ArrayList<Message> getMessages() {
         return messages;
     }
@@ -382,7 +378,6 @@ public class Player implements TimeObserver {
         return userId;
     }
 
-
     public ArrayList<Gift> getMarryRequests() {
         return marryRequests;
     }
@@ -411,7 +406,6 @@ public class Player implements TimeObserver {
         this.lastMeetedNpc = lastMeetedNpc;
     }
 
-
     public Buff getCurrentBuff() {
         return currentBuff;
     }
@@ -425,7 +419,6 @@ public class Player implements TimeObserver {
             this.currentBuff.manageBuff(this);//enable new buff
         }
     }
-
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
@@ -480,7 +473,6 @@ public class Player implements TimeObserver {
         return energy.getMaxEnergy();
     }
 
-
     public double getEnergyUsage() {
         return energyUsage;
     }
@@ -508,5 +500,13 @@ public class Player implements TimeObserver {
 
     public void setSelectedSlot(int selectedSlot) {
         this.selectedSlot = selectedSlot;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

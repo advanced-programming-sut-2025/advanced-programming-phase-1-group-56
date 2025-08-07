@@ -1,6 +1,5 @@
 package io.src.view;
 
-import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import java.util.Scanner;

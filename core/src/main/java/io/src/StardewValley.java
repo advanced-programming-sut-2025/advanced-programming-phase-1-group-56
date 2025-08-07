@@ -27,6 +27,7 @@ public class StardewValley extends com.badlogic.gdx.Game {
         if (new File("assets\\StayLoggedIn.json").exists()) {
             try (Reader reader = new FileReader("assets\\StayLoggedIn.json")) {
                 user = gson.fromJson(reader, User.class);
+                App.setCurrentUser(user);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
