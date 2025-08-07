@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class Farm extends GameLocation implements TimeObserver {
     private FarmPosition position;
     private final ArrayList<Building> buildings = new ArrayList<>();
-    private final ArrayList<GameObject> allGameObjects = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
     private Player player;
 
@@ -32,7 +31,7 @@ public class Farm extends GameLocation implements TimeObserver {
 
     @Override
     public ArrayList<GameObject> getCopyOfGameObjects() {
-        return new ArrayList<>(allGameObjects);
+        return new ArrayList<>(super.getGameObjects());
     }
 
 
@@ -42,9 +41,9 @@ public class Farm extends GameLocation implements TimeObserver {
             FarmingController.manageStrikeThunder(this);
             FarmingController.manageCrows(this);
             FarmingController.managePlaceMineral(this);
-
-
             FarmingController.managePlaceRandomCropOrSeed(this);
+
+
             for (GameObject gameObject : readAllGameObjectsFromTiles()) {
                 if (gameObject instanceof Tree tree) {
                     if (tree.getDaysWithNoWater() >= 2) {
@@ -67,7 +66,7 @@ public class Farm extends GameLocation implements TimeObserver {
 
     @Override
     public ArrayList<GameObject> getGameObjects() {
-        return this.allGameObjects;
+        return super.getGameObjects();
     }
 
     public ArrayList<Building> getBuildings() {
@@ -101,11 +100,11 @@ public class Farm extends GameLocation implements TimeObserver {
     }
 
     public ArrayList<GameObject> getAllGameObjects() {
-        return allGameObjects;
+        return super.gameObjects;
     }
 
     public ArrayList<GameObject> readAllGameObjectsFromTiles() {
-        allGameObjects.clear();
+        super.gameObjects.clear();
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 if (tile.getFixedObject() != null) {
@@ -117,12 +116,12 @@ public class Farm extends GameLocation implements TimeObserver {
 //                        }
 //                    }
                     //if (!found) {
-                    allGameObjects.add(tile.getFixedObject());
+                    gameObjects.add(tile.getFixedObject());
                     //}
                 }
             }
         }
-        return allGameObjects;
+        return gameObjects;
         //DONE!
     }
 

@@ -22,6 +22,7 @@ public class MarniesRanch extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Marnies_Ranch_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(12 , 2));
+        NPCposition = new Position(12 ,4);
     }
 
     @Override

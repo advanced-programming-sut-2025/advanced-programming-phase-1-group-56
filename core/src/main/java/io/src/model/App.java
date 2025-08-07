@@ -10,11 +10,17 @@ import io.src.model.Enums.Menu;
 
 public class App {
     private static final String FILE_PATH = "assets//users.json";
-    //TODO
+    public static final boolean DEBUG_MODE = true;
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
     private static StardewValley stardewValley;
+
+    public static void print(Object obj) {
+        if (DEBUG_MODE) {
+            System.out.println(obj.toString());
+        }
+    }
 
     public static void init() {
         users = getUsers();

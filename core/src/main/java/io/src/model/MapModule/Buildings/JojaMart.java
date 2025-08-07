@@ -23,6 +23,7 @@ public class JojaMart extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\JojaMart_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(13 ,2));
+        NPCposition = new Position(9 ,4);
     }
 
     @Override

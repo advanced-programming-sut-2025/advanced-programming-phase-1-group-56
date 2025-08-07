@@ -29,6 +29,7 @@ public class CarpentersShop extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Carpenter_Shop_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(6,2));
+        NPCposition = new Position(7, 6);
     }
 
     @Override

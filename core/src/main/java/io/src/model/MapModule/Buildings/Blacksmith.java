@@ -24,6 +24,7 @@ public class Blacksmith extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Blacksmith_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(5 , 2));
+        NPCposition = new Position(3, 6);
     }
 
     @Override

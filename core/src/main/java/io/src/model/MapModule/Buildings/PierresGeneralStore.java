@@ -23,6 +23,7 @@ public class PierresGeneralStore extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Pierres_General_Store_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(5 , 5));
+        NPCposition = new Position(6 ,14);
     }
 
     @Override

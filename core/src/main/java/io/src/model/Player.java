@@ -43,6 +43,7 @@ public class Player implements TimeObserver {
     private int movingDirection = 0;
     private Direction currentDirection = Direction.DOWN;
     private Direction lastDirection = Direction.DOWN;
+    private String characterAtlas = "sprites_player";
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -68,7 +69,7 @@ public class Player implements TimeObserver {
     private boolean fainted = false;
     private Energy energy;
     private int gold;
-    private Position position;
+    private final Position position;
     private GameLocation currentGameLocation;
     private Buff currentBuff = null;
     private boolean interactWithPartnerToday;
@@ -104,6 +105,7 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
+        if(vx == 0 && vy == 0){return;}
         subtractEnergy(delta / 3);
     }
 
@@ -146,13 +148,13 @@ public class Player implements TimeObserver {
 
         this.energy = new Energy(200);
         this.fainted = false;
-        this.gold = 0;
+        this.gold = 500;
         this.position = new Position(64, 41);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();
-//        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     //    public Direction getMovingDirection() {
@@ -363,7 +365,8 @@ public class Player implements TimeObserver {
     }
 
     public void setPosition(Position position) {
-        this.position = position;
+        this.position.setX(position.getX());
+        this.position.setY(position.getY());
     }
 
 
@@ -525,5 +528,13 @@ public class Player implements TimeObserver {
 
     public void setSelectedSlot(int selectedSlot) {
         this.selectedSlot = selectedSlot;
+    }
+
+    public String getCharacterAtlas() {
+        return characterAtlas;
+    }
+
+    public void setCharacterAtlas(String characterAtlas) {
+        this.characterAtlas = characterAtlas;
     }
 }

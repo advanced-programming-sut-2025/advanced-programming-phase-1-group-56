@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
@@ -25,6 +26,7 @@ import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
+import io.src.model.MapModule.Buildings.Store;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
@@ -78,7 +80,7 @@ public class GameView implements Screen {
     public void updateMap() {
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
-//        loadTextures();
+
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
@@ -295,15 +297,16 @@ public class GameView implements Screen {
 //            p.getPixelPosition().getX(), p.getPixelPosition().getY(),
 //            20, 40);
 //
-////        moveDirection = game.getCurrentPlayer().getMovingDirection();
-////
-////        stateTime += Gdx.graphics.getDeltaTime();
-////
-////        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
-////        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
-////
-////        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
-////        renderInventory();
+
+    /// /        moveDirection = game.getCurrentPlayer().getMovingDirection();
+    /// /
+    /// /        stateTime += Gdx.graphics.getDeltaTime();
+    /// /
+    /// /        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
+    /// /        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
+    /// /
+    /// /        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
+    /// /        renderInventory();
 //    }
 
 
@@ -356,8 +359,6 @@ public class GameView implements Screen {
 //    public Batch getBatch() {
 //        return batch;
 //    }
-
-
     public Texture getPixel() {
         return pixel;
     }
@@ -421,8 +422,9 @@ public class GameView implements Screen {
                 continue;
             }
 
-//            System.out.println(assetName);
-//            System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
+            if (GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName) == null) {
+                System.out.println(assetName);
+            }
 
 
             if (!gameObjectTextureMap.containsKey(assetName)) {
@@ -444,12 +446,12 @@ public class GameView implements Screen {
 //                    + "'location: " + worldX + "   " + worldY);
 //            }
 
-            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE1 ||
-                ((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE3)) {
+            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
+                ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
                 worldX -= 16;
             }
 
-            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType()== EtcObjectType.PINKFU_TREE){
+            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.PINKFU_TREE) {
                 worldX -= 24;
             }
 
@@ -462,6 +464,8 @@ public class GameView implements Screen {
 
 
         //RED HIT BOXES
+
+
         Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
         pixmap.setColor(1, 0, 0, 1);
         pixmap.fill();
@@ -470,7 +474,7 @@ public class GameView implements Screen {
 
         for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : row) {
-                if (tile.isWalkable()) continue;
+                if (tile.getTileType() != TileType.Wrapper) continue;
                 float worldX = tile.getPosition().getX() * TILE_SIZE;
                 float worldY = tile.getPosition().getY() * TILE_SIZE;
 
@@ -480,11 +484,15 @@ public class GameView implements Screen {
                     16,  // Origin X (مرکز تصویر)
                     16, // Origin Y
                     16, 16, // اندازه اصلی
-                    0.9f, 0.9f, // scaleX, scaleY
+                    0.3f, 0.3f, // scaleX, scaleY
                     0); // rotation
 
             }
         }
+
+        //check for shop hint
+        handleShopHint(renderer.getBatch());
+
         renderer.getBatch().end();
 
         transitionManager.update(v);
@@ -527,6 +535,32 @@ public class GameView implements Screen {
 
 
         camera.update();
+
+
+        //END OF GRAPHICAL RENDER
+        if (App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) {
+            //TODO remove this for phase three
+            GameController.manageNextTurn();
+            updateMap();
+        }
+    }
+
+    public void handleShopHint(Batch batch) {
+        if (gameMenuInputAdapter.isShopCounterHintActive()) {
+            Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
+                (Class<? extends Store>) App.getMe().getCurrentGameLocation().getType().getRelatedClazz()
+            );
+            Texture texture = new Texture(Gdx.files.internal(
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
+            ));
+            TextureRegion region = new TextureRegion(texture);
+            float worldX = (float) ((store.getNPCposition().getX() +0.5) * TILE_SIZE);
+            float worldY = (float) ((store.getNPCposition().getY()+0.5) * TILE_SIZE);
+            renderer.getBatch().draw(region,
+                worldX, worldY
+            );
+
+        }
     }
 
 

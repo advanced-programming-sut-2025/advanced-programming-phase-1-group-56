@@ -3,17 +3,22 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.TimeSystem.DateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +28,7 @@ public class GameMenuInputAdapter extends InputAdapter {
     //    private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
     private boolean stopMoving = false;
+    private boolean shopCounterHintActive = false;
 
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
@@ -76,23 +82,73 @@ public class GameMenuInputAdapter extends InputAdapter {
             performAction(screenX, screenY);
             return true;
         }
+        if (button == Input.Buttons.RIGHT) {
+            if (isFacingCounter()) {
+                System.out.println("Facing counter");
+                return true;
+            }
+            return true;
+        }
         return false;
     }
+
+    private boolean isFacingCounter() {
+        if (isNearCounter()) {
+            GameLocation currGL = App.getMe().getCurrentGameLocation();
+            Class<?> relatedClazz = currGL.getType().getRelatedClazz();
+            Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
+                (Class<? extends Store>) relatedClazz
+            );
+            float dX = App.getMe().getPosition().getX() - store.getNPCposition().getX();
+            float dY = App.getMe().getPosition().getY() - store.getNPCposition().getY();
+            return switch (App.getMe().getLastDirection()) {
+                case UP -> dY < 0 && Math.abs(dX) < 1.8;
+                case DOWN -> dY > 0 && Math.abs(dX) < 1.8;
+                case LEFT -> dX > 0 && Math.abs(dY) < 1.8;
+                case RIGHT -> dX < 0 && Math.abs(dY) < 1.8;
+                default -> false;
+            };
+        }
+        return false;
+    }
+
+    private boolean isNearCounter() {
+        GameLocation currGL = App.getMe().getCurrentGameLocation();
+
+        Class<?> relatedClazz = currGL.getType().getRelatedClazz();
+
+        if (currGL.getType().isIndoor() && Store.class.isAssignableFrom(relatedClazz)) {
+            Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
+                (Class<? extends Store>) relatedClazz
+            );
+            return store.getNPCposition().isNear(App.getMe().getPosition(), 4);
+        }
+
+        return false;
+    }
+
+
+    private boolean zoj = true;
 
     public void update(float delta) {
         Player player = game.getCurrentPlayer();
         float vx = 0, vy = 0;
         Direction dir = null;
-
         if (keysHeld.contains(Input.Keys.J)) {
-            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
-            Position pos = App.getMe().getPosition();
-            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
-                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
-                    tiles[i][j].setWalkable(true);
-                }
-            }
+//            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
+//            Position pos = App.getMe().getPosition();
+//            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
+//                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
+//                    tiles[i][j].setWalkable(true);
+//                }
+//            }
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addDay(1);
         }
+        if (keysHeld.contains(Input.Keys.N)) {
+            GameController.manageNextTurn();
+            App.getStardewValley().getGameView().updateMap();
+        }
+
 
         if (keysHeld.contains(Input.Keys.W)) {
             vy += 1;
@@ -164,6 +220,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         player.setVelocity(vx * speed, vy * speed);
         player.update(delta);
         applyWrapperEffect();
+        shopCounterHintActive = isFacingCounter();
     }
 
 
@@ -178,10 +235,16 @@ public class GameMenuInputAdapter extends InputAdapter {
             for (Building b : farm.getBuildings()) {//FROM A FARM(YOURS OR PARTNERS) TO BUILDING
                 if (b.getDoorPosition().isNear(App.getMe().getPosition(), 4)) {
                     isNearADoor = true;
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
-                        App.getMe().setPosition(b.getInitialPosition());//TODO
-                        App.getMe().setCurrentGameLocation(b.getIndoor());
-                    });
+                    if (b instanceof GreenHouse greenHouse && greenHouse.isBroken()) {
+                        //TODO dialogue box its broken
+                        App.getMe().setPosition(new Position(b.getDoorPosition().getX(), b.getDoorPosition().getY() - 2));
+                        App.getMe().setMovingDirection(Direction.UP);
+                    } else {
+                        App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                            App.getMe().setPosition(b.getInitialPosition());//TODO
+                            App.getMe().setCurrentGameLocation(b.getIndoor());
+                        });
+                    }
                 }
             }
             if (!isNearADoor) {        //FROM FARM TO TOWN
@@ -196,20 +259,24 @@ public class GameMenuInputAdapter extends InputAdapter {
                     }
                 });
             }
-        }
-        else if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper &&
+        } else if (App.getMe().getCurrentGameLocation().getTileByPosition(position).getTileType() == TileType.Wrapper &&
             App.getMe().getCurrentGameLocation() instanceof Town
         ) {
             Player player = App.getMe();
             //From Town to Building
-            System.out.println("player position : " +App.getMe().getPosition().getX() + " " + App.getMe().getPosition().getY());
             for (Store store : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getStores()) {
-                System.out.println(store.getName() + " door position :" + store.getDoorPosition().getX() + " " + store.getDoorPosition().getY());
                 if (store.getDoorPosition().isNear(App.getMe().getPosition(), 3)) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
-                        App.getMe().setCurrentGameLocation(store.getIndoor());
-                        App.getMe().setPosition(store.getInitialPosition());//TODO
-                    });
+                    DateTime now = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
+                    if (now.getHour() < store.getOpeningHour() || store.getClosingHour() < now.getHour()) {
+                        // TODO add warning
+                        App.getMe().setPosition(new Position(store.getDoorPosition().getX(), store.getDoorPosition().getY() - 2));
+                        App.getMe().setMovingDirection(Direction.UP);
+                    } else {
+                        App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                            App.getMe().setCurrentGameLocation(store.getIndoor());
+                            App.getMe().setPosition(store.getInitialPosition());//TODO
+                        });
+                    }
                 }
 
             }
@@ -349,5 +416,9 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     public void setStopMoving(boolean stopMoving) {
         this.stopMoving = stopMoving;
+    }
+
+    public boolean isShopCounterHintActive() {
+        return shopCounterHintActive;
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.GameAssetManager;
 
@@ -21,16 +22,16 @@ public class AnimationManager {
 //        loadDirection(atlas, "right");
 //    }
 //
-////    private void loadDirection(TextureAtlas atlas, String dirName) {
-////        // WALK_<DIR>
-////        Array<TextureAtlas.AtlasRegion> walkFrames = atlas.findRegions("player_" + dirName);
-////        animations.put(AnimationKey.valueOf("WALK_" + dirName.toUpperCase()),
-////            new Animation<>(0.15f, walkFrames, Animation.PlayMode.LOOP));
-////        // IDLE_<DIR> (یک فریم اول یا جداگانه)
-////        TextureRegion idleFrame = atlas.findRegion("player_" + dirName + "_0");
-////        animations.put(AnimationKey.valueOf("IDLE_" + dirName.toUpperCase()),
-////            new Animation<>(1f, new Array<>(new TextureRegion[]{ idleFrame }), Animation.PlayMode.NORMAL));
-////    }
+    /// /    private void loadDirection(TextureAtlas atlas, String dirName) {
+    /// /        // WALK_<DIR>
+    /// /        Array<TextureAtlas.AtlasRegion> walkFrames = atlas.findRegions("player_" + dirName);
+    /// /        animations.put(AnimationKey.valueOf("WALK_" + dirName.toUpperCase()),
+    /// /            new Animation<>(0.15f, walkFrames, Animation.PlayMode.LOOP));
+    /// /        // IDLE_<DIR> (یک فریم اول یا جداگانه)
+    /// /        TextureRegion idleFrame = atlas.findRegion("player_" + dirName + "_0");
+    /// /        animations.put(AnimationKey.valueOf("IDLE_" + dirName.toUpperCase()),
+    /// /            new Animation<>(1f, new Array<>(new TextureRegion[]{ idleFrame }), Animation.PlayMode.NORMAL));
+    /// /    }
 //
 //    private void loadDirection(TextureAtlas atlas, String dirName) {
 //        Array<TextureRegion> walkFrames = new Array<>();
@@ -60,7 +61,7 @@ public class AnimationManager {
     public AnimationManager() {
         // Load player
 //        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("atlases/sprites_player.atlas"));
-        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("sprites_player"));
+        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get(App.getMe().getCharacterAtlas() ));
 
         characterAnimations.put("player", loadCharacterAnimations(playerAtlas, "player"));
 
@@ -82,7 +83,7 @@ public class AnimationManager {
             map.put(AnimationKey.valueOf("WALK_" + dirName.toUpperCase()), new Animation<>(0.15f, walkFrames, Animation.PlayMode.LOOP));
 
             TextureRegion idleFrame = atlas.findRegion(prefix + "_" + dirName + "_0");
-            map.put(AnimationKey.valueOf("IDLE_" + dirName.toUpperCase()), new Animation<>(1f, new Array<>(new TextureRegion[]{ idleFrame }), Animation.PlayMode.NORMAL));
+            map.put(AnimationKey.valueOf("IDLE_" + dirName.toUpperCase()), new Animation<>(1f, new Array<>(new TextureRegion[]{idleFrame}), Animation.PlayMode.NORMAL));
         }
         return map;
     }

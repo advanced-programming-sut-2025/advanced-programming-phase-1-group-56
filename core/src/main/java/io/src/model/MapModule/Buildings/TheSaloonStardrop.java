@@ -23,7 +23,8 @@ public class TheSaloonStardrop extends Store {
         setClosingHour(24);
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\The_Stardrop_Saloon_Indoor");
         setIndoor(indoor);
-        setInitialPosition(new Position(14 ,2));
+        setInitialPosition(new Position(14 ,3));
+        NPCposition = new Position(9,7);
     }
 
     @Override

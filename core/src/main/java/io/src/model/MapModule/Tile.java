@@ -59,6 +59,7 @@ public class Tile extends Node {
 
     public void setFixedObject(GameObject fixedObject) {
         this.fixedObject = fixedObject;
+
     }
 
     public TileType getTileType() {
