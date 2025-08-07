@@ -1,5 +1,6 @@
 package io.src.controller.GameMenuController;
 
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.*;
 import io.src.model.Activities.Friendship;
@@ -12,6 +13,7 @@ import io.src.model.MapModule.GameMap;
 import io.src.model.States.WeatherState;
 import io.src.model.TimeSystem.TimeSystem;
 import io.src.model.items.Tool;
+import io.src.view.GameMenus.GameView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +38,7 @@ public class PreGameMenuController extends CommandController {
 
         App.getCurrentUser().setCurrentGame(newGame);
         TimeSystem timeSystem = new TimeSystem(1, 9);
-        newGame.setTimeSystem(timeSystem); // 1/4 set
+        newGame.setTimeSystem(timeSystem);// 1/4 set
 
         Player player = new Player(App.getCurrentUser());
         player.setName(playerName);
@@ -45,18 +47,19 @@ public class PreGameMenuController extends CommandController {
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
 
-        newGame.setPlayers(new ArrayList<>(List.of(player)));// 3/4
 
         GameMap map = new GameMap();
-        Town town = loadTheTown();
 
-        Farm farm1 = (Farm) loadTheLocation("assets\\Farm1");
-        farm1.setName(farmName);
-        farm1.setPosition(farmPosition1);
-        player.setFarmPosition(farmPosition1);
+        Town town = (Town) loadTheLocation("assets\\gameLocations\\Town4");
+        Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
+
+        farm1.setPosition(FarmPosition.LEFT);
+        player.setFarmPosition(FarmPosition.LEFT);
         farm1.setPlayer(player);
         player.setPlayerFarm(farm1);
         player.setCurrentGameLocation(farm1);
+
+        newGame.setPlayers(new ArrayList<>(List.of(player)));// 3/4
 
         map.setFarm1(farm1).setPelikanTown(town);
 
@@ -71,6 +74,13 @@ public class PreGameMenuController extends CommandController {
         App.getCurrentUser().setGameId(newGame.getGameId());
         App.getCurrentUser().setCurrentGame(newGame);
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
+
+
+        StardewValley.setGame(newGame);
+        GameView gameView = new GameView(newGame);
+        App.setStardewValley(StardewValley.getStardewValley());
+        StardewValley.setGameView(gameView);
+        App.getStardewValley().setScreen(gameView);
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
@@ -173,37 +183,37 @@ public class PreGameMenuController extends CommandController {
             }
             break;
             case 3: {
-                    Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
+                Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
 //                Farm farm1 = loadTheFarm("assets\\gameLocations\\Farm1");
-                    farm1.setPosition(FarmPosition.LEFT);
-                    playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
-                    farm1.setPlayer(playersToPlay.getFirst());
-                    playersToPlay.getFirst().setPlayerFarm(farm1);
-                    playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
-                    playersToPlay.get(0).setCurrentGameLocation(farm1);
+                farm1.setPosition(FarmPosition.LEFT);
+                playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
+                farm1.setPlayer(playersToPlay.getFirst());
+                playersToPlay.getFirst().setPlayerFarm(farm1);
+                playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
+                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
-                    Farm farm2 = (Farm) loadTheLocation("assets\\gameLocations\\Farm2");
+                Farm farm2 = (Farm) loadTheLocation("assets\\gameLocations\\Farm2");
 //                Farm farm2 = loadTheFarm2("assets\\gameLocations\\Farm2");
-                    farm2.setPosition(FarmPosition.UP);
-                    playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
-                    farm2.setPlayer(playersToPlay.get(1));
-                    playersToPlay.get(1).setPlayerFarm(farm2);
-                    playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
-                    playersToPlay.get(1).setCurrentGameLocation(farm2);
+                farm2.setPosition(FarmPosition.UP);
+                playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
+                farm2.setPlayer(playersToPlay.get(1));
+                playersToPlay.get(1).setPlayerFarm(farm2);
+                playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
+                playersToPlay.get(1).setCurrentGameLocation(farm2);
 
 
-                    Farm farm3 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
+                Farm farm3 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
 //                Farm farm3 = loadTheFarm("assets\\gameLocations\\Farm1");
-                    farm3.setPosition(FarmPosition.DOWN);
-                    playersToPlay.get(2).setFarmPosition(FarmPosition.DOWN);
-                    farm3.setPlayer(playersToPlay.get(2));
-                    playersToPlay.get(2).setPlayerFarm(farm3);
-                    playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
-                    playersToPlay.get(2).setCurrentGameLocation(farm3);
+                farm3.setPosition(FarmPosition.DOWN);
+                playersToPlay.get(2).setFarmPosition(FarmPosition.DOWN);
+                farm3.setPlayer(playersToPlay.get(2));
+                playersToPlay.get(2).setPlayerFarm(farm3);
+                playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
+                playersToPlay.get(2).setCurrentGameLocation(farm3);
 
 
-                    map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(null).setPelikanTown(town);
+                map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(null).setPelikanTown(town);
 //                }catch (Exception e){
 //                    e.printStackTrace();
 //                }
@@ -212,49 +222,47 @@ public class PreGameMenuController extends CommandController {
             break;
             case 4: {
 //                try {
-                    Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
+                Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
 //                Farm farm1 = loadTheFarm("assets\\gameLocations\\Farm1");
-                    farm1.setPosition(FarmPosition.LEFT);
-                    playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
-                    farm1.setPlayer(playersToPlay.getFirst());
-                    playersToPlay.getFirst().setPlayerFarm(farm1);
-                    playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
-                    playersToPlay.get(0).setCurrentGameLocation(farm1);
+                farm1.setPosition(FarmPosition.LEFT);
+                playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
+                farm1.setPlayer(playersToPlay.getFirst());
+                playersToPlay.getFirst().setPlayerFarm(farm1);
+                playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
+                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
-
-                    Farm farm2 = (Farm) loadTheLocation("assets\\gameLocations\\Farm2");
+                Farm farm2 = (Farm) loadTheLocation("assets\\gameLocations\\Farm2");
 //                Farm farm2 = loadTheFarm2("assets\\gameLocations\\Farm2");
-                    farm2.setPosition(FarmPosition.UP);
-                    playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
-                    farm2.setPlayer(playersToPlay.get(1));
-                    playersToPlay.get(1).setPlayerFarm(farm2);
-                    playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
-                    playersToPlay.get(1).setCurrentGameLocation(farm2);
+                farm2.setPosition(FarmPosition.UP);
+                playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
+                farm2.setPlayer(playersToPlay.get(1));
+                playersToPlay.get(1).setPlayerFarm(farm2);
+                playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
+                playersToPlay.get(1).setCurrentGameLocation(farm2);
 
 
-
-                    Farm farm3 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
+                Farm farm3 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
 //                Farm farm3 = loadTheFarm("assets\\gameLocations\\Farm1");
-                    farm3.setPosition(FarmPosition.DOWN);
-                    playersToPlay.get(2).setFarmPosition(FarmPosition.DOWN);
-                    farm3.setPlayer(playersToPlay.get(2));
-                    playersToPlay.get(2).setPlayerFarm(farm3);
-                    playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
-                    playersToPlay.get(2).setCurrentGameLocation(farm3);
+                farm3.setPosition(FarmPosition.DOWN);
+                playersToPlay.get(2).setFarmPosition(FarmPosition.DOWN);
+                farm3.setPlayer(playersToPlay.get(2));
+                playersToPlay.get(2).setPlayerFarm(farm3);
+                playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
+                playersToPlay.get(2).setCurrentGameLocation(farm3);
 
 
-                    Farm farm4 = (Farm) loadTheLocation("assets\\gameLocations\\Farm2");
+                Farm farm4 = (Farm) loadTheLocation("assets\\gameLocations\\Farm2");
 //                Farm farm4 = loadTheFarm2("assets\\gameLocations\\Farm2");
-                    farm4.setPosition(FarmPosition.RIGHT);
-                    playersToPlay.get(3).setFarmPosition(FarmPosition.RIGHT);
-                    farm4.setPlayer(playersToPlay.get(3));
-                    playersToPlay.get(3).setPlayerFarm(farm4);
-                    playersToPlay.get(3).setDefaultHome(farm4.getDefaultHome());
-                    playersToPlay.get(3).setCurrentGameLocation(farm4);
+                farm4.setPosition(FarmPosition.RIGHT);
+                playersToPlay.get(3).setFarmPosition(FarmPosition.RIGHT);
+                farm4.setPlayer(playersToPlay.get(3));
+                playersToPlay.get(3).setPlayerFarm(farm4);
+                playersToPlay.get(3).setDefaultHome(farm4.getDefaultHome());
+                playersToPlay.get(3).setCurrentGameLocation(farm4);
 
 
-                    map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(farm4).setPelikanTown(town);
+                map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(farm4).setPelikanTown(town);
 //                }catch (Exception e){
 //                    e.printStackTrace();
 //                }

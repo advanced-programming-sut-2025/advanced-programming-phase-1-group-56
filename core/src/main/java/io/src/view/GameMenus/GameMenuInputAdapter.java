@@ -3,6 +3,7 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
@@ -146,7 +147,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
-            App.getStardewValley().getGameView().updateMap();
+            StardewValley.getGameView().updateMap();
         }
 
 
@@ -240,7 +241,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                         App.getMe().setPosition(new Position(b.getDoorPosition().getX(), b.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
-                        App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                        StardewValley.getGameView().updateMapWithFade(() -> {
                             App.getMe().setPosition(b.getInitialPosition());//TODO
                             App.getMe().setCurrentGameLocation(b.getIndoor());
                         });
@@ -248,7 +249,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                 }
             }
             if (!isNearADoor) {        //FROM FARM TO TOWN
-                App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                StardewValley.getGameView().updateMapWithFade(() -> {
                     App.getMe().setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
                     switch (farm.getPosition()) {
                         case LEFT -> App.getMe().setPosition(new Position(3, 56));
@@ -272,7 +273,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                         App.getMe().setPosition(new Position(store.getDoorPosition().getX(), store.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
-                        App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                        StardewValley.getGameView().updateMapWithFade(() -> {
                             App.getMe().setCurrentGameLocation(store.getIndoor());
                             App.getMe().setPosition(store.getInitialPosition());//TODO
                         });
@@ -285,12 +286,12 @@ public class GameMenuInputAdapter extends InputAdapter {
 
             if (player.getPosition().isNear(new Position(5, 55), 8)) {
                 if (player.getFarmPosition() == FarmPosition.LEFT) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPlayerFarm());
                         player.setPosition(new Position(76, 47));
                     });
                 } else if (player.getPartner() != null && player.getPartner().getFarmPosition() == FarmPosition.LEFT) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                         player.setPosition(new Position(76, 47));
                     });
@@ -300,12 +301,12 @@ public class GameMenuInputAdapter extends InputAdapter {
                 }
             } else if (player.getPosition().isNear(new Position(105, 35), 8)) {
                 if (player.getFarmPosition() == FarmPosition.RIGHT) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPlayerFarm());
                         player.setPosition(new Position(76, 47));
                     });
                 } else if (player.getPartner() != null && player.getPartner().getFarmPosition() == FarmPosition.RIGHT) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                         player.setPosition(new Position(76, 47));
                     });
@@ -315,12 +316,12 @@ public class GameMenuInputAdapter extends InputAdapter {
                 }
             } else if (player.getPosition().isNear(new Position(81, 107), 10)) {
                 if (player.getFarmPosition() == FarmPosition.UP) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPlayerFarm());
                         player.setPosition(new Position(41, 63));
                     });
                 } else if (player.getPartner() != null && player.getPartner().getFarmPosition() == FarmPosition.UP) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                         player.setPosition(new Position(41, 63));
                     });
@@ -331,12 +332,12 @@ public class GameMenuInputAdapter extends InputAdapter {
 
             } else if (player.getPosition().isNear(new Position(55, 4), 10)) {
                 if (player.getFarmPosition() == FarmPosition.DOWN) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPlayerFarm());
                         player.setPosition(new Position(41, 4));
                     });
                 } else if (player.getPartner() != null && player.getPartner().getFarmPosition() == FarmPosition.DOWN) {
-                    App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                    StardewValley.getGameView().updateMapWithFade(() -> {
                         player.setCurrentGameLocation(player.getPartner().getPlayerFarm());
                         player.setPosition(new Position(41, 1));
                     });

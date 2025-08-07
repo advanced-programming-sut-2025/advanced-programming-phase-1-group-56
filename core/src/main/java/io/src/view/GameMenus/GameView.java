@@ -43,9 +43,6 @@ public class GameView implements Screen {
     private final Game game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    //    private SpriteBatch batch;
-//    private TextureRegion[][] tileTextures;
-//    private Map<String, TextureRegion> textures;
     private BitmapFont smallFont;
     private GlyphLayout layout = new GlyphLayout();
     private TextureAtlas playerAtlas;
@@ -61,7 +58,6 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
-    //    private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private EnergyBar energyWindow;
@@ -83,7 +79,6 @@ public class GameView implements Screen {
 
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
-
 
     private void loadFont() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("StardewValley.ttf"));
@@ -140,7 +135,6 @@ public class GameView implements Screen {
 
     //commitTest
 
-
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
         Animation<TextureRegion> animation = animationManager.get(characterName, key);
         if (animation == null) return;
@@ -190,7 +184,6 @@ public class GameView implements Screen {
                     break;
             }
         }
-
         renderCharacter("player", key, x, y);
     }
 
@@ -231,134 +224,10 @@ public class GameView implements Screen {
                     break;
             }
         }
-//        AnimationKey key = moving
-//            ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
-//            : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
-
         renderCharacter(name, key, x, y);
 
     }
 
-//    private void renderNPCs(SpriteBatch batch, float deltaTime) {
-//        for (NPC npc : game.getNPCs()) {
-//            String id = npc.getId(); // مثل "grandma"
-//            String dir = npc.getDirection();
-//            boolean moving = npc.isMoving();
-//            float x = npc.getX(), y = npc.getY();
-//
-//            AnimationKey key = moving
-//                ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
-//                : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
-//
-//            renderCharacter(batch, deltaTime, id, key, x, y);
-//        }
-//    }
-
-//    private void renderPlayer() {
-//
-//        stateTime += Gdx.graphics.getDeltaTime();
-//        Player p = game.getCurrentPlayer();
-//        AnimationKey key;
-//        if (p.isMoving()) {
-//            switch (p.getLastDirection()) {
-//                case UP:
-//                    key = AnimationKey.WALK_UP;
-//                    break;
-//                case DOWN:
-//                    key = AnimationKey.WALK_DOWN;
-//                    break;
-//                case LEFT:
-//                    key = AnimationKey.WALK_LEFT;
-//                    break;
-//                default:
-//                    key = AnimationKey.WALK_RIGHT;
-//                    break;
-//            }
-//        } else {
-//            switch (p.getLastDirection()) {
-//                case UP:
-//                    key = AnimationKey.IDLE_UP;
-//                    break;
-//                case DOWN:
-//                    key = AnimationKey.IDLE_DOWN;
-//                    break;
-//                case LEFT:
-//                    key = AnimationKey.IDLE_LEFT;
-//                    break;
-//                default:
-//                    key = AnimationKey.IDLE_RIGHT;
-//                    break;
-//            }
-//        }
-//        Animation<TextureRegion> anim = animMgr.get(key);
-//        TextureRegion frame = anim.getKeyFrame(stateTime, true);
-//        renderer.getBatch().draw(
-//            frame,
-//            p.getPixelPosition().getX(), p.getPixelPosition().getY(),
-//            20, 40);
-//
-
-    /// /        moveDirection = game.getCurrentPlayer().getMovingDirection();
-    /// /
-    /// /        stateTime += Gdx.graphics.getDeltaTime();
-    /// /
-    /// /        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
-    /// /        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
-    /// /
-    /// /        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
-    /// /        renderInventory();
-//    }
-
-
-//    private void renderInventory() {
-//        Player player = game.getPlayer();
-//        Map<ItemDescriptionId, Pair<Integer, Integer>> inventory = player.getInventory();
-//        int selectedSlot = player.getSelectedSlot(); // Assuming you have this method
-//
-//        int screenWidth = Gdx.graphics.getWidth();
-//        int slotSize = StardewMini.TILE_SIZE /2;
-//        int numSlots = player.getMaxInventorySize();
-//        int startX = (screenWidth - numSlots * slotSize) / 2;
-//        int y = StardewMini.TILE_SIZE /2;
-//
-//        for (int i = 0; i < numSlots; i++) {
-//            int x = startX + i * slotSize;
-//
-//            batch.draw(textures.get(TileDescriptionId.SLOT.name()), x, y, slotSize, slotSize);
-//
-//            String slotNum = String.valueOf(i + 1);
-//            smallFont.draw(batch, slotNum, x + 2, y + slotSize - 2);
-//        }
-//
-//        // Highlight selected slot
-//        if (selectedSlot >= 0 && selectedSlot < numSlots) {
-//            int highlightX = startX + selectedSlot * slotSize;
-//            batch.draw(textures.get(TileDescriptionId.HIGHLIGHT.name()), highlightX, y, slotSize, slotSize);
-//        }
-//
-//        for (Map.Entry<ItemDescriptionId, Pair<Integer, Integer>> entry : inventory.entrySet()) {
-//            ItemDescriptionId id = entry.getKey();
-//            int quantity = entry.getValue().first;
-//            int index = entry.getValue().second;
-//
-//            if (index < 0 || index >= numSlots) continue;
-//
-//            TextureRegion itemTex = textures.get(id.name());
-//            if (itemTex != null) {
-//                int x = startX + index * slotSize;
-//                batch.draw(itemTex, x, y, slotSize, slotSize);
-//
-//                // Draw item quantity at bottom-right corner
-//                String count = String.valueOf(quantity);
-//                layout.setText(smallFont, count);
-//                smallFont.draw(batch, count, x + slotSize - layout.width - 2, y + layout.height + 2);
-//            }
-//        }
-//    }
-
-//    public Batch getBatch() {
-//        return batch;
-//    }
     public Texture getPixel() {
         return pixel;
     }
@@ -437,14 +306,8 @@ public class GameView implements Screen {
                 region = gameObjectTextureMap.get(assetName);
             }
 
-
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
-
-//            if (App.getMe().getCurrentGameLocation() instanceof Town){
-//                System.out.println(assetName + "'  asset :'" + GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
-//                    + "'location: " + worldX + "   " + worldY);
-//            }
 
             if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
                 ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {

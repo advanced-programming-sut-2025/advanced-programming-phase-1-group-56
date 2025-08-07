@@ -1,8 +1,5 @@
 package io.src.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.google.gson.annotations.Expose;
 import io.src.model.Activities.Trade;
 import io.src.model.MapModule.Buildings.Store;

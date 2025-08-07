@@ -16,14 +16,14 @@ import io.src.view.GameMenus.GameView;
 import java.io.*;
 
 public class StardewValley extends com.badlogic.gdx.Game {
-    private Game game;
-
-    private GameView gameView;
-
+    private static StardewValley stardewValley;
+    private static Game game;
+    private static GameView gameView;
     private static SpriteBatch batch;
 
     @Override
     public void create() {
+        stardewValley = this;
         batch = new SpriteBatch();
         Gson gson = new Gson();
         User user = null;
@@ -36,7 +36,7 @@ public class StardewValley extends com.badlogic.gdx.Game {
                 throw new RuntimeException(e);
             }
         }
-//        GameAudioManager.getInstance().playMusic("StardewMusic/Michael_Hunter__San_Andreas.mp3", false,0.3f);
+
         if (user == null) {
             LoginMenuController loginMenuController = new LoginMenuController(this);
             loginMenuController.init();
@@ -48,19 +48,27 @@ public class StardewValley extends com.badlogic.gdx.Game {
         }
     }
 
-    public Game getGame() {
+    public static StardewValley getStardewValley() {
+        return stardewValley;
+    }
+
+    public static Game getGame() {
         return game;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public static void setGame(Game game) {
+        StardewValley.game = game;
     }
 
     public static SpriteBatch getBatch() {
         return batch;
     }
 
-    public GameView getGameView() {
+    public static GameView getGameView() {
         return gameView;
+    }
+
+    public static void setGameView(GameView gameView) {
+        StardewValley.gameView = gameView;
     }
 }

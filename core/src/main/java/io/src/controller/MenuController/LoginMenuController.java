@@ -287,6 +287,7 @@ public class LoginMenuController extends CommandController {
             return new Result(false, "answer is empty!");
         User user = builder.salt(MakePasswordSHA_256.generateSalt()).securityQuestion(questionId).answer(answer).build();
         App.addUser(user);
+        App.setCurrentUser(user);
         return new Result(true, "welcome baby!");
     }
 
