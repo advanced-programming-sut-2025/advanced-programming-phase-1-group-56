@@ -1,5 +1,7 @@
 package io.src.model.Enums.GameObjects;
 
+import io.src.model.App;
+import io.src.model.Enums.WeatherAndTime.Seasons;
 import org.jetbrains.annotations.Nullable;
 
 public enum EtcObjectType {
@@ -40,7 +42,39 @@ public enum EtcObjectType {
     QUALITY_SPRINKLER("Quality Sprinkler", 0, ""),
     SCARE_CROW("Scare Crow", 0, ""),
     DELUXE_SCARE_CROW("Deluxe Scarecrow", 0, ""),
-    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0, "");
+    IRIDIUM_SPRINKLER("Iridium Sprinkler", 0, ""),
+
+    VANITY_TREE1("Vanity Tree1", 0, ""),
+    VANITY_TREE2("Vanity Tree2" , 0 , ""),
+    VANITY_TREE3("Vanity Tree1", 0, ""),
+    PINKFU_TREE("Vanity PinkFu Tree", 0, ""),
+    LANTERN("Vanity Tall Lantern", 0, ""),
+    GRAVEKAG("Vanity Grave Stone Diagonal", 0, ""),
+    GRAVEFROO("Vanity Grave Stone Short", 0, ""),
+    GRAVESAF("Vanity Grave Stone Tall", 0, ""),
+    JOJAMARTBILBOARD("JojaMart Bilboard", 0, ""),
+    CANEX("Canex Vezarat Etelaat", 0, ""),
+    CANEXDESK("Canex Desk", 0, ""),
+    CANEXCHAIR("Canex Chair", 0, ""),
+    BIGBUSH1("Vanity Big Green Bush1", 0, ""),
+    BIGBUSH2("Vanity Big Bush2", 0, ""),
+    SMALLBUSH1("Vanity Small Bush1", 0, ""),
+    SMALLBUSH2("Vanity Small Bush2", 0, ""),
+    FENCE11TOP("Vanity Fence area11 top", 0, ""),
+    FENCE11LEFT("Vanity Fence area11 left", 0, ""),
+    FENCE11RIGHT("Vanity Fence area11 right", 0, ""),
+    BUILDING2("Vanity Building2", 0, ""),
+    LIBRARY("Library", 0, ""),
+    SORSORE("Vanity Taab Sorsore", 0, ""),
+    ALAKOLANG("Vanity Bademjan Bird", 0, ""),
+    VANITYMAILBOX("Vanity Mailbox", 0, ""),
+    KUNDE("Vanity Kunde", 0, ""),
+    BROWNPOT1("Vanity Brown Pot1", 0, ""),
+    NARROWBUSH1("Vanity Narrow Tall Bush", 0, ""),
+    FAVARE("Vanity Favare", 0, ""),
+    VANITYSHOP1("Vanity Shop1", 0, ""),
+    ;
+
 
     public final String name;
     public final int value;
@@ -60,6 +94,14 @@ public enum EtcObjectType {
             case "" -> name.replace(" ", "_");
             default -> assetName;
         };
+    }
+
+    public String getAssetNameBySeason() {
+        Seasons s = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
+        if (this == EtcObjectType.SPRINKLER || this == EtcObjectType.QUALITY_SPRINKLER ||this == EtcObjectType.SCARE_CROW ||this == EtcObjectType.DELUXE_SCARE_CROW ||this == EtcObjectType.IRIDIUM_SPRINKLER) {
+            return getAssetName();
+        }
+        return getAssetName() + "_" + s.toString();
     }
 
 }

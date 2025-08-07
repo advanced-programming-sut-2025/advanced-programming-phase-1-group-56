@@ -1,11 +1,15 @@
 package io.src.model.MapModule.Buildings;
 
 import io.src.model.App;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.Enums.Stores.StardropSaloonProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
+import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
+
 
 import java.util.ArrayList;
 
@@ -17,6 +21,10 @@ public class TheSaloonStardrop extends Store {
         dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
         setOpeningHour(12);
         setClosingHour(24);
+        GameLocation indoor = loadTheLocation("assets\\gameLocations\\The_Stardrop_Saloon_Indoor");
+        setIndoor(indoor);
+        setInitialPosition(new Position(14 ,3));
+        NPCposition = new Position(9,7);
     }
 
     @Override

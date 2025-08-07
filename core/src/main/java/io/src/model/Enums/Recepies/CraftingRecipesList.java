@@ -35,7 +35,7 @@ public enum CraftingRecipesList implements Saleable {
 
     CharcoalKlin("Charcoal Klin", "Turns 10 wood into 1 coal",
         new Slot[]{new Slot(new Etc(EtcType.WOOD), 20), new Slot(new Etc(EtcType.COPPER_BAR), 2)},
-        "Foraging Level 1", 0, ""),
+        "Foraging Level 1", 0, "Charcoal_Kiln"),
 
     Furnace("Furnace", "Turns ores and coal into bars",
         new Slot[]{new Slot(new Mineral(MineralItemType.COPPER_ORE), 20), new Slot(new Mineral(MineralItemType.STONE), 25)},

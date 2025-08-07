@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import io.src.controller.GameMenuController.FarmingController;
 import io.src.model.App;
 import io.src.model.Enums.FarmPosition;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.GameObject.Crop;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.Tree;
@@ -21,12 +22,17 @@ public class Farm extends GameLocation implements TimeObserver {
     private String name;
     private FarmPosition position;
     private final ArrayList<Building> buildings = new ArrayList<>();
-    private final ArrayList<GameObject> allGameObjects = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
     private Player player;
 
-    public Farm() {
+    public Farm(GameLocationType type) {
+        super(type);
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+    }
+
+    @Override
+    public ArrayList<GameObject> getCopyOfGameObjects() {
+        return new ArrayList<>(super.getGameObjects());
     }
 
 
@@ -36,22 +42,22 @@ public class Farm extends GameLocation implements TimeObserver {
             FarmingController.manageStrikeThunder(this);
             FarmingController.manageCrows(this);
             FarmingController.managePlaceMineral(this);
-
-
             FarmingController.managePlaceRandomCropOrSeed(this);
+
+
             for (GameObject gameObject : readAllGameObjectsFromTiles()) {
                 if (gameObject instanceof Tree tree) {
                     if (tree.getDaysWithNoWater() >= 2) {
-                        int x = (int)tree.getPosition().getX();
-                        int y = (int)tree.getPosition().getY();
-                        this.getTileByPosition(x,y).setFixedObject(null);
+                        int x = (int) tree.getPosition().getX();
+                        int y = (int) tree.getPosition().getY();
+                        this.getTileByPosition(x, y).setFixedObject(null);
 //                        allGameObjects.remove(tree);
                     }
                 } else if (gameObject instanceof Crop crop) {
                     if ((crop.getDaysWithNoWater() >= 2 || crop.isIs1time())) {
-                        int x = (int)crop.getPosition().getX();
-                        int y = (int)crop.getPosition().getY();
-                        this.getTileByPosition(x,y).setFixedObject(null);
+                        int x = (int) crop.getPosition().getX();
+                        int y = (int) crop.getPosition().getY();
+                        this.getTileByPosition(x, y).setFixedObject(null);
 //                        allGameObjects.remove(crop);
                     }
                 }
@@ -59,6 +65,10 @@ public class Farm extends GameLocation implements TimeObserver {
         }
     }
 
+    @Override
+    public ArrayList<GameObject> getGameObjects() {
+        return super.getGameObjects();
+    }
 
     public ArrayList<Building> getBuildings() {
         return buildings;
@@ -91,11 +101,11 @@ public class Farm extends GameLocation implements TimeObserver {
     }
 
     public ArrayList<GameObject> getAllGameObjects() {
-        return allGameObjects;
+        return super.gameObjects;
     }
 
     public ArrayList<GameObject> readAllGameObjectsFromTiles() {
-        allGameObjects.clear();
+        super.gameObjects.clear();
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
                 if (tile.getFixedObject() != null) {
@@ -107,12 +117,12 @@ public class Farm extends GameLocation implements TimeObserver {
 //                        }
 //                    }
                     //if (!found) {
-                        allGameObjects.add(tile.getFixedObject());
+                    gameObjects.add(tile.getFixedObject());
                     //}
                 }
             }
         }
-        return allGameObjects;
+        return gameObjects;
         //DONE!
     }
 

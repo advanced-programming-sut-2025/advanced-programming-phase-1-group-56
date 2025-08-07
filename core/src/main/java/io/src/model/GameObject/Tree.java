@@ -75,6 +75,9 @@ public class Tree extends GameObject implements TimeObserver {
 
     public void setCurrentStage(int currentStage) {
         this.currentStage = currentStage;
+        if (currentStage >= 4) {
+            isComplete = true;
+        }
     }
 
     //    public HashMap<Item, Integer> getItemsGiven() {
@@ -124,7 +127,7 @@ public class Tree extends GameObject implements TimeObserver {
                 if (speedGro) {
                     countCurrentStage1--;
                 }
-                if (currentStage == 3 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                if (currentStage == 4 && countCurrentStage == countCurrentStage1 && isComplete == false) {
                     isComplete = true;
                     isHarvest = true;
                 }

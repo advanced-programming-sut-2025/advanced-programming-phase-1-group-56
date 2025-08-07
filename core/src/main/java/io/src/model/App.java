@@ -5,14 +5,22 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.src.StardewValley;
 import io.src.model.Enums.Menu;
 
 public class App {
     private static final String FILE_PATH = "assets//users.json";
-    //TODO
+    public static final boolean DEBUG_MODE = true;
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
-    private static Menu currentMenu = null;
+    private static Menu currentMenu = Menu.loginMenu;
+    private static StardewValley stardewValley;
+
+    public static void print(Object obj) {
+        if (DEBUG_MODE) {
+            System.out.println(obj.toString());
+        }
+    }
 
     public static void init() {
         users = getUsers();
@@ -88,5 +96,13 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static StardewValley getStardewValley() {
+        return stardewValley;
+    }
+
+    public static void setStardewValley(StardewValley stardewValley) {
+        App.stardewValley = stardewValley;
     }
 }

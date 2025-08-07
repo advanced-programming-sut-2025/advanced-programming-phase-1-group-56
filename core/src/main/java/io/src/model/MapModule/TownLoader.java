@@ -1,6 +1,7 @@
 package io.src.model.MapModule;
 
 import com.google.gson.*;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.NpcType;
 import io.src.model.Enums.TileType;
@@ -16,11 +17,11 @@ import java.io.FileReader;
 public class TownLoader {
     private static final int tileSize = 16;
 
-    public static Tile[][] load(Town town,String jsonPath){
-        JsonObject map=null;
+    public static Tile[][] load(Town town, String jsonPath) {
+        JsonObject map = null;
         try {
-             map = JsonParser.parseReader(new FileReader(jsonPath)).getAsJsonObject();
-        }catch (FileNotFoundException e){
+            map = JsonParser.parseReader(new FileReader(jsonPath)).getAsJsonObject();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -77,9 +78,9 @@ public class TownLoader {
             }
             //System.out.println("y: "+ y + " x: " + x);
             tiles[x][y] = new Tile(
-                    new Position(x, y),
-                    isWalkable,
-                    type
+                new Position(x, y),
+                isWalkable,
+                type
             );
 
         }
@@ -109,11 +110,11 @@ public class TownLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new PierresGeneralStore( new Position(tx, ty),false, "PierresGeneralStore", new Position(doorX/16, doorY/16), objHeight, objWidth);
+                            go = new PierresGeneralStore(new Position(tx, ty), false, "PierresGeneralStore", new Position(doorX / 16, doorY / 16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX = (int)((PierresGeneralStore) go).getDoorPosition().getX();
-                            int dY = (int)((PierresGeneralStore) go).getDoorPosition().getY()+2;
-                            NPC newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX,dY));
+                            int dX = (int) ((PierresGeneralStore) go).getDoorPosition().getX();
+                            int dY = (int) ((PierresGeneralStore) go).getDoorPosition().getY() + 2;
+                            NPC newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
                         }
@@ -130,11 +131,11 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new TheSaloonStardrop( new Position(tx, ty),false, "TheSaloonStardrop", new Position(doorX/16, doorY/16+1), objHeight, objWidth);
+                            go = new TheSaloonStardrop(new Position(tx, ty), false, "TheSaloonStardrop", new Position(doorX / 16, doorY / 16 + 1), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX =(int) ((TheSaloonStardrop) go).getDoorPosition().getX();
-                            int dY = (int)((TheSaloonStardrop) go).getDoorPosition().getY()+2;
-                            NPC newNPC = NpcType.LEAH.getNPC(new Position(dX,dY));
+                            int dX = (int) ((TheSaloonStardrop) go).getDoorPosition().getX();
+                            int dY = (int) ((TheSaloonStardrop) go).getDoorPosition().getY() + 2;
+                            NPC newNPC = NpcType.LEAH.getNPC(new Position(dX, dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
                         }
@@ -151,10 +152,10 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new Blacksmith( new Position(tx, ty),false, "Blacksmith", new Position(doorX/16, doorY/16), objHeight, objWidth);
-                            int dX = (int)((Blacksmith) go).getDoorPosition().getX();
-                            int dY = (int)((Blacksmith) go).getDoorPosition().getY()+2;
-                            NPC newNPC = NpcType.ROBIN.getNPC(new Position(dX,dY));
+                            go = new Blacksmith(new Position(tx, ty), false, "Blacksmith", new Position(doorX / 16, doorY / 16), objHeight, objWidth);
+                            int dX = (int) ((Blacksmith) go).getDoorPosition().getX();
+                            int dY = (int) ((Blacksmith) go).getDoorPosition().getY() + 2;
+                            NPC newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
                             town.getStores().add((Store) go);
@@ -172,10 +173,10 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new JojaMart( new Position(tx, ty),false, "JojaMart", new Position(doorX/16, doorY/16), objHeight, objWidth);
+                            go = new JojaMart(new Position(tx, ty), false, "JojaMart", new Position(doorX / 16, doorY / 16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX =(int) ((JojaMart) go).getDoorPosition().getX();
-                            int dY =(int) ((JojaMart) go).getDoorPosition().getY()+2;
+                            int dX = (int) ((JojaMart) go).getDoorPosition().getX();
+                            int dY = (int) ((JojaMart) go).getDoorPosition().getY() + 2;
                         }
 
                         case "carpentersshop" -> {
@@ -190,11 +191,11 @@ public class TownLoader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new CarpentersShop( new Position(tx, ty),false, "CarpenterShop", new Position(doorX/16, doorY/16), objHeight, objWidth);
+                            go = new CarpentersShop(new Position(tx, ty), false, "CarpenterShop", new Position(doorX / 16, doorY / 16), objHeight, objWidth);
                             town.getStores().add((Store) go);
-                            int dX =(int) ((CarpentersShop) go).getDoorPosition().getX();
-                            int dY = (int)((CarpentersShop) go).getDoorPosition().getY()+2;
-                            NPC newNPC = NpcType.HARVEY.getNPC(new Position(dX,dY));
+                            int dX = (int) ((CarpentersShop) go).getDoorPosition().getX();
+                            int dY = (int) ((CarpentersShop) go).getDoorPosition().getY() + 2;
+                            NPC newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY));
                             town.getNPCs().add(newNPC);
                             tiles[dX][dY].setFixedObject(newNPC);
                         }
@@ -211,7 +212,7 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new FishShop( new Position(tx, ty),false, "FishShop", new Position(tx+1, ty+5), objHeight, objWidth);
+                            go = new FishShop(new Position(tx, ty), false, "FishShop", new Position(tx + 1, ty + 5), objHeight, objWidth);
                             town.getStores().add((Store) go);
                         }
 
@@ -227,18 +228,18 @@ public class TownLoader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new MarniesRanch( new Position(tx, ty),false, "MarniesRanch", new Position(tx+1, ty+6), objHeight, objWidth);
+                            go = new MarniesRanch(new Position(tx, ty), false, "MarniesRanch", new Position(tx + 1, ty + 6), objHeight, objWidth);
                             town.getStores().add((Store) go);
                         }
-                        case "wood" -> go = new Tree( TreeType.TREE_BARK,new Position(tx,ty));//TODO
+                        case "wood" -> go = new Tree(TreeType.TREE_BARK, new Position(tx, ty));//TODO
                         default -> go = null;
                     }
 
                     if (go != null
-                            && ty >= 0 && ty + objHeight < height
-                            && tx >= 0 && tx + objWidth < width) {
-                        for (int i = tx; i < tx+objWidth ; i++) {
-                            for (int j = ty; j < ty+ objHeight; j++) {
+                        && ty >= 0 && ty + objHeight < height
+                        && tx >= 0 && tx + objWidth < width) {
+                        for (int i = tx; i < tx + objWidth; i++) {
+                            for (int j = ty; j < ty + objHeight; j++) {
                                 tiles[i][j].setFixedObject(go);
                             }
                         }
@@ -280,16 +281,14 @@ public class TownLoader {
 //    }
 
 
-    public static Town loadTheTown()
-    {
-        Town town = new Town();
-        Tile[][] townTileSet = load(town,"assets\\Town4.tmj");
+    public static Town loadTheTown() {
+        Town town = new Town(GameLocationType.Town);
+        Tile[][] townTileSet = load(town, "assets\\gameLocations\\Town4.tmj");
         town.setTiles(townTileSet);
         //TODO npc registry
         //done
         return town;
     }
-
 
 
     //TODO chap rangi naghshe
@@ -336,7 +335,6 @@ public class TownLoader {
 //                    System.out.print("  "); // empty space
 //                }
 //            }
-//            System.out.println();
 //        }
 //    }
 

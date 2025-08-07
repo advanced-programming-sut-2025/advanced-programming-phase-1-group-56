@@ -11,12 +11,12 @@ import io.src.model.Game;
 public class GameMenu1 implements Screen {
     private GameView gameView;
     public Game myGame ;
-    private GameMenuInputAdapter gameMenuInputAdapter;
     private GameController gameController;
+    private GameMenuInputAdapter gameMenuInputAdapter;
 
 
     public GameMenu1(GameController gameController) {
-        myGame = gameController.getGame().getGame();
+//        myGame = gameController.getGame().getGame();
         if (myGame == null) {
             System.out.println("game is null");
             return;
@@ -49,10 +49,12 @@ public class GameMenu1 implements Screen {
 ////        myGame.setGameMap(gameMap);
 ////        myGame.setCurrentPlayer(player);
 //        setCursor();
-//        myGame = new Game(players,gameMap,timeSystem,weatherState);
-        gameView = new GameView(myGame);
-        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
-        Gdx.input.setInputProcessor(gameMenuInputAdapter);
+//        myGame = new Game(players,gameMap,timeSystem,weatherState);'
+//        gameMenuInputAdapter = new GameMenuInputAdapter(myGame, gameController);
+//        Gdx.input.setInputProcessor(gameMenuInputAdapter);
+//        gameView = new GameView(myGame);
+
+
     }
     @Override
     public void show() {
@@ -67,7 +69,7 @@ public class GameMenu1 implements Screen {
 
         myGame.update(delta);
         gameView.render(delta);
-        gameMenuInputAdapter.update(delta);
+//        gameMenuInputAdapter.update(delta);
     }
 
     @Override

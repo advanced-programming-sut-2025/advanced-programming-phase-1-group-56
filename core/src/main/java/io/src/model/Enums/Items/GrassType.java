@@ -3,8 +3,8 @@ package io.src.model.Enums.Items;
 import org.jetbrains.annotations.Nullable;
 
 public enum GrassType implements ItemType {
-    NormalGrass("Grass", "Grass_bank_06"),
-    FiberGrass("Fiber_Grass", "Fiber2");
+    NormalGrass("Grass", "Grass_bank_01"),
+    FiberGrass("Fiber_Grass", "Fiber_Grass1");
     private final String name;
     private final String assetName;
 

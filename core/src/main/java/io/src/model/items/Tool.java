@@ -90,7 +90,7 @@ public class Tool extends Item {
             case "Pickaxe": {
                 Skill playerSkill = player.getSkillByName(Skills.Mining.toString());
                 if (tile.getFixedObject() instanceof ForagingMineral) {///minerals
-                    player.getInventory().add(new Mineral(((ForagingMineral) tile.getFixedObject()).getForagingMineralType()), 1);
+                    player.getInventory().add(new Mineral(((ForagingMineral) tile.getFixedObject()).getForagingMineralType().getRelatedItem()), 1);
                     tile.setFixedObject(null);
                     if (playerSkill != null) {
                         playerSkill.setXp(playerSkill.getXp() + 10);

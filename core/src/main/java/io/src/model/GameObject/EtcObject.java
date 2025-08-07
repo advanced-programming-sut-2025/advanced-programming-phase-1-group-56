@@ -16,6 +16,6 @@ public class EtcObject extends GameObject{
 
     @Override
     public String getAssetName() {
-        return etcObjectType.getAssetName();
+        return etcObjectType.getAssetNameBySeason();
     }
 }

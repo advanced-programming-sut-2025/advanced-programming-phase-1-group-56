@@ -86,8 +86,7 @@ public class GameMenu implements AppMenu , Screen {
                 String message = PreGameMenuController.manageNewGame(matcher.group(1).trim(), scanner).message();
                 System.out.println(message);
             } catch (Exception e) {
-                System.out.println("exception threw by manageNewGame");
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
             return true;
         } else if (PreGameMenuCommands.loadGame.getMatcher(input) != null) {//load game
@@ -240,7 +239,6 @@ public class GameMenu implements AppMenu , Screen {
                     if (App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < ((JojaMart) building).getOpeningHour() ||
                         App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() > ((JojaMart) building).getClosingHour()) {
                         System.out.println("The shop is closed, please come from 9 am to 11 pm.");
-
                     }
                     App.setCurrentMenu(Menu.JojaMartMenu);
                     System.out.println("welcome to Joja Mart");

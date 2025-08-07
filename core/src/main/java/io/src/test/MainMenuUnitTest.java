@@ -1,5 +1,6 @@
 package io.src.test;
 
+import io.src.controller.MenuController.ProfileMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.ProfileMenuCommands;
@@ -23,7 +24,7 @@ public class MainMenuUnitTest {
 
     @Before
     public void setUp() {
-        profileMenu = new ProfileMenu();
+        profileMenu = new ProfileMenu(new ProfileMenuController());
         System.setOut(new PrintStream(outputStream));
         App.setCurrentMenu(Menu.profileMenu);
     }

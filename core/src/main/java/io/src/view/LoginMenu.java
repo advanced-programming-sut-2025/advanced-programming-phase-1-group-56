@@ -82,7 +82,7 @@ public class LoginMenu implements AppMenu, Screen {
         int buttonWidth = 150;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
-        System.out.println(screenWidth + " " + screenHeight);
+        //System.out.println(screenWidth + " " + screenHeight);
 
         // login menu
 

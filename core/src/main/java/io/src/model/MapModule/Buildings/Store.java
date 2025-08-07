@@ -14,6 +14,12 @@ public abstract class Store extends Building implements TimeObserver {
     private int closingHour;
     protected ArrayList<NpcProduct> dailyProductList = new ArrayList<>();
 
+    public Position getNPCposition() {
+        return NPCposition;
+    }
+
+    protected Position NPCposition;
+
     public void setOwner(NPC owner) {
         this.owner = owner;
     }

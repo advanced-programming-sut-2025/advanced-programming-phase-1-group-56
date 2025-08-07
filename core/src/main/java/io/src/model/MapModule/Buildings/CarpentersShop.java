@@ -5,10 +5,13 @@ import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.Stores.CarpenterShopProducts;
 import io.src.model.Enums.Stores.FishShopProducts;
 import io.src.model.GameObject.NPC.NpcProduct;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 
 import java.util.ArrayList;
+
+import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class CarpentersShop extends Store {
     @Override
@@ -23,6 +26,10 @@ public class CarpentersShop extends Store {
         dailyProductList = CarpenterShopProducts.getProducts(CarpenterShopProducts.class);
         setOpeningHour(9);
         setClosingHour(20);
+        GameLocation indoor = loadTheLocation("assets\\gameLocations\\Carpenter_Shop_Indoor");
+        setIndoor(indoor);
+        setInitialPosition(new Position(6,2));
+        NPCposition = new Position(7, 6);
     }
 
     @Override

@@ -5,6 +5,7 @@ import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.CropType;
 import io.src.model.Enums.GameObjects.ForagingCropType;
+import io.src.model.Enums.GameObjects.ForagingGameObjectType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.*;
 import io.src.model.Enums.Skills;
@@ -17,6 +18,7 @@ import io.src.model.MapModule.Tile;
 import io.src.model.Result;
 import io.src.model.Slot;
 import io.src.model.items.Item;
+import io.src.model.items.Seed;
 import io.src.model.items.Tool;
 
 import java.util.Arrays;
@@ -94,10 +96,10 @@ public class FarmingController extends CommandController {
                         tmpString.append("Name: ").append(seedType.name).append("\n");
                         tmpString.append("Season: ").append(Arrays.toString(seedType.season)).append("\n");
                         tmpString.append("Grows into: ").append(seedType.cropType instanceof CropType
-                                ? ((CropType) seedType.cropType).cropItem.getName()
-                                : seedType.cropType instanceof TreeType
-                                ? ((TreeType) seedType.cropType).name
-                                : "Unknown").append("\n");
+                            ? ((CropType) seedType.cropType).cropItem.getName()
+                            : seedType.cropType instanceof TreeType
+                            ? ((TreeType) seedType.cropType).name
+                            : "Unknown").append("\n");
                     } else {
                         foragingCropType = ForagingCropType.fromName(name);
                         if (foragingCropType != null) {
@@ -117,17 +119,18 @@ public class FarmingController extends CommandController {
     }
 
     public static void managePlaceMineral(Farm farm) {
-        int randomMinerals = (int) (Math.random() * (MineralItemType.values().length));
-        MineralItemType mineralItemType = MineralItemType.values()[randomMinerals];
-//        for (int i = 0; i < farm.getTiles().length; i++) {
-//            for (int j = 0; j < farm.getTiles()[i].length; j++) {
         for (int i = 0; i < 24; i++) {
-            for (int j = 0; j < 24; j++) {
-                Tile tile = farm.getTiles()[i][j];
+            for (int j = farm.getTiles().length - 24; j < farm.getTiles().length - 5; j++) {
+                Tile tile = farm.getTileByPosition(i, j);// i = x,j = y
+                if (tile.getTileType() != TileType.Mine) {
+                    continue;
+                }
                 //riz debug
-                if (tile.getFixedObject() == null && (int)(Math.random()* 20) == 0 && tile.getTileType() == TileType.Mine)
-                {
-                    tile.setFixedObject(new ForagingMineral(false, new Position(i, j), mineralItemType));
+                if (tile.getFixedObject() == null && Math.random() * 20 < 1 && tile.getTileType() == TileType.Mine) {
+                    ForagingGameObjectType randomMineral = ForagingGameObjectType.getRandomMineralGameObject();
+                    if (randomMineral.getSpawnChance() != -1) {
+                        tile.setFixedObject(new ForagingMineral(false, new Position(i, j), randomMineral));
+                    }
                 }
             }
         }
@@ -152,17 +155,18 @@ public class FarmingController extends CommandController {
         int randomInt = random.nextInt(3);
         if (randomInt == 0) {
             int count = 0;
+            farm.readAllGameObjectsFromTiles();
             for (int i = 0; i < farm.getAllGameObjects().size(); i++) {
                 if (farm.getAllGameObjects().get(i) instanceof Crop || farm.getAllGameObjects().get(i) instanceof Tree) {
                     count++;
                 }
             }
             for (int i = 0; i < count; i++) {
-                if (farm.readAllGameObjectsFromTiles().get(i) instanceof Crop && !((Crop) farm.getAllGameObjects().get(i)).isProtected()) {
-                    farm.getTileByPosition((int)farm.getAllGameObjects().get(i).getPosition().getX(), (int)farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
+                if (farm.getAllGameObjects().get(i) instanceof Crop && !((Crop) farm.getAllGameObjects().get(i)).isProtected()) {
+                    farm.getTileByPosition((int) farm.getAllGameObjects().get(i).getPosition().getX(), (int) farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
                 } else if (farm.readAllGameObjectsFromTiles().get(i) instanceof Tree && !((Tree) farm.getAllGameObjects().get(i)).isProtected()) {
-                    ((Tree) farm.getTileByPosition((int)farm.getAllGameObjects().get(i).getPosition().getX(), (int)farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
-                    ((Tree) farm.getTileByPosition((int)farm.getAllGameObjects().get(i).getPosition().getX(), (int)farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
+                    ((Tree) farm.getTileByPosition((int) farm.getAllGameObjects().get(i).getPosition().getX(), (int) farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);
+                    ((Tree) farm.getTileByPosition((int) farm.getAllGameObjects().get(i).getPosition().getX(), (int) farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvestDayRegrowth(0);
                 }
                 if (i + 16 < count) {
                     i += 16;
@@ -171,6 +175,7 @@ public class FarmingController extends CommandController {
                 }
             }
         }
+        farm.readAllGameObjectsFromTiles();
         return null;
     }
 
@@ -188,8 +193,8 @@ public class FarmingController extends CommandController {
             return new Result(false, "you are not in Green House or Farm!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        int x = (int)position.getX();
-        int y = (int)position.getY();
+        int x = (int) position.getX();
+        int y = (int) position.getY();
         switch (dir) {
             case UP:
                 y -= 1;
@@ -224,15 +229,15 @@ public class FarmingController extends CommandController {
         }
         if (containsSeason(seed.season, App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
             if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
-                    || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()))
+                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()))
                 return new Result(false, "you can't plant in this season!");
         }
 
 
         if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.PlowedSoil
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.WaterPlowedSoil
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.Deluxe_Retaining_Soil
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.Speed_Gro)) {
+            || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.WaterPlowedSoil
+            || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.Deluxe_Retaining_Soil
+            || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType() == TileType.Speed_Gro)) {
             return new Result(false, "you can't plant in this tile!");
         }
 
@@ -251,7 +256,7 @@ public class FarmingController extends CommandController {
                 }
             } else {
                 if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
-                        || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()) {
+                    || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()) {
                     crop.setInGreenHouse(true);
                     crop.setProtected(true);
                 }
@@ -312,8 +317,8 @@ public class FarmingController extends CommandController {
             return new Result(false, "this direction does not exist!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        int x = (int)position.getX();
-        int y = (int)position.getY();
+        int x = (int) position.getX();
+        int y = (int) position.getY();
         switch (dir) {
             case UP:
                 y -= 1;
@@ -347,8 +352,8 @@ public class FarmingController extends CommandController {
                 break;
         }
         if ((item.getName().equals(EtcType.SPEED_GRO.name()) || item.getName().equals(EtcType.DELUXE_SPEED_GRO.getName()))
-                && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.WaterPlowedSoil)
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.PlowedSoil))) {
+            && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.WaterPlowedSoil)
+            || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.PlowedSoil))) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setTileType(TileType.Speed_Gro);
             GameObject object = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject();
             if (object instanceof Tree) {
@@ -360,8 +365,8 @@ public class FarmingController extends CommandController {
             }
 
         } else if ((item.getName().equals(EtcType.DELUXE_RETAINING_SOIL.name()) || item.getName().equals(EtcType.BASIC_RETAINING_SOIL.name()) || (item.getName().equals(EtcType.QUALITY_RETAINING_SOIL.name())))
-                && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.WaterPlowedSoil)
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.PlowedSoil))) {
+            && (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.WaterPlowedSoil)
+            || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getTileType().equals(TileType.PlowedSoil))) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setTileType(TileType.Deluxe_Retaining_Soil);
             GameObject object = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject();
             if (object instanceof Tree) {
@@ -377,8 +382,7 @@ public class FarmingController extends CommandController {
         return new Result(true, "You fertilized!");
     }
 
-    public static void managePlaceRandomCropOrSeed(Farm farm) {
-        Random random = new Random();
+    public static SeedType getRandomForagingSeed(Random random) {
         Seasons currentSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
 
         int randomSeed = random.nextInt(SeedType.values().length);
@@ -387,32 +391,46 @@ public class FarmingController extends CommandController {
             randomSeed = random.nextInt(SeedType.values().length);
             seedType = SeedType.values()[randomSeed];
         }
+        return seedType;
+    }
 
+    public static ForagingCropType getRandomForagingCrop(Random random) {
+        Seasons currentSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
         int randomCrop = random.nextInt(ForagingCropType.values().length);
         ForagingCropType type = ForagingCropType.values()[randomCrop];
         while (containsSeason(type.season, currentSeason)) {
             randomCrop = random.nextInt(ForagingCropType.values().length);
             type = ForagingCropType.values()[randomCrop];
         }
+        return type;
+    }
 
+    public static void managePlaceRandomCropOrSeed(Farm farm) {
+        Random random = new Random();
         int cropOrSeed = random.nextInt(2);
-
-        for (int i = 0; i < farm.getTiles().length; i++) {
-            for (int j = 0; j < farm.getTiles()[i].length; j++) {
-                Tile tile = farm.getTiles()[i][j];
-                if (tile.getFixedObject() == null && random.nextInt(100) == 0 && tile.isWalkable()) {
-                    Position pos = new Position(i, j);
+        for (int i = 8; i < farm.getTiles().length - 8; i++) {
+            for (int j = 18; j < farm.getTiles()[i].length - 8; j++) {
+                Tile tile = farm.getTileByPosition(j, i);
+                TileType tt = tile.getTileType();
+                if (tile.getFixedObject() == null && Math.random() * 100 < 1 && tile.isWalkable()) {
+                    Position pos = new Position(j, i);
                     if (cropOrSeed == 0) {
-                        tile.setFixedObject(new ForagingCrop(true, pos, type));
+                        if (tt != TileType.Soil) continue;
+                        ForagingCrop crop = new ForagingCrop(false, pos, getRandomForagingCrop(random));
+                        tile.setFixedObject(crop);
+                        farm.getGameObjects().add(crop);
                     } else {
-                        TileType tt = tile.getTileType();
-                        if (tt == TileType.WaterPlowedSoil || tt == TileType.PlowedSoil
-                                || tt == TileType.Speed_Gro || tt == TileType.Deluxe_Retaining_Soil) {
-                            if (seedType.cropType instanceof CropType) {
-                                tile.setFixedObject(new Crop(true, pos, (CropType) seedType.cropType));
-                            } else if (seedType.cropType instanceof TreeType) {
-                                tile.setFixedObject(new Tree((TreeType) seedType.cropType, pos));
-                            }
+                        SeedType seedType = getRandomForagingSeed(random);
+                        if (seedType.cropType instanceof CropType) {
+                            Crop crop = new Crop(true, pos, (CropType) seedType.cropType);
+                            tile.setFixedObject(crop);
+                            farm.getGameObjects().add(crop);
+                        } else if (seedType.cropType instanceof TreeType) {
+                            if (tt != TileType.WaterPlowedSoil && tt != TileType.PlowedSoil &&
+                                tt != TileType.Speed_Gro && tt != TileType.Deluxe_Retaining_Soil) continue;
+                            Tree tree = new Tree((TreeType) seedType.cropType, pos);
+                            tile.setFixedObject(tree);
+                            farm.getGameObjects().add(tree);
                         }
                     }
                 }

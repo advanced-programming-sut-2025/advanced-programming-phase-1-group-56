@@ -11,11 +11,15 @@ import io.src.model.Game;
 import io.src.model.GameAudioManager;
 import io.src.model.User;
 import io.src.view.AppView;
+import io.src.view.GameMenus.GameView;
 
 import java.io.*;
 
 public class StardewValley extends com.badlogic.gdx.Game {
     private Game game;
+
+    private GameView gameView;
+
     private static SpriteBatch batch;
 
     @Override
@@ -54,5 +58,9 @@ public class StardewValley extends com.badlogic.gdx.Game {
 
     public static SpriteBatch getBatch() {
         return batch;
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 }

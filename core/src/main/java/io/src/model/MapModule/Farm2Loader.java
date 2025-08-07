@@ -1,6 +1,8 @@
 package io.src.model.MapModule;
 
 import com.google.gson.*;
+import io.src.model.Enums.GameLocationType;
+import io.src.model.Enums.GameObjects.ForagingGameObjectType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.Enums.Items.MineralItemType;
@@ -21,9 +23,9 @@ public class Farm2Loader {
         JsonObject map = null;
         try {
             map = JsonParser
-                    .parseReader(new FileReader(jsonPath))
-                    .getAsJsonObject();
-        }catch (FileNotFoundException e) {
+                .parseReader(new FileReader(jsonPath))
+                .getAsJsonObject();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -81,9 +83,9 @@ public class Farm2Loader {
                 }
             }
             tiles[y][x] = new Tile(
-                    new Position(x, y),
-                    isWalkable,
-                    type
+                new Position(x, y),
+                isWalkable,
+                type
             );
 
         }
@@ -113,7 +115,7 @@ public class Farm2Loader {
                                     doorY = Integer.parseInt(p.get("value").getAsString());
                                 }
                             }
-                            go = new Home(new Position(tx, ty), false, "PlayerHome", new Position(tx+4, ty+5), objHeight, objWidth);
+                            go = new Home(new Position(tx, ty), false, "PlayerHome", new Position(tx + 4, ty + 5), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         case "greenhouse" -> {
@@ -128,7 +130,7 @@ public class Farm2Loader {
                                     doorY = p.get("value").getAsInt();
                                 }
                             }
-                            go = new GreenHouse(new Position(tx, ty), false, "GreenHouse",new Position(tx+3,ty+5), objHeight, objWidth);
+                            go = new GreenHouse(new Position(tx, ty), false, "GreenHouse", new Position(tx + 3, ty + 5), objHeight, objWidth);
                             farm.getBuildings().add((Building) go);
                         }
                         //TODO
@@ -147,14 +149,11 @@ public class Farm2Loader {
                     }
 
 
-
                     if (go != null
-                            && ty >= 0 && ty + objHeight < height
-                            && tx >= 0 && tx + objWidth < width) {
+                        && ty >= 0 && ty + objHeight < height
+                        && tx >= 0 && tx + objWidth < width) {
                         for (int i = ty; i < ty + objHeight; i++) {
                             for (int j = tx; j < tx + objWidth; j++) {
-//                                System.out.println(i);
-//                                System.out.println(j);
                                 tiles[i][j].setFixedObject(go);
                             }
                         }
@@ -170,21 +169,21 @@ public class Farm2Loader {
             }
         }
 
-        for (int i = 0;i < height; i ++){
-            for (int j = 0;j < width;j ++){
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
                     int rand = (int) (Math.random() * 100);
                     GameObject go = null;
-                    if (rand <= 10){
-                        if (rand < 1){
-                            go = new ForagingMineral(false, new Position(j, i), MineralItemType.STONE);
-                        } else if (rand < 4){
+                    if (rand <= 10) {
+                        if (rand < 1) {
+                            go = new ForagingMineral(false, new Position(j, i), ForagingGameObjectType.Stone_Boulder);
+                        } else if (rand < 4) {
                             go = new Tree(TreeType.APPLE_TREE, new Position(j, i));
-                        } else if (rand < 5){
+                        } else if (rand < 5) {
                             go = new Grass(true, new Position(j, i), GrassType.NormalGrass);
-                        } else if (rand < 7){
+                        } else if (rand < 7) {
                             go = new Grass(true, new Position(j, i), GrassType.FiberGrass);
-                        } else if (rand < 9){
+                        } else if (rand < 9) {
                             go = new Tree(TreeType.TREE_BARK, new Position(j, i));
                         } else {
                             go = new Tree(TreeType.NORMAL_TREE, new Position(j, i));
@@ -198,8 +197,8 @@ public class Farm2Loader {
         return tiles;
     }
 
-    public static Farm loadTheFarm2(String farmName){
-        Farm farm = new Farm();
+    public static Farm loadTheFarm2(String farmName) {
+        Farm farm = new Farm(GameLocationType.Farm2);
         Tile[][] farmTileSet = load(farmName + ".tmj", farm);
         farm.setTiles(farmTileSet);
         return farm;

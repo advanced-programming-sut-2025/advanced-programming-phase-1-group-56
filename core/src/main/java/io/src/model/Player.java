@@ -2,6 +2,7 @@ package io.src.model;
 
 import io.src.model.Activities.*;
 import io.src.model.Enums.BackPackType;
+import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 
 import io.src.model.Enums.Items.TrashcanType;
@@ -33,11 +34,16 @@ public class Player implements TimeObserver {
     //Identity
     private String name;
     private final UUID userId;
+    public static final int BODY_WIDTH = 16;
+    public static final int BODY_HEIGHT = 32;
     @Expose(serialize = false, deserialize = false)
     private User user;
     private boolean gender;
     private double energyUsage = 0;
     private int movingDirection = 0;
+    private Direction currentDirection = Direction.DOWN;
+    private Direction lastDirection = Direction.DOWN;
+    private String characterAtlas = "sprites_player";
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -63,7 +69,7 @@ public class Player implements TimeObserver {
     private boolean fainted = false;
     private Energy energy;
     private int gold;
-    private Position position;
+    private final Position position;
     private GameLocation currentGameLocation;
     private Buff currentBuff = null;
     private boolean interactWithPartnerToday;
@@ -84,8 +90,10 @@ public class Player implements TimeObserver {
     private final ArrayList<Message> messages = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
+    private double maxEnergy = 200;
 
     private Player partner = null;
+
 
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
@@ -97,6 +105,8 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
+        if(vx == 0 && vy == 0){return;}
+        subtractEnergy(delta / 3);
     }
 
     public boolean tryMove(float dx, float dy) {
@@ -138,21 +148,34 @@ public class Player implements TimeObserver {
 
         this.energy = new Energy(200);
         this.fainted = false;
-        this.gold = 0;
-        this.position = new Position(64, 25);
+        this.gold = 500;
+        this.position = new Position(64, 41);
         //TODO set current GL with setter
         //status ok
         this.gender = user.getGender();
-//        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
-    public int getMovingDirection() {
-        return movingDirection;
+    //    public Direction getMovingDirection() {
+//        return movingDirection;
+//    }
+    public Direction getLastDirection() {
+        return lastDirection;
     }
 
-    public void setMovingDirection(int direction) {
-        this.movingDirection = direction;
+    //    public void setMovingDirection(Direction direction) {
+//        this.movingDirection = direction;
+//    }
+    public void setMovingDirection(Direction d) {
+        if (d != null) {
+            currentDirection = d;
+            lastDirection = d;
+        }
+    }
+
+    public boolean isMoving() {
+        return vx != 0 || vy != 0;
     }
 
     public ArrayList<Skill> getSkills() {
@@ -199,6 +222,7 @@ public class Player implements TimeObserver {
         this.currentTrashcan = currentTrashcan;
     }
 
+
     public ArrayList<CraftingRecipesList> getToolRecipes() {
         return toolRecipes;
     }
@@ -222,6 +246,7 @@ public class Player implements TimeObserver {
     public void addFriendShips(Friendship friendShip) {
         this.friendShips.add(friendShip);
     }
+
 
     public Farm getPlayerFarm() {
         return playerFarm;
@@ -332,21 +357,18 @@ public class Player implements TimeObserver {
         return position;
     }
 
+
     public Position getPixelPosition() {
         float pX = position.getX() * 16;
         float pY = position.getY() * 16;
         return new Position(pX, pY);
     }
 
-    public void setPixelPosition(Position pixelPosition) {
-        float aX = (position.getX() / 16);
-        float aY =(position.getY() / 16);
-        position = new Position(aX, aY);
+    public void setPosition(Position position) {
+        this.position.setX(position.getX());
+        this.position.setY(position.getY());
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 
     public ArrayList<Message> getMessages() {
         return messages;
@@ -378,6 +400,7 @@ public class Player implements TimeObserver {
         return userId;
     }
 
+
     public ArrayList<Gift> getMarryRequests() {
         return marryRequests;
     }
@@ -406,6 +429,7 @@ public class Player implements TimeObserver {
         this.lastMeetedNpc = lastMeetedNpc;
     }
 
+
     public Buff getCurrentBuff() {
         return currentBuff;
     }
@@ -419,6 +443,7 @@ public class Player implements TimeObserver {
             this.currentBuff.manageBuff(this);//enable new buff
         }
     }
+
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
@@ -446,8 +471,8 @@ public class Player implements TimeObserver {
     }
 
     public void addEnergy(int amount) {
-        if (energy.getEnergy() + amount > energy.getMaxEnergy()) {
-            energy.setEnergy(energy.getMaxEnergy());
+        if (energy.getEnergy() + amount > maxEnergy) {
+            energy.setEnergy(maxEnergy);
         }
         energy.setEnergy(energy.getEnergy() + amount);
     }
@@ -470,7 +495,11 @@ public class Player implements TimeObserver {
     }
 
     public double getMaxEnergy() {
-        return energy.getMaxEnergy();
+        return maxEnergy;
+    }
+
+    public void setMaxEnergy(double maxEnergy) {
+        this.maxEnergy = maxEnergy;
     }
 
     public double getEnergyUsage() {
@@ -500,6 +529,14 @@ public class Player implements TimeObserver {
 
     public void setSelectedSlot(int selectedSlot) {
         this.selectedSlot = selectedSlot;
+    }
+
+    public String getCharacterAtlas() {
+        return characterAtlas;
+    }
+
+    public void setCharacterAtlas(String characterAtlas) {
+        this.characterAtlas = characterAtlas;
     }
 
     public String getName() {

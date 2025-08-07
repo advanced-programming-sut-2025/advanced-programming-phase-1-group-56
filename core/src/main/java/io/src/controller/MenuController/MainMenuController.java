@@ -120,4 +120,24 @@ public class MainMenuController extends CommandController {
             return new Result(false, "");
         return new Result(true, "You have been logged out!");
     }
+
+    public static void Login(){
+
+
+
+    }
+    public static void exitFromGame(){
+
+    }
+
+    public static void newGame(){
+
+
+    }
+
+    public static void co_op(){
+
+
+
+    }
 }

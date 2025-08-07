@@ -26,8 +26,8 @@ public class Lwjgl3Launcher {
         configuration.setResizable(true);
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
         Graphics.DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
-        configuration.setFullscreenMode(displayMode);
-//        configuration.setWindowedMode(1920, 1080);
+//        configuration.setFullscreenMode(displayMode);
+        configuration.setWindowedMode(1920, 1080);
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
     }

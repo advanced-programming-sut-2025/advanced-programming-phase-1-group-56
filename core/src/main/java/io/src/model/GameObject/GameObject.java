@@ -46,6 +46,12 @@ public abstract class GameObject {
         return position;
     }
 
+    public Position getPixelPosition() {
+        float pX = position.getX() * 16;
+        float pY = position.getY() * 16;
+        return new Position(pX, pY);
+    }
+
     public void setPosition(Position position) {
         this.position = position;
     }

@@ -58,11 +58,11 @@ public enum SeedType implements ItemType {
     APPLE_SAPLING("Apple Sapling", new Seasons[]{Seasons.Fall}, TreeType.APPLE_TREE, ""),
     POMEGRANATE_SAPLING("Pomegranate Sapling", new Seasons[]{Seasons.Fall}, TreeType.POMEGRANATE_TREE, ""),
     OAK_SEED("Acorns", Seasons.values(), TreeType.OAK_TREE, ""),
-    MAPLE_SEED("Maple Seeds", Seasons.values(), TreeType.MAPLE_TREE, ""),
+    MAPLE_SEED("Maple Seeds", Seasons.values(), TreeType.MAPLE_TREE, "Maple_Seed"),
     PINE_SEED("Pine Cone", Seasons.values(), TreeType.PINE_TREE, ""),
     MAHOGANY_SEED("Mahogany Seed", Seasons.values(), TreeType.MAHOGANY_TREE, ""),
     MUSHROOM_SEED("Mushroom Tree Seed", Seasons.values(), TreeType.MUSHROOM_TREE, ""),
-    MYSTIC_SEED("Mystic Tree Seeds", Seasons.values(), TreeType.MYSTIC_TREE, "");
+    MYSTIC_SEED("Mystic Tree Seed", Seasons.values(), TreeType.MYSTIC_TREE, "");
 
     public final String name;
     public final Seasons[] season;

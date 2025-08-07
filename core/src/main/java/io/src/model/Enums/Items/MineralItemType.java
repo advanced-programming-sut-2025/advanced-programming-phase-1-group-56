@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 public enum MineralItemType implements ItemType {
     BIG_STONE("Big Stone", null, 0, "Farm_Boulder"),
-    STONE("Stone", null, 0, "Stone_Index668"),
+    STONE("Stone", null, 0, "small_rock1"),
     QUARTZ("Quartz", "A clear crystal commonly found in caves and mines.", 25, ""),
     EARTH_CRYSTAL("Earth Crystal", "A resinous substance found near the surface.", 50, "Earth_Crystal"),
     FROZEN_TEAR("Frozen Tear", "A crystal fabled to be the frozen tears of a yeti.", 75, ""),

@@ -4,15 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="v0.3.3 avatar  design">
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/ForagingGameObjectType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/assets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/assets.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FarmingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FarmingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/MapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameLocationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameLocationType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/CropType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/CropType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/ForagingCropType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/ForagingCropType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/FoodType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/FoodType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/SeedType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/SeedType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Recepies/CraftingRecipesList.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Recepies/CraftingRecipesList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/ForagingMineral.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/ForagingMineral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Blacksmith.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Blacksmith.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/CarpentersShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/CarpentersShop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/FishShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/FishShop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/JojaMart.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/JojaMart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/MarniesRanch.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/MarniesRanch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/PierresGeneralStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/PierresGeneralStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/TheSaloonStardrop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/TheSaloonStardrop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Farm2Loader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Farm2Loader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/FarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/FarmLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/GameLocations/Farm.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/GameLocations/Farm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/TownLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/TownLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/AppView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/AppView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/AnimationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/AnimationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +49,30 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+    <projectState path="$PROJECT_DIR$/gradleSetup">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="APproject" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="gradleSetup" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -32,70 +82,64 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="nima2" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;arumakanGIT&quot;
+    &quot;assignee&quot;: &quot;Nnima2&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;git@github.com:advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
-    &quot;accountId&quot;: &quot;897e9c46-f997-4e20-92da-7543902627e4&quot;
+    &quot;accountId&quot;: &quot;bee11d60-58a2-482f-aaac-3d56730ac7ed&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="30S6lzwm4ZDQ9FaNfR9uZuGXks4" />
+  <component name="ProjectId" id="2zJNeujxvnyLnHmIO9c8pOah9aJ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.game.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build advanced-programming-phase-1-group-56.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.model.GameAssetManager.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;maz&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nima2&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="io.src.model.UI_Models" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="io.src.model" />
-    </key>
-  </component>
   <component name="RunManager">
-    <configuration name="game" type="Application" factoryName="Application">
+    <configuration name="Lwjgl3Launcher" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="io.src.lwjgl3.Lwjgl3Launcher" />
-      <module name="advanced-programming-phase-1-group-56.lwjgl3.main" />
+      <module name="APproject.lwjgl3.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -104,186 +148,106 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c0dfdf52-c640-4bb3-8ba2-9473e3a9da37" name="Changes" comment="" />
-      <created>1753608781399</created>
+      <changelist id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="" />
+      <created>1751445315527</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1753608781399</updated>
-      <workItem from="1753608782592" duration="2290000" />
-      <workItem from="1753611126708" duration="4152000" />
-      <workItem from="1753617805343" duration="2416000" />
-      <workItem from="1753669481982" duration="11273000" />
-      <workItem from="1753717454098" duration="11070000" />
-      <workItem from="1753758160449" duration="2742000" />
-      <workItem from="1753783322490" duration="709000" />
-      <workItem from="1753784843816" duration="3650000" />
-      <workItem from="1754070989773" duration="2273000" />
-      <workItem from="1754073307736" duration="2000" />
-      <workItem from="1754093421166" duration="2909000" />
-      <workItem from="1754103544777" duration="13456000" />
-      <workItem from="1754132288597" duration="9318000" />
-      <workItem from="1754186922923" duration="2734000" />
-      <workItem from="1754308671742" duration="4263000" />
-      <workItem from="1754301262026" duration="7128000" />
-      <workItem from="1754334769970" duration="4161000" />
-      <workItem from="1754393987782" duration="650000" />
-      <workItem from="1754458193443" duration="434000" />
-      <workItem from="1754489439510" duration="8251000" />
-      <workItem from="1754506995240" duration="1130000" />
-      <workItem from="1754528009183" duration="1098000" />
+      <updated>1751445315527</updated>
+      <workItem from="1751445316868" duration="1459000" />
+      <workItem from="1753426192019" duration="100000" />
+      <workItem from="1753552738408" duration="2561000" />
+      <workItem from="1753561469023" duration="8802000" />
+      <workItem from="1753682647361" duration="4586000" />
+      <workItem from="1753802716669" duration="6891000" />
+      <workItem from="1754059521069" duration="7767000" />
+      <workItem from="1754214353734" duration="29429000" />
+      <workItem from="1754307156281" duration="2252000" />
+      <workItem from="1754317958222" duration="3860000" />
+      <workItem from="1754351686651" duration="821000" />
+      <workItem from="1754389158582" duration="4380000" />
+      <workItem from="1754398998326" duration="19071000" />
+      <workItem from="1754428003088" duration="1913000" />
+      <workItem from="1754473761626" duration="7820000" />
+      <workItem from="1754487972780" duration="18056000" />
     </task>
-    <task id="LOCAL-00001" summary="finish register menu">
+    <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
-      <created>1753616467431</created>
+      <created>1753117595716</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1753616467431</updated>
+      <updated>1753117595716</updated>
     </task>
-    <task id="LOCAL-00002" summary="v0.1.0 : LoginMenu Completed!">
+    <task id="LOCAL-00002" summary="start create main skin">
       <option name="closed" value="true" />
-      <created>1753723866348</created>
+      <created>1753549876338</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1753723866348</updated>
+      <updated>1753549876338</updated>
     </task>
-    <task id="LOCAL-00003" summary="v0.1.0 : add a bit Motion to LoginMenu">
+    <task id="LOCAL-00003" summary="start create main skin">
       <option name="closed" value="true" />
-      <created>1753730543762</created>
+      <created>1753556212356</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1753730543762</updated>
+      <updated>1753556212356</updated>
     </task>
-    <task id="LOCAL-00004" summary="v0.1.1 : start main menu">
+    <task id="LOCAL-00004" summary="town isn't scaled">
       <option name="closed" value="true" />
-      <created>1753760923697</created>
+      <created>1754061700947</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1753760923697</updated>
+      <updated>1754061700947</updated>
     </task>
-    <task id="LOCAL-00005" summary="v0.1.2 : main menu motion">
+    <task id="LOCAL-00005" summary="some assets have been changed">
       <option name="closed" value="true" />
-      <created>1753795963174</created>
+      <created>1754216016447</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1753795963174</updated>
+      <updated>1754216016447</updated>
     </task>
-    <task id="LOCAL-00006" summary="v0.1.3 : main menu">
+    <task id="LOCAL-00006" summary="wrapper debugging">
       <option name="closed" value="true" />
-      <created>1754073280489</created>
+      <created>1754307249909</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1754073280489</updated>
+      <updated>1754307249909</updated>
     </task>
-    <task id="LOCAL-00007" summary="v0.1.4 : main menu">
+    <task id="LOCAL-00007" summary="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht">
       <option name="closed" value="true" />
-      <created>1754103864199</created>
+      <created>1754321610759</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1754103864199</updated>
+      <updated>1754321610759</updated>
     </task>
-    <task id="LOCAL-00008" summary="v0.1.5 : main menu">
-      <option name="closed" value="true" />
-      <created>1754129192423</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1754129192423</updated>
-    </task>
-    <task id="LOCAL-00009" summary="v0.1.6 : new menu">
-      <option name="closed" value="true" />
-      <created>1754141983173</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1754141983173</updated>
-    </task>
-    <task id="LOCAL-00010" summary="v0.1.7 : new menu about">
-      <option name="closed" value="true" />
-      <created>1754313605334</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1754313605334</updated>
-    </task>
-    <task id="LOCAL-00011" summary="v0.2.0 : main menu finish about">
-      <option name="closed" value="true" />
-      <created>1754309484147</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1754309484147</updated>
-    </task>
-    <task id="LOCAL-00012" summary="v0.2.1 : add play music option">
-      <option name="closed" value="true" />
-      <created>1754310958017</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1754310958017</updated>
-    </task>
-    <task id="LOCAL-00013" summary="v0.2.1 : add play music option">
-      <option name="closed" value="true" />
-      <created>1754312661801</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1754312661801</updated>
-    </task>
-    <task id="LOCAL-00014" summary="v0.3.2 complete switch between avatars">
-      <option name="closed" value="true" />
-      <created>1754458028256</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1754458028256</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finish register menu" />
-    <MESSAGE value="v0.1.0 : LoginMenu Completed!" />
-    <MESSAGE value="v0.1.0 : add a bit Motion to LoginMenu" />
-    <MESSAGE value="v0.1.1 : start main menu" />
-    <MESSAGE value="v0.1.2 : main menu motion" />
-    <MESSAGE value="v0.1.3 : main menu" />
-    <MESSAGE value="v0.1.4 : main menu" />
-    <MESSAGE value="v0.1.5 : main menu" />
-    <MESSAGE value="v0.1.6 : new menu" />
-    <MESSAGE value="v0.1.6 : new menu about" />
-    <MESSAGE value="v0.1.7 : new menu about" />
-    <MESSAGE value="v0.2.0 : main menu finish about" />
-    <MESSAGE value="v0.2.1 : add play music option" />
-    <MESSAGE value="v0.3.2 complete switch between avatars" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.3.2 complete switch between avatars" />
+    <MESSAGE value="add window for dialog and inventory" />
+    <MESSAGE value="init Game" />
+    <MESSAGE value="start create main skin" />
+    <MESSAGE value="town isn't scaled" />
+    <MESSAGE value="some assets have been changed" />
+    <MESSAGE value="wrapper debugging" />
+    <MESSAGE value="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht" />
+    <option name="LAST_COMMIT_MESSAGE" value="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht" />
   </component>
 </project>
