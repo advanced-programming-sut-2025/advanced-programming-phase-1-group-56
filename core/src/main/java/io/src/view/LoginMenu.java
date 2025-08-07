@@ -29,6 +29,11 @@ public class LoginMenu implements AppMenu, Screen {
     // fields :
     private final Stage stage;
     private final Skin skin;
+
+    public Skin getSkin() {
+        return skin;
+    }
+
     private final Table loginTable;
     private final Table registerTable;
     private final Table securityTable;
@@ -562,4 +567,6 @@ class Cloud {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
+
 }

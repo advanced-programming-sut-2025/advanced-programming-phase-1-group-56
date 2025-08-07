@@ -21,6 +21,7 @@ import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
+import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
@@ -31,6 +32,8 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.view.AppMenu;
+import io.src.view.LoginMenu;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -61,6 +64,8 @@ public class GameView implements Screen {
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
+    private WarningWindow warningWindow;
+
     //    private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
@@ -108,9 +113,12 @@ public class GameView implements Screen {
         timeWindow = new TimerWindow();
         energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
+        warningWindow = new WarningWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
+        warningWindow.setVisible(false);
         stage.addActor(invWindow);
         stage.addActor(energyWindow);
         stage.addActor(timeWindow);
+        stage.addActor(warningWindow);
 
         InputAdapter keyListener = new InputAdapter() {
             @Override
@@ -121,6 +129,7 @@ public class GameView implements Screen {
                 }
                 if (keycode == Input.Keys.ENTER) {
                     dialogWindow.hideDialog();
+                    warningWindow.hideDialog();
                 }
                 return true;
             }
@@ -132,7 +141,6 @@ public class GameView implements Screen {
 
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
-
     }
 
     private void loadTextures() {
@@ -363,6 +371,10 @@ public class GameView implements Screen {
         return pixel;
     }
 
+    public void renderWarningDialog() {
+        warningWindow.setRemainingTime(warningWindow.getRemainingTime()-1);
+    }
+
     @Override
     public void show() {
 
@@ -399,6 +411,7 @@ public class GameView implements Screen {
 
 
                 renderPlayer();
+                renderWarningDialog();
 
 
                 //Debug
@@ -554,8 +567,8 @@ public class GameView implements Screen {
                 GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
             ));
             TextureRegion region = new TextureRegion(texture);
-            float worldX = (float) ((store.getNPCposition().getX() +0.5) * TILE_SIZE);
-            float worldY = (float) ((store.getNPCposition().getY()+0.5) * TILE_SIZE);
+            float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
+            float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
             renderer.getBatch().draw(region,
                 worldX, worldY
             );
@@ -600,5 +613,14 @@ public class GameView implements Screen {
     public void setInvWindow(InventoryWindow invWindow) {
         this.invWindow = invWindow;
     }
+
+    public DialogWindow getDialogWindow() {
+        return dialogWindow;
+    }
+
+    public WarningWindow getWarningWindow() {
+        return warningWindow;
+    }
+
 
 }

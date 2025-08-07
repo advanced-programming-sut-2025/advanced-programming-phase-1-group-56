@@ -1,7 +1,9 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
 import com.google.gson.annotations.Expose;
 import io.src.model.App;
+import io.src.model.Clickable;
 import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.Position;
@@ -10,7 +12,7 @@ import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.Inventory;
 
-public class ShippingBar extends GameObject implements TimeObserver {
+public class ShippingBar extends GameObject implements TimeObserver, Clickable, SensitiveToPlayer {
     private final Inventory inventory = new Inventory(100);
     @Expose(serialize = false, deserialize = false)
     private Farm farm;
@@ -60,5 +62,37 @@ public class ShippingBar extends GameObject implements TimeObserver {
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerGoesNearby(float distance) {
+        open = true;
+        return true;
+    }
+
+    @Override
+    public boolean onPlayerGetsFar(float distance) {
+        open = false;
+        return true;
+    }
+
+    @Override
+    public boolean onPlayerFocus() {
+        return true;
+    }
+
+    @Override
+    public boolean onPlayerDefocus() {
+        return true;
+    }
+
+    @Override
+    public float getSensitivityDistance() {
+        return 2.5f;
     }
 }

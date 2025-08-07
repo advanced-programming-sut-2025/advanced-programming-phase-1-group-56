@@ -7,6 +7,7 @@ import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.GameLocationType;
 import io.src.model.GameObject.Crop;
 import io.src.model.GameObject.GameObject;
+import io.src.model.GameObject.ShippingBar;
 import io.src.model.GameObject.Tree;
 import io.src.model.MapModule.Buildings.Building;
 import io.src.model.MapModule.Buildings.GreenHouse;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class Farm extends GameLocation implements TimeObserver {
     private FarmPosition position;
     private final ArrayList<Building> buildings = new ArrayList<>();
+    private ShippingBar shippingBar;
     @Expose(serialize = false, deserialize = false)
     private Player player;
 
@@ -138,4 +140,11 @@ public class Farm extends GameLocation implements TimeObserver {
         return null;
     }
 
+    public ShippingBar getShippingBar() {
+        return shippingBar;
+    }
+
+    public void setShippingBar(ShippingBar shippingBar) {
+        this.shippingBar = shippingBar;
+    }
 }

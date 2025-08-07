@@ -4,6 +4,7 @@ import io.src.Main;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.GameController;
 import io.src.controller.MenuController.ProfileMenuController;
+import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.MapModule.Buildings.GreenHouse;
 import io.src.view.*;
@@ -33,10 +34,16 @@ public enum Menu {
 
 
     private final AppMenu menu;
+
     Menu(AppMenu appMenu) {
         this.menu = appMenu;
     }
+
     public void checkCommand(Scanner scanner) {
         this.menu.check(scanner);
+    }
+
+    public AppMenu getMenu() {
+        return menu;
     }
 }

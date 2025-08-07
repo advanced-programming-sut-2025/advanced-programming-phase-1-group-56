@@ -1,6 +1,8 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,12 +20,22 @@ public class TimerWindow extends Group {
     private Label goldLabel;
     private Image arrowPointer;
     private Image clockFrame;
+    private Image weatherIcon;
+    private Image seasonIcon;
     private Skin skin;
 
     public TimerWindow() {
         skin = GameAssetManager.getGameAssetManager().getSkin();
 
         clockFrame = new Image(GameAssetManager.getGameAssetManager().getClock());
+        String assetNameWeather = App.getCurrentUser().getCurrentGame().getWeatherState().getCurrentWeather().getAssetName();
+        weatherIcon = new Image(new Texture(
+            Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetNameWeather))
+        ));
+        String assetNameSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().getAssetName();
+        seasonIcon = new Image(new Texture(
+            Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetNameSeason))
+        ));
         clockFrame.setScale(4f, 4f);
         clockFrame.setPosition(80, 10);
 
@@ -32,6 +44,14 @@ public class TimerWindow extends Group {
         arrowPointer.setScale(2.5f, 3f);
         arrowPointer.setOrigin(Align.bottom);
         arrowPointer.setPosition(164, 160);
+
+        weatherIcon.setScale(1.2f, 1.2f);
+        weatherIcon.setOrigin(Align.bottom);
+        weatherIcon.setPosition(205, 144);
+
+        seasonIcon.setScale(1.2f, 1.2f);
+        seasonIcon.setOrigin(Align.bottom);
+        seasonIcon.setPosition(303, 146);
 
         TimeSystem timeSystem = App.getCurrentUser().getCurrentGame().getTimeSystem();
         int day = timeSystem.getDateTime().getDay();
@@ -51,7 +71,7 @@ public class TimerWindow extends Group {
         float y = 24;
         float spacing = 22;
         int len = goldStr.length();
-        startX  += (8-len)*spacing;
+        startX += (8 - len) * spacing;
 
         for (int i = 0; i < goldStr.length(); i++) {
             char digit = goldStr.charAt(i);
@@ -64,6 +84,8 @@ public class TimerWindow extends Group {
         addActor(arrowPointer);
         addActor(dayLabel);
         addActor(timeLabel);
+        addActor(weatherIcon);
+        addActor(seasonIcon);
 
         setPosition(
             Gdx.graphics.getWidth() - 370,
@@ -91,6 +113,18 @@ public class TimerWindow extends Group {
         float angle = progress * 180f;
 
         arrowPointer.setRotation(180 - angle);
+
+
+        String assetNameWeather = App.getCurrentUser().getCurrentGame().getWeatherState().getCurrentWeather().getAssetName();
+        String assetPathWeather = GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetNameWeather);
+        Texture newTextureWeather = new Texture(Gdx.files.internal(assetPathWeather));
+        weatherIcon.setDrawable(new Image(newTextureWeather).getDrawable());
+
+        String assetNameSeason = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason().getAssetName();
+        String assetPathSeason = GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetNameSeason);
+        Texture newTextureSeason = new Texture(Gdx.files.internal(assetPathSeason));
+        seasonIcon.setDrawable(new Image(newTextureSeason).getDrawable());
+
     }
 
     public void updateGold() {
@@ -101,7 +135,7 @@ public class TimerWindow extends Group {
         float y = 24;
         float spacing = 22;
         int len = goldStr.length();
-        startX  += (8-len)*spacing;
+        startX += (8 - len) * spacing;
 
         for (int i = 0; i < goldStr.length(); i++) {
             char digit = goldStr.charAt(i);
@@ -109,5 +143,9 @@ public class TimerWindow extends Group {
             digitLabel.setPosition(startX + i * spacing, y);
             addActor(digitLabel);
         }
+    }
+
+    public Image getSeasonIcon() {
+        return seasonIcon;
     }
 }

@@ -350,7 +350,9 @@ public class newFarmLoader {
                 return new MailBox(pos);
             }
             case "shippingmail" -> {
-                return new ShippingBar(pos, (Farm) location);
+                ShippingBar shippingBar = new ShippingBar(pos, (Farm) location);
+                ((Farm) location).setShippingBar(shippingBar);
+                return shippingBar;
             }
             case "greenhouse" -> {
                 int gx = Integer.parseInt(properties.get("doorX", String.class));
