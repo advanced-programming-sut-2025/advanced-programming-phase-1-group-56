@@ -1,7 +1,11 @@
 package io.src.view;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -26,6 +30,11 @@ public class LoginMenu implements AppMenu, Screen {
     // fields :
     private final Stage stage;
     private final Skin skin;
+
+    public Skin getSkin() {
+        return skin;
+    }
+
     private final Table loginTable;
     private final Table registerTable;
     private final Table securityTable;
@@ -480,12 +489,11 @@ public class LoginMenu implements AppMenu, Screen {
     }
 
     @Override
-    public void check(Scanner scanner) {
-        String input = scanner.nextLine();
+    public Result check(Scanner scanner, String cmd) {
         Matcher matcher;
         User tmpUser;
 
-        if ((matcher = LoginMenuCommands.register.getMatcher(input)).find()) {
+        if ((matcher = LoginMenuCommands.register.getMatcher(cmd)).find()) {
             Result result = LoginMenuController.manageRegisterUser(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5), matcher.group(6).equalsIgnoreCase("male"));
             System.out.println(result);
             if (result.isSuccess()) {
@@ -497,14 +505,14 @@ public class LoginMenu implements AppMenu, Screen {
                     System.out.println("ok you don't want it!");
                 }
             }
-        } else if ((matcher = LoginMenuCommands.goMenu.getMatcher(input)).find()) {
+        } else if ((matcher = LoginMenuCommands.goMenu.getMatcher(cmd)).find()) {
             String menu = matcher.group(1).trim();
             System.out.println(LoginMenuController.goToMenu(menu));
-        } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(input)).find()) {
+        } else if ((matcher = LoginMenuCommands.loginWithStayLoggedin.getMatcher(cmd)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher.group(1), matcher.group(2), true));
-        } else if ((matcher = LoginMenuCommands.login.getMatcher(input)).find()) {
+        } else if ((matcher = LoginMenuCommands.login.getMatcher(cmd)).find()) {
             System.out.println(LoginMenuController.manageLoginUser(matcher.group(1), matcher.group(2), false));
-        } else if ((matcher = LoginMenuCommands.forgetPassword.getMatcher(input)).find()) {
+        } else if ((matcher = LoginMenuCommands.forgetPassword.getMatcher(cmd)).find()) {
             Result result = LoginMenuController.manageForgotPassword(matcher.group(1));
             System.out.println(result);
             if (result.isSuccess()) {
@@ -519,16 +527,41 @@ public class LoginMenu implements AppMenu, Screen {
                 }
             }
 
-        } else if ((input.equals("menu exit"))) {
+        } else if ((cmd.equals("menu exit"))) {
             App.setCurrentMenu(Menu.exitMenu);
             System.out.println("why do you want to exit? );  ");
-        } else if ((LoginMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
+        } else if ((LoginMenuCommands.ShowCurrentMenu.getMatcher(cmd)).find()) {
             System.out.println("you are in login menu now!");
-        } else if ((LoginMenuCommands.back.getMatcher(input)).find()) {
+        } else if ((LoginMenuCommands.back.getMatcher(cmd)).find()) {
             System.out.println("you can't go back!");
         } else {
             System.out.println("invalid command bro!..");
         }
+        return new Result(true,"");
     }
 }
 
+class Cloud {
+    private final float speed;
+    private final Sprite sprite;
+
+    public Cloud(Texture texture, float speed, float x, float y) {
+        this.sprite = new Sprite(texture);
+        sprite.setScale(2f);
+        this.speed = speed;
+        sprite.setPosition(x, y);
+    }
+
+    public void update(float delta) {
+        float x = sprite.getX() - speed * delta;
+        if (x + (sprite.getWidth() * 2) < 0)
+            x = Gdx.graphics.getWidth() + sprite.getWidth() * 2;
+        sprite.setX(x);
+    }
+
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
+    }
+
+
+}

@@ -1,6 +1,8 @@
 package io.src.model.GameObject.NPC;
 
+import io.src.model.Clickable;
 import io.src.model.Enums.NpcType;
+import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.MapModule.Position;
 import io.src.model.GameObject.LivingEntity;
 import io.src.model.MapModule.Buildings.Building;
@@ -11,7 +13,7 @@ import io.src.model.items.Item;
 
 import java.util.ArrayList;
 
-public class NPC extends LivingEntity implements TimeObserver {
+public class NPC extends LivingEntity implements TimeObserver, Clickable, SensitiveToPlayer {
     private final NpcType type;
     private final ArrayList<NpcFriendship> friendships = new ArrayList<>();
 
@@ -59,19 +61,45 @@ public class NPC extends LivingEntity implements TimeObserver {
                     if (playerToGift.getInventory().canAddItem(item, 1)) {
                         playerToGift.getInventory().add(item, 1);
                         System.out.println(this.type.getName() + " gifted 1*" + item.getName() + " to " +
-                                playerToGift.getUser().getName());
+                            playerToGift.getUser().getName());
                     } else {
                         System.out.println(this.type.getName() + " failed to send you gift beacuse" +
-                                " your inventory was full ");
+                            " your inventory was full ");
                     }
                 }
 
             }
         }
     }
+
     @Override
-    public String getAssetName(){
+    public String getAssetName() {
         //TODO
         return "Fiber_Grass1";
+    }
+
+    @Override
+    public boolean onPlayerGoesNearby(float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerGetsFar(float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerFocus() {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerDefocus() {
+        return false;
+    }
+
+    @Override
+    public float getSensitivityDistance() {
+        return 4;
     }
 }

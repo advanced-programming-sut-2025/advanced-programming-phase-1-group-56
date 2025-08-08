@@ -1,9 +1,11 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
+import io.src.model.Clickable;
 import io.src.model.Enums.Direction;
 import io.src.model.MapModule.Position;
 
-public class LivingEntity extends GameObject implements Movable {
+public class LivingEntity extends GameObject implements Movable , Clickable {
 
 
     private Direction lastDirection = Direction.DOWN;
@@ -62,5 +64,10 @@ public class LivingEntity extends GameObject implements Movable {
     public String getAssetName() {
         //TODO
         return "";
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer,int button) {
+        return false;
     }
 }

@@ -29,7 +29,7 @@ public class FarmingController extends CommandController {
 
     public static void manageStrikeThunder(Farm farm) {
         if (App.getCurrentUser().getCurrentGame().getWeatherState().shouldStrikeThunder()) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 5; i++) {
                 int randX = (int) (Math.random() * farm.getTiles()[0].length);
                 int randY = (int) (Math.random() * farm.getTiles().length);
                 WeatherController.cheatThor(farm, Integer.toString(randX), Integer.toString(randY));
@@ -162,7 +162,7 @@ public class FarmingController extends CommandController {
                 }
             }
             for (int i = 0; i < count; i++) {
-                if (farm.getAllGameObjects().get(i) instanceof Crop && !((Crop) farm.getAllGameObjects().get(i)).isProtected()) {
+                if (farm.getAllGameObjects().get(i) instanceof Crop && !((Crop) farm.getAllGameObjects().get(i)).isProtected() && !(farm.getAllGameObjects().get(i) instanceof Tree)) {
                     farm.getTileByPosition((int) farm.getAllGameObjects().get(i).getPosition().getX(), (int) farm.getAllGameObjects().get(i).getPosition().getY()).setFixedObject(null);
                 } else if (farm.readAllGameObjectsFromTiles().get(i) instanceof Tree && !((Tree) farm.getAllGameObjects().get(i)).isProtected()) {
                     ((Tree) farm.getTileByPosition((int) farm.getAllGameObjects().get(i).getPosition().getX(), (int) farm.getAllGameObjects().get(i).getPosition().getY()).getFixedObject()).setHarvest(false);

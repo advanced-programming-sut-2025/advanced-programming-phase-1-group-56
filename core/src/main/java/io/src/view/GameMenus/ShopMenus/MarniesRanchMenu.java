@@ -3,6 +3,7 @@ package io.src.view.GameMenus.ShopMenus;
 import io.src.controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
 import io.src.model.Enums.commands.GameCommands.HusbandryCommands;
 import io.src.model.Enums.commands.GameCommands.StoreCommands;
+import io.src.model.Result;
 import io.src.view.AppMenu;
 
 import java.util.Scanner;
@@ -10,21 +11,20 @@ import java.util.regex.Matcher;
 
 public class MarniesRanchMenu implements AppMenu {
     @Override
-    public void check(Scanner scanner) {
-        String input = scanner.nextLine();
+    public Result check(Scanner scanner, String cmd) {
         Matcher matcher;
-        if((StoreCommands.ShowAllProduct.getMatcher(input))!=null) {
-            System.out.println(MarniesRanchController.showAllProducts().message());
-        } else if((StoreCommands.ShowAllAvailableProducts.getMatcher(input))!=null) {
-            System.out.println(MarniesRanchController.showAllAvailableProducts().message());
-        } else if((matcher = StoreCommands.PurchaseProducts.getMatcher(input))!=null) {
-            System.out.println(MarniesRanchController.PurchaseProduct(matcher).message());
-        } else if((matcher = HusbandryCommands.buyAnimal.getMatcher(input))!=null) {
-            System.out.println(MarniesRanchController.buyAnimal(matcher).message());
-        } else if(input.equalsIgnoreCase("exit")) {
-            System.out.println(MarniesRanchController.ExitShop().message());
+        if ((StoreCommands.ShowAllProduct.getMatcher(cmd)) != null) {
+            return MarniesRanchController.showAllProducts();
+        } else if ((StoreCommands.ShowAllAvailableProducts.getMatcher(cmd)) != null) {
+            return MarniesRanchController.showAllAvailableProducts();
+        } else if ((matcher = StoreCommands.PurchaseProducts.getMatcher(cmd)) != null) {
+            return MarniesRanchController.PurchaseProduct(matcher);
+        } else if ((matcher = HusbandryCommands.buyAnimal.getMatcher(cmd)) != null) {
+            return MarniesRanchController.buyAnimal(matcher);
+        } else if (cmd.equalsIgnoreCase("exit")) {
+            return MarniesRanchController.ExitShop();
         } else {
-            System.out.println("invalid command");
+            return new Result(false, "invalid command");
         }
     }
 }

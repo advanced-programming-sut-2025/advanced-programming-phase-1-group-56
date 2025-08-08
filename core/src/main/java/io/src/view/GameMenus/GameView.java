@@ -1,6 +1,7 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -21,6 +23,8 @@ import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
+import io.src.model.Enums.Menu;
+import io.src.model.Enums.TileType;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
@@ -31,6 +35,8 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.view.AppMenu;
+import io.src.view.LoginMenu;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,31 +44,78 @@ import java.util.HashMap;
 
 
 public class GameView implements Screen {
-    private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private static final int TILE_SIZE = 16;
+
     private final Game game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private BitmapFont smallFont;
     private GlyphLayout layout = new GlyphLayout();
+
+    private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
     private AnimationManager animationManager = new AnimationManager();
-    private float stateTime = 0f;
-    private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
-    private int moveDirection = 0;
-    private Texture pixel; // Add this
-    public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
+    private ScreenTransition transitionManager;
+    private ShapeRenderer shapeRenderer;
     private final OrthographicCamera camera = new OrthographicCamera();
+    public final Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
+
+    private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
+    private float stateTime = 0f;
+
+    private Texture pixel; // Add this
+    private int moveDirection = 0;
     private Stage stage;
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
+    private WarningWindow warningWindow;
+    private EnergyBar energyWindow;
+
+    private CheatWindow cheatWindow;
+
+
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
-    private EnergyBar energyWindow;
-    private ScreenTransition transitionManager;
-    private ShapeRenderer shapeRenderer;
+
+    public GameView(Game game) {
+        this.game = game;
+        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
+        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
+        renderer = new OrthogonalTiledMapRenderer(map, 1f);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        stage = new Stage(new ScreenViewport());
+        //Time Window
+        timeWindow = new TimerWindow();
+        stage.addActor(timeWindow);
+        //Energy Window
+        energyWindow = new EnergyBar();
+        energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
+        stage.addActor(energyWindow);
+        //Inventory Window
+        invWindow = new InventoryWindow();
+        invWindow.setVisible(false);
+        stage.addActor(invWindow);
+        //Warning Window
+        warningWindow = new WarningWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
+        warningWindow.setVisible(false);
+        stage.addActor(warningWindow);
+        //Cheat Window
+        cheatWindow = new CheatWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
+        cheatWindow.setVisible(false);
+        stage.addActor(cheatWindow);
+
+
+        //Input Adapters
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(gameMenuInputAdapter);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        transitionManager = new ScreenTransition();
+        shapeRenderer = new ShapeRenderer();
+    }
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -80,6 +133,7 @@ public class GameView implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
+
     private void loadFont() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("StardewValley.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -88,52 +142,11 @@ public class GameView implements Screen {
         generator.dispose();
     }
 
-    public GameView(Game game) {
-        this.game = game;
-//        this.gameController = gameController;
-        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
-        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
-        renderer = new OrthogonalTiledMapRenderer(map, 1f);
-//        loadTextures();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        stage = new Stage(new ScreenViewport());
-        invWindow = new InventoryWindow();
-        energyWindow = new EnergyBar();
-        timeWindow = new TimerWindow();
-        energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
-        invWindow.setVisible(false);
-        stage.addActor(invWindow);
-        stage.addActor(energyWindow);
-        stage.addActor(timeWindow);
-
-        InputAdapter keyListener = new InputAdapter() {
-            @Override
-            public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.E) {
-                    App.getMe().addGold(1000);
-                    invWindow.setVisible(!invWindow.isVisible());
-                }
-                if (keycode == Input.Keys.ENTER) {
-                    dialogWindow.hideDialog();
-                }
-                return true;
-            }
-        };
-        multiplexer.addProcessor(gameMenuInputAdapter);
-        multiplexer.addProcessor(keyListener);
-        multiplexer.addProcessor(stage);
-        Gdx.input.setInputProcessor(multiplexer);
-
-        transitionManager = new ScreenTransition();
-        shapeRenderer = new ShapeRenderer();
-
-    }
-
     private void loadTextures() {
     }
 
     //commitTest
+
 
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
         Animation<TextureRegion> animation = animationManager.get(characterName, key);
@@ -184,6 +197,7 @@ public class GameView implements Screen {
                     break;
             }
         }
+
         renderCharacter("player", key, x, y);
     }
 
@@ -224,12 +238,140 @@ public class GameView implements Screen {
                     break;
             }
         }
+//        AnimationKey key = moving
+//            ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
+//            : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
+
         renderCharacter(name, key, x, y);
 
     }
 
+//    private void renderNPCs(SpriteBatch batch, float deltaTime) {
+//        for (NPC npc : game.getNPCs()) {
+//            String id = npc.getId(); // مثل "grandma"
+//            String dir = npc.getDirection();
+//            boolean moving = npc.isMoving();
+//            float x = npc.getX(), y = npc.getY();
+//
+//            AnimationKey key = moving
+//                ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
+//                : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
+//
+//            renderCharacter(batch, deltaTime, id, key, x, y);
+//        }
+//    }
+
+//    private void renderPlayer() {
+//
+//        stateTime += Gdx.graphics.getDeltaTime();
+//        Player p = game.getCurrentPlayer();
+//        AnimationKey key;
+//        if (p.isMoving()) {
+//            switch (p.getLastDirection()) {
+//                case UP:
+//                    key = AnimationKey.WALK_UP;
+//                    break;
+//                case DOWN:
+//                    key = AnimationKey.WALK_DOWN;
+//                    break;
+//                case LEFT:
+//                    key = AnimationKey.WALK_LEFT;
+//                    break;
+//                default:
+//                    key = AnimationKey.WALK_RIGHT;
+//                    break;
+//            }
+//        } else {
+//            switch (p.getLastDirection()) {
+//                case UP:
+//                    key = AnimationKey.IDLE_UP;
+//                    break;
+//                case DOWN:
+//                    key = AnimationKey.IDLE_DOWN;
+//                    break;
+//                case LEFT:
+//                    key = AnimationKey.IDLE_LEFT;
+//                    break;
+//                default:
+//                    key = AnimationKey.IDLE_RIGHT;
+//                    break;
+//            }
+//        }
+//        Animation<TextureRegion> anim = animMgr.get(key);
+//        TextureRegion frame = anim.getKeyFrame(stateTime, true);
+//        renderer.getBatch().draw(
+//            frame,
+//            p.getPixelPosition().getX(), p.getPixelPosition().getY(),
+//            20, 40);
+//
+
+    /// /        moveDirection = game.getCurrentPlayer().getMovingDirection();
+    /// /
+    /// /        stateTime += Gdx.graphics.getDeltaTime();
+    /// /
+    /// /        Animation<TextureRegion> currentAnimation = playerAnimations.get(moveDirection);
+    /// /        TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
+    /// /
+    /// /        renderer.getBatch().draw(currentFrame, game.getCurrentPlayer().getPixelPosition().getX(), game.getCurrentPlayer().getPixelPosition().getY(), 20, 20 * 2);
+    /// /        renderInventory();
+//    }
+
+
+//    private void renderInventory() {
+//        Player player = game.getPlayer();
+//        Map<ItemDescriptionId, Pair<Integer, Integer>> inventory = player.getInventory();
+//        int selectedSlot = player.getSelectedSlot(); // Assuming you have this method
+//
+//        int screenWidth = Gdx.graphics.getWidth();
+//        int slotSize = StardewMini.TILE_SIZE /2;
+//        int numSlots = player.getMaxInventorySize();
+//        int startX = (screenWidth - numSlots * slotSize) / 2;
+//        int y = StardewMini.TILE_SIZE /2;
+//
+//        for (int i = 0; i < numSlots; i++) {
+//            int x = startX + i * slotSize;
+//
+//            batch.draw(textures.get(TileDescriptionId.SLOT.name()), x, y, slotSize, slotSize);
+//
+//            String slotNum = String.valueOf(i + 1);
+//            smallFont.draw(batch, slotNum, x + 2, y + slotSize - 2);
+//        }
+//
+//        // Highlight selected slot
+//        if (selectedSlot >= 0 && selectedSlot < numSlots) {
+//            int highlightX = startX + selectedSlot * slotSize;
+//            batch.draw(textures.get(TileDescriptionId.HIGHLIGHT.name()), highlightX, y, slotSize, slotSize);
+//        }
+//
+//        for (Map.Entry<ItemDescriptionId, Pair<Integer, Integer>> entry : inventory.entrySet()) {
+//            ItemDescriptionId id = entry.getKey();
+//            int quantity = entry.getValue().first;
+//            int index = entry.getValue().second;
+//
+//            if (index < 0 || index >= numSlots) continue;
+//
+//            TextureRegion itemTex = textures.get(id.name());
+//            if (itemTex != null) {
+//                int x = startX + index * slotSize;
+//                batch.draw(itemTex, x, y, slotSize, slotSize);
+//
+//                // Draw item quantity at bottom-right corner
+//                String count = String.valueOf(quantity);
+//                layout.setText(smallFont, count);
+//                smallFont.draw(batch, count, x + slotSize - layout.width - 2, y + layout.height + 2);
+//            }
+//        }
+//    }
+
+//    public Batch getBatch() {
+//        return batch;
+//    }
     public Texture getPixel() {
         return pixel;
+    }
+
+    public void renderWarningDialog() {
+        warningWindow.setRemainingTime(warningWindow.getRemainingTime() - 1);
     }
 
     @Override
@@ -268,6 +410,7 @@ public class GameView implements Screen {
 
 
                 renderPlayer();
+                renderWarningDialog();
 
 
                 //Debug
@@ -306,8 +449,14 @@ public class GameView implements Screen {
                 region = gameObjectTextureMap.get(assetName);
             }
 
+
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
+
+//            if (App.getMe().getCurrentGameLocation() instanceof Town){
+//                System.out.println(assetName + "'  asset :'" + GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
+//                    + "'location: " + worldX + "   " + worldY);
+//            }
 
             if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
                 ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
@@ -322,7 +471,7 @@ public class GameView implements Screen {
                 worldX, worldY,
                 region.getRegionWidth(), 0,
                 region.getRegionWidth(), region.getRegionHeight(),
-                1f, 1f, 0);
+                1f, 1f, 45);
         }
 
 
@@ -417,8 +566,8 @@ public class GameView implements Screen {
                 GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
             ));
             TextureRegion region = new TextureRegion(texture);
-            float worldX = (float) ((store.getNPCposition().getX() +0.5) * TILE_SIZE);
-            float worldY = (float) ((store.getNPCposition().getY()+0.5) * TILE_SIZE);
+            float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
+            float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
             renderer.getBatch().draw(region,
                 worldX, worldY
             );
@@ -464,4 +613,20 @@ public class GameView implements Screen {
         this.invWindow = invWindow;
     }
 
+    public DialogWindow getDialogWindow() {
+        return dialogWindow;
+    }
+
+    public WarningWindow getWarningWindow() {
+        return warningWindow;
+    }
+
+
+    public CheatWindow getCheatWindow() {
+        return cheatWindow;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 }

@@ -40,7 +40,7 @@ public class Tree extends GameObject implements TimeObserver {
         this.countCurrentStage = 0;
         this.daysWithNoWater = 0;
         this.harvestDayRegrowth = 0;
-        this.isComplete = false;
+        this.isComplete = currentStage > 3 ? true : false;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
@@ -114,6 +114,9 @@ public class Tree extends GameObject implements TimeObserver {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
+            if (this.isComplete) {
+                daysWithNoWater = 0;
+            }
             if (!(treeType == TreeType.TREE_BARK || treeType == TreeType.BURNT_TREE || treeType == TreeType.NORMAL_TREE)) {
                 if (!isWateredToday) {
                     daysWithNoWater++;

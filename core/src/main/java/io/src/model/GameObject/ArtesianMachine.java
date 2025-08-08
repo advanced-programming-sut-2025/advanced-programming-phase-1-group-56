@@ -1,6 +1,8 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
 import io.src.model.App;
+import io.src.model.Clickable;
 import io.src.model.Enums.GameObjects.ArtisanMachineType;
 import io.src.model.Enums.Items.ArtisanGoodType;
 import io.src.model.MapModule.Position;
@@ -8,7 +10,7 @@ import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.ArtisanGood;
 
-public class ArtesianMachine extends GameObject implements TimeObserver {
+public class ArtesianMachine extends GameObject implements TimeObserver, Clickable {
     private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
@@ -76,5 +78,10 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
     @Override
     public String getAssetName() {
         return artisanGoodType.getAssetName();
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
     }
 }

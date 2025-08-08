@@ -1,5 +1,7 @@
 package io.src.model.Enums;
 
+import io.src.controller.MenuController.ProfileMenuController;
+import io.src.model.Result;
 import io.src.Main;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.GameController;
@@ -31,10 +33,16 @@ public enum Menu {
 
 
     private final AppMenu menu;
+
     Menu(AppMenu appMenu) {
         this.menu = appMenu;
     }
-    public void checkCommand(Scanner scanner) {
-        this.menu.check(scanner);
+
+    public Result checkCommand(Scanner scanner, String cmd) {
+        return this.menu.check(scanner, cmd);
+    }
+
+    public AppMenu getMenu() {
+        return menu;
     }
 }

@@ -1,11 +1,13 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
+import io.src.model.Clickable;
 import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 
-public class Well extends GameObject implements TimeObserver {
+public class Well extends GameObject implements TimeObserver , Clickable {
     private final BuildingType type = BuildingType.WELL;
 
     public Well(Position position) {
@@ -23,5 +25,10 @@ public class Well extends GameObject implements TimeObserver {
 
     public String getAssetName() {
         return "well";
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
     }
 }

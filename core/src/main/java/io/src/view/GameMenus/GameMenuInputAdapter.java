@@ -4,13 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import io.src.StardewValley;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
+import io.src.model.Clickable;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
+import io.src.model.GameObject.GameObject;
+import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
@@ -19,8 +23,13 @@ import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.TimeSystem.DateTime;
+import org.lwjgl.Sys;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -30,6 +39,10 @@ public class GameMenuInputAdapter extends InputAdapter {
     private final Set<Integer> keysHeld = new HashSet<>();
     private boolean stopMoving = false;
     private boolean shopCounterHintActive = false;
+    private GameObject focusedGameObject = null;
+    private final ArrayList<GameObject> nearbyGameObjects = new ArrayList<>();
+    //private LocalDateTime LastJClicked = LocalDateTime.now();
+    private boolean isCheatWindowOpen = false;
 
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
@@ -43,7 +56,49 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+
         keysHeld.add(keycode);
+        if (keysHeld.contains(Input.Keys.J)) {
+//            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
+//            Position pos = App.getMe().getPosition();
+//            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
+//                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
+//                    tiles[i][j].setWalkable(true);
+//                }
+//            }
+            //if (LastJClicked.until(LocalDateTime.now(), ChronoUnit.MILLIS) > 100) {
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addDay(1);
+            //LastJClicked = LocalDateTime.now();
+            //}
+            return true;
+        }
+        if (keysHeld.contains(Input.Keys.N)) {
+            GameController.manageNextTurn();
+            App.getStardewValley().getGameView().updateMap();
+            return true;
+        }
+
+
+        if (keycode == Input.Keys.C&& !isCheatWindowOpen()) {
+            keysHeld.clear();
+            CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
+            Stage stage = App.getStardewValley().getGameView().getStage();
+            stage.setKeyboardFocus(cheatWindow);
+            cheatWindow.showWithFocus(stage);
+            return true;
+        }
+
+        if (keycode == Input.Keys.ENTER && isCheatWindowOpen()) {
+            CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
+            Stage stage = App.getStardewValley().getGameView().getStage();
+            cheatWindow.hideDialog(stage);
+            return true;
+        }
+
+        if (keycode == Input.Keys.ENTER) {
+            App.getStardewValley().getGameView().getWarningWindow().hideDialog();
+            return true;
+        }
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
             int selectedSlot = keycode - Input.Keys.NUM_1;
             game.getCurrentPlayer().setSelectedSlot(selectedSlot);
@@ -54,10 +109,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             Gdx.app.exit();
             return true;
         }
-
-//        if (keycode == Input.Keys.N) {
-//            gameController.advanceToNextDay();
-//        }
 
         return true;
     }
@@ -87,6 +138,9 @@ public class GameMenuInputAdapter extends InputAdapter {
             if (isFacingCounter()) {
                 System.out.println("Facing counter");
                 return true;
+            }
+            if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
+                return clickable.touchDown(screenX, screenY, pointer, button);
             }
             return true;
         }
@@ -135,15 +189,13 @@ public class GameMenuInputAdapter extends InputAdapter {
         Player player = game.getCurrentPlayer();
         float vx = 0, vy = 0;
         Direction dir = null;
-        if (keysHeld.contains(Input.Keys.J)) {
-//            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
-//            Position pos = App.getMe().getPosition();
-//            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
-//                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
-//                    tiles[i][j].setWalkable(true);
-//                }
-//            }
-            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addDay(1);
+        if (isCheatWindowOpen) {
+            player.setMovingDirection(dir);
+            float speed = player.getSpeed();
+            player.setMovingDirection(dir);
+            player.setVelocity(vx * speed, vy * speed);
+            player.update(delta);
+            return;
         }
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
@@ -222,6 +274,59 @@ public class GameMenuInputAdapter extends InputAdapter {
         player.update(delta);
         applyWrapperEffect();
         shopCounterHintActive = isFacingCounter();
+        handleFocusedGameObject();
+        updateNearbySensitiveObjects();
+    }
+
+    private void updateNearbySensitiveObjects() {
+        Set<GameObject> newNearbyGameObjects = new HashSet<>();
+        for (GameObject gameObject : nearbyGameObjects) {
+            SensitiveToPlayer s = (SensitiveToPlayer) gameObject;
+            if (gameObject.getPosition().isNear(App.getMe().getPosition(), s.getSensitivityDistance())) {
+                newNearbyGameObjects.add(gameObject);
+            } else {
+                s.onPlayerGetsFar(gameObject.getPosition().distanceTo(App.getMe().getPosition()));
+            }
+        }
+        for (GameObject gameObject : App.getMe().getCurrentGameLocation().getGameObjects()) {
+            if (gameObject instanceof SensitiveToPlayer sensitiveObject
+                && gameObject.getPosition().isNear(App.getMe().getPosition(), sensitiveObject.getSensitivityDistance()) &&
+                !newNearbyGameObjects.contains(gameObject)) {
+                if (sensitiveObject.equals(focusedGameObject)) continue;
+                newNearbyGameObjects.add(gameObject);
+                sensitiveObject.onPlayerGoesNearby(gameObject.getPosition().distanceTo(App.getMe().getPosition()));
+            }
+        }
+        nearbyGameObjects.clear();
+        nearbyGameObjects.addAll(newNearbyGameObjects);
+    }
+
+    private void handleFocusedGameObject() {
+        float pX = App.getMe().getPosition().getX();
+        float pY = App.getMe().getPosition().getY();
+        GameLocation currGL = App.getMe().getCurrentGameLocation();
+
+        switch (App.getMe().getLastDirection()) {
+            case UP -> pY++;
+            case DOWN -> pY--;
+            case LEFT -> pX--;
+            case RIGHT -> pX++;
+            default -> {
+            }
+        }
+
+        pX = Math.min(Math.max(0, pX), currGL.getWidth() - 1);
+        pY = Math.min(Math.max(0, pY), currGL.getHeight() - 1);
+
+        GameObject newFocusedGameObject = currGL.getTileByPosition(new Position(pX, pY)).getFixedObject();
+
+        if (!Objects.equals(focusedGameObject, newFocusedGameObject)) {
+            if (focusedGameObject instanceof SensitiveToPlayer oldObject)
+                oldObject.onPlayerDefocus();
+            if (newFocusedGameObject instanceof SensitiveToPlayer newObject)
+                newObject.onPlayerFocus();
+            focusedGameObject = newFocusedGameObject;
+        }
     }
 
 
@@ -237,6 +342,10 @@ public class GameMenuInputAdapter extends InputAdapter {
                 if (b.getDoorPosition().isNear(App.getMe().getPosition(), 4)) {
                     isNearADoor = true;
                     if (b instanceof GreenHouse greenHouse && greenHouse.isBroken()) {
+                        WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
+                        warning.showDialog("Warning", "GreenHouse is Broken you can enter as you repair it" +
+                            " in carpenter shop", 250);
+                        warning.setVisible(true);
                         //TODO dialogue box its broken
                         App.getMe().setPosition(new Position(b.getDoorPosition().getX(), b.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
@@ -266,10 +375,16 @@ public class GameMenuInputAdapter extends InputAdapter {
             Player player = App.getMe();
             //From Town to Building
             for (Store store : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getStores()) {
-                if (store.getDoorPosition().isNear(App.getMe().getPosition(), 3)) {
+                if (store.getDoorPosition().isNear(App.getMe().getPosition(), 1.5f)) {
                     DateTime now = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
                     if (now.getHour() < store.getOpeningHour() || store.getClosingHour() < now.getHour()) {
                         // TODO add warning
+                        WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
+                        warning.showDialog("Warning", "This shop is closed right now.." +
+                            " you can enter after " + store.getOpeningHour()
+                            + (now.getHour() > store.getClosingHour() ? " AM Tomorrow." : " AM Today.")
+                            + "\nShop will be open until " + store.getClosingHour() + " PM", 250);
+                        warning.setVisible(true);
                         App.getMe().setPosition(new Position(store.getDoorPosition().getX(), store.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
@@ -297,6 +412,9 @@ public class GameMenuInputAdapter extends InputAdapter {
                     });
                 } else {
                     //TODO hosdar
+                    WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
+                    warning.showDialog("Warning", "This is not the farm you can enter" +
+                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm1().getPlayer().getUser().getName(), 250);
                     player.setPosition(new Position(4, 55));
                 }
             } else if (player.getPosition().isNear(new Position(105, 35), 8)) {
@@ -312,6 +430,9 @@ public class GameMenuInputAdapter extends InputAdapter {
                     });
                 } else {
                     //TODO hoshdar
+                    WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
+                    warning.showDialog("Warning", "This is not the farm you can enter" +
+                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm4().getPlayer().getUser().getName(), 250);
                     player.setPosition(new Position(105, 34));
                 }
             } else if (player.getPosition().isNear(new Position(81, 107), 10)) {
@@ -327,6 +448,9 @@ public class GameMenuInputAdapter extends InputAdapter {
                     });
                 } else {
                     //TODO hoshdar
+                    WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
+                    warning.showDialog("Warning", "This is not the farm you can enter" +
+                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm2().getPlayer().getUser().getName(), 250);
                     player.setPosition(new Position(81, 104));
                 }
 
@@ -343,6 +467,11 @@ public class GameMenuInputAdapter extends InputAdapter {
                     });
                 } else {
                     //TODO hoshdar
+                    WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
+                    warning.showDialog("Warning", "This is not the farm you can enter.. " +
+                        "this farm belongs to: '"
+                        + App.getCurrentUser().getCurrentGame().getGameMap().getFarm3().getPlayer().getUser().getName()
+                        + "'", 250);
                     player.setPosition(new Position(54, 4));
                 }
 
@@ -421,5 +550,17 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     public boolean isShopCounterHintActive() {
         return shopCounterHintActive;
+    }
+
+    public ArrayList<GameObject> getNearbyGameObjects() {
+        return nearbyGameObjects;
+    }
+
+    public boolean isCheatWindowOpen() {
+        return (isCheatWindowOpen = App.getStardewValley().getGameView().getCheatWindow().isVisible());
+    }
+
+    public void setCheatWindowOpen(boolean cheatWindowOpen) {
+        isCheatWindowOpen = cheatWindowOpen;
     }
 }

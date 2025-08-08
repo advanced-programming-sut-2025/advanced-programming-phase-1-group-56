@@ -2,6 +2,7 @@ package io.src.model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -15,6 +16,7 @@ public class App {
     private static User currentUser = null;
     private static Menu currentMenu = Menu.loginMenu;
     private static StardewValley stardewValley;
+    private static Scanner scanner;
 
     public static void print(Object obj) {
         if (DEBUG_MODE) {
@@ -104,5 +106,13 @@ public class App {
 
     public static void setStardewValley(StardewValley stardewValley) {
         App.stardewValley = stardewValley;
+    }
+
+    public static void setScanner(Scanner scanner1) {
+        scanner = scanner1;
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
     }
 }

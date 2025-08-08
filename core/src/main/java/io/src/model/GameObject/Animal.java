@@ -2,6 +2,7 @@ package io.src.model.GameObject;
 
 import io.src.controller.GameMenuController.HusbandryController;
 import io.src.model.App;
+import io.src.model.Clickable;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Items.EtcType;
 import io.src.model.MapModule.Buildings.AnimalHouse;
@@ -14,7 +15,7 @@ import io.src.model.items.Saleable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Animal extends LivingEntity implements Saleable, TimeObserver {
+public class Animal extends LivingEntity implements Saleable, TimeObserver, Clickable {
     private AnimalType animalInfo;
     private final ArrayList<AnimalProduct> dailyProducts = new ArrayList<>();
     private int friendship = 0;

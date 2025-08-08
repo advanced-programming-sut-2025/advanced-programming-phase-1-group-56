@@ -1,11 +1,13 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
 import io.src.model.App;
+import io.src.model.Clickable;
 import io.src.model.MapModule.Position;
 
 import java.util.ArrayList;
 
-public class MailBox extends GameObject {
+public class MailBox extends GameObject implements Clickable {
     private final ArrayList<String> unseenMessages = new ArrayList<>();
     private final ArrayList<String> historyMessages = new ArrayList<>();
     public MailBox(Position position) {
@@ -23,5 +25,10 @@ public class MailBox extends GameObject {
     @Override
     public String getAssetName() {
         return "Farm_Mailbox";
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
     }
 }
