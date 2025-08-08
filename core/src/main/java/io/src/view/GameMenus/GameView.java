@@ -1,6 +1,7 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -41,37 +43,78 @@ import java.util.HashMap;
 
 
 public class GameView implements Screen {
-    private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private static final int TILE_SIZE = 16;
+
     private final Game game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    //    private SpriteBatch batch;
-//    private TextureRegion[][] tileTextures;
-//    private Map<String, TextureRegion> textures;
     private BitmapFont smallFont;
     private GlyphLayout layout = new GlyphLayout();
+
+    private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
     private AnimationManager animationManager = new AnimationManager();
-    private float stateTime = 0f;
-    private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
-    private int moveDirection = 0;
-    private Texture pixel; // Add this
-    public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
+    private ScreenTransition transitionManager;
+    private ShapeRenderer shapeRenderer;
     private final OrthographicCamera camera = new OrthographicCamera();
+    public final Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
+
+    private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
+    private float stateTime = 0f;
+
+    private Texture pixel; // Add this
+    private int moveDirection = 0;
     private Stage stage;
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
     private WarningWindow warningWindow;
+    private EnergyBar energyWindow;
 
-    //    private final GameController gameController;
+    private CheatWindow cheatWindow;
+
+
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
-    private EnergyBar energyWindow;
-    private ScreenTransition transitionManager;
-    private ShapeRenderer shapeRenderer;
+
+    public GameView(Game game) {
+        this.game = game;
+        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
+        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
+        renderer = new OrthogonalTiledMapRenderer(map, 1f);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        stage = new Stage(new ScreenViewport());
+        //Time Window
+        timeWindow = new TimerWindow();
+        stage.addActor(timeWindow);
+        //Energy Window
+        energyWindow = new EnergyBar();
+        energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
+        stage.addActor(energyWindow);
+        //Inventory Window
+        invWindow = new InventoryWindow();
+        invWindow.setVisible(false);
+        stage.addActor(invWindow);
+        //Warning Window
+        warningWindow = new WarningWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
+        warningWindow.setVisible(false);
+        stage.addActor(warningWindow);
+        //Cheat Window
+        cheatWindow = new CheatWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
+        cheatWindow.setVisible(false);
+        stage.addActor(cheatWindow);
+
+
+        //Input Adapters
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(gameMenuInputAdapter);
+        Gdx.input.setInputProcessor(multiplexer);
+
+        transitionManager = new ScreenTransition();
+        shapeRenderer = new ShapeRenderer();
+    }
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -96,51 +139,6 @@ public class GameView implements Screen {
         parameter.size = 16;
         smallFont = generator.generateFont(parameter);
         generator.dispose();
-    }
-
-    public GameView(Game game) {
-        this.game = game;
-//        this.gameController = gameController;
-        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
-        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
-        renderer = new OrthogonalTiledMapRenderer(map, 1f);
-//        loadTextures();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        stage = new Stage(new ScreenViewport());
-        invWindow = new InventoryWindow();
-        energyWindow = new EnergyBar();
-        timeWindow = new TimerWindow();
-        energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
-        invWindow.setVisible(false);
-        warningWindow = new WarningWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
-        warningWindow.setVisible(false);
-        stage.addActor(invWindow);
-        stage.addActor(energyWindow);
-        stage.addActor(timeWindow);
-        stage.addActor(warningWindow);
-
-        InputAdapter keyListener = new InputAdapter() {
-            @Override
-            public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.E) {
-                    App.getMe().addGold(1000);
-                    invWindow.setVisible(!invWindow.isVisible());
-                }
-                if (keycode == Input.Keys.ENTER) {
-                    dialogWindow.hideDialog();
-                    warningWindow.hideDialog();
-                }
-                return true;
-            }
-        };
-        multiplexer.addProcessor(gameMenuInputAdapter);
-        multiplexer.addProcessor(keyListener);
-        multiplexer.addProcessor(stage);
-        Gdx.input.setInputProcessor(multiplexer);
-
-        transitionManager = new ScreenTransition();
-        shapeRenderer = new ShapeRenderer();
     }
 
     private void loadTextures() {
@@ -372,7 +370,7 @@ public class GameView implements Screen {
     }
 
     public void renderWarningDialog() {
-        warningWindow.setRemainingTime(warningWindow.getRemainingTime()-1);
+        warningWindow.setRemainingTime(warningWindow.getRemainingTime() - 1);
     }
 
     @Override
@@ -623,4 +621,11 @@ public class GameView implements Screen {
     }
 
 
+    public CheatWindow getCheatWindow() {
+        return cheatWindow;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
 }

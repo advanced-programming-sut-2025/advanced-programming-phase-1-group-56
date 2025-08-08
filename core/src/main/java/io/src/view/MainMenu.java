@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.src.StardewValley;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.MainMenuCommands;
+import io.src.model.Result;
 
 
 import java.util.Scanner;
@@ -75,21 +75,21 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     @Override
-    public void check(Scanner scanner) {
-        String input = scanner.nextLine();
+    public Result check(Scanner scanner, String cmd) {
         Matcher matcher;
-        if ((MainMenuCommands.ShowCurrentMenu.getMatcher(input)).find()) {
+        if ((MainMenuCommands.ShowCurrentMenu.getMatcher(cmd)).find()) {
             System.out.println("you are in Main Menu BROOOOO!");
-        } else if ((matcher = MainMenuCommands.goMenu.getMatcher(input)).find()) {
+        } else if ((matcher = MainMenuCommands.goMenu.getMatcher(cmd)).find()) {
             String menu = matcher.group(1).trim();
             System.out.println(MainMenuController.goToMenu(menu).message());
-        } else if ((MainMenuCommands.logout.getMatcher(input)).find()) {
+        } else if ((MainMenuCommands.logout.getMatcher(cmd)).find()) {
             System.out.println(MainMenuController.manageUserLogout().message());
-        } else if ((MainMenuCommands.back.getMatcher(input)).find()) {
+        } else if ((MainMenuCommands.back.getMatcher(cmd)).find()) {
             App.setCurrentMenu(Menu.loginMenu);
             System.out.println("you are in login menu now!");
         } else {
             System.out.println("invalid command bro!..");
         }
+        return new Result(true,"");
     }
 }

@@ -3,6 +3,7 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Clickable;
@@ -37,7 +38,8 @@ public class GameMenuInputAdapter extends InputAdapter {
     private boolean shopCounterHintActive = false;
     private GameObject focusedGameObject = null;
     private final ArrayList<GameObject> nearbyGameObjects = new ArrayList<>();
-    private LocalDateTime LastJClicked = LocalDateTime.now();
+    //private LocalDateTime LastJClicked = LocalDateTime.now();
+    private boolean isCheatWindowOpen = false;
 
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
@@ -51,21 +53,58 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+
         keysHeld.add(keycode);
+        if (keysHeld.contains(Input.Keys.J)) {
+//            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
+//            Position pos = App.getMe().getPosition();
+//            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
+//                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
+//                    tiles[i][j].setWalkable(true);
+//                }
+//            }
+            //if (LastJClicked.until(LocalDateTime.now(), ChronoUnit.MILLIS) > 100) {
+            App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addDay(1);
+            //LastJClicked = LocalDateTime.now();
+            //}
+            return true;
+        }
+        if (keysHeld.contains(Input.Keys.N)) {
+            GameController.manageNextTurn();
+            App.getStardewValley().getGameView().updateMap();
+            return true;
+        }
+
+
+        if (keycode == Input.Keys.C&& !isCheatWindowOpen()) {
+            keysHeld.clear();
+            CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
+            Stage stage = App.getStardewValley().getGameView().getStage();
+            stage.setKeyboardFocus(cheatWindow);
+            cheatWindow.showWithFocus(stage);
+            return true;
+        }
+
+        if (keycode == Input.Keys.ENTER && isCheatWindowOpen()) {
+            CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
+            Stage stage = App.getStardewValley().getGameView().getStage();
+            cheatWindow.hideDialog(stage);
+            return true;
+        }
+
+        if (keycode == Input.Keys.ENTER) {
+            App.getStardewValley().getGameView().getWarningWindow().hideDialog();
+            return true;
+        }
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
             int selectedSlot = keycode - Input.Keys.NUM_1;
             game.getCurrentPlayer().setSelectedSlot(selectedSlot);
             return true;
         }
-
         if (keycode == Input.Keys.ESCAPE) {
             Gdx.app.exit();
             return true;
         }
-
-//        if (keycode == Input.Keys.N) {
-//            gameController.advanceToNextDay();
-//        }
 
         return true;
     }
@@ -146,25 +185,14 @@ public class GameMenuInputAdapter extends InputAdapter {
         Player player = game.getCurrentPlayer();
         float vx = 0, vy = 0;
         Direction dir = null;
-        if (keysHeld.contains(Input.Keys.J)) {
-//            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
-//            Position pos = App.getMe().getPosition();
-//            for (int i = (int) pos.getY() - 1; i <= pos.getY() + 1; i++) {
-//                for (int j = (int) pos.getX() - 1; j <= pos.getX() + 1; j++) {
-//                    tiles[i][j].setWalkable(true);
-//                }
-//            }
-            if (LastJClicked.until(LocalDateTime.now(), ChronoUnit.MILLIS) > 100) {
-                App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().addDay(1);
-                LastJClicked = LocalDateTime.now();
-            }
-
+        if (isCheatWindowOpen) {
+            player.setMovingDirection(dir);
+            float speed = player.getSpeed();
+            player.setMovingDirection(dir);
+            player.setVelocity(vx * speed, vy * speed);
+            player.update(delta);
+            return;
         }
-        if (keysHeld.contains(Input.Keys.N)) {
-            GameController.manageNextTurn();
-            App.getStardewValley().getGameView().updateMap();
-        }
-
 
         if (keysHeld.contains(Input.Keys.W)) {
             vy += 1;
@@ -517,5 +545,13 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     public ArrayList<GameObject> getNearbyGameObjects() {
         return nearbyGameObjects;
+    }
+
+    public boolean isCheatWindowOpen() {
+        return (isCheatWindowOpen = App.getStardewValley().getGameView().getCheatWindow().isVisible());
+    }
+
+    public void setCheatWindowOpen(boolean cheatWindowOpen) {
+        isCheatWindowOpen = cheatWindowOpen;
     }
 }

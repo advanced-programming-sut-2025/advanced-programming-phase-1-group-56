@@ -1,12 +1,7 @@
 package io.src.model.Enums;
 
-import io.src.Main;
-import io.src.StardewValley;
-import io.src.controller.GameMenuController.GameController;
 import io.src.controller.MenuController.ProfileMenuController;
-import io.src.model.App;
-import io.src.model.Game;
-import io.src.model.MapModule.Buildings.GreenHouse;
+import io.src.model.Result;
 import io.src.view.*;
 import io.src.view.GameMenus.GameMenu;
 import io.src.view.GameMenus.HouseMenu;
@@ -39,8 +34,8 @@ public enum Menu {
         this.menu = appMenu;
     }
 
-    public void checkCommand(Scanner scanner) {
-        this.menu.check(scanner);
+    public Result checkCommand(Scanner scanner, String cmd) {
+        return this.menu.check(scanner, cmd);
     }
 
     public AppMenu getMenu() {

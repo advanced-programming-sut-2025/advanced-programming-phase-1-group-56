@@ -3,7 +3,6 @@ package io.src.test;
 import io.src.controller.MenuController.ProfileMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
-import io.src.model.Enums.commands.ProfileMenuCommands;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,75 +38,75 @@ public class MainMenuUnitTest {
     @Test
     public void testShowCurrentMenuCommand() {
         simulateInput("menu show-current");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید وضعیت منو را نمایش دهد",
-                outputStream.toString().contains("you are in profile menu!"));
+            outputStream.toString().contains("you are in profile menu!"));
     }
 
     @Test
     public void testGoMenu() {
         simulateInput("profile change --email ali@example.com");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید پیام تغییر ایمیل را نمایش دهد",
-                outputStream.toString().contains("Email updated successfully"));
+            outputStream.toString().contains("Email updated successfully"));
     }
 
     @Test
     public void testLogout() {
         simulateInput("profile change --password oldPass123 --new newPass456");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید پیام تغییر رمز را نمایش دهد",
-                outputStream.toString().contains("Password updated successfully"));
+            outputStream.toString().contains("Password updated successfully"));
     }
 
     @Test
     public void testLoginMenu() {
         simulateInput("profile change --username ali2023");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید پیام تغییر نام کاربری را نمایش دهد",
-                outputStream.toString().contains("Username updated successfully"));
+            outputStream.toString().contains("Username updated successfully"));
     }
 
     @Test
     public void testValidNicknameChange() {
         simulateInput("profile change --nickname 'King Ali'");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید پیام تغییر نام مستعار را نمایش دهد",
-                outputStream.toString().contains("Nickname updated successfully"));
+            outputStream.toString().contains("Nickname updated successfully"));
     }
 
     @Test
     public void testShowUserInformation() {
         simulateInput("profile show info");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید اطلاعات کاربر را نمایش دهد",
-                outputStream.toString().contains("Username: ali, Email: ali@example.com"));
+            outputStream.toString().contains("Username: ali, Email: ali@example.com"));
     }
 
     @Test
     public void testBackToMainMenuCommand() {
         simulateInput("menu back");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertEquals("باید منو را به mainMenu تغییر دهد",
-                Menu.mainMenu, App.getCurrentMenu());
+            Menu.mainMenu, App.getCurrentMenu());
         assertTrue("باید پیام بازگشت را نمایش دهد",
-                outputStream.toString().contains("you are in main menu now!"));
+            outputStream.toString().contains("you are in main menu now!"));
     }
 
     @Test
     public void testInvalidCommandFormat() {
         simulateInput("profile change --invalid-option");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید خطای دستور نامعتبر را نمایش دهد",
-                outputStream.toString().contains("invalid command bro!.."));
+            outputStream.toString().contains("invalid command bro!.."));
     }
 
     @Test
     public void testEmptyCommand() {
         simulateInput("");
-        profileMenu.check(scanner);
+        profileMenu.check(scanner, scanner.nextLine());
         assertTrue("باید خطای دستور خالی را نمایش دهد",
-                outputStream.toString().contains("invalid command bro!.."));
+            outputStream.toString().contains("invalid command bro!.."));
     }
 
     private void simulateInput(String input) {
