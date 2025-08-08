@@ -21,9 +21,9 @@ public class InventoryBar extends Group {
     private static InventoryBar instance;
     private Table inventoryTable;
     private static int selectedIndex = 0;
+    private Image redSelection;
     private static final int VISIBLE_SLOTS = 12;
-    private final ArrayList<Image> itemImages = new ArrayList<>();
-    private final Label selectedItemLabel;
+
 
     public InventoryBar() {
         setPosition((Gdx.graphics.getWidth() - 800) / 2f, 100);
@@ -31,18 +31,20 @@ public class InventoryBar extends Group {
         Image background = new Image(GameAssetManager.getGameAssetManager().getInventoryBarBackground());
         background.setSize(800, 94);
         background.setPosition(0, 0);
-        addActor(background);
+
 
         inventoryTable = createInventoryTable(App.getMe().getInventory());
         inventoryTable.setPosition(398, 48);
-        addActor(inventoryTable);
-        selectedItemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
-        selectedItemLabel.setFontScale(0.7f);
-        selectedItemLabel.setPosition(400, 20); // کنار inventory
-        selectedItemLabel.setVisible(false);
-        addActor(selectedItemLabel);
-    }
 
+        addActor(background);
+        addActor(inventoryTable);
+
+        final float SLOT_SIZE = 64f;
+        redSelection = new Image(GameAssetManager.getGameAssetManager().getRedSelection());
+        redSelection.setSize(SLOT_SIZE, SLOT_SIZE);
+        redSelection.setPosition(12,15);
+        addActor(redSelection);
+    }
     public static InventoryBar getInstance() {
         if (instance == null) {
             instance = new InventoryBar();
@@ -50,9 +52,12 @@ public class InventoryBar extends Group {
         return instance;
     }
 
+
     private Table createInventoryTable(Inventory inventory) {
         final float SLOT_SIZE = 64f;
         Table table = new Table();
+        table.defaults();
+
         int totalSlots = 36;
         int capacity = inventory.getBackPackType().getCapacity();
         ArrayList<Slot> slots = inventory.getSlots();
@@ -74,8 +79,6 @@ public class InventoryBar extends Group {
                     itemImage.setOrigin(Align.center);
                     itemImage.setScale(0.8f);
                     itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
-                    itemImages.add(itemImage);
-
                     Label label = new Label(String.valueOf(slot.getQuantity()),
                         GameAssetManager.getGameAssetManager().getSkin());
                     label.setFontScale(0.6f);
@@ -98,8 +101,7 @@ public class InventoryBar extends Group {
                     });
                 }
             }
-
-            if (i < VISIBLE_SLOTS) {
+            if (i < 12) {
                 table.add(stack).size(SLOT_SIZE);
             }
         }
@@ -108,51 +110,62 @@ public class InventoryBar extends Group {
     }
 
     public boolean scrolled(float amountX, float amountY) {
+        System.out.println("amountX: " + amountX + " amountY: " + amountY);
         if (amountY > 0) {
             selectedIndex = (selectedIndex + 1) % VISIBLE_SLOTS;
         } else if (amountY < 0) {
             selectedIndex = (selectedIndex - 1 + VISIBLE_SLOTS) % VISIBLE_SLOTS;
         }
-
-        if (selectedIndex >= App.getMe().getInventory().getSlots().size()) {
+        if(selectedIndex >= App.getMe().getInventory().getSlots().size()){
             selectedIndex = 0;
         }
-        if (selectedIndex < 0) {
-            selectedIndex = App.getMe().getInventory().getSlots().size() - 1;
+        if(selectedIndex < 0 ){
+            selectedIndex = App.getMe().getInventory().getSlots().size()-1;
         }
-
+        updateRedSelectionPosition();
         updateCurrentItem();
         return true;
     }
+
+
+    private float getSlotX(int index) {
+        return (index % VISIBLE_SLOTS) * 64f;
+    }
+    private float getSlotY(int index) {
+        return 0;
+    }
+    private void updateRedSelectionPosition() {
+        redSelection.setPosition(12 + getSlotX(selectedIndex),
+            15 + getSlotY(selectedIndex));
+        addActor(redSelection);
+    }
+
+
+
 
     private void updateCurrentItem() {
         Inventory inventory = App.getMe().getInventory();
         Slot slot = inventory.getSlots().get(selectedIndex);
         App.getMe().setCurrentItem(slot.getItem());
-        if (slot.getItem() != null) {
-            selectedItemLabel.setText(slot.getItem().getName());
-            selectedItemLabel.setColor(1, 1, 1, 1);
-            selectedItemLabel.setVisible(true);
-            selectedItemLabel.clearActions();
-            selectedItemLabel.addAction(
-                Actions.sequence(
-                    Actions.delay(3f),
-                    Actions.fadeOut(0.5f),
-                    Actions.visible(false)
-                )
-            );
-        } else {
-            selectedItemLabel.setVisible(false);
-        }
-
-        System.out.println(App.getMe().getCurrentItem().getName());
     }
 
+
+
     public void refreshInventory() {
-        inventoryTable.remove();
-        itemImages.clear();
+
+        this.removeActor(inventoryTable);
+        inventoryTable.clear();
         inventoryTable = createInventoryTable(App.getMe().getInventory());
         inventoryTable.setPosition(398, 48);
         addActor(inventoryTable);
+
+        this.removeActor(redSelection);
+        final float SLOT_SIZE = 64f;
+
+        redSelection = new Image(GameAssetManager.getGameAssetManager().getRedSelection());
+        redSelection.setSize(SLOT_SIZE, SLOT_SIZE);
+        redSelection.setPosition(12,15);
+        addActor(redSelection);
+
     }
 }

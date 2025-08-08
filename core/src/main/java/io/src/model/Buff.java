@@ -43,6 +43,7 @@ public class Buff implements TimeObserver {
             player.getEnergy().setMaxEnergy(player.getEnergy().getMaxEnergy()/2);
         }
     }
+
     public void manageBuff1(Player player){
         if(buffType == BuffType.FarmingBuff){
             player.getSkillByName(Skills.Farming.toString()).setLevel(player.getSkillByName(Skills.Farming.toString()).getLevel()-1);

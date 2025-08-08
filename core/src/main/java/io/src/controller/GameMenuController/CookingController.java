@@ -143,6 +143,13 @@ public class CookingController extends CommandController {
         return new Result(true, "you eat " + item.getName());
     }
 
+    public static void eatFoodUI(Item item) {
+        Food food = (Food) item;
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
+    }
+
     private static Item returnRefrigeratorItemByName(String itemName) {
         for (Slot slot : App.getCurrentUser()
                 .getCurrentGame()
@@ -213,6 +220,9 @@ public class CookingController extends CommandController {
         for (Slot ingredient : cookFood.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if(slot.getItem()==null){
+                    continue;
+                }
                 if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
                     break;

@@ -1,6 +1,8 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 
 import static io.src.controller.GameMenuController.CraftingController.*;
 
-public class craftingWindow extends Group {
+public class craftingWindow extends Group implements InputProcessor {
     private Group group;
     private Image background;
     private Player player;
@@ -234,56 +236,51 @@ public class craftingWindow extends Group {
                 : new Image(GameAssetManager.getGameAssetManager().getLockSlot());
             stack.add(slotImage);
 
-            Image itemImage = null;
-            if (i < slots.size()) {
-                Slot slot = slots.get(i);
-                Item item = slot.getItem();
-                String assetName = item.getAssetName();
-                int quantity = slot.getQuantity();
-                Label label = null;
-                stack.setTouchable(Touchable.enabled);
+            while (slots.size() <= i && i < capacity) {
+                slots.add(new Slot(null, 0));
+            }
 
+            Slot slot = null;
+            Item item = null;
+            int quantity = 0;
+            if(i<capacity){
+                slot = slots.get(i);
+                item = slot.getItem();
+                quantity = slot.getQuantity();
                 addDragAndDrop(dragAndDrop, stack, i, inventory);
-
-                if (item != null && quantity > 0) {
-                    itemImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName))));
-                    itemImage.setOrigin(Align.center);
-                    itemImage.setScale(0.8f);
-                    itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
-
-                    label = new Label(String.valueOf(quantity), GameAssetManager.getGameAssetManager().getSkin());
-                    label.setFontScale(0.6f);
-                    label.setAlignment(Align.bottomRight);
-
-                    stack.add(itemImage);
-                    stack.add(label);
-                    stack.setTouchable(Touchable.enabled);
-
-                    Image finalItemImage = itemImage;
-                    stack.addListener(new InputListener() {
-                        @Override
-                        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                            if (finalItemImage != null) {
-                                finalItemImage.clearActions();
-                                finalItemImage.addAction(Actions.scaleTo(1f, 1f, 0.1f));
-                            }
-                        }
-
-                        @Override
-                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                            if (finalItemImage != null) {
-                                finalItemImage.clearActions();
-                                finalItemImage.addAction(Actions.scaleTo(0.8f, 0.8f, 0.1f));
-                            }
-                        }
-                    });
-                }
             }
-            if (i < 12) {
-                inventoryTable.add(stack).size(SLOT_SIZE).padBottom(2);
-            } else {
-                inventoryTable.add(stack).size(SLOT_SIZE).padBottom(2);
+
+            if (item != null && quantity > 0) {
+                Image itemImage = new Image(new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
+                )));
+                itemImage.setOrigin(Align.center);
+                itemImage.setScale(0.8f);
+                itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
+
+                Label label = new Label(String.valueOf(quantity), GameAssetManager.getGameAssetManager().getSkin());
+                label.setFontScale(0.6f);
+                label.setAlignment(Align.bottomRight);
+
+                stack.add(itemImage);
+                stack.add(label);
+
+                stack.addListener(new InputListener() {
+                    @Override
+                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        itemImage.clearActions();
+                        itemImage.addAction(Actions.scaleTo(1f, 1f, 0.1f));
+                    }
+
+                    @Override
+                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        itemImage.clearActions();
+                        itemImage.addAction(Actions.scaleTo(0.8f, 0.8f, 0.1f));
+                    }
+                });
             }
+
+            inventoryTable.add(stack).size(SLOT_SIZE).padBottom(5);
             if ((i + 1) % 12 == 0) inventoryTable.row();
         }
 
@@ -304,24 +301,45 @@ public class craftingWindow extends Group {
                     int toIndex = index;
 
                     if (fromIndex != toIndex) {
-                        InventoryController.swapSlots(inventory, fromIndex, toIndex);
+                        Slot fromSlot = inventory.getSlots().get(fromIndex);
+                        Slot toSlot = inventory.getSlots().get(toIndex);
+
+                        if (toSlot.getItem() == null || toSlot.getQuantity() == 0) {
+                            toSlot.setItem(fromSlot.getItem());
+                            toSlot.setQuantity(fromSlot.getQuantity());
+                            fromSlot.setItem(null);
+                            fromSlot.setQuantity(0);
+                        } else {
+                            InventoryController.swapSlots(inventory, fromIndex, toIndex);
+                        }
+
                         refreshInventory();
                     }
+
                 } else if (payload.getObject() instanceof CraftingRecipesList) {
                     CraftingRecipesList recipe = (CraftingRecipesList) payload.getObject();
-                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
-                        showErrorLabel("it's not open for you!");
-                    } else if (CraftingController.havaIngredient(recipe)) {
-                        Item crafted = new CraftingTool(recipe);
-                        if (inventory.add(crafted, 1)) {
-                            showErrorLabel("Crafted: " + crafted.getAssetName());
-                            refreshInventory();
-                        } else {
-                            showErrorLabel("Inventory is full!");
-                        }
-                    } else {
-                        showErrorLabel("Not enough ingredients!");
-                    }
+                    Item crafted = new CraftingTool(recipe);
+                    inventory.add(crafted, 1);
+                    refreshInventory();
+//                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
+//                        showErrorLabel("it's not open for you!");
+
+
+//                    } else if (CraftingController.havaIngredient(recipe)) {
+//                        Item crafted = new CraftingTool(recipe);
+//                        if (inventory.add(crafted, 1)) {
+//                            App.getCurrentUser().
+//                                getCurrentGame()
+//                                .getCurrentPlayer()
+//                                .subtractEnergy(3);
+//                            showErrorLabel("Crafted: " + crafted.getAssetName());
+//                            refreshInventory();
+//                        } else {
+//                            showErrorLabel("Inventory is full!");
+//                        }
+//                    } else {
+//                        showErrorLabel("Not enough ingredients!");
+//                    }
                 }
 
             }
@@ -366,11 +384,61 @@ public class craftingWindow extends Group {
     }
 
 
-    private void refreshInventory() {
+    public void refreshInventory() {
         table.clear();
         table = createInventoryTable(App.getMe().getInventory(), dragAndDrop);
         table.setPosition(375, 120);
         group.addActor(table);
     }
 
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.B) {
+            if(GameView.getCraftingWindow().isVisible()) {
+                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+            }
+            GameView.getCraftingWindow().setVisible(!GameView.getCraftingWindow().isVisible());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
 }
