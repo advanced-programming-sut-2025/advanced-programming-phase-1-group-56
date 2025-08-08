@@ -25,6 +25,7 @@ import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
+import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
@@ -470,7 +471,7 @@ public class GameView implements Screen {
                 worldX, worldY,
                 region.getRegionWidth(), 0,
                 region.getRegionWidth(), region.getRegionHeight(),
-                1f, 1f, 0);
+                1f, 1f, 45);
         }
 
 

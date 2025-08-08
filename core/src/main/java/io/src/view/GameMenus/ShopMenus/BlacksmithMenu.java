@@ -10,6 +10,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class BlacksmithMenu implements AppMenu {
+
+
+
+
+
     @Override
     public Result check(Scanner scanner, String cmd) {
         Matcher matcher;

@@ -271,10 +271,6 @@ public class GameMenu implements AppMenu {
         Matcher matcher;
         if ((matcher = ToolCommands.toolsEquip.getMatcher(input)) != null) {
             result = ToolsController.equipTool(matcher.group(1).trim());
-            if (App.getMe().getEnergyUsage() > 50) {
-                App.getMe().setEnergyUsage(0);
-                GameController.manageNextTurn();
-            }
             return true;
         } else if ((ToolCommands.toolsShowCurrent.getMatcher(input)) != null) {
             result = ToolsController.showCurrentTools();

@@ -92,6 +92,7 @@ public enum FishShopProducts implements Store{
     public static <T extends Enum<T> & Store> ArrayList<NpcProduct> getProducts(Class<T> enumClass) {
         ArrayList<NpcProduct> products = new ArrayList<>();
         for (T product : enumClass.getEnumConstants()) {
+
             products.add(product.getProduct());
         }
         return products;

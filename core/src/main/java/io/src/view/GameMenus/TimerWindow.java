@@ -7,13 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
 import io.src.model.App;
 import io.src.model.Enums.WeatherAndTime.DayOfWeek;
 import io.src.model.GameAssetManager;
 import io.src.model.TimeSystem.TimeSystem;
 
-public class TimerWindow extends Group {
+public class TimerWindow extends Window {
 
     private Label dayLabel;
     private Label timeLabel;

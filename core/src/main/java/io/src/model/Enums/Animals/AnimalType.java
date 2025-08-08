@@ -11,32 +11,32 @@ public enum AnimalType implements Saleable {
     CHICKEN("Chicken", 800, BuildingType.COOP,
         new EtcType[]{
             EtcType.EGG, EtcType.BIG_EGG
-        }, 1, "Chicken_Atlas"),
+        }, 1, "Brown_Chicken"),
     DUCK("Duck", 1200, BuildingType.BIG_COOP,
         new EtcType[]{
             EtcType.DUCK_EGG, EtcType.DUCK_FEATHER
-        }, 2, "Duck_Atlas"),
+        }, 2, "Duck"),
     RABBIT("Rabbit", 8000, BuildingType.DELUXE_COOP,
         new EtcType[]{
             EtcType.WOOL, EtcType.RABBITS_FOOT
-        }, 4, "Rabbit_Atlas"),
+        }, 4, "Rabbit"),
     DINOSAUR("Dinosaur", 14000, BuildingType.BIG_COOP,
-        new EtcType[]{EtcType.DINOSAUR_EGG}, 7, "Dinosaur_Atlas"),
+        new EtcType[]{EtcType.DINOSAUR_EGG}, 7, "Dinosaur"),
 
     COW("Cow", 1500, BuildingType.BARN,
         new EtcType[]{
             EtcType.MILK, EtcType.BIG_MILK
-        }, 1, "Cow_Atlas"),
+        }, 1, "White_Cow"),
     GOAT("Goat", 4000, BuildingType.BIG_BARN,
         new EtcType[]{
             EtcType.GOAT_MILK, EtcType.BIG_GOAT_MILK
-        }, 2, "Goat_Atlas"),
+        }, 2, "Goat"),
     SHEEP("Sheep", 8000, BuildingType.DELUXE_BARN,
-        new EtcType[]{EtcType.WOOL}, 3, "Sheep_Atlas"),
+        new EtcType[]{EtcType.WOOL}, 3, "Sheep"),
     PIG("Pig", 16000, BuildingType.DELUXE_BARN,
         new EtcType[]{
             EtcType.TRUFFLE
-        }, 1, "Pig_Atlas"),
+        }, 1, "Pig"),
     ;
     //TODO handle atlases
 
