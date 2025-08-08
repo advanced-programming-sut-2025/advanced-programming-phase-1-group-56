@@ -192,7 +192,7 @@ exitButton2_UP
   index: -1
 inventoryButtonRight_UP
   rotate: false
-  xy: 509, 1085
+  xy: 595, 1131
   size: 52, 44
   split: 0, 29, 21, 21
   pad: 10, 22, 18, 18
@@ -219,7 +219,7 @@ labelBackGround
   index: -1
 leftButton_OVER
   rotate: false
-  xy: 823, 1275
+  xy: 567, 1085
   size: 48, 44
   split: 0, 0, 0, 0
   orig: 48, 44
@@ -227,7 +227,7 @@ leftButton_OVER
   index: -1
 leftButton_UP
   rotate: false
-  xy: 1232, 1776
+  xy: 823, 1275
   size: 48, 44
   split: 0, 0, 0, 0
   orig: 48, 44
@@ -281,7 +281,7 @@ newButton2_UP
   index: -1
 newButton_DOWN
   rotate: false
-  xy: 563, 1085
+  xy: 649, 1131
   size: 44, 44
   split: 11, 31, 13, 29
   pad: 12, 14, 14, 29
@@ -346,7 +346,7 @@ questionButton_UP
   index: -1
 rightButton_OVER
   rotate: false
-  xy: 837, 1321
+  xy: 1232, 1776
   size: 48, 44
   split: 0, 0, 0, 0
   orig: 48, 44
@@ -354,7 +354,7 @@ rightButton_OVER
   index: -1
 rightButton_UP
   rotate: false
-  xy: 595, 1131
+  xy: 837, 1321
   size: 48, 44
   split: 0, 0, 0, 0
   orig: 48, 44
@@ -394,6 +394,15 @@ selectionBox
   orig: 66, 66
   offset: 0, 0
   index: -1
+shopWindowBackGround
+  rotate: false
+  xy: 509, 1073
+  size: 56, 56
+  split: 26, 27, 26, 27
+  pad: 27, 27, 27, 27
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
 stageBackGround
   rotate: false
   xy: 1, 269
@@ -412,7 +421,7 @@ stageBackGround_empty
   index: -1
 textfield
   rotate: false
-  xy: 645, 1135
+  xy: 887, 1325
   size: 40, 40
   split: 9, 9, 9, 9
   pad: 11, 9, 9, 9
@@ -430,7 +439,7 @@ warning_label
   index: -1
 window
   rotate: false
-  xy: 887, 1325
+  xy: 617, 1089
   size: 40, 40
   split: 17, 18, 18, 16
   pad: 18, 19, 19, 17

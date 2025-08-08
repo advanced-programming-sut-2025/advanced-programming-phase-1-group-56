@@ -447,5 +447,10 @@ WindowStyle: {
 		titleFont: baseFont2-24
 		stageBackground: stageBackGround
 	}
+	default3: {
+		background: shopWindowBackGround
+		titleFont: baseFont-90
+		titleFontColor: BLACK
+	}
 }
 }

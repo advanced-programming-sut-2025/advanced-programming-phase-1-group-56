@@ -165,9 +165,119 @@ LibGdx-Skin-main/impact(3).fnt
 LibGdx-Skin-main/mac's Extended Minecraft Bold Italic.fnt
 LibGdx-Skin-main/mac's Minecraft(1).fnt
 Logo No Background.png
+SFXs/Versatile_ Sound Effects.zip
+SFXs/Versatile_ Sound Effects/SFX Click/Mouse Click.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Pop 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Pop 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Shutter Click.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Small Bell.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Smithing_Table.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Taking Photos.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Trident_return.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/Wood_click.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/anvil_land.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/click.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/fallsmall.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/glass1.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/ignite.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/levelup.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/orb.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/out.mp3
+SFXs/Versatile_ Sound Effects/SFX Click/pop.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Angels Singing.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Anime punch.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Anime transmission.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Anime wow.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Badum Tsss.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Boing.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Boom Sound.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Careless whisper.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Cash Register.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Censor.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Chirping.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Crowd Booing.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Distortion .mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Fail 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Fail 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Falling.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Flashback.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/GTA_mission_passed.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Gangsters_paradise_choir.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Illuminatii.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Keyboard_spam.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Long fart 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_Villager.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_achievement.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_eating.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_hit.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_oof.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Mission_Passed.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Painful Scream.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Punch 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Punch 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Record Scratch 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Reeeeeeeeeee.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Rubber Duck.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Run.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Sad Music 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Sad Music 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Sharingan.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Slap.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Slap_oh.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Slip.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Splat.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Tacobell_bell.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/Windows_error.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/YEEEEAAAAHHHH.mp3
+SFXs/Versatile_ Sound Effects/SFX Meme/discordping.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Cinematic Boom 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Cinematic Boom 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Drum Roll.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Dun Dun Dun.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Fnaf_musicbox.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Fnaf_sirens.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Heartbeat.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (1).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (2).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (3).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (4).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (5).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (6).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (7).wav
+SFXs/Versatile_ Sound Effects/SFX Suspense/Inception.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Law and order .mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 3.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 4.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/MGS Alert.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Reverse Cinematic Boom.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Reverse Clank Bell.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Shocked.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/Suspenseful Choir.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/beacon_activate.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/beacon_ambient.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/beacon_power.mp3
+SFXs/Versatile_ Sound Effects/SFX Suspense/nether_travel.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Bassy Swoosh.wav
+SFXs/Versatile_ Sound Effects/SFX Transition/Cinematic Whoosh.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Explode1.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Explode4.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Fast swoosh down.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Long swoosh.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Trident_riptide.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 1.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 2.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 3.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 4.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 5.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 6.mp3
+SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 7.mp3
 SFXs/click1.mp3
 SFXs/click2.mp3
+SFXs/dry-leaves-autumn.mp3
 SFXs/walk1.mp3
+SFXs/wind_bird.mp3
 StardewMusic/Fall Theme 1.mp3
 StardewMusic/Michael_Hunter__San_Andreas.mp3
 StardewMusic/Spring Theme 1.mp3
@@ -181,6 +291,9 @@ Versatile_ Sound Effects.zip
 background1.jpg
 background2.png
 background3.png
+cloud1.png
+cloud2.png
+cloud3.png
 dry-leaves-autumn.mp3
 leaf1.png
 leaf2.png
@@ -212,6 +325,10 @@ mainSkin/skin composer/StardewValley(2).png
 mainSkin/skin composer/StardewValley.fnt
 mainSkin/skin composer/StardewValley.png
 mainSkin/skin composer/StardewValley.ttf
+mainSkin/skin composer/VScroll1_BackGround.9.png
+mainSkin/skin composer/VScroll1_BackGround.png
+mainSkin/skin composer/VScroll1_Knob.9.png
+mainSkin/skin composer/VScroll1_Knob.png
 mainSkin/skin composer/backButton.png
 mainSkin/skin composer/backButton_D.png
 mainSkin/skin composer/backButton_DOWN.png
@@ -235,6 +352,7 @@ mainSkin/skin composer/co-opButton_DOWN.png
 mainSkin/skin composer/co-opButton_UP.png
 mainSkin/skin composer/cursor.9.png
 mainSkin/skin composer/cursor.png
+mainSkin/skin composer/downButton.png
 mainSkin/skin composer/enventoryButtonTop_DOWN.9.png
 mainSkin/skin composer/enventoryButtonTop_DOWN.png
 mainSkin/skin composer/enventoryButtonTop_UP.9.png
@@ -292,6 +410,8 @@ mainSkin/skin composer/selection.9.png
 mainSkin/skin composer/selection.png
 mainSkin/skin composer/selectionBox.9.png
 mainSkin/skin composer/selectionBox.png
+mainSkin/skin composer/shopWindowBackGround.9.png
+mainSkin/skin composer/shopWindowBackGround.png
 mainSkin/skin composer/stageBackGround.9.png
 mainSkin/skin composer/stageBackGround.png
 mainSkin/skin composer/stageBackGround_empty.9.png
@@ -300,6 +420,7 @@ mainSkin/skin composer/styleButton_OVER.png
 mainSkin/skin composer/styleButton_UP.png
 mainSkin/skin composer/textfield.9.png
 mainSkin/skin composer/textfield.png
+mainSkin/skin composer/upButton.png
 mainSkin/skin composer/upButton_DOWN.png
 mainSkin/skin composer/upButton_UP.png
 mainSkin/skin composer/warning_label.9.png
