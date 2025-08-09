@@ -29,7 +29,7 @@ public class ProductWindow extends Window {
         this.item2Name = item2Name;
         this.productName = new Label(product.getName(), skin);
 
-        if (App.getCurrentUser().getGold() < product.getPrice()) {
+        if (App.getMe().getGold() < product.getPrice()) {
             price = new Label(product.getPrice() + "", skin, "default-RED");
         } else
             price = new Label(product.getPrice() + "", skin);

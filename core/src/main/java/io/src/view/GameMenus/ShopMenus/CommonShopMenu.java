@@ -56,17 +56,15 @@ public class CommonShopMenu extends Window {
                 item1Name = new Label(slots[0].getItem().getName(), skin);
             }
 
-                System.out.println(product.getName());
-                System.out.println(product.Find_AssetName());
+            System.out.println(product.getName());
+            System.out.println(product.Find_AssetName());
 
             ProductWindow productWindow = new ProductWindow(skin, product,
                 new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName())))),
                 Item1,
                 item1Name,
                 Item2,
-                item2Name));
-            productsList.add(productsWindows.getLast()).width(800).height(100).padTop(2).padBottom(2).padLeft(-1).row();
-                new Label("item", skin));
+                item2Name);
             productsWindows.add(productWindow);
             productWindow.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
@@ -80,7 +78,7 @@ public class CommonShopMenu extends Window {
         ProductsScrollPane = new ScrollPane(productsList, skin, "default3");
         ProductsScrollPane.setFadeScrollBars(false);
         ProductsScrollPane.setVariableSizeKnobs(false);
-        add(npcImage).width(npcTex.getWidth() * 3).height(npcTex.getHeight() * 3).top();
+        add(npcImage).width(npcTex.getWidth() * 3).height(npcTex.getHeight() * 3).top().padRight(25);
         add(ProductsScrollPane).width(885).height(450);
         setSize(Gdx.graphics.getWidth() / 1.2f, Gdx.graphics.getHeight() / 2f);
         setPosition(Gdx.graphics.getWidth() / 2f - (this.getWidth() / 2f), Gdx.graphics.getHeight() / 2f - (this.getHeight() / 2f));
@@ -94,15 +92,16 @@ public class CommonShopMenu extends Window {
         add(exitButton).padTop(-25).top();
 
         setMovable(false);
+        StardewValley.getGameView().getStage().setScrollFocus(ProductsScrollPane);
     }
 
     public void handleSelectedProduct() {
-        if(selectedProduct.getRemainingStock()==0)
+        if (selectedProduct.getRemainingStock() == 0)
             return;
         switch (StardewValley.getGameView().getShopStateWindow().getShopState()) {
             case SHOP: {
-                Result result = ShopController.purchaseProductFromList(selectedProduct.getName(),"1",products);
-                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),result.getMessage(),100);
+                Result result = ShopController.purchaseProductFromList(selectedProduct.getName(), "1", products);
+                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 100);
             }
             break;
             case UPGRADE_TOOL: {
