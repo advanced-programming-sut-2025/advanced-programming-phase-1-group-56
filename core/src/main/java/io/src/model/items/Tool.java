@@ -37,8 +37,8 @@ public class Tool extends Item {
         switch (name) {
             case "Axe": {
                 Skill playerSkill = player.getSkillByName(Skills.Foraging.toString());
-                if (tile.getFixedObject() != null && tile.getFixedObject().getClass() == Tree.class) {
-                    TreeType t = ((Tree) tile.getFixedObject()).getTreeType();
+                if (tile.getFixedObject() != null && tile.getFixedObject() instanceof Tree tree) {
+                    TreeType t = tree.getTreeType();
                     switch (t) {
                         case TreeType.BURNT_TREE ->
                             player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
@@ -48,9 +48,9 @@ public class Tool extends Item {
 //                        default -> player.getInventory().add(new Fruit((FruitType) t.fruit), 1);
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
-                        App.getMe().getInventory().add(new Seed((SeedType) t.source), 1);
+                        App.getMe().getInventory().add(new Seed((t.source) ), 1);
                         if (Math.random() > 0.5) {
-                            App.getMe().getInventory().add(new Seed((SeedType) t.source), 1);
+                            App.getMe().getInventory().add(new Seed((t.source)), 1);
                         }
                     }
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
@@ -59,7 +59,7 @@ public class Tool extends Item {
                         System.out.println("Player skill is null in tool use");
                         return;
                     }
-                    playerSkill.setXp(playerSkill.getXp() + 5);
+                    playerSkill.setXp(playerSkill.getXp() + 100);
                     if (playerSkill.getLevel() == 3) {
                         player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                         System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
@@ -85,7 +85,6 @@ public class Tool extends Item {
             case "Hoe": {
                 if (tile.getFixedObject() == null && tile.getTileType() == TileType.Soil) {
                     tile.setTileType(TileType.PlowedSoil);
-
                 }
                 player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 break;
@@ -122,7 +121,7 @@ public class Tool extends Item {
             }
             case "Watering Can": {
                 Skill playerSkill = player.getSkillByName(Skills.Farming.toString());
-                if (tile.getFixedObject() instanceof Tree || tile.getFixedObject() instanceof Crop || tile.getTileType() == TileType.Water || tile.getTileType() == TileType.WaterPlowedSoil) {
+                if (tile.getFixedObject() instanceof Tree || tile.getFixedObject() instanceof Crop || tile.getTileType() == TileType.Water || tile.getTileType() == TileType.PlowedSoil) {
                     if (tile.getTileType() == TileType.Water) {
                         this.capacity = toolType.getCapacity();
                     } else {

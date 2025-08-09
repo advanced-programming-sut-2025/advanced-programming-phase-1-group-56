@@ -27,7 +27,7 @@ public enum ToolType {
     CAN_GOLDEN("WateringCan", ToolMaterial.Golden, 2, 85, CAN_IRIDIUM, "Gold_Watering_Can"),
     CAN_IRONIC("WateringCan", ToolMaterial.Ironic, 3, 70, CAN_GOLDEN, "Steel_Watering_Can"),
     CAN_CUPRIC("WateringCan", ToolMaterial.Cupric, 4, 55, CAN_IRONIC, "Copper_Watering_Can"),
-    CAN_WOODEN("WateringCan", ToolMaterial.Wooden, 5, 40, CAN_CUPRIC, ""),
+    CAN_WOODEN("WateringCan", ToolMaterial.Wooden, 5, 40, CAN_CUPRIC, "Wooden_Watering_Can"),
     // Fishing pole variants
     //POLE_IRIDIUM_Advanced("Advanced Iridium Rod", ToolMaterial.Iridium, 2, 0, null,"),
     POLE_IRIDIUM("Iridium Rod", ToolMaterial.Iridium, 4, 0, null, ""),

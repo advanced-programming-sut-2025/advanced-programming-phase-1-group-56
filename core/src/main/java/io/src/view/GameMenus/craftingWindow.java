@@ -277,45 +277,39 @@ public class craftingWindow extends Group implements InputProcessor {
 
                 } else if (payload.getObject() instanceof CraftingRecipesList) {
                     CraftingRecipesList recipe = (CraftingRecipesList) payload.getObject();
-                    Item crafted ;
-                    if(ArtisanController.getArtisanMachineItemType(recipe.name) != null){
-                        System.out.println("yesssss");
-                        crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
-                    } else if(recipe.name == EtcType.SCARE_CROW.name){
-                        crafted = new Etc(EtcType.SCARE_CROW);
-                    } else if(recipe.name == EtcType.IRIDIUM_SPRINKLER.name){
-                        crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
-                    } else if(recipe.name == EtcType.QUALITY_SPRINKLER.name){
-                        crafted = new Etc(EtcType.QUALITY_SPRINKLER);
-                    } else if (recipe.name == EtcType.SPRINKLER.name){
-                        crafted = new Etc(EtcType.SPRINKLER);
-                    } else if(recipe.name == EtcType.DELUXE_SCARE_CROW.name){
-                        crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
+                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
+                        showErrorLabel("it's not open for you!");
+                    } else if (CraftingController.havaIngredient(recipe)) {
+                        Item crafted ;
+                        if(ArtisanController.getArtisanMachineItemType(recipe.name) != null){
+                            System.out.println("yesssss");
+                            crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
+                        } else if(recipe.name == EtcType.SCARE_CROW.name){
+                            crafted = new Etc(EtcType.SCARE_CROW);
+                        } else if(recipe.name == EtcType.IRIDIUM_SPRINKLER.name){
+                            crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
+                        } else if(recipe.name == EtcType.QUALITY_SPRINKLER.name){
+                            crafted = new Etc(EtcType.QUALITY_SPRINKLER);
+                        } else if (recipe.name == EtcType.SPRINKLER.name){
+                            crafted = new Etc(EtcType.SPRINKLER);
+                        } else if(recipe.name == EtcType.DELUXE_SCARE_CROW.name){
+                            crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
+                        } else {
+                            crafted = new CraftingTool(recipe);
+                        }
+                        if (inventory.add(crafted, 1)) {
+                            App.getCurrentUser().
+                                getCurrentGame()
+                                .getCurrentPlayer()
+                                .subtractEnergy(3);
+                            showErrorLabel("Crafted: " + crafted.getAssetName());
+                            refreshInventory();
+                        } else {
+                            showErrorLabel("Inventory is full!");
+                        }
+                    } else {
+                        showErrorLabel("Not enough ingredients!");
                     }
-                    else{
-                        crafted = new CraftingTool(recipe);
-                    }
-                    inventory.add(crafted, 1);
-                    refreshInventory();
-//                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
-//                        showErrorLabel("it's not open for you!");
-
-
-//                    } else if (CraftingController.havaIngredient(recipe)) {
-//                        Item crafted = new CraftingTool(recipe);
-//                        if (inventory.add(crafted, 1)) {
-//                            App.getCurrentUser().
-//                                getCurrentGame()
-//                                .getCurrentPlayer()
-//                                .subtractEnergy(3);
-//                            showErrorLabel("Crafted: " + crafted.getAssetName());
-//                            refreshInventory();
-//                        } else {
-//                            showErrorLabel("Inventory is full!");
-//                        }
-//                    } else {
-//                        showErrorLabel("Not enough ingredients!");
-//                    }
                 }
 
             }
@@ -328,6 +322,7 @@ public class craftingWindow extends Group implements InputProcessor {
                 int quantity = slot.getQuantity();
 
                 if (item == null || quantity <= 0) return null;
+
 
                 Texture texture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())));
                 Image dragImage = new Image(texture);
@@ -343,7 +338,8 @@ public class craftingWindow extends Group implements InputProcessor {
 
     }
 
-    private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
+
+                private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
         dragAndDrop.addSource(new DragAndDrop.Source(stack) {
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 System.out.println("Start drag: " + recipe.name());

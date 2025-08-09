@@ -146,7 +146,7 @@ public class GameView implements Screen {
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
 
         multiplexer.addProcessor(gameMenuInputAdapter);
-        multiplexer.addProcessor(keyListener);
+//        multiplexer.addProcessor(keyListener);
         multiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(multiplexer);
 
@@ -411,9 +411,9 @@ public class GameView implements Screen {
     }
 
 
-    public Stage getStage() {
-        return stage;
-    }
+//    public Stage getStage() {
+//        return stage;
+//    }
 
     public AnimationManager getAnimationManager() {
         return animationManager;
