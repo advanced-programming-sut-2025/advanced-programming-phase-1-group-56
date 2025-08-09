@@ -2,6 +2,7 @@ package io.src.view.GameMenus.ShopMenus;
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.GameObject.NPC.NpcProduct;
 
 public class ProductWindow extends Window {
@@ -14,9 +15,11 @@ public class ProductWindow extends Window {
     private Label item2Name;
     private Label price;
     private TextTooltip descriptionTooltip;
+    private NpcProduct product;
 
     public ProductWindow(Skin skin, NpcProduct product, Image productImage, Image item1, Label item1Name, Image item2, Label item2Name) {
         super("", skin, "ProductWindow");
+        this.product = product;
         this.productImage = productImage;
         this.item1 = item1;
         this.item2 = item2;
@@ -42,5 +45,13 @@ public class ProductWindow extends Window {
         add(price).padLeft(20).align(Align.right);
 
         setMovable(false);
+    }
+
+    public NpcProduct getProduct() {
+        return product;
+    }
+
+    public void setProduct(NpcProduct product) {
+        this.product = product;
     }
 }

@@ -20,7 +20,7 @@ public class JojaMartShopMenuController implements ShopController {
     }
 
     public static Result PurchaseProduct(Matcher matcher) {
-        return ShopController.purchaseProductFromList(matcher,
+        return ShopController.purchaseProductFromList(matcher.group(1),matcher.group(2),
                 App.getCurrentUser().getCurrentGame().
                         findStoreByClass(JojaMart.class).getDailyProductList());
     }
