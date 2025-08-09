@@ -62,6 +62,7 @@ AVATAR/final/Birdie/1/back.png
 AVATAR/final/Birdie/1/front.png
 AVATAR/final/Birdie/1/left.png
 AVATAR/final/Birdie/1/right.png
+AVATAR/final/BlackSmith/profileAvatar.png
 AVATAR/final/Elliot/1/avatarProfile.png
 AVATAR/final/Elliot/1/back.png
 AVATAR/final/Elliot/1/front.png
@@ -102,11 +103,14 @@ AVATAR/final/Gus/2/back.png
 AVATAR/final/Gus/2/front.png
 AVATAR/final/Gus/2/left.png
 AVATAR/final/Gus/2/right.png
+AVATAR/final/Pierre/avatarProfile.png
+AVATAR/final/Robin/1/profileAvatar.png
 AVATAR/final/Sandy/avatarProfile.png
 AVATAR/final/Sandy/back.png
 AVATAR/final/Sandy/front.png
 AVATAR/final/Sandy/left.png
 AVATAR/final/Sandy/right.png
+AVATAR/final/Willy/avatarProfile.png
 AVATAR/final/avatarBack.png
 AVATAR/final/avatarBackGround.psb
 AVATAR/final/avatarProfile.psb
@@ -4215,6 +4219,7 @@ Stardew_Valley_Images/sprites/Witch Hut.png
 Stardew_Valley_Images/sprites/Witch Swamp.png
 Stardew_Valley_Images/sprites/Wizard House.png
 Stardew_Valley_Images/sprites/Wizard.png
+StayLoggedIn.json
 Unsorted_Assets/ShoeBox.lnk
 Unsorted_Assets/download.png
 Versatile_ Sound Effects.zip
@@ -4225,7 +4230,6 @@ cloud1.png
 cloud2.png
 cloud3.png
 dry-leaves-autumn.mp3
-gameLocations.zip
 gameLocations/Blacksmith_Indoor.png
 gameLocations/Blacksmith_Indoor.tmx
 gameLocations/Blacksmith_Indoor.tsx
@@ -4353,6 +4357,10 @@ mainSkin/skin composer/checkedbx_OFF.9.png
 mainSkin/skin composer/checkedbx_OFF.png
 mainSkin/skin composer/checkedbx_ON.9.png
 mainSkin/skin composer/checkedbx_ON.png
+mainSkin/skin composer/closeButton.9.png
+mainSkin/skin composer/closeButton.png
+mainSkin/skin composer/closeButton_UP.9.png
+mainSkin/skin composer/closeButton_UP.png
 mainSkin/skin composer/co-opButton_DOWN.png
 mainSkin/skin composer/co-opButton_UP.png
 mainSkin/skin composer/cursor.9.png
@@ -4417,6 +4425,7 @@ mainSkin/skin composer/selectionBox.9.png
 mainSkin/skin composer/selectionBox.png
 mainSkin/skin composer/shopWindowBackGround.9.png
 mainSkin/skin composer/shopWindowBackGround.png
+mainSkin/skin composer/shopWindowBackGround1.9.png
 mainSkin/skin composer/stageBackGround.9.png
 mainSkin/skin composer/stageBackGround.png
 mainSkin/skin composer/stageBackGround_empty.9.png

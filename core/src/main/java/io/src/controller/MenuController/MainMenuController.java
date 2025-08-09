@@ -1,6 +1,7 @@
 package io.src.controller.MenuController;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
@@ -63,11 +64,17 @@ public class MainMenuController extends CommandController {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
                 Result result = manageUserLogout();
+                System.out.println(result.isSuccess());
+                System.out.println(result.getMessage());
                 if (result.isSuccess()) {
                     LoginMenuController controller = new LoginMenuController(game);
+                    System.out.println(1);
                     controller.init();
+                    System.out.println(2);
                     controller.run();
+                    System.out.println(3);
                 }
+                System.out.println(4);
             }
         });
 
@@ -136,26 +143,25 @@ public class MainMenuController extends CommandController {
         App.setCurrentUser(null);
         File file = new File(FILE_PATH_FOR_STAY_LOGGED);
         if (!file.delete())
-            return new Result(false, "");
+            return new Result(true, "");
         return new Result(true, "You have been logged out!");
     }
 
-    public static void Login(){
-
-
-
-    }
-    public static void exitFromGame(){
-
-    }
-
-    public static void newGame(){
+    public static void Login() {
 
 
     }
 
-    public static void co_op(){
+    public static void exitFromGame() {
 
+    }
+
+    public static void newGame() {
+
+
+    }
+
+    public static void co_op() {
 
 
     }

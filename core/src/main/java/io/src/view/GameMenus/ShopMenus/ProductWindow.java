@@ -1,7 +1,9 @@
 package io.src.view.GameMenus.ShopMenus;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import io.src.model.App;
 import io.src.model.GameObject.NPC.NpcProduct;
 
 public class ProductWindow extends Window {
@@ -23,7 +25,17 @@ public class ProductWindow extends Window {
         this.item1Name = item1Name;
         this.item2Name = item2Name;
         this.productName = new Label(product.getName(), skin);
-        this.price = new Label(product.getPrice() + "", skin);
+
+        if (App.getCurrentUser().getGold() < product.getPrice()) {
+            price = new Label(product.getPrice() + "", skin, "default-RED");
+        } else
+            price = new Label(product.getPrice() + "", skin);
+
+        if (product.getRemainingStock() <= 0) {
+            this.setColor(0.5f, 0.5f, 0.5f, 1f);
+            this.setTouchable(Touchable.disabled);
+        }
+
 
         align(Align.left);
 
@@ -39,7 +51,7 @@ public class ProductWindow extends Window {
         add(item1Name).padLeft(20);
         add(item2).width(40).height(40).padLeft(20);
         add(item2Name).padLeft(20);
-        add(price).padLeft(20).align(Align.right);
+        add(price).padLeft(20).expandX().right().padRight(60);
 
         setMovable(false);
     }
