@@ -471,7 +471,7 @@ public class GameView implements Screen {
                 worldX, worldY,
                 region.getRegionWidth(), 0,
                 region.getRegionWidth(), region.getRegionHeight(),
-                1f, 1f, 45);
+                1f, 1f, 0);
         }
 
 

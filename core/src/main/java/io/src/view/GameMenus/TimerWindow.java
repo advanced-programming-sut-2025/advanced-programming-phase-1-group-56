@@ -12,9 +12,10 @@ import com.badlogic.gdx.utils.Align;
 import io.src.model.App;
 import io.src.model.Enums.WeatherAndTime.DayOfWeek;
 import io.src.model.GameAssetManager;
+import io.src.model.SkinManager;
 import io.src.model.TimeSystem.TimeSystem;
 
-public class TimerWindow extends Window {
+public class TimerWindow extends Group {
 
     private Label dayLabel;
     private Label timeLabel;

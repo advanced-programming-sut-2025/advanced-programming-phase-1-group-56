@@ -1062,6 +1062,26 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/shopWindowBackGround1.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: shopWindowBackGround1
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
 	]
 	fontDrawables: [
 		{
@@ -2543,7 +2563,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: stageBackground
 						optional: true
-						value: stageBackGround
+						value: null
 					}
 				}
 				deletable: true
@@ -2566,7 +2586,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: window
 					}
 					wrapWidth: {
 						type: float
@@ -2679,7 +2699,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: shopWindowBackGround
+						value: shopWindowBackGround1
 					}
 					corner: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable

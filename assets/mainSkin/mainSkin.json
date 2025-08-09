@@ -260,6 +260,12 @@ ScrollPaneStyle: {
 	default2: {
 		background: stageBackGround_empty
 	}
+	default3: {
+		background: shopWindowBackGround1
+		corner: windowsBackground
+		vScroll: VScroll1_BackGround
+		vScrollKnob: VScroll1_Knob
+	}
 }
 SelectBoxStyle: {
 	default: {
@@ -434,6 +440,7 @@ TextFieldStyle: {
 TextTooltipStyle: {
 	default: {
 		label: default
+		background: window
 	}
 }
 WindowStyle: {
@@ -451,6 +458,16 @@ WindowStyle: {
 		background: shopWindowBackGround
 		titleFont: baseFont-90
 		titleFontColor: BLACK
+	}
+	default4: {
+		titleFont: baseFont-90
+		titleFontColor: WHITE
+		stageBackground: stageBackGround
+	}
+	ProductWindow: {
+		background: ProductWindow
+		titleFont: baseFont-90
+		titleFontColor: WHITE
 	}
 }
 }

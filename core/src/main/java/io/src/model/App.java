@@ -14,7 +14,7 @@ public class App {
     public static final boolean DEBUG_MODE = true;
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
-    private static Menu currentMenu = Menu.loginMenu;
+    private static Menu currentMenu = null;
     private static StardewValley stardewValley;
     private static Scanner scanner;
 

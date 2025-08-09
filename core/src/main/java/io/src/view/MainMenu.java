@@ -12,9 +12,12 @@ import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
+import io.src.model.Enums.Stores.JojamartProducts;
 import io.src.model.Enums.commands.MainMenuCommands;
+import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
+import io.src.view.GameMenus.ShopMenus.CommonShopMenu;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
 
@@ -23,6 +26,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class MainMenu implements AppMenu, Screen {
+    private final CommonShopMenu shopMenu;
+
     // fields :
     private final Stage stage;
     private final Texture image;
@@ -120,6 +125,18 @@ public class MainMenu implements AppMenu, Screen {
         });
         avatarMenu.setVisible(false);
         stage.addActor(avatarMenu);
+
+        // Shop Menu
+        shopMenu = new CommonShopMenu(SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
+            "Abigail",
+            JojamartProducts.getProducts(JojamartProducts.class), new CommonShopMenu.Listener() {
+            @Override
+            public void onProductSelected(int index, NpcProduct product) {
+
+            }
+        });
+        shopMenu.setVisible(false);
+        stage.addActor(shopMenu);
     }
 
     @Override
@@ -155,6 +172,10 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
+
+    public CommonShopMenu getShopMenu() {
+        return shopMenu;
+    }
 
     public AvatarMenu getAvatarMenu() {
         return avatarMenu;
@@ -242,6 +263,6 @@ public class MainMenu implements AppMenu, Screen {
         } else {
             System.out.println("invalid command bro!..");
         }
-        return new Result(true,"");
+        return new Result(true, "");
     }
 }

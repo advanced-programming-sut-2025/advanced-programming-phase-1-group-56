@@ -3,15 +3,11 @@ package io.src;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.gson.Gson;
-import io.src.controller.GameMenuController.GameController;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
-import io.src.model.Enums.Menu;
 import io.src.model.Game;
-import io.src.model.GameAudioManager;
 import io.src.model.User;
-import io.src.view.AppView;
 import io.src.view.GameMenus.GameView;
 
 import java.io.*;
