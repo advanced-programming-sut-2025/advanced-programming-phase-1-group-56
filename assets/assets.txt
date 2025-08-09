@@ -4215,7 +4215,6 @@ Stardew_Valley_Images/sprites/Witch Hut.png
 Stardew_Valley_Images/sprites/Witch Swamp.png
 Stardew_Valley_Images/sprites/Wizard House.png
 Stardew_Valley_Images/sprites/Wizard.png
-StayLoggedIn.json
 Unsorted_Assets/ShoeBox.lnk
 Unsorted_Assets/download.png
 Versatile_ Sound Effects.zip
@@ -4226,6 +4225,7 @@ cloud1.png
 cloud2.png
 cloud3.png
 dry-leaves-autumn.mp3
+gameLocations.zip
 gameLocations/Blacksmith_Indoor.png
 gameLocations/Blacksmith_Indoor.tmx
 gameLocations/Blacksmith_Indoor.tsx
@@ -4417,7 +4417,6 @@ mainSkin/skin composer/selectionBox.9.png
 mainSkin/skin composer/selectionBox.png
 mainSkin/skin composer/shopWindowBackGround.9.png
 mainSkin/skin composer/shopWindowBackGround.png
-mainSkin/skin composer/shopWindowBackGround1.9.png
 mainSkin/skin composer/stageBackGround.9.png
 mainSkin/skin composer/stageBackGround.png
 mainSkin/skin composer/stageBackGround_empty.9.png

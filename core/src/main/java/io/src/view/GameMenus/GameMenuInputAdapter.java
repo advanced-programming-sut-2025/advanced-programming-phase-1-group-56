@@ -23,6 +23,7 @@ import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.TimeSystem.DateTime;
+import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 import org.lwjgl.Sys;
 
 import java.time.LocalDateTime;
@@ -79,7 +80,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
 
 
-        if (keycode == Input.Keys.C&& !isCheatWindowOpen()) {
+        if (keycode == Input.Keys.C && !isCheatWindowOpen()) {
             keysHeld.clear();
             CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
             Stage stage = App.getStardewValley().getGameView().getStage();
@@ -136,7 +137,8 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
         if (button == Input.Buttons.RIGHT) {
             if (isFacingCounter()) {
-                System.out.println("Facing counter");
+                ShopStateWindow shopStateWindow = StardewValley.getGameView().getShopStateWindow();
+                shopStateWindow.setVisible(true);
                 return true;
             }
             if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
@@ -150,7 +152,7 @@ public class GameMenuInputAdapter extends InputAdapter {
     private boolean isFacingCounter() {
         if (isNearCounter()) {
             GameLocation currGL = App.getMe().getCurrentGameLocation();
-            Class<?> relatedClazz = currGL.getType().getRelatedClazz();
+            Class<? extends Store> relatedClazz = currGL.getType().getRelatedClazz();
             Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
                 (Class<? extends Store>) relatedClazz
             );
