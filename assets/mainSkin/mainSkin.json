@@ -118,6 +118,11 @@ ButtonStyle: {
 		over: okButton_OVER
 		disabled: okButton_DISABLE
 	}
+	closeButton: {
+		up: closeButton_UP
+		down: closeButton_UP
+		over: closeButton
+	}
 }
 CheckBoxStyle: {
 	default: {
@@ -235,6 +240,10 @@ LabelStyle: {
 		font: baseFont2-24
 		fontColor: ZERESHK
 		background: labelBackGround
+	}
+	default-RED: {
+		font: baseFont2-24
+		fontColor: RED
 	}
 }
 ListStyle: {
