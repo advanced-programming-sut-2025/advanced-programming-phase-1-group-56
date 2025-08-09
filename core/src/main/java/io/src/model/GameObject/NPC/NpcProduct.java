@@ -99,6 +99,8 @@ public class NpcProduct {
             return buildingType.getAssetName();
         } else if (this.saleable instanceof AnimalType animalType) {
             return animalType.getAssetName();
+        } else if (this.saleable instanceof EtcType etcType) {
+            return etcType.getAssetName();
         }
         return null;
     }
@@ -108,18 +110,34 @@ public class NpcProduct {
             int woodNeeded = buildingType.getWoodCount();
             int stoneNeeded = buildingType.getStoneCount();
             return new Slot[]{new Slot(new Etc(EtcType.WOOD), woodNeeded), new Slot(new Mineral(MineralItemType.STONE), stoneNeeded)};
-        } else if(this.saleable instanceof EtcType etcType) {
-            return new Slot[]{new Slot(new Etc(etcType) , 5)};
+        } else if (this.saleable instanceof EtcType etcType) {
+            return new Slot[]{new Slot(new Etc(etcType), 5)};
         }
         return null;
     }
 
     public int getFinalPrice() {
-        boolean isSeason =  Arrays.asList(seasons).contains(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
-        if(isSeason) {
+        boolean isSeason = Arrays.asList(seasons).contains(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
+        if (isSeason) {
             return price;
-        }else{
-            return outOfSeasonPrice==-1?price:outOfSeasonPrice;
+        } else {
+            return outOfSeasonPrice == -1 ? price : outOfSeasonPrice;
         }
+    }
+
+    public boolean isShopProduct() {
+        if (this.saleable instanceof Item item) {
+            return true;
+        } else if (this.saleable instanceof FoodRecipesList rec) {
+            return true;
+        } else if (this.saleable instanceof CraftingRecipesList rec) {
+            return true;
+        } else if (this.saleable instanceof BackPackType backPackType) {
+            return true;
+        } else if (this.saleable instanceof BuildingType buildingType) {
+            return false;
+        } else if (this.saleable instanceof AnimalType animalType) {
+            return false;
+        } else return !(this.saleable instanceof EtcType etcType);
     }
 }

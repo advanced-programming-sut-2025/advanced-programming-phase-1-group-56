@@ -121,6 +121,7 @@ public class MainMenu implements AppMenu, Screen {
             @Override
             public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar) {
                 PreGameMenuController.manageSoloGame(farmName, name, farmPosition, avatar);
+
             }
         });
         avatarMenu.setVisible(false);

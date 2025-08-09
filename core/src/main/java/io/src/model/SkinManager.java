@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class SkinManager {
+    public static String MAIN_SKIN = "mainSkin/mainSkin.json";
     private static SkinManager instance;
     private static Skin skin;
 

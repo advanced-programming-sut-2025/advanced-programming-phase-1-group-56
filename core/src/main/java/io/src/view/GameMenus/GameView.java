@@ -2,6 +2,7 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +20,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import io.src.controller.GameMenuController.GameController;
-import io.src.model.App;
+import io.src.model.*;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
@@ -27,15 +28,14 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
-import io.src.model.GameAssetManager;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Buildings.Store;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
-import io.src.model.Player;
 import io.src.view.AppMenu;
+import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 import io.src.view.LoginMenu;
 
 import java.util.ArrayList;
@@ -59,7 +59,6 @@ public class GameView implements Screen {
     private ScreenTransition transitionManager;
     private ShapeRenderer shapeRenderer;
     private final OrthographicCamera camera = new OrthographicCamera();
-    public final Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
 
     private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private float stateTime = 0f;
@@ -72,9 +71,8 @@ public class GameView implements Screen {
     private DialogWindow dialogWindow;
     private WarningWindow warningWindow;
     private EnergyBar energyWindow;
-
     private CheatWindow cheatWindow;
-
+    private ShopStateWindow shopStateWindow;
 
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
@@ -106,6 +104,10 @@ public class GameView implements Screen {
         cheatWindow = new CheatWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
         cheatWindow.setVisible(false);
         stage.addActor(cheatWindow);
+        //ShopState Window
+        shopStateWindow = new ShopStateWindow(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
+        shopStateWindow.setVisible(false);
+        stage.addActor(shopStateWindow);
 
 
         //Input Adapters
@@ -376,19 +378,27 @@ public class GameView implements Screen {
 
     @Override
     public void show() {
-
+        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0);
+        pixmap.fill();
+        background = new Texture(pixmap);
     }
+
+    private Texture background;
 
     @Override
     public void render(float v) {
         camera.update();
-//        timeWindow.update(LocalTime.now());
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//BlackBackGround
+
+
         renderer.setView(camera);
         gameMenuInputAdapter.update(v);
         renderer.render();
 
         renderer.getBatch().begin();
-//        renderPlayer();
+        renderer.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 
         ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
@@ -628,5 +638,10 @@ public class GameView implements Screen {
 
     public Stage getStage() {
         return stage;
+    }
+
+
+    public ShopStateWindow getShopStateWindow() {
+        return shopStateWindow;
     }
 }

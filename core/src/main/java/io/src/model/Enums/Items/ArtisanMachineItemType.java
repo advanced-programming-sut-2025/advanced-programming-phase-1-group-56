@@ -6,7 +6,7 @@ public enum ArtisanMachineItemType implements ItemType {
 
     CHARCOAL_KLIN("Charcoal_Klin", ArtisanMachineType.CHARCOAL_KILN, true, true,""),
     FURNACE("Furnace", ArtisanMachineType.FURNACE, true, true,""),
-    BEE_HOUSE("Bee_House", ArtisanMachineType.BEE_HOUSE, true, true,""),
+    BEE_HOUSE("Bee_House", ArtisanMachineType.BEE_HOUSE, true, true,"Bee_House"),
     CHEESE_PRESS("Cheese_Press", ArtisanMachineType.CHEESE_PRESS, true, true,""),
     KEG("Keg", ArtisanMachineType.KEG, true, true,""),
     LOOM("Loom", ArtisanMachineType.LOOM, true, true,""),
@@ -52,7 +52,7 @@ public enum ArtisanMachineItemType implements ItemType {
     public String getAssetName() {
         return switch (assetName) {
             case "null" -> null;
-            case "" -> name;
+            case "" -> name.replace(" ","_");
             default -> assetName;
         };
     }

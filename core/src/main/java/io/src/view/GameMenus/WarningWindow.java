@@ -26,18 +26,30 @@ public class WarningWindow extends Window {
         add(speakerLabel).expandX().left().padBottom(5).row();
         add(textLabel).width(700).height(100).left().top();
 
+
+
+
         pack();
 
         setVisible(false);
     }
 
-    public void showDialog(String speaker, String text, int remainingTime) {
-        this.remainingTime = remainingTime;
-        speakerLabel.setText(speaker);
-        textLabel.setText(text);
+        public void showDialog(String speaker, String text, int remainingTime) {
+            this.remainingTime = remainingTime;
+            speakerLabel.setText(speaker);
+            textLabel.setText(text);
+            int lineCount = 1;
+            for(char c : text.toCharArray()) {
+                if (c == '\n') {
+                    lineCount++;
+                }
+            }
+            this.setHeight(20*lineCount);
+            this.invalidate();
+            this.pack();
+            textLabel.setHeight(20*lineCount);
 
-        // (Optional) اگه خواستی با طول متن عرض بده ولی مراقب باش زیاد نپره
-        float width = Math.max(300, Math.min(text.length() * 10, 700)); // حداکثر 600
+        float width = Math.max(300, Math.min(text.length() * 10, 700));
         this.setWidth(width);
         textLabel.setWidth(width);
         speakerLabel.setWidth(width);

@@ -5,24 +5,23 @@ import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 
 public enum GameLocationType {
-    Town("gameLocations\\Town4.tmx", false, io.src.model.MapModule.GameLocations.Town.class),
-    Farm1("gameLocations\\Farm1.tmx", false, Farm.class),
-    Farm2("gameLocations\\Farm2.tmx", false, Farm.class),
+    Town("gameLocations\\Town4.tmx", false, null),
+    Farm1("gameLocations\\Farm1.tmx", false, null),
+    Farm2("gameLocations\\Farm2.tmx", false, null),
     //TODO handle indoors
-    Home_Indoor("gameLocations\\Player_House_Indoor.tmx", true, Home.class),
-    GreenHouse_Indoor("gameLocations\\Green_House_Indoor.tmx", true, GreenHouse.class),
+    Home_Indoor("gameLocations\\Player_House_Indoor.tmx", true, null),
+    GreenHouse_Indoor("gameLocations\\Green_House_Indoor.tmx", true, null),
     JojaMart_Indoor("gameLocations\\JojaMart_Indoor.tmx", true, JojaMart.class),
     StardropSallon_Indoor("gameLocations\\The_Stardrop_Saloon_Indoor.tmx", true, TheSaloonStardrop.class),
     Blacksmith_Indoor("gameLocations\\Blacksmith_Indoor.tmx", true, Blacksmith.class),
     Fishshop_Indoor("gameLocations\\Fish_Shop_Indoor.tmx", true, FishShop.class),
     PierreGeneralStore_Indoor("gameLocations\\Pierres_General_Store_Indoor.tmx", true, PierresGeneralStore.class),
     CarpenterShop_Indoor("gameLocations\\Carpenter_Shop_Indoor.tmx", true, CarpentersShop.class),
-    MarniesRanch_Indoor("gameLocations\\Marnies_Ranch_Indoor.tmx", true, MarniesRanch.class)
-    ;
+    MarniesRanch_Indoor("gameLocations\\Marnies_Ranch_Indoor.tmx", true, MarniesRanch.class);
 
     private final String assetName;
     private final boolean indoor;
-    private final Class<?> relatedClazz;
+    private final Class<? extends Store> relatedClazz;
 
     public static GameLocationType getGameLocationTypeByName(String assetName) {
         assetName = assetName.substring(assetName.lastIndexOf("\\") + 1);
@@ -35,7 +34,7 @@ public enum GameLocationType {
     }
 
 
-    GameLocationType(String assetName, boolean indoor, Class<?> relatedClazz) {
+    GameLocationType(String assetName, boolean indoor, Class<? extends Store> relatedClazz) {
         this.assetName = assetName;
         this.indoor = indoor;
         this.relatedClazz = relatedClazz;
@@ -45,7 +44,7 @@ public enum GameLocationType {
         return assetName;
     }
 
-    public Class<?> getRelatedClazz() {
+    public Class<? extends Store> getRelatedClazz() {
         return relatedClazz;
     }
 
