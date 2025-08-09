@@ -10,7 +10,6 @@ import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
-import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
@@ -20,14 +19,10 @@ import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
-import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.TimeSystem.DateTime;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
-import org.lwjgl.Sys;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -35,6 +30,7 @@ import java.util.Set;
 
 
 public class GameMenuInputAdapter extends InputAdapter {
+    private boolean isInterruptingMenuOpen = false;
     private final Game game;
     //    private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
@@ -43,7 +39,6 @@ public class GameMenuInputAdapter extends InputAdapter {
     private GameObject focusedGameObject = null;
     private final ArrayList<GameObject> nearbyGameObjects = new ArrayList<>();
     //private LocalDateTime LastJClicked = LocalDateTime.now();
-    private boolean isCheatWindowOpen = false;
 
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
@@ -80,7 +75,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
 
 
-        if (keycode == Input.Keys.C && !isCheatWindowOpen()) {
+        if (keycode == Input.Keys.C && !isInterruptingMenuOpen()) {
             keysHeld.clear();
             CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
             Stage stage = App.getStardewValley().getGameView().getStage();
@@ -89,7 +84,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             return true;
         }
 
-        if (keycode == Input.Keys.ENTER && isCheatWindowOpen()) {
+        if (keycode == Input.Keys.ENTER && isInterruptingMenuOpen()) {
             CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
             Stage stage = App.getStardewValley().getGameView().getStage();
             cheatWindow.hideDialog(stage);
@@ -191,7 +186,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         Player player = game.getCurrentPlayer();
         float vx = 0, vy = 0;
         Direction dir = null;
-        if (isCheatWindowOpen) {
+        if (isInterruptingMenuOpen) {
             player.setMovingDirection(dir);
             float speed = player.getSpeed();
             player.setMovingDirection(dir);
@@ -558,11 +553,11 @@ public class GameMenuInputAdapter extends InputAdapter {
         return nearbyGameObjects;
     }
 
-    public boolean isCheatWindowOpen() {
-        return (isCheatWindowOpen = App.getStardewValley().getGameView().getCheatWindow().isVisible());
+    public boolean isInterruptingMenuOpen() {
+        return (isInterruptingMenuOpen = App.getStardewValley().getGameView().getCheatWindow().isVisible());
     }
 
-    public void setCheatWindowOpen(boolean cheatWindowOpen) {
-        isCheatWindowOpen = cheatWindowOpen;
+    public void setInterruptingMenuOpen(boolean cheatWindowOpen) {
+        isInterruptingMenuOpen = cheatWindowOpen;
     }
 }

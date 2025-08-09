@@ -39,7 +39,6 @@ public class ProductWindow extends Window {
             this.setTouchable(Touchable.disabled);
         }
 
-
         align(Align.left);
 
         TooltipManager tooltipManager = TooltipManager.getInstance();

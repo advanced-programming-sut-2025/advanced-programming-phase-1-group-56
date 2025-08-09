@@ -61,12 +61,14 @@ public class ShopStateWindow extends Window {
 
         button1.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                hideDialog();
                 prepareCommonShop(false);
             }
         });
 
         button2.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                hideDialog();
                 prepareCommonShop(true);
             }
         });
@@ -74,6 +76,7 @@ public class ShopStateWindow extends Window {
         button3.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 StardewValley.getGameView().getShopStateWindow().setVisible(false);
+                hideDialog();
             }
         });
 
@@ -143,11 +146,17 @@ public class ShopStateWindow extends Window {
         });
         StardewValley.getGameView().getStage().addActor(commonShopMenu);
 
-        commonShopMenu.setVisible(true);
+        this.hideDialog();
+        commonShopMenu.showDialog();
+    }
+
+    private void hideDialog() {
         this.setVisible(false);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
     }
 
     public void showDialog() {
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
         setVisible(true);
         GameLocationType glType = App.getMe().getCurrentGameLocation().getType();
         if (glType != GameLocationType.Blacksmith_Indoor && glType != GameLocationType.MarniesRanch_Indoor && glType != GameLocationType.CarpenterShop_Indoor) {
