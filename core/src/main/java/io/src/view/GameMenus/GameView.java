@@ -35,6 +35,7 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.items.Etc;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -331,38 +332,49 @@ public class GameView implements Screen {
                 worldX -= 24;
             }
 
-            renderer.getBatch().draw(region,
-                worldX, worldY,
-                region.getRegionWidth(), 0,
-                region.getRegionWidth(), region.getRegionHeight(),
-                1f, 1f, 0);
-        }
-
-
-        //RED HIT BOXES
-        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-        pixmap.setColor(1, 0, 0, 1);
-        pixmap.fill();
-        Texture texture = new Texture(pixmap);
-        TextureRegion redRegion = new TextureRegion(texture);
-
-        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
-            for (Tile tile : row) {
-                if (tile.isWalkable()) continue;
-                float worldX = tile.getPosition().getX() * TILE_SIZE;
-                float worldY = tile.getPosition().getY() * TILE_SIZE;
-
-                TextureRegion region = new TextureRegion(redRegion);
+            if(go instanceof ArtesianMachine || go instanceof EtcObject){
+                worldX-=25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
-                    16,  // Origin X (مرکز تصویر)
-                    16, // Origin Y
-                    16, 16, // اندازه اصلی
-                    0.9f, 0.9f, // scaleX, scaleY
-                    0); // rotation
-
+                    region.getRegionWidth(), 0,
+                    region.getRegionWidth(), region.getRegionHeight(),
+                    0.5f, 0.5f, 0);
+            } else {
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    region.getRegionWidth(), 0,
+                    region.getRegionWidth(), region.getRegionHeight(),
+                    1f, 1f, 0);
             }
+
+
         }
+
+
+//        //RED HIT BOXES
+//        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
+//        pixmap.setColor(1, 0, 0, 1);
+//        pixmap.fill();
+//        Texture texture = new Texture(pixmap);
+//        TextureRegion redRegion = new TextureRegion(texture);
+//
+//        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
+//            for (Tile tile : row) {
+//                if (tile.isWalkable()) continue;
+//                float worldX = tile.getPosition().getX() * TILE_SIZE;
+//                float worldY = tile.getPosition().getY() * TILE_SIZE;
+//
+//                TextureRegion region = new TextureRegion(redRegion);
+//                renderer.getBatch().draw(region,
+//                    worldX, worldY,
+//                    16,  // Origin X (مرکز تصویر)
+//                    16, // Origin Y
+//                    16, 16, // اندازه اصلی
+//                    0.9f, 0.9f, // scaleX, scaleY
+//                    0); // rotation
+//
+//            }
+//        }
         renderer.getBatch().end();
 
         transitionManager.update(v);

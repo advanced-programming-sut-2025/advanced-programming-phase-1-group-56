@@ -1,5 +1,6 @@
 package io.src.controller.GameMenuController;
 
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
@@ -199,7 +200,7 @@ public class CraftingController extends CommandController {
                 break;
         }
         if (item instanceof Artesian) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
+            App.getMe().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
             System.out.println("yes");
         } else if (item instanceof Etc) {
             if (((Etc) item).getEtcType().etcObjectType != null) {
@@ -226,6 +227,86 @@ public class CraftingController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
         } else {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new DroppedItem(item, new Position(x, y)));
+        }
+
+
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
+        return new Result(true, "you placed a item!");
+    }
+
+    public static Result placeItem(String itemName,Direction dir) {
+        Item item = returnInventoryItemByName(itemName);
+        if (item == null) {
+            return new Result(false, "this item does not exist!");
+        }
+        Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
+        int x = (int) position.getX();
+        int y = (int) position.getY();
+        switch (dir) {
+            case UP:
+                y -= 1;
+                break;
+            case DOWN:
+                y += 1;
+                break;
+            case LEFT:
+                x -= 1;
+                break;
+            case RIGHT:
+                x += 1;
+                break;
+            case UPLEFT:
+                x -= 1;
+                y -= 1;
+                break;
+            case UPRIGHT:
+                x += 1;
+                y -= 1;
+                break;
+            case DOWNLEFT:
+                x -= 1;
+                y += 1;
+                break;
+            case DOWNRIGHT:
+                x += 1;
+                y += 1;
+                break;
+            default:
+                break;
+        }
+
+        if(!App.getMe().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()){
+            return new Result(false, "you can't place item here!");
+        }
+        if (item instanceof Artesian) {
+            ArtesianMachine artesianMachine = new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType());
+            App.getMe().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(artesianMachine);
+            App.getMe().getCurrentGameLocation().getGameObjects().add(artesianMachine);
+        } else if (item instanceof Etc) {
+            if (((Etc) item).getEtcType().etcObjectType != null) {
+                if (((Etc) item).getEtcType().getName().equals(EtcType.SCARE_CROW.name) || ((Etc) item).getEtcType().getName().equals(EtcType.DELUXE_SCARE_CROW.name)) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Crop)
+                                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setProtected(true);
+                            else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Tree)
+                                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setProtected(true);
+                        }
+                    }
+                }
+            } else if (((Etc) item).getEtcType().getName().equals(EtcType.SPRINKLER.name) || ((Etc) item).getEtcType().getName().equals(EtcType.IRIDIUM_SPRINKLER.name) || ((Etc) item).getEtcType().getName().equals(EtcType.QUALITY_SPRINKLER.name)) {
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Crop)
+                            ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setWateredToday(true);
+                        else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Tree)
+                            ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setWateredToday(true);
+                    }
+                }
+            }
+            EtcObject etcObject = new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType);
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(etcObject);
+            App.getMe().getCurrentGameLocation().getGameObjects().add(etcObject);
         }
 
 
@@ -409,7 +490,7 @@ public class CraftingController extends CommandController {
             .getInventory()
             .getSlots()) {
             Item item = slot.getItem();
-            if (item.getName().equals(itemName)) {
+            if (item!=null && item.getName().equals(itemName)) {
                 return item;
             }
         }

@@ -81,7 +81,6 @@ public class ArtisanController extends CommandController {
     public static Result getArtisan(Matcher matcher) {
         String machineName = matcher.group(1).trim();
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        player.getInventory().add(new ArtisanGood(ArtisanGoodType.SMOKED_FISH), 1);
 
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
@@ -106,6 +105,15 @@ public class ArtisanController extends CommandController {
         }
 
         return new Result(false, "oh baby");
+    }
+
+    public static ArtisanMachineItemType getArtisanMachineItemType(String name) {
+        for(ArtisanMachineItemType itemType : ArtisanMachineItemType.values()){
+            if(itemType.getName().equals(name)){
+                return itemType;
+            }
+        }
+        return null;
     }
 
 }

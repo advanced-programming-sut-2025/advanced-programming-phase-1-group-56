@@ -18,16 +18,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import io.src.controller.GameMenuController.ArtisanController;
 import io.src.controller.GameMenuController.CraftingController;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.App;
+import io.src.model.Enums.Items.ArtisanMachineItemType;
+import io.src.model.Enums.Items.EtcType;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.GameAssetManager;
 import io.src.model.Player;
 import io.src.model.Slot;
-import io.src.model.items.CraftingTool;
-import io.src.model.items.Inventory;
-import io.src.model.items.Item;
+import io.src.model.items.*;
 
 import java.time.Clock;
 import java.util.ArrayList;
@@ -99,6 +100,7 @@ public class craftingWindow extends Group implements InputProcessor {
         for (int i = 0; i < all.size(); i++) {
             CraftingRecipesList recipe = all.get(i);
             String assetName = recipe.getAssetName();
+            System.out.println(assetName);
             Texture itemTexture = assetName.equals("Charcoal_Klin")
                 ? GameAssetManager.getGameAssetManager().getCharcoal_Klin()
                 : new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
@@ -108,40 +110,6 @@ public class craftingWindow extends Group implements InputProcessor {
             stack.setSize(60, 84);
             stack.setTransform(true);
             stack.add(icon);
-
-//            Table tooltipTable = new Table();
-//            tooltipTable.setVisible(false);
-//            tooltipTable.setBackground(new TextureRegionDrawable(new TextureRegion(
-//                GameAssetManager.getGameAssetManager().getToolTipBackground()
-//            )));
-//
-//            Label tooltipLabel = new Label(
-//                recipe.name() + "\n" + CraftingController.Ingredients(recipe),
-//                GameAssetManager.getGameAssetManager().getSkin()
-//            );
-//            tooltipLabel.setFontScale(0.6f);
-//            tooltipLabel.setColor(Color.WHITE);
-//
-//            tooltipTable.add(tooltipLabel).pad(5);
-//            tooltipTable.pack();
-//
-//            tooltipTable.setPosition(stack.getX(), stack.getY() + stack.getHeight() + 5);
-//            stack.addActor(tooltipTable);
-//
-//
-//
-//
-//            stack.addListener(new InputListener() {
-//                @Override
-//                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-//                    tooltipTable.setVisible(true);
-//                }
-//
-//                @Override
-//                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-//                    tooltipTable.setVisible(false);
-//                }
-//            });
             stack.addListener(new InputListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -155,17 +123,6 @@ public class craftingWindow extends Group implements InputProcessor {
             });
 
             addRecipeDragAndDrop(stack, recipe);
-
-//            if (!unlocked.contains(recipe) && canCraft.contains(recipe)) {
-//                stack.addListener(new ClickListener() {
-//                    @Override
-//                    public void clicked(InputEvent event, float x, float y) {
-//                        System.out.println("You don't have enough ingredients!");
-//                    }
-//                });
-//            }
-
-
             if (i < positions.length) {
                 float x = positions[i][0];
                 float y = positions[i][1];
@@ -251,9 +208,11 @@ public class craftingWindow extends Group implements InputProcessor {
             }
 
             if (item != null && quantity > 0) {
-                Image itemImage = new Image(new Texture(Gdx.files.internal(
-                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
-                )));
+                String assetName = item.getAssetName();
+                Texture previewTexture = assetName.equals("Charcoal_Klin")
+                    ? GameAssetManager.getGameAssetManager().getCharcoal_Klin()
+                    : new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
+                Image itemImage = new Image(previewTexture);
                 itemImage.setOrigin(Align.center);
                 itemImage.setScale(0.8f);
                 itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
@@ -318,7 +277,24 @@ public class craftingWindow extends Group implements InputProcessor {
 
                 } else if (payload.getObject() instanceof CraftingRecipesList) {
                     CraftingRecipesList recipe = (CraftingRecipesList) payload.getObject();
-                    Item crafted = new CraftingTool(recipe);
+                    Item crafted ;
+                    if(ArtisanController.getArtisanMachineItemType(recipe.name) != null){
+                        System.out.println("yesssss");
+                        crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
+                    } else if(recipe.name == EtcType.SCARE_CROW.name){
+                        crafted = new Etc(EtcType.SCARE_CROW);
+                    } else if(recipe.name == EtcType.IRIDIUM_SPRINKLER.name){
+                        crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
+                    } else if(recipe.name == EtcType.QUALITY_SPRINKLER.name){
+                        crafted = new Etc(EtcType.QUALITY_SPRINKLER);
+                    } else if (recipe.name == EtcType.SPRINKLER.name){
+                        crafted = new Etc(EtcType.SPRINKLER);
+                    } else if(recipe.name == EtcType.DELUXE_SCARE_CROW.name){
+                        crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
+                    }
+                    else{
+                        crafted = new CraftingTool(recipe);
+                    }
                     inventory.add(crafted, 1);
                     refreshInventory();
 //                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
@@ -371,7 +347,10 @@ public class craftingWindow extends Group implements InputProcessor {
         dragAndDrop.addSource(new DragAndDrop.Source(stack) {
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 System.out.println("Start drag: " + recipe.name());
-                Texture texture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(recipe.getAssetName())));
+                String assetName = recipe.getAssetName();
+                Texture texture = assetName.equals("Charcoal_Klin")
+                    ? GameAssetManager.getGameAssetManager().getCharcoal_Klin()
+                    : new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
                 Image dragImage = new Image(texture);
                 dragImage.setSize(50, 50);
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
@@ -380,7 +359,6 @@ public class craftingWindow extends Group implements InputProcessor {
                 return payload;
             }
         });
-
     }
 
 

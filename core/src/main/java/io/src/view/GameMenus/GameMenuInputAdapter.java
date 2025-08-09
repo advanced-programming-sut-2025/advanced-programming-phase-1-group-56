@@ -6,17 +6,22 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.controller.GameMenuController.CookingController;
+import io.src.controller.GameMenuController.CraftingController;
+import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
+import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.items.Artesian;
+import io.src.model.items.Etc;
 import io.src.model.items.Food;
 
 import java.util.HashSet;
@@ -96,9 +101,9 @@ public class GameMenuInputAdapter extends InputAdapter {
             Gdx.input.setInputProcessor(multiplexer);
             GameView.getRefrigeratorWindow().setVisible(!GameView.getRefrigeratorWindow().isVisible());
         }
-
+//
 //        if (keycode == Input.Keys.N) {
-//            gameController.advanceToNextDay();
+//            GameController.manageNextTurn();
 //        }
 
         return false;
@@ -125,8 +130,14 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (button == Input.Buttons.RIGHT) {
             if(App.getMe().getCurrentItem() instanceof Food){
                 CookingController.eatFoodUI(App.getMe().getCurrentItem());
+            }else if(App.getMe().getCurrentItem() instanceof Artesian){
+                System.out.println(App.getMe().getCurrentItem().getAssetName());
+                CraftingController.placeItem(App.getMe().getCurrentItem().getName(),App.getMe().getLastDirection());
+            } else if(App.getMe().getCurrentItem() instanceof Etc){
+                CraftingController.placeItem(App.getMe().getCurrentItem().getName(),App.getMe().getLastDirection());
             }
         }
+
         return false;
     }
 

@@ -3,7 +3,6 @@ package io.src.model.Enums.Items;
 import io.src.model.Enums.GameObjects.ArtisanMachineType;
 import org.jetbrains.annotations.Nullable;
 public enum ArtisanMachineItemType implements ItemType {
-
     CHARCOAL_KLIN("Charcoal_Klin", ArtisanMachineType.CHARCOAL_KILN, true, true,""),
     FURNACE("Furnace", ArtisanMachineType.FURNACE, true, true,""),
     BEE_HOUSE("Bee_House", ArtisanMachineType.BEE_HOUSE, true, true,""),
@@ -42,6 +41,8 @@ public enum ArtisanMachineItemType implements ItemType {
         this.isPlacable = isPlacable;
         this.assetName = assetName;
     }
+
+
 
     @Override
     public String getName() {

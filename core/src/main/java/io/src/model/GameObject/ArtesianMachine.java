@@ -75,6 +75,6 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
 
     @Override
     public String getAssetName() {
-        return artisanGoodType.getAssetName();
+        return artisanMachineType.getAssetName();
     }
 }
