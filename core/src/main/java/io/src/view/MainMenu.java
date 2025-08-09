@@ -26,8 +26,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class MainMenu implements AppMenu, Screen {
-    private final CommonShopMenu shopMenu;
-
     // fields :
     private final Stage stage;
     private final Texture image;
@@ -126,18 +124,6 @@ public class MainMenu implements AppMenu, Screen {
         });
         avatarMenu.setVisible(false);
         stage.addActor(avatarMenu);
-
-        // Shop Menu
-        shopMenu = new CommonShopMenu(SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
-            "Abigail",
-            JojamartProducts.getProducts(JojamartProducts.class), new CommonShopMenu.Listener() {
-            @Override
-            public void onProductSelected(int index, NpcProduct product) {
-
-            }
-        });
-        shopMenu.setVisible(false);
-        stage.addActor(shopMenu);
     }
 
     @Override
@@ -173,11 +159,6 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
-
-    public CommonShopMenu getShopMenu() {
-        return shopMenu;
-    }
-
     public AvatarMenu getAvatarMenu() {
         return avatarMenu;
     }

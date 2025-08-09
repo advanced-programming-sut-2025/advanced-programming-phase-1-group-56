@@ -46,14 +46,6 @@ public class MainMenuController extends CommandController {
             }
         });
 
-        menu.getLoadButton().addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
-                menu.getShopMenu().setVisible(true);
-            }
-        });
-
         menu.getExitButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.exit();

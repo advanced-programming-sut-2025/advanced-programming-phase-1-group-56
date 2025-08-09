@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.GameController;
 import io.src.model.*;
 import io.src.model.Enums.AnimationKey;
@@ -75,6 +76,8 @@ public class GameView implements Screen {
     private ShopStateWindow shopStateWindow;
 
     private InputMultiplexer multiplexer = new InputMultiplexer();
+
+
     private GameMenuInputAdapter gameMenuInputAdapter;
 
     public GameView(Game game) {
@@ -120,12 +123,13 @@ public class GameView implements Screen {
     }
 
     public void updateMapWithFade(Runnable afterFadeOut) {
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
         transitionManager.start(() -> {
-            gameMenuInputAdapter.setStopMoving(true);
             afterFadeOut.run(); // تغییرات position و location
             updateMap();
             gameMenuInputAdapter.setStopMoving(false);
         });
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
     }
 
     public void updateMap() {
@@ -643,5 +647,9 @@ public class GameView implements Screen {
 
     public ShopStateWindow getShopStateWindow() {
         return shopStateWindow;
+    }
+
+    public GameMenuInputAdapter getGameMenuInputAdapter() {
+        return gameMenuInputAdapter;
     }
 }
