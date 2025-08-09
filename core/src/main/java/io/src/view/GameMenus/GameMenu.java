@@ -21,7 +21,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GameMenu implements AppMenu , Screen {
+public class GameMenu implements AppMenu, Screen {
     private Result result;
 
     @Override
@@ -496,7 +496,7 @@ public class GameMenu implements AppMenu , Screen {
             result = TradeController.cheatAddMoney(matcher.group(1).trim());
             return true;
         } else if ((matcher = TradeCommands.sell.getMatcher(input)) != null) {
-            result = TradeController.sellProducts(matcher);
+            result = TradeController.sellProducts(matcher.group(1).trim(), matcher.group(2).trim());
             return true;
         } else if ((matcher = ShopCommands.cheatMoney.getMatcher(input)) != null) {//skip turn
             App.getMe().addGold(Integer.parseInt(matcher.group(1)));

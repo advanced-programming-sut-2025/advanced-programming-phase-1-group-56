@@ -6,9 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import io.src.StardewValley;
+import io.src.controller.GameMenuController.ShopMenuControllers.ShopController;
+import io.src.controller.GameMenuController.TradeController;
+import io.src.model.App;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.NPC.NpcProduct;
+import io.src.model.MapModule.Buildings.Store;
+import io.src.model.Result;
 import io.src.model.Slot;
+import io.src.view.GameMenus.WarningWindow;
 
 import java.util.ArrayList;
 
@@ -16,6 +24,7 @@ public class CommonShopMenu extends Window {
     private Image npcImage;
     private ScrollPane ProductsScrollPane;
     private ArrayList<ProductWindow> productsWindows = new ArrayList<>();
+    private ArrayList<NpcProduct> products;
     private NpcProduct selectedProduct;
 
     public CommonShopMenu(Skin skin, String npcImageAssetName, ArrayList<NpcProduct> products, Listener listener) {
@@ -23,6 +32,8 @@ public class CommonShopMenu extends Window {
 //        npcImage = new Image(new Texture(
 //            Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(npcImageAssetName))
 //        ));
+
+        this.products = products;
 
         Texture npcTex = new Texture(Gdx.files.internal("AVATAR/final/" + npcImageAssetName + "/1/avatarProfile.png"));
         npcImage = new Image(npcTex);
@@ -45,13 +56,25 @@ public class CommonShopMenu extends Window {
                 item1Name = new Label(slots[0].getItem().getName(), skin);
             }
 
-            productsWindows.add(new ProductWindow(skin, product,
+                System.out.println(product.getName());
+                System.out.println(product.Find_AssetName());
+
+            ProductWindow productWindow = new ProductWindow(skin, product,
                 new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName())))),
                 Item1,
                 item1Name,
                 Item2,
                 item2Name));
             productsList.add(productsWindows.getLast()).width(800).height(100).padTop(2).padBottom(2).padLeft(-1).row();
+                new Label("item", skin));
+            productsWindows.add(productWindow);
+            productWindow.addListener(new ClickListener() {
+                public void clicked(InputEvent event, float x, float y) {
+                    selectedProduct = productWindow.getProduct();
+                    handleSelectedProduct();
+                }
+            });
+            productsList.add(productsWindows.getLast()).width(800).height(100).padTop(2).padBottom(2).row();
         }
 
         ProductsScrollPane = new ScrollPane(productsList, skin, "default3");
@@ -71,6 +94,34 @@ public class CommonShopMenu extends Window {
         add(exitButton).padTop(-25).top();
 
         setMovable(false);
+    }
+
+    public void handleSelectedProduct() {
+        if(selectedProduct.getRemainingStock()==0)
+            return;
+        switch (StardewValley.getGameView().getShopStateWindow().getShopState()) {
+            case SHOP: {
+                Result result = ShopController.purchaseProductFromList(selectedProduct.getName(),"1",products);
+                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),result.getMessage(),100);
+            }
+            break;
+            case UPGRADE_TOOL: {
+
+            }
+            break;
+            case PURCHASE_ANIMAL: {
+
+            }
+            break;
+            case BUILD_A_BUILDING: {
+
+            }
+            break;
+            default: {
+            }
+            break;
+
+        }
     }
 
     public interface Listener {

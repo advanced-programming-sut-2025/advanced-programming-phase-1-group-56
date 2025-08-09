@@ -364,9 +364,8 @@ public class TradeController extends CommandController {
         return new Result(true, builder.toString());
     }
 
-    public static Result sellProducts(Matcher matcher) {
-        String item = matcher.group(1).trim();
-        String quantity = matcher.group(2);
+    public static Result sellProducts(String item,String quantity) {
+
         int amount;
         ShippingBar shippingBar;
         if (quantity == null) {

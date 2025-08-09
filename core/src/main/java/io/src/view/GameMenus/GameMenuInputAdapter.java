@@ -138,7 +138,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (button == Input.Buttons.RIGHT) {
             if (isFacingCounter()) {
                 ShopStateWindow shopStateWindow = StardewValley.getGameView().getShopStateWindow();
-                shopStateWindow.setVisible(true);
+                shopStateWindow.showDialog();
                 return true;
             }
             if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
@@ -174,7 +174,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         Class<?> relatedClazz = currGL.getType().getRelatedClazz();
 
-        if (currGL.getType().isIndoor() && Store.class.isAssignableFrom(relatedClazz)) {
+        if (currGL.getType().isIndoor() && relatedClazz != null && Store.class.isAssignableFrom(relatedClazz)) {
             Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
                 (Class<? extends Store>) relatedClazz
             );
