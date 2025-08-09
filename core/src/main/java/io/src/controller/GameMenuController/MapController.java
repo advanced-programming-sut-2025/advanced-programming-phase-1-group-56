@@ -200,7 +200,7 @@ public class MapController extends CommandController {
 
     private static ArrayList<Node> findPath(int x, int y) {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        ArrayList<Node> path = new AStarPathFinding(player.getCurrentGameLocation(),
+        ArrayList<Node> path = (ArrayList<Node>) new AStarPathFinding(player.getCurrentGameLocation(),
                 player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),
                     (int) player.getPosition().getY()), player.getCurrentGameLocation().getTiles()[y][x]).solve();
         return path;

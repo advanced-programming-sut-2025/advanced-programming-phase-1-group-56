@@ -367,6 +367,8 @@ public class InventoryWindow extends Group implements InputProcessor {
             }
 
             if (item != null && quantity > 0) {
+                System.out.println(item.getAssetName(
+                ));
                 Image itemImage = new Image(new Texture(Gdx.files.internal(
                     GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
                 )));

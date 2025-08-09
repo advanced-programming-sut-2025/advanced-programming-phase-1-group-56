@@ -6,6 +6,7 @@ import io.src.model.Activities.Friendship;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Recepies.FoodRecipesList;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.GameMap;
@@ -218,6 +219,7 @@ public class PreGameMenuController extends CommandController {
         newGame.setGameMap(map);// 4/4
 
 
+
         //FriendShips
         for (Player player1 : playersToPlay) {
             for (Player player2 : playersToPlay) {
@@ -238,6 +240,10 @@ public class PreGameMenuController extends CommandController {
             user.setGameId(newGame.getGameId());
             user.setCurrentGame(newGame);
             user.setNumOfGames(user.getNumOfGames() + 1);
+        }
+
+        for (NPC npc : town.getNPCs()) {
+            npc.initializePaths(town);
         }
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());

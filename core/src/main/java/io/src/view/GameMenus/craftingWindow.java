@@ -323,6 +323,7 @@ public class craftingWindow extends Group implements InputProcessor {
 
                 if (item == null || quantity <= 0) return null;
 
+
                 Texture texture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())));
                 Image dragImage = new Image(texture);
                 dragImage.setSize(50, 50);
@@ -337,7 +338,8 @@ public class craftingWindow extends Group implements InputProcessor {
 
     }
 
-    private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
+
+                private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
         dragAndDrop.addSource(new DragAndDrop.Source(stack) {
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 System.out.println("Start drag: " + recipe.name());
