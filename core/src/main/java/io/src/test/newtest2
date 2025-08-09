@@ -27,7 +27,7 @@ sp
 tools use -d LEFT
 cheat advance date 1d
 cheat advance date 1d
-cheat add item -n Corn Seeds -c 1
+cheat add item -n Pancake -c 1
 plant -s Corn Seeds -d LEFT
 fertilize -f Speed Gro -d LEFT
 cheat advance date 1d

@@ -43,13 +43,11 @@ public class InventoryWindow extends Group implements InputProcessor {
         player = App.getMe();
         setSize(750, 580);
         setPosition((Gdx.graphics.getWidth() - 750) / 2f, (Gdx.graphics.getHeight() - 580) / 2f);
-
         background = new Image(GameAssetManager.getGameAssetManager().getInventoryBackGround());
         background.setSize(getWidth(), getHeight() + 10);
         addActor(background);
         contentGroup = new Group();
         addActor(contentGroup);
-
         addActor(createTopTabs());
         addCloseButton();
         showInventoryTab();
@@ -314,6 +312,7 @@ public class InventoryWindow extends Group implements InputProcessor {
         imageButton2.setPosition(205, 199);
 
 
+
         contentGroup.addActor(imageButton);
         contentGroup.addActor(imageButton2);
     }
@@ -324,6 +323,16 @@ public class InventoryWindow extends Group implements InputProcessor {
         ImageButton closeButton = new ImageButton(new TextureRegionDrawable(closeTex));
         closeButton.setSize(24, 24);
         closeButton.setPosition(getWidth(), getHeight());
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(GameView.getInvWindow().isVisible()) {
+                    Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+
+                }
+                GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
+            }
+        });
         addActor(closeButton);
     }
 

@@ -364,9 +364,7 @@ public class TradeController extends CommandController {
         return new Result(true, builder.toString());
     }
 
-    public static Result sellProducts(Matcher matcher) {
-        String item = matcher.group(1).trim();
-        String quantity = matcher.group(2);
+    public static Result sellProducts(String item, String quantity) {
         int amount;
         ShippingBar shippingBar;
         if (quantity == null) {
@@ -386,9 +384,8 @@ public class TradeController extends CommandController {
             return new Result(false, "wtf brother amount should be greater than 0");
         } else if (amount > me.getInventory().countItem(itemToSell)) {
             return new Result(false, "you dont have as much you want to sell");
-        } else if ((shippingBar = getShippingBarNearby(me)) == null) {
-            return new Result(false, "doesn't Find shipping bar nearby...");
         }
+        shippingBar = getShippingBarNearby(me);
 
         me.getInventory().remove(itemToSell, amount);
         shippingBar.getInventory().add(itemToSell, amount);

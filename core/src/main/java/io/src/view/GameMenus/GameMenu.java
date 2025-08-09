@@ -474,7 +474,7 @@ public class GameMenu implements AppMenu {
             System.out.println(TradeController.cheatAddMoney(matcher.group(1).trim()).getMessage());
             return true;
         } else if ((matcher = TradeCommands.sell.getMatcher(input)) != null) {
-            System.out.println(TradeController.sellProducts(matcher).getMessage());
+            System.out.println(TradeController.sellProducts(matcher.group(1).trim(),matcher.group(2).trim()).getMessage());
             return true;
         } else if ((matcher = ShopCommands.cheatMoney.getMatcher(input)) != null) {//skip turn
             App.getMe().addGold(Integer.parseInt(matcher.group(1)));

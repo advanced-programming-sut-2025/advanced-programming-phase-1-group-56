@@ -74,6 +74,7 @@ public class GameView implements Screen {
     private static FoodWindow foodWindow;
     private static RefrigeratorWindow refrigeratorWindow;
     private Image foodBuff;
+    private static ShippingBarWindow shippingBarWindow;
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -109,6 +110,7 @@ public class GameView implements Screen {
         inventoryBar = new InventoryBar();
         foodWindow = new FoodWindow(App.getMe());
         refrigeratorWindow = new RefrigeratorWindow();
+        shippingBarWindow = new ShippingBarWindow();
         energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
         craftingWindow.setVisible(false);
@@ -122,9 +124,12 @@ public class GameView implements Screen {
         stage.addActor(foodWindow);
         stage.addActor(inventoryBar);
 
+
+
+        stage.addActor(shippingBarWindow);
         stage.addActor(refrigeratorWindow);
         refrigeratorWindow.setVisible(false);
-
+        shippingBarWindow.setVisible(false);
 
         inventoryBar.toFront();
         itemLabel.setPosition(930, 200);
@@ -492,4 +497,7 @@ public class GameView implements Screen {
         return refrigeratorWindow;
     }
 
+    public static ShippingBarWindow getShippingBarWindow() {
+        return shippingBarWindow;
+    }
 }

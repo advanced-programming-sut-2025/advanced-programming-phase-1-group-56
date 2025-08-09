@@ -113,7 +113,7 @@ public class Inventory {
     public int countItem(Item item) {
         int sum = 0;
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
+            if (slot.getItem()!=null&&slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 sum += slot.getQuantity();
             }
         }

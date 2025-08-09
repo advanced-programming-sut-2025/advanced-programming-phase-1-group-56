@@ -63,6 +63,16 @@ public class GameMenuInputAdapter extends InputAdapter {
             return false;
         }
 
+        if(keycode == Input.Keys.T) {
+            if(!GameView.getShippingBarWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(GameView.getShippingBarWindow());
+                multiplexer.addProcessor(GameView.getStage());
+                GameView.getShippingBarWindow().refreshInventory();
+                Gdx.input.setInputProcessor(multiplexer);
+                GameView.getShippingBarWindow().setVisible(!GameView.getShippingBarWindow().isVisible());}
+        }
+
         if(keycode == Input.Keys.B) {
             if(!GameView.getCraftingWindow().isVisible()) {
                 InputMultiplexer multiplexer = new InputMultiplexer();
