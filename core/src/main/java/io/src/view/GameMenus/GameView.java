@@ -1,6 +1,7 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,8 +14,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -22,6 +27,7 @@ import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
+import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameAssetManager;
@@ -32,6 +38,7 @@ import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.items.Tool;
+import io.src.model.items.Etc;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,9 +52,6 @@ public class GameView implements Screen {
     private final Game game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    //    private SpriteBatch batch;
-//    private TextureRegion[][] tileTextures;
-//    private Map<String, TextureRegion> textures;
     private BitmapFont smallFont;
     private GlyphLayout layout = new GlyphLayout();
     private TextureAtlas playerAtlas;
@@ -59,17 +63,23 @@ public class GameView implements Screen {
     private Texture pixel; // Add this
     public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
     private final OrthographicCamera camera = new OrthographicCamera();
-    private Stage stage;
+    private static Stage stage;
     private TimerWindow timeWindow;
-    private InventoryWindow invWindow;
+    private static InventoryWindow invWindow;
     private DialogWindow dialogWindow;
-    //    private final GameController gameController;
     private InputMultiplexer multiplexer = new InputMultiplexer();
-    private GameMenuInputAdapter gameMenuInputAdapter;
+    private static GameMenuInputAdapter gameMenuInputAdapter;
     private EnergyBar energyWindow;
     private ScreenTransition transitionManager;
     private ShapeRenderer shapeRenderer;
     private final ArrayList<ToolSwing> activeToolSwings = new ArrayList<>();
+    private static craftingWindow craftingWindow;
+    private static InventoryBar inventoryBar;
+    private static Label itemLabel;
+    private static FoodWindow foodWindow;
+    private static RefrigeratorWindow refrigeratorWindow;
+    private Image foodBuff;
+
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -83,7 +93,6 @@ public class GameView implements Screen {
     public void updateMap() {
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
-//        loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
@@ -98,36 +107,44 @@ public class GameView implements Screen {
 
     public GameView(Game game) {
         this.game = game;
-//        this.gameController = gameController;
-        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
-//        loadTextures();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+
+
         stage = new Stage(new ScreenViewport());
+        itemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
+        foodBuff = null;
         invWindow = new InventoryWindow();
         energyWindow = new EnergyBar();
         timeWindow = new TimerWindow();
+        craftingWindow = new craftingWindow(App.getMe());
+        inventoryBar = new InventoryBar();
+        foodWindow = new FoodWindow(App.getMe());
+        refrigeratorWindow = new RefrigeratorWindow();
         energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
+        craftingWindow.setVisible(false);
+        foodWindow.setVisible(false);
+
+        stage.addActor(craftingWindow);
         stage.addActor(invWindow);
         stage.addActor(energyWindow);
         stage.addActor(timeWindow);
+        stage.addActor(itemLabel);
+        stage.addActor(foodWindow);
+        stage.addActor(inventoryBar);
 
-        InputAdapter keyListener = new InputAdapter() {
-            @Override
-            public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.E) {
-                    App.getMe().addGold(1000);
-                    invWindow.setVisible(!invWindow.isVisible());
-                }
-                if (keycode == Input.Keys.ENTER) {
-                    dialogWindow.hideDialog();
-                }
-                return true;
-            }
-        };
+        stage.addActor(refrigeratorWindow);
+        refrigeratorWindow.setVisible(false);
+
+
+        inventoryBar.toFront();
+        itemLabel.setPosition(930, 200);
+
+        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
+
         multiplexer.addProcessor(gameMenuInputAdapter);
         multiplexer.addProcessor(keyListener);
         multiplexer.addProcessor(stage);
@@ -136,13 +153,36 @@ public class GameView implements Screen {
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
 
+        setCustomCursor("assets/Cursor.png", 0, 0);
+
     }
 
-    private void loadTextures() {
+    private Pixmap resizeToPowerOfTwo(Pixmap src) {
+        int newWidth = MathUtils.nextPowerOfTwo(src.getWidth());
+        int newHeight = MathUtils.nextPowerOfTwo(src.getHeight());
+
+        Pixmap resized = new Pixmap(newWidth, newHeight, src.getFormat());
+        resized.drawPixmap(src, 0, 0, src.getWidth(), src.getHeight(), 0, 0, newWidth, newHeight);
+        return resized;
     }
 
-    //commitTest
-
+    private void setCustomCursor(String path, int hotX, int hotY) {
+        try {
+            if (Gdx.files.internal(path).exists()) {
+                Pixmap original = new Pixmap(Gdx.files.internal(path));
+                Pixmap powerOfTwo = resizeToPowerOfTwo(original);
+                Cursor customCursor = Gdx.graphics.newCursor(powerOfTwo, hotX, hotY);
+                Gdx.graphics.setCursor(customCursor);
+                original.dispose();
+                powerOfTwo.dispose();
+            } else {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        } catch (Exception e) {
+            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            e.printStackTrace();
+        }
+    }
 
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
         Animation<TextureRegion> animation = animationManager.get(characterName, key);
@@ -234,9 +274,6 @@ public class GameView implements Screen {
                     break;
             }
         }
-//        AnimationKey key = moving
-//            ? AnimationKey.valueOf("WALK_" + dir.toUpperCase())
-//            : AnimationKey.valueOf("IDLE_" + dir.toUpperCase());
 
         renderCharacter(name, key, x, y);
 
@@ -434,6 +471,7 @@ public class GameView implements Screen {
 
 
                 renderPlayer();
+
                 updateAndDrawToolSwings(v);
 
                 //Debug
@@ -463,9 +501,6 @@ public class GameView implements Screen {
                 continue;
             }
 
-//            System.out.println(assetName);
-//            System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName));
-
 
             if (!gameObjectTextureMap.containsKey(assetName)) {
                 Texture texture = new Texture(Gdx.files.internal(
@@ -481,29 +516,35 @@ public class GameView implements Screen {
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
 
-//            if (App.getMe().getCurrentGameLocation() instanceof Town){
-//                System.out.println(assetName + "'  asset :'" + GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
-//                    + "'location: " + worldX + "   " + worldY);
-//            }
-
-            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE1 ||
-                ((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType()== EtcObjectType.VANITY_TREE3)) {
+            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
+                ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
                 worldX -= 16;
             }
 
-            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType()== EtcObjectType.PINKFU_TREE){
+            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.PINKFU_TREE) {
                 worldX -= 24;
             }
 
-            renderer.getBatch().draw(region,
-                worldX, worldY,
-                region.getRegionWidth(), 0,
-                region.getRegionWidth(), region.getRegionHeight(),
-                1f, 1f, 0);
+            if(go instanceof ArtesianMachine || go instanceof EtcObject){
+                worldX-=25;
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    region.getRegionWidth(), 0,
+                    region.getRegionWidth(), region.getRegionHeight(),
+                    0.5f, 0.5f, 0);
+            } else {
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    region.getRegionWidth(), 0,
+                    region.getRegionWidth(), region.getRegionHeight(),
+                    1f, 1f, 0);
+            }
+
+
         }
 
 
-        //RED HIT BOXES
+//        //RED HIT BOXES
 //        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
 //        pixmap.setColor(1, 0, 0, 1);
 //        pixmap.fill();
@@ -567,6 +608,18 @@ public class GameView implements Screen {
 
         timeWindow.updateGold();
         timeWindow.updateTime();
+        if (App.getMe().getCurrentItem() != null) {
+            itemLabel.setText(App.getMe().getCurrentItem().getName());
+        } else {
+            itemLabel.setText("");
+        }
+
+        if (App.getMe().getCurrentBuff() != null) {
+            String assetName = App.getMe().getCurrentBuff().getBuffType().getAssetName();
+            foodBuff = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName))));
+            stage.addActor(foodBuff);
+            foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
+        }
 
 
         camera.update();
@@ -602,12 +655,36 @@ public class GameView implements Screen {
 
     }
 
-    public InventoryWindow getInvWindow() {
+    public static FoodWindow foodWindow() {
+        return foodWindow;
+    }
+
+    public static craftingWindow getCraftingWindow() {
+        return craftingWindow;
+    }
+
+    public static InventoryWindow getInvWindow() {
         return invWindow;
     }
 
     public void setInvWindow(InventoryWindow invWindow) {
         this.invWindow = invWindow;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static GameMenuInputAdapter getGameMenuInputAdapter() {
+        return gameMenuInputAdapter;
+    }
+
+    public static InventoryBar getInventoryBar() {
+        return inventoryBar;
+    }
+
+    public static RefrigeratorWindow getRefrigeratorWindow() {
+        return refrigeratorWindow;
     }
 
 }

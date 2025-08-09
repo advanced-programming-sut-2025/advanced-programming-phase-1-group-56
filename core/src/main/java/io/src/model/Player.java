@@ -131,8 +131,8 @@ public class Player implements TimeObserver {
         MiningSkill miningSkill = new MiningSkill(Skills.Mining, 0);
         FishingSkill fishingSkill = new FishingSkill(Skills.Fishing, 0);
         skills.add(farmingSkill);
-        skills.add(foragingSkill);
         skills.add(miningSkill);
+        skills.add(foragingSkill);
         skills.add(fishingSkill);
         //skill ok
         //map auth should add with setters

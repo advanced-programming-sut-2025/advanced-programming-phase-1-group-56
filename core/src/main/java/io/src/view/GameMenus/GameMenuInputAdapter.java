@@ -6,12 +6,18 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import io.src.controller.GameMenuController.ToolsController;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import io.src.controller.GameMenuController.CookingController;
+import io.src.controller.GameMenuController.CraftingController;
+import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
+import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
@@ -19,6 +25,10 @@ import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.items.Tool;
+
+import io.src.model.items.Artesian;
+import io.src.model.items.Etc;
+import io.src.model.items.Food;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +39,7 @@ public class GameMenuInputAdapter extends InputAdapter {
     //    private final GameController gameController;
     private final Set<Integer> keysHeld = new HashSet<>();
     private boolean stopMoving = false;
-
+    private static GameMenuInputAdapter gameMenuInputAdapter;
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
 
@@ -54,11 +64,54 @@ public class GameMenuInputAdapter extends InputAdapter {
             return true;
         }
 
+        if(App.getMe().isMoving()){
+            return false;
+        }
+
+        if(keycode == Input.Keys.B) {
+            if(!GameView.getCraftingWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(GameView.getCraftingWindow());
+                multiplexer.addProcessor(GameView.getStage());
+                GameView.getCraftingWindow().refreshInventory();
+                Gdx.input.setInputProcessor(multiplexer);
+                GameView.getCraftingWindow().setVisible(!GameView.getCraftingWindow().isVisible());}
+        }
+
+        if(keycode == Input.Keys.E) {
+            if(!GameView.getInvWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(GameView.getInvWindow());
+                multiplexer.addProcessor(GameView.getStage());
+                GameView.getInvWindow().refreshInventory();
+                Gdx.input.setInputProcessor(multiplexer);
+                GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());}
+        }
+
+        if(keycode == Input.Keys.F) {
+            if(!GameView.foodWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(GameView.foodWindow());
+                multiplexer.addProcessor(GameView.getStage());
+                GameView.foodWindow().refreshInventory();
+                Gdx.input.setInputProcessor(multiplexer);
+                GameView.foodWindow().setVisible(!GameView.foodWindow().isVisible());}
+        }
+
+        if (keycode == Input.Keys.R) {
+            InputMultiplexer multiplexer = new InputMultiplexer();
+            multiplexer.addProcessor(GameView.getRefrigeratorWindow());
+            multiplexer.addProcessor(GameView.getStage());
+            GameView.getRefrigeratorWindow().refreshInventory();
+            Gdx.input.setInputProcessor(multiplexer);
+            GameView.getRefrigeratorWindow().setVisible(!GameView.getRefrigeratorWindow().isVisible());
+        }
+//
 //        if (keycode == Input.Keys.N) {
 //            gameController.advanceToNextDay();
 //        }
 
-        return true;
+        return false;
     }
 
     @Override
@@ -69,11 +122,8 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        int current = game.getCurrentPlayer().getSelectedSlot();
-        int size = game.getCurrentPlayer().getCurrentBackpack().getCapacity();
-        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
-        game.getCurrentPlayer().setSelectedSlot(next);
-        return true;
+        GameView.getInventoryBar().scrolled(amountX, amountY);
+        return false;
     }
 
     @Override
@@ -82,6 +132,17 @@ public class GameMenuInputAdapter extends InputAdapter {
             performAction(screenX, screenY);
             return true;
         }
+        if (button == Input.Buttons.RIGHT) {
+            if(App.getMe().getCurrentItem() instanceof Food){
+                CookingController.eatFoodUI(App.getMe().getCurrentItem());
+            }else if(App.getMe().getCurrentItem() instanceof Artesian){
+                System.out.println(App.getMe().getCurrentItem().getAssetName());
+                CraftingController.placeItem(App.getMe().getCurrentItem().getName(),App.getMe().getLastDirection());
+            } else if(App.getMe().getCurrentItem() instanceof Etc){
+                CraftingController.placeItem(App.getMe().getCurrentItem().getName(),App.getMe().getLastDirection());
+            }
+        }
+
         return false;
     }
 
@@ -221,6 +282,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
 
             //FROM TOWN TO FARM
+
             if (player.getPosition().isNear(new Position(5, 55), 8)) {
                 if (player.getFarmPosition() == FarmPosition.LEFT) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
@@ -366,7 +428,6 @@ public class GameMenuInputAdapter extends InputAdapter {
 //        if (selectedItem != null) {
 //            gameController.useItem(selectedItem, new Point(tileX, tileY), game);
 //        }
-
     }
 
     public boolean isStopMoving() {

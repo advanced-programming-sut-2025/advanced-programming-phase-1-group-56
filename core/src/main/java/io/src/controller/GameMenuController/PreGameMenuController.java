@@ -263,6 +263,7 @@ public class PreGameMenuController extends CommandController {
             player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
             player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
             player.addFoodRecipes(FoodRecipesList.SALAD);
+            player.setCurrentItem(player.getInventory().findItemByName(ToolType.AXE_WOODEN.getName()));
         }
     }
 

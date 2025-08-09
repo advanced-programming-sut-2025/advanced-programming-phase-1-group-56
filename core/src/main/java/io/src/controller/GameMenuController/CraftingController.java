@@ -1,5 +1,6 @@
 package io.src.controller.GameMenuController;
 
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
@@ -7,24 +8,90 @@ import io.src.model.Enums.Items.*;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.GameObject.DroppedItem;
 import io.src.model.GameObject.*;
-import io.src.model.Ingredient;
 import io.src.model.MapModule.Position;
 import io.src.model.Result;
 import io.src.model.Slot;
 import io.src.model.items.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 
 public class CraftingController extends CommandController {
-    public static Result addRecipe(String name){
+    public static Result craftingItemController(CraftingRecipesList recipe) {
+        if (recipe == null) {
+            return new Result(true, "you can't Craft this Recipe!");
+        } else if (!havaIngredient(recipe)) {
+            return new Result(false, "you have not enough ingredients!");
+        }
+        StringBuilder tmpString = new StringBuilder();
+        tmpString.append("you can Craft this Recipes:").append("\n").append(RecipeList());
+        CraftingRecipesList[] craftingRecipesLists = CraftingRecipesList.values();
+        tmpString.append("You don't know these recipes yet:\n");
+        CraftingRecipesList craftingRecipesList = null;
+        for (CraftingRecipesList cr : craftingRecipesLists) {
+            if (cr.name.equals(recipe.name)) {
+                craftingRecipesList = cr;
+            }
+        }
+        if (craftingRecipesList == null) {
+            return new Result(false, "craft recipe list in null");
+        }
+        Item craftingTool = new CraftingTool(craftingRecipesList);
+        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(craftingTool, 1);
+        } else {
+            return new Result(false, "you don't have enough space!");
+        }
+        for (Slot i : recipe.ingredients) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(returnInventoryItemByName(i.getItem().getName()), i.getQuantity());
+        }
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().subtractEnergy(2);
+        return new Result(true, tmpString.toString());
+    }
+
+    public static ArrayList<CraftingRecipesList> haveCraftingRecipes() {
+        ArrayList<CraftingRecipesList> craftToolsRecipe = App.getCurrentUser()
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getToolRecipes();
+        ArrayList<CraftingRecipesList> craftingRecipes = new ArrayList<>();
+        System.out.println(craftToolsRecipe);
+        for (CraftingRecipesList cr : craftToolsRecipe) {
+            if (havaIngredient(cr)) {
+                craftingRecipes.add(cr);
+            }
+        }
+        System.out.println(craftingRecipes);
+        return craftingRecipes;
+    }
+
+    public static ArrayList<CraftingRecipesList> havenotCraftingRecipes() {
+        ArrayList<CraftingRecipesList> craftToolsRecipe = App.getCurrentUser()
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getToolRecipes();
+        ArrayList<CraftingRecipesList> craftingRecipes = new ArrayList<>();
+        for (CraftingRecipesList cr : craftToolsRecipe) {
+            if (!havaIngredient(cr)) {
+                craftingRecipes.add(cr);
+            }
+        }
+        return craftingRecipes;
+    }
+
+    public static ArrayList<CraftingRecipesList> returnCraftingRecipes() {
+        CraftingRecipesList[] craftingRecipesLists = CraftingRecipesList.values();
+        ArrayList<CraftingRecipesList> craftingRecipes = new ArrayList<>(Arrays.asList(craftingRecipesLists));
+        return craftingRecipes;
+    }
+
+
+    public static Result addRecipe(String name) {
         CraftingRecipesList craftingRecipesList = CraftingRecipesList.fromName(name);
         App.getMe().addToolRecipes(craftingRecipesList);
         return new Result(true, "recipe added successfully");
     }//TODO
-
-
-
 
 
     public static Result showCraftingRecipes() {
@@ -71,8 +138,8 @@ public class CraftingController extends CommandController {
                 craftingRecipesList = cr;
             }
         }
-        if(craftingRecipesList == null){
-            return new Result(false,"craft recipe list in null");
+        if (craftingRecipesList == null) {
+            return new Result(false, "craft recipe list in null");
         }
         Item craftingTool = new CraftingTool(craftingRecipesList);
         if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().canAddItem(craftingTool, 1)) {
@@ -98,8 +165,8 @@ public class CraftingController extends CommandController {
             return new Result(false, "this direction does not exist!");
         }
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        int x = (int)position.getX();
-        int y = (int)position.getY();
+        int x = (int) position.getX();
+        int y = (int) position.getY();
         switch (dir) {
             case UP:
                 y -= 1;
@@ -133,7 +200,7 @@ public class CraftingController extends CommandController {
                 break;
         }
         if (item instanceof Artesian) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
+            App.getMe().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType()));
             System.out.println("yes");
         } else if (item instanceof Etc) {
             if (((Etc) item).getEtcType().etcObjectType != null) {
@@ -158,8 +225,88 @@ public class CraftingController extends CommandController {
                 }
             }
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
-        } else  {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new DroppedItem(item,new  Position(x, y)));
+        } else {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new DroppedItem(item, new Position(x, y)));
+        }
+
+
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
+        return new Result(true, "you placed a item!");
+    }
+
+    public static Result placeItem(String itemName,Direction dir) {
+        Item item = returnInventoryItemByName(itemName);
+        if (item == null) {
+            return new Result(false, "this item does not exist!");
+        }
+        Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
+        int x = (int) position.getX();
+        int y = (int) position.getY();
+        switch (dir) {
+            case UP:
+                y -= 1;
+                break;
+            case DOWN:
+                y += 1;
+                break;
+            case LEFT:
+                x -= 1;
+                break;
+            case RIGHT:
+                x += 1;
+                break;
+            case UPLEFT:
+                x -= 1;
+                y -= 1;
+                break;
+            case UPRIGHT:
+                x += 1;
+                y -= 1;
+                break;
+            case DOWNLEFT:
+                x -= 1;
+                y += 1;
+                break;
+            case DOWNRIGHT:
+                x += 1;
+                y += 1;
+                break;
+            default:
+                break;
+        }
+
+        if(!App.getMe().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()){
+            return new Result(false, "you can't place item here!");
+        }
+        if (item instanceof Artesian) {
+            ArtesianMachine artesianMachine = new ArtesianMachine(false, new Position(x, y), ((Artesian) item).getArtisanMachineItemType().getArtisanMachineType());
+            App.getMe().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(artesianMachine);
+            App.getMe().getCurrentGameLocation().getGameObjects().add(artesianMachine);
+        } else if (item instanceof Etc) {
+            if (((Etc) item).getEtcType().etcObjectType != null) {
+                if (((Etc) item).getEtcType().getName().equals(EtcType.SCARE_CROW.name) || ((Etc) item).getEtcType().getName().equals(EtcType.DELUXE_SCARE_CROW.name)) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Crop)
+                                ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setProtected(true);
+                            else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Tree)
+                                ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setProtected(true);
+                        }
+                    }
+                }
+            } else if (((Etc) item).getEtcType().getName().equals(EtcType.SPRINKLER.name) || ((Etc) item).getEtcType().getName().equals(EtcType.IRIDIUM_SPRINKLER.name) || ((Etc) item).getEtcType().getName().equals(EtcType.QUALITY_SPRINKLER.name)) {
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Crop)
+                            ((Crop) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setWateredToday(true);
+                        else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject() instanceof Tree)
+                            ((Tree) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x + i, y + j).getFixedObject()).setWateredToday(true);
+                    }
+                }
+            }
+            EtcObject etcObject = new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType);
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(etcObject);
+            App.getMe().getCurrentGameLocation().getGameObjects().add(etcObject);
         }
 
 
@@ -209,7 +356,7 @@ public class CraftingController extends CommandController {
             return new Result(true, "add Fruit To Your Inventory!");
         }
 
-        MineralItemType type7 = (MineralItemType)ItemType.FindItemTypeByName(MineralItemType.values(), itemName);
+        MineralItemType type7 = (MineralItemType) ItemType.FindItemTypeByName(MineralItemType.values(), itemName);
         if (type7 != null) {
             App.getMe().getInventory().add(new Mineral(type7), count);
             return new Result(true, "add CraftingTool To Your Inventory!");
@@ -228,14 +375,14 @@ public class CraftingController extends CommandController {
         }
 
 
-        return new Result(false,"cheat add eshteb shode why?");
+        return new Result(false, "cheat add eshteb shode why?");
     }
 
     private static String RecipeList() {
         ArrayList<CraftingRecipesList> craftToolsRecipe = App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getToolRecipes();
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getToolRecipes();
         StringBuilder tmpString = new StringBuilder();
         for (CraftingRecipesList craftTool : craftToolsRecipe) {
             tmpString.append("Tools Name : ").append(craftTool.name).append("\n");
@@ -252,6 +399,48 @@ public class CraftingController extends CommandController {
         return tmpString.toString();
     }
 
+    public static String Ingredients(CraftingRecipesList craftTool) {
+        StringBuilder tmpString = new StringBuilder();
+        java.util.function.Function<String, String> wrapLine = (text) -> {
+            StringBuilder wrapped = new StringBuilder();
+            int lineLength = 0;
+            for (String word : text.split(" ")) {
+                if (lineLength + word.length() > 20) {
+                    wrapped.append("\n");
+                    lineLength = 0;
+                }
+                wrapped.append(word).append(" ");
+                lineLength += word.length() + 1;
+            }
+            return wrapped.toString();
+        };
+        if(craftTool.description!=null){
+            tmpString.append("Description : ")
+                .append(wrapLine.apply(craftTool.description))
+                .append("\n");
+        }
+
+
+        tmpString.append("Ingredients : \n");
+        for (int i = 0; i < craftTool.ingredients.length; i++) {
+            Slot ingredient = craftTool.ingredients[i];
+            String ingredientText = ingredient.getQuantity() + " " + ingredient.getItem().getName();
+            tmpString.append(wrapLine.apply(ingredientText));
+
+            if (i != craftTool.ingredients.length - 1) {
+                tmpString.append(",\n");
+            } else {
+                tmpString.append("\n");
+            }
+        }
+
+        tmpString.append("Sell Price : ")
+            .append(craftTool.sellPrice);
+
+        return tmpString.toString();
+    }
+
+
     private static CraftingRecipesList returnCraftingRecipe(String ItemName) {
         for (CraftingRecipesList craftTool : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getToolRecipes()) {
             if (craftTool.name.equals(ItemName)) {
@@ -261,11 +450,12 @@ public class CraftingController extends CommandController {
         return null;
     }
 
-    private static boolean havaIngredient(CraftingRecipesList craftTool) {
+    public static boolean havaIngredient(CraftingRecipesList craftTool) {
         for (Slot ingredient : craftTool.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
+                if (slot.getItem() != null &&
+                    slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
                     break;
                 }
@@ -274,37 +464,33 @@ public class CraftingController extends CommandController {
                 return false;
             }
         }
-        for (Slot ingredient : craftTool.ingredients) {
-            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if (ingredient.getItem().getName().equals(slot.getItem().getName())) {
-                    int sum = 0;
-                    for (Slot slot1 : App.getCurrentUser()
-                            .getCurrentGame()
-                            .getCurrentPlayer()
-                            .getInventory()
-                            .getSlots()) {
-                        if (slot1.getItem().getName().equals(ingredient.getItem().getName())) {
-                            sum += slot1.getQuantity();
-                        }
-                    }
-                    if (sum < ingredient.getQuantity()) {
-                        return false;
-                    }
 
+        for (Slot ingredient : craftTool.ingredients) {
+            int sum = 0;
+            for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if (slot.getItem() != null &&
+                    slot.getItem().getName().equals(ingredient.getItem().getName())) {
+                    sum += slot.getQuantity();
                 }
             }
+
+            if (sum < ingredient.getQuantity()) {
+                return false;
+            }
         }
+
         return true;
     }
 
+
     private static Item returnInventoryItemByName(String itemName) {
         for (Slot slot : App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getInventory()
-                .getSlots()) {
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getInventory()
+            .getSlots()) {
             Item item = slot.getItem();
-            if (item.getName().equals(itemName)) {
+            if (item!=null && item.getName().equals(itemName)) {
                 return item;
             }
         }

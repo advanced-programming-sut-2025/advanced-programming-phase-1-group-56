@@ -33,19 +33,16 @@ import javax.xml.transform.Source;
 import java.util.ArrayList;
 
 
-public class InventoryWindow extends Group {
+public class InventoryWindow extends Group implements InputProcessor {
     private final Group contentGroup;
     private final Image background;
     private final Player player;
     private final DragAndDrop dragAndDrop = new DragAndDrop();
 
     public InventoryWindow() {
-        this.player = new Player(InventoryController.returnUser("Mohsen"));
-        player.getSkillByName("Farming").setLevel(2);
-        player.getInventory().add(new Tool(ToolType.AXE_WOODEN), 1);
-        player.getInventory().add(new Tool(ToolType.PICK_WOODEN), 1);
+        player = App.getMe();
         setSize(750, 580);
-        setPosition(100, 100);
+        setPosition((Gdx.graphics.getWidth() - 750) / 2f, (Gdx.graphics.getHeight() - 580) / 2f);
 
         background = new Image(GameAssetManager.getGameAssetManager().getInventoryBackGround());
         background.setSize(getWidth(), getHeight() + 10);
@@ -172,7 +169,8 @@ public class InventoryWindow extends Group {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 int fromIndex = (int) payload.getObject();
-                player.getInventory().getSlots().remove(fromIndex);
+                player.getInventory().remove(player.getInventory().getSlots().get(fromIndex).getItem(),1);
+
                 contentGroup.clear();
                 showInventoryTab();
             }
@@ -345,55 +343,51 @@ public class InventoryWindow extends Group {
                 : new Image(GameAssetManager.getGameAssetManager().getLockSlot());
             stack.add(slotImage);
 
-            Image itemImage = null;
-            if (i < slots.size()) {
-                Slot slot = slots.get(i);
-                Item item = slot.getItem();
-                int quantity = slot.getQuantity();
-                Label label = null;
-                stack.setTouchable(Touchable.enabled);
+            while (slots.size() <= i && i < capacity) {
+                slots.add(new Slot(null, 0));
+            }
 
+            Slot slot = null;
+            Item item = null;
+            int quantity = 0;
+            if(i<capacity){
+                slot = slots.get(i);
+                item = slot.getItem();
+                quantity = slot.getQuantity();
                 addDragAndDrop(dragAndDrop, stack, i, inventory);
-
-                if (item != null && quantity > 0) {
-                    itemImage = new Image(new Texture("assets/Axe.png"));
-                    itemImage.setOrigin(Align.center);
-                    itemImage.setScale(0.8f);
-                    itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
-
-                    label = new Label(String.valueOf(quantity), GameAssetManager.getGameAssetManager().getSkin());
-                    label.setFontScale(0.6f);
-                    label.setAlignment(Align.bottomRight);
-
-                    stack.add(itemImage);
-                    stack.add(label);
-                    stack.setTouchable(Touchable.enabled);
-
-                    Image finalItemImage = itemImage;
-                    stack.addListener(new InputListener() {
-                        @Override
-                        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                            if (finalItemImage != null) {
-                                finalItemImage.clearActions();
-                                finalItemImage.addAction(Actions.scaleTo(1f, 1f, 0.1f));
-                            }
-                        }
-
-                        @Override
-                        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                            if (finalItemImage != null) {
-                                finalItemImage.clearActions();
-                                finalItemImage.addAction(Actions.scaleTo(0.8f, 0.8f, 0.1f));
-                            }
-                        }
-                    });
-                }
             }
-            if (i < 12) {
-                inventoryTable.add(stack).size(SLOT_SIZE).padBottom(25);
-            } else {
-                inventoryTable.add(stack).size(SLOT_SIZE).padBottom(5);
+
+            if (item != null && quantity > 0) {
+                Image itemImage = new Image(new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
+                )));
+                itemImage.setOrigin(Align.center);
+                itemImage.setScale(0.8f);
+                itemImage.setSize(SLOT_SIZE - 30, SLOT_SIZE - 30);
+
+                Label label = new Label(String.valueOf(quantity), GameAssetManager.getGameAssetManager().getSkin());
+                label.setFontScale(0.6f);
+                label.setAlignment(Align.bottomRight);
+
+                stack.add(itemImage);
+                stack.add(label);
+
+                stack.addListener(new InputListener() {
+                    @Override
+                    public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                        itemImage.clearActions();
+                        itemImage.addAction(Actions.scaleTo(1f, 1f, 0.1f));
+                    }
+
+                    @Override
+                    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                        itemImage.clearActions();
+                        itemImage.addAction(Actions.scaleTo(0.8f, 0.8f, 0.1f));
+                    }
+                });
             }
+
+            inventoryTable.add(stack).size(SLOT_SIZE).padBottom(5);
             if ((i + 1) % 12 == 0) inventoryTable.row();
         }
 
@@ -406,12 +400,16 @@ public class InventoryWindow extends Group {
                 System.out.println("drag started");
                 Slot slot = inventory.getSlots().get(index);
                 Item item = slot.getItem();
+                String assetName = item.getAssetName();
                 if (item == null) return null;
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(index);
-                Texture itemTexture = new Texture("assets/Axe.png");
+                Texture itemTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
                 Image dragImage = new Image(itemTexture);
                 dragImage.setSize(50, 50);
+
+                dragImage.setOrigin(Align.center);
+                dragImage.setPosition(100, 100);
                 payload.setDragActor(dragImage);
                 return payload;
             }
@@ -437,9 +435,63 @@ public class InventoryWindow extends Group {
             }
         });
     }
+    public void refreshInventory(){
+        contentGroup.clear();
+        showInventoryTab();
+    }
 
 
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.E) {
+            if(GameView.getInvWindow().isVisible()) {
+                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
 
+            }
+            GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
 }
 
 

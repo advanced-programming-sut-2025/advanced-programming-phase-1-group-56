@@ -26,7 +26,11 @@ public class GameAssetManager {
     private static final Path assetsJsonPath = Paths.get("assets\\Stardew_Valley_Images\\assets_dictionary.json");
     private static final Path atlasJsonPath = Paths.get("assets\\Stardew_Valley_Images\\atlas_dictionary.json");
 
-
+    private Texture refrigeratorBackground = new Texture("assets/Inventory/refrigeratorBackground.png");
+    private Texture toolTipBackground = new Texture("assets/Inventory/tooltipCraftableItem.png");
+    private Texture Charcoal_Klin = new Texture("assets/Stardew_Valley_Images/Craftable_item/Charcoal_Kiln.png");
+    private Texture tripleShotEspresso = new Texture("assets/Stardew_Valley_Images/Recipe/Triple_Shot_Espresso.png");
+    private Texture craftingBackground = new Texture("assets/Inventory/craftingBackground.png");
     //Inventory
     private Texture InventoryBackGround = new Texture("assets/Inventory/InventoryBackground.png");
     private Texture closeTab = new Texture("assets/Inventory/exit.png");
@@ -64,6 +68,8 @@ public class GameAssetManager {
     private Texture clock = new Texture("assets/Inventory/clock.png");
     private Texture clockCursor = new Texture("assets/Inventory/clockCursor.png");
     private Texture greenBar = new Texture("assets/Inventory/greenBar.png");
+    private Texture InventoryBarBackground = new Texture("assets/Inventory/InventoryBarBackground.png");
+    private Texture redSelection = new Texture("assets/Inventory/redSelection.png");
     private GameAssetManager() {
         fillTheDictionary(root_path);
     }
@@ -278,5 +284,33 @@ public class GameAssetManager {
 
     public Texture getGreenBar() {
         return greenBar;
+    }
+
+    public Texture getCraftingBackground() {
+        return craftingBackground;
+    }
+
+    public Texture getCharcoal_Klin() {
+        return Charcoal_Klin;
+    }
+
+    public Texture getToolTipBackground() {
+        return toolTipBackground;
+    }
+
+    public Texture getInventoryBarBackground() {
+        return InventoryBarBackground;
+    }
+
+    public Texture getRedSelection() {
+        return redSelection;
+    }
+
+    public Texture getTripleShotEspresso() {
+        return tripleShotEspresso;
+    }
+
+    public Texture getRefrigeratorBackground() {
+        return refrigeratorBackground;
     }
 }
