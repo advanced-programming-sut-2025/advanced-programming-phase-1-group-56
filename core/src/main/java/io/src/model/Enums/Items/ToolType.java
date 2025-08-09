@@ -23,11 +23,11 @@ public enum ToolType {
     AXE_CUPRIC("Axe", ToolMaterial.Cupric, 4, 0, AXE_IRONIC, "Copper_Axe"),
     AXE_WOODEN("Axe", ToolMaterial.Wooden, 5, 0, AXE_CUPRIC, "Axe"),
     // Watering can
-    CAN_IRIDIUM("Watering Can", ToolMaterial.Iridium, 1, 100, null, "Iridium_Watering_Can"),
-    CAN_GOLDEN("Watering Can", ToolMaterial.Golden, 2, 85, CAN_IRIDIUM, "Gold_Watering_Can"),
-    CAN_IRONIC("Watering Can", ToolMaterial.Ironic, 3, 70, CAN_GOLDEN, "Steel_Watering_Can"),
-    CAN_CUPRIC("Watering Can", ToolMaterial.Cupric, 4, 55, CAN_IRONIC, "Copper_Watering_Can"),
-    CAN_WOODEN("Watering Can", ToolMaterial.Wooden, 5, 40, CAN_CUPRIC, ""),
+    CAN_IRIDIUM("WateringCan", ToolMaterial.Iridium, 1, 100, null, "Iridium_Watering_Can"),
+    CAN_GOLDEN("WateringCan", ToolMaterial.Golden, 2, 85, CAN_IRIDIUM, "Gold_Watering_Can"),
+    CAN_IRONIC("WateringCan", ToolMaterial.Ironic, 3, 70, CAN_GOLDEN, "Steel_Watering_Can"),
+    CAN_CUPRIC("WateringCan", ToolMaterial.Cupric, 4, 55, CAN_IRONIC, "Copper_Watering_Can"),
+    CAN_WOODEN("WateringCan", ToolMaterial.Wooden, 5, 40, CAN_CUPRIC, ""),
     // Fishing pole variants
     //POLE_IRIDIUM_Advanced("Advanced Iridium Rod", ToolMaterial.Iridium, 2, 0, null,"),
     POLE_IRIDIUM("Iridium Rod", ToolMaterial.Iridium, 4, 0, null, ""),

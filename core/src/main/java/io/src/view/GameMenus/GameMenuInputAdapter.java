@@ -3,7 +3,11 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import io.src.controller.GameMenuController.ToolsController;
 import io.src.model.App;
+import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
@@ -14,6 +18,8 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.items.Tool;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -215,7 +221,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
 
             //FROM TOWN TO FARM
-
             if (player.getPosition().isNear(new Position(5, 55), 8)) {
                 if (player.getFarmPosition() == FarmPosition.LEFT) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
@@ -322,6 +327,26 @@ public class GameMenuInputAdapter extends InputAdapter {
     }
 
     private void performAction(int screenX, int screenY) {
+
+        Player player = App.getMe();
+        if (player.getCurrentItem() instanceof Tool tool){
+
+            Direction dir = player.getLastDirection(); // capture direction now (or capture any data you need)
+            // pass a Runnable to be executed when animation ends:
+            App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
+                // this will run on the render thread when animation finishes
+                ToolsController.useTools(dir.toString());
+            });
+//            String dir = player.getLastDirection().toString().toLowerCase();
+//            // کلید انیمیشن مطابق AnimationKey
+////            AnimationKey key = AnimationKey.valueOf(tool.getName().toUpperCase() + "_SWING_" + dir.toUpperCase());
+////            Animation<TextureRegion> anim = App.getStardewValley().getGameView().getAnimationManager().get("Axe", key);
+//            App.getStardewValley().getGameView().spawnToolSwing(tool , player.getLastDirection());
+////            App.getStardewValley().getGameView().getStage().addActor(new AxeSwingActor(anim));
+//            ToolsController.useTools(player.getLastDirection().toString());
+        }
+
+
 //        OrthographicCamera camera = game.getCamera();
 //        camera.update();
 //        Vector3 worldCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));
@@ -341,6 +366,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 //        if (selectedItem != null) {
 //            gameController.useItem(selectedItem, new Point(tileX, tileY), game);
 //        }
+
     }
 
     public boolean isStopMoving() {

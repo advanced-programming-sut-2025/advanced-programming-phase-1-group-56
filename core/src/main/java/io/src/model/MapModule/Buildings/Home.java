@@ -34,6 +34,6 @@ public class Home extends Building {
 
     @Override
     public String getAssetName() {
-        return "Player_House";
+        return "Croped_Player_House";
     }
 }

@@ -1,5 +1,6 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.math.Vector2;
 import io.src.model.MapModule.Position;
 
 public abstract class GameObject {
@@ -46,10 +47,10 @@ public abstract class GameObject {
         return position;
     }
 
-    public Position getPixelPosition() {
+    public Vector2 getPixelPosition() {
         float pX = position.getX() * 16;
         float pY = position.getY() * 16;
-        return new Position(pX, pY);
+        return new Vector2(pX, pY);
     }
 
     public void setPosition(Position position) {

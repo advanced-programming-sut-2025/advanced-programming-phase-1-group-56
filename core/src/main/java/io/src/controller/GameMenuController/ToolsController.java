@@ -57,11 +57,11 @@ public class ToolsController extends CommandController {
         }
         switch (dir) {
             case Direction.UP: {
-                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX(), (int)destTile.getPosition().getY() - 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX(), (int)destTile.getPosition().getY() + 1);
             }
             break;
             case Direction.DOWN: {
-                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX(), (int)destTile.getPosition().getY() + 1);
+                destTile = player.getCurrentGameLocation().getTileByPosition((int)destTile.getPosition().getX(), (int)destTile.getPosition().getY() - 1);
             }
             break;
             case Direction.LEFT: {

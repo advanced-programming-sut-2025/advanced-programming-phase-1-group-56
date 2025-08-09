@@ -163,11 +163,11 @@ public class newFarmLoader {
                         int dX = (int) ((Building) gameObject).getDoorPosition().getX();
                         int dY = (int) (height - 1 -((Building) gameObject).getDoorPosition().getY());
                         ((Store) gameObject).setDoorPosition(new Position(dX , dY));
-                        System.out.println(dY);
+//                        System.out.println(dY);
                         if (gameObject instanceof PierresGeneralStore) {
-//                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-2][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY][dX+1].setWalkable(true);
@@ -176,24 +176,24 @@ public class newFarmLoader {
                             tiles[dY-1][dX+1].setWalkable(true);
 //                            tiles[dY-1][dX+1].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof TheSaloonStardrop) {
-//                            newNPC = NpcType.LEAH.getNPC(new Position(dX, dY-3));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-3][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.LEAH.getNPC(new Position(dX-1, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX-1].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
 //                            tiles[dY-1][dX].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof Blacksmith) {
-//                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-2][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
                         } else if (gameObject instanceof CarpentersShop) {
-//                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-2][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY-1][dX].setWalkable(true);
@@ -235,7 +235,7 @@ public class newFarmLoader {
                         int dX = (int) ((Building) gameObject).getDoorPosition().getX();
                         int dY = (int) (height - 1 -((Building) gameObject).getDoorPosition().getY());
                         ((Building) gameObject).setDoorPosition(new Position(dX , dY));
-                        System.out.println(dY);
+//                        System.out.println(dY);
                         if (gameObject instanceof Home){
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
@@ -334,9 +334,9 @@ public class newFarmLoader {
     private static GameObject createGameObjectFromObject(String name, MapProperties properties, float x, float y, int objWidth, int objHeight, GameLocation location) {
         Position pos = new Position(x / 16, y / 16);
 
-        if (location instanceof Town) {
-            System.out.println("wanna add an " + name.toLowerCase());
-        }
+//        if (location instanceof Town) {
+//            System.out.println("wanna add an " + name.toLowerCase());
+//        }
 
         switch (name.toLowerCase()) {
             case "playerhome" -> {
@@ -345,7 +345,7 @@ public class newFarmLoader {
 //                int objWidth = properties.get("width", Integer.class);
 //                int objHeight = properties.get("height", Integer.class);
                 Home home = new Home(pos, false, "PlayerHome", new Position((float) doorX / 16, (float) doorY / 16), objWidth, objHeight);
-                System.out.println(home.getBuildingType().getAssetName());
+//                System.out.println(home.getBuildingType().getAssetName());
                 return home;
 //            new Home(new Position(tx, ty),false, "PlayerHome", new Position(tx+4, ty+4), objHeight, objWidth);
             }

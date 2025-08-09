@@ -20,7 +20,7 @@ public enum BuildingType implements Saleable {
     THE_SALOON_STARDROP("The Saloon Stardrop", 100, 150, 0, 1, 1, false, "The_Sallon_Stardrop"),
     CARPENTER_SHOP("Carpenter Shop", 100, 150, 0, 1, 1, false, "Carpenter_Shop"),
     STORE("Store", -1, 0, -1, 3, 3, false, "Store_Indoor"),
-    HOME("Home", -1, -1, -1, -1, -1, false, "Player_House"),
+    HOME("Home", -1, -1, -1, -1, -1, false, "Croped_Player_House"),
     GREEN_HOUSE("Green House", -1, -1, -1, -1, -1, false, "Green_House"),
     ;
     //TODO handle atlases

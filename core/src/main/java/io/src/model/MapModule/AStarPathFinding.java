@@ -3,77 +3,36 @@ package io.src.model.MapModule;
 import java.util.*;
 
 public class AStarPathFinding {
-    private Network network;
-    private ArrayList<Node> path;
+    private final Network network;
+    private List<Node> path;
     private Node start;
     private Node end;
 
-    //    private ArrayList<Node> openList;
     private PriorityQueue<Node> openList;
-    //    private ArrayList<Node> closedList;
     private HashSet<Node> closedList;
 
-
-    public AStarPathFinding(Network network , Node start, Node end) {
+    public AStarPathFinding(Network network, Node start, Node end) {
         this.network = network;
         this.start = start;
         this.end = end;
     }
 
-//    public ArrayList<Node> solve() {
-//        if (start == null || end == null) return null;
-//        if (start.equals(end)) {
-//            this.path = new ArrayList<>();
-//            return path;
-//        }
-//
-//        this.openList = new ArrayList<>();
-//        this.closedList = new ArrayList<>();
-//
-//        // مقداردهی اولیه هزینه start
-//        start.setCost(0);
-//        start.setHeuristic(start.heuristic(end));
-//        start.setFunction(start.getCost() + start.getHeuristic());
-//        openList.add(start);
-//
-//        while (!openList.isEmpty()) {
-//            Node current = getLowestF();
-//            if (current.equals(end)) {
-//                retracePath(current);
-//                return path;
-//            }
-//
-//            openList.remove(current);
-//            closedList.add(current);
-//
-//            for (Node n : current.getNeighbours()) {
-//                if (closedList.contains(n) || !n.isValid()) continue;
-//
-//                double tempScore = current.getCost() + current.distanceTo(n);
-//
-//                if (!openList.contains(n)) {
-//                    openList.add(n);
-//                } else if (tempScore >= n.getCost()) {
-//                    continue;
-//                }
-//
-//                n.setParent(current);
-//                n.setCost(tempScore);
-//                n.setHeuristic(n.heuristic(end));
-//                n.setFunction(n.getCost() + n.getHeuristic());
-//            }
-//        }
-//
-//        return new ArrayList<>(); // اگر مسیری پیدا نشد
-//    }
+    public List<Node> solve() {
+        if (start == null || end == null) return Collections.emptyList();
+        if (start.equals(end)) return Collections.emptyList();
 
-    public ArrayList<Node> solve() {
-        if (start == null || end == null) return null;
-        if (start.equals(end)) return new ArrayList<>();
+        // RESET all nodes before search
+        for (Node node : network.getNodes()) {
+            node.setParent(null);
+            node.setCost(Double.POSITIVE_INFINITY);
+            node.setHeuristic(0);
+            node.setFunction(Double.POSITIVE_INFINITY);
+        }
 
-        this.openList = new PriorityQueue<>(Comparator.comparingDouble(Node::getFunction));
-        this.closedList = new HashSet<>();
+        openList = new PriorityQueue<>(Comparator.comparingDouble(Node::getFunction));
+        closedList = new HashSet<>();
 
+        // initialize start
         start.setCost(0);
         start.setHeuristic(start.heuristic(end));
         start.setFunction(start.getCost() + start.getHeuristic());
@@ -81,214 +40,218 @@ public class AStarPathFinding {
 
         while (!openList.isEmpty()) {
             Node current = openList.poll();
-
             if (current.equals(end)) {
                 retracePath(current);
-                return path;
+                return path != null ? path : Collections.emptyList();
             }
 
-            openList.remove(current);
             closedList.add(current);
             current.calculateNeighbours(network);
 
             for (Node neighbor : current.getNeighbours()) {
                 if (!neighbor.isValid() || closedList.contains(neighbor)) continue;
 
-                double tempGScore = current.getCost() + current.distanceTo(neighbor);
+                double tentativeCost = current.getCost() + current.distanceTo(neighbor);
 
-                if (!openList.contains(neighbor) || tempGScore < neighbor.getCost()) {
+                boolean inOpen = openList.contains(neighbor);
+                if (!inOpen || tentativeCost < neighbor.getCost()) {
                     neighbor.setParent(current);
-                    neighbor.setCost(tempGScore);
+                    neighbor.setCost(tentativeCost);
                     neighbor.setHeuristic(neighbor.heuristic(end));
                     neighbor.setFunction(neighbor.getCost() + neighbor.getHeuristic());
 
-                    if (!openList.contains(neighbor)) {
-                        openList.add(neighbor);
+                    if (inOpen) {
+                        openList.remove(neighbor);
                     }
+                    openList.add(neighbor);
                 }
-
             }
         }
 
-        return new ArrayList<>(); // No path found
+        // If no path found
+        return Collections.emptyList();
     }
 
+    private void retracePath(Node current) {
+        List<Node> tempPath = new ArrayList<>();
+        Node temp = current;
+        while (temp != null) {
+            tempPath.add(temp);
+            temp = temp.getParent();
+            if (tempPath.size() > network.getNodes().size()) {
+                // loop detected or invalid, abort
+                path = Collections.emptyList();
+                return;
+            }
+        }
+        Collections.reverse(tempPath);   // reverse to get start -> end
+        this.path = tempPath;
+    }
+
+    // Optional utility
+    public static int countDirectionChanges(List<Node> path) {
+        if (path == null || path.size() < 3) return 0;
+        int changes = 0;
+        for (int i = 2; i < path.size(); i++) {
+            Node n1 = path.get(i - 2);
+            Node n2 = path.get(i - 1);
+            Node n3 = path.get(i);
+            int dx1 = (int)((Tile)n2).getPosition().getX() - (int)((Tile)n1).getPosition().getX();
+            int dy1 = (int)((Tile)n2).getPosition().getY() - (int)((Tile)n1).getPosition().getY();
+            int dx2 = (int)((Tile)n3).getPosition().getX() - (int)((Tile)n2).getPosition().getX();
+            int dy2 = (int)((Tile)n3).getPosition().getY() - (int)((Tile)n2).getPosition().getY();
+            if (dx1 != dx2 || dy1 != dy2) changes++;
+        }
+        return changes;
+    }
+
+    // getters and setters
+    public Network getNetwork() { return network; }
+    public List<Node> getPath() { return path; }
+    public Node getStart() { return start; }
+    public Node getEnd() { return end; }
+    public void setStart(Node start) { this.start = start; }
+    public void setEnd(Node end) { this.end = end; }
+}
+
+
+
+//public class AStarPathFinding {
+//    private Network network;
+//    private ArrayList<Node> path;
+//    private Node start;
+//    private Node end;
+//
+//    //    private ArrayList<Node> openList;
+//    private PriorityQueue<Node> openList;
+//    //    private ArrayList<Node> closedList;
+//    private HashSet<Node> closedList;
+//
+//
+//    public AStarPathFinding(Network network , Node start, Node end) {
+//        this.network = network;
+//        this.start = start;
+//        this.end = end;
+//    }
+//
 //    public ArrayList<Node> solve() {
 //
-//        if (start == null || end == null) {
-//            return null;
+//        for (Node node : network.getNodes()) {
+//            node.setParent(null);
+//            node.setCost(Double.POSITIVE_INFINITY);
+//            node.setHeuristic(0);
+//            node.setFunction(Double.POSITIVE_INFINITY);
 //        }
 //
-//        if (start.equals(end)) {
-//            this.path = new ArrayList<>();
-//            return path;
-//        }
+//        if (start == null || end == null) return null;
+//        if (start.equals(end)) return new ArrayList<>();
 //
-//        this.path = new ArrayList<>();
+//        this.openList = new PriorityQueue<>(Comparator.comparingDouble(Node::getFunction));
+//        this.closedList = new HashSet<>();
 //
-//        this.openList = new ArrayList<>();
-//        this.closedList = new ArrayList<>();
-//
-//        this.openList.add(start);
+//        start.setCost(0);
+//        start.setHeuristic(start.heuristic(end));
+//        start.setFunction(start.getCost() + start.getHeuristic());
+//        openList.add(start);
 //
 //        while (!openList.isEmpty()) {
-//            Node current = getLowestF();
+//            Node current = openList.poll();
 //
 //            if (current.equals(end)) {
 //                retracePath(current);
 //                return path;
 //            }
 //
-//            openList.remove(current);
+////            openList.remove(current);
 //            closedList.add(current);
 //            current.calculateNeighbours(network);
 //
-//            for (Node n : current.getNeighbours()) {
+//            for (Node neighbor : current.getNeighbours()) {
+//                if (!neighbor.isValid() || closedList.contains(neighbor)) continue;
 //
-//                if (closedList.contains(n) || !n.isValid()) {
-//                    continue;
-//                }
+//                double tempGScore = current.getCost() + current.distanceTo(neighbor);
 //
-//                double tempScore = current.getCost() + current.distanceTo(n);
+//                if (!openList.contains(neighbor) || tempGScore < neighbor.getCost()) {
+//                    neighbor.setParent(current);
+//                    neighbor.setCost(tempGScore);
+//                    neighbor.setHeuristic(neighbor.heuristic(end));
+//                    neighbor.setFunction(neighbor.getCost() + neighbor.getHeuristic());
 //
-//                if (openList.contains(n)) {
-//                    if (tempScore < n.getCost()) {
-//                        n.setCost(tempScore);
-//                        n.setParent(current);
+//                    if (!openList.contains(neighbor)) {
+//                        openList.add(neighbor);
 //                    }
-//                } else {
-//                    n.setCost(tempScore);
-//                    openList.add(n);
-//                    n.setParent(current);
 //                }
-//
-//                n.setHeuristic(n.heuristic(end));
-//                n.setFunction(n.getCost() + n.getHeuristic());
 //
 //            }
+//        }
 //
-//        }
-//        return new ArrayList<Node>();
+//        return new ArrayList<>(); // No path found
 //    }
-
-    public static int countDirectionChanges(ArrayList<Node> path) {
-        if (path == null || path.size() < 3) return 0;
-
-        int changes = 0;
-
-        for (int i = path.size() - 1; i >= 2; i--) {
-            Tile t1 = (Tile) path.get(i);
-            Tile t2 = (Tile) path.get(i - 1);
-            Tile t3 = (Tile) path.get(i - 2);
-
-            int dx1 = (int)t2.getPosition().getX() - (int)t1.getPosition().getX();
-            int dy1 = (int)t2.getPosition().getY() - (int)t1.getPosition().getY();
-            int dx2 = (int)t3.getPosition().getX() - (int)t2.getPosition().getX();
-            int dy2 = (int)t3.getPosition().getY() - (int)t2.getPosition().getY();
-
-            if (dx1 != dx2 || dy1 != dy2) {
-                changes++;
-            }
-        }
-
-        return changes;
-    }
-
-
-//    public void reset() {
-//        this.start = null;
-//        this.end = null;
-//        this.path = null;
-//        this.openList = null;
-//        this.closedList = null;
-//        for (Node n : network.getNodes()) {
-//            n.setValid(true);
+//
+//    public static int countDirectionChanges(ArrayList<Node> path) {
+//        if (path == null || path.size() < 3) return 0;
+//
+//        int changes = 0;
+//
+//        for (int i = path.size() - 1; i >= 2; i--) {
+//            Tile t1 = (Tile) path.get(i);
+//            Tile t2 = (Tile) path.get(i - 1);
+//            Tile t3 = (Tile) path.get(i - 2);
+//
+//            int dx1 = (int)t2.getPosition().getX() - (int)t1.getPosition().getX();
+//            int dy1 = (int)t2.getPosition().getY() - (int)t1.getPosition().getY();
+//            int dx2 = (int)t3.getPosition().getX() - (int)t2.getPosition().getX();
+//            int dy2 = (int)t3.getPosition().getY() - (int)t2.getPosition().getY();
+//
+//            if (dx1 != dx2 || dy1 != dy2) {
+//                changes++;
+//            }
 //        }
+//
+//        return changes;
 //    }
-
+//
 //    private void retracePath(Node current) {
-//        Node temp = current;
 //        ArrayList<Node> tempPath = new ArrayList<>();
+//        Node temp = current;
 //
 //        while (temp != null) {
 //            tempPath.add(temp);
 //            temp = temp.getParent();
+//
+//            // جلوگیری از حلقه‌های بی‌پایان
+//            if (tempPath.size() > network.getNodes().size()) {
+//                System.out.println("ghair mojaz location no path found");
+//                return;
+//            }
 //        }
 //
-//        // معکوس کردن مسیر برای شروع از start
 //        Collections.reverse(tempPath);
 //        this.path = tempPath;
 //    }
-
-    private void retracePath(Node current) {
-        ArrayList<Node> tempPath = new ArrayList<>();
-        Node temp = current;
-
-        while (temp != null) {
-            tempPath.add(temp);
-            temp = temp.getParent();
-
-            // جلوگیری از حلقه‌های بی‌پایان
-            if (tempPath.size() > network.getNodes().size()) {
-                System.out.println("ghair mojaz location no path found");
-                return;
-            }
-        }
-
-//        Collections.reverse(tempPath);
-        this.path = tempPath;
-    }
-
-//    private void retracePath(Node current) {
-//        Node temp = current;
-//        this.path.add(current);
 //
-//        while (temp.getParent() != null) {
-//            this.path.add(temp.getParent());
-//            temp = temp.getParent();
-//        }
 //
-//        this.path.add(start);
+//    public Network getNetwork() {
+//        return network;
 //    }
-
-//    private Node getLowestF() {
-//        Node lowest = openList.getFirst();
-//        for (Node n : openList) {
-//            if (n.getFunction() < lowest.getFunction()) {
-//                lowest = n;
-//            }
-//        }
-//        return lowest;
-//    }
-
 //
-//    public void updateUI() {
-//        setChanged();
-//        notifyObservers();
-//        clearChanged();
+//    public ArrayList<Node> getPath() {
+//        return path;
 //    }
-
-    public Network getNetwork() {
-        return network;
-    }
-
-    public ArrayList<Node> getPath() {
-        return path;
-    }
-
-    public Node getStart() {
-        return start;
-    }
-
-    public Node getEnd() {
-        return end;
-    }
-
-    public void setStart(Node start) {
-        this.start = start;
-    }
-
-    public void setEnd(Node end) {
-        this.end = end;
-    }
-}
+//
+//    public Node getStart() {
+//        return start;
+//    }
+//
+//    public Node getEnd() {
+//        return end;
+//    }
+//
+//    public void setStart(Node start) {
+//        this.start = start;
+//    }
+//
+//    public void setEnd(Node end) {
+//        this.end = end;
+//    }
+//}

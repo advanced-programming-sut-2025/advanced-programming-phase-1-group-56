@@ -4,10 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="render indoor location">
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="debug indoor locations">
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ToolSwing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/player.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/sprites_player.atlas" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/MapController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ToolsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ToolsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/AnimationKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/AnimationKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Buildings/BuildingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Buildings/BuildingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/ToolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/ToolType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/NpcType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/NpcType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/commands/GameCommands/EnergyAndSkillsCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/commands/GameCommands/EnergyAndSkillsCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/GameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/LivingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/LivingEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/AStarPathFinding.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/AStarPathFinding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Home.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Tile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/States/WeatherState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/States/WeatherState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/AnimationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/AnimationManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
     </list>
@@ -143,7 +163,11 @@
       <workItem from="1754214353734" duration="29429000" />
       <workItem from="1754307156281" duration="2252000" />
       <workItem from="1754317958222" duration="3465000" />
-      <workItem from="1754387885726" duration="4686000" />
+      <workItem from="1754387885726" duration="38062000" />
+      <workItem from="1754473153943" duration="21305000" />
+      <workItem from="1754560832681" duration="13019000" />
+      <workItem from="1754608377459" duration="22193000" />
+      <workItem from="1754728646303" duration="10503000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -201,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754352487032</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="debug indoor locations">
+      <option name="closed" value="true" />
+      <created>1754392918369</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1754392918369</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +247,8 @@
     <MESSAGE value="some assets have been changed" />
     <MESSAGE value="wrapper debugging" />
     <MESSAGE value="render indoor location" />
-    <option name="LAST_COMMIT_MESSAGE" value="render indoor location" />
+    <MESSAGE value="debug indoor locations" />
+    <option name="LAST_COMMIT_MESSAGE" value="debug indoor locations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

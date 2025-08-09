@@ -13,7 +13,7 @@ import io.src.model.MapModule.GameLocations.GameLocation;
 import java.util.ArrayList;
 
 public class Tile extends Node {
-    private Position position;
+    private final Position position;
     private boolean isWalkable;
     @Expose(deserialize = false, serialize = false)
     private GameObject fixedObject;
