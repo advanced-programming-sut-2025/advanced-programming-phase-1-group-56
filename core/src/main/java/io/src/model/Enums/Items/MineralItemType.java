@@ -21,7 +21,7 @@ public enum MineralItemType implements ItemType {
     IRON_ORE("Iron_Ore", "A fairly common ore that can be smelted into bars.", 10, ""),
     GOLD_ORE("Gold_Ore", "A precious ore that can be smelted into bars.", 25, ""),
     IRIDIUM_ORE("Iridium_Ore", "An exotic ore with many curious properties. Can be smelted into bars.", 100, ""),
-    COAL_ORE("Coal_Ore", "A combustible rock that is useful for crafting and smelting.", 15, ""),
+    COAL_ORE("Coal_Ore", "A combustible rock that is useful for crafting and smelting.", 15, "Coal"),
     ANY_ORE("Any_Ore", "A precious ore that can be smelted into bars.", -1, "");
 
     public final String name;

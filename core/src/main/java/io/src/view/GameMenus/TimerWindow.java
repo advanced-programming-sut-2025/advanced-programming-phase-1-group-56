@@ -133,7 +133,7 @@ public class TimerWindow extends Group {
         int gold = App.getMe().getGold();
         String goldStr = String.valueOf(gold);
 
-        float startX = 264;
+        float startX = 164;
         float y = 24;
         float spacing = 22;
         int len = goldStr.length();

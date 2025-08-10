@@ -1,5 +1,6 @@
 package io.src.model;
 
+import io.src.StardewValley;
 import io.src.model.Activities.*;
 import io.src.model.Enums.*;
 
@@ -23,6 +24,7 @@ import io.src.model.items.Inventory;
 import io.src.model.items.Item;
 import io.src.model.skills.*;
 import com.google.gson.annotations.Expose;
+import io.src.view.GameMenus.ShopMenus.ShopState;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -70,7 +72,7 @@ public class Player implements TimeObserver {
     private GameLocation currentGameLocation;
     private Buff currentBuff = null;
     private boolean interactWithPartnerToday;
-
+    private ShopState shopState = ShopState.NOT_SHOP;
     //connections
     private final ArrayList<UUID> myTrades = new ArrayList<>();
     private final ArrayList<UUID> receivedTrades = new ArrayList<>();
@@ -102,7 +104,9 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
-        if(vx == 0 && vy == 0){return;}
+        if (vx == 0 && vy == 0) {
+            return;
+        }
         subtractEnergy(delta / 3);
     }
 
@@ -348,13 +352,13 @@ public class Player implements TimeObserver {
 
     public void setCurrentGameLocation(GameLocation currentGameLocation) {
         this.currentGameLocation = currentGameLocation;
-        App.setCurrentMenu(switch (currentGameLocation.getType()){
+        App.setCurrentMenu(switch (currentGameLocation.getType()) {
             case Town -> Menu.gameMenu;
             case Farm1 -> Menu.gameMenu;
             case Farm2 -> Menu.gameMenu;
             case Home_Indoor -> Menu.HouseMenu;
             case GreenHouse_Indoor -> Menu.gameMenu;
-            case Blacksmith_Indoor ->  Menu.BlackSmithMenu;
+            case Blacksmith_Indoor -> Menu.BlackSmithMenu;
             case CarpenterShop_Indoor -> Menu.CarpenterShopMenu;
             case Fishshop_Indoor -> Menu.FishShopMenu;
             case JojaMart_Indoor -> Menu.JojaMartMenu;
@@ -556,5 +560,13 @@ public class Player implements TimeObserver {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ShopState getShopState() {
+        return shopState;
+    }
+
+    public void setShopState(ShopState shopState) {
+        this.shopState = shopState;
     }
 }

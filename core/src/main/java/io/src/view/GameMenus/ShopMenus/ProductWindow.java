@@ -6,6 +6,9 @@ import com.badlogic.gdx.utils.Align;
 import io.src.model.App;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.GameObject.NPC.NpcProduct;
+import io.src.model.Slot;
+import io.src.model.items.Item;
+import io.src.model.items.Tool;
 
 public class ProductWindow extends Window {
     private final int MAX_CHARACTER = 270;
@@ -19,7 +22,7 @@ public class ProductWindow extends Window {
     private TextTooltip descriptionTooltip;
     private NpcProduct product;
 
-    public ProductWindow(Skin skin, NpcProduct product, Image productImage, Image item1, Label item1Name, Image item2, Label item2Name) {
+    public ProductWindow(Skin skin, NpcProduct product, Image productImage, Image item1, Label item1Name, Slot firstItem, Image item2, Label item2Name, Slot secondItem) {
         super("", skin, "ProductWindow");
         this.product = product;
         this.productImage = productImage;
@@ -33,7 +36,20 @@ public class ProductWindow extends Window {
             price = new Label(product.getPrice() + "", skin, "default-RED");
         } else
             price = new Label(product.getPrice() + "", skin);
+        if (firstItem != null && firstItem.getItem() instanceof Tool tool && tool.getToolType().getName().toLowerCase().contains("trash_can")) {
+            if(!firstItem.getItem().getName().equalsIgnoreCase(App.getMe().getCurrentTrashcan().getName())) {
+                this.setColor(0.5f, 0.5f, 0.5f, 1f);
+                this.setTouchable(Touchable.disabled);
+            }
+        } else if (firstItem != null && App.getMe().getInventory().countItem(firstItem.getItem()) < firstItem.getQuantity()) {
+            this.setColor(0.5f, 0.5f, 0.5f, 1f);
+            this.setTouchable(Touchable.disabled);
+        }
 
+        if(secondItem != null && App.getMe().getInventory().countItem(secondItem.getItem()) < secondItem.getQuantity()) {
+            this.setColor(0.5f, 0.5f, 0.5f, 1f);
+            this.setTouchable(Touchable.disabled);
+        }
         if (product.getRemainingStock() <= 0) {
             this.setColor(0.5f, 0.5f, 0.5f, 1f);
             this.setTouchable(Touchable.disabled);

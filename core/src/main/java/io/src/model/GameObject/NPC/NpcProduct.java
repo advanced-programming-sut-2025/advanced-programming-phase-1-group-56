@@ -7,6 +7,7 @@ import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.Items.EtcType;
 import io.src.model.Enums.Items.MineralItemType;
 import io.src.model.Enums.Items.ToolType;
+import io.src.model.Enums.Items.TrashcanType;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.WeatherAndTime.Seasons;
@@ -96,11 +97,13 @@ public class NpcProduct {
         } else if (this.saleable instanceof BackPackType backPackType) {
             return backPackType.getAssetName();
         } else if (this.saleable instanceof BuildingType buildingType) {
-            return buildingType.getAssetName();
+            return buildingType.getAssetName() + "_Closed";
         } else if (this.saleable instanceof AnimalType animalType) {
             return animalType.getAssetName();
-        } else if (this.saleable instanceof EtcType etcType) {
-            return etcType.getAssetName();
+        } else if (this.saleable instanceof ToolType toolType) {
+            return toolType.getAssetName();
+        } else if (this.saleable instanceof TrashcanType trashcanType) {
+            return trashcanType.getAssetName();
         }
         return null;
     }
@@ -109,9 +112,28 @@ public class NpcProduct {
         if (this.saleable instanceof BuildingType buildingType) {
             int woodNeeded = buildingType.getWoodCount();
             int stoneNeeded = buildingType.getStoneCount();
-            return new Slot[]{new Slot(new Etc(EtcType.WOOD), woodNeeded), new Slot(new Mineral(MineralItemType.STONE), stoneNeeded)};
-        } else if (this.saleable instanceof EtcType etcType) {
-            return new Slot[]{new Slot(new Etc(etcType), 5)};
+            ArrayList<Slot> slots = new ArrayList<>();
+            if (woodNeeded != 0) {
+                slots.add(new Slot(new Etc(EtcType.WOOD), woodNeeded));
+            }
+            if (stoneNeeded != 0) {
+                slots.add(new Slot(new Mineral(MineralItemType.STONE), stoneNeeded));
+            }
+            return slots.toArray(new Slot[0]);
+        } else if (this.saleable instanceof ToolType toolType) {
+            ToolType before =toolType.findBeforeToolType();
+            if(before != null) {
+                return new Slot[]{new Slot(new Tool(before), 1),new Slot(new Etc(toolType.getToolMaterial().getOre()), 5)};
+            }
+            return new Slot[]{new Slot(new Etc(toolType.getToolMaterial().getOre()), 5)};
+        } else if (this.saleable instanceof TrashcanType trashcanType) {
+
+            TrashcanType before = trashcanType.findBeforeTrashCanType();
+            if(before != null) {
+                //System.out.println("Kodam :" + trashcanType.getName() + "Beforam " + before.getName());
+                return new Slot[]{new Slot(new Tool(before), 1),new Slot(new Etc(trashcanType.getMaterial().getOre()), 5)};
+            }
+            return new Slot[]{new Slot(new Etc(trashcanType.getMaterial().getOre()), 5)};
         }
         return null;
     }
@@ -138,6 +160,13 @@ public class NpcProduct {
             return false;
         } else if (this.saleable instanceof AnimalType animalType) {
             return false;
-        } else return !(this.saleable instanceof EtcType etcType);
+        } else if (this.saleable instanceof ToolType toolType) {
+            return false;
+        } else if (this.saleable instanceof TrashcanType trashcanType) {
+            return false;
+        } else if (this.saleable instanceof EtcType etcType) {
+            return false;
+        }
+        return true;
     }
 }

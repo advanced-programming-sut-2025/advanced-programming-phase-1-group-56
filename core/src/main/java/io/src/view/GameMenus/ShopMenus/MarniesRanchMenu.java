@@ -20,7 +20,8 @@ public class MarniesRanchMenu implements AppMenu {
         } else if ((matcher = StoreCommands.PurchaseProducts.getMatcher(cmd)) != null) {
             return MarniesRanchController.PurchaseProduct(matcher);
         } else if ((matcher = HusbandryCommands.buyAnimal.getMatcher(cmd)) != null) {
-            return MarniesRanchController.buyAnimal(matcher);
+            //return MarniesRanchController.buyAnimal(matcher);
+            return new Result(false,"this command has been deleted from terminal logic!");
         } else if (cmd.equalsIgnoreCase("exit")) {
             return MarniesRanchController.ExitShop();
         } else {

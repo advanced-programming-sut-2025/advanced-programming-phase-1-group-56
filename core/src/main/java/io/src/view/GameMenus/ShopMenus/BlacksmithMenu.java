@@ -23,7 +23,8 @@ public class BlacksmithMenu implements AppMenu {
         } else if ((StoreCommands.ShowAllAvailableProducts.getMatcher(cmd)) != null) {
             return BlacksmithMenuController.showAllAvailableProducts();
         } else if ((matcher = ToolCommands.toolsUpgrade.getMatcher(cmd)) != null) {
-            return BlacksmithMenuController.upgradeTools(matcher.group(1).trim());
+            //return BlacksmithMenuController.upgradeTools(matcher.group(1).trim());
+            return new Result(false,"This Command has been deleted from terminal logic");
         } else if ((matcher = StoreCommands.PurchaseProducts.getMatcher(cmd)) != null) {
             return BlacksmithMenuController.PurchaseProduct(matcher);
         } else if (cmd.equalsIgnoreCase("exit")) {

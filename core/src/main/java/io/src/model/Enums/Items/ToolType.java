@@ -1,9 +1,10 @@
 package io.src.model.Enums.Items;
 
 import io.src.model.Enums.Recepies.CraftingRecipesList;
+import io.src.model.items.Saleable;
 import org.jetbrains.annotations.Nullable;
 
-public enum ToolType {
+public enum ToolType implements Saleable {
     // Hoe variants (capacity = 0)
     HOE_IRIDIUM("Hoe", ToolMaterial.Iridium, 1, 0, null, "Iridium_Hoe"),
     HOE_GOLDEN("Hoe", ToolMaterial.Golden, 2, 0, HOE_IRIDIUM, "Gold_Hoe"),
@@ -35,14 +36,23 @@ public enum ToolType {
     POLE_BAMBOO("Bamboo Rod", ToolMaterial.Bamboo, 8, 0, POLE_FIBERGLASS, "Bamboo_Pole"),
     POLE_TRAINING("Training Rod", ToolMaterial.Training, 8, 0, POLE_BAMBOO, "Training_Rod"),
     // Scythe
-    SCYTHE_IRIDIUM("Scythe", ToolMaterial.Wooden, 2, 0, null, "Iridium_Scythe"),
-    SCYTHE_GOLDEN("Scythe", ToolMaterial.Wooden, 2, 0, null, "Golden_Scythe"),
-    SCYTHE_CUPRIC("Scythe", ToolMaterial.Wooden, 2, 0, null, "Scythe1"),
-    SCYTHE_BASIC("Scythe", ToolMaterial.Wooden, 2, 0, null, "Scythe"),
+    SCYTHE_IRIDIUM("Scythe", ToolMaterial.Iridium, 0, 0, null, "Iridium_Scythe"),
+    SCYTHE_GOLDEN("Scythe", ToolMaterial.Golden, 1, 0, SCYTHE_IRIDIUM, "Golden_Scythe"),
+    SCYTHE_IRONIC("Scythe", ToolMaterial.Ironic, 1, 0, SCYTHE_GOLDEN, "Scythe"),
+    SCYTHE_CUPRIC("Scythe", ToolMaterial.Cupric, 2, 0, SCYTHE_IRONIC, "Scythe1"),
+    SCYTHE_BASIC("Scythe", ToolMaterial.Wooden, 2, 0, SCYTHE_CUPRIC, "Scythe"),
+
     // Milk pail
     MILK_PAIL("Milk Pail", ToolMaterial.Wooden, 4, 0, null, "Milk_Pail"),
     // Shears
-    SHEAR("Shears", ToolMaterial.Wooden, 4, 0, null, "Shearss");
+    SHEAR("Shears", ToolMaterial.Wooden, 4, 0, null, "Shears"),
+
+    Iridium_Trashcan("Trash_Can_Iridium", ToolMaterial.Iridium, 0, 0, null, "Trash_Can_Iridium"),
+    Gold_Trashcan("Trash_Can_Iridium", ToolMaterial.Golden, 0, 0, Iridium_Trashcan, "Trash_Can_Gold"),
+    Iron_Trashcan("Trash_Can_Iridium", ToolMaterial.Ironic, 0, 0, Gold_Trashcan, "Trash_Can_Steel"),
+    Copper_Trashcan("Trash_Can_Iridium", ToolMaterial.Cupric, 0, 0, Iron_Trashcan, "Trash_Can_Copper"),
+    InitialTrashcan("Trash_Can_Iridium", null, 0, 0, Copper_Trashcan, "Trash_Can_Steel"),
+    ;
 
 
     private final String name;
@@ -98,6 +108,15 @@ public enum ToolType {
             case "" -> name.replace(" ", "_");
             default -> assetName;
         };
+    }
+
+    public ToolType findBeforeToolType() {
+        for (ToolType type : ToolType.values()) {
+            if (type.getNextToolType()!=null&&type.getNextToolType().equals(this)) {
+                return type;
+            }
+        }
+        return null;
     }
 
 }

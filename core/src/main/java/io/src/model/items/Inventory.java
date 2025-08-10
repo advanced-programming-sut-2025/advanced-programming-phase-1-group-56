@@ -86,7 +86,13 @@ public class Inventory {
     public int countItem(Item item) {
         int sum = 0;
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
+            if(slot.getItem() instanceof Tool tool1 && item instanceof Tool tool2){
+                if(tool1.getName().equalsIgnoreCase(tool2.getName())
+                    && tool1.getToolType().getToolMaterial().getName().equalsIgnoreCase(tool2.getToolType().getToolMaterial().getName())
+                ){
+                    sum += slot.getQuantity();
+                }
+            } else if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 sum += slot.getQuantity();
             }
         }

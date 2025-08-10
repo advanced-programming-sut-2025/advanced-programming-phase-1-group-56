@@ -22,32 +22,24 @@ import java.util.regex.Matcher;
 public class CarpenterMenuController implements ShopController {
     public static Result showAllProducts() {
         return ShopController.showAllProducts(
-                App.getCurrentUser().getCurrentGame().
-                        findStoreByClass(CarpentersShop.class).getDailyProductList());
+            App.getCurrentUser().getCurrentGame().
+                findStoreByClass(CarpentersShop.class).getDailyProductList());
     }
 
     public static Result showAllAvailableProducts() {
         return ShopController.showAllAvailableProducts(
-                App.getCurrentUser().getCurrentGame().
-                        findStoreByClass(CarpentersShop.class).getDailyProductList());
+            App.getCurrentUser().getCurrentGame().
+                findStoreByClass(CarpentersShop.class).getDailyProductList());
     }
 
     public static Result PurchaseProduct(Matcher matcher) {
-        return ShopController.purchaseProductFromList(matcher.group(1),matcher.group(2),
-                App.getCurrentUser().getCurrentGame().
-                        findStoreByClass(CarpentersShop.class).getDailyProductList());
+        return ShopController.purchaseProductFromList(matcher.group(1), matcher.group(2),
+            App.getCurrentUser().getCurrentGame().
+                findStoreByClass(CarpentersShop.class).getDailyProductList());
     }
 
-    public static Result BuildABuilding(Matcher matcher) {
-        String name = matcher.group(1).trim().toUpperCase();
-        int x,y = 0;
-        try {
-            x = Integer.parseInt(matcher.group(2).trim());
-            y = Integer.parseInt(matcher.group(3).trim());
-        } catch (Exception e) {
-            return new Result(false, "Coordinates must be integers (x,y).");
-        }
-
+    public static Result BuildABuilding(String name, int x, int y) {
+        name = name.toUpperCase();
         Farm farm = App.getMe().getPlayerFarm();
 
         // 2. lookup type
@@ -66,7 +58,7 @@ public class CarpenterMenuController implements ShopController {
         for (int dx = 0; dx < type.getWidth(); dx++) {
             for (int dy = 0; dy < type.getHeight(); dy++) {
                 if (!farm.getTileByPosition(x + dx, y + dy).isWalkable() ||
-                        farm.getTileByPosition(x + dx, y + dy).getFixedObject() != null) {
+                    farm.getTileByPosition(x + dx, y + dy).getFixedObject() != null) {
                     return new Result(false, "Cannot build: space occupied at (" + (x + dx) + "," + (y + dy) + ").");
                 }
             }
@@ -85,9 +77,9 @@ public class CarpenterMenuController implements ShopController {
         int needWood = type.getWoodCount();
         int needStone = type.getStoneCount();
         if (me.getInventory().countItem(new Etc(EtcType.WOOD)) < needWood ||
-                me.getInventory().countItem(new Mineral(MineralItemType.STONE)) < needStone) {
+            me.getInventory().countItem(new Mineral(MineralItemType.STONE)) < needStone) {
             return new Result(false, "Not enough materials: need " +
-                    needWood + " wood, " + needStone + " stone.");
+                needWood + " wood, " + needStone + " stone.");
         }
         if (me.getGold() < product.getPrice()) {
             return new Result(false, "Not enough gold: need " + product.getPrice() + "g.");
@@ -105,6 +97,8 @@ public class CarpenterMenuController implements ShopController {
                     }
                 }
                 App.getMe().getPlayerFarm().getBuildings().add(newBarn);
+                App.getMe().getPlayerFarm().getBuildings().add(newBarn);
+                App.getMe().getPlayerFarm().getGameObjects().add(newBarn);
             }
             break;
             case BuildingType.COOP:
@@ -117,6 +111,8 @@ public class CarpenterMenuController implements ShopController {
                     }
                 }
                 App.getMe().getPlayerFarm().getBuildings().add(newCoop);
+                App.getMe().getPlayerFarm().getBuildings().add(newCoop);
+                App.getMe().getPlayerFarm().getGameObjects().add(newCoop);
             }
             break;
             case BuildingType.WELL: {
@@ -127,7 +123,8 @@ public class CarpenterMenuController implements ShopController {
                         farm.getTileByPosition(i, j).setTileType(TileType.Water);
                     }
                 }
-//                                App.getMe().getPlayerFarm().getBuildings().add(newBin);
+                App.getMe().getPlayerFarm().getGameObjects().add(newWell);
+
             }
             break;
             case BuildingType.SHIPPING_BIN: {
@@ -137,7 +134,7 @@ public class CarpenterMenuController implements ShopController {
                         farm.getTileByPosition(i, j).setFixedObject(newBin);
                     }
                 }
-//                App.getMe().getPlayerFarm().getBuildings().add(newBin);
+                App.getMe().getPlayerFarm().getGameObjects().add(newBin);
             }
             break;
         }
@@ -150,7 +147,7 @@ public class CarpenterMenuController implements ShopController {
         return new Result(true, name + " built at (" + x + "," + y + ").");
     }
 
-    public static Result ExitShop(){
+    public static Result ExitShop() {
         return ShopController.exitShopMenu(CarpentersShop.class);
     }
 }

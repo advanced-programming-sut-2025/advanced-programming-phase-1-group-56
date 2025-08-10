@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 public enum TrashcanType implements ItemType {
     iridiumTrashcan(60, ToolMaterial.Iridium, null, "Trash_Can_Iridium"),
     goldTrashcan(45, ToolMaterial.Golden, iridiumTrashcan, "Trash_Can_Gold"),
-    ironTrashcan(30, ToolMaterial.Ironic, iridiumTrashcan, "Trash_Can_Steel"),
+    ironTrashcan(30, ToolMaterial.Ironic,goldTrashcan, "Trash_Can_Steel"),
     copperTrashcan(15, ToolMaterial.Cupric, ironTrashcan, "Trash_Can_Copper"),
     initialTrashcan(0, null, copperTrashcan, "Trash_Can_Steel"),
     ;
@@ -47,5 +47,14 @@ public enum TrashcanType implements ItemType {
             case "" -> assetName.replace(" ", "_");
             default -> assetName;
         };
+    }
+
+    public TrashcanType findBeforeTrashCanType() {
+        for (TrashcanType trashcanType : TrashcanType.values()) {
+            if (trashcanType.getNextTrashcanType()!=null&&trashcanType.getNextTrashcanType().equals(this)) {
+                return trashcanType;
+            }
+        }
+        return null;
     }
 }

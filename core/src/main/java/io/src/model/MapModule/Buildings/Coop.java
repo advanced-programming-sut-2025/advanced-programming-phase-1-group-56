@@ -57,6 +57,6 @@ public class Coop extends Building implements AnimalHouse {
 
     @Override
     public String getAssetName() {
-        return buildingType.getAssetName();
+        return buildingType.getAssetName()+ "_Closed";
     }
 }

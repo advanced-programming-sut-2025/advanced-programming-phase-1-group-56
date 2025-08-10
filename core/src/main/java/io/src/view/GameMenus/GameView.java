@@ -31,10 +31,13 @@ import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
+import io.src.model.MapModule.Buildings.Home;
 import io.src.model.MapModule.Buildings.Store;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
+import io.src.model.TimeSystem.DateTime;
+import io.src.model.TimeSystem.TimeObserver;
 import io.src.view.AppMenu;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 import io.src.view.LoginMenu;
@@ -44,7 +47,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 
-public class GameView implements Screen {
+public class GameView implements Screen, TimeObserver {
     private static final int TILE_SIZE = 16;
 
     private final Game game;
@@ -120,6 +123,8 @@ public class GameView implements Screen {
 
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
+
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -651,5 +656,19 @@ public class GameView implements Screen {
 
     public GameMenuInputAdapter getGameMenuInputAdapter() {
         return gameMenuInputAdapter;
+    }
+
+    public TimerWindow getTimerWindow() {
+        return this.timeWindow;
+    }
+
+    @Override
+    public void onHourChanged(DateTime time, boolean newDay) {
+        if (newDay) {
+            updateMapWithFade(() -> {
+                App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
+                App.getMe().setPosition(new Position(8,3));
+            });
+        }
     }
 }

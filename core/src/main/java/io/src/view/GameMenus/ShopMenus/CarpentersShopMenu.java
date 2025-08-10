@@ -1,6 +1,7 @@
 package io.src.view.GameMenus.ShopMenus;
 
 import io.src.controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
+import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.commands.GameCommands.HusbandryCommands;
 import io.src.model.Enums.commands.GameCommands.StoreCommands;
 import io.src.model.Result;
@@ -22,7 +23,8 @@ public class CarpentersShopMenu implements AppMenu {
         } else if (cmd.equalsIgnoreCase("exit")) {
             return CarpenterMenuController.ExitShop();
         } else if ((matcher = HusbandryCommands.BuildABuilding.getMatcher(cmd)) != null) {
-            return CarpenterMenuController.BuildABuilding(matcher);
+            //return CarpenterMenuController.BuildABuilding(((BuildingType)selectedProduct.));
+            return new Result(false,"this command has been deleted from terminal logic!");
         }else
         {
             return new Result(false,"invalid command");

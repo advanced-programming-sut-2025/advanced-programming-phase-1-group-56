@@ -26,6 +26,18 @@ public class Tool extends Item {
         this.capacity = 0;
     }
 
+    public Tool(TrashcanType trashcanType) {
+        super(trashcanType.getName(), 100, true, -1);
+        switch (trashcanType) {
+            case copperTrashcan -> toolType = ToolType.Copper_Trashcan;
+            case ironTrashcan -> toolType = ToolType.Iron_Trashcan;
+            case goldTrashcan -> toolType = ToolType.Gold_Trashcan;
+            case iridiumTrashcan -> toolType = ToolType.Iridium_Trashcan;
+            default -> toolType = ToolType.InitialTrashcan;
+        }
+        this.capacity = 0;
+    }
+
     public static void upgrade(Tool tool) {
         if (tool.getToolType().getNextToolType() != null) {
             tool.setToolType(tool.getToolType().getNextToolType());

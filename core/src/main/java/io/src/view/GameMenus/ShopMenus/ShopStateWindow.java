@@ -19,7 +19,6 @@ import org.junit.runner.Computer;
 import java.util.ArrayList;
 
 public class ShopStateWindow extends Window {
-    private ShopState shopState;
     private final TextButton button1;
     private final TextButton button2;
     private final TextButton button3;
@@ -39,16 +38,9 @@ public class ShopStateWindow extends Window {
         padRight(0);
         padBottom(0);
         getTitleTable().clear();
-        shopState = ShopState.WAIT;
-
-        String costumeShop = switch (App.getMe().getCurrentGameLocation().getType()) {
-            case Blacksmith_Indoor -> "Upgrade Tool";
-            case MarniesRanch_Indoor -> "Buy Animal";
-            case CarpenterShop_Indoor -> "Buy A Building";
-            default -> "Shop2";
-        };
+        App.getMe().setShopState(ShopState.WAIT);
         button1 = new TextButton("Shop", skin, "default_BLACK_font30");
-        button2 = new TextButton(costumeShop, skin, "default_BLACK_font30");
+        button2 = new TextButton("costumeShop", skin, "default_BLACK_font30");
         button3 = new TextButton("Exit Shop", skin, "default_BLACK_font30");
 
 
@@ -93,14 +85,14 @@ public class ShopStateWindow extends Window {
                     products.add(npcProduct);
             }
             if (costumeShop) {
-                shopState = switch (App.getMe().getCurrentGameLocation().getType()) {
+                setShopState(switch (App.getMe().getCurrentGameLocation().getType()) {
                     case Blacksmith_Indoor -> ShopState.UPGRADE_TOOL;
                     case MarniesRanch_Indoor -> ShopState.PURCHASE_ANIMAL;
                     case CarpenterShop_Indoor -> ShopState.BUILD_A_BUILDING;
                     default -> ShopState.NOT_SHOP;
-                };
+                });
             } else {
-                shopState = ShopState.SHOP;
+                setShopState(ShopState.SHOP);
             }
             Open_Common_Shop(products);
 
@@ -108,29 +100,18 @@ public class ShopStateWindow extends Window {
 
     }
 
+
     public ShopState getShopState() {
-        return shopState;
+        return App.getMe().getShopState();
     }
 
     public void setShopState(ShopState shopState) {
-        this.shopState = shopState;
+        App.getMe().setShopState(shopState);
     }
 
     public void showOnStage(Stage stage) {
         stage.addActor(this);
         this.setVisible(true);
-    }
-
-    public TextButton getButton1() {
-        return button1;
-    }
-
-    public TextButton getButton2() {
-        return button2;
-    }
-
-    public TextButton getButton3() {
-        return button3;
     }
 
 
@@ -162,5 +143,13 @@ public class ShopStateWindow extends Window {
         if (glType != GameLocationType.Blacksmith_Indoor && glType != GameLocationType.MarniesRanch_Indoor && glType != GameLocationType.CarpenterShop_Indoor) {
             prepareCommonShop(false);
         }
+
+        String costumeShop = switch (App.getMe().getCurrentGameLocation().getType()) {
+            case Blacksmith_Indoor -> "Upgrade Tool";
+            case MarniesRanch_Indoor -> "Buy Animal";
+            case CarpenterShop_Indoor -> "Buy A Building";
+            default -> "fuck";
+        };
+        this.button2.setText(costumeShop);
     }
 }
