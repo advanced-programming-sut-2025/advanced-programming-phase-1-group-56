@@ -50,7 +50,7 @@ public class LobbyClient extends ApplicationAdapter {
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("assets/Export/menu_Skin_v0.0.1.json"));
 
-        username = "mehdi";
+        username = "mohsen";
 
         //background
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
