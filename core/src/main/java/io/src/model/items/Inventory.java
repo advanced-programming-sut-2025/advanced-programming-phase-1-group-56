@@ -72,6 +72,19 @@ public class Inventory {
         return quantity == 0;
     }
 
+    public boolean countItemByName(String itemName, int quantity) {
+        int total = 0;
+        for (Slot slot : slots) {
+            if (slot.getItem() != null && slot.getItem().getName().equalsIgnoreCase(itemName)) {
+                total += slot.getQuantity();
+                if (total >= quantity) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public void remove(Item item, int quantity) {
         if (item == null || quantity <= 0) return;

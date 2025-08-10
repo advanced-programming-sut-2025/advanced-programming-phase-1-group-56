@@ -116,4 +116,8 @@ public class ArtisanController extends CommandController {
         return null;
     }
 
+    private static boolean tryStartArtisan(ArtisanGoodType recipe) {
+        return true;
+    }
+
 }

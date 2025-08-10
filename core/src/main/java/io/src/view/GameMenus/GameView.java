@@ -1,10 +1,7 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -15,11 +12,13 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -27,6 +26,8 @@ import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
+import io.src.model.Enums.Items.ArtisanGoodType;
+import io.src.model.Enums.Items.ArtisanMachineItemType;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.TileType;
 import io.src.model.Game;
@@ -37,13 +38,11 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.items.ArtisanGood;
 import io.src.model.items.Tool;
 import io.src.model.items.Etc;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class GameView implements Screen {
@@ -80,6 +79,7 @@ public class GameView implements Screen {
     private static RefrigeratorWindow refrigeratorWindow;
     private Image foodBuff;
     private static ShippingBarWindow shippingBarWindow;
+    private static ArtisanWindow artisanWindow;
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -113,7 +113,6 @@ public class GameView implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 
-
         stage = new Stage(new ScreenViewport());
         itemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
         foodBuff = null;
@@ -125,10 +124,12 @@ public class GameView implements Screen {
         foodWindow = new FoodWindow(App.getMe());
         refrigeratorWindow = new RefrigeratorWindow();
         shippingBarWindow = new ShippingBarWindow();
+        artisanWindow = new ArtisanWindow(new ArtesianMachine(false,new Position(10,10),ArtisanMachineItemType.BEE_HOUSE.getArtisanMachineType()));
         energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
         invWindow.setVisible(false);
         craftingWindow.setVisible(false);
         foodWindow.setVisible(false);
+        artisanWindow.setVisible(false);
 
         stage.addActor(craftingWindow);
         stage.addActor(invWindow);
@@ -138,8 +139,7 @@ public class GameView implements Screen {
         stage.addActor(foodWindow);
         stage.addActor(inventoryBar);
 
-
-
+        stage.addActor(artisanWindow);
         stage.addActor(shippingBarWindow);
         stage.addActor(refrigeratorWindow);
         refrigeratorWindow.setVisible(false);
@@ -296,7 +296,7 @@ public class GameView implements Screen {
         float cameraX, cameraY;
 
         // X محور
-        if (mapWidthPixels <= screenWidth*0.3) {
+        if (mapWidthPixels <= screenWidth * 0.3) {
             // اگر نقشه از صفحه کوچکتر بود، دوربین را وسط نقشه قرار بده
             cameraX = mapWidthPixels / 2f;
         } else {
@@ -323,7 +323,7 @@ public class GameView implements Screen {
         }
 
         // Y محور
-        if (mapHeightPixels <= screenHeight*0.3) {
+        if (mapHeightPixels <= screenHeight * 0.3) {
             cameraY = mapHeightPixels / 2f;
         } else {
             float y = game.getCurrentPlayer().getPixelPosition().getY();
@@ -341,12 +341,12 @@ public class GameView implements Screen {
         camera.update();
     }
 
-    public void spawnToolSwing(Tool tool, Direction dir , Runnable onComplete) {
+    public void spawnToolSwing(Tool tool, Direction dir, Runnable onComplete) {
         if (tool == null) return;
 
         String toolName = tool.getName();
         String toolMaterial = tool.getToolType().getToolMaterial().toString();
-        String toolId = toolName+toolMaterial;
+        String toolId = toolName + toolMaterial;
 
         Animation<TextureRegion> baseAnim = animationManager.get(toolId, AnimationKey.valueOf(toolName.toUpperCase() + "_SWING_" + dir.toString()));
         if (baseAnim == null) {
@@ -369,7 +369,7 @@ public class GameView implements Screen {
                     new Vector2(12, 10)
                 );
             }
-            case UP    -> {
+            case UP -> {
                 baseAngles = new float[]{0};
                 offsets = List.of(
                     new Vector2(8, 24),
@@ -377,7 +377,7 @@ public class GameView implements Screen {
                     new Vector2(0, 12)
                 );
             }
-            case LEFT  -> {
+            case LEFT -> {
                 baseAngles = new float[]{-10, 50, 100};
                 offsets = List.of(
                     new Vector2(8, 24),
@@ -385,7 +385,7 @@ public class GameView implements Screen {
                     new Vector2(3, 10)
                 );
             }
-            case DOWN  -> {
+            case DOWN -> {
                 baseAngles = new float[]{0, 0};
                 offsets = List.of(
                     new Vector2(0, 20),
@@ -393,7 +393,7 @@ public class GameView implements Screen {
                     new Vector2(0, 16)
                 );
             }
-            default    -> {
+            default -> {
                 baseAngles = new float[3];
                 offsets = List.of();
             }
@@ -416,10 +416,6 @@ public class GameView implements Screen {
     }
 
 
-//    public Stage getStage() {
-//        return stage;
-//    }
-
     public AnimationManager getAnimationManager() {
         return animationManager;
     }
@@ -436,23 +432,19 @@ public class GameView implements Screen {
     @Override
     public void render(float v) {
         camera.update();
-//        timeWindow.update(LocalTime.now());
         renderer.setView(camera);
         gameMenuInputAdapter.update(v);
         renderer.render();
 
         renderer.getBatch().begin();
-//        renderPlayer();
-
-        //render tile type plowed soil
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : tileLine) {
-                if (tile.getTileType()==TileType.PlowedSoil){
+                if (tile.getTileType() == TileType.PlowedSoil) {
                     Texture texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
                     ));
                     TextureRegion region = new TextureRegion(texture);
-                    renderer.getBatch().draw(region , tile.getPosition().getX() , tile.getPosition().getY());
+                    renderer.getBatch().draw(region, tile.getPosition().getX(), tile.getPosition().getY());
                 }
             }
         }
@@ -465,7 +457,6 @@ public class GameView implements Screen {
             Comparator
                 .comparingDouble((GameObject o) -> -o.getPosition().getY())
                 .thenComparingInt(o -> (int) o.getPosition().getX())
-//                .thenComparingDouble()
         );
 
 
@@ -478,24 +469,6 @@ public class GameView implements Screen {
                 renderPlayer();
 
                 updateAndDrawToolSwings(v);
-
-                //Debug
-
-                //GREEN HIT BOX
-//                Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-//                pixmap.setColor(0, 1, 0, 1);
-//                pixmap.fill();
-//                Texture texture = new Texture(pixmap);
-//                TextureRegion greenRegion = new TextureRegion(texture);
-//                float worldX = App.getMe().getPixelPosition().getX();
-//                float worldY = App.getMe().getPixelPosition().getY();
-//                renderer.getBatch().draw(greenRegion,
-//                    worldX, worldY,
-//                    16,  // Origin X (مرکز تصویر)
-//                    16, // Origin Y
-//                    16, 16, // اندازه اصلی
-//                    0.9f, 0.9f, // scaleX, scaleY
-//                    0); // rotation
 
                 continue;
             }
@@ -530,8 +503,19 @@ public class GameView implements Screen {
                 worldX -= 24;
             }
 
-            if(go instanceof ArtesianMachine || go instanceof EtcObject){
-                worldX-=25;
+            if (go instanceof ArtesianMachine) {
+                ArtesianMachine artesianMachine = (ArtesianMachine) go;
+                artesianMachine.setArtisanGood(new ArtisanGood(ArtisanGoodType.HONEY));
+                worldX -= 25;
+                renderer.getBatch().draw(region, worldX, worldY,
+                    region.getRegionWidth(), 0,
+                    region.getRegionWidth(), region.getRegionHeight(),
+                    0.5f, 0.5f, 0);
+                renderer.getBatch().end();
+                makeGreenBar(artesianMachine, worldX, worldY);
+                renderer.getBatch().begin();
+            } else if (go instanceof EtcObject) {
+                worldX -= 25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
                     region.getRegionWidth(), 0,
@@ -547,63 +531,11 @@ public class GameView implements Screen {
 
 
         }
-
-
-//        //RED HIT BOXES
-//        Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-//        pixmap.setColor(1, 0, 0, 1);
-//        pixmap.fill();
-//        Texture texture = new Texture(pixmap);
-//        TextureRegion redRegion = new TextureRegion(texture);
-//
-//        for (Tile[] row : App.getMe().getCurrentGameLocation().getTiles()) {
-//            for (Tile tile : row) {
-//                if (tile.isWalkable()) continue;
-//                float worldX = tile.getPosition().getX() * TILE_SIZE;
-//                float worldY = tile.getPosition().getY() * TILE_SIZE;
-//
-//                TextureRegion region = new TextureRegion(redRegion);
-//                renderer.getBatch().draw(region,
-//                    worldX, worldY,
-//                    16,  // Origin X (مرکز تصویر)
-//                    16, // Origin Y
-//                    16, 16, // اندازه اصلی
-//                    0.9f, 0.9f, // scaleX, scaleY
-//                    0); // rotation
-//
-//            }
-//        }
         renderer.getBatch().end();
 
         transitionManager.update(v);
         transitionManager.render(shapeRenderer);
-
-
-        //DEBUG
-//        float y = game.getCurrentPlayer().getPixelPosition().getY();
-//        float x = game.getCurrentPlayer().getPixelPosition().getX();
-//        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
-//        int mapWidth = layer.getWidth() * TILE_SIZE;
-//        int mapHeight = layer.getHeight() * TILE_SIZE;
-//
-//        if (y + 182 >= mapHeight) {
-//            y = mapHeight - 182;
-//        }
-//        if (x + 300 >= mapWidth) {
-//            x = mapWidth - 300;
-//        }
-//
-//        if (y - 150 <= 0) {
-//            y = 150;
-//        }
-//
-//        if (x - 290 <= 0) {
-//            x = 290;
-//        }
-//
-//        camera.position.set(x, y, 0);
         updateCameraPosition();
-//        camera.position.set(game.getCurrentPlayer().getPosition().getX(), game.getCurrentPlayer().getPosition().getY(), 0);
         camera.zoom = 0.3f;
 
         stage.act(v);
@@ -626,8 +558,56 @@ public class GameView implements Screen {
             foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
         }
 
+        if(!App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).isWalkable()){
+            Random rand = new Random();
+            int random = rand.nextInt(4);
+            if(random == 0){
+                System.out.println("uuu");
+                gameMenuInputAdapter.keyDown(Input.Keys.W);
+            } else if(random == 1){
+                gameMenuInputAdapter.keyDown(Input.Keys.S);
+            } else if(random == 2){
+                gameMenuInputAdapter.keyDown(Input.Keys.A);
+            } else if(random == 3){
+                gameMenuInputAdapter.keyDown(Input.Keys.D);
+            }
+        }
+
 
         camera.update();
+    }
+
+
+
+    private void makeGreenBar(ArtesianMachine artesianMachine, float worldX, float worldY) {
+        float totalTime = artesianMachine.getArtisanGood().getArtisanGoodType().getProcessingTime();
+        float elapsedTime = artesianMachine.getProcessTime();
+
+        if (totalTime <= 0) return;
+
+        float progress = Math.min(1f, Math.max(0f, elapsedTime / totalTime));
+        float barMaxWidth = 30f;
+        float barHeight = 6f;
+
+        float barX = artesianMachine.getPosition().getX() * TILE_SIZE - barMaxWidth / 2f + 10;
+        float barY = artesianMachine.getPosition().getY() * TILE_SIZE + 50f;
+
+        shapeRenderer.setProjectionMatrix(camera.combined);
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.rect(barX, barY, barMaxWidth, barHeight);
+
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.rect(barX, barY, barMaxWidth * progress, barHeight);
+        shapeRenderer.end();
+        renderer.getBatch().begin();
+        int percent = (int) (progress * 100);
+        BitmapFont font = GameAssetManager.getGameAssetManager().getSkin().getFont("StardewValley");
+        font.getData().setScale(0.24f);
+        font.setColor(Color.WHITE);
+        font.draw(renderer.getBatch(), percent + "%", barX + barMaxWidth + 1, barY + barHeight);
+        renderer.getBatch().end();
     }
 
 
@@ -694,5 +674,9 @@ public class GameView implements Screen {
 
     public static ShippingBarWindow getShippingBarWindow() {
         return shippingBarWindow;
+    }
+
+    public static ArtisanWindow artisanWindow() {
+        return artisanWindow;
     }
 }

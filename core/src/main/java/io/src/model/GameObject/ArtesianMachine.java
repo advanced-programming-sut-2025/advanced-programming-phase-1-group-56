@@ -12,7 +12,7 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
     private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
-    private int processTime;
+    private int processTime = 0 ;
 
     public ArtesianMachine(boolean walkable, Position position, ArtisanMachineType artisanMachineType) {
         super(walkable, position);

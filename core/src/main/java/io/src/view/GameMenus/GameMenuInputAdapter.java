@@ -116,6 +116,17 @@ public class GameMenuInputAdapter extends InputAdapter {
             Gdx.input.setInputProcessor(multiplexer);
             GameView.getRefrigeratorWindow().setVisible(!GameView.getRefrigeratorWindow().isVisible());
         }
+
+        if (keycode == Input.Keys.U) {
+            InputMultiplexer multiplexer = new InputMultiplexer();
+            multiplexer.addProcessor(GameView.artisanWindow());
+            multiplexer.addProcessor(GameView.getStage());
+            GameView.artisanWindow().refreshInventory();
+            Gdx.input.setInputProcessor(multiplexer);
+            GameView.artisanWindow().setVisible(!GameView.artisanWindow().isVisible());
+        }
+
+
 //
 //        if (keycode == Input.Keys.N) {
 //            gameController.advanceToNextDay();

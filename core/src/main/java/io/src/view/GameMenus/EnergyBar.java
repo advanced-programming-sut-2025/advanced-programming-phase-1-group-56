@@ -54,13 +54,4 @@ public class EnergyBar extends Group {
         energyFill.setPosition(padding, padding);
     }
 
-    public void setBarSize(float width, float height) {
-        this.barWidth = width;
-        this.barHeight = height;
-
-        frame.setSize(width, height);
-        setSize(width, height);
-
-        updateEnergyBar();
-    }
 }

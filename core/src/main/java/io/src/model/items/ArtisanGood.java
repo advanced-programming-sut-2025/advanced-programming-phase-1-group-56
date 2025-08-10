@@ -9,6 +9,7 @@ public class ArtisanGood extends Item {
 
     public ArtisanGood(ArtisanGoodType artesianGoodType) {
         super(artesianGoodType.getName(), 9999, true, artesianGoodType.getSellPrice());
+        this.artisanGoodType = artesianGoodType;
 //        this.energy = energy;
 //        this.sellPrice = sellPrice;
     }

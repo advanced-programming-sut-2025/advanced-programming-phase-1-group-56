@@ -172,6 +172,8 @@ public class Player implements TimeObserver {
         }
     }
 
+
+
     public boolean isMoving() {
         return vx != 0 || vy != 0;
     }
