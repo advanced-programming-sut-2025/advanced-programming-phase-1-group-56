@@ -101,11 +101,11 @@ public class LobbyServer {
     }
 
     public Lobby createLobby(String name, String owner, boolean isPrivate, String password,boolean isVisible) {
-//        for(Lobby lobby : lobbies){
-//            if(lobby.getName().equals(name)||lobby.getOwner().equals(owner)){
-//                return null;
-//            }
-//        }
+        for(Lobby lobby : lobbies){
+            if(lobby.getName().equals(name)||lobby.getOwner().equals(owner)){
+                return null;
+            }
+        }
 
         Lobby lobby = new Lobby(UUID.randomUUID().toString(), name, owner, isPrivate,isVisible, password);
         lobbies.add(lobby);
@@ -152,22 +152,6 @@ public class LobbyServer {
         }
     }
 
-
-//    public void sendChatToLobby(Message msg) {
-//        for (Lobby lobby : lobbies) {
-//            if (lobby.getId().equals(msg.getLobbyId())) {
-//                String json = gson.toJson(msg);
-//                synchronized (clients) {
-//                    for (ClientHandler c : clients) {
-//                        if (lobby.getMembers().contains(c.getUsername())) {
-//                            c.sendMessage(json);
-//                        }
-//                    }
-//                }
-//                break;
-//            }
-//        }
-//    }
 
     public Collection<Lobby> getLobbies() {
         return lobbies;
