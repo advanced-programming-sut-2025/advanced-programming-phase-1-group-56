@@ -61,8 +61,10 @@ public class TimerWindow extends Group {
         DayOfWeek dayOfWeek = timeSystem.getDateTime().getDayOfWeek();
 
         dayLabel = new Label(String.format("%s,%02d", dayOfWeek.name(), day), skin);
-        dayLabel.setPosition(180, 180);
+        dayLabel.setPosition(180, 188);
 
+        goldLabel = new Label(String.format("%d",App.getMe().getGold()),skin);
+        goldLabel.setPosition(240, 40);
 
         timeLabel = new Label(String.format(" %02d:00 ", hour), skin);
         timeLabel.setPosition(210, 94);
@@ -145,6 +147,10 @@ public class TimerWindow extends Group {
             digitLabel.setPosition(startX + i * spacing, y);
             addActor(digitLabel);
         }
+        goldLabel.remove();
+        goldLabel = new Label(goldStr,skin);
+        goldLabel.setPosition(260, 24);
+        addActor(goldLabel);
     }
 
     public Image getSeasonIcon() {

@@ -4,10 +4,13 @@ import io.src.controller.CommandController;
 import io.src.model.*;
 
 import io.src.model.Enums.Items.FoodType;
+import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.items.Food;
 import io.src.model.items.Item;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 
 public class CookingController extends CommandController {
@@ -140,6 +143,13 @@ public class CookingController extends CommandController {
         return new Result(true, "you eat " + item.getName());
     }
 
+    public static void eatFoodUI(Item item) {
+        Food food = (Food) item;
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
+    }
+
     private static Item returnRefrigeratorItemByName(String itemName) {
         for (Slot slot : App.getCurrentUser()
                 .getCurrentGame()
@@ -210,6 +220,9 @@ public class CookingController extends CommandController {
         for (Slot ingredient : cookFood.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
+                if(slot.getItem()==null){
+                    continue;
+                }
                 if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
                     isExist = true;
                     break;
@@ -240,6 +253,82 @@ public class CookingController extends CommandController {
             }
         }
         return true;
+    }
+
+    public static ArrayList<FoodRecipesList> haveFoodRecipes() {
+        ArrayList<FoodRecipesList> foodRecipe = App.getCurrentUser()
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getFoodRecipes();
+        ArrayList<FoodRecipesList> foodRecipesLists = new ArrayList<>();
+        for (FoodRecipesList cr : foodRecipe) {
+            if (havaIngredient(cr)) {
+                foodRecipesLists.add(cr);
+            }
+        }
+        return foodRecipesLists;
+    }
+
+    public static ArrayList<FoodRecipesList> foodNotCraftingRecipes() {
+        ArrayList<FoodRecipesList> foodRecipe = App.getCurrentUser()
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getFoodRecipes();
+        ArrayList<FoodRecipesList> foodRecipesLists = new ArrayList<>();
+        for (FoodRecipesList cr : foodRecipe) {
+            if (!havaIngredient(cr)) {
+                foodRecipesLists.add(cr);
+            }
+        }
+        return foodRecipesLists;
+    }
+
+    public static ArrayList<FoodRecipesList> returnFoodRecipes() {
+        FoodRecipesList[] foodRecipesLists = FoodRecipesList.values();
+        ArrayList<FoodRecipesList> foodRecipe1 = new ArrayList<>(Arrays.asList(foodRecipesLists));
+        return foodRecipe1;
+    }
+
+    public static String Ingredients(FoodRecipesList foodRecipe) {
+        StringBuilder tmpString = new StringBuilder();
+        java.util.function.Function<String, String> wrapLine = (text) -> {
+            StringBuilder wrapped = new StringBuilder();
+            int lineLength = 0;
+            for (String word : text.split(" ")) {
+                if (lineLength + word.length() > 20) {
+                    wrapped.append("\n");
+                    lineLength = 0;
+                }
+                wrapped.append(word).append(" ");
+                lineLength += word.length() + 1;
+            }
+            return wrapped.toString();
+        };
+
+        tmpString.append("Description : ")
+            .append(wrapLine.apply(foodRecipe.source))
+            .append("\n");
+
+        tmpString.append("Ingredients : \n");
+        for (int i = 0; i < foodRecipe.ingredients.length; i++) {
+            Slot ingredient = foodRecipe.ingredients[i];
+            String ingredientText = ingredient.getQuantity() + " " + ingredient.getItem().getName();
+            tmpString.append(wrapLine.apply(ingredientText));
+
+            if (i != foodRecipe.ingredients.length - 1) {
+                tmpString.append(",\n");
+            } else {
+                tmpString.append("\n");
+            }
+        }
+
+        tmpString.append("Sell Price : ")
+            .append(foodRecipe.sellPrice).append("\n");
+        if(foodRecipe.effect!=null){
+            tmpString.append("effect: ").append(foodRecipe.effect.getName());
+
+        }
+        return tmpString.toString();
     }
 
     private static String FoodList() {

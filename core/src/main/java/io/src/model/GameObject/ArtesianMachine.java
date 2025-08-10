@@ -77,7 +77,7 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
 
     @Override
     public String getAssetName() {
-        return artisanGoodType.getAssetName();
+        return artisanMachineType.getAssetName();
     }
 
     @Override
