@@ -5,13 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import io.src.controller.GameMenuController.ToolsController;
+import com.badlogic.gdx.math.MathUtils;
+import io.src.controller.GameMenuController.*;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import io.src.controller.GameMenuController.CookingController;
-import io.src.controller.GameMenuController.CraftingController;
-import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
+import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
@@ -24,11 +23,7 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
-import io.src.model.items.Tool;
-
-import io.src.model.items.Artesian;
-import io.src.model.items.Etc;
-import io.src.model.items.Food;
+import io.src.model.items.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,6 +47,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (stopMoving) return true;
         keysHeld.add(keycode);
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
             int selectedSlot = keycode - Input.Keys.NUM_1;
@@ -116,6 +112,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (stopMoving) return true;
         keysHeld.remove(keycode);
         return true;
     }
@@ -391,14 +388,27 @@ public class GameMenuInputAdapter extends InputAdapter {
     private void performAction(int screenX, int screenY) {
 
         Player player = App.getMe();
+        Direction dir = player.getLastDirection();
         if (player.getCurrentItem() instanceof Tool tool){
+            setStopMoving(true);
+            if (tool.getName().contains("Rod")){
+                FishBehavior beh = FishBehavior.values()[MathUtils.random(FishBehavior.values().length-1)];
+                App.getStardewValley().getGameView().startFishing(beh);
+            } else {
 
-            Direction dir = player.getLastDirection(); // capture direction now (or capture any data you need)
-            // pass a Runnable to be executed when animation ends:
-            App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
-                // this will run on the render thread when animation finishes
-                ToolsController.useTools(dir.toString());
-            });
+                 // capture direction now (or capture any data you need)
+                // pass a Runnable to be executed when animation ends:
+                App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
+                    // this will run on the render thread when animation finishes
+                    ToolsController.useTools(dir.toString());
+                    setStopMoving(false);///
+                });
+
+            }
+
+
+
+
 //            String dir = player.getLastDirection().toString().toLowerCase();
 //            // کلید انیمیشن مطابق AnimationKey
 ////            AnimationKey key = AnimationKey.valueOf(tool.getName().toUpperCase() + "_SWING_" + dir.toUpperCase());

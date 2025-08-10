@@ -59,7 +59,7 @@ public class Tool extends Item {
                         System.out.println("Player skill is null in tool use");
                         return;
                     }
-                    playerSkill.setXp(playerSkill.getXp() + 100);
+                    playerSkill.setXp(playerSkill.getXp() + 5);
                     if (playerSkill.getLevel() == 3) {
                         player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                         System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);

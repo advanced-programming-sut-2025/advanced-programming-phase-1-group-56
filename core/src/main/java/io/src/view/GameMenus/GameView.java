@@ -23,7 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import io.src.controller.GameMenuController.FishingController;
 import io.src.model.App;
+import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
@@ -37,6 +39,7 @@ import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.items.Fish;
 import io.src.model.items.Tool;
 import io.src.model.items.Etc;
 
@@ -79,6 +82,7 @@ public class GameView implements Screen {
     private static FoodWindow foodWindow;
     private static RefrigeratorWindow refrigeratorWindow;
     private Image foodBuff;
+    private FishingMinigame activeFishingMinigame = null;
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -407,6 +411,33 @@ public class GameView implements Screen {
             boolean finished = s.update(delta);
             s.draw(renderer.getBatch()); // draws in world coordinates because it uses anchor world coords
             if (finished) activeToolSwings.remove(i);
+        }
+    }
+
+    public void startFishing(FishBehavior behavior) {
+        if (activeFishingMinigame != null) return; // یکی فعاله، بس کن
+        Player player = App.getMe();
+        Fish fish = FishingController.catchFish(player.getLastDirection());
+        if (fish == null){
+            gameMenuInputAdapter.setStopMoving(false);
+            System.out.println("use fishingPole in the water");
+        } else {
+            activeFishingMinigame = new FishingMinigame(stage, player, behavior,
+                () -> {
+                    // onSuccess
+                    FishingController.Fishing(fish , true); // یا تابع خودت
+                    Gdx.input.setInputProcessor(new InputMultiplexer(GameView.getStage() , gameMenuInputAdapter));
+                    gameMenuInputAdapter.setStopMoving(false);
+                    activeFishingMinigame = null;
+                },
+                () -> {
+                    // onFail
+                    FishingController.Fishing(fish , false);
+                    Gdx.input.setInputProcessor(new InputMultiplexer(GameView.getStage() , gameMenuInputAdapter));
+                    gameMenuInputAdapter.setStopMoving(false);
+                    activeFishingMinigame = null;
+                }
+            );
         }
     }
 
