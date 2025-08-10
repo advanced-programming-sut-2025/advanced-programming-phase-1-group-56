@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add lobby">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" afterDir="false" />

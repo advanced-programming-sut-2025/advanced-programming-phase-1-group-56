@@ -63,7 +63,7 @@ public class LobbyClient extends ApplicationAdapter {
         isSuccessfulLabel = new Label("", skin);
         isSuccessfulLabel.setColor(Color.RED);
         isSuccessfulLabel.setFontScale(1.2f);
-        isSuccessfulLabel.setPosition(70, 100);
+        isSuccessfulLabel.setPosition(30, 1050);
         isSuccessfulLabel.setVisible(false);
 
         //background
@@ -401,6 +401,7 @@ public class LobbyClient extends ApplicationAdapter {
                 Message.Type type = Message.Type.command;
                 client.send(gson.toJson(new Message(body, type)));
                 dialog.hide();
+
                 requestLobbyList();
             }
         });

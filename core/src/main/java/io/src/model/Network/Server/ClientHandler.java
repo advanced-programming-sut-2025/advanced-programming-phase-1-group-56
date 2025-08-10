@@ -78,9 +78,6 @@ public class ClientHandler implements Runnable {
 //                        case NetworkCommand.kick_user -> {
 //                            server.kickPlayer(msg.getLobbyId(), msg.getSender(), msg.getTarget());
 //                        }
-//                        case NetworkCommand.lobby_chat_message -> {
-//                            server.sendChatToLobby(msg);
-//                        }
 //                        default -> sendMessage(gson.toJson(new Message(NetworkCommand.error, "server", null, "Unknown command", null)));
                         default ->
                             throw new IllegalStateException("Unexpected value: " + msg.getFromBody("commandType"));
