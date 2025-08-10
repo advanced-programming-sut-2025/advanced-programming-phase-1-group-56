@@ -10,7 +10,10 @@ public class EnergyController extends CommandController {
     public static Result energyShow(){
         Energy energy = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getEnergy();
         return new Result(true,"your current energy : "+(energy.isUnlimited()?"8/8 (8 = infinity)":
-                energy.getEnergy()+" / "+energy.getMaxEnergy()));
+                energy.getEnergy()+" / "+energy.getMaxEnergy())
+                +
+                "your current buff = " + App.getMe().getCurrentBuff()
+        );
     }
 
     //CHEAT

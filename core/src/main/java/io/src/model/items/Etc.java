@@ -18,4 +18,9 @@ public class Etc extends Item {
     public int getPrice() {
         return etcType.value;
     }
+
+    @Override
+    public String getAssetName() {
+        return etcType.getAssetName();
+    }
 }

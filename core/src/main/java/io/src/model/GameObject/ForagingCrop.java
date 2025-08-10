@@ -13,4 +13,8 @@ public class ForagingCrop extends GameObject {
         return foragingCropType;
     }
 
+    @Override
+    public String getAssetName() {
+        return foragingCropType.getAssetName();
+    }
 }

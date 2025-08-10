@@ -3,6 +3,7 @@ package io.src.model.Enums;
 import io.src.Main;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.GameController;
+import io.src.controller.MenuController.ProfileMenuController;
 import io.src.model.Game;
 import io.src.model.MapModule.Buildings.GreenHouse;
 import io.src.view.*;
@@ -16,7 +17,7 @@ import java.util.Scanner;
 public enum Menu {
     loginMenu(new LoginMenu()),
     mainMenu(new MainMenu()),
-    profileMenu(new ProfileMenu()),
+    profileMenu(new ProfileMenu(new ProfileMenuController())),
     avatarMenu(new AvatarMenu()),
     gameMenu(new GameMenu()),
     HouseMenu(new HouseMenu()),

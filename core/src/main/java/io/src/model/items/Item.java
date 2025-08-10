@@ -122,4 +122,6 @@ public abstract class Item implements Saleable {
         return (basePrice == -1) ? -1 : basePrice * getMaxStackSize();
     }
 
+    public abstract String getAssetName();
+
 }

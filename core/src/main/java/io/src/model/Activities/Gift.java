@@ -49,4 +49,9 @@ public class Gift {
     public UUID getGiftID() {
         return giftID;
     }
+
+    @Override
+    public String toString() {
+        return "Gift [giftID=" + giftID + ", sender=" + sender.getUser().getName() + ", receiver=" + receiver.getUser().getName() + ", amount=" + amount + ", rate=" + rate + "]";
+    }
 }

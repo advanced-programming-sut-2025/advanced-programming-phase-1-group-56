@@ -1,6 +1,7 @@
 package io.src.model.MapModule;
 
 import com.google.gson.*;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.Enums.Items.MineralItemType;
@@ -199,7 +200,7 @@ public class Farm2Loader {
     }
 
     public static Farm loadTheFarm2(String farmName){
-        Farm farm = new Farm();
+        Farm farm = new Farm(GameLocationType.Farm2);
         Tile[][] farmTileSet = load(farmName + ".tmj", farm);
         farm.setTiles(farmTileSet);
         return farm;

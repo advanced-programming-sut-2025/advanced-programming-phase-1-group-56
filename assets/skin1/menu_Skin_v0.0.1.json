@@ -1,0 +1,166 @@
+{
+BitmapFont: {
+	StardewValley: {
+		file: StardewValley.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	StardewValley1: {
+		file: StardewValley(1).fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	StardewValley4: {
+		file: StardewValley(4).fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	StardewValleyWithBoarder: {
+		file: StardewValley.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+}
+Color: {
+	Black: {
+		hex: 000000ff
+	}
+	RGBA_255_104_0_255: {
+		hex: ff6800ff
+	}
+	RGBA_255_223_180_255: {
+		hex: ffdfb4ff
+	}
+	White: {
+		hex: ffffffff
+	}
+}
+TintedDrawable: {
+	selection: {
+		name: white-pixel
+		color: RGBA_255_104_0_255
+	}
+	select: {
+		name: white-pixel
+		color: RGBA_255_223_180_255
+	}
+}
+ButtonStyle: {
+	default: {
+		up: Button_Up2
+		down: Button_Down2
+	}
+}
+CheckBoxStyle: {
+	default: {
+		checkboxOn: checkbox-on
+		checkboxOff: checkbox-off
+		font: StardewValley4
+		fontColor: Black
+	}
+}
+ImageButtonStyle: {
+	default: {
+		imageUp: Button_Up2
+		imageDown: Button_Down2
+	}
+}
+ImageTextButtonStyle: {
+	default: {
+		font: StardewValley
+		fontColor: Black
+		up: Button_Up2
+		down: Button_Down2
+	}
+}
+LabelStyle: {
+	default: {
+		font: StardewValley4
+		fontColor: Black
+	}
+}
+ListStyle: {
+	default: {
+		font: StardewValley4
+		fontColorSelected: Black
+		fontColorUnselected: Black
+		selection: selection
+		background: list
+	}
+}
+ProgressBarStyle: {
+	default-horizontal: {
+		background: progressBack
+		knob: knob
+		knobBefore: knobAfter
+	}
+}
+ScrollPaneStyle: {
+	default: {
+		hScroll: slider
+		hScrollKnob: KnobV
+		vScroll: slider
+		vScrollKnob: KnobV
+	}
+}
+SelectBoxStyle: {
+	default: {
+		font: StardewValley4
+		fontColor: Black
+		background: selectBox
+		scrollStyle: default
+		listStyle: default
+	}
+}
+SliderStyle: {
+	default-horizontal: {
+		background: slider
+		knob: progressBack
+	}
+}
+SplitPaneStyle: {
+	default-horizontal: {
+		handle: slider
+	}
+}
+TextButtonStyle: {
+	default: {
+		font: StardewValley
+		fontColor: Black
+		up: Button_Up2
+		down: Button_Down2
+	}
+}
+TextFieldStyle: {
+	default: {
+		font: StardewValley
+		fontColor: Black
+		cursor: select
+		selection: selection
+	}
+}
+TextTooltipStyle: {
+	default: {
+		label: default
+		background: checkbox-off
+	}
+}
+TreeStyle: {
+	default: {
+		plus: Plus
+		minus: Minez
+		selection: selection
+	}
+}
+WindowStyle: {
+	default: {
+		background: checkbox-off
+		titleFont: StardewValley
+		titleFontColor: Black
+	}
+}
+}

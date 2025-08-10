@@ -3,10 +3,10 @@ package io.src.model.GameObject;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.MapModule.Position;
 
-public class Grass extends GameObject{
+public class Grass extends GameObject {
     private final GrassType grassType;
 
-    public Grass(boolean walkable, Position position, GrassType grassType ) {
+    public Grass(boolean walkable, Position position, GrassType grassType) {
         super(walkable, position);
         this.grassType = grassType;
     }
@@ -14,5 +14,10 @@ public class Grass extends GameObject{
 
     public GrassType getGrassType() {
         return grassType;
+    }
+
+    @Override
+    public String getAssetName() {
+        return grassType.getAssetName();
     }
 }

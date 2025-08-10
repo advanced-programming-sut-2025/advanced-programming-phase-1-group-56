@@ -9,7 +9,7 @@ public class Well extends GameObject implements TimeObserver {
     private final BuildingType type = BuildingType.WELL;
 
     public Well(Position position) {
-        super(false,position);
+        super(false, position);
     }
 
     @Override
@@ -19,5 +19,9 @@ public class Well extends GameObject implements TimeObserver {
 
     public BuildingType getType() {
         return type;
+    }
+
+    public String getAssetName() {
+        return "well";
     }
 }

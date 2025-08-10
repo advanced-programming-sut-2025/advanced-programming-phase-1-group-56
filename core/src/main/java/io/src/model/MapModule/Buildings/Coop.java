@@ -53,4 +53,10 @@ public class Coop extends Building implements AnimalHouse {
     public int getRemainingCapacity() {
         return this.type.getCapacity() - animals.size();
     }
+
+
+    @Override
+    public String getAssetName() {
+        return buildingType.getAssetName();
+    }
 }

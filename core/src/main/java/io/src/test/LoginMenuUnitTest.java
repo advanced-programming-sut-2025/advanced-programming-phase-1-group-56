@@ -1,5 +1,6 @@
 package io.src.test;
 
+import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.commands.LoginMenuCommands;

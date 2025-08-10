@@ -18,4 +18,9 @@ public class AnimalProduct extends Item{
         return this.etcType;
     }
 
+
+    @Override
+    public String getAssetName() {
+        return etcType.getAssetName();
+    }
 }

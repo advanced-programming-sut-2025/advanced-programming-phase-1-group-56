@@ -12,11 +12,12 @@ import io.src.model.items.Inventory;
 
 public class ShippingBar extends GameObject implements TimeObserver {
     private final Inventory inventory = new Inventory(100);
-    @Expose(serialize = false,deserialize = false)
+    @Expose(serialize = false, deserialize = false)
     private Farm farm;
     private final BuildingType type = BuildingType.SHIPPING_BIN;
+    private boolean open = false;
 
-    public ShippingBar(Position position,Farm farm) {
+    public ShippingBar(Position position, Farm farm) {
         super(false, position);
         this.farm = farm;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
@@ -29,10 +30,10 @@ public class ShippingBar extends GameObject implements TimeObserver {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay) {
+        if (newDay) {
             for (Slot slot : inventory.getSlots()) {
                 int sumPrice = slot.getQuantity() * slot.getItem().getFinalPrice();
-                if(sumPrice!=-1){
+                if (sumPrice != -1) {
                     farm.getPlayer().addGold(sumPrice);
                 }
             }
@@ -40,11 +41,24 @@ public class ShippingBar extends GameObject implements TimeObserver {
         }
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return type.getWidth();
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return type.getHeight();
+    }
+
+    @Override
+    public String getAssetName() {
+        return open ? "Shipping_Bin_Opened" : "Shipping_Bin_Closed";
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 }

@@ -17,4 +17,9 @@ public class Backpack extends Item {
     public int getPrice(){
         return -1 ;
     }
+
+    @Override
+    public String getAssetName() {
+        return backPackType.getAssetName();
+    }
 }

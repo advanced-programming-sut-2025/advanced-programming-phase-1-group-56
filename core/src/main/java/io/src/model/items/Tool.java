@@ -37,27 +37,28 @@ public class Tool extends Item {
         switch (name) {
             case "Axe": {
                 Skill playerSkill = player.getSkillByName(Skills.Foraging.toString());
-                if (tile.getFixedObject() != null && tile.getFixedObject().getClass() == Tree.class) {
-                    TreeType t = ((Tree) tile.getFixedObject()).getTreeType();
+                if (tile.getFixedObject() != null && tile.getFixedObject() instanceof Tree tree) {
+                    TreeType t = tree.getTreeType();
                     switch (t) {
                         case TreeType.BURNT_TREE ->
-                                player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
+                            player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
                         case TreeType.NORMAL_TREE -> player.getInventory().add(new Etc((EtcType) t.fruit), 1);
                         case TreeType.TREE_BARK -> player.getInventory().add(new Etc((EtcType) t.fruit), 1);
                         default -> player.getInventory().add(new Etc((EtcType) TreeType.NORMAL_TREE.fruit), 1);
+//                        default -> player.getInventory().add(new Fruit((FruitType) t.fruit), 1);
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
-                        App.getMe().getInventory().add(new Seed((SeedType) t.source), 1);
                         if (Math.random() > 0.5) {
-                            App.getMe().getInventory().add(new Seed((SeedType) t.source), 1);
+                            App.getMe().getInventory().add(new Seed((t.source)), 1);
                         }
                     }
+                    player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
                     if (playerSkill == null) {
                         System.out.println("Player skill is null in tool use");
                         return;
                     }
-                    playerSkill.setXp(playerSkill.getXp() + 5);
+                    playerSkill.setXp(playerSkill.getXp() + 100);
                     if (playerSkill.getLevel() == 3) {
                         player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                         System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
@@ -91,6 +92,7 @@ public class Tool extends Item {
                 Skill playerSkill = player.getSkillByName(Skills.Mining.toString());
                 if (tile.getFixedObject() instanceof ForagingMineral) {///minerals
                     player.getInventory().add(new Mineral(((ForagingMineral) tile.getFixedObject()).getForagingMineralType()), 1);
+                    player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
                     if (playerSkill != null) {
                         playerSkill.setXp(playerSkill.getXp() + 10);
@@ -98,7 +100,7 @@ public class Tool extends Item {
                     }
                     player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else if (tile.getFixedObject() == null && (tile.getTileType() == TileType.PlowedSoil || tile.getTileType() == TileType.WaterPlowedSoil
-                        || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
+                    || tile.getTileType() == TileType.Speed_Gro || tile.getTileType() == TileType.Deluxe_Retaining_Soil)) {
                     tile.setTileType(TileType.Soil);
                     player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else if (tile.getFixedObject() instanceof DroppedItem) {
@@ -107,6 +109,7 @@ public class Tool extends Item {
 //                    tile.setFixedObject(null);
 //                    player.subtractEnergy(toolType.getUsedEnergy() * (int) App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 } else if (tile.getFixedObject() instanceof Crop && !((Crop) tile.getFixedObject()).getCropType().oneTime) {
+                    player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
                     player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
 
@@ -117,7 +120,7 @@ public class Tool extends Item {
             }
             case "Watering Can": {
                 Skill playerSkill = player.getSkillByName(Skills.Farming.toString());
-                if (tile.getFixedObject() instanceof Tree || tile.getFixedObject() instanceof Crop || tile.getTileType() == TileType.Water) {
+                if (tile.getFixedObject() instanceof Tree || tile.getFixedObject() instanceof Crop || tile.getTileType() == TileType.Water || tile.getTileType() == TileType.PlowedSoil) {
                     if (tile.getTileType() == TileType.Water) {
                         this.capacity = toolType.getCapacity();
                     } else {
@@ -126,6 +129,9 @@ public class Tool extends Item {
                             ((Tree) tile.getFixedObject()).setWateredToday(true);
                         } else if (tile.getFixedObject().getClass() == Crop.class) {
                             ((Crop) tile.getFixedObject()).setWateredToday(true);
+                        } else if (tile.getTileType() == TileType.PlowedSoil) {
+                            tile.setTileType(TileType.WaterPlowedSoil);
+
                         }
 //
                     }
@@ -145,7 +151,7 @@ public class Tool extends Item {
                         player.getInventory().add(new Fish(fishType), quantity);
                     } else {
                         ArrayList<FishType> seasonFishes = FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
-                        player.getInventory().add(new Fish(seasonFishes.get((int)(Math.random() * seasonFishes.size()))), quantity);
+                        player.getInventory().add(new Fish(seasonFishes.get((int) (Math.random() * seasonFishes.size()))), quantity);
                     }
                 }
                 player.subtractEnergy(toolType.getUsedEnergy());
@@ -227,5 +233,10 @@ public class Tool extends Item {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    @Override
+    public String getAssetName() {
+        return toolType.getAssetName();
     }
 }

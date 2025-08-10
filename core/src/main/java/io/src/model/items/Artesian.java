@@ -18,4 +18,9 @@ public class Artesian extends Item {
     public int getPrice(){
         return -1 ;
     }
+
+    @Override
+    public String getAssetName() {
+        return artisanMachineItemType.getAssetName();
+    }
 }

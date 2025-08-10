@@ -12,7 +12,7 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
     private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
-    private int processTime;
+    private int processTime = 0 ;
 
     public ArtesianMachine(boolean walkable, Position position, ArtisanMachineType artisanMachineType) {
         super(walkable, position);
@@ -59,17 +59,22 @@ public class ArtesianMachine extends GameObject implements TimeObserver {
     @Override
 
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(artisanGoodType == null || artisanGood != null)
+        if (artisanGoodType == null || artisanGood != null)
             return;
-        if(newDay){
-            processTime-=11;
-        }else{
+        if (newDay) {
+            processTime -= 11;
+        } else {
             processTime--;
         }
 
-        if(processTime <= 0){
+        if (processTime <= 0) {
             finishMakeArtisanGood(new ArtisanGood(artisanGoodType));
             artisanGoodType = null;
         }
+    }
+
+    @Override
+    public String getAssetName() {
+        return artisanMachineType.getAssetName();
     }
 }

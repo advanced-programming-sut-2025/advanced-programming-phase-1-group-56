@@ -200,7 +200,7 @@ public class MapController extends CommandController {
 
     private static ArrayList<Node> findPath(int x, int y) {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        ArrayList<Node> path = new AStarPathFinding(player.getCurrentGameLocation(),
+        ArrayList<Node> path = (ArrayList<Node>) new AStarPathFinding(player.getCurrentGameLocation(),
                 player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),
                     (int) player.getPosition().getY()), player.getCurrentGameLocation().getTiles()[y][x]).solve();
         return path;
@@ -236,7 +236,7 @@ public class MapController extends CommandController {
         player.subtractEnergy(availableDistance / 20);
         if (player.getCurrentGameLocation().getTileByPosition((int)player.getPosition().getX(),(int) player.getPosition().getY()).getTileType() == TileType.Wrapper) {
 //            Tile t = player.getCurrentGameLocation().getTileByPosition(player.getPosition().getX() , player.getPosition().getY());
-            if (player.getCurrentGameLocation() instanceof Farm) {
+            if (player.getCurrentGameLocation() instanceof Farm farm) {
                 player.setCurrentGameLocation(game.getGameMap().getPelikanTown());
                 if ((player.getFarmPosition() == FarmPosition.LEFT)) {
 //                    player.getPosition().getX() == 0 player.getPosition().getY() == 52;

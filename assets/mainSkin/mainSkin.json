@@ -1,0 +1,316 @@
+{
+"BitmapFont": {
+	"baseFont-24": {
+		"file": "StardewValley.fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"baseFont-45": {
+		"file": "StardewValley(1).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"baseFont-90": {
+		"file": "StardewValley(2).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"baseFont2-24": {
+		"file": "ModernDOS9x14.fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"basefont2-45": {
+		"file": "ModernDOS9x14(2).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"font2-30": {
+		"file": "ModernDOS9x14(1).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	}
+},
+"Color": {
+	"BLACK": {
+		"hex": "000000ff"
+	},
+	"GREEN": {
+		"hex": "065b50ff"
+	},
+	"PINK": {
+		"hex": "ce5252ff"
+	},
+	"RED": {
+		"hex": "ff0000ff"
+	},
+	"WHITE": {
+		"hex": "ffffffff"
+	}
+},
+"CheckBoxStyle": {
+	"default": {
+		"checkboxOn": "checkedbx_ON",
+		"checkboxOff": "checkedbx_OFF",
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"overFontColor": "PINK",
+		"focusedFontColor": "PINK",
+		"checkedFontColor": "GREEN"
+	},
+	"default2": {
+		"checkboxOn": "checkedbx2_ON",
+		"checkboxOff": "checkedbx2_OFF",
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"overFontColor": "PINK",
+		"focusedFontColor": "PINK",
+		"checkedFontColor": "GREEN"
+	}
+},
+"LabelStyle": {
+	"default": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK"
+	},
+	"default-PINK": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK"
+	},
+	"default-GREEN": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN"
+	},
+	"default-WHITE": {
+		"font": "baseFont2-24",
+		"fontColor": "WHITE"
+	},
+	"font-BLACK": {
+		"font": "baseFont-24",
+		"fontColor": "BLACK"
+	},
+	"font-WHITE": {
+		"font": "baseFont-24",
+		"fontColor": "WHITE"
+	},
+	"font-GREEN": {
+		"font": "baseFont-24",
+		"fontColor": "GREEN"
+	},
+	"font-PINK": {
+		"font": "baseFont-24",
+		"fontColor": "PINK"
+	},
+	"font-45_PINK": {
+		"font": "baseFont-45",
+		"fontColor": "PINK"
+	},
+	"font2-45_PINK": {
+		"font": "basefont2-45",
+		"fontColor": "PINK"
+	},
+	"font2-45_BLACK": {
+		"font": "basefont2-45",
+		"fontColor": "BLACK"
+	},
+	"font-45_BLACK": {
+		"font": "baseFont-45",
+		"fontColor": "BLACK"
+	},
+	"font-90_PINK": {
+		"font": "baseFont-90",
+		"fontColor": "PINK"
+	},
+	"default-PINK_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"background": "warning_label"
+	},
+	"default-BLACK_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"background": "warning_label"
+	},
+	"default-GREEN_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"background": "warning_label"
+	},
+	"default-RED_warning": {
+		"font": "baseFont2-24",
+		"fontColor": "RED",
+		"background": "warning_label"
+	}
+},
+"TextButtonStyle": {
+	"default": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"overFontColor": "PINK",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -2
+	},
+	"button1": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"downFontColor": "GREEN",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
+	},
+	"button1-2": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"downFontColor": "GREEN",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
+	},
+	"button1-2_BLACK": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
+	},
+	"button1-2_font30": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"downFontColor": "GREEN",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
+	},
+	"button1-2_font30_BLACK": {
+		"font": "font2-30",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
+	},
+	"default2_PINK": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"downFontColor": "GREEN",
+		"overFontColor": "GREEN",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -2
+	},
+	"default_PINK_font30": {
+		"font": "font2-30",
+		"fontColor": "PINK",
+		"downFontColor": "GREEN",
+		"overFontColor": "GREEN",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -2
+	},
+	"default_BLACK_font30": {
+		"font": "font2-30",
+		"fontColor": "BLACK",
+		"downFontColor": "GREEN",
+		"overFontColor": "PINK",
+		"pressedOffsetX": -2,
+		"pressedOffsetY": -2
+	},
+	"inventoryButtonTop-BLACK24": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	},
+	"inventoryButtonTop-PINK24": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	},
+	"inventoryButtonRight-BLACK24": {
+		"font": "baseFont2-24",
+		"fontColor": "BLACK",
+		"up": "inventoryButtonRight_UP",
+		"down": "inventoryButtonTop_DOWN"
+	},
+	"inventoryButtonRight-PINK24": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"up": "inventoryButtonRight_UP",
+		"down": "inventoryButtonTop_DOWN"
+	},
+	"inventoryButtonRight-GREEN24": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"up": "inventoryButtonRight_UP",
+		"down": "inventoryButtonTop_DOWN"
+	},
+	"inventoryButtonTop-GREEN24": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	},
+	"inventoryButtonTop-RED24": {
+		"font": "baseFont2-24",
+		"fontColor": "RED",
+		"up": "enventoryButtonTop_UP",
+		"down": "enventoryButtonTop_DOWN"
+	}
+},
+"TextFieldStyle": {
+	"default": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"focusedFontColor": "BLACK",
+		"disabledFontColor": "GREEN",
+		"background": "textfield",
+		"cursor": "cursor",
+		"selection": "selection",
+		"messageFont": "baseFont-24",
+		"messageFontColor": "PINK"
+	},
+	"font2": {
+		"font": "baseFont-24",
+		"fontColor": "PINK",
+		"focusedFontColor": "BLACK",
+		"disabledFontColor": "GREEN",
+		"background": "textfield",
+		"cursor": "cursor",
+		"selection": "selection",
+		"messageFont": "baseFont-24",
+		"messageFontColor": "PINK"
+	},
+	"default_font30": {
+		"font": "font2-30",
+		"fontColor": "PINK",
+		"focusedFontColor": "BLACK",
+		"disabledFontColor": "GREEN",
+		"background": "textfield",
+		"cursor": "cursor",
+		"selection": "selection",
+		"messageFont": "baseFont-24",
+		"messageFontColor": "PINK"
+	}
+},
+"TextTooltipStyle": {
+	"default": {
+		"label": "default"
+	}
+},
+"WindowStyle": {
+	"default": {
+		"background": "window",
+		"titleFont": "baseFont2-24",
+		"titleFontColor": "WHITE"
+	}
+}
+}

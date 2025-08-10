@@ -15,7 +15,7 @@ public class Message {
         this.message = message;
         this.sender = sender;
         this.reciever = reciever;
-        this.timeStamp = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
+        this.timeStamp = new DateTime(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime());
     }
 
 

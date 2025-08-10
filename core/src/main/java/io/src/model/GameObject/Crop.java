@@ -191,4 +191,9 @@ public class Crop extends GameObject implements TimeObserver {
     public void setHarvestDayRegrowth(int harvestDayRegrowth) {
         this.harvestDayRegrowth = harvestDayRegrowth;
     }
+
+    @Override
+    public String getAssetName() {
+        return cropType.getStageN_AssetName(currentStage);
+    }
 }

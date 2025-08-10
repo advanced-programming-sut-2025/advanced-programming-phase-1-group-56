@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add lobby">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameAssetManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" afterDir="false" />
-    </list>
+    <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add window for dialog and inventory" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +50,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mohsen" />
+        <entry key="$PROJECT_DIR$" value="mehdi" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -93,8 +85,6 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.model.Network.Client.LobbyClient.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.model.Network.Server.LobbyServer.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.view.GameMenus.InventoryWindow.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
@@ -103,7 +93,7 @@
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;network&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;mohsen&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/OneDrive/Desktop/StardewValley/advanced-programming-phase-1-group-56/assets/Inventory&quot;,
@@ -243,18 +233,6 @@
       <workItem from="1753302155687" duration="206000" />
       <workItem from="1753302372677" duration="364000" />
       <workItem from="1753513259577" duration="906000" />
-      <workItem from="1753770697665" duration="1659000" />
-      <workItem from="1753772453315" duration="9277000" />
-      <workItem from="1753785450593" duration="700000" />
-      <workItem from="1753786186261" duration="788000" />
-      <workItem from="1753787051499" duration="94000" />
-      <workItem from="1753809649979" duration="641000" />
-      <workItem from="1753811212067" duration="641000" />
-      <workItem from="1753859538160" duration="15433000" />
-      <workItem from="1754063414657" duration="7482000" />
-      <workItem from="1754078941888" duration="5388000" />
-      <workItem from="1754123594791" duration="13273000" />
-      <workItem from="1754150317944" duration="3000000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -464,15 +442,7 @@
       <option name="project" value="LOCAL" />
       <updated>1753514007277</updated>
     </task>
-    <task id="LOCAL-00027" summary="add lobby">
-      <option name="closed" value="true" />
-      <created>1753953021713</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1753953021713</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,6 +460,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="shop controller 7/7 add animal buying green house&#10; //TODO sell animal / sell item" />
     <MESSAGE value="Start NPC mf" />
     <MESSAGE value="add husbandry" />
     <MESSAGE value="minor changes on fields" />
@@ -514,8 +485,7 @@
     <MESSAGE value="add inventory" />
     <MESSAGE value="add timer and energybar" />
     <MESSAGE value="add window for dialog and inventory" />
-    <MESSAGE value="add lobby" />
-    <option name="LAST_COMMIT_MESSAGE" value="add lobby" />
+    <option name="LAST_COMMIT_MESSAGE" value="add window for dialog and inventory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

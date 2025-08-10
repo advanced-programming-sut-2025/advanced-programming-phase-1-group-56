@@ -1,5 +1,6 @@
 package io.src.model.GameObject;
 
+import io.src.model.App;
 import io.src.model.MapModule.Position;
 
 import java.util.ArrayList;
@@ -17,5 +18,10 @@ public class MailBox extends GameObject {
 
     public ArrayList<String> getUnseenMessages() {
         return unseenMessages;
+    }
+
+    @Override
+    public String getAssetName() {
+        return "Farm_Mailbox";
     }
 }

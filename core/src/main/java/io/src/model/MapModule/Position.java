@@ -9,9 +9,10 @@ public class Position {
         this.y = y;
     }
 
-    public void  setX(float x) {
+    public void setX(float x) {
         this.x = x;
     }
+
     public void setY(float y) {
         this.y = y;
     }
@@ -25,15 +26,18 @@ public class Position {
         return y;
     }
 
-    public void ChangePosition(float deltaX,float deltaY) {this.x += deltaX;this.y += deltaY;}
+    public void ChangePosition(float deltaX, float deltaY) {
+        this.x += deltaX;
+        this.y += deltaY;
+    }
 
-    public boolean isNear(Position pos2,int range) {
+    public boolean isNear(Position pos2, int range) {
         return Math.abs(pos2.getX() - this.x) <= range && Math.abs(pos2.getY() - this.y) <= range;
     }
 
     @Override
     public boolean equals(Object pos2) {
-        if(((Position)pos2).getX() == this.x && ((Position)pos2).getY() == this.y){
+        if (((Position) pos2).getX() == this.x && ((Position) pos2).getY() == this.y) {
             return true;
         }
         return false;

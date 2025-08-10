@@ -5,8 +5,9 @@ import io.src.model.MapModule.Position;
 
 public class Sprinkle extends GameObject {
     private EtcObjectType type;
-    public Sprinkle( Position position,EtcObjectType type) {
-        super(true,position);
+
+    public Sprinkle(Position position, EtcObjectType type) {
+        super(true, position);
         this.type = type;
     }
 
@@ -16,5 +17,11 @@ public class Sprinkle extends GameObject {
 
     public void setType(EtcObjectType type) {
         this.type = type;
+    }
+
+
+    @Override
+    public String getAssetName() {
+        return type.getAssetName();
     }
 }

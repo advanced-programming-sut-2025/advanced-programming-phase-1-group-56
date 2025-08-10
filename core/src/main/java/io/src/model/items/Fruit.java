@@ -16,4 +16,9 @@ public class Fruit extends Item {
     public int getEnergy(){
         return fruitType.getEnergy();
     }
+
+    @Override
+    public String getAssetName() {
+        return fruitType.getAssetName();
+    }
 }

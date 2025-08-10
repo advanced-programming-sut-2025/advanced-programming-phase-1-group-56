@@ -10,20 +10,21 @@ import java.util.ArrayList;
 public class Barn extends Building implements AnimalHouse {
     private final BuildingType type;
     private final ArrayList<Animal> animals = new ArrayList<>();
+    private boolean open = false;
 
 
     public Barn(Position position, BuildingType type) {
         super(
-                position,
-                false,
-                type.getName(),
-                new Position(
-                        (2 * position.getX() + type.getWidth()) / 2,
-                        (2 * position.getY() + type.getHeight()) / 2
-                ),
-                type.getHeight(),
-                type.getWidth(),
-                type
+            position,
+            false,
+            type.getName(),
+            new Position(
+                (2 * position.getX() + type.getWidth()) / 2,
+                (2 * position.getY() + type.getHeight()) / 2
+            ),
+            type.getHeight(),
+            type.getWidth(),
+            type
         );
         this.type = type;
     }
@@ -55,5 +56,19 @@ public class Barn extends Building implements AnimalHouse {
 
     public BuildingType getType() {
         return type;
+    }
+
+
+    @Override
+    public String getAssetName() {
+        return type.getAssetName() + (open ? "_Open" : "_Closed");
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 }

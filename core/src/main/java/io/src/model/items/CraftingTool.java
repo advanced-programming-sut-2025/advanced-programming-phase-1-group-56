@@ -15,4 +15,9 @@ public class CraftingTool extends Item {
     public CraftingRecipesList getRecipesList() {
         return recipesList;
     }
+
+    @Override
+    public String getAssetName() {
+        return recipesList.getAssetName();
+    }
 }
