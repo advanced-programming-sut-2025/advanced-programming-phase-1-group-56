@@ -34,7 +34,7 @@ public class LobbyServer {
 
         while (true) {
             Socket socket = serverSocket.accept();
-            ClientHandler handler = new ClientHandler(socket, this,"mohsen");
+            ClientHandler handler = new ClientHandler(socket, this,"mehdi");
             clients.add(handler);
 
             new Thread(handler).start();
@@ -113,12 +113,17 @@ public class LobbyServer {
     }
 
     public boolean joinLobby(String userName, String lobbyId, String password) {
+        int i = 0;
         for (Lobby lobby : lobbies) {
             for(String member : lobby.getMembers()) {
+                i++;
                 if(member.equals(userName)){
                     return false;
                 }
             }
+        }
+        if(i>3){
+            return false;
         }
         for (Lobby lobby : lobbies) {
             if (lobby.getId().equals(lobbyId)) {
@@ -134,24 +139,30 @@ public class LobbyServer {
         return false;
     }
 
-    public void leaveLobby(String username) {
-        ServerController.leaveLobby(username,(ArrayList<Lobby>) lobbies);
+
+
+    public Message leaveLobby(String username) {
         broadcastOnlineUsers();
+        broadcastLobbyList();
+        return ServerController.leaveLobby(username, lobbies);
     }
 
     public void removeLobby(String lobbyId, String requester) {
-        ServerController.removeLobby(lobbyId,requester, (ArrayList<Lobby>) lobbies);
+        ServerController.removeLobby(lobbyId,requester,  lobbies);
         broadcastLobbyList();
     }
 
-    public void kickPlayer(String lobbyId, String requester, String targetUser) {
+    public void kickPlayer(String lobbyId, String targetUser) {
         for (Lobby l : lobbies) {
-            if (l.getId().equals(lobbyId) && l.getOwner().equals(requester)) {
+            if (l.getId().equals(lobbyId)) {
                 leaveLobby(targetUser);
             }
         }
     }
 
+    public Message toggleReady(String lobbyId,String username){
+        return ServerController.toggleReady(lobbyId,username, lobbies);
+    }
 
     public Collection<Lobby> getLobbies() {
         return lobbies;

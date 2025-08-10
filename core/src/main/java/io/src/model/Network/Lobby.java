@@ -11,6 +11,7 @@ public class Lobby {
     private final boolean isVisible;
     private final String password;
     private final List<String> members = new ArrayList<>();
+    private final Boolean[] countReady ;
     private long lastJoinTime;
 
     public Lobby(String id, String name, String owner, boolean isPrivate, boolean isVisible, String password) {
@@ -21,6 +22,10 @@ public class Lobby {
         this.isVisible = isVisible;
         this.password = password;
         this.lastJoinTime = System.currentTimeMillis();
+        this.countReady = new Boolean[4];
+        this.countReady[0] = false;
+        this.countReady[1] = false;
+        this.countReady[2] = false;
         members.add(owner);
     }
 
@@ -53,4 +58,9 @@ public class Lobby {
     public boolean isVisible() {
         return isVisible;
     }
+
+    public Boolean[] getCountReady() {
+        return countReady;
+    }
+
 }

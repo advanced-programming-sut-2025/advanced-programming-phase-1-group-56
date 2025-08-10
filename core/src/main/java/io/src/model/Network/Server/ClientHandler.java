@@ -69,15 +69,19 @@ public class ClientHandler implements Runnable {
                         case NetworkCommand.online_Users -> {
                             server.broadcastOnlineUsers();
                         }
-//                        case NetworkCommand.leave_lobby -> {
-//                            server.leaveLobby(msg.getSender());
-//                        }
+                        case NetworkCommand.toggle_ready -> {
+                            sendMessage(gson.toJson(server.toggleReady(msg.getFromBody("lobbyId"),msg.getFromBody("username"))));
+                        }
+                        case NetworkCommand.leave_lobby -> {
+                            System.out.println("Leaving lobby");
+                            sendMessage(gson.toJson(server.leaveLobby(msg.getFromBody("username"))));
+                        }
 //                        case NetworkCommand.remove_lobby -> {
 //                            server.removeLobby(msg.getLobbyId(), msg.getSender());
 //                        }
-//                        case NetworkCommand.kick_user -> {
-//                            server.kickPlayer(msg.getLobbyId(), msg.getSender(), msg.getTarget());
-//                        }
+                        case NetworkCommand.kick_user -> {
+                            server.kickPlayer(msg.getFromBody("lobbyId"), msg.getFromBody("username"));
+                        }
 //                        default -> sendMessage(gson.toJson(new Message(NetworkCommand.error, "server", null, "Unknown command", null)));
                         default ->
                             throw new IllegalStateException("Unexpected value: " + msg.getFromBody("commandType"));

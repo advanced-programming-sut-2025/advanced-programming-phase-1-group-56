@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="db0311db-3ead-4e65-b01f-5c391402100a" name="Changes" comment="add window for dialog and inventory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/Network/ServerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Client/LobbyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Lobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/NetworkCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/NetworkCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Network/Server/LobbyServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +256,7 @@
       <workItem from="1754078941888" duration="5388000" />
       <workItem from="1754123594791" duration="13273000" />
       <workItem from="1754150317944" duration="3000000" />
-      <workItem from="1754836129516" duration="19000" />
+      <workItem from="1754836129516" duration="6904000" />
     </task>
     <task id="LOCAL-00001" summary="last commit to show mohesen">
       <option name="closed" value="true" />
@@ -468,7 +474,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753953021713</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="add window for dialog and inventory">
+      <option name="closed" value="true" />
+      <created>1754836163911</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1754836163911</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,9 +523,9 @@
     <MESSAGE value="graphic environment loaded finally" />
     <MESSAGE value="add inventory" />
     <MESSAGE value="add timer and energybar" />
-    <MESSAGE value="add window for dialog and inventory" />
     <MESSAGE value="add lobby" />
-    <option name="LAST_COMMIT_MESSAGE" value="add lobby" />
+    <MESSAGE value="add window for dialog and inventory" />
+    <option name="LAST_COMMIT_MESSAGE" value="add window for dialog and inventory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

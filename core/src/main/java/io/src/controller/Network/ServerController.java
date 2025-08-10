@@ -9,6 +9,8 @@ import io.src.model.Network.Server.LobbyServer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class ServerController {
     public static Message sendJoinMessage(Message msg, LobbyServer server) {
@@ -39,16 +41,74 @@ public class ServerController {
         Message.Type type = Message.Type.response;
         return new  Message(body, type);
     }
-    public static void leaveLobby(String username, ArrayList<Lobby> lobbies) {
-        for (Lobby lobby : lobbies) {
+    public static Message leaveLobby(String username, List<Lobby> lobbies) {
+        Iterator<Lobby> iterator = lobbies.iterator();
+        while (iterator.hasNext()) {
+            Lobby lobby = iterator.next();
+
             if (lobby.getOwner().equals(username)) {
+                iterator.remove();
                 removeLobby(lobby.getId(), lobby.getOwner(), lobbies);
+                int i = 0;
+                for(String member : lobby.getMembers()) {
+                    if(member.equals(username)) {
+                        break;
+                    }
+                    i++;
+                }
+                Boolean[] ready = lobby.getCountReady();
+                ready[i] = false;
             } else if (lobby.getMembers().remove(username)) {
+                int i = 0;
+                for(String member : lobby.getMembers()) {
+                    if(member.equals(username)) {
+                        break;
+                    }
+                    i++;
+                }
+                Boolean[] ready = lobby.getCountReady();
+                ready[i] = false;
                 break;
             }
         }
+
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("commandType", NetworkCommand.leave_lobby);
+        body.put("isSuccessful", "left the lobby");
+        return new Message(body, Message.Type.response);
     }
-    public static void removeLobby(String lobbyId, String requester, ArrayList<Lobby> lobbies) {
+
+    public static void removeLobby(String lobbyId, String requester, List<Lobby> lobbies) {
         lobbies.removeIf(l -> l.getId().equals(lobbyId) && l.getOwner().equals(requester));
+
     }
+
+    public static Message toggleReady(String lobbyId, String username, List<Lobby> lobbies) {
+        int i = 0 ;
+        Lobby lobby1 = null;
+        for (Lobby lobby : lobbies) {
+            if(lobby.getId().equals(lobbyId)){
+                lobby1 = lobby;
+                for(String member : lobby.getMembers()) {
+                    if(member.equals(username)){
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        Boolean[] ready = lobby1.getCountReady();
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("commandType", NetworkCommand.toggle_ready);
+        if(ready[i]){
+            ready[i] = false;
+            body.put("Ready", "you aren't ready");
+        } else {
+            ready[i] = true;
+            body.put("Ready", "you are ready now!");
+        }
+        Message.Type type = Message.Type.response;
+        return new Message(body,type);
+    }
+
 }

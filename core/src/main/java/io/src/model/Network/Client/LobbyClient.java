@@ -50,7 +50,7 @@ public class LobbyClient extends ApplicationAdapter {
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("assets/Export/menu_Skin_v0.0.1.json"));
 
-        username = "mohsen";
+        username = "mehdi";
 
         //background
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -63,7 +63,7 @@ public class LobbyClient extends ApplicationAdapter {
         isSuccessfulLabel = new Label("", skin);
         isSuccessfulLabel.setColor(Color.RED);
         isSuccessfulLabel.setFontScale(1.2f);
-        isSuccessfulLabel.setPosition(30, 1050);
+        isSuccessfulLabel.setPosition(30, 1000);
         isSuccessfulLabel.setVisible(false);
 
         //background
@@ -288,16 +288,29 @@ public class LobbyClient extends ApplicationAdapter {
                                                     table.setBackground(defaultBackground);
                                                 }
                                                 lobbyItemContainer.setBackground(selectedBackground);
+
+                                                // اگر کاربر داخل این لابی هست
+                                                if (lobby.getMembers().contains(username)) {
+                                                    if (lobby.getOwner().equals(username)) {
+                                                        // Owner
+                                                        showOwnerLobbyOptions(lobby);
+                                                    } else {
+                                                        // Member
+                                                        showMemberLobbyOptions(lobby);
+                                                    }
+                                                }
                                             }
                                         });
+
                                         lobbyItemsTable.add(lobbyItemContainer).padBottom(15).expandX().fillX().row();
                                     }
 
                                     lobbyItemsTable.invalidateHierarchy();
                                 });
-                            }
+                            } case toggle_ready -> {
+                                showSuccessMessage(msg1.getFromBody("Ready"));
 
-                            case online_Users -> {
+                            } case online_Users -> {
                                 Object usersObj = msg1.getFromBody("Users List");
                                 if (usersObj instanceof ArrayList<?>) {
                                     ArrayList<?> rawList = (ArrayList<?>) usersObj;
@@ -325,8 +338,13 @@ public class LobbyClient extends ApplicationAdapter {
                                     showSuccessMessage("Failed to Join Lobby");
                                 }
                             }
+                            case leave_lobby -> {
+                                System.out.println("sdsdfd");
+                                showSuccessMessage(msg1.getFromBody("isSuccessful"));
+                                requestLobbyList();
+                            }
 
-                            default -> System.out.println("Unhandled command: " + command);
+                            default -> requestLobbyList();
                         }
 
                     }
@@ -339,6 +357,146 @@ public class LobbyClient extends ApplicationAdapter {
             e.printStackTrace();
         }
     }
+
+    private void showOwnerLobbyOptions(Lobby lobby) {
+        Dialog dialog = new Dialog("", skin);
+
+        TextButton removeBtn = new TextButton("Remove Player", skin);
+        TextButton startBtn = new TextButton("Start Game", skin);
+        TextButton leaveBtn = new TextButton("Leave Lobby", skin);
+        TextButton closeBtn = new TextButton("Close", skin);
+        removeBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.hide();
+                showRemovePlayerDialog(lobby);
+            }
+        });
+        //TODO
+        startBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                HashMap<String, Object> body = new HashMap<>();
+                body.put("commandType", NetworkCommand.start);
+                body.put("lobbyId", lobby.getId());
+                client.send(gson.toJson(new Message(body, Message.Type.command)));
+                dialog.hide();
+            }
+        });
+
+        // Leave lobby
+        leaveBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("dfsdffwefwefwe");
+                sendLeaveLobby(lobby.getId());
+                dialog.hide();
+            }
+        });
+
+        closeBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.hide();
+            }
+        });
+
+        dialog.getContentTable().pad(20);
+        dialog.getContentTable().add(removeBtn).pad(5).row();
+        dialog.getContentTable().add(startBtn).pad(5).row();
+        dialog.getContentTable().add(leaveBtn).pad(5).row();
+        dialog.getContentTable().add(closeBtn).pad(5).row();
+
+        dialog.show(stage);
+    }
+
+    private void showMemberLobbyOptions(Lobby lobby) {
+        Dialog dialog = new Dialog("", skin);
+
+        TextButton readyBtn = new TextButton("Ready / Unready", skin);
+        TextButton leaveBtn = new TextButton("Leave Lobby", skin);
+        TextButton closeBtn = new TextButton("Close", skin);
+
+        readyBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                HashMap<String, Object> body = new HashMap<>();
+                body.put("commandType", NetworkCommand.toggle_ready);
+                body.put("lobbyId", lobby.getId());
+                body.put("username", username);
+                client.send(gson.toJson(new Message(body, Message.Type.command)));
+                dialog.hide();
+
+            }
+        });
+
+        leaveBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                sendLeaveLobby(lobby.getId());
+                dialog.hide();
+            }
+        });
+
+        closeBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.hide();
+            }
+        });
+
+        dialog.getContentTable().pad(20);
+        dialog.getContentTable().add(readyBtn).pad(5).row();
+        dialog.getContentTable().add(leaveBtn).pad(5).row();
+        dialog.getContentTable().add(closeBtn).pad(5).row();
+
+        dialog.show(stage);
+    }
+
+    private void showRemovePlayerDialog(Lobby lobby) {
+        Dialog dialog = new Dialog("", skin);
+        List<String> membersList = new List<>(skin);
+
+        ArrayList<String> members = new ArrayList<>(lobby.getMembers());
+        members.remove(username);
+        membersList.setItems(members.toArray(new String[0]));
+
+        ScrollPane scrollPane = new ScrollPane(membersList, skin);
+
+        TextButton removeBtn = new TextButton("Remove", skin);
+        TextButton cancelBtn = new TextButton("Cancel", skin);
+
+        removeBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                String selectedUser = membersList.getSelected();
+                if (selectedUser != null) {
+                    HashMap<String, Object> body = new HashMap<>();
+                    body.put("commandType", NetworkCommand.kick_user);
+                    body.put("lobbyId", lobby.getId());
+                    body.put("username", selectedUser);
+                    client.send(gson.toJson(new Message(body, Message.Type.command)));
+                    dialog.hide();
+                }
+            }
+        });
+
+        cancelBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                dialog.hide();
+            }
+        });
+
+        dialog.getContentTable().pad(20);
+        dialog.getContentTable().add(scrollPane).width(250).height(200).row();
+        dialog.getContentTable().add(removeBtn).padTop(10).row();
+        dialog.getContentTable().add(cancelBtn).padTop(5).row();
+
+        dialog.show(stage);
+    }
+
+
+    private void sendLeaveLobby(String lobbyId) {
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("commandType", NetworkCommand.leave_lobby);
+        body.put("lobbyId", lobbyId);
+        body.put("username", username);
+        client.send(gson.toJson(new Message(body, Message.Type.command)));
+
+    }
+
 
     private Pixmap pixmapFromColor(Color color) {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);

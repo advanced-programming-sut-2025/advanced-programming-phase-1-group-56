@@ -11,5 +11,7 @@ public enum NetworkCommand {
     kick_user,
     remove_lobby,
     lobby_chat_message,
-    error;
+    error,
+    toggle_ready,
+    start;
 }
