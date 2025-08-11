@@ -407,36 +407,62 @@ public class FarmingController extends CommandController {
 
     public static void managePlaceRandomCropOrSeed(Farm farm) {
         Random random = new Random();
-        int cropOrSeed = random.nextInt(2);
-        for (int i = 8; i < farm.getTiles().length - 8; i++) {
-            for (int j = 18; j < farm.getTiles()[i].length - 8; j++) {
-                Tile tile = farm.getTileByPosition(j, i);
+        Tile[][] tiles = farm.getTiles();
+        int height = tiles.length;
+        if (height == 0) return;
+        int width = tiles[0].length;
+
+        for (int y = 8; y < height - 8; y++) {
+            for (int x = 8; x < width - 8; x++) {
+                Tile tile = farm.getTileByPosition(x, y);
+                if (tile == null) continue;
+                if (tile.getFixedObject() != null) continue;
+                if (!tile.isWalkable()) continue;
+
+                if (random.nextDouble() >= 0.01) continue;
+
+                int cropOrSeed = random.nextInt(2);
+
                 TileType tt = tile.getTileType();
-                if (tile.getFixedObject() == null && Math.random() * 100 < 1 && tile.isWalkable()) {
-                    Position pos = new Position(j, i);
-                    if (cropOrSeed == 0) {
-                        if (tt != TileType.Soil) continue;
-                        ForagingCrop crop = new ForagingCrop(false, pos, getRandomForagingCrop(random));
+                Position pos = new Position(x, y);
+
+                if (cropOrSeed == 0) {
+                    if (!isSuitableForForaging(tt)) continue;
+                    ForagingCrop crop = new ForagingCrop(false, pos, getRandomForagingCrop(random));
+                    tile.setFixedObject(crop);
+                    farm.getGameObjects().add(crop);
+                } else {
+                    SeedType seedType = getRandomForagingSeed(random);
+                    Object cropType = seedType.cropType;
+
+                    if (cropType instanceof CropType) {
+                        if (!isSuitableForCropPlanting(tt)) continue;
+                        Crop crop = new Crop(true, pos, (CropType) cropType);
                         tile.setFixedObject(crop);
                         farm.getGameObjects().add(crop);
-                    } else {
-                        SeedType seedType = getRandomForagingSeed(random);
-                        if (seedType.cropType instanceof CropType) {
-                            Crop crop = new Crop(true, pos, (CropType) seedType.cropType);
-                            tile.setFixedObject(crop);
-                            farm.getGameObjects().add(crop);
-                        } else if (seedType.cropType instanceof TreeType) {
-                            if (tt != TileType.WaterPlowedSoil && tt != TileType.PlowedSoil &&
-                                tt != TileType.Speed_Gro && tt != TileType.Deluxe_Retaining_Soil) continue;
-                            Tree tree = new Tree((TreeType) seedType.cropType, pos);
-                            tile.setFixedObject(tree);
-                            farm.getGameObjects().add(tree);
-                        }
+                    } else if (cropType instanceof TreeType) {
+                        if (!isSuitableForTreePlanting(tt)) continue;
+                        Tree tree = new Tree((TreeType) cropType, pos);
+                        tile.setFixedObject(tree);
+                        farm.getGameObjects().add(tree);
                     }
                 }
             }
         }
     }
+
+    private static boolean isSuitableForForaging(TileType tt) {
+        return tt == TileType.Soil || tt == TileType.PlowedSoil || tt == TileType.WaterPlowedSoil;
+    }
+
+    private static boolean isSuitableForCropPlanting(TileType tt) {
+        return tt == TileType.Soil || tt == TileType.PlowedSoil || tt == TileType.WaterPlowedSoil;
+    }
+
+    private static boolean isSuitableForTreePlanting(TileType tt) {
+        return tt == TileType.PlowedSoil || tt == TileType.WaterPlowedSoil;
+    }
+
 
     public static Result howMuchWaterIsExist() {
         Item item = getItemFromString("Watering Can");

@@ -360,7 +360,7 @@ public class FoodWindow extends Group implements InputProcessor {
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.F) {
             if(StardewValley.getGameView().foodWindow().isVisible()) {
-                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
             }
             StardewValley.getGameView().foodWindow().setVisible(!StardewValley.getGameView().foodWindow().isVisible());
         }

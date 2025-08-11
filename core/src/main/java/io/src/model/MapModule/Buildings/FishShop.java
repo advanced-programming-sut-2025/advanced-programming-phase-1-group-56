@@ -24,6 +24,7 @@ public class FishShop extends Store {
         setInitialPosition(new Position(5 , 2));
         indoor.getTiles()[1][5].setTileType(TileType.Wrapper);
         NPCposition = new Position(4, 5);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -34,7 +35,12 @@ public class FishShop extends Store {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay){
+            dailyProductList.clear();
             dailyProductList = FishShopProducts.getProducts(FishShopProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("fishShop has been renewed");
         }
     }
 

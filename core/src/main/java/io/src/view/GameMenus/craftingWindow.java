@@ -2,6 +2,7 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -135,6 +136,7 @@ public class craftingWindow extends Group implements InputProcessor {
 
         return recipesTable;
     }
+
     private void updateInfoPanel(CraftingRecipesList recipe) {
         infoPanel.clear();
         Label nameLabel = new Label(recipe.name(), GameAssetManager.getGameAssetManager().getSkin());
@@ -201,7 +203,7 @@ public class craftingWindow extends Group implements InputProcessor {
             Slot slot = null;
             Item item = null;
             int quantity = 0;
-            if(i<capacity){
+            if (i < capacity) {
                 slot = slots.get(i);
                 item = slot.getItem();
                 quantity = slot.getQuantity();
@@ -281,19 +283,19 @@ public class craftingWindow extends Group implements InputProcessor {
                     if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
                         showErrorLabel("it's not open for you!");
                     } else if (CraftingController.havaIngredient(recipe)) {
-                        Item crafted ;
-                        if(ArtisanController.getArtisanMachineItemType(recipe.name) != null){
+                        Item crafted;
+                        if (ArtisanController.getArtisanMachineItemType(recipe.name) != null) {
                             System.out.println("yesssss");
                             crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
-                        } else if(recipe.name == EtcType.SCARE_CROW.name){
+                        } else if (recipe.name == EtcType.SCARE_CROW.name) {
                             crafted = new Etc(EtcType.SCARE_CROW);
-                        } else if(recipe.name == EtcType.IRIDIUM_SPRINKLER.name){
+                        } else if (recipe.name == EtcType.IRIDIUM_SPRINKLER.name) {
                             crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
-                        } else if(recipe.name == EtcType.QUALITY_SPRINKLER.name){
+                        } else if (recipe.name == EtcType.QUALITY_SPRINKLER.name) {
                             crafted = new Etc(EtcType.QUALITY_SPRINKLER);
-                        } else if (recipe.name == EtcType.SPRINKLER.name){
+                        } else if (recipe.name == EtcType.SPRINKLER.name) {
                             crafted = new Etc(EtcType.SPRINKLER);
-                        } else if(recipe.name == EtcType.DELUXE_SCARE_CROW.name){
+                        } else if (recipe.name == EtcType.DELUXE_SCARE_CROW.name) {
                             crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
                         } else {
                             crafted = new CraftingTool(recipe);
@@ -340,7 +342,7 @@ public class craftingWindow extends Group implements InputProcessor {
     }
 
 
-                private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
+    private void addRecipeDragAndDrop(Stack stack, CraftingRecipesList recipe) {
         dragAndDrop.addSource(new DragAndDrop.Source(stack) {
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
                 System.out.println("Start drag: " + recipe.name());
@@ -368,10 +370,12 @@ public class craftingWindow extends Group implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.B) {
-            if(StardewValley.getGameView().getCraftingWindow().isVisible()) {
-                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
+        if (keycode == Input.Keys.B) {
+            if (StardewValley.getGameView().getCraftingWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+
             }
+            
             StardewValley.getGameView().getCraftingWindow().setVisible(!StardewValley.getGameView().getCraftingWindow().isVisible());
         }
         return false;

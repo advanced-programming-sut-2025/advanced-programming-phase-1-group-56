@@ -4,36 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Shop UI Is Working (70%) + Shop Mantegh Working(30%)">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalNameMiniMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/BuildingMiniMenu.java" afterDir="false" />
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Merged with mehdi">
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalNameDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/StardewValley.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/BlacksmithMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/BlacksmithMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/CarpenterMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/CarpenterMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/MarniesRanchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/MarniesRanchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/ShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/MineralItemType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/MineralItemType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/ToolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/ToolType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/TrashcanType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/TrashcanType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/BlackSmithProducts.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/BlackSmithProducts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/FishShopProducts.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/FishShopProducts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/MarniesRanchProducts.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/MarniesRanchProducts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/commands/GameCommands/ShopCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/commands/GameCommands/ShopCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Coop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Coop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/dry-leaves-autumn.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/users.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/wind_bird.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FarmingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FarmingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Buildings/BuildingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Buildings/BuildingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Blacksmith.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/Blacksmith.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/CarpentersShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/CarpentersShop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/FishShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/FishShop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/JojaMart.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/JojaMart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/MarniesRanch.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/MarniesRanch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/PierresGeneralStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/PierresGeneralStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/TheSaloonStardrop.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/Buildings/TheSaloonStardrop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Inventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/CheatWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/CheatWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/FoodWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/FoodWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/BlacksmithMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/BlacksmithMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CarpentersShopMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CarpentersShopMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CommonShopMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CommonShopMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/MarniesRanchMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/MarniesRanchMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/ProductWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/ProductWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/ShopStateWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/ShopStateWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/TimerWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/WarningWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/WarningWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/craftingWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/craftingWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalNameMiniMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/BuildingMiniMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/BuildingMiniMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +181,8 @@
       <workItem from="1754756458828" duration="6762000" />
       <workItem from="1754763680217" duration="4011000" />
       <workItem from="1754820454164" duration="19012000" />
-      <workItem from="1754857260724" duration="3827000" />
+      <workItem from="1754857260724" duration="11692000" />
+      <workItem from="1754906780449" duration="11676000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -272,7 +272,23 @@
       <option name="project" value="LOCAL" />
       <updated>1754763085782</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Shop UI Is Working (95%) + Shop Mantegh Working(80%)">
+      <option name="closed" value="true" />
+      <created>1754861214220</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754861214220</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Merged with mehdi">
+      <option name="closed" value="true" />
+      <created>1754906881125</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1754906881125</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,6 +317,8 @@
     <MESSAGE value="v0.5.0: shop menu" />
     <MESSAGE value="Shop UI Is Working" />
     <MESSAGE value="Shop UI Is Working (70%) + Shop Mantegh Working(30%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Shop UI Is Working (70%) + Shop Mantegh Working(30%)" />
+    <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
+    <MESSAGE value="Merged with mehdi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged with mehdi" />
   </component>
 </project>

@@ -6,29 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.ShopMenuControllers.BlacksmithMenuController;
 import io.src.controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
 import io.src.controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
 import io.src.controller.GameMenuController.ShopMenuControllers.ShopController;
-import io.src.controller.GameMenuController.TradeController;
-import io.src.model.App;
+import io.src.model.*;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Buildings.BuildingType;
-import io.src.model.Enums.Items.EtcType;
-import io.src.model.Enums.Items.ToolType;
-import io.src.model.Enums.Items.TrashcanType;
-import io.src.model.GameAssetManager;
 import io.src.model.GameObject.NPC.NpcProduct;
-import io.src.model.MapModule.Buildings.Store;
-import io.src.model.Result;
-import io.src.model.Slot;
-import io.src.model.items.Etc;
-import io.src.model.items.Item;
-import io.src.model.items.Tool;
-import io.src.view.GameMenus.WarningWindow;
-import io.src.view.InnerMenus.AnimalNameMiniMenu;
+import io.src.view.InnerMenus.AnimalNameDialog;
 import io.src.view.InnerMenus.BuildingMiniMenu;
 
 import java.util.ArrayList;
@@ -77,6 +64,10 @@ public class CommonShopMenu extends Window {
                 item1Name = new Label("x" + slots[0].getQuantity(), skin);
                 items[0] = slots[0];
             }
+            //DEBUG
+            System.out.println(product.getName());
+            System.out.println(product.Find_ItemNeeded());
+            System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName()));
             ProductWindow productWindow = new ProductWindow(skin, product,
                 new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName())))),
                 Item1,
@@ -132,35 +123,39 @@ public class CommonShopMenu extends Window {
             case UPGRADE_TOOL: {
                 Result result = BlacksmithMenuController.upgradeTools(selectedProduct, products);
                 StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 300);
+                StardewValley.getGameView().getInventoryBar().refreshInventory();
+                StardewValley.getGameView().getInvWindow().refreshInventory();
                 updateProductsShow();
             }
             break;
             case PURCHASE_ANIMAL: {
-                AnimalNameMiniMenu animalNameMiniMenu = new AnimalNameMiniMenu(skin, name -> {
-                    Result result = MarniesRanchController.buyAnimal(((AnimalType) selectedProduct.getSaleable()).getName(), name);
-                    this.setVisible(false);
-                    StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 300);
-                    updateProductsShow();
-                    remove();
-                });
-                animalNameMiniMenu.setVisible(true);
-                animalNameMiniMenu.setSize(animalNameMiniMenu.getWidth(), animalNameMiniMenu.getHeight());
-                add(animalNameMiniMenu);
-                StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+                AnimalNameDialog dialog = new AnimalNameDialog(
+                    SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
+                    name -> {
+                        Result result = MarniesRanchController.buyAnimal(((AnimalType) selectedProduct.getSaleable()).getName(), name);
+                        this.setVisible(false);
+                        StardewValley.getGameView().getWarningWindow().showDialog(
+                            App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
+                            result.getMessage(),
+                            300
+                        );
+                        updateProductsShow();
+                    }
+                );
+                dialog.showCentered(StardewValley.getGameView().getStage());
             }
             break;
             case BUILD_A_BUILDING: {
                 BuildingMiniMenu buildingMiniMenu = new BuildingMiniMenu(skin, (x, y) -> {
-                    Result result = CarpenterMenuController.BuildABuilding(((BuildingType) selectedProduct.getSaleable()).getName(),x,y);
-                    this.setVisible(false);
-                    StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 300);
+                    Result result = CarpenterMenuController.BuildABuilding(((BuildingType) selectedProduct.getSaleable()).getName(), x, y);
+                    // show result
+                    StardewValley.getGameView().getWarningWindow().showDialog(
+                        App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
+                        result.getMessage(), 300);
                     updateProductsShow();
-                    StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
-                    remove();
+                    // close parent shop window if needed:
                 });
-                buildingMiniMenu.setVisible(true);
-                buildingMiniMenu.setSize(buildingMiniMenu.getWidth(), buildingMiniMenu.getHeight());
-                add(buildingMiniMenu);
+                buildingMiniMenu.showCentered(StardewValley.getGameView().getStage());
             }
             break;
             default: {
@@ -177,6 +172,11 @@ public class CommonShopMenu extends Window {
 
     public void showDialog() {
         setVisible(true);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
+    }
+
+    public void hideDialog() {
+        setVisible(false);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }
 

@@ -22,8 +22,9 @@ public class JojaMart extends Store {
         setClosingHour(23);
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\JojaMart_Indoor");
         setIndoor(indoor);
-        setInitialPosition(new Position(13 ,2));
-        NPCposition = new Position(9 ,4);
+        setInitialPosition(new Position(13, 2));
+        NPCposition = new Position(9, 4);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -34,7 +35,12 @@ public class JojaMart extends Store {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
+            dailyProductList.clear();
             dailyProductList = JojamartProducts.getProducts(JojamartProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("jojamart has been renewed");
         }
     }
 

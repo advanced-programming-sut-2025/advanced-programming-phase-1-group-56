@@ -84,6 +84,11 @@ public class PreGameMenuController extends CommandController {
         GivePlayersInitialItem(newGame);
 
 
+        for (NPC npc : town.getNPCs()) {
+            npc.initializePaths(town);
+        }
+
+
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
 

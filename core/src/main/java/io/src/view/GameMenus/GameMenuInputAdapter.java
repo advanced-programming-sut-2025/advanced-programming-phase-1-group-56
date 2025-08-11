@@ -71,7 +71,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(isInterruptingMenuOpen) return false;
+        if (isInterruptingMenuOpen) return false;
         keysHeld.add(keycode);
         if (keysHeld.contains(Input.Keys.J)) {
 //            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
@@ -96,14 +96,12 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         if (keycode == Input.Keys.C && !isInterruptingMenuOpen()) {
             keysHeld.clear();
-            isInterruptingMenuOpen = true;
             CheatWindow cheatWindow = StardewValley.getGameView().getCheatWindow();
             Stage stage = StardewValley.getGameView().getStage();
             stage.setKeyboardFocus(cheatWindow);
             cheatWindow.showWithFocus(stage);
             return true;
         }
-
 
 
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
@@ -124,6 +122,10 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keycode == Input.Keys.B) {
             if (!StardewValley.getGameView().getCraftingWindow().isVisible()) {
                 StardewValley.getGameView().getCraftingWindow().refreshInventory();
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(StardewValley.getGameView().getCraftingWindow());
+                multiplexer.addProcessor(StardewValley.getGameView().getStage());
+                Gdx.input.setInputProcessor(multiplexer);
                 StardewValley.getGameView().getCraftingWindow().setVisible(!StardewValley.getGameView().getCraftingWindow().isVisible());
             }
         }
@@ -150,7 +152,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
         }
 
-        if(keycode == Input.Keys.ENTER) {
+        if (keycode == Input.Keys.ENTER) {
             StardewValley.getGameView().getWarningWindow().kill();
         }
 
@@ -185,8 +187,14 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if (isInterruptingMenuOpen) {return false;}
+
         if (button == Input.Buttons.LEFT) {
             keysHeld.clear();
+            if (StardewValley.getGameView().getShopStateWindow().isVisible()) {
+                return true;
+            }
             performAction(screenX, screenY);
             return true;
         }

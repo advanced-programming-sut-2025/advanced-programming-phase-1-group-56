@@ -93,6 +93,7 @@ public class GameView implements Screen, TimeObserver {
     private CheatWindow cheatWindow;
     private ShopStateWindow shopStateWindow;
 
+
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private final ArrayList<ToolSwing> activeToolSwings = new ArrayList<>();
@@ -178,9 +179,8 @@ public class GameView implements Screen, TimeObserver {
 
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
 
-        multiplexer.addProcessor(gameMenuInputAdapter);
-//        multiplexer.addProcessor(keyListener);
         multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(gameMenuInputAdapter);
         Gdx.input.setInputProcessor(multiplexer);
 
         transitionManager = new ScreenTransition();
@@ -602,7 +602,7 @@ public class GameView implements Screen, TimeObserver {
                 worldX -= 24;
             }
 
-            if (go instanceof ArtesianMachine || go instanceof EtcObject) {
+            if (go instanceof ArtesianMachine) {
                 worldX -= 25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
@@ -829,4 +829,9 @@ public class GameView implements Screen, TimeObserver {
             });
         }
     }
+
+    public InputMultiplexer getMultiplexer() {
+        return multiplexer;
+    }
+
 }
