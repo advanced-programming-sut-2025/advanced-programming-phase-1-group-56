@@ -18,8 +18,11 @@ import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
 import io.src.view.GameMenus.ShopMenus.CommonShopMenu;
+import io.src.view.InnerMenus.AnimalNameMiniMenu;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
+import io.src.view.InnerMenus.BuildingMiniMenu;
+import io.src.view.InnerMenus.ProfileMenu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,6 +35,9 @@ public class MainMenu implements AppMenu, Screen {
     private final Texture stardewValleyImage;
     private final ScrollPane aboutScrollPane;
     private final AvatarMenu avatarMenu;
+    private final Button aboutButton;
+    private final Button profileButton;
+    private final Button settingButton;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -39,8 +45,8 @@ public class MainMenu implements AppMenu, Screen {
     private final Button newButton;
     private final Button loadButton;
     private final Button coopButton;
-    private final Button aboutButton;
 
+    private final Table buttonsTable;
     private final Button back_about_Button;
     private final Window aboutWindow;
 
@@ -68,11 +74,19 @@ public class MainMenu implements AppMenu, Screen {
             newButton.getHeight() - 75);
         stage.addActor(buttonTable);
 
-        // about button
+        // buttons :
+
+        buttonsTable = new Table();
         aboutButton = new Button(skin, "aboutButton");
-        aboutButton.setPosition((float) (Gdx.graphics.getWidth() - (aboutButton.getWidth() * 1.5)),
-            buttonTable.getY() - newButton.getHeight() / 2);
-        stage.addActor(aboutButton);
+        profileButton = new Button(skin, "profileButton");
+        settingButton = new Button(skin, "settingButton");
+        buttonsTable.add(settingButton).width(settingButton.getWidth() - 20).height(settingButton.getHeight() - 20).row();
+        buttonsTable.add(profileButton).width(profileButton.getWidth() - 10).height(profileButton.getHeight() - 10).row();
+        buttonsTable.add(aboutButton).width(aboutButton.getWidth() - 10).height(aboutButton.getHeight() - 10).row();
+
+        buttonsTable.setSize(settingButton.getWidth() * 2, settingButton.getHeight() * 2);
+        buttonsTable.setPosition((float) Gdx.graphics.getWidth() - buttonsTable.getWidth() + 25, settingButton.getHeight() - 35);
+        stage.addActor(buttonsTable);
 
         // exit button
         exitButton = new Button(skin, "ExitButton");
@@ -193,6 +207,18 @@ public class MainMenu implements AppMenu, Screen {
 
     public Button getAboutButton() {
         return aboutButton;
+    }
+
+    public Table getButtonTable() {
+        return buttonsTable;
+    }
+
+    public Button getProfileButton() {
+        return profileButton;
+    }
+
+    public Button getSettingButton() {
+        return settingButton;
     }
 
     public Table getAboutWindow() {
