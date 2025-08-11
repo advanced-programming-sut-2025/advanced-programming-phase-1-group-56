@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
+import io.src.model.Enums.SfxEnum;
+import io.src.model.GameAudioManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,9 +49,8 @@ public class AvatarMenu extends Window {
 
         File[] avatarsPath = new File("assets/AVATAR/final/").listFiles(File::isDirectory);
         if (avatarsPath != null)
-            for (File file : avatarsPath) {
+            for (File file : avatarsPath)
                 avatars.add("AVATAR/final/" + file.getName() + "/");
-            }
         else
             System.out.println("AVATAR/FINAL/AVATAR NOT FOUND");
 
@@ -185,6 +186,8 @@ public class AvatarMenu extends Window {
             }
         });
 
+
+
         setMovable(false);
         setModal(true);
     }
@@ -207,6 +210,7 @@ public class AvatarMenu extends Window {
     }
 
     private void updateAvatarTextures() {
+        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
         Texture oldTex = avatarTex;
         avatarTex = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/" + directs.get(directIndex) + ".png");
         avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));

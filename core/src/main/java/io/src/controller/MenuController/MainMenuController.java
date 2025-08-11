@@ -9,6 +9,7 @@ import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
+import io.src.model.Game;
 import io.src.model.GameAudioManager;
 import io.src.model.Result;
 import io.src.view.MainMenu;
@@ -43,19 +44,20 @@ public class MainMenuController extends CommandController {
 
         menu.getCoopButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound("SFXs/click2.mp3", false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
             }
         });
 
         menu.getExitButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playMusic(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
                 Gdx.app.exit();
             }
         });
 
         menu.getLogoutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
                 Result result = manageUserLogout();
                 System.out.println(result.isSuccess());
                 System.out.println(result.getMessage());
@@ -96,6 +98,24 @@ public class MainMenuController extends CommandController {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
                 setNewMenu(false);
+            }
+        });
+
+        menu.getLoadButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+            }
+        });
+
+        menu.getProfileButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+            }
+        });
+
+        menu.getSettingButton().addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
             }
         });
     }
