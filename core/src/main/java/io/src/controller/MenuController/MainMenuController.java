@@ -8,6 +8,7 @@ import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAudioManager;
 import io.src.model.Result;
 import io.src.view.MainMenu;
@@ -72,14 +73,14 @@ public class MainMenuController extends CommandController {
 
         menu.getAboutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
                 setAboutMenu(true);
             }
         });
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
                 if (menu.getNewButton().isVisible()) {
                     setAboutMenu(false);
                     menu.getScrollPane().setScrollPercentY(0.0f);
@@ -93,7 +94,7 @@ public class MainMenuController extends CommandController {
 
         menu.getNewButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound("SFXs/click1.mp3", false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
                 setNewMenu(false);
             }
         });
@@ -104,7 +105,7 @@ public class MainMenuController extends CommandController {
         menu.getLoadButton().setVisible(state);
         menu.getCoopButton().setVisible(state);
         menu.getLogoutButton().setVisible(state);
-        menu.getAboutButton().setVisible(state);
+        menu.getButtonTable().setVisible(state);
         menu.getExitButton().setVisible(state);
 
         menu.getBack_about_Button().setVisible(!state);
@@ -120,7 +121,7 @@ public class MainMenuController extends CommandController {
         menu.getBack_about_Button().setVisible(state);
 
         // not state :
-        menu.getAboutButton().setVisible(!state);
+        menu.getButtonTable().setVisible(!state);
         menu.getExitButton().setVisible(!state);
 
         // disable
