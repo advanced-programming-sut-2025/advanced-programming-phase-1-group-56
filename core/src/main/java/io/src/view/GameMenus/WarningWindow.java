@@ -24,7 +24,7 @@ public class WarningWindow extends Window {
         textLabel.setAlignment(Align.left);
 
         add(speakerLabel).expandX().left().padBottom(5).row();
-        add(textLabel).width(700).height(100).left().top();
+        add(textLabel).width(700).height(170).left().top();
 
 
 
@@ -62,6 +62,11 @@ public class WarningWindow extends Window {
         setVisible(true);
         getColor().a = 0;
         addAction(fadeIn(0.5f));
+    }
+
+    public void kill(){
+        remainingTime=0;
+        hideDialog();
     }
 
     public void hideDialog() {

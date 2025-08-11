@@ -72,10 +72,15 @@ public interface ShopController {
 
         if (productToBuy.getSaleable() instanceof Item item) {
             //item
-            me.addGold(-sumPrice);
-            productToBuy.changeRemainingStock(-amount);
-            me.getInventory().add(item, amount);
-            return new Result(true, "purchase item successful..");
+            if(me.getInventory().canAddItem(item,amount)) {
+                me.addGold(-sumPrice);
+                productToBuy.changeRemainingStock(-amount);
+                me.getInventory().add(item, amount);
+                return new Result(true, "purchase item successful..");
+            }else {
+                return new Result(false,"your inventory doesn't have enough space");
+            }
+
         } else if (productToBuy.getSaleable() instanceof CraftingRecipesList recipe ||
             productToBuy.getSaleable() instanceof FoodRecipesList food) {
             //recipe

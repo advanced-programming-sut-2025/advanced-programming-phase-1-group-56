@@ -32,10 +32,8 @@ public class MarniesRanchController implements ShopController {
                         findStoreByClass(MarniesRanch.class).getDailyProductList());
     }
 
-    public static Result buyAnimal(Matcher matcher) {
-        // Parse arguments
-        String typeName = matcher.group(1).trim().trim();   // e.g. "COW"
-        String nickName = matcher.group(2).trim().trim();                            // unique name
+    public static Result buyAnimal(String typeName,String nickName) {
+        // Parse arguments         // unique name
 
         // Validate nickname
         if (nickName.isEmpty()) {

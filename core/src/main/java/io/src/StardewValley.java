@@ -68,4 +68,5 @@ public class StardewValley extends com.badlogic.gdx.Game {
     public static void setGameView(GameView gameView) {
         StardewValley.gameView = gameView;
     }
+
 }

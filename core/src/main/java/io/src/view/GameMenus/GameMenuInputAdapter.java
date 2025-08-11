@@ -3,10 +3,20 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import io.src.controller.GameMenuController.*;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.StardewValley;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
+import io.src.controller.GameMenuController.CookingController;
+import io.src.controller.GameMenuController.CraftingController;
 import io.src.model.App;
+import io.src.model.Enums.Animals.FishBehavior;
+import io.src.model.Enums.AnimationKey;
 import io.src.model.Clickable;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
@@ -14,16 +24,24 @@ import io.src.model.Enums.TileType;
 import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.SensitiveToPlayer;
+import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.Player;
+import io.src.model.items.Artesian;
+import io.src.model.items.Etc;
+import io.src.model.items.Food;
 import io.src.model.TimeSystem.DateTime;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 
 import java.util.ArrayList;
+
+import io.src.model.items.*;
+
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -40,6 +58,7 @@ public class GameMenuInputAdapter extends InputAdapter {
     private final ArrayList<GameObject> nearbyGameObjects = new ArrayList<>();
     //private LocalDateTime LastJClicked = LocalDateTime.now();
 
+    private static GameMenuInputAdapter gameMenuInputAdapter;
 //    public GameMenuInputAdapter(Game game, GameController gameController) {
 //        this.game = game;
 
@@ -52,7 +71,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
-
+        if (isInterruptingMenuOpen) return false;
         keysHeld.add(keycode);
         if (keysHeld.contains(Input.Keys.J)) {
 //            Tile[][] tiles = App.getMe().getCurrentGameLocation().getTiles();
@@ -70,31 +89,21 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
-            App.getStardewValley().getGameView().updateMap();
+            StardewValley.getGameView().updateMap();
             return true;
         }
 
 
         if (keycode == Input.Keys.C && !isInterruptingMenuOpen()) {
             keysHeld.clear();
-            CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
-            Stage stage = App.getStardewValley().getGameView().getStage();
+            CheatWindow cheatWindow = StardewValley.getGameView().getCheatWindow();
+            Stage stage = StardewValley.getGameView().getStage();
             stage.setKeyboardFocus(cheatWindow);
             cheatWindow.showWithFocus(stage);
             return true;
         }
 
-        if (keycode == Input.Keys.ENTER && isInterruptingMenuOpen()) {
-            CheatWindow cheatWindow = App.getStardewValley().getGameView().getCheatWindow();
-            Stage stage = App.getStardewValley().getGameView().getStage();
-            cheatWindow.hideDialog(stage);
-            return true;
-        }
 
-        if (keycode == Input.Keys.ENTER) {
-            App.getStardewValley().getGameView().getWarningWindow().hideDialog();
-            return true;
-        }
         if (keycode >= Input.Keys.NUM_1 && keycode <= Input.Keys.NUM_9) {
             int selectedSlot = keycode - Input.Keys.NUM_1;
             game.getCurrentPlayer().setSelectedSlot(selectedSlot);
@@ -106,27 +115,86 @@ public class GameMenuInputAdapter extends InputAdapter {
             return true;
         }
 
-        return true;
+        if (App.getMe().isMoving()) {
+            return false;
+        }
+
+        if (keycode == Input.Keys.B) {
+            if (!StardewValley.getGameView().getCraftingWindow().isVisible()) {
+                StardewValley.getGameView().getCraftingWindow().refreshInventory();
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(StardewValley.getGameView().getCraftingWindow());
+                multiplexer.addProcessor(StardewValley.getGameView().getStage());
+                Gdx.input.setInputProcessor(multiplexer);
+                StardewValley.getGameView().getCraftingWindow().setVisible(!StardewValley.getGameView().getCraftingWindow().isVisible());
+            }
+        }
+
+        if (keycode == Input.Keys.E) {
+            if (!StardewValley.getGameView().getInvWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(StardewValley.getGameView().getInvWindow());
+                multiplexer.addProcessor(StardewValley.getGameView().getStage());
+                StardewValley.getGameView().getInvWindow().refreshInventory();
+                Gdx.input.setInputProcessor(multiplexer);
+                StardewValley.getGameView().getInvWindow().setVisible(!StardewValley.getGameView().getInvWindow().isVisible());
+            }
+        }
+
+        if (keycode == Input.Keys.F) {
+            if (!StardewValley.getGameView().foodWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(StardewValley.getGameView().foodWindow());
+                multiplexer.addProcessor(StardewValley.getGameView().getStage());
+                StardewValley.getGameView().foodWindow().refreshInventory();
+                Gdx.input.setInputProcessor(multiplexer);
+                StardewValley.getGameView().foodWindow().setVisible(!StardewValley.getGameView().foodWindow().isVisible());
+            }
+        }
+
+        if (keycode == Input.Keys.ENTER) {
+            StardewValley.getGameView().getWarningWindow().kill();
+        }
+
+        if (keycode == Input.Keys.R) {
+            InputMultiplexer multiplexer = new InputMultiplexer();
+            multiplexer.addProcessor(StardewValley.getGameView().getRefrigeratorWindow());
+            multiplexer.addProcessor(StardewValley.getGameView().getStage());
+            StardewValley.getGameView().getRefrigeratorWindow().refreshInventory();
+            Gdx.input.setInputProcessor(multiplexer);
+            StardewValley.getGameView().getRefrigeratorWindow().setVisible(!StardewValley.getGameView().getRefrigeratorWindow().isVisible());
+        }
+//
+//        if (keycode == Input.Keys.N) {
+//            gameController.advanceToNextDay();
+//        }
+
+        return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        if (stopMoving) return true;
         keysHeld.remove(keycode);
         return true;
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        int current = game.getCurrentPlayer().getSelectedSlot();
-        int size = game.getCurrentPlayer().getCurrentBackpack().getCapacity();
-        int next = (current + (amountY > 0 ? 1 : -1) + size) % size;
-        game.getCurrentPlayer().setSelectedSlot(next);
-        return true;
+        StardewValley.getGameView().getInventoryBar().scrolled(amountX, amountY);
+        return false;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if (isInterruptingMenuOpen) {return false;}
+
         if (button == Input.Buttons.LEFT) {
+            keysHeld.clear();
+            if (StardewValley.getGameView().getShopStateWindow().isVisible()) {
+                return true;
+            }
             performAction(screenX, screenY);
             return true;
         }
@@ -135,9 +203,15 @@ public class GameMenuInputAdapter extends InputAdapter {
                 ShopStateWindow shopStateWindow = StardewValley.getGameView().getShopStateWindow();
                 shopStateWindow.showDialog();
                 return true;
-            }
-            if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
+            } else if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
                 return clickable.touchDown(screenX, screenY, pointer, button);
+            } else if (App.getMe().getCurrentItem() instanceof Food) {
+                CookingController.eatFoodUI(App.getMe().getCurrentItem());
+            } else if (App.getMe().getCurrentItem() instanceof Artesian) {
+                System.out.println(App.getMe().getCurrentItem().getAssetName());
+                CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
+            } else if (App.getMe().getCurrentItem() instanceof Etc) {
+                CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
             }
             return true;
         }
@@ -516,6 +590,37 @@ public class GameMenuInputAdapter extends InputAdapter {
     }
 
     private void performAction(int screenX, int screenY) {
+
+        Player player = App.getMe();
+        Direction dir = player.getLastDirection();
+        if (player.getCurrentItem() instanceof Tool tool) {
+            setStopMoving(true);
+            if (tool.getName().contains("Rod")) {
+                FishBehavior beh = FishBehavior.values()[MathUtils.random(FishBehavior.values().length - 1)];
+                App.getStardewValley().getGameView().startFishing(beh);
+            } else {
+
+                // capture direction now (or capture any data you need)
+                // pass a Runnable to be executed when animation ends:
+                App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
+                    // this will run on the render thread when animation finishes
+                    ToolsController.useTools(dir.toString());
+                    setStopMoving(false);///
+                });
+
+            }
+
+
+//            String dir = player.getLastDirection().toString().toLowerCase();
+//            // کلید انیمیشن مطابق AnimationKey
+////            AnimationKey key = AnimationKey.valueOf(tool.getName().toUpperCase() + "_SWING_" + dir.toUpperCase());
+////            Animation<TextureRegion> anim = App.getStardewValley().getGameView().getAnimationManager().get("Axe", key);
+//            App.getStardewValley().getGameView().spawnToolSwing(tool , player.getLastDirection());
+////            App.getStardewValley().getGameView().getStage().addActor(new AxeSwingActor(anim));
+//            ToolsController.useTools(player.getLastDirection().toString());
+        }
+
+
 //        OrthographicCamera camera = game.getCamera();
 //        camera.update();
 //        Vector3 worldCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));

@@ -25,6 +25,7 @@ public class Blacksmith extends Store {
         setIndoor(indoor);
         setInitialPosition(new Position(5 , 2));
         NPCposition = new Position(3, 6);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -36,8 +37,13 @@ public class Blacksmith extends Store {
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
             dailyProductList.clear();
-            dailyProductList = FishShopProducts.getProducts(BlackSmithProducts.class);
+            dailyProductList = BlackSmithProducts.getProducts(BlackSmithProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("black smith has been renewed");
         }
+
     }
 
     @Override

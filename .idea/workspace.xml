@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="add SFXs Enum Music">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
-    </list>
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Merged with mehdi And Debug Some Shits" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,12 +23,7 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="advanced-programming-phase-1-group-56" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -49,7 +41,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="5ae5a33a0b671a81d8e5bbc53a65572dfb453383" />
+        <entry key="$PROJECT_DIR$" value="1a6f8fc1ff3c4985f06198c683fcaefdb59d16f5" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,7 +55,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;git@github.com:advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
-    &quot;accountId&quot;: &quot;897e9c46-f997-4e20-92da-7543902627e4&quot;
+    &quot;accountId&quot;: &quot;bee11d60-58a2-482f-aaac-3d56730ac7ed&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -86,17 +78,14 @@
   &quot;keyToString&quot;: {
     &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Run&quot;,
     &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Application.game.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build advanced-programming-phase-1-group-56.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.temp.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;maz&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;nima2&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -112,9 +101,6 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="io.src.view.GameMenus.ShopMenus" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\abomo\IdeaProjects\advanced-programming-phase-1-group-56\core\src\main\java\io\src\model\Enums" />
-    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -124,7 +110,7 @@
   <component name="RunManager">
     <configuration name="game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="io.src.lwjgl3.Lwjgl3Launcher" />
-      <module name="advanced-programming-phase-1-group-56.lwjgl3.main" />
+      <module name="APproject.lwjgl3.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -133,8 +119,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
       </set>
     </attachedChunks>
   </component>
@@ -163,10 +149,11 @@
       <workItem from="1754473761626" duration="7820000" />
       <workItem from="1754487972780" duration="18056000" />
       <workItem from="1754731782673" duration="442000" />
-      <workItem from="1754756458828" duration="6352000" />
-      <workItem from="1754832675584" duration="5689000" />
-      <workItem from="1754877794055" duration="7379000" />
-      <workItem from="1754894711987" duration="4261000" />
+      <workItem from="1754756458828" duration="6762000" />
+      <workItem from="1754763680217" duration="4011000" />
+      <workItem from="1754820454164" duration="19012000" />
+      <workItem from="1754857260724" duration="11692000" />
+      <workItem from="1754906780449" duration="11997000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -248,31 +235,39 @@
       <option name="project" value="LOCAL" />
       <updated>1754756759110</updated>
     </task>
-    <task id="LOCAL-00011" summary="complete ProductScrollPane">
+    <task id="LOCAL-00011" summary="Shop UI Is Working (70%) + Shop Mantegh Working(30%)">
       <option name="closed" value="true" />
-      <created>1754764585394</created>
+      <created>1754763085782</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1754764585394</updated>
+      <updated>1754763085782</updated>
     </task>
-    <task id="LOCAL-00012" summary="full complete and debug sfxs, musics, add profile button, setting button and debug about button">
+    <task id="LOCAL-00012" summary="Shop UI Is Working (95%) + Shop Mantegh Working(80%)">
       <option name="closed" value="true" />
-      <created>1754885814263</created>
+      <created>1754861214220</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1754885814263</updated>
+      <updated>1754861214220</updated>
     </task>
-    <task id="LOCAL-00013" summary="add SFXs Enum Music">
+    <task id="LOCAL-00013" summary="Merged with mehdi">
       <option name="closed" value="true" />
-      <created>1754903168322</created>
+      <created>1754906881125</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1754903168322</updated>
+      <updated>1754906881125</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Merged with mehdi And Debug Some Shits">
+      <option name="closed" value="true" />
+      <created>1754920293874</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1754920293874</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,9 +295,10 @@
     <MESSAGE value="v0.4.1: initial commit after merge" />
     <MESSAGE value="v0.5.0: shop menu" />
     <MESSAGE value="Shop UI Is Working" />
-    <MESSAGE value="complete ProductScrollPane" />
-    <MESSAGE value="full complete and debug sfxs, musics, add profile button, setting button and debug about button" />
-    <MESSAGE value="add SFXs Enum Music" />
-    <option name="LAST_COMMIT_MESSAGE" value="add SFXs Enum Music" />
+    <MESSAGE value="Shop UI Is Working (70%) + Shop Mantegh Working(30%)" />
+    <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
+    <MESSAGE value="Merged with mehdi" />
+    <MESSAGE value="Merged with mehdi And Debug Some Shits" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged with mehdi And Debug Some Shits" />
   </component>
 </project>

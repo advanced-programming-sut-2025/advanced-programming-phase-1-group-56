@@ -6,17 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
+import io.src.controller.GameMenuController.ShopMenuControllers.BlacksmithMenuController;
+import io.src.controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
+import io.src.controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
 import io.src.controller.GameMenuController.ShopMenuControllers.ShopController;
-import io.src.controller.GameMenuController.TradeController;
-import io.src.model.App;
-import io.src.model.GameAssetManager;
+import io.src.model.*;
+import io.src.model.Enums.Animals.AnimalType;
+import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.GameObject.NPC.NpcProduct;
-import io.src.model.MapModule.Buildings.Store;
-import io.src.model.Result;
-import io.src.model.Slot;
-import io.src.view.GameMenus.WarningWindow;
+import io.src.view.InnerMenus.AnimalNameDialog;
+import io.src.view.InnerMenus.BuildingMiniMenu;
 
 import java.util.ArrayList;
 
@@ -48,25 +48,35 @@ public class CommonShopMenu extends Window {
             Image Item2 = null;
             Label item1Name = null;
             Label item2Name = null;
+            Slot[] items = new Slot[2];
+            items[0] = null;
+            items[1] = null;
+
             if (slots != null && slots.length == 2) {
                 Item1 = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(slots[0].getItem().getAssetName()))));
-                item1Name = new Label(slots[0].getItem().getName(), skin);
+                item1Name = new Label("x" + slots[0].getQuantity(), skin);
                 Item2 = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(slots[1].getItem().getAssetName()))));
-                item2Name = new Label(slots[1].getItem().getName(), skin);
+                item2Name = new Label("x" + slots[1].getQuantity(), skin);
+                items[0] = slots[0];
+                items[1] = slots[1];
             } else if (slots != null && slots.length == 1) {
                 Item1 = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(slots[0].getItem().getAssetName()))));
-                item1Name = new Label(slots[0].getItem().getName(), skin);
+                item1Name = new Label("x" + slots[0].getQuantity(), skin);
+                items[0] = slots[0];
             }
-
+            //DEBUG
             System.out.println(product.getName());
-            System.out.println(product.Find_AssetName());
-
+            System.out.println(product.Find_ItemNeeded());
+            System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName()));
             ProductWindow productWindow = new ProductWindow(skin, product,
                 new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName())))),
                 Item1,
                 item1Name,
+                items[0],
                 Item2,
-                item2Name);
+                item2Name,
+                items[1]
+            );
             productWindow.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedProduct = productWindow.getProduct();
@@ -74,6 +84,7 @@ public class CommonShopMenu extends Window {
                 }
             });
             productsList.add(productWindow).width(800).height(100).padTop(2).padBottom(2).row();
+
         }
 
         ProductsScrollPane = new ScrollPane(productsList, skin, "default3");
@@ -89,6 +100,7 @@ public class CommonShopMenu extends Window {
             public void clicked(InputEvent event, float x, float y) {
                 StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
                 CommonShopMenu.this.remove();
+                App.getMe().setShopState(ShopState.WAIT);
             }
         });
         add(exitButton).padTop(-25).top();
@@ -101,26 +113,53 @@ public class CommonShopMenu extends Window {
     public void handleSelectedProduct() {
         if (selectedProduct.getRemainingStock() == 0)
             return;
-        switch (StardewValley.getGameView().getShopStateWindow().getShopState()) {
+        switch (App.getMe().getShopState()) {
             case SHOP: {
-                Result result = ShopController.purchaseProductFromList(selectedProduct.getName(), "1", products);
-                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 100);
+                Result result = ShopController.purchaseProductFromList(selectedProduct.getSaleable().getName(), "1", products);
+                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 180);
                 updateProductsShow();
             }
             break;
             case UPGRADE_TOOL: {
-
+                Result result = BlacksmithMenuController.upgradeTools(selectedProduct, products);
+                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 300);
+                StardewValley.getGameView().getInventoryBar().refreshInventory();
+                StardewValley.getGameView().getInvWindow().refreshInventory();
+                updateProductsShow();
             }
             break;
             case PURCHASE_ANIMAL: {
-
+                AnimalNameDialog dialog = new AnimalNameDialog(
+                    SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
+                    name -> {
+                        Result result = MarniesRanchController.buyAnimal(((AnimalType) selectedProduct.getSaleable()).getName(), name);
+                        this.setVisible(false);
+                        StardewValley.getGameView().getWarningWindow().showDialog(
+                            App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
+                            result.getMessage(),
+                            300
+                        );
+                        updateProductsShow();
+                    }
+                );
+                dialog.showCentered(StardewValley.getGameView().getStage());
             }
             break;
             case BUILD_A_BUILDING: {
-
+                BuildingMiniMenu buildingMiniMenu = new BuildingMiniMenu(skin, (x, y) -> {
+                    Result result = CarpenterMenuController.BuildABuilding(((BuildingType) selectedProduct.getSaleable()).getName(), x, y);
+                    // show result
+                    StardewValley.getGameView().getWarningWindow().showDialog(
+                        App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
+                        result.getMessage(), 300);
+                    updateProductsShow();
+                    // close parent shop window if needed:
+                });
+                buildingMiniMenu.showCentered(StardewValley.getGameView().getStage());
             }
             break;
             default: {
+                StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), "bug happened,how do you even get here?", 300);
             }
             break;
 
@@ -136,6 +175,11 @@ public class CommonShopMenu extends Window {
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }
 
+    public void hideDialog() {
+        setVisible(false);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
+    }
+
     public void updateProductsShow() {
         Table productsList = new Table();
         productsList.align(Align.left);
@@ -145,25 +189,31 @@ public class CommonShopMenu extends Window {
             Image Item2 = null;
             Label item1Name = null;
             Label item2Name = null;
+            Slot[] items = new Slot[2];
+            items[0] = null;
+            items[1] = null;
             if (slots != null && slots.length == 2) {
                 Item1 = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(slots[0].getItem().getAssetName()))));
-                item1Name = new Label(slots[0].getItem().getName(), skin);
+                item1Name = new Label("x" + slots[0].getQuantity(), skin);
                 Item2 = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(slots[1].getItem().getAssetName()))));
-                item2Name = new Label(slots[1].getItem().getName(), skin);
+                item2Name = new Label("x" + slots[1].getQuantity(), skin);
+                items[0] = slots[0];
+                items[1] = slots[1];
             } else if (slots != null && slots.length == 1) {
                 Item1 = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(slots[0].getItem().getAssetName()))));
-                item1Name = new Label(slots[0].getItem().getName(), skin);
+                item1Name = new Label("x" + slots[0].getQuantity(), skin);
+                items[0] = slots[0];
             }
-
-            System.out.println(product.getName());
-            System.out.println(product.Find_AssetName());
 
             ProductWindow productWindow = new ProductWindow(skin, product,
                 new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName())))),
                 Item1,
                 item1Name,
+                items[0],
                 Item2,
-                item2Name);
+                item2Name,
+                items[1]
+            );
             productWindow.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
                     selectedProduct = productWindow.getProduct();

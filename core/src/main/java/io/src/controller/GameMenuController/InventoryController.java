@@ -3,11 +3,13 @@ package io.src.controller.GameMenuController;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.*;
 import io.src.model.Enums.Items.TrashcanType;
 import io.src.model.items.Inventory;
 import io.src.model.items.Item;
+import io.src.view.GameMenus.GameView;
 
 import java.util.ArrayList;
 
@@ -66,15 +68,18 @@ public class InventoryController extends CommandController {
 
     public static void swapSlots(Inventory inventory, int fromIndex, int toIndex) {
         ArrayList<Slot> slots = inventory.getSlots();
-        if (fromIndex < slots.size() && toIndex < inventory.getBackPackType().getCapacity()) {
-            Slot temp = slots.get(fromIndex);
-            slots.set(fromIndex, slots.get(toIndex));
-            slots.set(toIndex, temp);
-        } else if (toIndex >= slots.size()) {
-            Slot moving = slots.get(fromIndex);
-            slots.remove(fromIndex);
-            slots.add(toIndex, moving);
+        while (slots.size() <= Math.max(fromIndex, toIndex)) {
+            slots.add(new Slot(null, 0));
         }
+
+        Slot temp = slots.get(fromIndex);
+        slots.set(fromIndex, slots.get(toIndex));
+        slots.set(toIndex, temp);
+        StardewValley.getGameView().getInventoryBar().refreshInventory();
+        StardewValley.getGameView().getInvWindow().refreshInventory();
+        StardewValley.getGameView().foodWindow().refreshInventory();
+        StardewValley.getGameView().getCraftingWindow().refreshInventory();
+
     }
 
     public static Image trashCanImage(Player player) {
@@ -116,5 +121,48 @@ public class InventoryController extends CommandController {
         }
         return table;
     }
+
+    public static void moveItem(Inventory fromInventory, Inventory toInventory, int fromIndex, int toIndex) {
+        ArrayList<Slot> fromSlots = fromInventory.getSlots();
+        ArrayList<Slot> toSlots = toInventory.getSlots();
+        while (fromSlots.size() <= fromIndex) {
+            fromSlots.add(new Slot(null, 0));
+        }
+        while (toSlots.size() <= toIndex) {
+            toSlots.add(new Slot(null, 0));
+        }
+
+        Slot fromSlot = fromSlots.get(fromIndex);
+        Slot toSlot = toSlots.get(toIndex);
+
+        Item fromItem = fromSlot.getItem();
+        int fromQty = fromSlot.getQuantity();
+
+        if (fromItem == null || fromQty == 0) return;
+
+        if (toSlot.getItem() == null) {
+            toSlot.setItem(fromItem);
+            toSlot.setQuantity(fromQty);
+            fromSlot.setItem(null);
+            fromSlot.setQuantity(0);
+        } else if (toSlot.getItem().equals(fromItem)) {
+            toSlot.setQuantity(toSlot.getQuantity() + fromQty);
+            fromSlot.setItem(null);
+            fromSlot.setQuantity(0);
+        } else {
+            Item tempItem = toSlot.getItem();
+            int tempQty = toSlot.getQuantity();
+            toSlot.setItem(fromItem);
+            toSlot.setQuantity(fromQty);
+            fromSlot.setItem(tempItem);
+            fromSlot.setQuantity(tempQty);
+        }
+        StardewValley.getGameView().getInventoryBar().refreshInventory();
+        StardewValley.getGameView().getInvWindow().refreshInventory();
+        StardewValley.getGameView().foodWindow().refreshInventory();
+        StardewValley.getGameView().getCraftingWindow().refreshInventory();
+    }
+
+
 }
 

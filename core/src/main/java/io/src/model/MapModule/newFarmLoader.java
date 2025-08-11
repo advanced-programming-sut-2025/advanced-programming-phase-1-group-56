@@ -78,7 +78,6 @@ public class newFarmLoader {
                             case "plowedsoil" -> tileType = TileType.PlowedSoil;
                             case "waterplowedsoil" -> tileType = TileType.WaterPlowedSoil;
                             case "wrapper" -> tileType = TileType.Wrapper;
-                            case "deluxe_retaining_soil" -> tileType = TileType.Deluxe_Retaining_Soil;
                             case "mine" -> tileType = TileType.Mine;
 //                            case "default" -> tileType = TileType.Default;
 //                            default -> tileType = TileType.Default;
@@ -150,6 +149,7 @@ public class newFarmLoader {
                         for (int j = tileX; j < tileX + objWidth; j++) {
 
 //                            tiles[i][j].setFixedObject(gameObject);
+                            if (i == tileY && j == tileX) continue;
                             tiles[i][j].setWalkable(gameObject.isWalkable());
 
                         }
@@ -165,9 +165,9 @@ public class newFarmLoader {
                         int dY = (int) (height - 1 - ((Building) gameObject).getDoorPosition().getY());
                         ((Store) gameObject).setDoorPosition(new Position(dX, dY));
                         if (gameObject instanceof PierresGeneralStore) {
-//                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-2][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.SEBASTIAN.getNPC(new Position(dX, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY][dX + 1].setWalkable(true);
@@ -176,24 +176,24 @@ public class newFarmLoader {
                             tiles[dY - 1][dX + 1].setWalkable(true);
 //                            tiles[dY-1][dX+1].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof TheSaloonStardrop) {
-//                            newNPC = NpcType.LEAH.getNPC(new Position(dX, dY-3));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-3][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.LEAH.getNPC(new Position(dX-1, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX-1].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY - 1][dX].setWalkable(true);
 //                            tiles[dY-1][dX].setTileType(TileType.Wrapper);
                         } else if (gameObject instanceof Blacksmith) {
-//                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-2][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.ROBIN.getNPC(new Position(dX, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY - 1][dX].setWalkable(true);
                         } else if (gameObject instanceof CarpentersShop) {
-//                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
-//                            ((Town) location).getNPCs().add(newNPC);
-//                            tiles[dY-2][dX].setFixedObject(newNPC);
+                            newNPC = NpcType.HARVEY.getNPC(new Position(dX, dY-2));
+                            ((Town) location).getNPCs().add(newNPC);
+                            tiles[dY-2][dX].setFixedObject(newNPC);
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
                             tiles[dY - 1][dX].setWalkable(true);
@@ -238,17 +238,17 @@ public class newFarmLoader {
                         if (gameObject instanceof Home) {
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
-                            tiles[dY - 1][dX].setWalkable(true);
-                            tiles[dY - 2][dX].setWalkable(true);
-                            tiles[dY - 1][dX - 1].setWalkable(true);
-                            tiles[dY - 1][dX - 2].setWalkable(true);
-                            tiles[dY - 1][dX - 3].setWalkable(true);
-                            tiles[dY - 1][dX - 4].setWalkable(true);
-                            tiles[dY - 1][dX - 5].setWalkable(true);
-                            tiles[dY - 1][dX + 1].setWalkable(true);
-                            tiles[dY - 1][dX + 2].setWalkable(true);
-                            tiles[dY - 2][dX - 1].setWalkable(true);
-                            tiles[dY - 2][dX + 1].setWalkable(true);
+                            tiles[dY-1][dX].setWalkable(true);
+                            tiles[dY-2][dX].setWalkable(true);
+                            tiles[dY-1][dX-1].setWalkable(true);
+                            tiles[dY-1][dX-2].setWalkable(true);
+                            tiles[dY-1][dX-3].setWalkable(true);
+                            tiles[dY-1][dX-4].setWalkable(true);
+                            tiles[dY-1][dX-5].setWalkable(true);
+                            tiles[dY-1][dX+1].setWalkable(true);
+                            tiles[dY-1][dX+2].setWalkable(true);
+                            tiles[dY-2][dX-1].setWalkable(true);
+                            tiles[dY-2][dX+1].setWalkable(true);
                         } else if (gameObject instanceof GreenHouse) {
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);
@@ -259,7 +259,7 @@ public class newFarmLoader {
             }
         }
 
-        if (location instanceof Farm) {
+        if (location instanceof Farm && tmxPath.contains("Farm2")) {
             for (int i = 8; i < height - 8; i++) {
                 for (int j = 8; j < width - 8; j++) {
                     if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
@@ -344,6 +344,7 @@ public class newFarmLoader {
                 int doorX = Integer.parseInt(properties.get("doorX", String.class));
                 int doorY = Integer.parseInt(properties.get("doorY", String.class));
                 Home home = new Home(pos, false, "PlayerHome", new Position((float) doorX / 16, (float) doorY / 16), objWidth, objHeight);
+//                System.out.println(home.getBuildingType().getAssetName());
                 return home;
             }
             case "mailbox" -> {
@@ -485,6 +486,13 @@ public class newFarmLoader {
             }
             case "vanityfence11right" -> {
                 return new EtcObject(false, pos, EtcObjectType.FENCE11RIGHT);
+            }
+            case "tree" ->{
+                int randomTreeType = (int) (Math.random() * (TreeType.values().length - 8)) + 5;
+                TreeType treeType = TreeType.values()[randomTreeType];
+                Tree tree = new Tree(treeType, pos);
+                tree.setCurrentStage(4);
+                return tree;
             }
 
             default -> {

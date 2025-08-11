@@ -1,9 +1,14 @@
 package io.src.model.items;
 
 
+import com.badlogic.gdx.math.Interpolation;
+import io.src.StardewValley;
 import io.src.model.Enums.BackPackType;
 import io.src.model.Slot;
+import io.src.view.GameMenus.GameView;
+import io.src.view.GameMenus.InventoryBar;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -30,45 +35,55 @@ public class Inventory {
         this.capacity = capacity;
     }
 
-    public void add(Item item, int quantity) {
+    public boolean add(Item item, int quantity) {
+        if (item == null || quantity <= 0) return false;
+
         for (Slot slot : slots) {
-            if (quantity <= 0) {
-                break;
-            }
-            if (item.getName().equalsIgnoreCase(slot.getItem().getName())) {
-                if (quantity <= item.maxStackSize - slot.getQuantity()) {
-                    slot.setQuantity(quantity + slot.getQuantity());
-                    quantity = 0;
-                } else {
-                    quantity -= item.maxStackSize - slot.getQuantity();
-                    slot.setQuantity(item.maxStackSize);
+            if (quantity <= 0) break;
+
+            Item slotItem = slot.getItem();
+            if (slotItem != null && item.getName().equalsIgnoreCase(slotItem.getName())) {
+                int space = item.maxStackSize - slot.getQuantity();
+                if (space > 0) {
+                    int toAdd = Math.min(space, quantity);
+                    slot.setQuantity(slot.getQuantity() + toAdd);
+                    quantity -= toAdd;
                 }
             }
         }
-        while (slots.size() < capacity) {
-            if (quantity <= 0)
-                break;
+        for (Slot slot : slots) {
+            if (quantity <= 0) break;
 
-            if (quantity <= item.maxStackSize) {
-                slots.add(new Slot(item, quantity));
-                quantity = 0;
-            } else {
-                slots.add(new Slot(item, item.maxStackSize));
-                quantity -= item.maxStackSize;
+            if (slot.getItem() == null || slot.getQuantity() == 0) {
+                int toAdd = Math.min(item.maxStackSize, quantity);
+                slot.setItem(item);
+                slot.setQuantity(toAdd);
+                quantity -= toAdd;
             }
         }
 
-        slots.removeIf(slot -> slot.getQuantity() == 0);
+        while (slots.size() < capacity && quantity > 0) {
+            int toAdd = Math.min(item.maxStackSize, quantity);
+            slots.add(new Slot(item, toAdd));
+            quantity -= toAdd;
+        }
+        slots.removeIf(slot -> slot.getItem() == null || slot.getQuantity() == 0);
 
+        refreshAllUI();
+        return quantity == 0;
     }
 
+
     public void remove(Item item, int quantity) {
+        if (item == null || quantity <= 0) return;
+
         int remaining = quantity;
 
-        Iterator<Slot> it = slots.iterator();
-        while (it.hasNext() && remaining > 0) {
-            Slot slot = it.next();
-            if (item.equals(slot.getItem())) {
+        for (int i = 0; i < slots.size() && remaining > 0; i++) {
+            Slot slot = slots.get(i);
+            Item slotItem = slot.getItem();
+
+            if (slotItem != null && item.equals(slotItem)) {
                 int slotQty = slot.getQuantity();
 
                 if (slotQty > remaining) {
@@ -76,17 +91,39 @@ public class Inventory {
                     remaining = 0;
                 } else {
                     remaining -= slotQty;
-                    it.remove();
+                    slot.setItem(null);
+                    slot.setQuantity(0);
                 }
             }
         }
+        slots.removeIf(slot -> slot.getItem() == null || slot.getQuantity() == 0);
+
+        refreshAllUI();
+    }
+
+    private void refreshAllUI() {
+        if (StardewValley.getGameView().getInventoryBar() != null)
+            StardewValley.getGameView().getInventoryBar().refreshInventory();
+        if (StardewValley.getGameView().getInvWindow() != null)
+            StardewValley.getGameView().getInvWindow().refreshInventory();
+        if (StardewValley.getGameView().foodWindow() != null)
+            StardewValley.getGameView().foodWindow().refreshInventory();
+        if (StardewValley.getGameView().getCraftingWindow() != null)
+            StardewValley.getGameView().getCraftingWindow().refreshInventory();
     }
 
 
     public int countItem(Item item) {
         int sum = 0;
         for (Slot slot : slots) {
-            if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
+            if (slot == null || slot.getItem() == null) continue;
+            if (slot.getItem() instanceof Tool tool1 && item instanceof Tool tool2) {
+                if (tool1.getName().equalsIgnoreCase(tool2.getName())
+                    && tool1.getToolType().getToolMaterial().getName().equalsIgnoreCase(tool2.getToolType().getToolMaterial().getName())
+                ) {
+                    sum += slot.getQuantity();
+                }
+            } else if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 sum += slot.getQuantity();
             }
         }
@@ -111,6 +148,10 @@ public class Inventory {
         int max = 0;
         max += (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
         for (Slot slot : slots) {// for semi full slots of same item
+            if (slot == null || slot.getItem() == null) {
+                max += item.maxStackSize;
+                continue;
+            }
             if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 max += item.maxStackSize - slot.getQuantity();
             }

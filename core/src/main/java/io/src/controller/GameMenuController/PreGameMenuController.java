@@ -7,6 +7,7 @@ import io.src.model.Activities.Friendship;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Recepies.FoodRecipesList;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.GameMap;
@@ -41,6 +42,7 @@ public class PreGameMenuController extends CommandController {
         newGame.setTimeSystem(timeSystem);// 1/4 set
 
         Player player = new Player(App.getCurrentUser());
+        newGame.setPlayers(new ArrayList<>(List.of(player)));
         player.setName(playerName);
         player.setFarmPosition(farmPosition1);
 
@@ -66,7 +68,6 @@ public class PreGameMenuController extends CommandController {
 
         App.getCurrentUser().setGameId(newGame.getGameId());
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
-        GivePlayersInitialItem(newGame);
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
 
@@ -80,6 +81,13 @@ public class PreGameMenuController extends CommandController {
         App.setStardewValley(StardewValley.getStardewValley());
         StardewValley.setGameView(gameView);
         App.getStardewValley().setScreen(gameView);
+        GivePlayersInitialItem(newGame);
+
+
+        for (NPC npc : town.getNPCs()) {
+            npc.initializePaths(town);
+        }
+
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
@@ -299,6 +307,10 @@ public class PreGameMenuController extends CommandController {
             user.setNumOfGames(user.getNumOfGames() + 1);
         }
 
+        for (NPC npc : town.getNPCs()) {
+            npc.initializePaths(town);
+        }
+
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
 
@@ -310,11 +322,13 @@ public class PreGameMenuController extends CommandController {
             player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC), 1);
             player.getInventory().add(new Tool(ToolType.HOE_WOODEN), 1);
             player.getInventory().add(new Tool(ToolType.CAN_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.POLE_TRAINING), 1);
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
             player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
             player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
             player.addFoodRecipes(FoodRecipesList.SALAD);
+            player.setCurrentItem(player.getInventory().findItemByName(ToolType.AXE_WOODEN.getName()));
         }
     }
 

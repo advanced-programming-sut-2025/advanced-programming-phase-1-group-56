@@ -70,7 +70,7 @@ public enum TreeType implements Saleable, initialPlant {
         };
     }
 
-    public String getAssetNameByStageAndSeason(int stage) {
+    public String getAssetNameByStageAndSeason(int stage , boolean isHarvest) {
         stage++;
         Seasons s = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
         if (this == TreeType.TREE_BARK) {
@@ -78,8 +78,13 @@ public enum TreeType implements Saleable, initialPlant {
         }
         if (stage < 0 || stage > 5) {
             return null;
-        } else if (stage == 5)
+        } else if (stage == 5){
+            if (isHarvest){
+                return getAssetName() + "_Stage_5_Fruit";
+            }
             return getAssetName() + "_Stage_5_0" + (s.ordinal()+1);
+
+        }
         else
             return getAssetName() + "_Stage_" + stage;
     }

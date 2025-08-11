@@ -8,6 +8,7 @@ import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
+
 import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 
@@ -23,8 +24,9 @@ public class TheSaloonStardrop extends Store {
         setClosingHour(24);
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\The_Stardrop_Saloon_Indoor");
         setIndoor(indoor);
-        setInitialPosition(new Position(14 ,3));
-        NPCposition = new Position(9,7);
+        setInitialPosition(new Position(14, 3));
+        NPCposition = new Position(9, 7);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -35,7 +37,12 @@ public class TheSaloonStardrop extends Store {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
+            dailyProductList.clear();
             dailyProductList = StardropSaloonProducts.getProducts(StardropSaloonProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("saloon has been renewed");
         }
     }
 

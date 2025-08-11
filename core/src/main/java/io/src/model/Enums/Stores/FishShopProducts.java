@@ -35,7 +35,7 @@ public enum FishShopProducts implements Store{
     ),
     BAMBOO_POLE(
             new NpcProduct(
-                    "BAMBOO_POLE",
+                    "Bamboo Rod",
                     new Tool(ToolType.POLE_BAMBOO),
                     "Use in the water to catch fish.",
                     500,
@@ -46,7 +46,7 @@ public enum FishShopProducts implements Store{
     ),
     TRAINING_ROD(
             new NpcProduct(
-                    "TRAINING_ROD",
+                    "Training Rod",
                     new Tool(ToolType.POLE_TRAINING),
                     "It's a lot easier to use than other rods, but catches lower-quality fish.",
                     25,
@@ -57,7 +57,7 @@ public enum FishShopProducts implements Store{
     ),
     FIBERGLASS_ROD(
             new NpcProduct(
-                    "FIBERGLASS_ROD",
+                    "Fiberglass Rod",
                     new Tool(ToolType.POLE_FIBERGLASS),
                     "Use in the water to catch fish.",
                     1800,
@@ -68,7 +68,7 @@ public enum FishShopProducts implements Store{
     ),
     IRIDIUM_ROD(
             new NpcProduct(
-                    "IRIDIUM_ROD",
+                    "Iridium Rod",
                     new Tool(ToolType.POLE_IRIDIUM),
                     "Use in the water to catch fish.",
                     7500,
