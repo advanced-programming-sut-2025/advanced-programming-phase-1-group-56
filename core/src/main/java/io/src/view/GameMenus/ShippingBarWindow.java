@@ -226,8 +226,8 @@ public class ShippingBarWindow extends Group implements InputProcessor {
                 System.out.println("drag started");
                 Slot slot = inventory.getSlots().get(index);
                 Item item = slot.getItem();
-                String assetName = item.getAssetName();
                 if (item == null) return null;
+                String assetName = item.getAssetName();
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(index);
                 Texture itemTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
