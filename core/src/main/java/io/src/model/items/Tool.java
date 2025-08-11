@@ -48,9 +48,14 @@ public class Tool extends Item {
 //                        default -> player.getInventory().add(new Fruit((FruitType) t.fruit), 1);
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
-                        App.getMe().getInventory().add(new Seed((t.source) ), 1);
-                        if (Math.random() > 0.5) {
-                            App.getMe().getInventory().add(new Seed((t.source)), 1);
+                        if (t.source != null) { // جلوگیری از NPE
+                            System.out.println(t.toString());
+                            App.getMe().getInventory().add(new Seed(t.source), 1);
+                            if (Math.random() > 0.5) {
+                                App.getMe().getInventory().add(new Seed(t.source), 1);
+                            }
+                        } else {
+                            System.out.println("No seed source for tree type: " + t);
                         }
                     }
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());

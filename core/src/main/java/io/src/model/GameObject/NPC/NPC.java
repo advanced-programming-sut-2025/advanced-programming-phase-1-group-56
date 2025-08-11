@@ -86,6 +86,7 @@ public class NPC extends LivingEntity implements TimeObserver {
         Vector2 targetPos = new Vector2(((Tile)nextTile).getPosition().getX() * TILE_SIZE,
             ((Tile)nextTile).getPosition().getY() * TILE_SIZE);
         Vector2 currentPos = getPixelPosition();  // مختصات پیکسل NPC
+        town.getTileByPosition(currentPos.x/TILE_SIZE , currentPos.y/TILE_SIZE).setFixedObject(null);
 
         // بردار حرکت و تنظیم جهت
         Vector2 direction = targetPos.cpy().sub(currentPos).nor();
@@ -98,6 +99,7 @@ public class NPC extends LivingEntity implements TimeObserver {
 
         // جابجایی پیکسلی
         setPixelPosition(currentPos.add(getVelocity().cpy().scl(delta)));
+        town.getTileByPosition(getPixelPosition().x/TILE_SIZE , getPixelPosition().y/TILE_SIZE).setFixedObject(this);
 
         // رسیدن به مرکز تایل
         if (currentPos.dst(targetPos) < getSpeed() * delta) {

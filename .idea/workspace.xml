@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="merge inventory and tools">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Animals/FishBehavior.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/BobberActor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/FishingMinigame.java" afterDir="false" />
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="add fishing miniGame">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FishingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FishingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/TreeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/TreeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NPC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/Tree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryBar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +154,7 @@
       <workItem from="1754473153943" duration="21305000" />
       <workItem from="1754560832681" duration="13019000" />
       <workItem from="1754608377459" duration="22193000" />
-      <workItem from="1754728646303" duration="44604000" />
+      <workItem from="1754728646303" duration="60331000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -247,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754762879146</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add fishing miniGame">
+      <option name="closed" value="true" />
+      <created>1754861232071</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754861232071</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +270,8 @@
     <MESSAGE value="use tools" />
     <MESSAGE value="git ignore updated" />
     <MESSAGE value="merge inventory and tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge inventory and tools" />
+    <MESSAGE value="add fishing miniGame" />
+    <option name="LAST_COMMIT_MESSAGE" value="add fishing miniGame" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

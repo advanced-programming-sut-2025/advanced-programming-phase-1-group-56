@@ -199,6 +199,6 @@ public class Tree extends GameObject implements TimeObserver {
 
     @Override
     public String getAssetName() {
-        return treeType.getAssetNameByStageAndSeason(currentStage);
+        return treeType.getAssetNameByStageAndSeason(currentStage , isHarvest);
     }
 }

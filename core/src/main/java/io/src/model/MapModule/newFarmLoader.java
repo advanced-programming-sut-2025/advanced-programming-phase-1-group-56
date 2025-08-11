@@ -149,6 +149,7 @@ public class newFarmLoader {
 //                                System.out.println(i);
 //                                System.out.println(j);
 //                            tiles[i][j].setFixedObject(gameObject);
+                            if (i == tileY && j == tileX) continue;
                             tiles[i][j].setWalkable(gameObject.isWalkable());
 
                         }
@@ -260,7 +261,7 @@ public class newFarmLoader {
             }
         }
 
-        if (location instanceof Farm) {
+        if (location instanceof Farm && tmxPath.contains("Farm2")) {
             for (int i = 8; i < height - 8; i++) {
                 for (int j = 8; j < width - 8; j++) {
                     if (tiles[i][j] != null && tiles[i][j].isWalkable() && tiles[i][j].getFixedObject() == null && tiles[i][j].getTileType() == TileType.Soil) {
@@ -486,6 +487,13 @@ public class newFarmLoader {
             }
             case "vanityfence11right" -> {
                 return new EtcObject(false, pos, EtcObjectType.FENCE11RIGHT);
+            }
+            case "tree" ->{
+                int randomTreeType = (int) (Math.random() * (TreeType.values().length - 8)) + 5;
+                TreeType treeType = TreeType.values()[randomTreeType];
+                Tree tree = new Tree(treeType, pos);
+                tree.setCurrentStage(4);
+                return tree;
             }
 
             default -> {

@@ -556,7 +556,7 @@ public class GameView implements Screen {
                 worldX -= 24;
             }
 
-            if(go instanceof ArtesianMachine || go instanceof EtcObject){
+            if(go instanceof ArtesianMachine){
                 worldX-=25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
