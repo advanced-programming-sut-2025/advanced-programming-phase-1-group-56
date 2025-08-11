@@ -160,8 +160,8 @@ public class ProfileMenu extends Window implements AppMenu {
 
         add(buttonTable).width(profileWin.getWidth())
             .padLeft(Gdx.graphics.getWidth() / 2f - profileWin.getWidth() / 2f).row();
-
-        add(warningLabel).width(warningLabel.getWidth());
+        debug();
+        add(warningLabel).width(warningLabel.getWidth()).row();
 
         pack();
 
@@ -238,6 +238,7 @@ public class ProfileMenu extends Window implements AppMenu {
         avatar.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
+//                System.out.println("avatar should start");
                 AvatarMenu avatarMenu = new AvatarMenu(skin, new AvatarMenu.AvatarSelectionListener() {
                     @Override
                     public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar, int AvatarIndex, int AvatarStyleIndex) {
@@ -334,8 +335,7 @@ public class ProfileMenu extends Window implements AppMenu {
 
         warningLabel = new Label(" " + message, SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN),
             "default-GREEN_warning");
-        warningLabel.setPosition(this.getWidth() / 2 - warningLabel.getWidth() / 2, 50);
-        add(warningLabel);
+        add(warningLabel).width(Gdx.graphics.getWidth() / 2f - warningLabel.getWidth() / 2f);
     }
 
     private void editingMode(boolean state) {

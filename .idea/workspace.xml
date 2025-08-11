@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Merged with mehdi And Debug Some Shits">
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonBottom_DOWN.9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonBottom_DOWN.9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonBottom_UP.9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/inventoryButtonBottom_UP.9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/users.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/MainMenuUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/MainMenuUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/test/ProfileMenuUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/test/ProfileMenuUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/ProfileMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/ProfileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/ProfileMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -288,7 +273,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754920293874</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
+      <option name="closed" value="true" />
+      <created>1754950454967</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1754950454967</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,6 +313,7 @@
     <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
     <MESSAGE value="Merged with mehdi" />
     <MESSAGE value="Merged with mehdi And Debug Some Shits" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged with mehdi And Debug Some Shits" />
+    <MESSAGE value="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)" />
+    <option name="LAST_COMMIT_MESSAGE" value="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)" />
   </component>
 </project>

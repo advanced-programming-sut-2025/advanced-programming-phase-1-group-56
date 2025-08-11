@@ -45,7 +45,6 @@ public class AvatarMenu extends Window {
     public AvatarMenu(Skin skin, AvatarSelectionListener listener) {
         super("", skin);
         align(Align.left | Align.top);
-        System.out.println(App.getCurrentUser().getAvatarIndex() + ": " + App.getCurrentUser().getAvatarStyleIndex());
         avatars = new ArrayList<>();
         avatarIndex = App.getCurrentUser().getAvatarIndex();
         directs = new ArrayList<>(Arrays.asList("front", "right", "back", "left"));
@@ -132,7 +131,6 @@ public class AvatarMenu extends Window {
         add(okButton).bottom().padRight(10).padBottom(15);
 
         pack();
-
         // Set size of window
         pack();
         setPosition(
