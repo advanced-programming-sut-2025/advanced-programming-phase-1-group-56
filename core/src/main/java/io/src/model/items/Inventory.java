@@ -2,6 +2,7 @@ package io.src.model.items;
 
 
 import com.badlogic.gdx.math.Interpolation;
+import io.src.StardewValley;
 import io.src.model.Enums.BackPackType;
 import io.src.model.Slot;
 import io.src.view.GameMenus.GameView;
@@ -101,10 +102,10 @@ public class Inventory {
     }
 
     private void refreshAllUI() {
-        if (GameView.getInventoryBar() != null) GameView.getInventoryBar().refreshInventory();
-        if (GameView.getInvWindow() != null) GameView.getInvWindow().refreshInventory();
-        if (GameView.foodWindow() != null) GameView.foodWindow().refreshInventory();
-        if (GameView.getCraftingWindow() != null) GameView.getCraftingWindow().refreshInventory();
+        if (StardewValley.getGameView().getInventoryBar() != null) StardewValley.getGameView().getInventoryBar().refreshInventory();
+        if (StardewValley.getGameView().getInvWindow() != null) StardewValley.getGameView().getInvWindow().refreshInventory();
+        if (StardewValley.getGameView().foodWindow() != null) StardewValley.getGameView().foodWindow().refreshInventory();
+        if (StardewValley.getGameView().getCraftingWindow() != null) StardewValley.getGameView().getCraftingWindow().refreshInventory();
     }
 
 

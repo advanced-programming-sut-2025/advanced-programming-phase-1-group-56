@@ -42,6 +42,7 @@ public class PreGameMenuController extends CommandController {
         newGame.setTimeSystem(timeSystem);// 1/4 set
 
         Player player = new Player(App.getCurrentUser());
+        newGame.setPlayers(new ArrayList<>(List.of(player)));
         player.setName(playerName);
         player.setFarmPosition(farmPosition1);
 
@@ -67,7 +68,6 @@ public class PreGameMenuController extends CommandController {
 
         App.getCurrentUser().setGameId(newGame.getGameId());
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
-        GivePlayersInitialItem(newGame);
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
 
@@ -81,6 +81,8 @@ public class PreGameMenuController extends CommandController {
         App.setStardewValley(StardewValley.getStardewValley());
         StardewValley.setGameView(gameView);
         App.getStardewValley().setScreen(gameView);
+        GivePlayersInitialItem(newGame);
+
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
@@ -278,7 +280,6 @@ public class PreGameMenuController extends CommandController {
         newGame.setGameMap(map);// 4/4
 
 
-
         //FriendShips
         for (Player player1 : playersToPlay) {
             for (Player player2 : playersToPlay) {
@@ -311,11 +312,11 @@ public class PreGameMenuController extends CommandController {
     private static void GivePlayersInitialItem(Game newGame) {
         for (Player player : newGame.getPlayers()) {
             App.getCurrentUser().getCurrentGame().setCurrentPlayer(player);
-            player.getInventory().add(new Tool(ToolType.AXE_WOODEN),1);
-            player.getInventory().add(new Tool(ToolType.PICK_WOODEN),1);
-            player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC),1);
-            player.getInventory().add(new Tool(ToolType.HOE_WOODEN),1);
-            player.getInventory().add(new Tool(ToolType.CAN_WOODEN),1);
+            player.getInventory().add(new Tool(ToolType.AXE_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.PICK_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC), 1);
+            player.getInventory().add(new Tool(ToolType.HOE_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.CAN_WOODEN), 1);
             player.getInventory().add(new Tool(ToolType.POLE_TRAINING), 1);
             player.addGold(100);
             player.setDefaultHome(player.getPlayerFarm().getDefaultHome());

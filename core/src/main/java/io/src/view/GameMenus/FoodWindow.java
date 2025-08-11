@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
 import io.src.controller.GameMenuController.InventoryController;
@@ -358,10 +359,10 @@ public class FoodWindow extends Group implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.F) {
-            if(GameView.foodWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+            if(StardewValley.getGameView().foodWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
             }
-            GameView.foodWindow().setVisible(!GameView.foodWindow().isVisible());
+            StardewValley.getGameView().foodWindow().setVisible(!StardewValley.getGameView().foodWindow().isVisible());
         }
         return false;
     }

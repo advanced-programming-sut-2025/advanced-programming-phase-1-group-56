@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.ArtisanController;
 import io.src.controller.GameMenuController.CraftingController;
 import io.src.controller.GameMenuController.InventoryController;
@@ -368,10 +369,10 @@ public class craftingWindow extends Group implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.B) {
-            if(GameView.getCraftingWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+            if(StardewValley.getGameView().getCraftingWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
             }
-            GameView.getCraftingWindow().setVisible(!GameView.getCraftingWindow().isVisible());
+            StardewValley.getGameView().getCraftingWindow().setVisible(!StardewValley.getGameView().getCraftingWindow().isVisible());
         }
         return false;
     }

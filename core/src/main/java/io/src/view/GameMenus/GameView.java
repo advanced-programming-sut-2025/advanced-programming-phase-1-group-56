@@ -64,14 +64,13 @@ import java.util.List;
 
 
 public class GameView implements Screen, TimeObserver {
-    private static final int TILE_SIZE = 16;
+    public static final int TILE_SIZE = 16;
 
     private final Game game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private BitmapFont smallFont;
     private GlyphLayout layout = new GlyphLayout();
-
     private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     private TextureAtlas playerAtlas;
     private final ArrayList<Animation<TextureRegion>> playerAnimations = new ArrayList<>();
@@ -82,16 +81,12 @@ public class GameView implements Screen, TimeObserver {
 
     private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private float stateTime = 0f;
-    public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
 
     private Texture pixel; // Add this
     private int moveDirection = 0;
     private Stage stage;
-    public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
-    private final OrthographicCamera camera = new OrthographicCamera();
-    private static Stage stage;
     private TimerWindow timeWindow;
-    private static InventoryWindow invWindow;
+    private InventoryWindow invWindow;
     private DialogWindow dialogWindow;
     private WarningWindow warningWindow;
     private EnergyBar energyWindow;
@@ -99,27 +94,24 @@ public class GameView implements Screen, TimeObserver {
     private ShopStateWindow shopStateWindow;
 
     private InputMultiplexer multiplexer = new InputMultiplexer();
-    private static GameMenuInputAdapter gameMenuInputAdapter;
+    private GameMenuInputAdapter gameMenuInputAdapter;
     private final ArrayList<ToolSwing> activeToolSwings = new ArrayList<>();
-    private static craftingWindow craftingWindow;
-    private static InventoryBar inventoryBar;
-    private static Label itemLabel;
-    private static FoodWindow foodWindow;
-    private static RefrigeratorWindow refrigeratorWindow;
+    private craftingWindow craftingWindow;
+    private InventoryBar inventoryBar;
+    private Label itemLabel;
+    private FoodWindow foodWindow;
+    private RefrigeratorWindow refrigeratorWindow;
     private Image foodBuff;
     private FishingMinigame activeFishingMinigame = null;
 
 
-
     public void updateMapWithFade(Runnable afterFadeOut) {
-        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
         transitionManager.start(() -> {
             gameMenuInputAdapter.setStopMoving(true);
             afterFadeOut.run(); // تغییرات position و location
             updateMap();
             gameMenuInputAdapter.setStopMoving(false);
         });
-        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
     }
 
     public void updateMap() {
@@ -143,7 +135,6 @@ public class GameView implements Screen, TimeObserver {
         this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
         renderer = new OrthogonalTiledMapRenderer(map, 1f);
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
 
 
         stage = new Stage(new ScreenViewport());
@@ -196,6 +187,8 @@ public class GameView implements Screen, TimeObserver {
         shapeRenderer = new ShapeRenderer();
 
         setCustomCursor("assets/Cursor.png", 0, 0);
+
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
 
     }
 
@@ -333,7 +326,7 @@ public class GameView implements Screen, TimeObserver {
         float cameraX, cameraY;
 
         // X محور
-        if (mapWidthPixels <= screenWidth*0.3) {
+        if (mapWidthPixels <= screenWidth * 0.3) {
             // اگر نقشه از صفحه کوچکتر بود، دوربین را وسط نقشه قرار بده
             cameraX = mapWidthPixels / 2f;
         } else {
@@ -360,7 +353,7 @@ public class GameView implements Screen, TimeObserver {
         }
 
         // Y محور
-        if (mapHeightPixels <= screenHeight*0.3) {
+        if (mapHeightPixels <= screenHeight * 0.3) {
             cameraY = mapHeightPixels / 2f;
         } else {
             float y = game.getCurrentPlayer().getPixelPosition().getY();
@@ -378,12 +371,12 @@ public class GameView implements Screen, TimeObserver {
         camera.update();
     }
 
-    public void spawnToolSwing(Tool tool, Direction dir , Runnable onComplete) {
+    public void spawnToolSwing(Tool tool, Direction dir, Runnable onComplete) {
         if (tool == null) return;
 
         String toolName = tool.getName();
         String toolMaterial = tool.getToolType().getToolMaterial().toString();
-        String toolId = toolName+toolMaterial;
+        String toolId = toolName + toolMaterial;
 
         Animation<TextureRegion> baseAnim = animationManager.get(toolId, AnimationKey.valueOf(toolName.toUpperCase() + "_SWING_" + dir.toString()));
         if (baseAnim == null) {
@@ -406,7 +399,7 @@ public class GameView implements Screen, TimeObserver {
                     new Vector2(12, 10)
                 );
             }
-            case UP    -> {
+            case UP -> {
                 baseAngles = new float[]{0};
                 offsets = List.of(
                     new Vector2(8, 24),
@@ -414,7 +407,7 @@ public class GameView implements Screen, TimeObserver {
                     new Vector2(0, 12)
                 );
             }
-            case LEFT  -> {
+            case LEFT -> {
                 baseAngles = new float[]{-10, 50, 100};
                 offsets = List.of(
                     new Vector2(8, 24),
@@ -422,7 +415,7 @@ public class GameView implements Screen, TimeObserver {
                     new Vector2(3, 10)
                 );
             }
-            case DOWN  -> {
+            case DOWN -> {
                 baseAngles = new float[]{0, 0};
                 offsets = List.of(
                     new Vector2(0, 20),
@@ -430,7 +423,7 @@ public class GameView implements Screen, TimeObserver {
                     new Vector2(0, 16)
                 );
             }
-            default    -> {
+            default -> {
                 baseAngles = new float[3];
                 offsets = List.of();
             }
@@ -453,25 +446,25 @@ public class GameView implements Screen, TimeObserver {
     }
 
     public void startFishing(FishBehavior behavior) {
-        if (activeFishingMinigame != null) return; // یکی فعاله، بس کن
+        if (activeFishingMinigame != null) return;
         Player player = App.getMe();
         Fish fish = FishingController.catchFish(player.getLastDirection());
-        if (fish == null){
+        if (fish == null) {
             gameMenuInputAdapter.setStopMoving(false);
             System.out.println("use fishingPole in the water");
         } else {
             activeFishingMinigame = new FishingMinigame(stage, player, behavior,
                 () -> {
                     // onSuccess
-                    FishingController.Fishing(fish , true); // یا تابع خودت
-                    Gdx.input.setInputProcessor(new InputMultiplexer(GameView.getStage() , gameMenuInputAdapter));
+                    FishingController.Fishing(fish, true); // یا تابع خودت
+                    Gdx.input.setInputProcessor(new InputMultiplexer(StardewValley.getGameView().getStage(), gameMenuInputAdapter));
                     gameMenuInputAdapter.setStopMoving(false);
                     activeFishingMinigame = null;
                 },
                 () -> {
                     // onFail
-                    FishingController.Fishing(fish , false);
-                    Gdx.input.setInputProcessor(new InputMultiplexer(GameView.getStage() , gameMenuInputAdapter));
+                    FishingController.Fishing(fish, false);
+                    Gdx.input.setInputProcessor(new InputMultiplexer(StardewValley.getGameView().getStage(), gameMenuInputAdapter));
                     gameMenuInputAdapter.setStopMoving(false);
                     activeFishingMinigame = null;
                 }
@@ -518,17 +511,15 @@ public class GameView implements Screen, TimeObserver {
         renderer.render();
 
         renderer.getBatch().begin();
-        renderer.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
         //render tile type plowed soil
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : tileLine) {
-                if (tile.getTileType()==TileType.PlowedSoil){
+                if (tile.getTileType() == TileType.PlowedSoil) {
                     Texture texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
                     ));
                     TextureRegion region = new TextureRegion(texture);
-                    renderer.getBatch().draw(region , tile.getPosition().getX() , tile.getPosition().getY());
+                    renderer.getBatch().draw(region, tile.getPosition().getX(), tile.getPosition().getY());
                 }
             }
         }
@@ -611,8 +602,8 @@ public class GameView implements Screen, TimeObserver {
                 worldX -= 24;
             }
 
-            if(go instanceof ArtesianMachine || go instanceof EtcObject){
-                worldX-=25;
+            if (go instanceof ArtesianMachine || go instanceof EtcObject) {
+                worldX -= 25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
                     region.getRegionWidth(), 0,
@@ -631,7 +622,6 @@ public class GameView implements Screen, TimeObserver {
 
         //check for shop hint
         handleShopHint(renderer.getBatch());
-
 
 
 //        //RED HIT BOXES
@@ -771,15 +761,15 @@ public class GameView implements Screen, TimeObserver {
 
     }
 
-    public static FoodWindow foodWindow() {
+    public FoodWindow foodWindow() {
         return foodWindow;
     }
 
-    public static craftingWindow getCraftingWindow() {
+    public craftingWindow getCraftingWindow() {
         return craftingWindow;
     }
 
-    public static InventoryWindow getInvWindow() {
+    public InventoryWindow getInvWindow() {
         return invWindow;
     }
 
@@ -817,29 +807,26 @@ public class GameView implements Screen, TimeObserver {
         return this.timeWindow;
     }
 
+
+    public FoodWindow getFoodWindow() {
+        return foodWindow;
+    }
+
+    public RefrigeratorWindow getRefrigeratorWindow() {
+        return refrigeratorWindow;
+    }
+
+    public InventoryBar getInventoryBar() {
+        return inventoryBar;
+    }
+
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
             updateMapWithFade(() -> {
                 App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
-                App.getMe().setPosition(new Position(8,3));
+                App.getMe().setPosition(new Position(8, 3));
             });
         }
     }
-    public static Stage getStage() {
-        return stage;
-    }
-
-    public static GameMenuInputAdapter getGameMenuInputAdapter() {
-        return gameMenuInputAdapter;
-    }
-
-    public static InventoryBar getInventoryBar() {
-        return inventoryBar;
-    }
-
-    public static RefrigeratorWindow getRefrigeratorWindow() {
-        return refrigeratorWindow;
-    }
-
 }

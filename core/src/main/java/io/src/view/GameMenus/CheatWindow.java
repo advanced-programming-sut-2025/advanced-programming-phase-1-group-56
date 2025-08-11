@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Result;
 
@@ -38,6 +39,7 @@ public class CheatWindow extends Window {
             if (c == '\r' || c == '\n') {
                 String command = cheatInputField.getText();
                 executeCheat(command);
+                hideDialog(getStage());
             }
         });
 
@@ -64,9 +66,8 @@ public class CheatWindow extends Window {
         getStage().unfocus(cheatInputField);
         setVisible(false);
 
-
         //RESULT
-        WarningWindow resultWindow = App.getStardewValley().getGameView().getWarningWindow();
+        WarningWindow resultWindow = StardewValley.getGameView().getWarningWindow();
         resultWindow.setVisible(true);
         resultWindow.showDialog("Cheat Result:" + ((result.isSuccess()) ? "Success" : "Failure"),
             result.message(), 400);
@@ -75,16 +76,19 @@ public class CheatWindow extends Window {
 
     public void showWithFocus(Stage stage) {
         Gdx.app.postRunnable(() -> {
+            StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
             this.setVisible(true);
             cheatInputField.setDisabled(false);
             stage.setKeyboardFocus(cheatInputField);
             cheatInputField.setText("");
         });
+
     }
 
     public void hideDialog(Stage stage) {
-        this.setVisible(false);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
         stage.unfocus(cheatInputField);
+        this.setVisible(false);
     }
 
     public Actor getTextField() {

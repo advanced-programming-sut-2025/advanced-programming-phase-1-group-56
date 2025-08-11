@@ -64,6 +64,11 @@ public class WarningWindow extends Window {
         addAction(fadeIn(0.5f));
     }
 
+    public void kill(){
+        remainingTime=0;
+        hideDialog();
+    }
+
     public void hideDialog() {
         addAction(sequence(
             fadeOut(2f),

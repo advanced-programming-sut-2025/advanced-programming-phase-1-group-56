@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.*;
 import io.src.model.Enums.Items.ToolType;
@@ -446,11 +447,10 @@ public class InventoryWindow extends Group implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.E) {
-            if(GameView.getInvWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
-
+            if(StardewValley.getGameView().getInvWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
             }
-            GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
+            StardewValley.getGameView().getInvWindow().setVisible(!StardewValley.getGameView().getInvWindow().isVisible());
         }
         return false;
     }
@@ -493,6 +493,17 @@ public class InventoryWindow extends Group implements InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+
+    public void ShowDialogWithFocus(){
+        Gdx.app.postRunnable(() -> {
+            this.setVisible(true);
+            Gdx.input.setInputProcessor(getStage());
+            getStage().setKeyboardFocus(this);
+            getStage().setScrollFocus(this);
+        });
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }
 }
 

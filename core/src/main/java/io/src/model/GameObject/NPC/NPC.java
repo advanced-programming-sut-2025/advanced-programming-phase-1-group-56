@@ -28,9 +28,9 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
     private int pathListIndex = 0;               // ایندکس مسیر فعلی
     private List<Node> currentPath;              // مسیر کنونی نودها
     private int pathIndex = 0;                   // ایندکس در مسیر کنونی
-    private final float pauseDuration = 1f;      // مدت مکث روی هر نقطه
-    private float pauseTimer = 0f;               // تایمر مکث
-    private boolean isPaused = true;             // شروع در حالت مکث تا آماده‌سازی مسیر
+    private final float pauseDuration = 1f;
+    private float pauseTimer = 0f;
+    private boolean isPaused = true;
     private Town town;
 
     public NPC(Position position, NpcType type) {
@@ -63,6 +63,7 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
         pauseTimer = 0;
         // انتخاب مسیر بعدی
         currentPath = precomputedPaths.get(pathListIndex);
+
         pathListIndex = (pathListIndex + 1) % precomputedPaths.size();
         pathIndex = 0;
     }
@@ -84,8 +85,8 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 
         // حرکت روان بر اساس currentPath
         Node nextTile = currentPath.get(pathIndex);
-        Vector2 targetPos = new Vector2(((Tile)nextTile).getPosition().getX() * TILE_SIZE,
-            ((Tile)nextTile).getPosition().getY() * TILE_SIZE);
+        Vector2 targetPos = new Vector2(((Tile) nextTile).getPosition().getX() * TILE_SIZE,
+            ((Tile) nextTile).getPosition().getY() * TILE_SIZE);
         Vector2 currentPos = getPixelPosition();  // مختصات پیکسل NPC
 
         // بردار حرکت و تنظیم جهت
@@ -108,11 +109,13 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 
     // متد کمک‌کننده برای دریافت/تنظیم PixelPosition
     private Vector2 pixelPosition;
+
     public Vector2 getPixelPosition() {
         if (pixelPosition == null) pixelPosition = new Vector2(getPosition().getX() * TILE_SIZE,
             getPosition().getY() * TILE_SIZE);
         return pixelPosition;
     }
+
     public void setPixelPosition(Vector2 pos) {
         this.pixelPosition = pos;
         // هماهنگ‌سازی مختصات تایل در صورت عبور
@@ -140,7 +143,8 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 //        this.type = type;
 //        path = new LinkedList<>();
 //        pauseDuration = 3;
-////        town = App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown();
+
+    /// /        town = App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown();
 //    }
 //
 //    public void setMovePoint(List<Position> movePoints){
@@ -221,15 +225,16 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 //        } else {
 //            setMovingDirection(direction.y > 0 ? Direction.UP : Direction.DOWN);
 //        }
-////        if (directionAngle>= -(Math.PI)/2 && directionAngle<(Math.PI)/2){
-////            this.setMovingDirection(Direction.RIGHT);
-////        } else if (directionAngle>= (Math.PI)/2 && directionAngle< 3*(Math.PI)/2) {
-////            this.setMovingDirection(Direction.UP);
-////        } else if (directionAngle>= 3*(Math.PI)/2 || directionAngle< - 3*(Math.PI)/2) {
-////            this.setMovingDirection(Direction.LEFT);
-////        } else {
-////            this.setMovingDirection(Direction.DOWN);
-////        }
+
+    /// /        if (directionAngle>= -(Math.PI)/2 && directionAngle<(Math.PI)/2){
+    /// /            this.setMovingDirection(Direction.RIGHT);
+    /// /        } else if (directionAngle>= (Math.PI)/2 && directionAngle< 3*(Math.PI)/2) {
+    /// /            this.setMovingDirection(Direction.UP);
+    /// /        } else if (directionAngle>= 3*(Math.PI)/2 || directionAngle< - 3*(Math.PI)/2) {
+    /// /            this.setMovingDirection(Direction.LEFT);
+    /// /        } else {
+    /// /            this.setMovingDirection(Direction.DOWN);
+    /// /        }
 //
 //        this.setVelocity(direction.x * this.getSpeed(), direction.y * this.getSpeed());
 //
@@ -245,7 +250,6 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 //            }
 //        }
 //    }
-
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {

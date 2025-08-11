@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.App;
 import io.src.model.GameAssetManager;
@@ -27,10 +28,10 @@ public class RefrigeratorWindow extends Group implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.R) {
-            if(GameView.getRefrigeratorWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+            if(StardewValley.getGameView().getRefrigeratorWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
             }
-            GameView.getRefrigeratorWindow().setVisible(!GameView.getRefrigeratorWindow().isVisible());
+            StardewValley.getGameView().getRefrigeratorWindow().setVisible(!StardewValley.getGameView().getRefrigeratorWindow().isVisible());
         }
         return false;
     }
