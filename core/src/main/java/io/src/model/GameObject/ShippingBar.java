@@ -2,6 +2,7 @@ package io.src.model.GameObject;
 
 import com.badlogic.gdx.Input;
 import com.google.gson.annotations.Expose;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.Buildings.BuildingType;
@@ -66,7 +67,10 @@ public class ShippingBar extends GameObject implements TimeObserver, Clickable, 
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
+        if(button == Input.Buttons.RIGHT) {
+            StardewValley.getGameView().getShippingBarWindow().setVisible(true);
+            StardewValley.getGameView().getShippingBarWindow().refreshInventory();;
+        }
         return false;
     }
 

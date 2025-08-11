@@ -78,6 +78,7 @@ public class GameView implements Screen, TimeObserver {
     private ScreenTransition transitionManager;
     private ShapeRenderer shapeRenderer;
     private final OrthographicCamera camera = new OrthographicCamera();
+    private ShippingBarWindow shippingBarWindow;
 
     private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private float stateTime = 0f;
@@ -176,6 +177,10 @@ public class GameView implements Screen, TimeObserver {
         shopStateWindow = new ShopStateWindow(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
         shopStateWindow.setVisible(false);
         stage.addActor(shopStateWindow);
+        //Shipping
+        shippingBarWindow = new ShippingBarWindow();
+        shippingBarWindow.setVisible(false);
+        stage.addActor(shippingBarWindow);
 
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
 
@@ -834,4 +839,8 @@ public class GameView implements Screen, TimeObserver {
         return multiplexer;
     }
 
+
+    public ShippingBarWindow getShippingBarWindow() {
+        return shippingBarWindow;
+    }
 }
