@@ -23,7 +23,7 @@ public class MainMenuUnitTest {
 
     @Before
     public void setUp() {
-        profileMenu = new ProfileMenu(new ProfileMenuController());
+        profileMenu = new ProfileMenu();
         System.setOut(new PrintStream(outputStream));
         App.setCurrentMenu(Menu.profileMenu);
     }

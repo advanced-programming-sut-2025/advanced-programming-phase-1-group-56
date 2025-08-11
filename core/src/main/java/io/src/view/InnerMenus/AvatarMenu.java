@@ -11,10 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
+import com.google.gson.Gson;
+import io.src.model.App;
 import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAudioManager;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -40,12 +45,12 @@ public class AvatarMenu extends Window {
     public AvatarMenu(Skin skin, AvatarSelectionListener listener) {
         super("", skin);
         align(Align.left | Align.top);
-
+        System.out.println(App.getCurrentUser().getAvatarIndex() + ": " + App.getCurrentUser().getAvatarStyleIndex());
         avatars = new ArrayList<>();
-        avatarIndex = 0;
+        avatarIndex = App.getCurrentUser().getAvatarIndex();
         directs = new ArrayList<>(Arrays.asList("front", "right", "back", "left"));
         directIndex = 0;
-        avatarStyleIndex = 1;
+        avatarStyleIndex = App.getCurrentUser().getAvatarStyleIndex();
 
         File[] avatarsPath = new File("assets/AVATAR/final/").listFiles(File::isDirectory);
         if (avatarsPath != null)
@@ -85,7 +90,7 @@ public class AvatarMenu extends Window {
 
         Table profileTable = new Table();
 
-        avatarProfileTx = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/avatarProfile.png");
+        avatarProfileTx = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "\\avatarProfile.png");
         avatarProfile = new Image(avatarProfileTx);
         Stack profileStack = getStack(skin);
 
@@ -125,6 +130,8 @@ public class AvatarMenu extends Window {
         Button okButton = new Button(skin, "okButton");
         okButton.setDisabled(true);
         add(okButton).bottom().padRight(10).padBottom(15);
+
+        pack();
 
         // Set size of window
         pack();
@@ -168,10 +175,8 @@ public class AvatarMenu extends Window {
         changeStyleButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 int maxStyles = getMaxStylesForAvatar(avatarIndex);
-                System.out.println(maxStyles);
                 avatarStyleIndex++;
                 if (avatarStyleIndex > maxStyles) avatarStyleIndex = 1;
-                System.out.println(avatarIndex + " and " + avatarStyleIndex);
                 updateAvatarTextures();
             }
         });
@@ -192,7 +197,10 @@ public class AvatarMenu extends Window {
                 String name = nameField.getText();
                 String farm = farmNameField.getText();
                 String position = farmPosition.getSelected();
-                listener.onAvatarSelected(name, farm, position, avatars.get(avatarIndex));
+                App.getCurrentUser().setAvatarIndex(avatarIndex);
+                App.getCurrentUser().setAvatarStyleIndex(avatarStyleIndex);
+                App.saveUsers();
+                listener.onAvatarSelected(name, farm, position, avatars.get(avatarIndex), avatarIndex, avatarStyleIndex);
             }
         });
 
@@ -216,10 +224,7 @@ public class AvatarMenu extends Window {
 
     private int getMaxStylesForAvatar(int avatarIndex) {
         File avatarDir = new File("assets\\" + avatars.get(avatarIndex));
-        if (!avatarDir.exists() || !avatarDir.isDirectory()) {
-            System.out.println(avatarDir.getPath());
-            return 1;
-        }
+        if (!avatarDir.exists() || !avatarDir.isDirectory()) return 1;
         int count = 0;
         for (File file : avatarDir.listFiles(File::isDirectory)) {
             try {
@@ -278,7 +283,15 @@ public class AvatarMenu extends Window {
         return avatarStack;
     }
 
+    public int getAvatarIndex() {
+        return avatarIndex;
+    }
+
+    public int getAvatarStyleIndex() {
+        return avatarStyleIndex;
+    }
+
     public interface AvatarSelectionListener {
-        void onAvatarSelected(String name, String farmName, String farmPosition, String avatar);
+        void onAvatarSelected(String name, String farmName, String farmPosition, String avatar, int AvatarIndex, int AvatarStyleIndex);
     }
 }

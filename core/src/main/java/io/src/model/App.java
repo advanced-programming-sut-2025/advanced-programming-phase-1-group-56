@@ -93,6 +93,15 @@ public class App {
 
     public static void saveUsers() {
         Gson gson = new Gson();
+        if (new File("assets\\StayLoggedIn.json").exists()) {
+            try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
+                gson.toJson(App.getCurrentUser(), writer);
+            } catch (IOException e) {
+                System.out.println("Error while writing stayLoggedIn.json");
+            }
+        }
+        users.removeIf(user -> user.getUsername().equals(App.getCurrentUser().getUsername()));
+        users.add(App.getCurrentUser());
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(users, writer);
         } catch (IOException e) {

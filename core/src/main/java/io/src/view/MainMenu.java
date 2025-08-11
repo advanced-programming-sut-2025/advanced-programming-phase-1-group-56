@@ -12,17 +12,11 @@ import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
-import io.src.model.Enums.Stores.JojamartProducts;
 import io.src.model.Enums.commands.MainMenuCommands;
-import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
-import io.src.view.GameMenus.ShopMenus.CommonShopMenu;
-import io.src.view.InnerMenus.AnimalNameMiniMenu;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
-import io.src.view.InnerMenus.BuildingMiniMenu;
-import io.src.view.InnerMenus.ProfileMenu;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -49,6 +43,8 @@ public class MainMenu implements AppMenu, Screen {
     private final Table buttonsTable;
     private final Button back_about_Button;
     private final Window aboutWindow;
+
+    private final ProfileMenu profileMenu;
 
     public MainMenu() {
         // essential
@@ -131,13 +127,17 @@ public class MainMenu implements AppMenu, Screen {
         // Avatar Menu :
         avatarMenu = new AvatarMenu(skin, new AvatarMenu.AvatarSelectionListener() {
             @Override
-            public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar) {
+            public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar, int AvatarIndex, int AvatarStyleIndex) {
                 PreGameMenuController.manageSoloGame(farmName, name, farmPosition, avatar);
-
             }
         });
         avatarMenu.setVisible(false);
         stage.addActor(avatarMenu);
+
+        //profile menu
+        profileMenu = new ProfileMenu(skin);
+        stage.addActor(profileMenu);
+        profileMenu.setVisible(false);
     }
 
     @Override
@@ -173,6 +173,10 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
+    public ProfileMenu getProfileMenu() {
+        return profileMenu;
+    }
+
     public AvatarMenu getAvatarMenu() {
         return avatarMenu;
     }

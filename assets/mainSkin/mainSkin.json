@@ -152,6 +152,12 @@
 		"up": "styleButton_UP",
 		"down": "styleButton_UP",
 		"over": "styleButton_OVER"
+	},
+	"editingButton": {
+		"up": "editingButton_UP",
+		"down": "editingButton_UP",
+		"over": "editingButton_OVER",
+		"disabled": "editingButton_Disable"
 	}
 },
 "CheckBoxStyle": {
@@ -443,6 +449,18 @@
 		"up": "newButton_UP",
 		"down": "newButton_DOWN",
 		"over": "newButton_OVER"
+	},
+	"bottomButton-RED24": {
+		"font": "baseFont2-24",
+		"fontColor": "RED",
+		"up": "inventoryButtonBottom_UP",
+		"down": "inventoryButtonBottom_DOWN"
+	},
+	"bottomButton-GREEN24": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"up": "inventoryButtonBottom_UP",
+		"down": "inventoryButtonBottom_DOWN"
 	}
 },
 "TextFieldStyle": {
@@ -509,6 +527,10 @@
 	},
 	"ProductWindow": {
 		"background": "ProductWindow",
+		"titleFont": "baseFont-90",
+		"titleFontColor": "WHITE"
+	},
+	"noWindow": {
 		"titleFont": "baseFont-90",
 		"titleFontColor": "WHITE"
 	}

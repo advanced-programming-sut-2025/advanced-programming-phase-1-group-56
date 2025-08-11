@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.google.gson.Gson;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
@@ -15,6 +16,9 @@ import io.src.model.Result;
 import io.src.view.MainMenu;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 public class MainMenuController extends CommandController {
     private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";
@@ -32,6 +36,7 @@ public class MainMenuController extends CommandController {
 
     public void init() {
         menu = new MainMenu();
+        menu.getProfileMenu().setController(this);
     }
 
     public void run() {
@@ -44,7 +49,7 @@ public class MainMenuController extends CommandController {
 
         menu.getCoopButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
             }
         });
 
@@ -57,77 +62,78 @@ public class MainMenuController extends CommandController {
 
         menu.getLogoutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                 Result result = manageUserLogout();
-                System.out.println(result.isSuccess());
-                System.out.println(result.getMessage());
                 if (result.isSuccess()) {
                     LoginMenuController controller = new LoginMenuController(game);
-                    System.out.println(1);
                     controller.init();
-                    System.out.println(2);
                     controller.run();
-                    System.out.println(3);
                 }
-                System.out.println(4);
             }
         });
 
         menu.getAboutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
                 setAboutMenu(true);
             }
         });
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
                 if (menu.getNewButton().isVisible()) {
                     setAboutMenu(false);
                     menu.getScrollPane().setScrollPercentY(0.0f);
-                    System.out.println("back about button clicked");
                 } else {
                     setNewMenu(true);
-                    System.out.println("new button clicked");
+                    App.getCurrentUser().setAvatarIndex(menu.getAvatarMenu().getAvatarIndex());
+                    App.getCurrentUser().setAvatarStyleIndex(menu.getAvatarMenu().getAvatarStyleIndex());
+                    App.saveUsers();
                 }
             }
         });
 
         menu.getNewButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                 setNewMenu(false);
             }
         });
 
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
             }
         });
 
         menu.getProfileButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
+                menu.getProfileMenu().updateAvatar();
+                hideMainMenu(false);
+                menu.getProfileMenu().setVisible(true);
             }
         });
 
         menu.getSettingButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
             }
         });
     }
 
-    private void setNewMenu(boolean state) {
+    public void hideMainMenu(boolean state) {
         menu.getNewButton().setVisible(state);
         menu.getLoadButton().setVisible(state);
         menu.getCoopButton().setVisible(state);
+        menu.getExitButton().setVisible(state);
         menu.getLogoutButton().setVisible(state);
         menu.getButtonTable().setVisible(state);
-        menu.getExitButton().setVisible(state);
+    }
 
+    private void setNewMenu(boolean state) {
+        hideMainMenu(state);
         menu.getBack_about_Button().setVisible(!state);
         menu.getAvatarMenu().setVisible(!state);
     }
@@ -140,15 +146,16 @@ public class MainMenuController extends CommandController {
         menu.getAboutWindow().setVisible(state);
         menu.getBack_about_Button().setVisible(state);
 
-        // not state :
-        menu.getButtonTable().setVisible(!state);
-        menu.getExitButton().setVisible(!state);
-
         // disable
         menu.getLoadButton().setDisabled(state);
         menu.getLogoutButton().setDisabled(state);
         menu.getNewButton().setDisabled(state);
         menu.getCoopButton().setDisabled(state);
+
+
+        // not state :
+        menu.getButtonTable().setVisible(!state);
+        menu.getExitButton().setVisible(!state);
     }
 
     public static Result manageUserLogout() {
