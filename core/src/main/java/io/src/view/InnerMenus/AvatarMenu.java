@@ -186,7 +186,29 @@ public class AvatarMenu extends Window {
             }
         });
 
+        okButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                if (okButton.isDisabled()) return;
+                String name = nameField.getText();
+                String farm = farmNameField.getText();
+                String position = farmPosition.getSelected();
+                listener.onAvatarSelected(name, farm, position, avatars.get(avatarIndex));
+            }
+        });
 
+        nameField.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
+            }
+        });
+
+        farmNameField.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
+            }
+        });
 
         setMovable(false);
         setModal(true);
