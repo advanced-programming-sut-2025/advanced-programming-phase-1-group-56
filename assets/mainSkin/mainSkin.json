@@ -142,6 +142,16 @@
 		"up": "setting_UP",
 		"down": "setting_DOWN",
 		"over": "setting_OVER"
+	},
+	"randomButton": {
+		"up": "randomButton_UP",
+		"down": "randomButton_UP",
+		"over": "randomButton_OVER"
+	},
+	"changeStyleButton": {
+		"up": "styleButton_UP",
+		"down": "styleButton_UP",
+		"over": "styleButton_OVER"
 	}
 },
 "CheckBoxStyle": {

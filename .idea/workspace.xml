@@ -4,140 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="complete ProductScrollPane">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalNameMiniMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/BuildingMiniMenu.java" afterDir="false" />
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="full complete and debug sfxs, musics, add profile button, setting button and debug about button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/Sandy/avatarProfile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/Sandy/back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/Sandy/front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/Sandy/left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/Sandy/right.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/AVATAR/final/avatarProfile.psb" beforeDir="false" afterPath="$PROJECT_DIR$/assets/AVATAR/final/avatarProfile.psb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Mouse Click.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Pop 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Pop 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Shutter Click.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Small Bell.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Smithing_Table.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Taking Photos.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Trident_return.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/Wood_click.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/anvil_land.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/click.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/fallsmall.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/glass1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/ignite.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/levelup.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/orb.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/out.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Click/pop.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Angels Singing.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Anime punch.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Anime transmission.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Anime wow.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Badum Tsss.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Boing.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Boom Sound.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Careless whisper.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Cash Register.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Censor.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Chirping.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Crowd Booing.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Distortion .mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Fail 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Fail 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Falling.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Flashback.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/GTA_mission_passed.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Gangsters_paradise_choir.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Illuminatii.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Keyboard_spam.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Long fart 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_Villager.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_achievement.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_eating.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_hit.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Minecraft_oof.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Mission_Passed.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Painful Scream.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Punch 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Punch 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Record Scratch 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Reeeeeeeeeee.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Rubber Duck.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Run.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Sad Music 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Sad Music 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Sharingan.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Slap.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Slap_oh.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Slip.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Splat.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Tacobell_bell.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/Windows_error.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/YEEEEAAAAHHHH.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Meme/discordping.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Cinematic Boom 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Cinematic Boom 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Drum Roll.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Dun Dun Dun.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Fnaf_musicbox.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Fnaf_sirens.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Heartbeat.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (1).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (2).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (3).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (4).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (5).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (6).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Impact (7).wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Inception.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Law and order .mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Long Suspense 4.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/MGS Alert.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Reverse Cinematic Boom.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Reverse Clank Bell.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Shocked.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/Suspenseful Choir.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/beacon_activate.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/beacon_ambient.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/beacon_power.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Suspense/nether_travel.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Bassy Swoosh.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Cinematic Whoosh.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Explode1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Explode4.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Fast swoosh down.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Long swoosh.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Trident_riptide.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 4.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 5.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 6.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/Versatile_ Sound Effects/SFX Transition/Whoosh 7.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/click1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/click2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/dry-leaves-autumn.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/walk1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/SFXs/wind_bird.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/StardewMusic/Michael_Hunter__San_Andreas.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Versatile_ Sound Effects.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/users.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/SFXs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/ProfileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/ProfileMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,32 +88,32 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Lwjgl3Launcher.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "Application.game.executor": "Run",
-    "Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
-    "Gradle.Build advanced-programming-phase-1-group-56.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.temp.main()].executor": "Run",
-    "Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
-    "Gradle.gradleSetup [:Main.main()].executor": "Run",
-    "Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "maz",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Application.game.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build advanced-programming-phase-1-group-56.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.advanced-programming-phase-1-group-56:core [:core:io.src.temp.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;maz&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="io.src.view.GameMenus.ShopMenus" />
@@ -296,7 +171,8 @@
       <workItem from="1754731782673" duration="442000" />
       <workItem from="1754756458828" duration="6352000" />
       <workItem from="1754832675584" duration="5689000" />
-      <workItem from="1754877794055" duration="7315000" />
+      <workItem from="1754877794055" duration="7379000" />
+      <workItem from="1754894711987" duration="4261000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -386,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754764585394</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="full complete and debug sfxs, musics, add profile button, setting button and debug about button">
+      <option name="closed" value="true" />
+      <created>1754885814263</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754885814263</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,6 +299,7 @@
     <MESSAGE value="v0.5.0: shop menu" />
     <MESSAGE value="Shop UI Is Working" />
     <MESSAGE value="complete ProductScrollPane" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete ProductScrollPane" />
+    <MESSAGE value="full complete and debug sfxs, musics, add profile button, setting button and debug about button" />
+    <option name="LAST_COMMIT_MESSAGE" value="full complete and debug sfxs, musics, add profile button, setting button and debug about button" />
   </component>
 </project>

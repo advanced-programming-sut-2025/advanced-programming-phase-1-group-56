@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Scaling;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class AvatarMenu extends Window {
 
@@ -31,6 +32,8 @@ public class AvatarMenu extends Window {
     private int directIndex;
     private Label avatarName;
     private Container<Label> nameContainer;
+    private int avatarStyleIndex;
+
 
     public AvatarMenu(Skin skin, AvatarSelectionListener listener) {
         super("", skin);
@@ -40,6 +43,7 @@ public class AvatarMenu extends Window {
         avatarIndex = 0;
         directs = new ArrayList<>(Arrays.asList("front", "right", "back", "left"));
         directIndex = 0;
+        avatarStyleIndex = 1;
 
         File[] avatarsPath = new File("assets/AVATAR/final/").listFiles(File::isDirectory);
         if (avatarsPath != null)
@@ -53,12 +57,17 @@ public class AvatarMenu extends Window {
         Table avatarTable = new Table();
         Button leftDirect = new Button(skin, "leftButton");
         Button rightDirect = new Button(skin, "rightButton");
+        Table extraButtonsTable = new Table();
+        Button randomAvatar = new Button(skin, "randomButton");
+        Button changeStyleButton = new Button(skin, "changeStyleButton");
+        extraButtonsTable.add(changeStyleButton).padBottom(20).width(changeStyleButton.getWidth() / 1.5f).height(changeStyleButton.getHeight() / 1.5f).padTop(50).row();
+        extraButtonsTable.add(randomAvatar).row();
 
         avatarTable.add(leftDirect).padRight(-20).bottom();
 
         // avatar and its background :
         Texture backgroundTex = new Texture("AVATAR/final/avatarBack.png");
-        avatarTex = new Texture(avatars.get(avatarIndex) + "1/" + directs.get(directIndex) + ".png");
+        avatarTex = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/" + directs.get(directIndex) + ".png");
         Image avatarBackground = new Image(backgroundTex);
         avatarImage = new Image(avatarTex);
         avatarBackground.setScaling(Scaling.stretch);
@@ -71,10 +80,11 @@ public class AvatarMenu extends Window {
         avatarTable.add(rightDirect).padLeft(-20).bottom();
         leftDirect.toFront();
         row1.add(avatarTable).padLeft(70).padTop(50);
+        row1.add(extraButtonsTable).padLeft(50);
 
         Table profileTable = new Table();
 
-        avatarProfileTx = new Texture(avatars.get(avatarIndex) + "1/avatarProfile.png");
+        avatarProfileTx = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/avatarProfile.png");
         avatarProfile = new Image(avatarProfileTx);
         Stack profileStack = getStack(skin);
 
@@ -85,7 +95,7 @@ public class AvatarMenu extends Window {
         leftDirect1.toFront();
         profileTable.add(rightDirect1).padLeft(-20);
 
-        row1.add(profileTable).padLeft(120).padTop(50);
+        row1.add(profileTable).padLeft(50).padTop(50);
 
         add(row1).row();
 
@@ -125,20 +135,14 @@ public class AvatarMenu extends Window {
         leftDirect.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 directIndex = (directIndex + 3) % 4;
-                Texture oldTex = avatarTex;
-                avatarTex = new Texture(avatars.get(avatarIndex) + "1/" + directs.get(directIndex) + ".png");
-                avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));
-                oldTex.dispose();
+                updateAvatarTextures();
             }
         });
 
         rightDirect.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 directIndex = (directIndex + 1) % 4;
-                Texture oldTex = avatarTex;
-                avatarTex = new Texture(avatars.get(avatarIndex) + "1/" + directs.get(directIndex) + ".png");
-                avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));
-                oldTex.dispose();
+                updateAvatarTextures();
             }
         });
 
@@ -146,20 +150,8 @@ public class AvatarMenu extends Window {
             public void clicked(InputEvent event, float x, float y) {
                 avatarIndex = (avatarIndex + 1) % avatars.size();
                 directIndex = 0;
-                Texture oldTex = avatarTex;
-                avatarTex = new Texture(avatars.get(avatarIndex) + "1/" + directs.get(directIndex) + ".png");
-                avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));
-                oldTex.dispose();
-                oldTex = avatarProfileTx;
-                avatarProfileTx = new Texture(avatars.get(avatarIndex) + "1/avatarProfile.png");
-                avatarProfile.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarProfileTx)));
-                oldTex.dispose();
-                avatarName.setText(avatars.get(avatarIndex)
-                    .substring(avatars.get(avatarIndex).lastIndexOf("final/") + 6,
-                        avatars.get(avatarIndex).lastIndexOf('/')));
-                avatarName.pack();
-                nameContainer.pack();
-                avatarName.invalidateHierarchy();
+                avatarStyleIndex = 1;
+                updateAvatarTextures();
             }
         });
 
@@ -167,50 +159,70 @@ public class AvatarMenu extends Window {
             public void clicked(InputEvent event, float x, float y) {
                 avatarIndex = (avatarIndex + avatars.size() - 1) % avatars.size();
                 directIndex = 0;
-                Texture oldTex = avatarTex;
-                avatarTex = new Texture(avatars.get(avatarIndex) + "1/" + directs.get(directIndex) + ".png");
-                avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));
-                oldTex.dispose();
-                oldTex = avatarProfileTx;
-                avatarProfileTx = new Texture(avatars.get(avatarIndex) + "1/avatarProfile.png");
-                avatarProfile.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarProfileTx)));
-                oldTex.dispose();
-                avatarName.setText(avatars.get(avatarIndex)
-                    .substring(avatars.get(avatarIndex).lastIndexOf("final/") + 6,
-                        avatars.get(avatarIndex).lastIndexOf('/')));
-                avatarName.pack();
-                nameContainer.pack();
-                avatarName.invalidateHierarchy();
+                avatarStyleIndex = 1;
+                updateAvatarTextures();
             }
         });
 
-        okButton.addListener(new ClickListener() {
+        changeStyleButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                if(okButton.isDisabled()) return;
-                String name = nameField.getText();
-                String farm = farmNameField.getText();
-                String position = farmPosition.getSelected();
-                String direction = directs.get(directIndex);
-                listener.onAvatarSelected(name, farm, position, avatars.get(avatarIndex));
+                int maxStyles = getMaxStylesForAvatar(avatarIndex);
+                System.out.println(maxStyles);
+                avatarStyleIndex++;
+                if (avatarStyleIndex > maxStyles) avatarStyleIndex = 1;
+                System.out.println(avatarIndex + " and " + avatarStyleIndex);
+                updateAvatarTextures();
             }
         });
 
-        nameField.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
-            }
-        });
-
-        farmNameField.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
+        randomAvatar.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                avatarIndex = (int) (Math.random() * avatars.size());
+                directIndex = 0;
+                int maxStyles = getMaxStylesForAvatar(avatarIndex);
+                avatarStyleIndex = 1 + (int) (Math.random() * maxStyles);
+                updateAvatarTextures();
             }
         });
 
         setMovable(false);
         setModal(true);
+    }
+
+    private int getMaxStylesForAvatar(int avatarIndex) {
+        File avatarDir = new File("assets\\" + avatars.get(avatarIndex));
+        if (!avatarDir.exists() || !avatarDir.isDirectory()) {
+            System.out.println(avatarDir.getPath());
+            return 1;
+        }
+        int count = 0;
+        for (File file : avatarDir.listFiles(File::isDirectory)) {
+            try {
+                Integer.parseInt(file.getName());
+                count++;
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return Math.max(count, 1);
+    }
+
+    private void updateAvatarTextures() {
+        Texture oldTex = avatarTex;
+        avatarTex = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/" + directs.get(directIndex) + ".png");
+        avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));
+        oldTex.dispose();
+
+        oldTex = avatarProfileTx;
+        avatarProfileTx = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/avatarProfile.png");
+        avatarProfile.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarProfileTx)));
+        oldTex.dispose();
+
+        avatarName.setText(avatars.get(avatarIndex)
+            .substring(avatars.get(avatarIndex).lastIndexOf("final/") + 6,
+                avatars.get(avatarIndex).lastIndexOf('/')));
+        avatarName.pack();
+        nameContainer.pack();
+        avatarName.invalidateHierarchy();
     }
 
     private Stack getStack(Skin skin) {
