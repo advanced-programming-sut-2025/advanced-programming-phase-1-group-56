@@ -11,11 +11,15 @@ import io.src.StardewValley;
 import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
+import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.NpcType;
 import io.src.model.Enums.commands.MainMenuCommands;
+import io.src.model.GameObject.Animal;
+import io.src.model.MapModule.Position;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
+import io.src.view.InnerMenus.AnimalMenu;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
 import io.src.view.InnerMenus.NpcQuestMenu;
@@ -35,7 +39,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
     private final Button profileButton;
     private final Button settingButton;
-    private final NpcQuestMenu npcQuestMenu;
+    private final AnimalMenu animalMenu;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -141,10 +145,9 @@ public class MainMenu implements AppMenu, Screen {
         profileMenu.setVisible(false);
 
         // temp :
-
-        npcQuestMenu = new NpcQuestMenu(skin, 1, NpcType.SEBASTIAN.getRequests().get(1));
-        npcQuestMenu.hide();
-        stage.addActor(npcQuestMenu);
+        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.SHEEP));
+        animalMenu.setVisible(false);
+        stage.addActor(animalMenu);
     }
 
     @Override
@@ -181,8 +184,8 @@ public class MainMenu implements AppMenu, Screen {
 
     //
 
-    public NpcQuestMenu getNpcStateMenu() {
-        return npcQuestMenu;
+    public AnimalMenu getAnimalMenu() {
+        return animalMenu;
     }
 
     public ProfileMenu getProfileMenu() {

@@ -34,7 +34,7 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver, Clic
         this.isCaressed = false;
         this.goOut = false;
         this.produce = 0;
-        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+//        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     public void pet() {
