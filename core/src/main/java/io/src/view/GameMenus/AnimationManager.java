@@ -60,6 +60,9 @@ public class AnimationManager {
     public AnimationManager() {
         // Load player
 //        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("atlases/sprites_player.atlas"));
+        Gdx.app.postRunnable(() -> {
+            // ساخت منابع گرافیکی اینجا
+
         TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("sprites_player"));
         TextureAtlas AlexAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Alex"));
         TextureAtlas ElliotAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Elliot"));
@@ -124,7 +127,7 @@ public class AnimationManager {
         characterAnimations.put("Sebastian", loadCharacterAnimationsNumeric(SebastianAtlas));
         characterAnimations.put("Robin", loadCharacterAnimationsNumeric(RobinAtlas));
 
-
+        });
 
 
         // Load grandma NPC
