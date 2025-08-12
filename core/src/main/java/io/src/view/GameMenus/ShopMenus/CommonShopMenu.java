@@ -21,24 +21,15 @@ import io.src.view.InnerMenus.BuildingMiniMenu;
 import java.util.ArrayList;
 
 public class CommonShopMenu extends Window {
-    private Image npcImage;
-    private ScrollPane ProductsScrollPane;
-    //    private ArrayList<ProductWindow> productsWindows = new ArrayList<>();
-    private ArrayList<NpcProduct> products;
+    private final ScrollPane ProductsScrollPane;
+    private final ArrayList<NpcProduct> products;
     private NpcProduct selectedProduct;
-    private Skin skin;
+    private final Skin skin;
 
     public CommonShopMenu(Skin skin, String npcImageAssetName, ArrayList<NpcProduct> products, Listener listener) {
         super("", skin, "default4");
         this.skin = skin;
-//        npcImage = new Image(new Texture(
-//            Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(npcImageAssetName))
-//        ));
-
         this.products = products;
-
-        Texture npcTex = new Texture(Gdx.files.internal("AVATAR/final/" + npcImageAssetName + "/1/avatarProfile.png"));
-        npcImage = new Image(npcTex);
 
         Table productsList = new Table();
         productsList.align(Align.left);
@@ -90,7 +81,11 @@ public class CommonShopMenu extends Window {
         ProductsScrollPane = new ScrollPane(productsList, skin, "default3");
         ProductsScrollPane.setFadeScrollBars(false);
         ProductsScrollPane.setVariableSizeKnobs(false);
-        add(npcImage).width(npcTex.getWidth() * 3).height(npcTex.getHeight() * 3).top().padRight(25);
+        if (!npcImageAssetName.isEmpty()) {
+            Texture npcTex = new Texture(Gdx.files.internal("assets\\AVATAR\\" + npcImageAssetName + ".png"));
+            Image npcImage = new Image(npcTex);
+            add(npcImage).width(npcTex.getWidth() / 1.2f).height(npcTex.getHeight() / 1.2f).top().padRight(25);
+        }
         add(ProductsScrollPane).width(885).height(450);
         setSize(Gdx.graphics.getWidth() / 1.2f, Gdx.graphics.getHeight() / 2f);
         setPosition(Gdx.graphics.getWidth() / 2f - (this.getWidth() / 2f), Gdx.graphics.getHeight() / 2f - (this.getHeight() / 2f));

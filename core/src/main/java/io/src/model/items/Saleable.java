@@ -1,5 +1,6 @@
 package io.src.model.items;
 
 public interface Saleable {
-        String getName();
+    String getName();
+    String getAssetName();
 }
