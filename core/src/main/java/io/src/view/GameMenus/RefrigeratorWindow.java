@@ -92,9 +92,8 @@ public class RefrigeratorWindow extends Group implements InputProcessor {
         setPosition((Gdx.graphics.getWidth() - 940) / 2f, (Gdx.graphics.getHeight() - 640) / 2f);
         background = new Image(GameAssetManager.getGameAssetManager().getRefrigeratorBackground());
         Inventory playerInven = App.getMe().getInventory();
-        Inventory refri =    App.getCurrentUser()
-            .getCurrentGame()
-            .getCurrentPlayer()
+        System.out.println(App.getMe().getUserName());
+        Inventory refri =    App.getMe()
             .getPlayerFarm().getDefaultHome()
             .getMyRefrigerator()
             .getInventory();

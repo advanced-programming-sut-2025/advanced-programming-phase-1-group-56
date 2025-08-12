@@ -22,11 +22,10 @@ public class Lobby {
         this.isVisible = isVisible;
         this.password = password;
         this.lastJoinTime = System.currentTimeMillis();
-        this.countReady = new Boolean[4];
+        this.countReady = new Boolean[3];
         this.countReady[0] = false;
         this.countReady[1] = false;
         this.countReady[2] = false;
-        members.add(owner);
     }
 
     public boolean checkPassword(String input) {

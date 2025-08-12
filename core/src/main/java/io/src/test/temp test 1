@@ -1,8 +1,8 @@
-login -u Mohsen -p MohsenZare12?
+login -u Mohsen1 -p MohsenZare12?
 
 menu enter main menu
 menu enter game menu
-game new -u Mohsen1 Mohsen2 Mohsen3
+game new -u Mohsen Mohsen2 Mohsen3
 1
 2
 4

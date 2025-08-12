@@ -1,6 +1,9 @@
 package io.src;
 
 
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.gson.Gson;
 import io.src.controller.GameMenuController.GameController;
@@ -8,6 +11,7 @@ import io.src.controller.MenuController.LoginMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Game;
+import io.src.model.Network.Client.LobbyClient;
 import io.src.model.User;
 import io.src.view.AppView;
 import io.src.view.GameMenus.GameView;
@@ -15,9 +19,9 @@ import io.src.view.GameMenus.GameView;
 import java.io.*;
 
 public class StardewValley extends com.badlogic.gdx.Game {
-    private Game game;
+    private static Game game;
 
-    private GameView gameView;
+    private static GameView gameView;
 
     private static SpriteBatch batch;
 
@@ -28,18 +32,11 @@ public class StardewValley extends com.badlogic.gdx.Game {
     @Override
     public void create() {
         new AppView().run();
-        Game game = App.getCurrentUser().getCurrentGame();
-        if (game == null) {
-            System.out.println("no game");
-            return;
-        }
-        this.game = game;
+        setScreen(new LobbyClient());
+        App.setStardewValley(this);
 //        GameController gameController = new GameController(this);
 //        gameController.init();
 //        gameController.run();
-        gameView = new GameView(game);
-        App.setStardewValley(this);
-        setScreen(gameView);
 
 
 //        batch = new SpriteBatch();
@@ -80,4 +77,18 @@ public class StardewValley extends com.badlogic.gdx.Game {
     public GameView getGameView() {
         return gameView;
     }
+
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
+    }
+
+    public static void setBatch(SpriteBatch batch) {
+        StardewValley.batch = batch;
+    }
+    public static void startGame(Game newGame) {
+        game = newGame;
+        gameView = new GameView(newGame);
+        App.getStardewValley().setScreen(gameView);
+    }
+
 }

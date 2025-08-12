@@ -250,6 +250,7 @@ public class newFarmLoader {
                             tiles[dY-1][dX+2].setWalkable(true);
                             tiles[dY-2][dX-1].setWalkable(true);
                             tiles[dY-2][dX+1].setWalkable(true);
+
                         } else if (gameObject instanceof GreenHouse) {
                             tiles[dY][dX].setWalkable(true);
                             tiles[dY][dX].setTileType(TileType.Wrapper);

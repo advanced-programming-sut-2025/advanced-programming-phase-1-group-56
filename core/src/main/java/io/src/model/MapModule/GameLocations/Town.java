@@ -1,6 +1,5 @@
 package io.src.model.MapModule.GameLocations;
 
-import io.src.model.App;
 import io.src.model.Enums.GameLocationType;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.NPC.NPC;
@@ -14,13 +13,18 @@ public class Town extends GameLocation implements TimeObserver {
     private final ArrayList<NPC> NPCs = new ArrayList<>();
     private final ArrayList<Store> stores = new ArrayList<>();
 
+    private String townmapPath;
+
+    public String getTownmapPath() { return townmapPath; }
+    public void setTownmapPath(String path) { this.townmapPath = path; }
+
     public ArrayList<NPC> getNPCs() {
         return NPCs;
     }
 
     public Town(GameLocationType type) {
         super(type);
-        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+
     }
 
     @Override

@@ -3,6 +3,8 @@ package io.src.model.Network;
 import java.util.HashMap;
 
 public enum NetworkCommand {
+    Game,
+    username,
     online_Users,
     list_lobbies,
     join_lobby,

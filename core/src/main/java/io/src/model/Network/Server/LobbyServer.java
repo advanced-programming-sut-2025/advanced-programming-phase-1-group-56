@@ -34,7 +34,7 @@ public class LobbyServer {
 
         while (true) {
             Socket socket = serverSocket.accept();
-            ClientHandler handler = new ClientHandler(socket, this,"mehdi");
+            ClientHandler handler = new ClientHandler(socket, this);
             clients.add(handler);
 
             new Thread(handler).start();
@@ -102,10 +102,12 @@ public class LobbyServer {
 
     public Lobby createLobby(String name, String owner, boolean isPrivate, String password,boolean isVisible) {
         for(Lobby lobby : lobbies){
-            if(lobby.getName().equals(name)||lobby.getOwner().equals(owner)){
+            if(lobby.getName().equals(name)||lobby.getOwner().equals(owner)||lobby.getMembers().contains(owner)){
                 return null;
             }
         }
+
+
 
         Lobby lobby = new Lobby(UUID.randomUUID().toString(), name, owner, isPrivate,isVisible, password);
         lobbies.add(lobby);
@@ -147,11 +149,6 @@ public class LobbyServer {
         return ServerController.leaveLobby(username, lobbies);
     }
 
-    public void removeLobby(String lobbyId, String requester) {
-        ServerController.removeLobby(lobbyId,requester,  lobbies);
-        broadcastLobbyList();
-    }
-
     public void kickPlayer(String lobbyId, String targetUser) {
         for (Lobby l : lobbies) {
             if (l.getId().equals(lobbyId)) {
@@ -159,6 +156,34 @@ public class LobbyServer {
             }
         }
     }
+
+    public Message startGameLobby(String lobbyId) {
+        Lobby lobby1  = null;
+        for(Lobby lobby : lobbies){
+            if(lobby.getId().equals(lobbyId)){
+                lobby1 = lobby;
+                break;
+            }
+        }
+        int count = 1 ;
+        for(Boolean ready : lobby1.getCountReady()){
+            if(ready){
+                count++;
+            }
+        }
+        if(count >0){
+            ArrayList<String> users = new ArrayList<>();
+            users.add(lobby1.getOwner());
+            for(String member : lobby1.getMembers()){
+                users.add(member);
+            }
+            return ServerController.startTheGame(lobby1.getMembers().size()+1,users);
+        }else{
+            return ServerController.startFalseGame();
+        }
+    }
+
+
 
     public Message toggleReady(String lobbyId,String username){
         return ServerController.toggleReady(lobbyId,username, lobbies);
@@ -171,5 +196,9 @@ public class LobbyServer {
     public void removeInactiveLobbies() {
         long now = System.currentTimeMillis();
         lobbies.removeIf(lobby -> lobby.getMembers().isEmpty() && lobby.isInactiveFor(5 * 60 * 1000));
+    }
+
+    public Set<ClientHandler> getClients() {
+        return clients;
     }
 }

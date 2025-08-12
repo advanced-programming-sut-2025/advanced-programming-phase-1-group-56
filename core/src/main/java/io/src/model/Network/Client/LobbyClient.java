@@ -1,12 +1,12 @@
 package io.src.model.Network.Client;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -17,20 +17,33 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import io.src.model.GameAssetManager;
+import io.src.StardewValley;
+import io.src.controller.Network.ClientController;
+import io.src.model.*;
+import io.src.model.Activities.Friendship;
+import io.src.model.Enums.FarmPosition;
+import io.src.model.Enums.Items.ToolType;
+import io.src.model.Enums.Recepies.FoodRecipesList;
+import io.src.model.GameObject.NPC.NPC;
+import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.MapModule.GameLocations.Town;
+import io.src.model.MapModule.GameMap;
+import io.src.model.Network.DTO.GameDTO;
+import io.src.model.Network.DTO.GameMapper;
 import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
+import io.src.model.items.Tool;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static io.src.controller.Network.ClientController.sendJoinMessageToServer;
+import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
-public class LobbyClient extends ApplicationAdapter {
+public class LobbyClient implements Screen {
     private Stage stage;
+    private SpriteBatch batch;
     private TCPClient client;
     private Table lobbyItemsTable;
     private Lobby[] lastLobbyList;
@@ -43,147 +56,6 @@ public class LobbyClient extends ApplicationAdapter {
     private Lobby selectedLobby = null;
     private ScrollPane lobbyScrollPane;
 
-
-    @Override
-    public void create() {
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-        skin = new Skin(Gdx.files.internal("assets/Export/menu_Skin_v0.0.1.json"));
-
-        username = "mehdi";
-
-        //background
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        Texture whiteTexture = new Texture(pixmap);
-        skin.add("white", new TextureRegionDrawable(new TextureRegion(whiteTexture)));
-
-        //isSuccessfulCommand
-        isSuccessfulLabel = new Label("", skin);
-        isSuccessfulLabel.setColor(Color.RED);
-        isSuccessfulLabel.setFontScale(1.2f);
-        isSuccessfulLabel.setPosition(30, 1000);
-        isSuccessfulLabel.setVisible(false);
-
-        //background
-        Image bgImage = new Image(GameAssetManager.getGameAssetManager().getCoopBackground());
-        bgImage.setSize(1920, 1080);
-        stage.addActor(bgImage);
-
-        //Main panel
-        Table panel = new Table();
-        panel.setSize(600, 800);
-        panel.setPosition((1920 - 600) / 2f, (1080 - 900) / 2f);
-
-        //OnlineUsers
-        onlineListUI = new List<>(skin);
-        ScrollPane onlineScrollPane = new ScrollPane(onlineListUI, skin);
-        onlineScrollPane.setFadeScrollBars(false);
-        Label onlineLabel = new Label("USERS", skin);
-
-        Table onlineTable = new Table();
-        onlineTable.top().left();
-        onlineTable.add(onlineLabel).row();
-        onlineTable.add(onlineScrollPane).width(130).height(500);
-        onlineTable.setPosition(1360, 875);
-
-        //lobbies
-        lobbyItemsTable = new Table();
-        lobbyItemsTable.top().left();
-
-        lobbyScrollPane = new ScrollPane(lobbyItemsTable, skin);
-        lobbyScrollPane.setFadeScrollBars(false);
-        lobbyScrollPane.setScrollingDisabled(true, false);
-
-        Label lobbyLabel = new Label("LOBBIES", skin);
-
-        Table lobbyTable = new Table();
-        lobbyTable.top().left();
-        lobbyTable.add(lobbyLabel).padBottom(5).row();
-        lobbyTable.add(lobbyScrollPane).width(800).height(500);
-
-        //button
-        TextButton createButton = new TextButton("Create", skin);
-        TextButton joinButton = new TextButton("Join", skin);
-        TextButton refreshButton = new TextButton("Refresh", skin);
-
-        Table buttonTable = new Table();
-        buttonTable.add(createButton).pad(10);
-        buttonTable.add(joinButton).pad(10);
-        buttonTable.add(refreshButton).pad(10);
-
-        //content
-        Table content = new Table();
-        content.top();
-        content.add(lobbyTable).right().pad(10);
-        content.row();
-        content.add(buttonTable).colspan(3).center().padTop(30);
-
-        panel.add(content).expand().fill();
-        stage.addActor(panel);
-        stage.addActor(onlineTable);
-        stage.addActor(isSuccessfulLabel);
-
-        //passwordfill
-        Label idLabel = new Label("Lobby ID:", skin);
-        TextField idField = new TextField("", skin);
-        idField.setMessageText("Enter Lobby ID");
-
-        Label passLabel = new Label("Password:", skin);
-        TextField passField = new TextField("", skin);
-        passField.setPasswordMode(true);
-        passField.setPasswordCharacter('*');
-        passField.setMessageText("Enter Password");
-
-        TextButton joinByIdBtn = new TextButton("Join by ID", skin);
-
-        Table joinByIdTable = new Table();
-        joinByIdTable.bottom().left().pad(15);
-        joinByIdTable.add(idLabel).padRight(5);
-        joinByIdTable.add(idField).width(120).padRight(10);
-        joinByIdTable.row();
-        joinByIdTable.add(passLabel).padTop(5).padRight(5);
-        joinByIdTable.add(passField).width(120).padTop(5).padRight(10);
-        joinByIdTable.row();
-        joinByIdTable.add(joinByIdBtn).colspan(2).padTop(10).center();
-        stage.addActor(joinByIdTable);
-
-        //buttons
-        joinByIdBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                String lobbyId = idField.getText().trim();
-                String password = passField.getText().trim();
-                if (lobbyId.isEmpty()) {
-                    System.out.println("Lobby ID cannot be empty!");
-                    return;
-                }
-                sendJoinLobby(lobbyId, password);
-            }
-        });
-
-        createButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                createLobbyDialog();
-            }
-        });
-
-        joinButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                joinSelectedLobby();
-            }
-        });
-
-        refreshButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                requestLobbyList();
-            }
-        });
-
-        connectToServer();
-        requestOnlineUsers();
-    }
 
 
     private void showSuccessMessage(String text) {
@@ -211,6 +83,7 @@ public class LobbyClient extends ApplicationAdapter {
         try {
             client = new TCPClient();
             client.connect("localhost", 5000);
+            ClientController.sendUserNameToServer(username,client,gson);
 
             new Thread(() -> {
                 try {
@@ -231,86 +104,29 @@ public class LobbyClient extends ApplicationAdapter {
                         }
 
                         switch (command) {
+                            case Game -> {
+                                Gson gson = new Gson();
+                                GameDTO gamedto = msg1.getFromBody1("Game", GameDTO.class);
+
+                                ArrayList<User> users = msg1.getFromBody2(
+                                    "users",
+                                    new TypeToken<ArrayList<User>>(){}.getType()
+                                );
+
+                                Game game = GameMapper.fromDTO(gamedto);
+                                setGame(game, users);
+
+                            }
+                            case start ->
+                             showSuccessMessage(msg1.getFromBody("isSuccessful"));
                             case list_lobbies -> {
-                                ArrayList<?> rawList = (ArrayList<?>) msg1.getFromBody("Lobbies List");
-                                ArrayList<Lobby> lobbies = new ArrayList<>();
-                                for (Object obj : rawList) {
-                                    lobbies.add(gson.fromJson(gson.toJson(obj), Lobby.class));
-                                }
-                                lastLobbyList = lobbies.toArray(new Lobby[0]);
-                                Gdx.app.postRunnable(() -> {
-                                    lobbyItemsTable.clear();
-                                    lobbyItemsTable.top().left();
-
-                                    ArrayList<Table> lobbyContainers = new ArrayList<>();
-
-                                    for (Lobby lobby : lobbies) {
-                                        String lobbyName = "LOBBY'S NAME: " + lobby.getName() + (lobby.isPrivate() ? " (Private)" : "");
-                                        Label lobbyLabelItem = new Label(lobbyName, skin);
-                                        lobbyLabelItem.setFontScale(1.2f);
-                                        lobbyLabelItem.setColor(Color.WHITE);
-
-                                        Pixmap defaultPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-                                        defaultPixmap.setColor(Color.BLUE);
-                                        defaultPixmap.fill();
-                                        Drawable defaultBackground = new TextureRegionDrawable(new TextureRegion(new Texture(defaultPixmap)));
-
-                                        Pixmap selectedPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-                                        selectedPixmap.setColor(Color.TAN);
-                                        selectedPixmap.fill();
-                                        Drawable selectedBackground = new TextureRegionDrawable(new TextureRegion(new Texture(selectedPixmap)));
-
-                                        // Table
-                                        Table lobbyItemContainer = new Table(skin);
-                                        lobbyItemContainer.setBackground(defaultBackground);
-                                        lobbyItemContainer.add(lobbyLabelItem).left().pad(10).expandX().fillX();
-
-                                        lobbyContainers.add(lobbyItemContainer);
-
-                                        // Tooltip
-                                        String tooltipText = "Members: " + lobby.getMembers().size() + "\n" +
-                                            String.join(", ", lobby.getMembers());
-                                        Label.LabelStyle tooltipStyle = new Label.LabelStyle(skin.get(Label.LabelStyle.class));
-                                        tooltipStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(pixmapFromColor(Color.CORAL))));
-                                        Label tooltipLabel = new Label(tooltipText, tooltipStyle);
-
-                                        Tooltip<Label> tooltip = new Tooltip<>(tooltipLabel);
-                                        tooltip.setInstant(true);
-                                        TooltipManager.getInstance().initialTime = 0.1f;
-                                        lobbyLabelItem.addListener(tooltip);
-
-                                        lobbyItemContainer.addListener(new ClickListener() {
-                                            @Override
-                                            public void clicked(InputEvent event, float x, float y) {
-                                                selectedLobby = lobby;
-
-                                                for (Table table : lobbyContainers) {
-                                                    table.setBackground(defaultBackground);
-                                                }
-                                                lobbyItemContainer.setBackground(selectedBackground);
-
-                                                // اگر کاربر داخل این لابی هست
-                                                if (lobby.getMembers().contains(username)) {
-                                                    if (lobby.getOwner().equals(username)) {
-                                                        // Owner
-                                                        showOwnerLobbyOptions(lobby);
-                                                    } else {
-                                                        // Member
-                                                        showMemberLobbyOptions(lobby);
-                                                    }
-                                                }
-                                            }
-                                        });
-
-                                        lobbyItemsTable.add(lobbyItemContainer).padBottom(15).expandX().fillX().row();
-                                    }
-
-                                    lobbyItemsTable.invalidateHierarchy();
-                                });
-                            } case toggle_ready -> {
+                                listLobby(msg1);
+                            }
+                            case toggle_ready -> {
                                 showSuccessMessage(msg1.getFromBody("Ready"));
 
-                            } case online_Users -> {
+                            }
+                            case online_Users -> {
                                 Object usersObj = msg1.getFromBody("Users List");
                                 if (usersObj instanceof ArrayList<?>) {
                                     ArrayList<?> rawList = (ArrayList<?>) usersObj;
@@ -358,6 +174,195 @@ public class LobbyClient extends ApplicationAdapter {
         }
     }
 
+    private void listLobby(Message msg1){
+        ArrayList<?> rawList = (ArrayList<?>) msg1.getFromBody("Lobbies List");
+        ArrayList<Lobby> lobbies = new ArrayList<>();
+        for (Object obj : rawList) {
+            lobbies.add(gson.fromJson(gson.toJson(obj), Lobby.class));
+        }
+        lastLobbyList = lobbies.toArray(new Lobby[0]);
+        Gdx.app.postRunnable(() -> {
+            lobbyItemsTable.clear();
+            lobbyItemsTable.top().left();
+
+            ArrayList<Table> lobbyContainers = new ArrayList<>();
+
+            for (Lobby lobby : lobbies) {
+                String lobbyName = "LOBBY'S NAME: " + lobby.getName() + (lobby.isPrivate() ? " (Private)" : "");
+                Label lobbyLabelItem = new Label(lobbyName, skin);
+                lobbyLabelItem.setFontScale(1.2f);
+                lobbyLabelItem.setColor(Color.WHITE);
+
+                Pixmap defaultPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+                defaultPixmap.setColor(Color.BLUE);
+                defaultPixmap.fill();
+                Drawable defaultBackground = new TextureRegionDrawable(new TextureRegion(new Texture(defaultPixmap)));
+
+                Pixmap selectedPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+                selectedPixmap.setColor(Color.TAN);
+                selectedPixmap.fill();
+                Drawable selectedBackground = new TextureRegionDrawable(new TextureRegion(new Texture(selectedPixmap)));
+
+                // Table
+                Table lobbyItemContainer = new Table(skin);
+                lobbyItemContainer.setBackground(defaultBackground);
+                lobbyItemContainer.add(lobbyLabelItem).left().pad(10).expandX().fillX();
+
+                lobbyContainers.add(lobbyItemContainer);
+
+                // Tooltip
+                String tooltipText = "Members: " + lobby.getMembers().size() + "\n" +
+                    String.join(", ", lobby.getMembers());
+                Label.LabelStyle tooltipStyle = new Label.LabelStyle(skin.get(Label.LabelStyle.class));
+                tooltipStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(pixmapFromColor(Color.CORAL))));
+                Label tooltipLabel = new Label(tooltipText, tooltipStyle);
+
+                Tooltip<Label> tooltip = new Tooltip<>(tooltipLabel);
+                tooltip.setInstant(true);
+                TooltipManager.getInstance().initialTime = 0.1f;
+                lobbyLabelItem.addListener(tooltip);
+
+                lobbyItemContainer.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        selectedLobby = lobby;
+
+                        for (Table table : lobbyContainers) {
+                            table.setBackground(defaultBackground);
+                        }
+                        lobbyItemContainer.setBackground(selectedBackground);
+                        if (lobby.getOwner().equals(username)) {
+                            // Owner
+                            showOwnerLobbyOptions(lobby);
+                        }
+                        else if (lobby.getMembers().contains(username)) {
+                                showMemberLobbyOptions(lobby);
+                            }
+
+                    }
+                });
+
+                lobbyItemsTable.add(lobbyItemContainer).padBottom(15).expandX().fillX().row();
+            }
+
+            lobbyItemsTable.invalidateHierarchy();
+        });
+    }
+
+    private void setGame(Game newGame, ArrayList<User> usersToPlay) {
+
+        for(int i = 0; i < newGame.getPlayers().size(); i++){
+            if(i == 0){
+                newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm1());
+                newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm1());
+            } else if(i == 1){
+                newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm2());
+                newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm2());
+
+            }else if(i == 2){
+                newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm3());
+                newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm3());
+
+            }else if(i == 3){
+                newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm4());
+                newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm4());
+
+            }
+        }
+
+        for (Player player1 : newGame.getPlayers()) {
+            for (Player player2 : newGame.getPlayers()) {
+                if (player2.equals(player1))
+                    continue;
+                player1.getFriendShips().add(new Friendship(player2));
+            }
+        }
+        App.getCurrentUser().setCurrentGame(newGame);
+        App.getCurrentUser().setGameId(newGame.getGameId());
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(newGame.getWeatherState());
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(newGame.getGameMap().getPelikanTown());
+        App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
+
+        GivePlayersInitialItem(newGame);
+        newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
+        newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
+
+        for (User user : usersToPlay) {
+            user.setGameId(newGame.getGameId());
+            user.setCurrentGame(newGame);
+            user.setNumOfGames(user.getNumOfGames() + 1);
+        }
+
+        Gdx.app.postRunnable(() -> {
+            GameMap map = newGame.getGameMap();
+
+            map.setPelikanTown((Town) loadTheLocation(map.getPelikanTown().getTownmapPath()));
+            Town town = map.getPelikanTown();
+
+            for (NPC npc : town.getNPCs()) {
+                npc.initializePaths(town);
+            }
+
+            if (map.getFarm1() != null) {
+                map.setFarm1((Farm) loadTheLocation(map.getFarm1().getFarnmapPath()));
+                map.getFarm1().setPosition(FarmPosition.LEFT);
+                App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm1());
+            }
+            if (map.getFarm2() != null) {
+                map.setFarm2((Farm) loadTheLocation(map.getFarm2().getFarnmapPath()));
+                map.getFarm2().setPosition(FarmPosition.UP);
+                App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm2());
+            }
+            if (map.getFarm3() != null) {
+                map.setFarm3((Farm) loadTheLocation(map.getFarm3().getFarnmapPath()));
+                map.getFarm3().setPosition(FarmPosition.DOWN);
+                App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm3());
+            }
+            if (map.getFarm4() != null) {
+                map.setFarm4((Farm) loadTheLocation(map.getFarm4().getFarnmapPath()));
+                map.getFarm4().setPosition(FarmPosition.RIGHT);
+                App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm4());
+            }
+
+            for (int i = 0; i < newGame.getPlayers().size(); i++) {
+                Player p = newGame.getPlayers().get(i);
+                switch (i) {
+                    case 0 -> p.setPlayerFarm(map.getFarm1());
+                    case 1 -> p.setPlayerFarm(map.getFarm2());
+                    case 2 -> p.setPlayerFarm(map.getFarm3());
+                    case 3 -> p.setPlayerFarm(map.getFarm4());
+                }
+                p.setCurrentGameLocation(p.getPlayerFarm());
+                p.setDefaultHome(p.getPlayerFarm().getDefaultHome());
+            }
+
+            StardewValley.startGame(newGame);
+        });
+
+
+
+    }
+
+
+    private static void GivePlayersInitialItem(Game newGame) {
+        for (Player player : newGame.getPlayers()) {
+            player.getInventory().add(new Tool(ToolType.AXE_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.PICK_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.SCYTHE_BASIC), 1);
+            player.getInventory().add(new Tool(ToolType.HOE_WOODEN), 1);
+            player.getInventory().add(new Tool(ToolType.CAN_WOODEN), 1);
+            player.addGold(100);
+            player.setDefaultHome(player.getPlayerFarm().getDefaultHome());
+            player.addFoodRecipes(FoodRecipesList.FRIED_EGG);
+            player.addFoodRecipes(FoodRecipesList.BAKED_FISH);
+            player.addFoodRecipes(FoodRecipesList.SALAD);
+            player.setCurrentItem(player.getInventory().findItemByName(ToolType.AXE_WOODEN.getName()));
+        }
+    }
+
+
+
+
     private void showOwnerLobbyOptions(Lobby lobby) {
         Dialog dialog = new Dialog("", skin);
 
@@ -371,6 +376,7 @@ public class LobbyClient extends ApplicationAdapter {
                 showRemovePlayerDialog(lobby);
             }
         });
+
         //TODO
         startBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -385,7 +391,6 @@ public class LobbyClient extends ApplicationAdapter {
         // Leave lobby
         leaveBtn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("dfsdffwefwefwe");
                 sendLeaveLobby(lobby.getId());
                 dialog.hide();
             }
@@ -637,19 +642,171 @@ public class LobbyClient extends ApplicationAdapter {
     }
 
     @Override
-    public void render() {
-        stage.act();
+    public void show() {
+        batch = new SpriteBatch();
+        stage = new Stage(new ScreenViewport(), batch);
+        Gdx.input.setInputProcessor(stage);
+        skin = new Skin(Gdx.files.internal("assets/Export/menu_Skin_v0.0.1.json"));
+
+        username = App.getCurrentUser().getUsername();
+
+        //background
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        Texture whiteTexture = new Texture(pixmap);
+        skin.add("white", new TextureRegionDrawable(new TextureRegion(whiteTexture)));
+
+        //isSuccessfulCommand
+        isSuccessfulLabel = new Label("", skin);
+        isSuccessfulLabel.setColor(Color.RED);
+        isSuccessfulLabel.setFontScale(1.2f);
+        isSuccessfulLabel.setPosition(30, 1000);
+        isSuccessfulLabel.setVisible(false);
+
+        //background
+        Image bgImage = new Image(GameAssetManager.getGameAssetManager().getCoopBackground());
+        bgImage.setSize(1920, 1080);
+        stage.addActor(bgImage);
+
+        //Main panel
+        Table panel = new Table();
+        panel.setSize(600, 800);
+        panel.setPosition((1920 - 600) / 2f, (1080 - 900) / 2f);
+
+        //OnlineUsers
+        onlineListUI = new List<>(skin);
+        ScrollPane onlineScrollPane = new ScrollPane(onlineListUI, skin);
+        onlineScrollPane.setFadeScrollBars(false);
+        Label onlineLabel = new Label("USERS", skin);
+
+        Table onlineTable = new Table();
+        onlineTable.top().left();
+        onlineTable.add(onlineLabel).row();
+        onlineTable.add(onlineScrollPane).width(130).height(500);
+        onlineTable.setPosition(1360, 875);
+
+        //lobbies
+        lobbyItemsTable = new Table();
+        lobbyItemsTable.top().left();
+
+        lobbyScrollPane = new ScrollPane(lobbyItemsTable, skin);
+        lobbyScrollPane.setFadeScrollBars(false);
+        lobbyScrollPane.setScrollingDisabled(true, false);
+
+        Label lobbyLabel = new Label("LOBBIES", skin);
+
+        Table lobbyTable = new Table();
+        lobbyTable.top().left();
+        lobbyTable.add(lobbyLabel).padBottom(5).row();
+        lobbyTable.add(lobbyScrollPane).width(800).height(500);
+
+        //button
+        TextButton createButton = new TextButton("Create", skin);
+        TextButton joinButton = new TextButton("Join", skin);
+        TextButton refreshButton = new TextButton("Refresh", skin);
+
+        Table buttonTable = new Table();
+        buttonTable.add(createButton).pad(10);
+        buttonTable.add(joinButton).pad(10);
+        buttonTable.add(refreshButton).pad(10);
+
+        //content
+        Table content = new Table();
+        content.top();
+        content.add(lobbyTable).right().pad(10);
+        content.row();
+        content.add(buttonTable).colspan(3).center().padTop(30);
+
+        panel.add(content).expand().fill();
+        stage.addActor(panel);
+        stage.addActor(onlineTable);
+        stage.addActor(isSuccessfulLabel);
+
+        //passwordfill
+        Label idLabel = new Label("Lobby ID:", skin);
+        TextField idField = new TextField("", skin);
+        idField.setMessageText("Enter Lobby ID");
+
+        Label passLabel = new Label("Password:", skin);
+        TextField passField = new TextField("", skin);
+        passField.setPasswordMode(true);
+        passField.setPasswordCharacter('*');
+        passField.setMessageText("Enter Password");
+
+        TextButton joinByIdBtn = new TextButton("Join by ID", skin);
+
+        Table joinByIdTable = new Table();
+        joinByIdTable.bottom().left().pad(15);
+        joinByIdTable.add(idLabel).padRight(5);
+        joinByIdTable.add(idField).width(120).padRight(10);
+        joinByIdTable.row();
+        joinByIdTable.add(passLabel).padTop(5).padRight(5);
+        joinByIdTable.add(passField).width(120).padTop(5).padRight(10);
+        joinByIdTable.row();
+        joinByIdTable.add(joinByIdBtn).colspan(2).padTop(10).center();
+        stage.addActor(joinByIdTable);
+
+        //buttons
+        joinByIdBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                String lobbyId = idField.getText().trim();
+                String password = passField.getText().trim();
+                if (lobbyId.isEmpty()) {
+                    System.out.println("Lobby ID cannot be empty!");
+                    return;
+                }
+                sendJoinLobby(lobbyId, password);
+            }
+        });
+
+        createButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                createLobbyDialog();
+            }
+        });
+
+        joinButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                joinSelectedLobby();
+            }
+        });
+
+        refreshButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                requestLobbyList();
+            }
+        });
+
+        connectToServer();
+        requestOnlineUsers();
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act(delta);
         stage.draw();
     }
 
     @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
+    @Override public void pause() {}
+    @Override public void resume() {}
+    @Override public void hide() {}
+
+    @Override
     public void dispose() {
         stage.dispose();
-        try {
-            client.close();
-        } catch (Exception ignored) {
-        }
+        batch.dispose();
     }
+
 
     private void requestOnlineUsers() {
 
@@ -658,11 +815,4 @@ public class LobbyClient extends ApplicationAdapter {
         client.send(gson.toJson(new Message(body, Message.Type.command)));
     }
 
-
-    public static void main(String[] args) {
-        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setTitle("Lobby Client");
-        config.setWindowedMode(1920, 1080);
-        new Lwjgl3Application(new LobbyClient(), config);
-    }
 }

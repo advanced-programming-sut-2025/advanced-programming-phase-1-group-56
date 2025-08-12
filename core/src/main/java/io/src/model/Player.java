@@ -15,6 +15,7 @@ import io.src.model.GameObject.NPC.NPC;
 
 import io.src.model.GameObject.NPC.NpcFriendship;
 import io.src.model.MapModule.Buildings.Building;
+import io.src.model.MapModule.Buildings.Home;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
@@ -90,7 +91,9 @@ public class Player implements TimeObserver {
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private final ArrayList<Gift> marryRequests = new ArrayList<>();
     private double maxEnergy = 200;
+    private String userName;
 
+    @Expose(serialize = false, deserialize = false)
     private Player partner = null;
 
 
@@ -123,6 +126,10 @@ public class Player implements TimeObserver {
 
     public Player(User user) {
         this.user = user;
+        userName = user.getUsername();
+        if(user.getPassword() == null){
+            this.user = App.getUserByUsername(user.getUsername());
+        }
         this.userId = user.getUserId();
         //id ok
         currentBackpack = BackPackType.InitialBackpack;
@@ -150,7 +157,7 @@ public class Player implements TimeObserver {
         this.position = new Position(64, 41);
         //TODO set current GL with setter
         //status ok
-        this.gender = user.getGender();
+        this.gender = this.user.getGender();
 //        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
     }
@@ -280,8 +287,8 @@ public class Player implements TimeObserver {
         this.currentItem = currentItem;
     }
 
-    public Building getDefaultHome() {
-        return playerFarm.getDefaultHome();
+    public Home getDefaultHome() {
+        return (Home)playerFarm.getDefaultHome();
     }
 
     public void setDefaultHome(Building defaultHome) {
@@ -528,5 +535,13 @@ public class Player implements TimeObserver {
 
     public void setSelectedSlot(int selectedSlot) {
         this.selectedSlot = selectedSlot;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

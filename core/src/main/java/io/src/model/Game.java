@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Game {
     private String gameId;
     private ArrayList<String> usersId = new ArrayList<>();
+    @Expose(serialize = false, deserialize = false)
     private ArrayList<Player> players;
     private GameMap gameMap;
     private TimeSystem timeSystem;

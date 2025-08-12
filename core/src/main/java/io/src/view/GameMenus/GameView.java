@@ -48,7 +48,7 @@ import java.util.*;
 public class GameView implements Screen {
     private final HashMap<String, TextureRegion> gameObjectTextureMap = new HashMap<>();
     public static final int TILE_SIZE = 16;
-    private final Game game;
+    private Game game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private BitmapFont smallFont;
@@ -60,7 +60,7 @@ public class GameView implements Screen {
     private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private int moveDirection = 0;
     private Texture pixel; // Add this
-    public Image background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
+    public Image background;
     private final OrthographicCamera camera = new OrthographicCamera();
     private static Stage stage;
     private TimerWindow timeWindow;
@@ -107,58 +107,61 @@ public class GameView implements Screen {
     }
 
     public GameView(Game game) {
-        this.game = game;
-        this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
-        renderer = new OrthogonalTiledMapRenderer(map, 1f);
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        Gdx.app.postRunnable(() -> {
+            this.game = game;
+            this.map = new TmxMapLoader().load(App.getMe().getCurrentGameLocation().getType().getAssetName());
+            renderer = new OrthogonalTiledMapRenderer(map, 1f);
+            camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            background = new Image(new Texture(Gdx.files.internal("gameLocations\\Farm2.png")));
+            stage = new Stage(new ScreenViewport());
+            itemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
+            foodBuff = null;
+            invWindow = new InventoryWindow();
+            energyWindow = new EnergyBar();
+            timeWindow = new TimerWindow();
+            craftingWindow = new craftingWindow(App.getMe());
+            inventoryBar = new InventoryBar();
+            foodWindow = new FoodWindow(App.getMe());
+            refrigeratorWindow = new RefrigeratorWindow();
+            shippingBarWindow = new ShippingBarWindow();
+            artisanWindow = new ArtisanWindow(new ArtesianMachine(false,new Position(10,10),ArtisanMachineItemType.BEE_HOUSE.getArtisanMachineType()));
+            energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
+            invWindow.setVisible(false);
+            craftingWindow.setVisible(false);
+            foodWindow.setVisible(false);
+            artisanWindow.setVisible(false);
 
-        stage = new Stage(new ScreenViewport());
-        itemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
-        foodBuff = null;
-        invWindow = new InventoryWindow();
-        energyWindow = new EnergyBar();
-        timeWindow = new TimerWindow();
-        craftingWindow = new craftingWindow(App.getMe());
-        inventoryBar = new InventoryBar();
-        foodWindow = new FoodWindow(App.getMe());
-        refrigeratorWindow = new RefrigeratorWindow();
-        shippingBarWindow = new ShippingBarWindow();
-        artisanWindow = new ArtisanWindow(new ArtesianMachine(false,new Position(10,10),ArtisanMachineItemType.BEE_HOUSE.getArtisanMachineType()));
-        energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
-        invWindow.setVisible(false);
-        craftingWindow.setVisible(false);
-        foodWindow.setVisible(false);
-        artisanWindow.setVisible(false);
+            stage.addActor(craftingWindow);
+            stage.addActor(invWindow);
+            stage.addActor(energyWindow);
+            stage.addActor(timeWindow);
+            stage.addActor(itemLabel);
+            stage.addActor(foodWindow);
+            stage.addActor(inventoryBar);
 
-        stage.addActor(craftingWindow);
-        stage.addActor(invWindow);
-        stage.addActor(energyWindow);
-        stage.addActor(timeWindow);
-        stage.addActor(itemLabel);
-        stage.addActor(foodWindow);
-        stage.addActor(inventoryBar);
+            stage.addActor(artisanWindow);
+            stage.addActor(shippingBarWindow);
+//            stage.addActor(refrigeratorWindow);
+//            refrigeratorWindow.setVisible(false);
+            shippingBarWindow.setVisible(false);
 
-        stage.addActor(artisanWindow);
-        stage.addActor(shippingBarWindow);
-        stage.addActor(refrigeratorWindow);
-        refrigeratorWindow.setVisible(false);
-        shippingBarWindow.setVisible(false);
+            inventoryBar.toFront();
+            itemLabel.setPosition(930, 200);
 
-        inventoryBar.toFront();
-        itemLabel.setPosition(930, 200);
+            this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
 
-        this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
-
-        multiplexer.addProcessor(gameMenuInputAdapter);
+            multiplexer.addProcessor(gameMenuInputAdapter);
 //        multiplexer.addProcessor(keyListener);
-        multiplexer.addProcessor(stage);
-        Gdx.input.setInputProcessor(multiplexer);
+            multiplexer.addProcessor(stage);
+            Gdx.input.setInputProcessor(multiplexer);
 
-        transitionManager = new ScreenTransition();
-        shapeRenderer = new ShapeRenderer();
+            transitionManager = new ScreenTransition();
+            shapeRenderer = new ShapeRenderer();
 
-        setCustomCursor("assets/Cursor.png", 0, 0);
+            setCustomCursor("assets/Cursor.png", 0, 0);
+        });
+
 
     }
 
@@ -432,146 +435,148 @@ public class GameView implements Screen {
     @Override
     public void render(float v) {
         camera.update();
-        renderer.setView(camera);
-        gameMenuInputAdapter.update(v);
-        renderer.render();
+        Gdx.app.postRunnable(()->{
+            renderer.setView(camera);
+            gameMenuInputAdapter.update(v);
+            renderer.render();
 
-        renderer.getBatch().begin();
-        for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
-            for (Tile tile : tileLine) {
-                if (tile.getTileType() == TileType.PlowedSoil) {
-                    Texture texture = new Texture(Gdx.files.internal(
-                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
-                    ));
-                    TextureRegion region = new TextureRegion(texture);
-                    renderer.getBatch().draw(region, tile.getPosition().getX(), tile.getPosition().getY());
+            renderer.getBatch().begin();
+            for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
+                for (Tile tile : tileLine) {
+                    if (tile.getTileType() == TileType.PlowedSoil) {
+                        Texture texture = new Texture(Gdx.files.internal(
+                            GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
+                        ));
+                        TextureRegion region = new TextureRegion(texture);
+                        renderer.getBatch().draw(region, tile.getPosition().getX(), tile.getPosition().getY());
+                    }
                 }
             }
-        }
 
-        ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
-        Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
-        PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
-        objects.add(me);
-        objects.sort(
-            Comparator
-                .comparingDouble((GameObject o) -> -o.getPosition().getY())
-                .thenComparingInt(o -> (int) o.getPosition().getX())
-        );
-
-
-        for (GameObject go : objects) {
-            String assetName = go.getAssetName();
-            TextureRegion region;
-            if (go instanceof PlayerObject) {
+            ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
+            Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
+            PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
+            objects.add(me);
+            objects.sort(
+                Comparator
+                    .comparingDouble((GameObject o) -> -o.getPosition().getY())
+                    .thenComparingInt(o -> (int) o.getPosition().getX())
+            );
 
 
-                renderPlayer();
+            for (GameObject go : objects) {
+                String assetName = go.getAssetName();
+                TextureRegion region;
+                if (go instanceof PlayerObject) {
 
-                updateAndDrawToolSwings(v);
 
-                continue;
+                    renderPlayer();
+
+                    updateAndDrawToolSwings(v);
+
+                    continue;
+                }
+                if (go instanceof NPC npc) {
+                    renderNPC(npc);
+                    npc.update(v);
+    //                System.out.println(npc.getPosition().getX() + " " + npc.getPosition().getY());
+                    continue;
+                }
+
+
+                if (!gameObjectTextureMap.containsKey(assetName)) {
+                    Texture texture = new Texture(Gdx.files.internal(
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
+                    ));
+                    region = new TextureRegion(texture);
+                    gameObjectTextureMap.put(assetName, region);
+                } else {
+                    region = gameObjectTextureMap.get(assetName);
+                }
+
+
+                float worldX = go.getPosition().getX() * TILE_SIZE;
+                float worldY = go.getPosition().getY() * TILE_SIZE;
+
+                if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
+                    ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
+                    worldX -= 16;
+                }
+
+                if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.PINKFU_TREE) {
+                    worldX -= 24;
+                }
+
+                if (go instanceof ArtesianMachine) {
+                    ArtesianMachine artesianMachine = (ArtesianMachine) go;
+                    artesianMachine.setArtisanGood(new ArtisanGood(ArtisanGoodType.HONEY));
+                    worldX -= 25;
+                    renderer.getBatch().draw(region, worldX, worldY,
+                        region.getRegionWidth(), 0,
+                        region.getRegionWidth(), region.getRegionHeight(),
+                        0.5f, 0.5f, 0);
+                    renderer.getBatch().end();
+                    makeGreenBar(artesianMachine, worldX, worldY);
+                    renderer.getBatch().begin();
+                } else if (go instanceof EtcObject) {
+                    worldX -= 25;
+                    renderer.getBatch().draw(region,
+                        worldX, worldY,
+                        region.getRegionWidth(), 0,
+                        region.getRegionWidth(), region.getRegionHeight(),
+                        0.5f, 0.5f, 0);
+                } else {
+                    renderer.getBatch().draw(region,
+                        worldX, worldY,
+                        region.getRegionWidth(), 0,
+                        region.getRegionWidth(), region.getRegionHeight(),
+                        1f, 1f, 0);
+                }
+
+
             }
-            if (go instanceof NPC npc) {
-                renderNPC(npc);
-                npc.update(v);
-//                System.out.println(npc.getPosition().getX() + " " + npc.getPosition().getY());
-                continue;
-            }
+            renderer.getBatch().end();
 
+            transitionManager.update(v);
+            transitionManager.render(shapeRenderer);
+            updateCameraPosition();
+            camera.zoom = 0.3f;
 
-            if (!gameObjectTextureMap.containsKey(assetName)) {
-                Texture texture = new Texture(Gdx.files.internal(
-                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
-                ));
-                region = new TextureRegion(texture);
-                gameObjectTextureMap.put(assetName, region);
+            stage.act(v);
+            stage.draw();
+
+            energyWindow.updateEnergyBar();
+
+            timeWindow.updateGold();
+            timeWindow.updateTime();
+            if (App.getMe().getCurrentItem() != null) {
+                itemLabel.setText(App.getMe().getCurrentItem().getName());
             } else {
-                region = gameObjectTextureMap.get(assetName);
+                itemLabel.setText("");
             }
 
-
-            float worldX = go.getPosition().getX() * TILE_SIZE;
-            float worldY = go.getPosition().getY() * TILE_SIZE;
-
-            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
-                ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
-                worldX -= 16;
+            if (App.getMe().getCurrentBuff() != null) {
+                String assetName = App.getMe().getCurrentBuff().getBuffType().getAssetName();
+                foodBuff = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName))));
+                stage.addActor(foodBuff);
+                foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
             }
 
-            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.PINKFU_TREE) {
-                worldX -= 24;
+            if(!App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).isWalkable()){
+                Random rand = new Random();
+                int random = rand.nextInt(4);
+                if(random == 0){
+                    gameMenuInputAdapter.keyDown(Input.Keys.W);
+                } else if(random == 1){
+                    gameMenuInputAdapter.keyDown(Input.Keys.S);
+                } else if(random == 2){
+                    gameMenuInputAdapter.keyDown(Input.Keys.A);
+                } else if(random == 3){
+                    gameMenuInputAdapter.keyDown(Input.Keys.D);
+                }
             }
+        });
 
-            if (go instanceof ArtesianMachine) {
-                ArtesianMachine artesianMachine = (ArtesianMachine) go;
-                artesianMachine.setArtisanGood(new ArtisanGood(ArtisanGoodType.HONEY));
-                worldX -= 25;
-                renderer.getBatch().draw(region, worldX, worldY,
-                    region.getRegionWidth(), 0,
-                    region.getRegionWidth(), region.getRegionHeight(),
-                    0.5f, 0.5f, 0);
-                renderer.getBatch().end();
-                makeGreenBar(artesianMachine, worldX, worldY);
-                renderer.getBatch().begin();
-            } else if (go instanceof EtcObject) {
-                worldX -= 25;
-                renderer.getBatch().draw(region,
-                    worldX, worldY,
-                    region.getRegionWidth(), 0,
-                    region.getRegionWidth(), region.getRegionHeight(),
-                    0.5f, 0.5f, 0);
-            } else {
-                renderer.getBatch().draw(region,
-                    worldX, worldY,
-                    region.getRegionWidth(), 0,
-                    region.getRegionWidth(), region.getRegionHeight(),
-                    1f, 1f, 0);
-            }
-
-
-        }
-        renderer.getBatch().end();
-
-        transitionManager.update(v);
-        transitionManager.render(shapeRenderer);
-        updateCameraPosition();
-        camera.zoom = 0.3f;
-
-        stage.act(v);
-        stage.draw();
-
-        energyWindow.updateEnergyBar();
-
-        timeWindow.updateGold();
-        timeWindow.updateTime();
-        if (App.getMe().getCurrentItem() != null) {
-            itemLabel.setText(App.getMe().getCurrentItem().getName());
-        } else {
-            itemLabel.setText("");
-        }
-
-        if (App.getMe().getCurrentBuff() != null) {
-            String assetName = App.getMe().getCurrentBuff().getBuffType().getAssetName();
-            foodBuff = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName))));
-            stage.addActor(foodBuff);
-            foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
-        }
-
-        if(!App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).isWalkable()){
-            Random rand = new Random();
-            int random = rand.nextInt(4);
-            if(random == 0){
-                System.out.println("uuu");
-                gameMenuInputAdapter.keyDown(Input.Keys.W);
-            } else if(random == 1){
-                gameMenuInputAdapter.keyDown(Input.Keys.S);
-            } else if(random == 2){
-                gameMenuInputAdapter.keyDown(Input.Keys.A);
-            } else if(random == 3){
-                gameMenuInputAdapter.keyDown(Input.Keys.D);
-            }
-        }
 
 
         camera.update();

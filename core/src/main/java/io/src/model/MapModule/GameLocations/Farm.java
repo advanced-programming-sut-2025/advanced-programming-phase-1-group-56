@@ -2,7 +2,6 @@ package io.src.model.MapModule.GameLocations;
 
 import com.google.gson.annotations.Expose;
 import io.src.controller.GameMenuController.FarmingController;
-import io.src.model.App;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.GameLocationType;
 import io.src.model.GameObject.Crop;
@@ -23,11 +22,16 @@ public class Farm extends GameLocation implements TimeObserver {
     private final ArrayList<Building> buildings = new ArrayList<>();
     private final ArrayList<GameObject> allGameObjects = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
-    private Player player;
+    private transient Player player;
+
+
+    private String farnmapPath;
+
+    public String getFarnmapPath() { return farnmapPath; }
+    public void setFarnmapPath(String path) { this.farnmapPath = path; }
 
     public Farm(GameLocationType type) {
         super(type);
-        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -93,12 +97,14 @@ public class Farm extends GameLocation implements TimeObserver {
 
     public Home getDefaultHome() {
         for (Building building : buildings) {
+            System.out.println(building.getBuildingType());
             if (building instanceof Home home) {
                 return home;
             }
         }
         return null;
     }
+
 
     public ArrayList<GameObject> getAllGameObjects() {
         return allGameObjects;

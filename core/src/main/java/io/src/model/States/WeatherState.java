@@ -11,10 +11,9 @@ public class WeatherState  implements TimeObserver {
     private WeatherType tomorrowWeather;
 
     public WeatherState(){
-        Seasons season = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
+        Seasons season = Seasons.Spring;
         todayWeather = getRandomWeather(season);
         tomorrowWeather = getRandomWeather(season);
-        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     private WeatherType getRandomWeather(Seasons season) {
@@ -73,6 +72,10 @@ public class WeatherState  implements TimeObserver {
         return todayWeather;
     }
 
+    public void setTodayWeather(WeatherType todayWeather) {
+        this.todayWeather = todayWeather;
+    }
+
     public WeatherType getTomorrowWeather() {
         return tomorrowWeather;
     }
@@ -88,4 +91,5 @@ public class WeatherState  implements TimeObserver {
             tomorrowWeather = getRandomWeather(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
         }
     }
+
 }
