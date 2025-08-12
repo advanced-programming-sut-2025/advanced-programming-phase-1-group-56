@@ -142,7 +142,8 @@ public class MainMenu implements AppMenu, Screen {
 
         // temp :
 
-        npcQuestMenu = new NpcQuestMenu(skin, 1, NpcType.ABIGAIL.getRequests().getFirst());
+        npcQuestMenu = new NpcQuestMenu(skin, 1, NpcType.SEBASTIAN.getRequests().get(1));
+        npcQuestMenu.hide();
         stage.addActor(npcQuestMenu);
     }
 

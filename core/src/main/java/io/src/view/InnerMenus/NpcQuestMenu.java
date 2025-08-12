@@ -10,7 +10,7 @@ import io.src.model.GameObject.NPC.NpcRequest;
 
 public class NpcQuestMenu extends Dialog {
     public NpcQuestMenu(Skin skin, int index, NpcRequest request) {
-        super("", skin, "default3");
+        super("", skin);
 
         // fields :
         Window item1Win = new Window("", skin, "default3");
@@ -18,6 +18,8 @@ public class NpcQuestMenu extends Dialog {
         Table buttons = new Table();
         TextButton acceptButten = new TextButton(" ACCEPT ", skin, "button1-2_font30GREEN");
         TextButton cancelButten = new TextButton(" CANCEL ", skin, "button1-2_font30");
+        Image flashImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("flashDirection"))));
+        buttons.add(flashImage).width(120).height(80).padBottom(50).row();
         buttons.add(acceptButten).row();
         buttons.add(cancelButten);
         Texture item1Tex = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRequestedItem().getAssetName())));
@@ -26,26 +28,54 @@ public class NpcQuestMenu extends Dialog {
         Texture item2Tex = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRewardItem().getAssetName())));
         Image item1Image = new Image(item1Tex);
         Image item2Image = new Image(item2Tex);
-        Label item1NameLabel = new Label("item1", skin);
-        Label item2NameLabel = new Label("item2", skin);
-        Label item1AmountLabel = new Label("x21", skin);
-        Label item2AmountLabel = new Label("x50", skin);
+        Label item1NameLabel = new Label(request.getRequestedItem().getName(), skin);
+        Label item2NameLabel = new Label(request.getRewardItem().getName(), skin);
+        Label item1AmountLabel = new Label("x" + request.getRequestedQuantity(), skin, "default-GREEN");
+        Label item2AmountLabel = new Label("x" + request.getRewardQuantity(), skin, "default-GREEN");
+        item1NameLabel.pack();
+        item2NameLabel.pack();
+
+        System.out.println(item1NameLabel.getWidth());
+        System.out.println(item2NameLabel.getWidth());
+
+        float maxLabel = item1NameLabel.getWidth();
+        if (item2NameLabel.getWidth() > maxLabel)
+            maxLabel = item2NameLabel.getWidth();
+
+        float maxImageWidth = item1Image.getWidth();
+        if (item2Image.getWidth() > maxImageWidth)
+            maxImageWidth = item2Image.getWidth();
+
+        float maxImageHeight = item1Image.getHeight();
+        if (item2Image.getHeight() > maxImageHeight)
+            maxImageHeight = item2Image.getHeight();
+
+        System.out.println(maxLabel);
 
         // create
-        item1Win.add(item1Image).row();
-        item1Win.add(item1AmountLabel).row();
+        Table row1 = new Table();
+        row1.add(item1Image).width(maxImageWidth * 1.5f).height(maxImageHeight * 1.5f);
+        row1.add(item1AmountLabel).bottom();
+        item1Win.add(row1).padBottom(25).row();
         item1Win.add(item1NameLabel).row();
 
-        item2Win.add(item2Image).row();
-        item2Win.add(item2AmountLabel).row();
+        Table row11 = new Table();
+        row11.add(item2Image).width(maxImageWidth * 1.5f).height(maxImageHeight * 1.5f);
+        row11.add(item2AmountLabel).bottom();
+        item2Win.add(row11).padBottom(25).row();
         item2Win.add(item2NameLabel).row();
+
+        Table items = new Table();
+        items.add(item1Win).width(maxLabel + 100).height(maxImageHeight + item1NameLabel.getHeight() + 200).pad(50);
+        items.add(buttons).bottom().padBottom(50);
+        items.add(item2Win).width(maxLabel + 100).height(maxImageHeight + item1NameLabel.getHeight() + 200).pad(50);
+
+        getContentTable().debug();
 
         // add
 
-        getContentTable().add(new Label("Request No#" + index, skin, "font-90_PINK"));
-        getContentTable().add(item1Win).width(item1Tex.getWidth() * 5).height(item1Tex.getHeight() * 5);
-        getContentTable().add(buttons);
-        getContentTable().add(item2Win).width(item2Tex.getWidth() * 5).height(item2Tex.getHeight() * 5);
+        getContentTable().add(new Label("Request No#" + index, skin, "font-90_PINK")).center().row();
+        getContentTable().add(items);
 
         pack();
         setSize(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
