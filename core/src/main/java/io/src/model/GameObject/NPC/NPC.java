@@ -1,5 +1,9 @@
 package io.src.model.GameObject.NPC;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Clickable;
 import com.badlogic.gdx.math.Vector2;
@@ -13,9 +17,11 @@ import io.src.model.MapModule.Position;
 import io.src.model.GameObject.LivingEntity;
 import io.src.model.MapModule.Tile;
 import io.src.model.Player;
+import io.src.model.SkinManager;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.Item;
+import io.src.view.InnerMenus.NpcStateMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +52,6 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
     public void initializePaths(Town town) {
         this.town = town;
         List<Position> movePoints = type.getPathPoints();
-        // مسیر از نقطه شروع NPC به هر waypoint
         Node startNode = town.getTileByPosition(this.getPosition());
         Node endNode = null;
         for (Position wp : movePoints) {
@@ -100,17 +105,14 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
         }
         setVelocity(direction.x * getSpeed(), direction.y * getSpeed());
 
-        // جابجایی پیکسلی
         setPixelPosition(currentPos.add(getVelocity().cpy().scl(delta)));
         town.getTileByPosition(new Position(getPixelPosition().x / TILE_SIZE, getPixelPosition().y / TILE_SIZE)).setFixedObject(this);
 
-        // رسیدن به مرکز تایل
         if (currentPos.dst(targetPos) < getSpeed() * delta) {
             pathIndex++;
         }
     }
 
-    // متد کمک‌کننده برای دریافت/تنظیم PixelPosition
     private Vector2 pixelPosition;
 
     public Vector2 getPixelPosition() {
@@ -342,5 +344,19 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 
     public void setPaused(boolean paused) {
         isPaused = paused;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (button == Input.Buttons.RIGHT) {
+            NpcStateMenu npcStateMenu = new NpcStateMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), this);
+//            InputMultiplexer multiplexer = new InputMultiplexer();
+//            multiplexer.addProcessor(npcStateMenu);
+//            multiplexer.addProcessor(StardewValley.getGameView().getStage());
+//            Gdx.input.setInputProcessor(multiplexer);
+            StardewValley.getGameView().getStage().addActor(npcStateMenu);
+            npcStateMenu.showDialog();
+        }
+        return false;
     }
 }

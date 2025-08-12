@@ -33,7 +33,7 @@ public class NpcController extends CommandController {
         if (npc == null) {
             return new Result(false, "NPC '" + npcName + "' not found.");
         }
-        if (!player.getPosition().isNear(npc.getPosition(), 1)) {
+        if (!player.getPosition().isNear(npc.getPosition(), 4)) {
             return new Result(false, "You aren't close enough to " + npcName + ".");
         }
 
@@ -52,7 +52,7 @@ public class NpcController extends CommandController {
         Method method;
         try {
             method = cls.getMethod("randomFor",
-                    WeatherType.class, boolean.class, int.class
+                WeatherType.class, boolean.class, int.class
             );
         } catch (NoSuchMethodException e) {
             return new Result(false, "Dialogue method not found for " + cls.getSimpleName());
@@ -61,10 +61,10 @@ public class NpcController extends CommandController {
         String outPrompt;
         try {
             outPrompt = (String) method.invoke(
-                    null,
-                    App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather(),
-                    App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < 19,
-                    friendship.getLevel()
+                null,
+                App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather(),
+                App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour() < 19,
+                friendship.getLevel()
             );
         } catch (IllegalAccessException | InvocationTargetException e) {
             return new Result(false, "Error generating dialogue: " + e.getCause().getMessage());
@@ -102,7 +102,7 @@ public class NpcController extends CommandController {
                 friendship.addXp(+200);
                 friendship.setHasGiftedToday(true);
                 return new Result(true, "tnx for gifting " + npc.getType().getName() +
-                        " it's favorite item");
+                    " it's favorite item");
             } else {
                 friendship.addXp(+50);
                 friendship.setHasGiftedToday(true);
@@ -117,9 +117,9 @@ public class NpcController extends CommandController {
         builder.append("your friendships:\n");
         for (NpcFriendship f : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getNpcFriendShips()) {
             builder.append("with Npc:").append(f.getNpc().getType().getName()).append("\n")
-                    .append("\txp:").append(f.getXp()).append("\n")
-                    .append("\tlevel:").append(f.getLevel()).append("\n")
-                    .append("----------------\n");
+                .append("\txp:").append(f.getXp()).append("\n")
+                .append("\tlevel:").append(f.getLevel()).append("\n")
+                .append("----------------\n");
         }
         return new Result(true, builder.toString());
     }
@@ -132,17 +132,17 @@ public class NpcController extends CommandController {
             NpcRequest req = f.getNpc().getType().getRequests().get(IndexOfActiveReq);
             if (f.getLastActiveRequest() != -1) {
                 builder.append("--your Active request with: ").append(f.getNpc().getType().getName())
-                        .append("\n\tindex of request: ").append(IndexOfActiveReq)
-                        .append(req.toString()).append("\n");
+                    .append("\n\tindex of request: ").append(IndexOfActiveReq)
+                    .append(req.toString()).append("\n");
             } else if (f.getLastActiveRequest() != -1 && f.getDaysToSecondQ() > 0) {
                 builder.append("--your second request With: ").append(f.getNpc().getType().getName()).append("\n")
-                        .append("will be activated on ").append(f.getDaysToSecondQ()).append(" day(s)\n");
+                    .append("will be activated on ").append(f.getDaysToSecondQ()).append(" day(s)\n");
             } else if (f.getLastActiveRequest() != -1 && f.getLevel() == 0) {
                 builder.append("--your main requests with: ").append(f.getNpc().getType().getName()).append("\n")
-                        .append("is done. to get the extra request you have to increase your freindShip with this NPC ");
+                    .append("is done. to get the extra request you have to increase your freindShip with this NPC ");
             } else {
                 builder.append("you dont have any Active request with: ").append(f.getNpc().getType().getName())
-                        .append("and you never will. wish a good friendship for you and it");
+                    .append("and you never will. wish a good friendship for you and it");
             }
             builder.append("\n-------------------");
         }
@@ -162,21 +162,21 @@ public class NpcController extends CommandController {
 
         builder.append("your active Quest with npc:").append(npc.getType().getName()).append("\n");
         NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
-        int IndexOfActiveReq = f.getLastActiveRequest() ;
+        int IndexOfActiveReq = f.getLastActiveRequest();
         NpcRequest req = f.getNpc().getType().getRequests().get(IndexOfActiveReq);
         if (f.getLastActiveRequest() != -1) {
             builder.append("--your Active request with: ").append(f.getNpc().getType().getName())
-                    .append("\n\tindex of request: ").append(IndexOfActiveReq)
-                    .append(req.toString()).append("\n");
+                .append("\n\tindex of request: ").append(IndexOfActiveReq)
+                .append(req.toString()).append("\n");
         } else if (f.getLastActiveRequest() != -1 && f.getDaysToSecondQ() > 0) {
             builder.append("--your second request With: ").append(f.getNpc().getType().getName()).append("\n")
-                    .append("will be activated on ").append(f.getDaysToSecondQ()).append(" day(s)\n");
+                .append("will be activated on ").append(f.getDaysToSecondQ()).append(" day(s)\n");
         } else if (f.getLastActiveRequest() != -1 && f.getLevel() == 0) {
             builder.append("--your main requests with: ").append(f.getNpc().getType().getName()).append("\n")
-                    .append("is done. to get the extra request you have to increase your freindShip with this NPC ");
+                .append("is done. to get the extra request you have to increase your freindShip with this NPC ");
         } else {
             builder.append("you dont have any Active request with: ").append(f.getNpc().getType().getName())
-                    .append("and you never will. wish a good friendship for you and it");
+                .append("and you never will. wish a good friendship for you and it");
         }
         builder.append("\n-------------------");
         return new Result(true, builder.toString());
@@ -198,7 +198,7 @@ public class NpcController extends CommandController {
         NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
         if (f.getLastActiveRequest() == -1) {
             return new Result(false, "You dont have any Active request with: " +
-                    f.getNpc().getType().getName());
+                f.getNpc().getType().getName());
         }
         if (f.getLastActiveRequest() != index) {
             return new Result(false, "index you entered is not your active quest");
@@ -220,12 +220,12 @@ public class NpcController extends CommandController {
             }
         } else if (App.getMe().getInventory().countItem(itemToPay) < payAmount) {
             return new Result(false, "you dont have enough item to finish the quest with:"
-                    + npc.getType().getName() + " item to pay : " + itemToPay.getName() + "*" + payAmount);
+                + npc.getType().getName() + " item to pay : " + itemToPay.getName() + "*" + payAmount);
         }
         App.getMe().getInventory().remove(itemToPay, payAmount);//Temp remove
 
         Saleable reward = req.getRewardItem();
-        int rewardAmount = req.getRewardQuantity();
+        int rewardAmount = req.getRewardAmount();
 
         if (reward instanceof EtcType etcType) {
             switch (etcType) {
@@ -247,12 +247,12 @@ public class NpcController extends CommandController {
             if (!App.getMe().getInventory().canAddItem(item, rewardAmount)) {
                 App.getMe().getInventory().add(itemToPay, payAmount);//cancel Temp remove
                 return new Result(false, "your inventory doesn't have space for " +
-                        "reward failed to finish");
+                    "reward failed to finish");
             }
             App.getMe().getInventory().add(item, rewardAmount);
             f.setLastDoneRequest(index);
             return new Result(true, "quest number: " + indexStr + " with npc: " +
-                    npc.getType().getName() + " is done successfully");
+                npc.getType().getName() + " is done successfully");
         }
         return new Result(false, "bug happened in finish request type is incorrect");
 

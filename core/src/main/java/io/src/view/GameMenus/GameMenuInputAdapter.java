@@ -14,14 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
-import io.src.model.App;
+import io.src.model.*;
 import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
-import io.src.model.Clickable;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
-import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.GameObject.ArtesianMachine;
@@ -30,7 +28,6 @@ import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
-import io.src.model.Player;
 import io.src.model.items.Artesian;
 import io.src.model.items.Etc;
 import io.src.model.items.Food;
@@ -90,6 +87,16 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
             StardewValley.getGameView().updateMap();
+            return true;
+        }
+        if (keysHeld.contains(Input.Keys.P)) {
+            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 20 20");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 9999");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 9999");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 99999 dollars");
+
             return true;
         }
 
@@ -153,7 +160,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
 
         if (keycode == Input.Keys.ENTER) {
-            StardewValley.getGameView().getWarningWindow().kill();
+            //StardewValley.getGameView().getWarningWindow().kill();
         }
 
         if (keycode == Input.Keys.R) {

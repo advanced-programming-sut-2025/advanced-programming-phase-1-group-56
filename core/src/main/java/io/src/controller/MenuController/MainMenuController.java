@@ -38,7 +38,6 @@ public class MainMenuController extends CommandController {
         menu = new MainMenu();
         menu.getProfileMenu().setController(this);
         menu.getProfileMenu().adStage(menu.getStage());
-        menu.getNpcStateMenu().addStage(menu.getStage());
     }
 
     public void run() {
@@ -109,7 +108,6 @@ public class MainMenuController extends CommandController {
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
-                menu.getNpcStateMenu().setVisible(true);
             }
         });
 

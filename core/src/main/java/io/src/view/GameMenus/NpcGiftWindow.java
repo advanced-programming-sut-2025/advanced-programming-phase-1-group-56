@@ -12,23 +12,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.InventoryController;
+import io.src.controller.GameMenuController.NpcController;
 import io.src.controller.GameMenuController.TradeController;
-import io.src.model.App;
-import io.src.model.GameAssetManager;
-import io.src.model.SkinManager;
-import io.src.model.Slot;
+import io.src.model.*;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.items.Food;
 import io.src.model.items.Inventory;
 import io.src.model.items.Item;
 
 import java.util.ArrayList;
 
-public class ShippingBarWindow extends Group implements InputProcessor {
+public class NpcGiftWindow extends Group implements InputProcessor, InterruptingWindow {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.T) {
             if (StardewValley.getGameView().getShippingBarWindow().isVisible()) {
-                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
             }
             StardewValley.getGameView().getShippingBarWindow().setVisible(!StardewValley.getGameView().getShippingBarWindow().isVisible());
         }
@@ -80,8 +79,10 @@ public class ShippingBarWindow extends Group implements InputProcessor {
     private Label errorLabel;
     private DragAndDrop dragAndDrop = new DragAndDrop();
     private Table playerTable;
+    private NPC npc;
 
-    ShippingBarWindow() {
+    public NpcGiftWindow(NPC npc) {
+        this.npc = npc;
         group = new Group();
         errorLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
         errorLabel.setAlignment(Align.center);
@@ -90,7 +91,6 @@ public class ShippingBarWindow extends Group implements InputProcessor {
         setSize(940, 640);
         setPosition((Gdx.graphics.getWidth() - 940) / 2f, (Gdx.graphics.getHeight() - 640) / 2f);
         Inventory playerInven = App.getMe().getInventory();
-
 
         playerTable = createInventoryTable(playerInven, dragAndDrop);
         playerTable.setPosition(410, 100);
@@ -112,6 +112,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 setVisible(false);
                 Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+                StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
             }
         });
 
@@ -119,7 +120,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
     }
 
     private void createTrash() {
-        Image trashCan = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shipping_Bin_Opened"))));
+        Image trashCan = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Gift_Box"))));
         ;
         trashCan.setOrigin(Align.center);
         trashCan.setScale(1.2f);
@@ -160,9 +161,11 @@ public class ShippingBarWindow extends Group implements InputProcessor {
                 int fromIndex = (int) payload.getObject();
                 if (App.getMe().getInventory().getSlots().get(fromIndex) == null) return;
                 if (App.getMe().getInventory().getSlots().get(fromIndex).getItem() == null) return;
-                TradeController.sellProducts(App.getMe().getInventory().getSlots().get(fromIndex).getItem().getName(), String.valueOf(1));
-
+                Result result = NpcController.giftNPC(npc.getType().getName(), App.getMe().getInventory().getSlots().get(fromIndex).getItem().getName());
+                StardewValley.getGameView().getWarningWindow().showDialog("Gifting NPC", result.getMessage(), 250);
                 refreshInventory();
+                hideDialog();
+                StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
             }
         });
         addActor(finalTrashCan1);
@@ -301,5 +304,19 @@ public class ShippingBarWindow extends Group implements InputProcessor {
                 errorLabel.getColor().a = 1f;
             })
         ));
+    }
+
+    @Override
+    public void showDialog() {
+        this.setVisible(true);
+    }
+
+    @Override
+    public void hideDialog() {
+        if (this.isVisible()) {
+            Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+        }
+        this.setVisible(false);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
     }
 }

@@ -17,8 +17,6 @@ import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
-import io.src.view.InnerMenus.NpcStateMenu;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -33,7 +31,6 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
     private final Button profileButton;
     private final Button settingButton;
-    private final NpcStateMenu npcStateMenu;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -138,11 +135,7 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(profileMenu);
         profileMenu.setVisible(false);
 
-        // temp :
 
-        npcStateMenu = new NpcStateMenu(skin, "");
-        npcStateMenu.setVisible(false);
-        stage.addActor(npcStateMenu);
     }
 
     @Override
@@ -179,10 +172,6 @@ public class MainMenu implements AppMenu, Screen {
 
     //
 
-
-    public NpcStateMenu getNpcStateMenu() {
-        return npcStateMenu;
-    }
 
     public ProfileMenu getProfileMenu() {
         return profileMenu;

@@ -753,10 +753,6 @@ public class GameView implements Screen, TimeObserver {
     }
 
 
-    public void onPlayerTalk(String npcName, String dialogText) {
-        dialogWindow.showDialog(npcName, dialogText);
-    }
-
     @Override
     public void resize(int i, int i1) {
 
