@@ -72,15 +72,13 @@ public class NpcStateMenu extends Window {
             public void clicked(InputEvent event, float x, float y) {
                 NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
                 f.setXp(400);
-                hideDialog();
-                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
-                StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
                 try {
                     StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), NpcController.meetNPC(npc.getType().getName()).getMessage(), 400);
                 } catch (Exception e) {
                     StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), "I dont even know you..\n Why do you want to talk to me", 400);
                 }
                 npc.setDialogReady(false);
+                hideDialog();
             }
         });
 

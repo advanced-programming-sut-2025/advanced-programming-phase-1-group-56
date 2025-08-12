@@ -15,6 +15,7 @@ import io.src.controller.GameMenuController.GameController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
 import io.src.model.*;
+import io.src.model.Activities.Message;
 import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Direction;
@@ -90,12 +91,17 @@ public class GameMenuInputAdapter extends InputAdapter {
             return true;
         }
         if (keysHeld.contains(Input.Keys.P)) {
-            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 20 20");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 9999");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 9999");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 99999 dollars");
+//            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 20 20");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 9999");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 9999");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 99999 dollars");
+
+
+            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
+            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
+            App.getMe().getMessages().add(new Message("Eshgham?", App.getMe(), App.getMe()));
 
             return true;
         }

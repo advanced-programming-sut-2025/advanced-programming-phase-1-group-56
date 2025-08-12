@@ -140,7 +140,7 @@ public class CommonShopMenu extends Window {
                             300
                         );
                         updateProductsShow();
-                        Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+                        CommonShopMenu.this.hideDialog();
 
 
                     }
@@ -156,6 +156,8 @@ public class CommonShopMenu extends Window {
                         App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
                         result.getMessage(), 300);
                     updateProductsShow();
+                    CommonShopMenu.this.hideDialog();
+
                     // close parent shop window if needed:
                 });
                 buildingMiniMenu.showCentered(StardewValley.getGameView().getStage());
@@ -180,7 +182,8 @@ public class CommonShopMenu extends Window {
 
     public void hideDialog() {
         setVisible(false);
-        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+        Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
     }
 
     public void updateProductsShow() {

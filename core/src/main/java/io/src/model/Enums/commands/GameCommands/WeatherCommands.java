@@ -11,7 +11,7 @@ public enum WeatherCommands implements Commands {
     showTomorrowWeather("\\s*weather\\s+forecast\\s*"),
     buildGreenHouse("\\s*greenhouse\\s+build\\s*"),
     //cheat
-    cheatThor("\\s*cheat\\s+Thor\\s+-l\\s+([0-9]+)\\s+([0-9]+)\\s*"),
+    cheatThor("\\s*cheat\\s+thor\\s+-l\\s+([0-9]+)\\s+([0-9]+)\\s*"),
     cheatWeather("\\s*cheat\\s+weather\\s+set\\s+(.+)\\s*");
 
     private final String regex;

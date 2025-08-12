@@ -579,6 +579,12 @@ public class GameView implements Screen, TimeObserver {
                 continue;
             }
 
+            if (go instanceof MailBox mailBox) {
+                System.out.println("i found MailBox");
+                handleMailBoxHint(mailBox);
+                continue;
+            }
+
             if (GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName) == null) {
                 System.out.println(assetName);
             }
@@ -718,6 +724,7 @@ public class GameView implements Screen, TimeObserver {
         }
     }
 
+
     public void handleShopHint(Batch batch) {
         if (gameMenuInputAdapter.isShopCounterHintActive()) {
             Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
@@ -743,8 +750,24 @@ public class GameView implements Screen, TimeObserver {
             ));
             TextureRegion region = new TextureRegion(texture);
             float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
-            float worldX = (float) ((x+6));
+            float worldX = (float) ((x + 6));
             float worldY = (float) ((y + 31));
+            renderer.getBatch().draw(region,
+                worldX, worldY
+            );
+
+        }
+    }
+
+    private void handleMailBoxHint(MailBox mailBox) {
+        if (mailBox.getHasNewMessages()) {
+            Texture texture = new Texture(Gdx.files.internal(
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+            ));
+            TextureRegion region = new TextureRegion(texture);
+            float x = mailBox.getPixelPosition().x, y = mailBox.getPixelPosition().y;
+            float worldX = (float) ((x + 6));
+            float worldY = (float) ((y + 29));
             renderer.getBatch().draw(region,
                 worldX, worldY
             );
