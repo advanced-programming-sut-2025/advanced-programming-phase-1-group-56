@@ -1,5 +1,6 @@
 package io.src.model.GameObject.NPC;
 
+import io.src.model.App;
 import io.src.model.Clickable;
 import com.badlogic.gdx.math.Vector2;
 import io.src.model.Enums.Direction;
@@ -24,23 +25,24 @@ import static io.src.view.GameMenus.GameView.TILE_SIZE;
 public class NPC extends LivingEntity implements TimeObserver, Clickable, SensitiveToPlayer {
     private final NpcType type;
     private final ArrayList<NpcFriendship> friendships = new ArrayList<>();
-    private final List<List<Node>> precomputedPaths = new ArrayList<>();  // لیست مسیرهای پیش‌محاسبه
-    private int pathListIndex = 0;               // ایندکس مسیر فعلی
-    private List<Node> currentPath;              // مسیر کنونی نودها
-    private int pathIndex = 0;                   // ایندکس در مسیر کنونی
-    private final float pauseDuration = 1f;
+    private final List<List<Node>> precomputedPaths = new ArrayList<>();
+    private int pathListIndex = 0;
+    private List<Node> currentPath;
+    private int pathIndex = 0;
+    private float pauseDuration = 1f;
     private float pauseTimer = 0f;
+
     private boolean isPaused = true;
     private Town town;
+    private boolean isDialogReady = true;
+    private boolean meetHint = false;
 
     public NPC(Position position, NpcType type) {
         super(position, false);
         this.type = type;
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
-    /**
-     * فراخوانی بعد از اینکه town ست شد؛ مسیرها را یکبار محاسبه می‌کند
-     */
     public void initializePaths(Town town) {
         this.town = town;
         List<Position> movePoints = type.getPathPoints();
@@ -273,6 +275,8 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
                 }
 
             }
+        } else {
+            isDialogReady = true;
         }
     }
 
@@ -284,26 +288,59 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
 
     @Override
     public boolean onPlayerGoesNearby(float distance) {
+        if (distance < 6) {
+            meetHint = true;
+        }
         return false;
     }
 
     @Override
     public boolean onPlayerGetsFar(float distance) {
+        meetHint = false;
         return false;
     }
 
     @Override
     public boolean onPlayerFocus() {
+        isPaused = true;
+        pauseDuration = 3600_000f;
         return false;
     }
 
     @Override
     public boolean onPlayerDefocus() {
+        isPaused = false;
+        pauseDuration = 1f;
         return false;
     }
 
     @Override
     public float getSensitivityDistance() {
         return 4;
+    }
+
+    public boolean isDialogReady() {
+        return isDialogReady;
+    }
+
+    public void setDialogReady(boolean dialogReady) {
+        isDialogReady = dialogReady;
+    }
+
+    public boolean isMeetHint() {
+        return meetHint;
+    }
+
+    public void setMeetHint(boolean meetHint) {
+        this.meetHint = meetHint;
+    }
+
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
     }
 }

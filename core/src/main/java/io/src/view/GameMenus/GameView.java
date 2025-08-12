@@ -524,7 +524,7 @@ public class GameView implements Screen, TimeObserver {
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
                     ));
                     TextureRegion region = new TextureRegion(texture);
-                    renderer.getBatch().draw(region, tile.getPosition().getX()*TILE_SIZE, tile.getPosition().getY()*TILE_SIZE);
+                    renderer.getBatch().draw(region, tile.getPosition().getX() * TILE_SIZE, tile.getPosition().getY() * TILE_SIZE);
                 }
             }
         }
@@ -575,7 +575,7 @@ public class GameView implements Screen, TimeObserver {
             if (go instanceof NPC npc) {
                 renderNPC(npc);
                 npc.update(v);
-//                System.out.println(npc.getPosition().getX() + " " + npc.getPosition().getY());
+                handleNpcHint(npc);
                 continue;
             }
 
@@ -729,6 +729,22 @@ public class GameView implements Screen, TimeObserver {
             TextureRegion region = new TextureRegion(texture);
             float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
             float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
+            renderer.getBatch().draw(region,
+                worldX, worldY
+            );
+
+        }
+    }
+
+    public void handleNpcHint(NPC npc) {
+        if (npc.isDialogReady() && npc.isMeetHint()) {
+            Texture texture = new Texture(Gdx.files.internal(
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+            ));
+            TextureRegion region = new TextureRegion(texture);
+            float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
+            float worldX = (float) ((x+6));
+            float worldY = (float) ((y + 31));
             renderer.getBatch().draw(region,
                 worldX, worldY
             );

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import io.src.model.Clickable;
 import com.badlogic.gdx.math.Vector2;
 import io.src.model.Enums.Direction;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Position;
 
 public class LivingEntity extends GameObject implements Movable , Clickable {
@@ -46,6 +47,9 @@ public class LivingEntity extends GameObject implements Movable , Clickable {
     }
 
     public boolean isMoving() {
+        if(this instanceof NPC npc&& npc.isPaused()){
+            return false;
+        }
         return vx != 0 || vy != 0;
     }
 
