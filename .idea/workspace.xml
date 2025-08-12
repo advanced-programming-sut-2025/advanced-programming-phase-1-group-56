@@ -5,19 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.atlas" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/LoginMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/ProfileMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/ProfileMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/LoginMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameLocationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameLocationType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/EtcType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/EtcType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/ToolMaterial.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/ToolMaterial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Saleable.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Saleable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CommonShopMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CommonShopMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/ShopStateWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/ShopStateWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/ProfileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/ProfileMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +71,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;git@github.com:advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
-    &quot;accountId&quot;: &quot;bee11d60-58a2-482f-aaac-3d56730ac7ed&quot;
+    &quot;accountId&quot;: &quot;897e9c46-f997-4e20-92da-7543902627e4&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -109,7 +111,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -171,6 +173,7 @@
       <workItem from="1754857260724" duration="11692000" />
       <workItem from="1754906780449" duration="11997000" />
       <workItem from="1754980424256" duration="16873000" />
+      <workItem from="1755005838255" duration="11885000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />

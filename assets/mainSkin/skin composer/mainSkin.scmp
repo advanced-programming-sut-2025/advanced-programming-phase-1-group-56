@@ -3,7 +3,7 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -23,7 +23,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -43,7 +43,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/button1_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -63,7 +63,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/cursor.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/cursor.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -83,7 +83,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selection.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selection.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -103,7 +103,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/textfield.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/textfield.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -123,7 +123,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_OFF.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_OFF.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -143,7 +143,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_ON.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx_ON.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -163,7 +163,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/window.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/window.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -183,7 +183,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/warning_label.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/warning_label.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -203,7 +203,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx2_OFF.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx2_OFF.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -223,7 +223,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx2_ON.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/checkedbx2_ON.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -243,7 +243,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/enventoryButtonTop_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/enventoryButtonTop_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -263,7 +263,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/enventoryButtonTop_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/enventoryButtonTop_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -283,7 +283,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonTop_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonTop_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -303,7 +303,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonRight_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonRight_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -323,7 +323,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ExitButton_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ExitButton_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -343,7 +343,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ExitButton_DOWN.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ExitButton_DOWN.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -363,7 +363,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -383,7 +383,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -403,7 +403,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -423,7 +423,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton2_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton2_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -443,7 +443,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton2_OVER.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/newButton2_OVER.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -463,7 +463,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/loadButton2_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/loadButton2_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -483,7 +483,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/loadButton2_DOWN.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/loadButton2_DOWN.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -503,7 +503,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/co-opButton_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/co-opButton_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -523,7 +523,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/co-opButton_DOWN.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/co-opButton_DOWN.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -543,7 +543,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/questionButton_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/questionButton_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -563,7 +563,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/questionButton_DOWN.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/questionButton_DOWN.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -583,7 +583,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/exitButton2_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/exitButton2_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -603,7 +603,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/exitButton2_DOWN.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/exitButton2_DOWN.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -623,7 +623,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/stageBackGround.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/stageBackGround.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -643,7 +643,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/windowsBackground.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/windowsBackground.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -663,7 +663,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/backButton_UP.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/backButton_UP.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -683,7 +683,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/backButton_DOWN.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/backButton_DOWN.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -703,7 +703,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/stageBackGround_empty.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/stageBackGround_empty.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -723,7 +723,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/labelBackGround.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/labelBackGround.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -743,7 +743,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/rightButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/rightButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -763,7 +763,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/rightButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/rightButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -783,7 +783,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/leftButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/leftButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -803,7 +803,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/leftButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/leftButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -823,7 +823,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/okButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/okButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -843,7 +843,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/okButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/okButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -863,7 +863,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/okButton_DISABLE.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/okButton_DISABLE.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -883,7 +883,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selectBoxBackGround.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selectBoxBackGround.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -903,7 +903,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/listBackground.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/listBackground.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -923,7 +923,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selectionBox.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selectionBox.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -943,7 +943,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/listSelecetBox.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/listSelecetBox.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -963,7 +963,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selectBoxBackGround_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/selectBoxBackGround_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -983,7 +983,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/shopWindowBackGround.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/shopWindowBackGround.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1003,7 +1003,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/VScroll1_BackGround.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/VScroll1_BackGround.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1023,7 +1023,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/VScroll1_Knob.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/VScroll1_Knob.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1043,7 +1043,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ProductWindow.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ProductWindow.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1063,7 +1063,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/shopWindowBackGround1.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/shopWindowBackGround1.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1083,7 +1083,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1103,7 +1103,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1123,7 +1123,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1143,7 +1143,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/closeButton.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1163,7 +1163,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ProfileButton.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ProfileButton.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1183,7 +1183,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ProfileButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ProfileButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1203,7 +1203,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/setting_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/setting_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1223,7 +1223,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/setting_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/setting_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1243,7 +1243,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/setting_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/setting_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1263,7 +1263,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/randomButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/randomButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1283,7 +1283,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/randomButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/randomButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1303,7 +1303,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/styleButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/styleButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1323,7 +1323,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/styleButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/styleButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1343,7 +1343,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/editingButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/editingButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1363,7 +1363,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/editingButton_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/editingButton_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1383,7 +1383,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonBottom_UP.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonBottom_UP.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1403,7 +1403,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonBottom_DOWN.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/inventoryButtonBottom_DOWN.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1423,7 +1423,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/editingButton_Disable.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/editingButton_Disable.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1443,7 +1443,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinButton.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinButton.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1463,7 +1463,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinButton_OVER.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinButton_OVER.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1483,7 +1483,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinButton_DISABLE.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinButton_DISABLE.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1503,7 +1503,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcStateMenuWindowBackground.9.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcStateMenuWindowBackground.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1522,10 +1522,30 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/npcWinBack.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: npcWinBack
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
 	]
 	fontDrawables: [
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1545,7 +1565,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1565,7 +1585,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1585,7 +1605,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1605,7 +1625,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1625,7 +1645,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).png
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).png
 			bgColor: {
 				r: 1
 				g: 1
@@ -1736,7 +1756,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley.fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -1744,7 +1764,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(1).fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -1752,7 +1772,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/StardewValley(2).fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -1760,7 +1780,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14.fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -1768,7 +1788,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(2).fnt
 		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
@@ -1776,7 +1796,7 @@ jsonData: {
 			flip: false
 			markupEnabled: false
 			scaling: -1
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).fnt
+			file: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/ModernDOS9x14(1).fnt
 		}
 	]
 	freeTypeFonts: []
@@ -3145,6 +3165,39 @@ jsonData: {
 						name: titleFont
 						optional: false
 						value: baseFont-24
+					}
+					titleFontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: titleFontColor
+						optional: true
+						value: null
+					}
+					stageBackground: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: stageBackground
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+				parent: null
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: npcQuestWin
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Window
+				properties: {
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: npcWinBack
+					}
+					titleFont: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: titleFont
+						optional: false
+						value: baseFont2-24
 					}
 					titleFontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -9740,7 +9793,7 @@ preferences: {
 		value: 30
 	}
 }
-saveFile: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/mainSkin.scmp
+saveFile: C:/Users/Notebook/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/mainSkin.scmp
 version: 58
 sceneComposer: null
 }

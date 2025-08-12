@@ -12,11 +12,13 @@ import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
+import io.src.model.Enums.NpcType;
 import io.src.model.Enums.commands.MainMenuCommands;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
+import io.src.view.InnerMenus.NpcQuestMenu;
 import io.src.view.InnerMenus.NpcStateMenu;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
     private final Button profileButton;
     private final Button settingButton;
-    private final NpcStateMenu npcStateMenu;
+    private final NpcQuestMenu npcQuestMenu;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -140,9 +142,8 @@ public class MainMenu implements AppMenu, Screen {
 
         // temp :
 
-        npcStateMenu = new NpcStateMenu(skin, "");
-        npcStateMenu.setVisible(false);
-        stage.addActor(npcStateMenu);
+        npcQuestMenu = new NpcQuestMenu(skin, 1, NpcType.ABIGAIL.getRequests().getFirst());
+        stage.addActor(npcQuestMenu);
     }
 
     @Override
@@ -179,9 +180,8 @@ public class MainMenu implements AppMenu, Screen {
 
     //
 
-
-    public NpcStateMenu getNpcStateMenu() {
-        return npcStateMenu;
+    public NpcQuestMenu getNpcStateMenu() {
+        return npcQuestMenu;
     }
 
     public ProfileMenu getProfileMenu() {

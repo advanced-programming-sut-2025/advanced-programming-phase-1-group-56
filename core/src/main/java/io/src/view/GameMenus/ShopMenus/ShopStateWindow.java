@@ -117,8 +117,8 @@ public class ShopStateWindow extends Window {
 
     public void Open_Common_Shop(ArrayList<NpcProduct> products) {
         CommonShopMenu commonShopMenu = new CommonShopMenu(
-            SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
-            "Abigail",
+            SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN),
+            App.getMe().getCurrentGameLocation().getType().getStoreAvatarName(),
             products, new Listener() {
             @Override
             public void onProductSelected(int index, NpcProduct product) {

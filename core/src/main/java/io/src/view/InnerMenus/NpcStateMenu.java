@@ -22,7 +22,6 @@ public class NpcStateMenu extends Window {
         Texture npcTex = new Texture(Gdx.files.internal("assets\\AVATAR\\final\\Abigail\\1\\avatarProfile.png"));
         Image profile = new Image(npcTex);
 
-
         Button closeButton = new Button(skin, "closeButton");
         closeButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
