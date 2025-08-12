@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import io.src.StardewValley;
@@ -467,6 +468,12 @@ public class LoginMenu implements AppMenu, Screen {
             ((float) screenHeight / 4) - (warningLabel.getHeight() * 3)
         );
         stage.addActor(warningLabel);
+        warningLabel.addAction(
+            Actions.sequence(
+                Actions.delay(3f),
+                Actions.fadeOut(0.5f)
+            )
+        );
     }
 
     public void showQuestionLabel(String question) {
@@ -537,6 +544,6 @@ public class LoginMenu implements AppMenu, Screen {
         } else {
             System.out.println("invalid command bro!..");
         }
-        return new Result(true,"");
+        return new Result(true, "");
     }
 }

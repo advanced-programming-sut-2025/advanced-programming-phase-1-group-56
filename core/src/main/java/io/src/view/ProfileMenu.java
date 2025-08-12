@@ -3,10 +3,11 @@ package io.src.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.controller.MenuController.ProfileMenuController;
 import io.src.model.App;
@@ -29,6 +30,7 @@ public class ProfileMenu extends Window implements AppMenu {
     private Button editUsername;
     private Button editEmail;
     private Button editPassword;
+    private Window profileWin;
 
     public ProfileMenu() {
         super("", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
@@ -42,6 +44,8 @@ public class ProfileMenu extends Window implements AppMenu {
     private TextField emailField;
     private TextField passwordField;
     private MainMenuController controller;
+
+    private Stage stage;
 
     public ProfileMenu(Skin skin) {
         super("", skin, "noWindow");
@@ -94,17 +98,13 @@ public class ProfileMenu extends Window implements AppMenu {
         Label highScoreLabel = new Label("High Score:", skin);
         Label highScoreField = new Label(App.getCurrentUser().getHighScore() + "", skin, "default-PINK");
 
-        // warning label :
-        warningLabel = new Label("init", skin, "default-PINK_warning");
-        warningLabel.setVisible(false);
-
         // buttons :
         TextButton saveButton = new TextButton("SAVE", skin, "bottomButton-GREEN24");
         TextButton cancelButton = new TextButton("CANCEL", skin, "bottomButton-RED24");
 
         // profile window
 
-        Window profileWin = new Window("", skin);
+        profileWin = new Window("", skin);
         profileWin.align(Align.left | Align.top);
 
         Table row1 = new Table();
@@ -151,19 +151,24 @@ public class ProfileMenu extends Window implements AppMenu {
 
         // add to main Window :
         add(closeButton)
-            .padTop(Gdx.graphics.getHeight() / 2f - profileWin.getHeight() / 2f - warningLabel.getHeight() - saveButton.getHeight())
+            .padTop(Gdx.graphics.getHeight() / 2f - profileWin.getHeight() / 2f - saveButton.getHeight())
             .right().row();
 
         add(profileWin).width(profileWin.getWidth()).height(profileWin.getHeight())
             .padLeft(Gdx.graphics.getWidth() / 2f - profileWin.getWidth() / 2f)
             .row();
 
+        Dialog askPasswordDialog = new Dialog("", skin, "askWindow");
+        askPasswordDialog.text(new Label("Enter your old password:", skin)).row();
+        TextField oldPasswordField = new TextField("", skin);
+        oldPasswordField.setPasswordCharacter('*');
+        oldPasswordField.setPasswordMode(true);
+        askPasswordDialog.getContentTable().add(oldPasswordField).width(300).row();
+        Button okbutton = new Button(skin, "okButton");
+        askPasswordDialog.button(okbutton);
+
         add(buttonTable).width(profileWin.getWidth())
             .padLeft(Gdx.graphics.getWidth() / 2f - profileWin.getWidth() / 2f).row();
-        debug();
-        add(warningLabel).width(warningLabel.getWidth()).row();
-
-        pack();
 
         setMovable(false);
 
@@ -177,6 +182,8 @@ public class ProfileMenu extends Window implements AppMenu {
 
         editNickName.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                stage.setKeyboardFocus(nickNameField);
+                nickNameField.selectAll();
                 nickNameField.setDisabled(false);
                 editingMode(false);
                 editNickName.setVisible(true);
@@ -191,6 +198,7 @@ public class ProfileMenu extends Window implements AppMenu {
                 GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                 setEditingMode(false);
                 editingMode(true);
+                oldPasswordField.setText("");
                 buttonTable.setVisible(false);
                 passwordField.setText(App.getCurrentUser().getPassword());
                 usernameField.setText(App.getCurrentUser().getUsername());
@@ -204,7 +212,7 @@ public class ProfileMenu extends Window implements AppMenu {
         saveButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_TAKE_RESULT1.getPath(), false, 0.5f);
-
+                stage.setKeyboardFocus(editNickName);
                 Result result = null;
 
                 if (editNickName.isVisible())
@@ -213,16 +221,16 @@ public class ProfileMenu extends Window implements AppMenu {
                     result = ProfileMenuController.manageChangeUsername(usernameField.getText().trim());
                 else if (editEmail.isVisible())
                     result = ProfileMenuController.manageChangeEmail(emailField.getText().trim());
-                else if (editPassword.isVisible()) {
-                    //TODO ask old password
-                    result = ProfileMenuController.manageChangePassword(passwordField.getText(), "");
-                }
+                else if (editPassword.isVisible())
+                    result = ProfileMenuController.manageChangePassword(passwordField.getText(), oldPasswordField.getText().trim());
 
-                if (result.isSuccess())
+
+                if (result != null && result.isSuccess())
                     App.saveUsers();
-                else
+                else if (result != null)
                     showWarningLabel(result.getMessage());
 
+                oldPasswordField.setText("");
                 editingMode(true);
                 setEditingMode(false);
                 buttonTable.setVisible(false);
@@ -236,20 +244,26 @@ public class ProfileMenu extends Window implements AppMenu {
         });
 
         avatar.addListener(new ClickListener() {
-
             public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("avatar should start");
                 AvatarMenu avatarMenu = new AvatarMenu(skin, new AvatarMenu.AvatarSelectionListener() {
                     @Override
                     public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar, int AvatarIndex, int AvatarStyleIndex) {
-
+                        updateAvatar();
+                        System.out.println(AvatarIndex + " : " + AvatarStyleIndex);
+                        App.getCurrentUser().setAvatarIndex(AvatarIndex);
+                        App.getCurrentUser().setAvatarStyleIndex(AvatarStyleIndex);
+                        App.saveUsers();
                     }
                 });
+                avatarMenu.setAvatarMode();
+                avatarMenu.show(stage);
             }
         });
 
         editUsername.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                stage.setKeyboardFocus(usernameField);
+                usernameField.selectAll();
                 usernameField.setDisabled(false);
                 editingMode(false);
                 editUsername.setVisible(true);
@@ -261,6 +275,8 @@ public class ProfileMenu extends Window implements AppMenu {
 
         editEmail.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                stage.setKeyboardFocus(emailField);
+                emailField.selectAll();
                 emailField.setDisabled(false);
                 editingMode(false);
                 editEmail.setVisible(true);
@@ -272,7 +288,8 @@ public class ProfileMenu extends Window implements AppMenu {
 
         editPassword.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-
+                askPasswordDialog.show(stage);
+                stage.setKeyboardFocus(passwordField);
                 passwordField.setDisabled(false);
                 editingMode(false);
                 editPassword.setVisible(true);
@@ -330,12 +347,22 @@ public class ProfileMenu extends Window implements AppMenu {
     }
 
     public void showWarningLabel(String message) {
-        if (warningLabel != null)
-            warningLabel.remove();
+        if (warningLabel == null) {
+            warningLabel = new Label("", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN),
+                "default-GREEN_warning");
+            warningLabel.pack();
+            add(warningLabel).padTop(10).padLeft(Gdx.graphics.getWidth() / 2f - profileWin.getWidth() / 2f);
+        }
+        warningLabel.setText(" " + message);
+        warningLabel.pack();
 
-        warningLabel = new Label(" " + message, SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN),
-            "default-GREEN_warning");
-        add(warningLabel).width(Gdx.graphics.getWidth() / 2f - warningLabel.getWidth() / 2f);
+        warningLabel.getColor().a = 1f;
+        warningLabel.addAction(
+            Actions.sequence(
+                Actions.delay(2f),
+                Actions.fadeOut(0.5f)
+            )
+        );
     }
 
     private void editingMode(boolean state) {
@@ -347,5 +374,9 @@ public class ProfileMenu extends Window implements AppMenu {
         editNickName.setDisabled(!state);
         editUsername.setDisabled(!state);
         editPassword.setDisabled(!state);
+    }
+
+    public void adStage(Stage stage) {
+        this.stage = stage;
     }
 }
