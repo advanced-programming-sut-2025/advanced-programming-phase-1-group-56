@@ -37,6 +37,8 @@ public class MainMenuController extends CommandController {
     public void init() {
         menu = new MainMenu();
         menu.getProfileMenu().setController(this);
+        menu.getProfileMenu().adStage(menu.getStage());
+        menu.getNpcStateMenu().addStage(menu.getStage());
     }
 
     public void run() {
@@ -97,6 +99,9 @@ public class MainMenuController extends CommandController {
         menu.getNewButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                menu.getAvatarMenu().setAvatarIndex(App.getCurrentUser().getAvatarIndex());
+                menu.getAvatarMenu().setAvatarStyleIndex(App.getCurrentUser().getAvatarStyleIndex());
+                menu.getAvatarMenu().updateAvatarTextures();
                 setNewMenu(false);
             }
         });
@@ -104,6 +109,7 @@ public class MainMenuController extends CommandController {
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                menu.getNpcStateMenu().setVisible(true);
             }
         });
 

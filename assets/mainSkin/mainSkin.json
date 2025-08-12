@@ -461,6 +461,26 @@
 		"fontColor": "GREEN",
 		"up": "inventoryButtonBottom_UP",
 		"down": "inventoryButtonBottom_DOWN"
+	},
+	"npc-45": {
+		"font": "basefont2-45",
+		"fontColor": "GREEN",
+		"overFontColor": "PINK",
+		"up": "npcWinButton",
+		"down": "npcWinButton",
+		"over": "npcWinButton_OVER",
+		"focused": "npcWinButton_OVER",
+		"disabled": "npcWinButton_DISABLE"
+	},
+	"npc-90": {
+		"font": "baseFont-90",
+		"fontColor": "GREEN",
+		"overFontColor": "PINK",
+		"up": "npcWinButton",
+		"down": "npcWinButton",
+		"over": "npcWinButton_OVER",
+		"focused": "npcWinButton_OVER",
+		"disabled": "npcWinButton_DISABLE"
 	}
 },
 "TextFieldStyle": {
@@ -533,6 +553,16 @@
 	"noWindow": {
 		"titleFont": "baseFont-90",
 		"titleFontColor": "WHITE"
+	},
+	"askWindow": {
+		"background": "shopWindowBackGround",
+		"titleFont": "baseFont-90",
+		"titleFontColor": "BLACK",
+		"stageBackground": "stageBackGround"
+	},
+	"npcStateWin": {
+		"background": "npcStateMenuWindowBackground",
+		"titleFont": "baseFont-24"
 	}
 }
 }
