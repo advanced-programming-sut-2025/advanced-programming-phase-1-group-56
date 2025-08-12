@@ -147,7 +147,7 @@ public class CommonShopMenu extends Window {
             break;
             case BUILD_A_BUILDING: {
                 BuildingMiniMenu buildingMiniMenu = new BuildingMiniMenu(skin, (x, y) -> {
-                    Result result = CarpenterMenuController.BuildABuilding(((BuildingType) selectedProduct.getSaleable()).getName(), x, y);
+                    Result result = CarpenterMenuController.BuildABuilding(( selectedProduct.getSaleable()).getName(),(BuildingType) selectedProduct.getSaleable(), x, y);
                     // show result
                     StardewValley.getGameView().getWarningWindow().showDialog(
                         App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),

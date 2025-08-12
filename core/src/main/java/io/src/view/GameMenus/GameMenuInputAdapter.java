@@ -188,10 +188,12 @@ public class GameMenuInputAdapter extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        if (isInterruptingMenuOpen) {return false;}
+        if (isInterruptingMenuOpen) {
+            return false;
+        }
 
+        keysHeld.clear();
         if (button == Input.Buttons.LEFT) {
-            keysHeld.clear();
             if (StardewValley.getGameView().getShopStateWindow().isVisible()) {
                 return true;
             }
@@ -502,8 +504,10 @@ public class GameMenuInputAdapter extends InputAdapter {
                 } else {
                     //TODO hoshdar
                     WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
-                    warning.showDialog("Warning", "This is not the farm you can enter" +
-                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm4().getPlayer().getUser().getName(), 250);
+                    if (App.getCurrentUser().getCurrentGame().getGameMap().getFarm2() != null) {
+                        warning.showDialog("Warning", "This is not the farm you can enter" +
+                            " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm4().getPlayer().getUser().getName(), 250);
+                    }
                     player.setPosition(new Position(105, 34));
                 }
             } else if (player.getPosition().isNear(new Position(81, 107), 10)) {
@@ -520,8 +524,10 @@ public class GameMenuInputAdapter extends InputAdapter {
                 } else {
                     //TODO hoshdar
                     WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
-                    warning.showDialog("Warning", "This is not the farm you can enter" +
-                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm2().getPlayer().getUser().getName(), 250);
+                    if (App.getCurrentUser().getCurrentGame().getGameMap().getFarm2() != null) {
+                        warning.showDialog("Warning", "This is not the farm you can enter" +
+                            " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm2().getPlayer().getUser().getName(), 250);
+                    }
                     player.setPosition(new Position(81, 104));
                 }
 
@@ -539,10 +545,12 @@ public class GameMenuInputAdapter extends InputAdapter {
                 } else {
                     //TODO hoshdar
                     WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
-                    warning.showDialog("Warning", "This is not the farm you can enter.. " +
-                        "this farm belongs to: '"
-                        + App.getCurrentUser().getCurrentGame().getGameMap().getFarm3().getPlayer().getUser().getName()
-                        + "'", 250);
+                    if (App.getCurrentUser().getCurrentGame().getGameMap().getFarm3() != null) {
+                        warning.showDialog("Warning", "This is not the farm you can enter.. " +
+                            "this farm belongs to: '"
+                            + App.getCurrentUser().getCurrentGame().getGameMap().getFarm3().getPlayer().getUser().getName()
+                            + "'", 250);
+                    }
                     player.setPosition(new Position(54, 4));
                 }
 

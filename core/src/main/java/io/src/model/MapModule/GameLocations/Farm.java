@@ -119,7 +119,9 @@ public class Farm extends GameLocation implements TimeObserver {
 //                        }
 //                    }
                     //if (!found) {
-                    gameObjects.add(tile.getFixedObject());
+
+                    if (!gameObjects.contains(tile.getFixedObject()))
+                        gameObjects.add(tile.getFixedObject());
                     //}
                 }
             }
@@ -148,6 +150,7 @@ public class Farm extends GameLocation implements TimeObserver {
     public void setShippingBar(ShippingBar shippingBar) {
         this.shippingBar = shippingBar;
     }
+
     public String getName() {
         return name;
     }

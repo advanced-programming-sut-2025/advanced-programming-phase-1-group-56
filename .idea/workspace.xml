@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Merged with mehdi And Debug Some Shits">
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="ShippingBar fixed and debugged need a exit button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/TreeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/GameObjects/TreeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/ShippingBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/ShippingBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/CarpenterMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/ShopMenuControllers/CarpenterMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Buildings/BuildingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Buildings/BuildingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/GameLocations/Farm.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/GameLocations/Farm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/MapModule/newFarmLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShippingBarWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShippingBarWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CommonShopMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ShopMenus/CommonShopMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalNameDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalNameDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/BuildingMiniMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/BuildingMiniMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +280,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754920293874</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ShippingBar fixed and debugged need a exit button">
+      <option name="closed" value="true" />
+      <created>1754953885969</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1754953885969</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,6 +320,7 @@
     <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
     <MESSAGE value="Merged with mehdi" />
     <MESSAGE value="Merged with mehdi And Debug Some Shits" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged with mehdi And Debug Some Shits" />
+    <MESSAGE value="ShippingBar fixed and debugged need a exit button" />
+    <option name="LAST_COMMIT_MESSAGE" value="ShippingBar fixed and debugged need a exit button" />
   </component>
 </project>

@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import io.src.StardewValley;
@@ -18,6 +15,7 @@ import io.src.controller.GameMenuController.InventoryController;
 import io.src.controller.GameMenuController.TradeController;
 import io.src.model.App;
 import io.src.model.GameAssetManager;
+import io.src.model.SkinManager;
 import io.src.model.Slot;
 import io.src.model.items.Food;
 import io.src.model.items.Inventory;
@@ -100,6 +98,24 @@ public class ShippingBarWindow extends Group implements InputProcessor {
         group.addActor(errorLabel);
         createTrash();
         addActor(group);
+
+        // Exit button
+        Button exitButton = new Button(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "closeButton");
+        exitButton.setPosition(getWidth() - 120, getHeight() - 500);
+        exitButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                setVisible(false);
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
+            }
+        });
+
+        addActor(exitButton);
     }
 
     private void createTrash() {
@@ -142,8 +158,8 @@ public class ShippingBarWindow extends Group implements InputProcessor {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 int fromIndex = (int) payload.getObject();
-                if(App.getMe().getInventory().getSlots().get(fromIndex)==null) return;
-                if(App.getMe().getInventory().getSlots().get(fromIndex).getItem()==null) return;
+                if (App.getMe().getInventory().getSlots().get(fromIndex) == null) return;
+                if (App.getMe().getInventory().getSlots().get(fromIndex).getItem() == null) return;
                 TradeController.sellProducts(App.getMe().getInventory().getSlots().get(fromIndex).getItem().getName(), String.valueOf(1));
 
                 refreshInventory();
@@ -164,8 +180,8 @@ public class ShippingBarWindow extends Group implements InputProcessor {
             Stack stack = new Stack();
 
             Image slotImage = (i < capacity)
-                    ? new Image(GameAssetManager.getGameAssetManager().getEmptySlot())
-                    : new Image(GameAssetManager.getGameAssetManager().getLockSlot());
+                ? new Image(GameAssetManager.getGameAssetManager().getEmptySlot())
+                : new Image(GameAssetManager.getGameAssetManager().getLockSlot());
             stack.add(slotImage);
 
             while (slots.size() <= i && i < capacity) {
@@ -184,7 +200,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
 
             if (item != null && quantity > 0) {
                 Image itemImage = new Image(new Texture(Gdx.files.internal(
-                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
                 )));
                 itemImage.setOrigin(Align.center);
                 itemImage.setScale(0.8f);
@@ -278,12 +294,12 @@ public class ShippingBarWindow extends Group implements InputProcessor {
 
         errorLabel.clearActions();
         errorLabel.addAction(Actions.sequence(
-                Actions.delay(2f),
-                Actions.fadeOut(0.5f),
-                Actions.run(() -> {
-                    errorLabel.setVisible(false);
-                    errorLabel.getColor().a = 1f;
-                })
+            Actions.delay(2f),
+            Actions.fadeOut(0.5f),
+            Actions.run(() -> {
+                errorLabel.setVisible(false);
+                errorLabel.getColor().a = 1f;
+            })
         ));
     }
 }

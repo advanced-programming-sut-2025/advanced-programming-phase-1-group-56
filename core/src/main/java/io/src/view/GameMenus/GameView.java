@@ -524,7 +524,7 @@ public class GameView implements Screen, TimeObserver {
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
                     ));
                     TextureRegion region = new TextureRegion(texture);
-                    renderer.getBatch().draw(region, tile.getPosition().getX(), tile.getPosition().getY());
+                    renderer.getBatch().draw(region, tile.getPosition().getX()*TILE_SIZE, tile.getPosition().getY()*TILE_SIZE);
                 }
             }
         }
