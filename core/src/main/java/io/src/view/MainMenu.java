@@ -59,7 +59,7 @@ public class MainMenu implements AppMenu, Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         image = new Texture(Gdx.files.internal("background3.png"));
-        Skin skin = SkinManager.getInstance().getSkin("mainSkin/mainSkin.json");
+        Skin skin = SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN);
         stardewValleyImage = new Texture(Gdx.files.internal("StardewValley.png"));
 
         // exitButton
@@ -145,7 +145,7 @@ public class MainMenu implements AppMenu, Screen {
         profileMenu.setVisible(false);
 
         // temp :
-        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.SHEEP));
+        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.COW));
         animalMenu.setVisible(false);
         stage.addActor(animalMenu);
     }
