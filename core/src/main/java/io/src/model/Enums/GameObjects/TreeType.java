@@ -3,6 +3,7 @@ package io.src.model.Enums.GameObjects;
 import io.src.model.App;
 import io.src.model.Enums.Items.*;
 import io.src.model.Enums.WeatherAndTime.Seasons;
+import io.src.model.GameAssetManager;
 import io.src.model.items.Saleable;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,6 +81,9 @@ public enum TreeType implements Saleable, initialPlant {
             return null;
         } else if (stage == 5){
             if (isHarvest){
+                if(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(getAssetName() + "_Stage_5_Fruit") == null){
+                    return getAssetName() + "_Stage_5_0" + (s.ordinal()+1);
+                }
                 return getAssetName() + "_Stage_5_Fruit";
             }
             return getAssetName() + "_Stage_5_0" + (s.ordinal()+1);

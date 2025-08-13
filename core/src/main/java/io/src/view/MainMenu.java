@@ -11,20 +11,12 @@ import io.src.StardewValley;
 import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
-import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Menu;
-import io.src.model.Enums.NpcType;
 import io.src.model.Enums.commands.MainMenuCommands;
-import io.src.model.GameObject.Animal;
-import io.src.model.MapModule.Position;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
-import io.src.view.InnerMenus.AnimalMenu;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
-import io.src.view.InnerMenus.NpcQuestMenu;
-import io.src.view.InnerMenus.NpcStateMenu;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -39,7 +31,6 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
     private final Button profileButton;
     private final Button settingButton;
-    private final AnimalMenu animalMenu;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -144,10 +135,7 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(profileMenu);
         profileMenu.setVisible(false);
 
-        // temp :
-        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.COW));
-        animalMenu.setVisible(false);
-        stage.addActor(animalMenu);
+
     }
 
     @Override
@@ -184,9 +172,6 @@ public class MainMenu implements AppMenu, Screen {
 
     //
 
-    public AnimalMenu getAnimalMenu() {
-        return animalMenu;
-    }
 
     public ProfileMenu getProfileMenu() {
         return profileMenu;

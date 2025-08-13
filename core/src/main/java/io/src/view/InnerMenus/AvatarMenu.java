@@ -43,7 +43,6 @@ public class AvatarMenu extends Dialog {
         super("", skin);
         align(Align.left | Align.top);
 
-        debug();
 
         // initialize avatars images :
         avatars = new ArrayList<>();

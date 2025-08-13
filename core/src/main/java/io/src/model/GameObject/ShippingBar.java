@@ -1,7 +1,10 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.google.gson.annotations.Expose;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.Buildings.BuildingType;
@@ -11,6 +14,7 @@ import io.src.model.Slot;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.Inventory;
+import io.src.view.GameMenus.GameView;
 
 public class ShippingBar extends GameObject implements TimeObserver, Clickable, SensitiveToPlayer {
     private final Inventory inventory = new Inventory(100);
@@ -34,6 +38,8 @@ public class ShippingBar extends GameObject implements TimeObserver, Clickable, 
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
             for (Slot slot : inventory.getSlots()) {
+                if(slot.getItem()==null) continue;
+                System.out.println(slot.getItem().getName() + " : " + slot.getQuantity() + " * " + slot.getItem().getFinalPrice());
                 int sumPrice = slot.getQuantity() * slot.getItem().getFinalPrice();
                 if (sumPrice != -1) {
                     farm.getPlayer().addGold(sumPrice);
@@ -66,7 +72,15 @@ public class ShippingBar extends GameObject implements TimeObserver, Clickable, 
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
+        if (button == Input.Buttons.RIGHT) {
+            InputMultiplexer multiplexer = new InputMultiplexer();
+            multiplexer.addProcessor(StardewValley.getGameView().getShippingBarWindow());
+            multiplexer.addProcessor(StardewValley.getGameView().getStage());
+            StardewValley.getGameView().getShippingBarWindow().refreshInventory();
+            Gdx.input.setInputProcessor(multiplexer);
+            StardewValley.getGameView().getShippingBarWindow().setVisible(!StardewValley.getGameView().getShippingBarWindow().isVisible());
+            StardewValley.getGameView().getShippingBarWindow().setVisible(true);
+        }
         return false;
     }
 

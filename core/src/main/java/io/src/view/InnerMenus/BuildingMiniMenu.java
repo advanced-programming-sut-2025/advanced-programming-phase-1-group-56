@@ -114,8 +114,8 @@ public class BuildingMiniMenu extends Dialog {
         content.add(yTextField).width(80).row();
 
         // Buttons: OK returns "ok", Cancel returns "cancel"
-        button("OK", "ok");
-        button("Cancel", "cancel");
+        button("OK ", "ok");
+        button(" Cancel", "cancel");
 
         pack();
     }

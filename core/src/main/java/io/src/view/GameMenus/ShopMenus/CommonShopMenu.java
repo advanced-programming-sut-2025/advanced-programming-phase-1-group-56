@@ -135,6 +135,9 @@ public class CommonShopMenu extends Window {
                             300
                         );
                         updateProductsShow();
+                        CommonShopMenu.this.hideDialog();
+
+
                     }
                 );
                 dialog.showCentered(StardewValley.getGameView().getStage());
@@ -142,12 +145,14 @@ public class CommonShopMenu extends Window {
             break;
             case BUILD_A_BUILDING: {
                 BuildingMiniMenu buildingMiniMenu = new BuildingMiniMenu(skin, (x, y) -> {
-                    Result result = CarpenterMenuController.BuildABuilding(((BuildingType) selectedProduct.getSaleable()).getName(), x, y);
+                    Result result = CarpenterMenuController.BuildABuilding((selectedProduct.getSaleable()).getName(), (BuildingType) selectedProduct.getSaleable(), x, y);
                     // show result
                     StardewValley.getGameView().getWarningWindow().showDialog(
                         App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
                         result.getMessage(), 300);
                     updateProductsShow();
+                    CommonShopMenu.this.hideDialog();
+
                     // close parent shop window if needed:
                 });
                 buildingMiniMenu.showCentered(StardewValley.getGameView().getStage());
@@ -172,7 +177,8 @@ public class CommonShopMenu extends Window {
 
     public void hideDialog() {
         setVisible(false);
-        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+        Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
     }
 
     public void updateProductsShow() {

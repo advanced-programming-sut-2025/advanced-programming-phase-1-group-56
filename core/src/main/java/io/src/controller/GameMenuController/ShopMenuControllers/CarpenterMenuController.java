@@ -15,6 +15,7 @@ import io.src.model.MapModule.Position;
 import io.src.model.Player;
 import io.src.model.Result;
 import io.src.model.items.Etc;
+import io.src.model.items.Item;
 import io.src.model.items.Mineral;
 
 import java.util.regex.Matcher;
@@ -38,25 +39,24 @@ public class CarpenterMenuController implements ShopController {
                 findStoreByClass(CarpentersShop.class).getDailyProductList());
     }
 
-    public static Result BuildABuilding(String name, int x, int y) {
+    public static Result BuildABuilding(String name, BuildingType buildingType, int x, int y) {
         name = name.toUpperCase();
         Farm farm = App.getMe().getPlayerFarm();
 
         // 2. lookup type
-        BuildingType type = BuildingType.getTypeByName(name);
 
-        if (type == null) {
+        if (buildingType == null) {
             return new Result(false, "Unknown Building Type: " + name);
         }
 
 
-        if (!farm.isWithinBounds(x, y, type.getWidth(), type.getHeight())) {
+        if (!farm.isWithinBounds(x, y, buildingType.getWidth(), buildingType.getHeight())) {
             return new Result(false, "Position (" + x + "," + y + ") is outside the farm.");
         }
 
         // 3. collision check
-        for (int dx = 0; dx < type.getWidth(); dx++) {
-            for (int dy = 0; dy < type.getHeight(); dy++) {
+        for (int dx = 0; dx < buildingType.getWidth(); dx++) {
+            for (int dy = 0; dy < buildingType.getHeight(); dy++) {
                 if (!farm.getTileByPosition(x + dx, y + dy).isWalkable() ||
                     farm.getTileByPosition(x + dx, y + dy).getFixedObject() != null) {
                     return new Result(false, "Cannot build: space occupied at (" + (x + dx) + "," + (y + dy) + ").");
@@ -65,7 +65,7 @@ public class CarpenterMenuController implements ShopController {
         }
         Game thisGame = App.getCurrentUser().getCurrentGame();
         Player me = App.getMe();
-        NpcProduct product = thisGame.findStoreByClass(CarpentersShop.class).findBuildingByType(type);
+        NpcProduct product = thisGame.findStoreByClass(CarpentersShop.class).findBuildingByType(buildingType);
         if (product == null) {
             return new Result(false, "Shop doesn't has this type of building type ");
         }
@@ -74,8 +74,8 @@ public class CarpenterMenuController implements ShopController {
         }
 
         // 4. resources check
-        int needWood = type.getWoodCount();
-        int needStone = type.getStoneCount();
+        int needWood = buildingType.getWoodCount();
+        int needStone = buildingType.getStoneCount();
         if (me.getInventory().countItem(new Etc(EtcType.WOOD)) < needWood ||
             me.getInventory().countItem(new Mineral(MineralItemType.STONE)) < needStone) {
             return new Result(false, "Not enough materials: need " +
@@ -86,13 +86,13 @@ public class CarpenterMenuController implements ShopController {
         }
 
         // 5. construct & place
-        switch (type) {
+        switch (buildingType) {
             case BuildingType.BARN:
             case BuildingType.BIG_BARN:
             case BuildingType.DELUXE_BARN: {
-                Barn newBarn = new Barn(new Position(x, y), type);
-                for (int i = x; i < x + type.getWidth(); i++) {
-                    for (int j = y; j < y + type.getHeight(); j++) {
+                Barn newBarn = new Barn(new Position(x, y), buildingType);
+                for (int i = x; i < x + buildingType.getWidth(); i++) {
+                    for (int j = y; j < y + buildingType.getHeight(); j++) {
                         farm.getTileByPosition(i, j).setFixedObject(newBarn);
                     }
                 }
@@ -104,9 +104,9 @@ public class CarpenterMenuController implements ShopController {
             case BuildingType.COOP:
             case BuildingType.BIG_COOP:
             case BuildingType.DELUXE_COOP: {
-                Coop newCoop = new Coop(new Position(x, y), type);
-                for (int i = x; i < x + type.getWidth(); i++) {
-                    for (int j = y; j < y + type.getHeight(); j++) {
+                Coop newCoop = new Coop(new Position(x, y), buildingType);
+                for (int i = x; i < x + buildingType.getWidth(); i++) {
+                    for (int j = y; j < y + buildingType.getHeight(); j++) {
                         farm.getTileByPosition(i, j).setFixedObject(newCoop);
                     }
                 }
@@ -117,8 +117,8 @@ public class CarpenterMenuController implements ShopController {
             break;
             case BuildingType.WELL: {
                 Well newWell = new Well(new Position(x, y));
-                for (int i = x; i < x + type.getWidth(); i++) {
-                    for (int j = y; j < y + type.getHeight(); j++) {
+                for (int i = x; i < x + buildingType.getWidth(); i++) {
+                    for (int j = y; j < y + buildingType.getHeight(); j++) {
                         farm.getTileByPosition(i, j).setFixedObject(newWell);
                         farm.getTileByPosition(i, j).setTileType(TileType.Water);
                     }
@@ -129,8 +129,8 @@ public class CarpenterMenuController implements ShopController {
             break;
             case BuildingType.SHIPPING_BIN: {
                 ShippingBar newBin = new ShippingBar(new Position(x, y), farm);
-                for (int i = x; i < x + type.getWidth(); i++) {
-                    for (int j = y; j < y + type.getHeight(); j++) {
+                for (int i = x; i < x + buildingType.getWidth(); i++) {
+                    for (int j = y; j < y + buildingType.getHeight(); j++) {
                         farm.getTileByPosition(i, j).setFixedObject(newBin);
                     }
                 }
@@ -139,8 +139,10 @@ public class CarpenterMenuController implements ShopController {
             break;
         }
 
-        me.getInventory().remove(new Etc(EtcType.WOOD), needWood);
-        me.getInventory().remove(new Mineral(MineralItemType.STONE), needStone);
+        Item wood = App.getMe().getInventory().findItemByName(new Etc(EtcType.WOOD).getName());
+        Item stone = App.getMe().getInventory().findItemByName(new Mineral(MineralItemType.STONE).getName());
+        me.getInventory().remove(wood, needWood);
+        me.getInventory().remove(stone, needStone);
         me.addGold(-product.getPrice());
         product.setRemainingStock(product.getRemainingStock() - 1);
 

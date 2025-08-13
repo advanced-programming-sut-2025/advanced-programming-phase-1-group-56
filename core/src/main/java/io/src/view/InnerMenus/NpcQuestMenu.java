@@ -5,23 +5,33 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import io.src.StardewValley;
+import io.src.controller.GameMenuController.NpcController;
 import io.src.model.GameAssetManager;
+import io.src.model.GameObject.NPC.NPC;
 import io.src.model.GameObject.NPC.NpcRequest;
+import io.src.model.Result;
 
 public class NpcQuestMenu extends Dialog {
-    public NpcQuestMenu(Skin skin, int index, NpcRequest request) {
+
+
+    private TextButton acceptButton;
+
+    public NpcQuestMenu(Skin skin, int index, NpcRequest request, NPC npc) {
         super("", skin);
 
         // fields :
         Window item1Win = new Window("", skin, "default3");
         Window item2Win = new Window("", skin, "default3");
         Table buttons = new Table();
-        TextButton acceptButten = new TextButton(" ACCEPT ", skin, "button1-2_font30GREEN");
+        acceptButton = new TextButton(" ACCEPT ", skin, "button1-2_font30GREEN");
         TextButton cancelButten = new TextButton(" CANCEL ", skin, "button1-2_font30");
         Image flashImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("flashDirection"))));
         buttons.add(flashImage).width(120).height(80).padBottom(50).row();
-        buttons.add(acceptButten).row();
+        buttons.add(acceptButton).row();
         buttons.add(cancelButten);
+        System.out.println(request.getRequestedItem().getAssetName());
+        System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRequestedItem().getAssetName()));
         Texture item1Tex = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRequestedItem().getAssetName())));
         System.out.println(request.getRewardItem().getAssetName());
         System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRewardItem().getAssetName()));
@@ -31,7 +41,7 @@ public class NpcQuestMenu extends Dialog {
         Label item1NameLabel = new Label(request.getRequestedItem().getName(), skin);
         Label item2NameLabel = new Label(request.getRewardItem().getName(), skin);
         Label item1AmountLabel = new Label("x" + request.getRequestedQuantity(), skin, "default-GREEN");
-        Label item2AmountLabel = new Label("x" + request.getRewardQuantity(), skin, "default-GREEN");
+        Label item2AmountLabel = new Label("x" + request.getRewardAmount(), skin, "default-GREEN");
         item1NameLabel.pack();
         item2NameLabel.pack();
 
@@ -81,12 +91,6 @@ public class NpcQuestMenu extends Dialog {
         setSize(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
         setPosition(Gdx.graphics.getWidth() / 2f - getWidth() / 2f, Gdx.graphics.getHeight() / 2f - getHeight() / 2f);
 
-        acceptButten.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                hide();
-            }
-        });
 
         cancelButten.addListener(new ClickListener() {
             @Override
@@ -94,5 +98,17 @@ public class NpcQuestMenu extends Dialog {
                 hide();
             }
         });
+
+
+    }
+
+    public TextButton getAcceptButton() {
+        return acceptButton;
+    }
+
+    public void hideDialog() {
+        this.setVisible(false);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+        Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
     }
 }

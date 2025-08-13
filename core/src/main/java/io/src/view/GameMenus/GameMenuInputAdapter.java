@@ -14,14 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
-import io.src.model.App;
+import io.src.model.*;
+import io.src.model.Activities.Message;
 import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
-import io.src.model.Clickable;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
-import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.GameObject.ArtesianMachine;
@@ -30,7 +29,6 @@ import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
-import io.src.model.Player;
 import io.src.model.items.Artesian;
 import io.src.model.items.Etc;
 import io.src.model.items.Food;
@@ -90,6 +88,21 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
             StardewValley.getGameView().updateMap();
+            return true;
+        }
+        if (keysHeld.contains(Input.Keys.P)) {
+//            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 20 20");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 9999");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 9999");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 99999 dollars");
+
+
+            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
+            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
+            App.getMe().getMessages().add(new Message("Eshgham?", App.getMe(), App.getMe()));
+
             return true;
         }
 
@@ -153,7 +166,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         }
 
         if (keycode == Input.Keys.ENTER) {
-            StardewValley.getGameView().getWarningWindow().kill();
+            //StardewValley.getGameView().getWarningWindow().kill();
         }
 
         if (keycode == Input.Keys.R) {
@@ -188,10 +201,12 @@ public class GameMenuInputAdapter extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        if (isInterruptingMenuOpen) {return false;}
+        if (isInterruptingMenuOpen) {
+            return false;
+        }
 
+        keysHeld.clear();
         if (button == Input.Buttons.LEFT) {
-            keysHeld.clear();
             if (StardewValley.getGameView().getShopStateWindow().isVisible()) {
                 return true;
             }
@@ -502,8 +517,10 @@ public class GameMenuInputAdapter extends InputAdapter {
                 } else {
                     //TODO hoshdar
                     WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
-                    warning.showDialog("Warning", "This is not the farm you can enter" +
-                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm4().getPlayer().getUser().getName(), 250);
+                    if (App.getCurrentUser().getCurrentGame().getGameMap().getFarm2() != null) {
+                        warning.showDialog("Warning", "This is not the farm you can enter" +
+                            " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm4().getPlayer().getUser().getName(), 250);
+                    }
                     player.setPosition(new Position(105, 34));
                 }
             } else if (player.getPosition().isNear(new Position(81, 107), 10)) {
@@ -520,8 +537,10 @@ public class GameMenuInputAdapter extends InputAdapter {
                 } else {
                     //TODO hoshdar
                     WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
-                    warning.showDialog("Warning", "This is not the farm you can enter" +
-                        " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm2().getPlayer().getUser().getName(), 250);
+                    if (App.getCurrentUser().getCurrentGame().getGameMap().getFarm2() != null) {
+                        warning.showDialog("Warning", "This is not the farm you can enter" +
+                            " farm belongs to " + App.getCurrentUser().getCurrentGame().getGameMap().getFarm2().getPlayer().getUser().getName(), 250);
+                    }
                     player.setPosition(new Position(81, 104));
                 }
 
@@ -539,10 +558,12 @@ public class GameMenuInputAdapter extends InputAdapter {
                 } else {
                     //TODO hoshdar
                     WarningWindow warning = App.getStardewValley().getGameView().getWarningWindow();
-                    warning.showDialog("Warning", "This is not the farm you can enter.. " +
-                        "this farm belongs to: '"
-                        + App.getCurrentUser().getCurrentGame().getGameMap().getFarm3().getPlayer().getUser().getName()
-                        + "'", 250);
+                    if (App.getCurrentUser().getCurrentGame().getGameMap().getFarm3() != null) {
+                        warning.showDialog("Warning", "This is not the farm you can enter.. " +
+                            "this farm belongs to: '"
+                            + App.getCurrentUser().getCurrentGame().getGameMap().getFarm3().getPlayer().getUser().getName()
+                            + "'", 250);
+                    }
                     player.setPosition(new Position(54, 4));
                 }
 
