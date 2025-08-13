@@ -2,7 +2,6 @@ package io.src.controller.GameMenuController;
 
 import io.src.controller.CommandController;
 import io.src.model.App;
-import io.src.model.Enums.Animals.AnimalProductQuality;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Items.EtcType;
 import io.src.model.Enums.Items.ItemQuality;
@@ -11,10 +10,12 @@ import io.src.model.Enums.Skills;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
 
 import io.src.model.GameObject.Animal;
+import io.src.model.MapModule.Buildings.AnimalHouse;
 import io.src.model.MapModule.Buildings.Barn;
 import io.src.model.MapModule.Buildings.Building;
 import io.src.model.MapModule.Buildings.Coop;
 import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.Player;
 import io.src.model.Slot;
 import io.src.model.items.AnimalProduct;
 import io.src.model.MapModule.Position;
@@ -27,14 +28,26 @@ import java.util.regex.Matcher;
 
 public class HusbandryController extends CommandController {
     public static Result addAnimal(int x , int y, String name){
+        Player player = App.getMe();
         AnimalType animal = AnimalType.findAnimalTypeByName(name);
         if(animal == null){
             return new Result(false, "AnimalType not found");
         }
-        Animal animal1 = new Animal(new Position(x,y),"mn",animal);
-        App.getMe().addAnimals(animal1);
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal1);
-        return new Result(true,"Added Animal " + animal1.getName());
+        for (Building building : player.getPlayerFarm().getBuildings()) {
+            if (building.getBuildingType() == animal.getRequiredBuilding()){
+                Animal animal1 = new Animal(new Position(x,y),"mn",animal, (AnimalHouse) building);///
+                player.addAnimals(animal1);
+                building.getIndoor().addGameObject(animal1);
+                building.getIndoor().getTileByPosition(x,y).setFixedObject(animal1);
+                animal1.initializePaths(building.getIndoor());
+                return new Result(true,"Added Animal " + animal1.getName());
+            }
+        }
+        return new Result(false,"you dont have " + animal.getName());
+
+//        Animal animal1 = new Animal(new Position(x,y),"mn",animal, );
+//        App.getMe().addAnimals(animal1);
+//        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal1);
     }
     public static Result petting(Matcher matcher) {
         String name = matcher.group(1).trim();
@@ -81,10 +94,9 @@ public class HusbandryController extends CommandController {
         return new Result(false,tmpString.toString());
     }
 
-    public static Result shepherdAnimals(Matcher matcher) {
-        String animalName = matcher.group(1).trim();
-        int x = Integer.parseInt(matcher.group(2));
-        int y = Integer.parseInt(matcher.group(3));
+    public static Result shepherdAnimals(String animalName , String strX , String strY) {
+        int x = Integer.parseInt(strX);
+        int y = Integer.parseInt(strY);
         Animal animal = returnAnimal(animalName);
         if (App.getCurrentUser()
                 .getCurrentGame()
@@ -100,8 +112,7 @@ public class HusbandryController extends CommandController {
         }
 
         for (Building building : ((Farm) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation()).getBuildings()) {
-            if (building instanceof Coop) {
-                Coop coop = (Coop) building;
+            if (building instanceof Coop coop) {
                 if (coop.getCapacity() < coop.getAnimals().size() + 1) {
                     return new Result(false, "this coop have not enough Space!");
                 } else if (x <= coop.getWidth() + coop.getPosition().getX() && x > coop.getPosition().getX()) {
@@ -138,9 +149,11 @@ public class HusbandryController extends CommandController {
         animal.addFriendShip(8);
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+//                animal2.get
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)animal2.getPosition().getX(), (int)animal2.getPosition().getY()).setFixedObject(null);
-                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getAnimalInfo());
-                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal3);
+//                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getType());
+                animal.setPosition(new Position(x, y));
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerFarm().getTileByPosition(x, y).setFixedObject(animal2);
                 return new Result(true, animal2.getNickName() + " have been replaced!");
             }
         }
@@ -194,7 +207,7 @@ public class HusbandryController extends CommandController {
             return new Result(false, "this animal haven't Product!");
         }
 
-        if (animal.getAnimalInfo() == AnimalType.COW) {
+        if (animal.getType() == AnimalType.COW) {
             boolean isExist1 = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 Item item = slot.getItem();
@@ -211,7 +224,7 @@ public class HusbandryController extends CommandController {
             animal.getDailyProducts().remove(animalProduct);
             animal.addFriendShip(5);
 
-        } else if (animal.getAnimalInfo() == AnimalType.GOAT) {
+        } else if (animal.getType() == AnimalType.GOAT) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 Item item = slot.getItem();
@@ -227,7 +240,7 @@ public class HusbandryController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(animalProduct, 1);
             animal.getDailyProducts().remove(animalProduct);
             animal.addFriendShip(5);
-        } else if (animal.getAnimalInfo() == AnimalType.SHEEP) {
+        } else if (animal.getType() == AnimalType.SHEEP) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 Item item = slot.getItem();
@@ -243,7 +256,7 @@ public class HusbandryController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(animalProduct, 1);
             animal.getDailyProducts().remove(animalProduct);
             animal.addFriendShip(5);
-        } else if (animal.getAnimalInfo() == AnimalType.PIG) {
+        } else if (animal.getType() == AnimalType.PIG) {
             if (!animal.isGoOut()) {
                 return new Result(false, "your pig is not in the yard!");
             }
@@ -265,7 +278,7 @@ public class HusbandryController extends CommandController {
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
         }
-        int sellPrice = (int) (animal.getAnimalInfo().getPrice() * ((double) (animal.getFriendship() / 1000) + 0.3));
+        int sellPrice = (int) (animal.getType().getPrice() * ((double) (animal.getFriendship() / 1000) + 0.3));
         App.getCurrentUser()
                 .getCurrentGame()
                 .getCurrentPlayer()
@@ -315,7 +328,7 @@ public class HusbandryController extends CommandController {
     public static AnimalProduct getProduct(Animal animal) {
         AnimalProduct animalProduct = null;
 
-        EtcType[] products = animal.getAnimalInfo().getProducts();
+        EtcType[] products = animal.getType().getProducts();
 
         if (products.length == 1) {
             animalProduct = new AnimalProduct(products[0]);

@@ -80,7 +80,7 @@ public class FarmingController extends CommandController {
                 treeType = TreeType.fromName(name);
                 if (treeType != null) {
                     tmpString.append("Name: ").append(treeType.name).append("\n");
-                    tmpString.append("Source: ").append(treeType.source).append("\n");
+                    tmpString.append("Source: ").append(treeType.getSource()).append("\n");
                     tmpString.append("Stages: ").append(treeType.stages).append("\n");
                     tmpString.append("Total Harvest Time: ").append(treeType.totalHarvestTime).append("\n");
                     tmpString.append("Fruit: ").append(treeType.fruit != null ? ((FruitType) treeType.fruit).getName() : "None").append("\n");

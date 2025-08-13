@@ -91,28 +91,37 @@ public class CarpenterMenuController implements ShopController {
             case BuildingType.BIG_BARN:
             case BuildingType.DELUXE_BARN: {
                 Barn newBarn = new Barn(new Position(x, y), type);
+                farm.getTileByPosition(x, y).setFixedObject(newBarn);
                 for (int i = x; i < x + type.getWidth(); i++) {
                     for (int j = y; j < y + type.getHeight(); j++) {
-                        farm.getTileByPosition(i, j).setFixedObject(newBarn);
+                        if (i==x && j==y) continue;
+                        farm.getTileByPosition(i,j).setWalkable(newBarn.isWalkable());
                     }
                 }
                 App.getMe().getPlayerFarm().getBuildings().add(newBarn);
-                App.getMe().getPlayerFarm().getBuildings().add(newBarn);
+//                App.getMe().getPlayerFarm().getBuildings().add(newBarn);
                 App.getMe().getPlayerFarm().getGameObjects().add(newBarn);
+                App.getMe().getPlayerFarm().getTileByPosition(newBarn.getDoorPosition()).setWalkable(true);
+                App.getMe().getPlayerFarm().getTileByPosition(newBarn.getDoorPosition()).setTileType(TileType.Wrapper);
             }
             break;
             case BuildingType.COOP:
             case BuildingType.BIG_COOP:
             case BuildingType.DELUXE_COOP: {
                 Coop newCoop = new Coop(new Position(x, y), type);
+                farm.getTileByPosition(x, y).setFixedObject(newCoop);
                 for (int i = x; i < x + type.getWidth(); i++) {
                     for (int j = y; j < y + type.getHeight(); j++) {
-                        farm.getTileByPosition(i, j).setFixedObject(newCoop);
+                        if (i==x && j==y) continue;
+                        farm.getTileByPosition(i, j).setWalkable(newCoop.isWalkable());
                     }
                 }
                 App.getMe().getPlayerFarm().getBuildings().add(newCoop);
-                App.getMe().getPlayerFarm().getBuildings().add(newCoop);
+//                App.getMe().getPlayerFarm().getBuildings().add(newCoop);
                 App.getMe().getPlayerFarm().getGameObjects().add(newCoop);
+                App.getMe().getPlayerFarm().getTileByPosition(newCoop.getDoorPosition()).setWalkable(true);
+                App.getMe().getPlayerFarm().getTileByPosition(newCoop.getDoorPosition()).setTileType(TileType.Wrapper);
+
             }
             break;
             case BuildingType.WELL: {

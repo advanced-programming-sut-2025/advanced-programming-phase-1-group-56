@@ -14,14 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
-import io.src.model.App;
+import io.src.controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
+import io.src.controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
+import io.src.model.*;
+import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
-import io.src.model.Clickable;
+import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
-import io.src.model.Game;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.GameObject.ArtesianMachine;
@@ -30,7 +32,6 @@ import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
-import io.src.model.Player;
 import io.src.model.items.Artesian;
 import io.src.model.items.Etc;
 import io.src.model.items.Food;
@@ -87,6 +88,24 @@ public class GameMenuInputAdapter extends InputAdapter {
             //}
             return true;
         }
+
+        if (keysHeld.contains(Input.Keys.P)) {
+            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 18 18");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Stone -c 999");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wood -c 999");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 999999 dollars");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add");
+            result = CarpenterMenuController.BuildABuilding("Coop" , 20 , 20);
+            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), 30 , 30);
+            result = MarniesRanchController.buyAnimal(AnimalType.COW.getName() , "mahdi");
+
+            return true;
+        }
+
+
+
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
             StardewValley.getGameView().updateMap();

@@ -87,6 +87,13 @@ public class AnimationManager {
         TextureAtlas WateringCan3Atlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("wateringCan3"));
         TextureAtlas WateringCan4Atlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("wateringCan4"));
         TextureAtlas WateringCan5Atlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("wateringCan5"));
+        TextureAtlas ChickenAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Chicken"));
+        TextureAtlas RabbitAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Rabbit"));
+        TextureAtlas DuckAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Duck"));
+        TextureAtlas SheepAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Sheep"));
+        TextureAtlas PigAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Pig"));
+        TextureAtlas CowAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Cow"));
+        TextureAtlas GoatAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Goat"));
 
 
 
@@ -123,6 +130,13 @@ public class AnimationManager {
         characterAnimations.put("Haley", loadCharacterAnimationsNumeric(HaleyAtlas));
         characterAnimations.put("Sebastian", loadCharacterAnimationsNumeric(SebastianAtlas));
         characterAnimations.put("Robin", loadCharacterAnimationsNumeric(RobinAtlas));
+        characterAnimations.put("Rabbit", loadCharacterAnimationsNumeric(RabbitAtlas));
+        characterAnimations.put("Duck", loadCharacterAnimationsNumeric(DuckAtlas));
+        characterAnimations.put("Brown_Chicken", loadCharacterAnimationsNumeric(ChickenAtlas));
+        characterAnimations.put("Sheep", loadCharacterAnimationsNumeric(SheepAtlas));
+        characterAnimations.put("Pig", loadCharacterAnimationsNumeric(PigAtlas));
+        characterAnimations.put("White_Cow", loadCharacterAnimationsNumeric(CowAtlas));
+        characterAnimations.put("Goat", loadCharacterAnimationsNumeric(GoatAtlas));
 
 
 

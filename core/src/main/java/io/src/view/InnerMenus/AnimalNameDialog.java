@@ -91,8 +91,8 @@ public class AnimalNameDialog extends Dialog {
         content.add(nameTextField).width(220).row();
 
         // دکمه‌ها: OK مقدار true، Cancel مقدار false برمی‌گرداند
-        button("OK", true);
-        button("Cancel", false);
+        button("OK ", true);
+        button(" Cancel", false);
 
         pack();
     }

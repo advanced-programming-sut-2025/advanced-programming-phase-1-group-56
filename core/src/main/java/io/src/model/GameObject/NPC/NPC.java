@@ -31,6 +31,7 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
     private final float pauseDuration = 1f;
     private float pauseTimer = 0f;
     private boolean isPaused = true;
+    private Vector2 pixelPosition;
     private Town town;
 
     public NPC(Position position, NpcType type) {
@@ -109,7 +110,6 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
     }
 
     // متد کمک‌کننده برای دریافت/تنظیم PixelPosition
-    private Vector2 pixelPosition;
 
     public Vector2 getPixelPosition() {
         if (pixelPosition == null) pixelPosition = new Vector2(getPosition().getX() * TILE_SIZE,

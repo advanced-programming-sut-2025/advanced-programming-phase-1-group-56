@@ -15,7 +15,7 @@ public class Tree extends GameObject implements TimeObserver {
 //    private final ArrayList<Seasons> seasons;
     private int daysWithNoWater;  //
     private int countCurrentStage; //
-    private TreeType treeType;
+    private final TreeType treeType;
     private int currentStage; //
     private boolean speedGro;
     private boolean deluxeRetainingSoil;
@@ -40,7 +40,7 @@ public class Tree extends GameObject implements TimeObserver {
         this.countCurrentStage = 0;
         this.daysWithNoWater = 0;
         this.harvestDayRegrowth = 0;
-        this.isComplete = currentStage > 3 ? true : false;
+        this.isComplete = false;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
@@ -75,9 +75,9 @@ public class Tree extends GameObject implements TimeObserver {
 
     public void setCurrentStage(int currentStage) {
         this.currentStage = currentStage;
-        if (currentStage >= 4) {
-            isComplete = true;
-        }
+//        if (currentStage >= 4) {
+//            isComplete = true;
+//        }
     }
 
     //    public HashMap<Item, Integer> getItemsGiven() {
@@ -130,14 +130,14 @@ public class Tree extends GameObject implements TimeObserver {
                 if (speedGro) {
                     countCurrentStage1--;
                 }
-                if (currentStage == 4 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                if (currentStage == 4 && countCurrentStage == countCurrentStage1 && !isComplete) {
                     isComplete = true;
                     isHarvest = true;
                 }
                 if (harvestDayRegrowth == treeType.fruitHarvestCycle) {
                     isHarvest = true;
                 }
-                if (countCurrentStage == 7 && isComplete == false) {
+                if (countCurrentStage == 7 && !isComplete) {
                     this.currentStage++;
                 }
                 isWateredToday = false;

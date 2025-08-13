@@ -36,7 +36,7 @@ public class WeatherController extends CommandController {
                 return new Result(true, "Thunder Struck successfully");
             } else if (object instanceof Tree) {
                 ((Tree) object).setCurrentStage(-1);
-                farm.getAllGameObjects().remove(object);
+//                farm.getAllGameObjects().remove(object);
                 App.getCurrentUser().getCurrentGame().getTimeSystem().removeObserver((Tree) object);
                 return new Result(true, "Thunder Struck successfully");
 

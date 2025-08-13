@@ -104,7 +104,7 @@ public class GameView implements Screen, TimeObserver {
     private RefrigeratorWindow refrigeratorWindow;
     private Image foodBuff;
     private FishingMinigame activeFishingMinigame = null;
-
+    private DayNightLighting lighting;
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -185,6 +185,7 @@ public class GameView implements Screen, TimeObserver {
 
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
+        lighting = new DayNightLighting();
 
         setCustomCursor("assets/Cursor.png", 0, 0);
 
@@ -295,6 +296,47 @@ public class GameView implements Screen, TimeObserver {
             }
         } else {
             switch (npc.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.IDLE_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.IDLE_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.IDLE_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.IDLE_RIGHT;
+                    break;
+            }
+        }
+
+        renderCharacter(name, key, x, y);
+
+    }
+
+    private void renderAnimal(Animal animal) {
+        String name = animal.getType().getAssetName(); // مثل "grandma"
+        float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+
+        AnimationKey key;
+        if (animal.isMoving()) {
+            switch (animal.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.WALK_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.WALK_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.WALK_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.WALK_RIGHT;
+                    break;
+            }
+        } else {
+            switch (animal.getLastDirection()) {
                 case UP:
                     key = AnimationKey.IDLE_UP;
                     break;
@@ -510,6 +552,12 @@ public class GameView implements Screen, TimeObserver {
         gameMenuInputAdapter.update(v);
         renderer.render();
 
+        if (!(App.getMe().getCurrentGameLocation() instanceof Town)){
+            for (NPC npc : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getNPCs()) {
+                npc.update(v);
+            }
+        }
+
         renderer.getBatch().begin();
         //render tile type plowed soil
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
@@ -571,6 +619,11 @@ public class GameView implements Screen, TimeObserver {
                 renderNPC(npc);
                 npc.update(v);
 //                System.out.println(npc.getPosition().getX() + " " + npc.getPosition().getY());
+                continue;
+            }
+            if (go instanceof Animal animal){
+                renderAnimal(animal);
+                animal.update(v);
                 continue;
             }
 
@@ -701,6 +754,8 @@ public class GameView implements Screen, TimeObserver {
             foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
         }
 
+        lighting.render(((float)App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour()), (SpriteBatch) renderer.getBatch());
+
 
         camera.update();
 
@@ -758,7 +813,7 @@ public class GameView implements Screen, TimeObserver {
 
     @Override
     public void dispose() {
-
+        lighting.dispose();
     }
 
     public FoodWindow foodWindow() {

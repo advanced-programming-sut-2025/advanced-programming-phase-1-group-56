@@ -99,6 +99,7 @@ public class CommonShopMenu extends Window {
         exitButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
                 CommonShopMenu.this.remove();
                 App.getMe().setShopState(ShopState.WAIT);
             }
@@ -133,13 +134,14 @@ public class CommonShopMenu extends Window {
                     SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
                     name -> {
                         Result result = MarniesRanchController.buyAnimal(((AnimalType) selectedProduct.getSaleable()).getName(), name);
-                        this.setVisible(false);
+//                        this.setVisible(false);
                         StardewValley.getGameView().getWarningWindow().showDialog(
                             App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
                             result.getMessage(),
                             300
                         );
                         updateProductsShow();
+                        CommonShopMenu.this.hideDialog();
                     }
                 );
                 dialog.showCentered(StardewValley.getGameView().getStage());
@@ -154,6 +156,8 @@ public class CommonShopMenu extends Window {
                         result.getMessage(), 300);
                     updateProductsShow();
                     // close parent shop window if needed:
+                    CommonShopMenu.this.hideDialog();
+//                    Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
                 });
                 buildingMiniMenu.showCentered(StardewValley.getGameView().getStage());
             }
@@ -177,7 +181,9 @@ public class CommonShopMenu extends Window {
 
     public void hideDialog() {
         setVisible(false);
-        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+        Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+
     }
 
     public void updateProductsShow() {
