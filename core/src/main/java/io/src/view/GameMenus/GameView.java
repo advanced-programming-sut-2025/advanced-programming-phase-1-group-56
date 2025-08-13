@@ -580,7 +580,6 @@ public class GameView implements Screen, TimeObserver {
             }
 
             if (go instanceof MailBox mailBox) {
-                System.out.println("i found MailBox");
                 handleMailBoxHint(mailBox);
                 continue;
             }
@@ -760,6 +759,7 @@ public class GameView implements Screen, TimeObserver {
     }
 
     private void handleMailBoxHint(MailBox mailBox) {
+        mailBox.onPlayerGoesNearby(3);
         if (mailBox.getHasNewMessages()) {
             Texture texture = new Texture(Gdx.files.internal(
                 GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")

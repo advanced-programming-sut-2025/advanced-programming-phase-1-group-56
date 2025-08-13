@@ -1,5 +1,6 @@
 package io.src.controller.GameMenuController;
 
+import com.badlogic.gdx.math.Interpolation;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Items.EtcType;
@@ -10,11 +11,11 @@ import io.src.model.Enums.NpcDialogs.RobinPrompt;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
 import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.GameObject.NPC.*;
-import io.src.model.GameObject.NPC.DeepSeekApiChat;
 import io.src.model.GameObject.NPC.NpcFriendship;
 import io.src.model.MapModule.GameMap;
 import io.src.model.Player;
 import io.src.model.Result;
+import io.src.model.Slot;
 import io.src.model.items.Etc;
 import io.src.model.items.Item;
 import io.src.model.items.Saleable;
@@ -90,7 +91,7 @@ public class NpcController extends CommandController {
             return new Result(false, "You don't have such item");
         }
 
-        if (!App.getMe().getPosition().isNear(npc.getPosition(), 1)) {
+        if (!App.getMe().getPosition().isNear(npc.getPosition(), 3)) {
             return new Result(false, "You have to be near npc");
         }
         NpcFriendship friendship = npc.findFriendshipByPlayer(App.getMe());
@@ -150,51 +151,48 @@ public class NpcController extends CommandController {
     }
 
 
-    public static Result manageShowActiveQuest() {
+    public static Result manageShowActiveQuest(NPC npc) {
         StringBuilder builder = new StringBuilder();
-        NPC npc = App.getMe().getLastMeetedNpc();
 
         if (npc == null) {
             return new Result(false, "You haven't met a npc recently");
-        } else if (!App.getMe().getPosition().isNear(npc.getPosition(), 1)) {
+        } else if (!App.getMe().getPosition().isNear(npc.getPosition(), 3)) {
             return new Result(false, "You have to be near npc:" + npc.getPosition().toString());
         }
 
-        builder.append("your active Quest with npc:").append(npc.getType().getName()).append("\n");
         NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
-        int IndexOfActiveReq = f.getLastActiveRequest();
-        NpcRequest req = f.getNpc().getType().getRequests().get(IndexOfActiveReq);
-        if (f.getLastActiveRequest() != -1) {
-            builder.append("--your Active request with: ").append(f.getNpc().getType().getName())
-                .append("\n\tindex of request: ").append(IndexOfActiveReq)
+        int activeIndex = f.getLastActiveRequest();
+        NpcRequest req = f.getNpc().getType().getRequests().get(activeIndex);
+        int lastDoneReq = f.getLastDoneRequest();
+        if (f.getLastActiveRequest() != -1 && activeIndex > lastDoneReq) {
+            builder.append("  your Active request with: ").append(f.getNpc().getType().getName())
+                .append("\n\tindex of request: ").append(activeIndex)
                 .append(req.toString()).append("\n");
-        } else if (f.getLastActiveRequest() != -1 && f.getDaysToSecondQ() > 0) {
-            builder.append("--your second request With: ").append(f.getNpc().getType().getName()).append("\n")
+        } else if (f.getLastActiveRequest() == 0 && f.getLastDoneRequest() == 0 && f.getDaysToSecondQ() > 0) {
+            builder.append("  your second request With: ").append(f.getNpc().getType().getName()).append("\n")
                 .append("will be activated on ").append(f.getDaysToSecondQ()).append(" day(s)\n");
-        } else if (f.getLastActiveRequest() != -1 && f.getLevel() == 0) {
-            builder.append("--your main requests with: ").append(f.getNpc().getType().getName()).append("\n")
+        } else if (f.getLastActiveRequest() == 1 && f.getLastDoneRequest() == 1 && f.getLevel() == 0) {
+            builder.append("  your main requests with: ").append(f.getNpc().getType().getName()).append("\n")
                 .append("is done. to get the extra request you have to increase your freindShip with this NPC ");
+        } else if (f.getLastActiveRequest() == 2 && f.getLastDoneRequest() == 2) {
+            builder.append("  you have done all your requests with: ").append(f.getNpc().getType().getName()).append("\n")
+                .append("there is no more requests for you ");
         } else {
-            builder.append("you dont have any Active request with: ").append(f.getNpc().getType().getName())
+            builder.append("you dont have any Active request with: ").append(f.getNpc().getType().getName()).append("\n")
                 .append("and you never will. wish a good friendship for you and it");
         }
         builder.append("\n-------------------");
         return new Result(true, builder.toString());
     }
 
-    public static Result finishingQuest(String indexStr) {
-        NPC npc = App.getMe().getLastMeetedNpc();
+    public static Result finishingQuest(String indexStr, NPC npc) {
         int index;
         try {
             index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException e) {
             return new Result(false, "Invalid index format");
         }
-        if (npc == null) {
-            return new Result(false, "You haven't met a npc recently");
-        } else if (!App.getMe().getPosition().isNear(npc.getPosition(), 1)) {
-            return new Result(false, "You have to be near npc:" + npc.getPosition().toString());
-        }
+
         NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
         if (f.getLastActiveRequest() == -1) {
             return new Result(false, "You dont have any Active request with: " +
@@ -208,11 +206,11 @@ public class NpcController extends CommandController {
         int payAmount = req.getRequestedQuantity();
         if (itemToPay instanceof Etc etc && etc.getEtcType() == EtcType.ANY_PLANT) {
             boolean found = false;
-            for (SeedType type : SeedType.values()) {
-                Seed newSeed = new Seed(type);
-                if (App.getMe().getInventory().countItem(newSeed) >= payAmount) {
+
+            for (Slot slot : App.getMe().getInventory().getSlots()) {
+                if (slot.getItem() != null && slot.getItem() instanceof Seed seed && slot.getQuantity() > payAmount) {
+                    itemToPay = seed;
                     found = true;
-                    itemToPay = newSeed;
                 }
             }
             if (!found) {
@@ -222,12 +220,33 @@ public class NpcController extends CommandController {
             return new Result(false, "you dont have enough item to finish the quest with:"
                 + npc.getType().getName() + " item to pay : " + itemToPay.getName() + "*" + payAmount);
         }
+
         App.getMe().getInventory().remove(itemToPay, payAmount);//Temp remove
 
+        System.out.println("quest Dont and going to give reward");
         Saleable reward = req.getRewardItem();
+        System.out.println(reward.getName() + " * " + req.getRewardAmount());
         int rewardAmount = req.getRewardAmount();
 
-        if (reward instanceof EtcType etcType) {
+        if (reward instanceof Etc etc) {
+            switch (etc.getEtcType()) {
+                case NPC_FRIENDSHIP_XP: {
+                    f.addXp(rewardAmount);
+                }
+                break;
+                case Money: {
+                    App.getMe().addGold(rewardAmount);
+                }
+                default: {
+                    App.getMe().addGold(-1);
+                }
+                break;
+            }
+
+            f.setLastDoneRequest(index);
+            return new Result(true, "quest number: " + indexStr + " with npc: " +
+                npc.getType().getName() + " is done successfully");
+        } else if (reward instanceof EtcType etcType) {
             switch (etcType) {
                 case NPC_FRIENDSHIP_XP: {
                     f.addXp(rewardAmount);
@@ -241,8 +260,15 @@ public class NpcController extends CommandController {
                 }
                 break;
             }
+
+            f.setLastDoneRequest(index);
+            return new Result(true, "quest number: " + indexStr + " with npc: " +
+                npc.getType().getName() + " is done successfully");
         } else if (reward instanceof FoodRecipesList recipe) {
             App.getMe().addFoodRecipes(recipe);
+            f.setLastDoneRequest(index);
+            return new Result(true, "quest number: " + indexStr + " with npc: " +
+                npc.getType().getName() + " is done successfully");
         } else if (reward instanceof Item item) {
             if (!App.getMe().getInventory().canAddItem(item, rewardAmount)) {
                 App.getMe().getInventory().add(itemToPay, payAmount);//cancel Temp remove
@@ -254,7 +280,7 @@ public class NpcController extends CommandController {
             return new Result(true, "quest number: " + indexStr + " with npc: " +
                 npc.getType().getName() + " is done successfully");
         }
-        return new Result(false, "bug happened in finish request type is incorrect");
+        return new Result(false, "you dont have the conditions to finish the Quest");
 
     }
 }

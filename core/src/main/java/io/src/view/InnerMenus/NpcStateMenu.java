@@ -13,6 +13,9 @@ import io.src.model.Activities.Friendship;
 import io.src.model.App;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.GameObject.NPC.NpcFriendship;
+import io.src.model.GameObject.NPC.NpcRequest;
+import io.src.model.Result;
+import io.src.model.SkinManager;
 import io.src.view.GameMenus.NpcGiftWindow;
 
 public class NpcStateMenu extends Window {
@@ -21,7 +24,6 @@ public class NpcStateMenu extends Window {
 
     public NpcStateMenu(Skin skin, NPC npc) {
         super("", skin, "noWindow");
-        debug();
 
         Window mainWin = new Window("", skin, "npcStateWin");
         mainWin.align(Align.right | Align.top);
@@ -58,8 +60,7 @@ public class NpcStateMenu extends Window {
         add(mainWin).width(npcTex.getWidth() * 12 - 85).height(npcTex.getHeight() * 4.5f - 10).row();
 
         pack();
-        setPosition(Gdx.graphics.getWidth() / 2f - getWidth() / 2f,
-            Gdx.graphics.getHeight() / 2f - getHeight() / 2f);
+        setPosition(Gdx.graphics.getWidth() / 2f - getWidth() / 2f, Gdx.graphics.getHeight() / 2f - getHeight() / 2f);
         setModal(true);
         setMovable(false);
         validate();
@@ -80,6 +81,31 @@ public class NpcStateMenu extends Window {
                 hideDialog();
             }
         });
+
+        questButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
+                NpcRequest request = npc.getType().getRequests().get(f.getLastActiveRequest());
+                if (f.getLastActiveRequest() <= f.getLastDoneRequest()) {
+                    StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), NpcController.manageShowActiveQuest(npc).getMessage(), 500);
+                } else {
+
+                    NpcQuestMenu npcQuestMenu = new NpcQuestMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), f.getLastActiveRequest(), request, npc);
+                    npcQuestMenu.setVisible(true);
+                    StardewValley.getGameView().getStage().addActor(npcQuestMenu);
+                    npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
+                        @Override
+                        public void clicked(InputEvent event, float x, float y) {
+                            Result result = NpcController.finishingQuest(String.valueOf(f.getLastActiveRequest()), npc);
+                            StardewValley.getGameView().getWarningWindow().showDialog("Quest" + (result.isSuccess() ? "Successful" : "Failed"), result.getMessage(), 400);
+                            npcQuestMenu.hideDialog();
+                            NpcStateMenu.this.hideDialog();
+                        }
+                    });
+                }
+            }
+        });
+
 
         giftButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {

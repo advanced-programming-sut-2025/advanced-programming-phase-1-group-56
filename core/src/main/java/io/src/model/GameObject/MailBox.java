@@ -82,7 +82,6 @@ public class MailBox extends GameObject implements Clickable, SensitiveToPlayer 
 
     @Override
     public boolean onPlayerGoesNearby(float distance) {
-        System.out.println("Player nearby mailBox");
         if(distance<5){
             for (Message message : App.getMe().getMessages()) {
                 if (!unseenMessages.contains(message.toString())) {

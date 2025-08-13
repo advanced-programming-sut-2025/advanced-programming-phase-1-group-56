@@ -40,4 +40,8 @@ public class NpcRequest {
     public int getRewardAmount() {
         return rewardAmount;
     }
+
+    public int getRewardQuantity() {
+        return rewardAmount;
+    }
 }
