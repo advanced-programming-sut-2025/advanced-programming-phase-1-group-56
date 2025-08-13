@@ -5,11 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
+import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAudioManager;
 import io.src.model.Result;
+import io.src.view.InnerMenus.AnimalMenu;
 import io.src.view.MainMenu;
 
 import java.io.File;
@@ -92,16 +94,18 @@ public class MainMenuController extends CommandController {
         menu.getNewButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
-                menu.getAvatarMenu().setAvatarIndex(App.getCurrentUser().getAvatarIndex());
-                menu.getAvatarMenu().setAvatarStyleIndex(App.getCurrentUser().getAvatarStyleIndex());
-                menu.getAvatarMenu().updateAvatarTextures();
-                setNewMenu(false);
+//                menu.getAvatarMenu().setAvatarIndex(App.getCurrentUser().getAvatarIndex());
+//                menu.getAvatarMenu().setAvatarStyleIndex(App.getCurrentUser().getAvatarStyleIndex());
+//                menu.getAvatarMenu().updateAvatarTextures();
+//                setNewMenu(false);
+                PreGameMenuController.manageSoloGame("farmName", "name", "left", "avatar");
             }
         });
 
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                menu.getAnimalMenu().setVisible(true);
             }
         });
 

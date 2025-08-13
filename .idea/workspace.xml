@@ -4,21 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Add mailBox + chat mailBox Window">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/OpenRouterChat.java" afterDir="false" />
+    <list default="true" id="352bd2a5-1d4f-42f9-86c4-4e5e92974e87" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/NpcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/NpcController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/EtcType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/EtcType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/DeepSeekApiChat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcFriendship.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcFriendship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AnimalMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,341 +22,78 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
-    <projectState path="$PROJECT_DIR$/gradleSetup">
-      <ProjectState />
-    </projectState>
-  </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <projects_view>
-          <tree_state>
-            <expand />
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="mohsen" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Nnima2&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
-    &quot;accountId&quot;: &quot;bee11d60-58a2-482f-aaac-3d56730ac7ed&quot;
-  }
-}</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2zJNeujxvnyLnHmIO9c8pOah9aJ" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="31EDpCrCb9Fwjj7dGyMyUfhHZlz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
-    <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.APproject:core [:core:io.src.model.GameObject.NPC.OpenRouterChat.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;nima2&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "maz",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="io.src.view.GameMenus.ShopMenus" />
-    </key>
-  </component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="418" />
-    </option>
-  </component>
+}]]></component>
   <component name="RunManager">
     <configuration name="game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="io.src.lwjgl3.Lwjgl3Launcher" />
-      <module name="APproject.lwjgl3.main" />
+      <module name="advanced-programming-phase-1-group-56.lwjgl3.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="advanced-programming-phase-1-group-56" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="advanced-programming-phase-1-group-56" />
+      <option name="filePath" />
+      <method v="2" />
     </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="" />
-      <created>1751445315527</created>
+      <changelist id="352bd2a5-1d4f-42f9-86c4-4e5e92974e87" name="Changes" comment="" />
+      <created>1755080518550</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1751445315527</updated>
-      <workItem from="1751445316868" duration="1459000" />
-      <workItem from="1753426192019" duration="100000" />
-      <workItem from="1753552738408" duration="2561000" />
-      <workItem from="1753561469023" duration="8802000" />
-      <workItem from="1753682647361" duration="4586000" />
-      <workItem from="1753802716669" duration="6891000" />
-      <workItem from="1754059521069" duration="7767000" />
-      <workItem from="1754214353734" duration="29429000" />
-      <workItem from="1754307156281" duration="2252000" />
-      <workItem from="1754317958222" duration="3860000" />
-      <workItem from="1754351686651" duration="821000" />
-      <workItem from="1754389158582" duration="4380000" />
-      <workItem from="1754398998326" duration="19071000" />
-      <workItem from="1754428003088" duration="1913000" />
-      <workItem from="1754473761626" duration="7820000" />
-      <workItem from="1754487972780" duration="18056000" />
-      <workItem from="1754731782673" duration="442000" />
-      <workItem from="1754756458828" duration="6762000" />
-      <workItem from="1754763680217" duration="4011000" />
-      <workItem from="1754820454164" duration="19012000" />
-      <workItem from="1754857260724" duration="11692000" />
-      <workItem from="1754906780449" duration="11997000" />
-      <workItem from="1754996250134" duration="4924000" />
-      <workItem from="1755005822578" duration="7534000" />
-      <workItem from="1755025276310" duration="15528000" />
+      <updated>1755080518550</updated>
+      <workItem from="1755080519613" duration="2493000" />
     </task>
-    <task id="LOCAL-00001" summary="init Game">
-      <option name="closed" value="true" />
-      <created>1753117595716</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1753117595716</updated>
-    </task>
-    <task id="LOCAL-00002" summary="start create main skin">
-      <option name="closed" value="true" />
-      <created>1753549876338</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1753549876338</updated>
-    </task>
-    <task id="LOCAL-00003" summary="start create main skin">
-      <option name="closed" value="true" />
-      <created>1753556212356</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1753556212356</updated>
-    </task>
-    <task id="LOCAL-00004" summary="town isn't scaled">
-      <option name="closed" value="true" />
-      <created>1754061700947</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1754061700947</updated>
-    </task>
-    <task id="LOCAL-00005" summary="some assets have been changed">
-      <option name="closed" value="true" />
-      <created>1754216016447</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1754216016447</updated>
-    </task>
-    <task id="LOCAL-00006" summary="wrapper debugging">
-      <option name="closed" value="true" />
-      <created>1754307249909</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1754307249909</updated>
-    </task>
-    <task id="LOCAL-00007" summary="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht">
-      <option name="closed" value="true" />
-      <created>1754321610759</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1754321610759</updated>
-    </task>
-    <task id="LOCAL-00008" summary="v0.4.1: initial commit after merge">
-      <option name="closed" value="true" />
-      <created>1754550895861</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1754550895861</updated>
-    </task>
-    <task id="LOCAL-00009" summary="v0.5.0: shop menu">
-      <option name="closed" value="true" />
-      <created>1754669835896</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1754669835896</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Shop UI Is Working">
-      <option name="closed" value="true" />
-      <created>1754756759110</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1754756759110</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Shop UI Is Working (70%) + Shop Mantegh Working(30%)">
-      <option name="closed" value="true" />
-      <created>1754763085782</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1754763085782</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Shop UI Is Working (95%) + Shop Mantegh Working(80%)">
-      <option name="closed" value="true" />
-      <created>1754861214220</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1754861214220</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Merged with mehdi">
-      <option name="closed" value="true" />
-      <created>1754906881125</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1754906881125</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Merged with mehdi And Debug Some Shits">
-      <option name="closed" value="true" />
-      <created>1754920293874</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1754920293874</updated>
-    </task>
-    <task id="LOCAL-00015" summary="ShippingBar fixed and debugged need a exit button">
-      <option name="closed" value="true" />
-      <created>1754953885969</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1754953885969</updated>
-    </task>
-    <task id="LOCAL-00016" summary="debug shop dialog + debug shipping bar">
-      <option name="closed" value="true" />
-      <created>1754996280370</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1754996280370</updated>
-    </task>
-    <task id="LOCAL-00017" summary="NPC Exclution bar and stop on getting near">
-      <option name="closed" value="true" />
-      <created>1755006143018</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1755006143018</updated>
-    </task>
-    <task id="LOCAL-00018" summary="NPC GIFT AND NPC MEET HANDELED">
-      <option name="closed" value="true" />
-      <created>1755032873831</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1755032873831</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Add mailBox + chat mailBox Window">
-      <option name="closed" value="true" />
-      <created>1755037912106</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1755037912106</updated>
-    </task>
-    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="add window for dialog and inventory" />
-    <MESSAGE value="init Game" />
-    <MESSAGE value="start create main skin" />
-    <MESSAGE value="town isn't scaled" />
-    <MESSAGE value="some assets have been changed" />
-    <MESSAGE value="wrapper debugging" />
-    <MESSAGE value="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht" />
-    <MESSAGE value="v0.4.1: initial commit after merge" />
-    <MESSAGE value="v0.5.0: shop menu" />
-    <MESSAGE value="Shop UI Is Working" />
-    <MESSAGE value="Shop UI Is Working (70%) + Shop Mantegh Working(30%)" />
-    <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
-    <MESSAGE value="Merged with mehdi" />
-    <MESSAGE value="Merged with mehdi And Debug Some Shits" />
-    <MESSAGE value="ShippingBar fixed and debugged need a exit button" />
-    <MESSAGE value="debug shop dialog + debug shipping bar" />
-    <MESSAGE value="NPC Exclution bar and stop on getting near" />
-    <MESSAGE value="NPC GIFT AND NPC MEET HANDELED" />
-    <MESSAGE value="Add mailBox + chat mailBox Window" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add mailBox + chat mailBox Window" />
   </component>
 </project>

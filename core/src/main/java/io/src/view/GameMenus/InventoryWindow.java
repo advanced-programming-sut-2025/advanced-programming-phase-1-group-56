@@ -286,6 +286,8 @@ public class InventoryWindow extends Group implements InputProcessor {
     private void showSocialTab() {
         background.setDrawable(new TextureRegionDrawable(GameAssetManager.getGameAssetManager().getTmpBackground()));
 
+        ScrollPane socialPane = new ScrollPane();
+
         Window npcWin = new Window("", skin, "social");
         Image npcImage = new Image(new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Treasure_Totem")));
         npcWin.add(npcImage);
@@ -300,7 +302,8 @@ public class InventoryWindow extends Group implements InputProcessor {
         npcWin.add(heartTable);
 
         npcWin.pack();
-        npcWin.setPosition(getWidth()- npcWin.getWidth(), getHeight() - npcWin.getHeight());
+        npcWin.setSize(npcWin.getWidth() - 138, npcWin.getHeight());
+        npcWin.setPosition(getWidth() - npcWin.getWidth() - 15, getHeight() - npcWin.getHeight());
         contentGroup.addActor(npcWin);
     }
 

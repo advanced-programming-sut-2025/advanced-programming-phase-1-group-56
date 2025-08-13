@@ -53,6 +53,7 @@ public class AnimalMenu extends Window {
         homeButton = new TextButton("HOME", skin, "button1-2_font30GREEN");
         freeButton = new TextButton("FREE", skin, "button1-2_font30");
         TextButton sellButton = new TextButton("SELL", skin, "button1-2_font30");
+        TextButton productsButton = new TextButton("        ", skin, "button1-2_font30");
 
         Stack homeFreeStack = new Stack();
         homeButton.setSize(150, 70);
@@ -65,9 +66,13 @@ public class AnimalMenu extends Window {
         buttonTable.add(feedButton).width(150).height(70);
         buttonTable.add(petButton).width(150).height(70).row();
         buttonTable.add(homeFreeStack).width(150).height(70);
-        buttonTable.add(sellButton).width(150).height(70);
+        buttonTable.add(sellButton).width(150).height(70).row();
 
-        mainWin.add(buttonTable).pad(70);
+        Table buttonTable2 = new Table();
+        buttonTable2.add(buttonTable).row();
+        buttonTable2.add(productsButton).width(300).height(70);
+
+        mainWin.add(buttonTable2).pad(70);
         mainWin.pack();
         mainWin.setMovable(false);
 

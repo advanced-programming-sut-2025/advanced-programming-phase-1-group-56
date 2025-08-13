@@ -5,7 +5,7 @@ eclipse.project.name = appName + '-core'
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(17) // یا 11/21 هر چی لازم داری
+    languageVersion = JavaLanguageVersion.of(21) // یا 11/21 هر چی لازم داری
   }
 }
 
