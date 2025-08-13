@@ -25,7 +25,7 @@ public class RainParticle {
             y -= vy * delta;
 
 
-            if (remainingLife <= maxLife * 0.8f) {
+            if (remainingLife <= maxLife * 0.2f) {
                 hit = true;
                 remainingLife = 0.25f;
                 alpha = 1f;

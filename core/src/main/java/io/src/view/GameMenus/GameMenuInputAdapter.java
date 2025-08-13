@@ -629,7 +629,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         Direction dir = player.getLastDirection();
         if (player.getCurrentItem() instanceof Tool tool) {
             setStopMoving(true);
-            if (tool.getName().contains("Rod")) {
+            if (tool.getName().equals("FishingPole")) {
                 App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
                     // this will run on the render thread when animation finishes
                     setStopMoving(false);///

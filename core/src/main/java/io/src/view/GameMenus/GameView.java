@@ -108,6 +108,8 @@ public class GameView implements Screen, TimeObserver {
     private ShapeRenderer sr = new ShapeRenderer();
     private RainSystem rainSystem = new RainSystem();
     private Texture whitePixel;
+//    private List<DayNightLighting.Light> lights = new ArrayList<>();
+
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -192,14 +194,14 @@ public class GameView implements Screen, TimeObserver {
 
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
-        lighting = new DayNightLighting();
+
 
         Pixmap pm = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pm.setColor(Color.WHITE);
         pm.fill();
         whitePixel = new Texture(pm);
         pm.dispose();
-
+        lighting = new DayNightLighting();
 //        rainSystem.setSpawnRate(150f);      // ذرات در ثانیه
 //        rainSystem.setWind(40f, 40f);       // باد به سمت راست 40 px/s با تغییر ±40
 //        rainSystem.setGroundOffset(6f);
@@ -396,7 +398,11 @@ public class GameView implements Screen, TimeObserver {
         float dirRotation;
         switch (dir) {
             case RIGHT -> {
-                baseAngles = new float[]{10, -50, -100};
+                if (toolName.equals("FishingPole")){
+                    baseAngles = new float[]{0, 0, 0};
+                } else {
+                    baseAngles = new float[]{10, -50, -100};
+                }
                 offsets = List.of(
                     new Vector2(8, 24),
                     new Vector2(12, 20),
@@ -412,7 +418,11 @@ public class GameView implements Screen, TimeObserver {
                 );
             }
             case LEFT -> {
-                baseAngles = new float[]{-10, 50, 100};
+                if (toolName.equals("FishingPole")){
+                    baseAngles = new float[]{0, 0, 0};
+                } else {
+                    baseAngles = new float[]{-10, 50, 100};
+                }
                 offsets = List.of(
                     new Vector2(8, 24),
                     new Vector2(4, 20),
@@ -420,7 +430,11 @@ public class GameView implements Screen, TimeObserver {
                 );
             }
             case DOWN -> {
-                baseAngles = new float[]{0, 0};
+                if (toolName.equals("FishingPole")){
+                    baseAngles = new float[]{0, 0, 0};
+                } else {
+                    baseAngles = new float[]{0, 0};
+                }
                 offsets = List.of(
                     new Vector2(0, 20),
                     new Vector2(8, 0),
@@ -705,6 +719,12 @@ public class GameView implements Screen, TimeObserver {
             if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.PINKFU_TREE) {
                 worldX -= 24;
             }
+//
+//            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.LANTERN){
+//                float wx = go.getPixelPosition().x + TILE_SIZE/2f;
+//                float wy = go.getPixelPosition().y + TILE_SIZE/2f + 8f; // ارتفاعِ کمی بالاتر
+//                lights.add(new DayNightLighting.Light(wx, wy, 120f, 1f));
+//            }
 
             if (go instanceof ArtesianMachine) {
                 worldX -= 25;
@@ -830,6 +850,7 @@ public class GameView implements Screen, TimeObserver {
             stage.addActor(foodBuff);
             foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
         }
+
 
         lighting.render(((float)App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour()), (SpriteBatch) renderer.getBatch());
 
