@@ -575,6 +575,10 @@
 	"npcStateWin": {
 		"background": "npcStateMenuWindowBackground",
 		"titleFont": "baseFont-24"
+	},
+	"social": {
+		"background": "SocialWinBackGround",
+		"titleFont": "baseFont-24"
 	}
 }
 }

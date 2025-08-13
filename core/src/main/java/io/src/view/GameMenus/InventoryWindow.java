@@ -39,11 +39,13 @@ public class InventoryWindow extends Group implements InputProcessor {
     private final Image background;
     private final Player player;
     private final DragAndDrop dragAndDrop = new DragAndDrop();
+    private Skin skin;
 
     public InventoryWindow() {
         player = App.getMe();
         setSize(750, 580);
         setPosition((Gdx.graphics.getWidth() - 750) / 2f, (Gdx.graphics.getHeight() - 580) / 2f);
+        skin = SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN);
 
         background = new Image(GameAssetManager.getGameAssetManager().getInventoryBackGround());
         background.setSize(getWidth(), getHeight() + 10);
@@ -283,6 +285,23 @@ public class InventoryWindow extends Group implements InputProcessor {
 
     private void showSocialTab() {
         background.setDrawable(new TextureRegionDrawable(GameAssetManager.getGameAssetManager().getTmpBackground()));
+
+        Window npcWin = new Window("", skin, "social");
+        Image npcImage = new Image(new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Treasure_Totem")));
+        npcWin.add(npcImage);
+        npcWin.add(new Label("npc Name", skin));
+        Table heartTable = new Table();
+        for (int i = 0; i < 3; i++) {
+            Button heart = new Button(skin, "heart");
+            heart.setChecked(true);
+            heart.setDisabled(true);
+            heartTable.add(heart).pad(10);
+        }
+        npcWin.add(heartTable);
+
+        npcWin.pack();
+        npcWin.setPosition(getWidth()- npcWin.getWidth(), getHeight() - npcWin.getHeight());
+        contentGroup.addActor(npcWin);
     }
 
     private void showMapTab() {
