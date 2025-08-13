@@ -3,10 +3,18 @@ eclipse.project.name = appName + '-core'
 
 
 
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(17) // یا 11/21 هر چی لازم داری
+    languageVersion = JavaLanguageVersion.of(21)
   }
+}
+
+java.sourceCompatibility = 21
+java.targetCompatibility = 21
+if (JavaVersion.current().isJava9Compatible()) {
+  compileJava.options.release.set(21)
 }
 
 

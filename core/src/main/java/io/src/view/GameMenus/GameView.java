@@ -2,11 +2,7 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -39,11 +35,13 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.TileType;
+import io.src.model.Enums.WeatherAndTime.WeatherType;
 import io.src.model.Game;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Buildings.Home;
 import io.src.model.MapModule.Buildings.Store;
+import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
@@ -57,6 +55,7 @@ import io.src.model.items.Fish;
 import io.src.model.items.Tool;
 import io.src.model.items.Etc;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -106,6 +105,9 @@ public class GameView implements Screen, TimeObserver {
     private Image foodBuff;
     private FishingMinigame activeFishingMinigame = null;
     private DayNightLighting lighting;
+    private ShapeRenderer sr = new ShapeRenderer();
+    private RainSystem rainSystem = new RainSystem();
+    private Texture whitePixel;
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -191,6 +193,16 @@ public class GameView implements Screen, TimeObserver {
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
         lighting = new DayNightLighting();
+
+        Pixmap pm = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pm.setColor(Color.WHITE);
+        pm.fill();
+        whitePixel = new Texture(pm);
+        pm.dispose();
+
+//        rainSystem.setSpawnRate(150f);      // ذرات در ثانیه
+//        rainSystem.setWind(40f, 40f);       // باد به سمت راست 40 px/s با تغییر ±40
+//        rainSystem.setGroundOffset(6f);
 
         setCustomCursor("assets/Cursor.png", 0, 0);
 
@@ -361,62 +373,7 @@ public class GameView implements Screen, TimeObserver {
 
     }
 
-    private void updateCameraPosition() {
-        Player player = App.getMe();
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
-        float mapWidthPixels = layer.getWidth() * TILE_SIZE;
-        float mapHeightPixels = layer.getHeight() * TILE_SIZE;
 
-        float screenWidth = camera.viewportWidth;
-        float screenHeight = camera.viewportHeight;
-
-        float cameraX, cameraY;
-
-        // X محور
-        if (mapWidthPixels <= screenWidth * 0.3) {
-            // اگر نقشه از صفحه کوچکتر بود، دوربین را وسط نقشه قرار بده
-            cameraX = mapWidthPixels / 2f;
-        } else {
-
-//            float y = game.getCurrentPlayer().getPixelPosition().getY();
-            float x = game.getCurrentPlayer().getPixelPosition().getX();
-//            if (y + 182 >= mapHeight) {
-//                y = mapHeight - 182;
-//            }
-            if (x + 300 >= mapWidthPixels) {
-                x = mapWidthPixels - 300;
-            }
-
-//            if (y - 150 <= 0) {
-//                y = 150;
-//            }
-
-            if (x - 290 <= 0) {
-                x = 290;
-            }
-            cameraX = x;
-            // اگر نقشه از صفحه بزرگ‌تر بود، دوربین روی پلیر با محدودیت قرار بگیرد
-//            cameraX = MathUtils.clamp(player.getPixelPosition().getX(), screenWidth / 2f, mapWidthPixels - screenWidth / 2f);
-        }
-
-        // Y محور
-        if (mapHeightPixels <= screenHeight * 0.3) {
-            cameraY = mapHeightPixels / 2f;
-        } else {
-            float y = game.getCurrentPlayer().getPixelPosition().getY();
-            if (y + 182 >= mapHeightPixels) {
-                y = mapHeightPixels - 182;
-            }
-            if (y - 150 <= 0) {
-                y = 150;
-            }
-            cameraY = y;
-//            cameraY = MathUtils.clamp(player.getPixelPosition().getY(), screenHeight / 2f, mapHeightPixels - screenHeight / 2f);
-        }
-
-        camera.position.set(cameraX, cameraY, 0);
-        camera.update();
-    }
 
     public void spawnToolSwing(Tool tool, Direction dir, Runnable onComplete) {
         if (tool == null) return;
@@ -536,6 +493,63 @@ public class GameView implements Screen, TimeObserver {
         warningWindow.setRemainingTime(warningWindow.getRemainingTime() - 1);
     }
 
+    private void updateCameraPosition() {
+        Player player = App.getMe();
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
+        float mapWidthPixels = layer.getWidth() * TILE_SIZE;
+        float mapHeightPixels = layer.getHeight() * TILE_SIZE;
+
+        float screenWidth = camera.viewportWidth;
+        float screenHeight = camera.viewportHeight;
+
+        float cameraX, cameraY;
+
+        // X محور
+        if (mapWidthPixels <= screenWidth * 0.3) {
+            // اگر نقشه از صفحه کوچکتر بود، دوربین را وسط نقشه قرار بده
+            cameraX = mapWidthPixels / 2f;
+        } else {
+
+//            float y = game.getCurrentPlayer().getPixelPosition().getY();
+            float x = game.getCurrentPlayer().getPixelPosition().getX();
+//            if (y + 182 >= mapHeight) {
+//                y = mapHeight - 182;
+//            }
+            if (x + 300 >= mapWidthPixels) {
+                x = mapWidthPixels - 300;
+            }
+
+//            if (y - 150 <= 0) {
+//                y = 150;
+//            }
+
+            if (x - 290 <= 0) {
+                x = 290;
+            }
+            cameraX = x;
+            // اگر نقشه از صفحه بزرگ‌تر بود، دوربین روی پلیر با محدودیت قرار بگیرد
+//            cameraX = MathUtils.clamp(player.getPixelPosition().getX(), screenWidth / 2f, mapWidthPixels - screenWidth / 2f);
+        }
+
+        // Y محور
+        if (mapHeightPixels <= screenHeight * 0.3) {
+            cameraY = mapHeightPixels / 2f;
+        } else {
+            float y = game.getCurrentPlayer().getPixelPosition().getY();
+            if (y + 182 >= mapHeightPixels) {
+                y = mapHeightPixels - 182;
+            }
+            if (y - 150 <= 0) {
+                y = 150;
+            }
+            cameraY = y;
+//            cameraY = MathUtils.clamp(player.getPixelPosition().getY(), screenHeight / 2f, mapHeightPixels - screenHeight / 2f);
+        }
+
+        camera.position.set(cameraX, cameraY, 0);
+        camera.update();
+    }
+
     @Override
     public void show() {
         Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
@@ -564,18 +578,45 @@ public class GameView implements Screen, TimeObserver {
         }
 
         renderer.getBatch().begin();
-        //render tile type plowed soil
+
+
+
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : tileLine) {
                 if (tile.getTileType() == TileType.PlowedSoil) {
-                    Texture texture = new Texture(Gdx.files.internal(
-                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
-                    ));
-                    TextureRegion region = new TextureRegion(texture);
+                    String key = tile.getTileType().toString();
+                    TextureRegion region;
+                    if (!gameObjectTextureMap.containsKey(key)) {
+                        // یک بار لود و ذخیره کن
+                        String path = GameAssetManager.getGameAssetManager().getAssetsDictionary().get(key);
+                        if (path != null) {
+                            Texture texture = new Texture(Gdx.files.internal(path));
+                            region = new TextureRegion(texture);
+                            gameObjectTextureMap.put(key, region);
+                        } else {
+                            continue; // asset not found
+                        }
+                    } else {
+                        region = gameObjectTextureMap.get(key);
+                    }
+                    // draw region
                     renderer.getBatch().draw(region, tile.getPosition().getX() * TILE_SIZE, tile.getPosition().getY() * TILE_SIZE);
                 }
             }
         }
+
+        //render tile type plowed soil
+//        for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
+//            for (Tile tile : tileLine) {
+//                if (tile.getTileType() == TileType.PlowedSoil) {
+//                    Texture texture = new Texture(Gdx.files.internal(
+//                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
+//                    ));
+//                    TextureRegion region = new TextureRegion(texture);
+//                    renderer.getBatch().draw(region, tile.getPosition().getX() * TILE_SIZE, tile.getPosition().getY() * TILE_SIZE);
+//                }
+//            }
+//        }
 
         ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
         Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
@@ -711,6 +752,32 @@ public class GameView implements Screen, TimeObserver {
 //
 //            }
 //        }
+        if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town) ){
+
+            renderer.getBatch().end();
+
+            renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
+            renderer.getBatch().begin();
+            renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            renderer.getBatch().setColor(Color.WHITE);
+            renderer.getBatch().end();
+
+            renderer.getBatch().setProjectionMatrix(camera.combined);
+            renderer.getBatch().begin();
+//            float overlayAlpha = 0.2f;
+//            renderer.getBatch().setColor(0f, 0.12f, 0.18f, overlayAlpha);
+//            renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//            renderer.getBatch().setColor(Color.WHITE);
+
+            // update و render rain با دادن camera
+            rainSystem.update(v, camera);
+            rainSystem.render(renderer.getBatch());
+        }
+
+
+
+
         renderer.getBatch().end();
 
         transitionManager.update(v);
@@ -854,6 +921,7 @@ public class GameView implements Screen, TimeObserver {
     @Override
     public void dispose() {
         lighting.dispose();
+        if (whitePixel != null) whitePixel.dispose();
     }
 
     public FoodWindow foodWindow() {

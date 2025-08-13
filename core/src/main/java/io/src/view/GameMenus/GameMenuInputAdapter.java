@@ -100,8 +100,8 @@ public class GameMenuInputAdapter extends InputAdapter {
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wood -c 999");
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 999999 dollars");
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add");
-            result = CarpenterMenuController.BuildABuilding("Coop" , 20 , 20);
-            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), 30 , 30);
+            result = CarpenterMenuController.BuildABuilding("Coop" , BuildingType.COOP ,20 , 20);
+            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN ,30 , 30);
             result = MarniesRanchController.buyAnimal(AnimalType.COW.getName() , "mahdi");
 
 //            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
