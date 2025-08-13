@@ -286,25 +286,34 @@ public class InventoryWindow extends Group implements InputProcessor {
     private void showSocialTab() {
         background.setDrawable(new TextureRegionDrawable(GameAssetManager.getGameAssetManager().getTmpBackground()));
 
-        ScrollPane socialPane = new ScrollPane();
+        Table friendShipsTable = new Table();
 
-        Window npcWin = new Window("", skin, "social");
-        Image npcImage = new Image(new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Treasure_Totem")));
-        npcWin.add(npcImage);
-        npcWin.add(new Label("npc Name", skin));
-        Table heartTable = new Table();
-        for (int i = 0; i < 3; i++) {
-            Button heart = new Button(skin, "heart");
-            heart.setChecked(true);
-            heart.setDisabled(true);
-            heartTable.add(heart).pad(10);
+        float npcWidth = 0, npcHeight = 0;
+
+        for (int i = 0; i < App.getMe().getFriendShips().size(); i++) {
+            Window npcWin = new Window("", skin, "social");
+            Image npcImage = new Image(new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Treasure_Totem")));
+            npcWin.add(npcImage);
+            npcWin.add(new Label("npc Name", skin));
+            Table heartTable = new Table();
+            for (int j = 0; j < 3; j++) {
+                Button heart = new Button(skin, "heart");
+                heart.setChecked(true);
+                heart.setDisabled(true);
+                heartTable.add(heart).pad(10);
+            }
+            npcWin.add(heartTable);
+            npcWin.pack();
+            npcWidth = npcWin.getWidth();
+            npcHeight = npcWin.getHeight();
         }
-        npcWin.add(heartTable);
 
-        npcWin.pack();
-        npcWin.setSize(npcWin.getWidth() - 138, npcWin.getHeight());
-        npcWin.setPosition(getWidth() - npcWin.getWidth() - 15, getHeight() - npcWin.getHeight());
-        contentGroup.addActor(npcWin);
+//        ScrollPane socialPane = new ScrollPane();
+
+        friendShipsTable.pack();
+        friendShipsTable.setSize(friendShipsTable.getWidth() - 138, friendShipsTable.getHeight());
+        friendShipsTable.setPosition(getWidth() - friendShipsTable.getWidth() - 15, getHeight() - friendShipsTable.getHeight());
+        contentGroup.addActor(friendShipsTable);
     }
 
     private void showMapTab() {
