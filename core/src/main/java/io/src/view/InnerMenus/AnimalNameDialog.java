@@ -97,15 +97,18 @@ public class AnimalNameDialog extends Dialog {
         pack();
     }
 
-    @Override
+
     public void result(Object object) {
-        // object == true وقتی OK زده شده
         if (object instanceof Boolean && (Boolean) object) {
             String name = nameTextField.getText().trim();
             if (name.isEmpty()) name = "Unnamed";
             if (okListener != null) okListener.onOk(name);
         }
-        // Dialog به‌صورت پیش‌فرض بعد از result مخفی می‌شود
+        // بعد از بستن، فوکوس رو برگردون
+        if (getStage() != null) {
+            getStage().setKeyboardFocus(null);
+            getStage().setScrollFocus(null);
+        }
     }
 
     public void showCentered(Stage stage) {

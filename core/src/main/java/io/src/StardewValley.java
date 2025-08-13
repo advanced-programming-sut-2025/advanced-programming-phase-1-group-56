@@ -9,6 +9,7 @@ import io.src.model.App;
 import io.src.model.Game;
 import io.src.model.User;
 import io.src.view.GameMenus.GameView;
+import io.src.view.GameMenus.ShippingBarWindow;
 
 import java.io.*;
 

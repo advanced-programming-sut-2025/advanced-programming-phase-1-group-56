@@ -1,6 +1,18 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
+
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17) // یا 11/21 هر چی لازم داری
+  }
+}
+
+
+repositories {
+  mavenCentral()
+}
 dependencies {
   api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
   api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
@@ -17,6 +29,7 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
 
 
+
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
@@ -26,5 +39,6 @@ repositories {
   maven { url 'https://jitpack.io' }
   mavenCentral()
 }
+
 
 

@@ -64,62 +64,58 @@ public abstract class Item implements Saleable {
         } else {
             basePrice = -1;
 
-
-            //TODO debug
-
-            //1
             NpcProduct product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(Blacksmith.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(Blacksmith.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
 
             //2
             product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(CarpentersShop.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(CarpentersShop.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
             //3
             product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(FishShop.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(FishShop.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
             //4
             product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(PierresGeneralStore.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(PierresGeneralStore.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
             //5
             product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(JojaMart.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(JojaMart.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
             //6
             product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(MarniesRanch.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(MarniesRanch.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
             //7
             product =
-                    App.getCurrentUser().getCurrentGame().
-                            findStoreByClass(TheSaloonStardrop.class).getProductByName(this.name);
+                App.getCurrentUser().getCurrentGame().
+                    findStoreByClass(TheSaloonStardrop.class).getProductByName(this.name);
             if (product != null) {
-                basePrice = product.getPrice()/2;
+                basePrice = product.getFinalPrice() / 2;
             }
         }
 
-        return (basePrice == -1) ? -1 : basePrice * getMaxStackSize();
+        return (basePrice == -1) ? -1 : basePrice;
     }
 
     public abstract String getAssetName();

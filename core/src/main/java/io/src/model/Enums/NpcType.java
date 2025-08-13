@@ -150,7 +150,7 @@ public enum NpcType {
     private final Class<? extends NpcPrompt> promptClass;
     private final String icon;
     private final String assetName;
-    private final List<Position> pathPoints; // مسیر نقاط راه رفتن
+    private final List<Position> pathPoints;
 
     NpcType(String name,
             ArrayList<NpcRequest> requests,
@@ -229,8 +229,6 @@ public enum NpcType {
         return npcToAdd;
     }
 }
-
-
 
 
 //public enum NpcType {

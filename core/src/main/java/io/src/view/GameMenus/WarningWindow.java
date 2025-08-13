@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Align;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
-public class WarningWindow extends Window {
+public class WarningWindow extends Window implements InterruptingWindow {
     private final Label speakerLabel;
     private final Label textLabel;
     private int remainingTime = 300;
@@ -27,27 +27,25 @@ public class WarningWindow extends Window {
         add(textLabel).width(700).height(170).left().top();
 
 
-
-
         pack();
 
         setVisible(false);
     }
 
-        public void showDialog(String speaker, String text, int remainingTime) {
-            this.remainingTime = remainingTime;
-            speakerLabel.setText(speaker);
-            textLabel.setText(text);
-            int lineCount = 1;
-            for(char c : text.toCharArray()) {
-                if (c == '\n') {
-                    lineCount++;
-                }
+    public void showDialog(String speaker, String text, int remainingTime) {
+        this.remainingTime = remainingTime;
+        speakerLabel.setText(speaker);
+        textLabel.setText(text);
+        int lineCount = 1;
+        for (char c : text.toCharArray()) {
+            if (c == '\n') {
+                lineCount++;
             }
-            this.setHeight(20*lineCount);
-            this.invalidate();
-            this.pack();
-            textLabel.setHeight(20*lineCount);
+        }
+        this.setHeight(20 * lineCount);
+        this.invalidate();
+        this.pack();
+        textLabel.setHeight(20 * lineCount);
 
         float width = Math.max(300, Math.min(text.length() * 10, 700));
         this.setWidth(width);
@@ -64,9 +62,14 @@ public class WarningWindow extends Window {
         addAction(fadeIn(0.5f));
     }
 
-    public void kill(){
-        remainingTime=0;
+    public void kill() {
+        remainingTime = 0;
         hideDialog();
+    }
+
+    @Override
+    public void showDialog() {
+        showDialog("Warning", "This is test warning message", 200);
     }
 
     public void hideDialog() {

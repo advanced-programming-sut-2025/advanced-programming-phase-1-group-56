@@ -567,7 +567,8 @@ public class GameMenu implements AppMenu, Screen {
             result = NpcController.manageShowAllQuests();
             return true;
         } else if ((matcher = NpcCommands.FinishQuest.getMatcher(input)) != null) {
-            result = NpcController.finishingQuest(matcher.group(1).trim());
+            //result = NpcController.finishingQuest(matcher.group(1).trim());
+            result = new Result(false,"this command is deleted from terminal");
             return true;
         } else {
             return false;

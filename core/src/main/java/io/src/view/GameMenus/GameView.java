@@ -78,6 +78,7 @@ public class GameView implements Screen, TimeObserver {
     private ScreenTransition transitionManager;
     private ShapeRenderer shapeRenderer;
     private final OrthographicCamera camera = new OrthographicCamera();
+    private ShippingBarWindow shippingBarWindow;
 
     private final ObjectMap<String, Float> stateTimeMap = new ObjectMap<>();
     private float stateTime = 0f;
@@ -176,6 +177,10 @@ public class GameView implements Screen, TimeObserver {
         shopStateWindow = new ShopStateWindow(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
         shopStateWindow.setVisible(false);
         stage.addActor(shopStateWindow);
+        //Shipping
+        shippingBarWindow = new ShippingBarWindow();
+        shippingBarWindow.setVisible(false);
+        stage.addActor(shippingBarWindow);
 
         this.gameMenuInputAdapter = new GameMenuInputAdapter(game);
 
@@ -567,7 +572,7 @@ public class GameView implements Screen, TimeObserver {
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
                     ));
                     TextureRegion region = new TextureRegion(texture);
-                    renderer.getBatch().draw(region, tile.getPosition().getX(), tile.getPosition().getY());
+                    renderer.getBatch().draw(region, tile.getPosition().getX() * TILE_SIZE, tile.getPosition().getY() * TILE_SIZE);
                 }
             }
         }
@@ -618,7 +623,12 @@ public class GameView implements Screen, TimeObserver {
             if (go instanceof NPC npc) {
                 renderNPC(npc);
                 npc.update(v);
-//                System.out.println(npc.getPosition().getX() + " " + npc.getPosition().getY());
+                handleNpcHint(npc);
+                continue;
+            }
+
+            if (go instanceof MailBox mailBox) {
+                handleMailBoxHint(mailBox);
                 continue;
             }
             if (go instanceof Animal animal){
@@ -768,6 +778,7 @@ public class GameView implements Screen, TimeObserver {
         }
     }
 
+
     public void handleShopHint(Batch batch) {
         if (gameMenuInputAdapter.isShopCounterHintActive()) {
             Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
@@ -786,10 +797,39 @@ public class GameView implements Screen, TimeObserver {
         }
     }
 
+    public void handleNpcHint(NPC npc) {
+        if (npc.isDialogReady() && npc.isMeetHint()) {
+            Texture texture = new Texture(Gdx.files.internal(
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+            ));
+            TextureRegion region = new TextureRegion(texture);
+            float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
+            float worldX = (float) ((x + 6));
+            float worldY = (float) ((y + 31));
+            renderer.getBatch().draw(region,
+                worldX, worldY
+            );
 
-    public void onPlayerTalk(String npcName, String dialogText) {
-        dialogWindow.showDialog(npcName, dialogText);
+        }
     }
+
+    private void handleMailBoxHint(MailBox mailBox) {
+        mailBox.onPlayerGoesNearby(3);
+        if (mailBox.getHasNewMessages()) {
+            Texture texture = new Texture(Gdx.files.internal(
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+            ));
+            TextureRegion region = new TextureRegion(texture);
+            float x = mailBox.getPixelPosition().x, y = mailBox.getPixelPosition().y;
+            float worldX = (float) ((x + 6));
+            float worldY = (float) ((y + 29));
+            renderer.getBatch().draw(region,
+                worldX, worldY
+            );
+
+        }
+    }
+
 
     @Override
     public void resize(int i, int i1) {
@@ -889,4 +929,8 @@ public class GameView implements Screen, TimeObserver {
         return multiplexer;
     }
 
+
+    public ShippingBarWindow getShippingBarWindow() {
+        return shippingBarWindow;
+    }
 }

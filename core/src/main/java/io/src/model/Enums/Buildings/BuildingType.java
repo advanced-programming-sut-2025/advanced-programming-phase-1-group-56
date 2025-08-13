@@ -84,7 +84,7 @@ public enum BuildingType implements Saleable {
 
     public static BuildingType getTypeByName(String name) {
         for (BuildingType type : BuildingType.values()) {
-            if (type.name().equalsIgnoreCase(name)) {
+            if (type.getName().equalsIgnoreCase(name)) {
                 return type;
             }
         }

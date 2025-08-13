@@ -1,18 +1,24 @@
 package io.src.controller.MenuController;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.google.gson.Gson;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
+import io.src.model.Game;
 import io.src.model.GameAudioManager;
 import io.src.model.Result;
 import io.src.view.MainMenu;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 public class MainMenuController extends CommandController {
     private static final String FILE_PATH_FOR_STAY_LOGGED = "assets\\StayLoggedIn.json";

@@ -165,6 +165,7 @@ public class Inventory {
 
     public Item findItemByName(String itemName) {
         for (Slot slot : slots) {
+            if(slot.getItem()==null) continue;
             if (slot.getItem().getName().equalsIgnoreCase(itemName)) {
                 return slot.getItem();
             }

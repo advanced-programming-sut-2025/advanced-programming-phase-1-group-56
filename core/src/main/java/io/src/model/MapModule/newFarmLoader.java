@@ -139,6 +139,9 @@ public class newFarmLoader {
 
                 GameObject gameObject = createGameObjectFromObject(name, obj.getProperties(), x, y, objWidth, objHeight, location);
                 if (gameObject != null) {
+                    if(gameObject instanceof ShippingBar) {
+                        tiles[tileY][tileX+1].setFixedObject(gameObject);
+                    }
                     tiles[tileY][tileX].setFixedObject(gameObject);
                     location.getGameObjects().add(gameObject);
                 }
