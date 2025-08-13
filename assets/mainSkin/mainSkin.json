@@ -158,6 +158,10 @@
 		"down": "editingButton_UP",
 		"over": "editingButton_OVER",
 		"disabled": "editingButton_Disable"
+	},
+	"heart": {
+		"up": "FillHeart",
+		"checked": "EmptyHeart"
 	}
 },
 "CheckBoxStyle": {
@@ -461,6 +465,34 @@
 		"fontColor": "GREEN",
 		"up": "inventoryButtonBottom_UP",
 		"down": "inventoryButtonBottom_DOWN"
+	},
+	"npc-45": {
+		"font": "basefont2-45",
+		"fontColor": "GREEN",
+		"overFontColor": "PINK",
+		"up": "npcWinButton",
+		"down": "npcWinButton",
+		"over": "npcWinButton_OVER",
+		"focused": "npcWinButton_OVER",
+		"disabled": "npcWinButton_DISABLE"
+	},
+	"npc-90": {
+		"font": "baseFont-90",
+		"fontColor": "GREEN",
+		"overFontColor": "PINK",
+		"up": "npcWinButton",
+		"down": "npcWinButton",
+		"over": "npcWinButton_OVER",
+		"focused": "npcWinButton_OVER",
+		"disabled": "npcWinButton_DISABLE"
+	},
+	"button1-2_font30GREEN": {
+		"font": "baseFont2-24",
+		"fontColor": "GREEN",
+		"downFontColor": "GREEN",
+		"up": "button1_UP",
+		"down": "button1_DOWN",
+		"over": "button1_OVER"
 	}
 },
 "TextFieldStyle": {
@@ -533,6 +565,16 @@
 	"noWindow": {
 		"titleFont": "baseFont-90",
 		"titleFontColor": "WHITE"
+	},
+	"askWindow": {
+		"background": "shopWindowBackGround",
+		"titleFont": "baseFont-90",
+		"titleFontColor": "BLACK",
+		"stageBackground": "stageBackGround"
+	},
+	"npcStateWin": {
+		"background": "npcStateMenuWindowBackground",
+		"titleFont": "baseFont-24"
 	}
 }
 }

@@ -1,6 +1,5 @@
 package io.src.model.GameObject;
 
-import com.badlogic.gdx.math.Vector2;
 import io.src.controller.GameMenuController.HusbandryController;
 import io.src.model.App;
 import io.src.model.Clickable;

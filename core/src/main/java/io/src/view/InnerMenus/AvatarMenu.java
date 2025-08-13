@@ -11,26 +11,24 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
-import com.google.gson.Gson;
 import io.src.model.App;
 import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAudioManager;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class AvatarMenu extends Window {
+public class AvatarMenu extends Dialog {
 
     private final ArrayList<String> avatars;
     private final ArrayList<String> directs;
     private final TextField farmNameField;
     private final TextField nameField;
     private final SelectBox<String> farmPosition;
+    private final Table fields;
+    private final Button okButton;
     private int avatarIndex;
     private Texture avatarTex;
     private final Image avatarImage;
@@ -41,23 +39,25 @@ public class AvatarMenu extends Window {
     private Container<Label> nameContainer;
     private int avatarStyleIndex;
 
-
     public AvatarMenu(Skin skin, AvatarSelectionListener listener) {
         super("", skin);
         align(Align.left | Align.top);
-        System.out.println(App.getCurrentUser().getAvatarIndex() + ": " + App.getCurrentUser().getAvatarStyleIndex());
+
+        debug();
+
+        // initialize avatars images :
         avatars = new ArrayList<>();
         avatarIndex = App.getCurrentUser().getAvatarIndex();
         directs = new ArrayList<>(Arrays.asList("front", "right", "back", "left"));
         directIndex = 0;
         avatarStyleIndex = App.getCurrentUser().getAvatarStyleIndex();
-
         File[] avatarsPath = new File("assets/AVATAR/final/").listFiles(File::isDirectory);
         if (avatarsPath != null)
             for (File file : avatarsPath)
                 avatars.add("AVATAR/final/" + file.getName() + "/");
         else
             System.out.println("AVATAR/FINAL/AVATAR NOT FOUND");
+
 
         Table row1 = new Table();
         Table avatarTable = new Table();
@@ -85,7 +85,7 @@ public class AvatarMenu extends Window {
 
         avatarTable.add(rightDirect).padLeft(-20).bottom();
         leftDirect.toFront();
-        row1.add(avatarTable).padLeft(70).padTop(50);
+        row1.add(avatarTable).padLeft(50).padTop(50);
         row1.add(extraButtonsTable).padLeft(50);
 
         Table profileTable = new Table();
@@ -103,9 +103,7 @@ public class AvatarMenu extends Window {
 
         row1.add(profileTable).padLeft(50).padTop(50);
 
-        add(row1).row();
-
-        Table fields = new Table();
+        fields = new Table();
 
         nameField = new TextField("", skin);
         nameField.setAlignment(Align.center);
@@ -125,20 +123,23 @@ public class AvatarMenu extends Window {
         farmPosition.setSelected("Left");
         fields.add(farmPositionLabel).padTop(10).padLeft(50).padRight(30);
         fields.add(farmPosition).width(300).padTop(10);
-        add(fields).padBottom(15);
 
-        Button okButton = new Button(skin, "okButton");
+        okButton = new Button(skin, "okButton");
         okButton.setDisabled(true);
-        add(okButton).bottom().padRight(10).padBottom(15);
+
+        getContentTable().add(row1).padRight(50).row();
+        getContentTable().add(fields).padBottom(15);
+        button(okButton).bottom().padRight(10).padBottom(15);
 
         pack();
 
-        // Set size of window
-        pack();
         setPosition(
             (Gdx.graphics.getWidth() - getWidth()) / 2f,
             (Gdx.graphics.getHeight() - getHeight()) / 2f
         );
+
+        setMovable(false);
+        setModal(true);
 
         leftDirect.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -217,16 +218,13 @@ public class AvatarMenu extends Window {
                 okButton.setDisabled(nameField.getText().isEmpty() || farmNameField.getText().isEmpty());
             }
         });
-
-        setMovable(false);
-        setModal(true);
     }
 
     private int getMaxStylesForAvatar(int avatarIndex) {
         File avatarDir = new File("assets\\" + avatars.get(avatarIndex));
         if (!avatarDir.exists() || !avatarDir.isDirectory()) return 1;
         int count = 0;
-        for (File file : avatarDir.listFiles(File::isDirectory)) {
+        for (File file : Objects.requireNonNull(avatarDir.listFiles(File::isDirectory))) {
             try {
                 Integer.parseInt(file.getName());
                 count++;
@@ -236,7 +234,7 @@ public class AvatarMenu extends Window {
         return Math.max(count, 1);
     }
 
-    private void updateAvatarTextures() {
+    public void updateAvatarTextures() {
         GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
         Texture oldTex = avatarTex;
         avatarTex = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/" + directs.get(directIndex) + ".png");
@@ -293,5 +291,23 @@ public class AvatarMenu extends Window {
 
     public interface AvatarSelectionListener {
         void onAvatarSelected(String name, String farmName, String farmPosition, String avatar, int AvatarIndex, int AvatarStyleIndex);
+    }
+
+    public void setAvatarMode() {
+        fields.remove();
+        pack();
+        setPosition(
+            (Gdx.graphics.getWidth() - getWidth()) / 2f,
+            (Gdx.graphics.getHeight() - getHeight()) / 2f
+        );
+        okButton.setDisabled(false);
+    }
+
+    public void setAvatarIndex(int avatarIndex) {
+        this.avatarIndex = avatarIndex;
+    }
+
+    public void setAvatarStyleIndex(int avatarStyleIndex) {
+        this.avatarStyleIndex = avatarStyleIndex;
     }
 }
