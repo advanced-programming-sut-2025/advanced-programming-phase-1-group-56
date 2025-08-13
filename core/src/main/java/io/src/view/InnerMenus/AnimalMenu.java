@@ -26,7 +26,7 @@ public class AnimalMenu extends Window {
         Window mainWin = new Window("", skin);
         Label TitleLabel = new Label("Animal Menu:", skin, "font-45_PINK");
         mainWin.add(TitleLabel).padTop(40).row();
-        Texture animalTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(animal.getAnimalInfo().getAssetName())));
+        Texture animalTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(animal.getType().getAssetName())));
         Image image = new Image(animalTexture);
 
         Table friendShipButtonTable = new Table();

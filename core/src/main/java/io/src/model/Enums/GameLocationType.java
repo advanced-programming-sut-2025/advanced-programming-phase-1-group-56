@@ -15,7 +15,7 @@ public enum GameLocationType {
     Fishshop_Indoor("gameLocations\\Fish_Shop_Indoor.tmx", true, FishShop.class, "FishShop"),
     PierreGeneralStore_Indoor("gameLocations\\Pierres_General_Store_Indoor.tmx", true, PierresGeneralStore.class, "Pierre's General Store"),
     CarpenterShop_Indoor("gameLocations\\Carpenter_Shop_Indoor.tmx", true, CarpentersShop.class, "CarpenterShop"),
-    MarniesRanch_Indoor("gameLocations\\Marnies_Ranch_Indoor.tmx", true, MarniesRanch.class, "Marnie's Ranch");
+    MarniesRanch_Indoor("gameLocations\\Marnies_Ranch_Indoor.tmx", true, MarniesRanch.class, "Marnie's Ranch"),
     Barn_Indoor("gameLocations\\Barn.tmx", true, null, ""),
     Coop_Indoor("gameLocations\\Coop_Indoor.tmx", true, null, "");
     private final String assetName;

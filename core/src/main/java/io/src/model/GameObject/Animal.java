@@ -1,5 +1,8 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.HusbandryController;
 import io.src.model.App;
 import io.src.model.Clickable;
@@ -12,10 +15,12 @@ import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Node;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
+import io.src.model.SkinManager;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.AnimalProduct;
 import io.src.model.items.Saleable;
+import io.src.view.InnerMenus.AnimalMenu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +28,7 @@ import java.util.List;
 
 import static io.src.view.GameMenus.GameView.TILE_SIZE;
 
-public class Animal extends LivingEntity implements Saleable, TimeObserver, Clickable {
+public class Animal extends LivingEntity implements Saleable, TimeObserver, Clickable, SensitiveToPlayer {
     private AnimalType animalInfo;
     private final ArrayList<AnimalProduct> dailyProducts = new ArrayList<>();
     private int friendship = 0;
@@ -265,5 +270,46 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver, Clic
     public String getAssetName() {
         //TODO
         return "";
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer,int button){
+        if (button == Input.Buttons.RIGHT){
+            AnimalMenu animalMenu = new AnimalMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), this);
+            animalMenu.setVisible(true);
+            StardewValley.getGameView().getStage().addActor(animalMenu);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerGoesNearby(float distance) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerGetsFar(float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerFocus() {
+        isPaused = true;
+        pauseTimer = Integer.MAX_VALUE;
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerDefocus() {
+        isPaused = false;
+        pauseTimer = 1;
+        return false;
+    }
+
+    @Override
+    public float getSensitivityDistance() {
+        return 4;
     }
 }

@@ -39,7 +39,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
     private final Button profileButton;
     private final Button settingButton;
-    private final AnimalMenu animalMenu;
+//    private final AnimalMenu animalMenu;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -145,9 +145,9 @@ public class MainMenu implements AppMenu, Screen {
         profileMenu.setVisible(false);
 
         // temp :
-        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.COW));
-        animalMenu.setVisible(false);
-        stage.addActor(animalMenu);
+//        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.COW));
+//        animalMenu.setVisible(false);
+//        stage.addActor(animalMenu);
     }
 
     @Override
@@ -184,9 +184,9 @@ public class MainMenu implements AppMenu, Screen {
 
     //
 
-    public AnimalMenu getAnimalMenu() {
-        return animalMenu;
-    }
+//    public AnimalMenu getAnimalMenu() {
+//        return animalMenu;
+//    }
 
     public ProfileMenu getProfileMenu() {
         return profileMenu;
