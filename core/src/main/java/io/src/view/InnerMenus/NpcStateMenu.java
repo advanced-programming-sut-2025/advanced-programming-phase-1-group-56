@@ -77,8 +77,8 @@ public class NpcStateMenu extends Window {
                 } catch (Exception e) {
                     StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), "I dont even know you..\n Why do you want to talk to me", 400);
                 }
+                Gdx.app.postRunnable(() -> hideDialog());
                 npc.setDialogReady(false);
-                hideDialog();
             }
         });
 
@@ -87,7 +87,7 @@ public class NpcStateMenu extends Window {
                 NpcFriendship f = npc.findFriendshipByPlayer(App.getMe());
                 NpcRequest request = npc.getType().getRequests().get(f.getLastActiveRequest());
                 if (f.getLastActiveRequest() <= f.getLastDoneRequest()) {
-                    StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), NpcController.manageShowActiveQuest(npc).getMessage(), 500);
+                    StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), NpcController.manageShowActiveQuest(npc).getMessage(), 400);
                 } else {
 
                     NpcQuestMenu npcQuestMenu = new NpcQuestMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), f.getLastActiveRequest(), request, npc);
@@ -131,6 +131,7 @@ public class NpcStateMenu extends Window {
 
     public void hideDialog() {
         this.setVisible(false);
+        StardewValley.getGameView().getStage().unfocus(this);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
         Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
     }

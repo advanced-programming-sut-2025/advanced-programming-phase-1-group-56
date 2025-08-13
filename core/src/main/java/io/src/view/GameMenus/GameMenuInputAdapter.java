@@ -22,6 +22,7 @@ import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
 import io.src.model.GameObject.GameObject;
+import io.src.model.GameObject.MailBox;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.MapModule.Buildings.*;
@@ -97,11 +98,11 @@ public class GameMenuInputAdapter extends InputAdapter {
 //            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 9999");
 //            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 9999");
 //            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 99999 dollars");
-
-
             App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
             App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
             App.getMe().getMessages().add(new Message("Eshgham?", App.getMe(), App.getMe()));
+            StardewValley.getGameView().getWarningWindow().kill();
+
 
             return true;
         }
@@ -165,6 +166,10 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
         }
 
+        if(keycode == Input.Keys.E) {
+
+        }
+
         if (keycode == Input.Keys.ENTER) {
             //StardewValley.getGameView().getWarningWindow().kill();
         }
@@ -225,6 +230,8 @@ public class GameMenuInputAdapter extends InputAdapter {
             } else if (App.getMe().getCurrentItem() instanceof Artesian) {
                 System.out.println(App.getMe().getCurrentItem().getAssetName());
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
+            } else if(App.getMe().getCurrentItem() instanceof Seed seed){
+                Result result = FarmingController.managePlantSeed(seed.getSeedType(),App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Etc) {
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
             }
@@ -282,10 +289,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             player.setVelocity(vx * speed, vy * speed);
             player.update(delta);
             return;
-        }
-        if (keysHeld.contains(Input.Keys.N)) {
-            GameController.manageNextTurn();
-            StardewValley.getGameView().updateMap();
         }
 
 
@@ -378,6 +381,9 @@ public class GameMenuInputAdapter extends InputAdapter {
             if (gameObject instanceof SensitiveToPlayer sensitiveObject
                 && gameObject.getPosition().isNear(App.getMe().getPosition(), sensitiveObject.getSensitivityDistance()) &&
                 !newNearbyGameObjects.contains(gameObject)) {
+                if(sensitiveObject instanceof MailBox){
+                    System.out.println("WOW FOUND A MAILBOX");
+                }
                 if (sensitiveObject.equals(focusedGameObject)) continue;
                 newNearbyGameObjects.add(gameObject);
                 sensitiveObject.onPlayerGoesNearby(gameObject.getPosition().distanceTo(App.getMe().getPosition()));

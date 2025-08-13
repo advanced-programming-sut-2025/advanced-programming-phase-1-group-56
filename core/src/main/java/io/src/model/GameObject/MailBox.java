@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class MailBox extends GameObject implements Clickable, SensitiveToPlayer {
-    private ArrayList<String> unseenMessages = new ArrayList<>();
-    private final ArrayList<String> historyMessages = new ArrayList<>();
+    private ArrayList<Message> unseenMessages = new ArrayList<>();
+    private final ArrayList<Message> historyMessages = new ArrayList<>();
     private Boolean hasNewMessages = false;
 
     public MailBox(Position position) {
@@ -25,20 +25,20 @@ public class MailBox extends GameObject implements Clickable, SensitiveToPlayer 
 
     }
 
-    public List<String> getHistoryMessages() {
-        return Collections.unmodifiableList(historyMessages);
+    public ArrayList<Message> getHistoryMessages() {
+        return new ArrayList<>(historyMessages);
     }
 
-    public List<String> getUnseenMessages() {
-        return Collections.unmodifiableList(unseenMessages);
+    public ArrayList<Message> getUnseenMessages() {
+        return new ArrayList<>(unseenMessages);
     }
 
-    public void addUnseenMessage(String msg) {
+    public void addUnseenMessage(Message msg) {
         if (msg == null) return;
         unseenMessages.add(msg);
     }
 
-    public void addHistoryMessage(String msg) {
+    public void addHistoryMessage(Message msg) {
         if (msg == null) return;
         historyMessages.add(msg);
     }
@@ -82,12 +82,13 @@ public class MailBox extends GameObject implements Clickable, SensitiveToPlayer 
 
     @Override
     public boolean onPlayerGoesNearby(float distance) {
-        if(distance<5){
-            for (Message message : App.getMe().getMessages()) {
-                if (!unseenMessages.contains(message.toString())) {
-                    unseenMessages.add(message.toString());
-                    hasNewMessages = true;
-                }
+        ArrayList<Message> allMessages = new ArrayList<>();
+        allMessages.addAll(unseenMessages);
+        allMessages.addAll(historyMessages);
+        for (Message message : App.getMe().getMessages()) {
+            if (!allMessages.contains(message)) {
+                unseenMessages.add(message);
+                hasNewMessages = true;
             }
         }
         return false;

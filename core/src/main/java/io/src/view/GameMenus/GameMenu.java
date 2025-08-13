@@ -461,10 +461,11 @@ public class GameMenu implements AppMenu, Screen {
                 result = new Result(true, "you are not in a planting land!");
                 return true;
             }
-            result = FarmingController.craftInfo(matcher);
+            //result = FarmingController.craftInfo(matcher);
             return true;
         } else if ((matcher = FarmingCommands.PLANT.getMatcher(input)).find()) {
-            result = FarmingController.managePlantSeed(matcher);
+            //result = FarmingController.managePlantSeed(matcher);
+            result = new Result(true, "this command has been deleted from terminal logic");
             return true;
         } else if ((matcher = FarmingCommands.showPlant.getMatcher(input)).find()) {
             if (!App.getMe().getCurrentGameLocation().isPlantingLand()) {

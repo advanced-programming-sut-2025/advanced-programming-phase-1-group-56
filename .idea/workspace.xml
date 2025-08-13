@@ -4,20 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Add mailBox + chat mailBox Window">
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/OpenRouterChat.java" afterDir="false" />
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="NPC 98% completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/CraftingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/CraftingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FarmingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/FarmingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/NpcController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/NpcController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/EtcType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Items/EtcType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/PreGameMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/MenuController/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/NpcType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/NpcType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/TileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/TileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/MailBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/DeepSeekApiChat.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcFriendship.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcFriendship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/NPC/NpcRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/PlayerObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/PlayerObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/CheatWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/CheatWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameMenuInputAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/AvatarMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/MailBoxDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/MailBoxDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +55,6 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -57,7 +62,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mohsen" />
+        <entry key="$PROJECT_DIR$" value="maz" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,8 +99,10 @@
   &quot;keyToString&quot;: {
     &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Run&quot;,
     &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Application.game.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.APproject:core [:core:io.src.model.GameObject.NPC.OpenRouterChat.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build advanced-programming-phase-1-group-56.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
@@ -110,7 +117,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -171,9 +178,10 @@
       <workItem from="1754820454164" duration="19012000" />
       <workItem from="1754857260724" duration="11692000" />
       <workItem from="1754906780449" duration="11997000" />
-      <workItem from="1754996250134" duration="4924000" />
-      <workItem from="1755005822578" duration="7534000" />
-      <workItem from="1755025276310" duration="15528000" />
+      <workItem from="1754980424256" duration="16873000" />
+      <workItem from="1755005838255" duration="11954000" />
+      <workItem from="1755093679753" duration="4642000" />
+      <workItem from="1755099111196" duration="3477000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -287,47 +295,39 @@
       <option name="project" value="LOCAL" />
       <updated>1754920293874</updated>
     </task>
-    <task id="LOCAL-00015" summary="ShippingBar fixed and debugged need a exit button">
+    <task id="LOCAL-00015" summary="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
       <option name="closed" value="true" />
-      <created>1754953885969</created>
+      <created>1754950454967</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1754953885969</updated>
+      <updated>1754950454967</updated>
     </task>
-    <task id="LOCAL-00016" summary="debug shop dialog + debug shipping bar">
+    <task id="LOCAL-00016" summary="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
       <option name="closed" value="true" />
-      <created>1754996280370</created>
+      <created>1754951360654</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1754996280370</updated>
+      <updated>1754951360654</updated>
     </task>
-    <task id="LOCAL-00017" summary="NPC Exclution bar and stop on getting near">
+    <task id="LOCAL-00017" summary="finish npcMenuState and NpcQuestMenu">
       <option name="closed" value="true" />
-      <created>1755006143018</created>
+      <created>1755018126090</created>
       <option name="number" value="00017" />
       <option name="presentableId" value="LOCAL-00017" />
       <option name="project" value="LOCAL" />
-      <updated>1755006143018</updated>
+      <updated>1755018126090</updated>
     </task>
-    <task id="LOCAL-00018" summary="NPC GIFT AND NPC MEET HANDELED">
+    <task id="LOCAL-00018" summary="finish NpcQuestMenu.">
       <option name="closed" value="true" />
-      <created>1755032873831</created>
+      <created>1755032314143</created>
       <option name="number" value="00018" />
       <option name="presentableId" value="LOCAL-00018" />
       <option name="project" value="LOCAL" />
-      <updated>1755032873831</updated>
+      <updated>1755032314143</updated>
     </task>
-    <task id="LOCAL-00019" summary="Add mailBox + chat mailBox Window">
-      <option name="closed" value="true" />
-      <created>1755037912106</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1755037912106</updated>
-    </task>
-    <option name="localTasksCounter" value="20" />
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,11 +359,9 @@
     <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
     <MESSAGE value="Merged with mehdi" />
     <MESSAGE value="Merged with mehdi And Debug Some Shits" />
-    <MESSAGE value="ShippingBar fixed and debugged need a exit button" />
-    <MESSAGE value="debug shop dialog + debug shipping bar" />
-    <MESSAGE value="NPC Exclution bar and stop on getting near" />
-    <MESSAGE value="NPC GIFT AND NPC MEET HANDELED" />
-    <MESSAGE value="Add mailBox + chat mailBox Window" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add mailBox + chat mailBox Window" />
+    <MESSAGE value="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)" />
+    <MESSAGE value="finish npcMenuState and NpcQuestMenu" />
+    <MESSAGE value="finish NpcQuestMenu." />
+    <option name="LAST_COMMIT_MESSAGE" value="finish NpcQuestMenu." />
   </component>
 </project>

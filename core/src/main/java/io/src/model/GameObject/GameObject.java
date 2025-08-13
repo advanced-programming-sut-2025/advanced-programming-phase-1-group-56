@@ -8,8 +8,7 @@ public abstract class GameObject {
     protected boolean walkable;
     protected Position position;
 
-    public GameObject(boolean walkable, Position position)
-    {
+    public GameObject(boolean walkable, Position position) {
 //        this.objectId = UUID.randomUUID();
         this.position = position;
         this.walkable = walkable;
@@ -18,7 +17,8 @@ public abstract class GameObject {
     public boolean isWalkable() {
         return walkable;
     }
-//    protected Position position;
+
+    //    protected Position position;
 //    protected boolean [][] walkable;
 //    protected int width;
 //    protected int height;
@@ -54,7 +54,8 @@ public abstract class GameObject {
     }
 
     public void setPosition(Position position) {
-        this.position = position;
+        this.position.setX(position.getX());
+        this.position.setY(position.getY());
     }
 
     public abstract String getAssetName();

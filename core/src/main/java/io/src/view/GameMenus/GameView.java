@@ -57,10 +57,7 @@ import io.src.model.items.Fish;
 import io.src.model.items.Tool;
 import io.src.model.items.Etc;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class GameView implements Screen, TimeObserver {
@@ -238,8 +235,7 @@ public class GameView implements Screen, TimeObserver {
         renderer.getBatch().draw(frame, x, y);
     }
 
-    private void renderPlayer() {
-        Player player = App.getMe();
+    private void renderPlayer(Player player) {
         float x = player.getPixelPosition().getX(), y = player.getPixelPosition().getY();
         AnimationKey key;
         if (player.isMoving()) {
@@ -516,6 +512,7 @@ public class GameView implements Screen, TimeObserver {
         renderer.render();
 
         renderer.getBatch().begin();
+        renderWarningDialog();
         //render tile type plowed soil
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : tileLine) {
@@ -530,46 +527,28 @@ public class GameView implements Screen, TimeObserver {
         }
 
         ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
-        Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
-        PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
-        objects.add(me);
+        Position myRenderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
+        objects.add(App.getMe().getPlayerObjectPlusPosition(myRenderingPosition));
+        for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+            if(player.equals(App.getMe())) continue;
+            if(App.getMe().getCurrentGameLocation().equals(player.getCurrentGameLocation()))
+            {
+                Position renderingPosition = new Position((player.getPixelPosition().getX() + 16) / 16, (player.getPixelPosition().getY()) / 16);
+                objects.add(player.getPlayerObjectPlusPosition(renderingPosition));
+            }
+        }
         objects.sort(
             Comparator
                 .comparingDouble((GameObject o) -> -o.getPosition().getY())
                 .thenComparingInt(o -> (int) o.getPosition().getX())
-//                .thenComparingDouble()
         );
-
 
         for (GameObject go : objects) {
             String assetName = go.getAssetName();
             TextureRegion region;
             if (go instanceof PlayerObject) {
-
-
-                renderPlayer();
-                renderWarningDialog();
-
+                renderPlayer(((PlayerObject) go).getPlayer());
                 updateAndDrawToolSwings(v);
-
-                //Debug
-
-                //GREEN HIT BOX
-//                Pixmap pixmap = new Pixmap(16, 16, Pixmap.Format.RGBA8888);
-//                pixmap.setColor(0, 1, 0, 1);
-//                pixmap.fill();
-//                Texture texture = new Texture(pixmap);
-//                TextureRegion greenRegion = new TextureRegion(texture);
-//                float worldX = App.getMe().getPixelPosition().getX();
-//                float worldY = App.getMe().getPixelPosition().getY();
-//                renderer.getBatch().draw(greenRegion,
-//                    worldX, worldY,
-//                    16,  // Origin X (مرکز تصویر)
-//                    16, // Origin Y
-//                    16, 16, // اندازه اصلی
-//                    0.9f, 0.9f, // scaleX, scaleY
-//                    0); // rotation
-
                 continue;
             }
             if (go instanceof NPC npc) {
@@ -759,7 +738,6 @@ public class GameView implements Screen, TimeObserver {
     }
 
     private void handleMailBoxHint(MailBox mailBox) {
-        mailBox.onPlayerGoesNearby(3);
         if (mailBox.getHasNewMessages()) {
             Texture texture = new Texture(Gdx.files.internal(
                 GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")

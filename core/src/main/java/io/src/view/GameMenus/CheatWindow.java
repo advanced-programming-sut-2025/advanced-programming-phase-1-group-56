@@ -125,13 +125,11 @@ public class CheatWindow extends Window {
         // بازگرداندن flag به adapter
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
 
-        // بازگرداندن پردازشگر قبلی (اگر null بود، هیچ کاری نکرده و Gdx.input پاک نمیشه)
         if (previousProcessor != null) {
             Gdx.input.setInputProcessor(previousProcessor);
             previousProcessor = null;
         }
 
-        // آزادسازی فوکس و مخفی کردن پنجره
         if (stage != null) {
             stage.unfocus(cheatInputField);
         }
