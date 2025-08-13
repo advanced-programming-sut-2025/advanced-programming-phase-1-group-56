@@ -630,6 +630,10 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (player.getCurrentItem() instanceof Tool tool) {
             setStopMoving(true);
             if (tool.getName().contains("Rod")) {
+                App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
+                    // this will run on the render thread when animation finishes
+                    setStopMoving(false);///
+                });
                 FishBehavior beh = FishBehavior.values()[MathUtils.random(FishBehavior.values().length - 1)];
                 App.getStardewValley().getGameView().startFishing(beh);
             } else {
