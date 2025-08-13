@@ -412,7 +412,7 @@ public class GameMenu implements AppMenu, Screen {
             result = HusbandryController.showInfoOfAnimal();
             return true;
         } else if ((matcher = HusbandryCommands.shepherdAnimals.getMatcher(input)) != null) {
-            result = HusbandryController.shepherdAnimals(matcher);
+            result = HusbandryController.shepherdAnimals(matcher.group(1) , matcher.group(2), matcher.group(3));
             return true;
         } else if ((matcher = HusbandryCommands.feedHay.getMatcher(input)) != null) {
             result = HusbandryController.feedHay(matcher);

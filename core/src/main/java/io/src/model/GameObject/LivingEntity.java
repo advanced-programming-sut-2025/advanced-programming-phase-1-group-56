@@ -7,7 +7,7 @@ import io.src.model.Enums.Direction;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Position;
 
-public class LivingEntity extends GameObject implements Movable , Clickable {
+public class LivingEntity extends GameObject{
 
 
     private Direction lastDirection = Direction.DOWN;
@@ -54,19 +54,19 @@ public class LivingEntity extends GameObject implements Movable , Clickable {
     }
 
 
-    @Override
-    public void move(Direction direction) {
-//        if (direction == Direction.UP) {
-//        } else if (direction == Direction.DOWN) {
-//        } else if (direction == Direction.LEFT) {
-//        } else if (direction == Direction.RIGHT) {
-//        } else if (direction == Direction.UPRIGHT) {
-//        } else if (direction == Direction.UPLEFT) {
-//        } else if (direction == Direction.DOWNRIGHT) {
-//        } else if (direction == Direction.DOWNLEFT) {
-//        }
-//        //TODO
-    }
+//    @Override
+//    public void move(Direction direction) {
+////        if (direction == Direction.UP) {
+////        } else if (direction == Direction.DOWN) {
+////        } else if (direction == Direction.LEFT) {
+////        } else if (direction == Direction.RIGHT) {
+////        } else if (direction == Direction.UPRIGHT) {
+////        } else if (direction == Direction.UPLEFT) {
+////        } else if (direction == Direction.DOWNRIGHT) {
+////        } else if (direction == Direction.DOWNLEFT) {
+////        }
+////        //TODO
+//    }
 
     @Override
     public String getAssetName() {
@@ -74,10 +74,10 @@ public class LivingEntity extends GameObject implements Movable , Clickable {
         return "";
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer,int button) {
-        return false;
-    }
+//    @Override
+//    public boolean touchDown(int screenX, int screenY, int pointer,int button) {
+//        return false;
+//    }
 
     public float getSpeed() {
         return speed;

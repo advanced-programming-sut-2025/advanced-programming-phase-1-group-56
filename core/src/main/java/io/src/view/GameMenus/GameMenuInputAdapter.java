@@ -14,10 +14,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import io.src.controller.GameMenuController.GameController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.CraftingController;
+import io.src.controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
+import io.src.controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
+import io.src.model.*;
+import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.*;
 import io.src.model.Activities.Message;
 import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.AnimationKey;
+import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
@@ -86,24 +91,32 @@ public class GameMenuInputAdapter extends InputAdapter {
             //}
             return true;
         }
+
+
+        if (keysHeld.contains(Input.Keys.P)) {
+            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 18 18");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
+//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Stone -c 999");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wood -c 999");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 999999 dollars");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add");
+            result = CarpenterMenuController.BuildABuilding("Coop" , BuildingType.COOP ,20 , 20);
+            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN ,30 , 30);
+            result = MarniesRanchController.buyAnimal(AnimalType.COW.getName() , "mahdi");
+
+//            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
+//            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
+//            App.getMe().getMessages().add(new Message("Eshgham?", App.getMe(), App.getMe()));
+
+            return true;
+        }
+
+
+
         if (keysHeld.contains(Input.Keys.N)) {
             GameController.manageNextTurn();
             StardewValley.getGameView().updateMap();
-            return true;
-        }
-        if (keysHeld.contains(Input.Keys.P)) {
-//            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 20 20");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 9999");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 9999");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 99999 dollars");
-            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
-            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
-            App.getMe().getMessages().add(new Message("Eshgham?", App.getMe(), App.getMe()));
-            StardewValley.getGameView().getWarningWindow().kill();
-
-
             return true;
         }
 
@@ -164,10 +177,6 @@ public class GameMenuInputAdapter extends InputAdapter {
                 Gdx.input.setInputProcessor(multiplexer);
                 StardewValley.getGameView().foodWindow().setVisible(!StardewValley.getGameView().foodWindow().isVisible());
             }
-        }
-
-        if(keycode == Input.Keys.E) {
-
         }
 
         if (keycode == Input.Keys.ENTER) {
@@ -381,9 +390,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             if (gameObject instanceof SensitiveToPlayer sensitiveObject
                 && gameObject.getPosition().isNear(App.getMe().getPosition(), sensitiveObject.getSensitivityDistance()) &&
                 !newNearbyGameObjects.contains(gameObject)) {
-                if(sensitiveObject instanceof MailBox){
-                    System.out.println("WOW FOUND A MAILBOX");
-                }
                 if (sensitiveObject.equals(focusedGameObject)) continue;
                 newNearbyGameObjects.add(gameObject);
                 sensitiveObject.onPlayerGoesNearby(gameObject.getPosition().distanceTo(App.getMe().getPosition()));
@@ -622,7 +628,11 @@ public class GameMenuInputAdapter extends InputAdapter {
         Direction dir = player.getLastDirection();
         if (player.getCurrentItem() instanceof Tool tool) {
             setStopMoving(true);
-            if (tool.getName().contains("Rod")) {
+            if (tool.getName().equals("FishingPole")) {
+                App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
+                    // this will run on the render thread when animation finishes
+                    setStopMoving(false);///
+                });
                 FishBehavior beh = FishBehavior.values()[MathUtils.random(FishBehavior.values().length - 1)];
                 App.getStardewValley().getGameView().startFishing(beh);
             } else {

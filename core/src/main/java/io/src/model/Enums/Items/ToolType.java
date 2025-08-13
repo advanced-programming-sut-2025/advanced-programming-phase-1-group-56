@@ -31,10 +31,10 @@ public enum ToolType implements Saleable {
     CAN_WOODEN("WateringCan", ToolMaterial.Wooden, 5, 40, CAN_CUPRIC, "Wooden_Watering_Can"),
     // Fishing pole variants
     //POLE_IRIDIUM_Advanced("Advanced Iridium Rod", ToolMaterial.Iridium, 2, 0, null,"),
-    POLE_IRIDIUM("Iridium Rod", ToolMaterial.Iridium, 4, 0, null, ""),
-    POLE_FIBERGLASS("Fiberglass Rod", ToolMaterial.FiberGlass, 6, 0, POLE_IRIDIUM, ""),
-    POLE_BAMBOO("Bamboo Rod", ToolMaterial.Bamboo, 8, 0, POLE_FIBERGLASS, "Bamboo_Pole"),
-    POLE_TRAINING("Training Rod", ToolMaterial.Training, 8, 0, POLE_BAMBOO, "Training_Rod"),
+    POLE_IRIDIUM("FishingPole", ToolMaterial.Iridium, 4, 0, null, "FishingPole_Iridium"),
+    POLE_FIBERGLASS("FishingPole", ToolMaterial.FiberGlass, 6, 0, POLE_IRIDIUM, "FishingPole_FiberGlass"),
+    POLE_BAMBOO("FishingPole", ToolMaterial.Bamboo, 8, 0, POLE_FIBERGLASS, "FishingPole_Bamboo"),
+    POLE_TRAINING("FishingPole", ToolMaterial.Training, 8, 0, POLE_BAMBOO, "FishingPole_Training"),
     // Scythe
     SCYTHE_IRIDIUM("Scythe", ToolMaterial.Iridium, 0, 0, null, "Iridium_Scythe"),
     SCYTHE_GOLDEN("Scythe", ToolMaterial.Golden, 1, 0, SCYTHE_IRIDIUM, "Golden_Scythe"),

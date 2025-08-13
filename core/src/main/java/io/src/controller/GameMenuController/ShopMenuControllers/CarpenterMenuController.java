@@ -90,24 +90,30 @@ public class CarpenterMenuController implements ShopController {
             case BuildingType.BARN:
             case BuildingType.BIG_BARN:
             case BuildingType.DELUXE_BARN: {
-                Barn newBarn = new Barn(new Position(x, y), buildingType);
-                for (int i = x; i < x + buildingType.getWidth(); i++) {
-                    for (int j = y; j < y + buildingType.getHeight(); j++) {
-                        farm.getTileByPosition(i, j).setFixedObject(newBarn);
+                Barn newBarn = new Barn(new Position(x, y),  buildingType);
+                farm.getTileByPosition(x, y).setFixedObject(newBarn);
+                for (int i = x; i < x +  buildingType.getWidth(); i++) {
+                    for (int j = y; j < y +  buildingType.getHeight(); j++) {
+                        if (i==x && j==y) continue;
+                        farm.getTileByPosition(i,j).setWalkable(newBarn.isWalkable());
                     }
                 }
                 App.getMe().getPlayerFarm().getBuildings().add(newBarn);
                 App.getMe().getPlayerFarm().getBuildings().add(newBarn);
                 App.getMe().getPlayerFarm().getGameObjects().add(newBarn);
+                App.getMe().getPlayerFarm().getTileByPosition(newBarn.getDoorPosition()).setWalkable(true);
+                App.getMe().getPlayerFarm().getTileByPosition(newBarn.getDoorPosition()).setTileType(TileType.Wrapper);
             }
             break;
             case BuildingType.COOP:
             case BuildingType.BIG_COOP:
             case BuildingType.DELUXE_COOP: {
                 Coop newCoop = new Coop(new Position(x, y), buildingType);
+                farm.getTileByPosition(x, y).setFixedObject(newCoop);
                 for (int i = x; i < x + buildingType.getWidth(); i++) {
                     for (int j = y; j < y + buildingType.getHeight(); j++) {
-                        farm.getTileByPosition(i, j).setFixedObject(newCoop);
+                        if (i==x && j==y) continue;
+                        farm.getTileByPosition(i, j).setWalkable(newCoop.isWalkable());
                     }
                 }
                 App.getMe().getPlayerFarm().getBuildings().add(newCoop);
