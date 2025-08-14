@@ -21,7 +21,10 @@ public class NpcQuestMenu extends Dialog {
         Window item1Win = new Window("", skin, "default3");
         Window item2Win = new Window("", skin, "default3");
         Table buttons = new Table();
-        acceptButton = new TextButton(" ACCEPT ", skin, "button1-2_font30GREEN");
+        if (mode == 0)
+            acceptButton = new TextButton(" ACCEPT ", skin, "button1-2_font30GREEN");
+        else
+            acceptButton = new TextButton(" Request ", skin, "button1-2_font30GREEN");
         TextButton cancelButten = new TextButton(" CANCEL ", skin, "button1-2_font30");
         Image flashImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("flashDirection"))));
         if (mode == 1 || mode == 0 || mode == 2)

@@ -65,8 +65,8 @@ public class PlayerMeetingMenu extends Window {
         // load avatars :
         File[] avatarsPath = new File("assets\\AVATAR\\final\\").listFiles(File::isDirectory);
         Texture userTex = new Texture(Gdx.files.internal("AVATAR\\final\\" +
-            Objects.requireNonNull(avatarsPath)[user.getAvatarIndex()].getName() + "\\" +
-            user.getAvatarStyleIndex() + "\\avatarProfile.png"));
+                Objects.requireNonNull(avatarsPath)[user.getAvatarIndex()].getName() + "\\" +
+                user.getAvatarStyleIndex() + "\\avatarProfile.png"));
         Image userImg = new Image(userTex);
 
         // crate column 2 :
@@ -82,7 +82,7 @@ public class PlayerMeetingMenu extends Window {
         add(mainWin);
 
         setPosition(Gdx.graphics.getWidth() / 2f - getWidth() / 2,
-            Gdx.graphics.getHeight() / 2f - getHeight() / 2);
+                Gdx.graphics.getHeight() / 2f - getHeight() / 2);
         pack();
         setMovable(false);
         setModal(true);
@@ -98,9 +98,9 @@ public class PlayerMeetingMenu extends Window {
                 Dialog dialog = new Dialog("", skin, "askWindow");
                 dialog.setMovable(false);
                 Texture tex = new Texture
-                    (GameAssetManager.getGameAssetManager().getAssetsDictionary().get(ringItem.getAssetName()));
+                        (GameAssetManager.getGameAssetManager().getAssetsDictionary().get(ringItem.getAssetName()));
                 dialog.getContentTable().add(new Image(tex))
-                    .width(tex.getWidth() * 3).height(tex.getHeight() * 3).padTop(25).row();
+                        .width(tex.getWidth() * 3).height(tex.getHeight() * 3).padTop(25).row();
                 dialog.getContentTable().add(new Label("Do you accept the marriage proposal?", skin)).pad(50);
                 TextButton acceptButton = new TextButton("  ACCEPT  ", skin, "button1-2_font30GREEN");
                 acceptButton.addListener(new ClickListener() {
@@ -124,27 +124,7 @@ public class PlayerMeetingMenu extends Window {
 
         recentTradeButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-//                Dialog dialog = new Dialog("", skin, "askWindow");
-//                dialog.setMovable(false);
-//                dialog.getContentTable().add(new Label("Do you accept the recent trade?", skin)).pad(50);
-//                TextButton acceptButton = new TextButton("  ACCEPT  ", skin, "button1-2_font30GREEN");
-//                acceptButton.addListener(new ClickListener() {
-//                    public void clicked(InputEvent event, float x, float y) {
-//                        TODO
-//                        dialog.hide();
-//                    }
-//                });
-//                TextButton cancelButton = new TextButton("  CANCEL  ", skin, "button1-2_font30");
-//                cancelButton.addListener(new ClickListener() {
-//                    public void clicked(InputEvent event, float x, float y) {
-//                        TODO
-//                        dialog.hide();
-//                    }
-//                });
-//                dialog.getButtonTable().add(acceptButton).height(60).pad(25);
-//                dialog.getButtonTable().add(cancelButton).height(60).pad(25);
-//                dialog.show(PlayerMeetingMenu.this.getStage());
-                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, 0, request, 0);
+                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "", request, 0, "Do you accept the Trade?");
                 npcQuestMenu.show(PlayerMeetingMenu.this.getStage());
             }
         });
@@ -155,7 +135,7 @@ public class PlayerMeetingMenu extends Window {
                 dialog.setMovable(false);
                 Table row1 = new Table();
                 Texture texture = new Texture(
-                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(giftItem.getGift().getAssetName()));
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(giftItem.getGift().getAssetName()));
                 row1.add(new Image(texture)).width(texture.getWidth() * 3).height(texture.getHeight() * 3);
                 Table row2 = new Table();
                 row2.align(Align.left);
@@ -209,7 +189,7 @@ public class PlayerMeetingMenu extends Window {
             public void clicked(InputEvent event, float x, float y) {
                 TradeMenu tradeMenu = new TradeMenu(skin, PlayerMeetingMenu.this);
                 tradeMenu.setPosition(Gdx.graphics.getWidth() / 2f - tradeMenu.getWidth() / 2,
-                    Gdx.graphics.getHeight() / 2f - tradeMenu.getHeight() / 2);
+                        Gdx.graphics.getHeight() / 2f - tradeMenu.getHeight() / 2);
                 tradeMenu.setVisible(false);
                 PlayerMeetingMenu.this.getStage().addActor(tradeMenu);
                 PlayerMeetingMenu.this.setVisible(false);

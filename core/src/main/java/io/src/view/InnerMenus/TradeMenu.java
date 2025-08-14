@@ -33,7 +33,7 @@ public class TradeMenu extends Window {
 
         itemToItem.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, 0, NpcType.ABIGAIL.getRequests().get(1), 1);
+                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "0", NpcType.ABIGAIL.getRequests().get(1), 1, "Trade Request");
                 npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
                     public void clicked(InputEvent event, float x, float y) {
                         //TODO
@@ -46,7 +46,7 @@ public class TradeMenu extends Window {
 
         itemToMoney.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, 0, NpcType.ABIGAIL.getRequests().get(1), 2);
+                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "0", NpcType.ABIGAIL.getRequests().get(1), 2, "Trade Request");
                 npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
                     public void clicked(InputEvent event, float x, float y) {
                         //TODO
@@ -59,7 +59,7 @@ public class TradeMenu extends Window {
 
         requestMoney.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, 0, NpcType.ABIGAIL.getRequests().get(1), 3);
+                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "0", NpcType.ABIGAIL.getRequests().get(1), 3, "Trade Request");
                 npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
                     public void clicked(InputEvent event, float x, float y) {
                         //TODO
@@ -72,7 +72,7 @@ public class TradeMenu extends Window {
 
         requestItem.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, 0, NpcType.ABIGAIL.getRequests().get(1), 4);
+                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "0", NpcType.ABIGAIL.getRequests().get(1), 4, "Trade Request");
                 npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
                     public void clicked(InputEvent event, float x, float y) {
                         //TODO

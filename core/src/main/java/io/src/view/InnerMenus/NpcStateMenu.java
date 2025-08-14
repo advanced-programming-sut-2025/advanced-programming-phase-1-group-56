@@ -90,7 +90,7 @@ public class NpcStateMenu extends Window {
                     StardewValley.getGameView().getWarningWindow().showDialog(npc.getType().getName(), NpcController.manageShowActiveQuest(npc).getMessage(), 500);
                 } else {
 
-                    NpcQuestMenu npcQuestMenu = new NpcQuestMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), f.getLastActiveRequest() + "", request, 0, "");
+                    NpcQuestMenu npcQuestMenu = new NpcQuestMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), f.getLastActiveRequest() + "", request, 0, "Request No#");
                     npcQuestMenu.setVisible(true);
                     StardewValley.getGameView().getStage().addActor(npcQuestMenu);
                     npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
