@@ -131,7 +131,7 @@ public class MainMenu implements AppMenu, Screen {
         // Avatar Menu :
         avatarMenu = new AvatarMenu(skin,
             (name, farmName, farmPosition, avatar, AvatarIndex, AvatarStyleIndex) ->
-                PreGameMenuController.manageSoloGame(farmName, name, farmPosition, avatar));
+                PreGameMenuController.manageSoloGame(farmName, name, farmPosition));
         avatarMenu.setVisible(false);
         stage.addActor(avatarMenu);
 

@@ -24,7 +24,7 @@ import java.util.Scanner;
 import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class PreGameMenuController extends CommandController {
-    public static Result manageSoloGame(String farmName, String playerName, String farmPosition, String avatar) {
+    public static void manageSoloGame(String farmName, String playerName, String farmPosition) {
         FarmPosition farmPosition1 = switch (farmPosition) {
             case "left" -> FarmPosition.LEFT;
             case "right" -> FarmPosition.RIGHT;
@@ -80,13 +80,10 @@ public class PreGameMenuController extends CommandController {
         App.getStardewValley().setScreen(gameView);
         GivePlayersInitialItem(newGame);
 
-
-        for (NPC npc : town.getNPCs()) {
+        for (NPC npc : town.getNPCs())
             npc.initializePaths(town);
-        }
 
-
-        return new Result(true, "successfully added game with id:" + newGame.getGameId());
+        farm1.setName(farmName);
     }
 
     public static void manageFourPlayerGame() {
@@ -122,6 +119,7 @@ public class PreGameMenuController extends CommandController {
         ArrayList<Integer> positions = new ArrayList<>(Arrays.asList(1, 2, 4, 3));
         for (int i = 0; i < 4; i++) {
             Player player = new Player(usersToPlay.get(i));
+            player.setName(usersToPlay.get(i).getName());
             playersToPlay.add(player);
             player.setFarmPosition(FarmPosition.values()[positions.get(i) - 1]);
         }

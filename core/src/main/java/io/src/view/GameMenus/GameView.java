@@ -251,7 +251,6 @@ public class GameView implements Screen, TimeObserver {
         }
         float newStateTime = stateTimeMap.get(characterName) + Gdx.graphics.getDeltaTime();
         stateTimeMap.put(characterName, newStateTime);
-
         TextureRegion frame = animation.getKeyFrame(newStateTime);
         renderer.getBatch().draw(frame, x, y);
     }

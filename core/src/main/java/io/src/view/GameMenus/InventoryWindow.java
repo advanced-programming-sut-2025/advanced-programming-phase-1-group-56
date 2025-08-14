@@ -294,13 +294,14 @@ public class InventoryWindow extends Group implements InputProcessor {
         float height = 0;
 
         if (!App.getMe().getFriendShips().isEmpty())
-            for (int i = 0; i < App.getMe().getNpcFriendShips().size(); i++) {
-                Player npc = App.getMe().getFriendShips().get(i).getPlayer();
+            for (int i = 0; i < App.getMe().getFriendShips().size(); i++) {
+                Friendship friendship = App.getMe().getFriendShips().get(i);
                 Window npcWin = new Window("", skin, "social");
                 npcWin.align(Align.left);
-                Texture tex = new Texture(Gdx.files.internal("AVATAR\\final\\" + npc.getName() + "\\1\\avatarProfile.png"));
+                System.out.println(friendship.getPlayer().getAvatarAssetFullPath() + ": " + friendship.getLevel());
+                Texture tex = new Texture(Gdx.files.internal(friendship.getPlayer().getAvatarAssetFullPath()));
                 npcWin.add(new Image(tex)).width(tex.getWidth()).height(tex.getHeight()).padLeft(30).padRight(30);
-                Label NpcName = new Label(npc.getName(), skin, "default30");
+                Label NpcName = new Label(friendship.getPlayer().getName(), skin, "default30");
                 createNpcWindow(friendShipsTable, i, npcWin, NpcName);
             }
 
@@ -376,7 +377,6 @@ public class InventoryWindow extends Group implements InputProcessor {
 
         imageButton.setPosition(230, 334);
         imageButton2.setPosition(205, 199);
-
 
         contentGroup.addActor(imageButton);
         contentGroup.addActor(imageButton2);
