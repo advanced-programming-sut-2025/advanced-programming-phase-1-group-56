@@ -1,13 +1,16 @@
 package io.src;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
+import io.src.model.Enums.MusicEnum;
 import io.src.model.Game;
+import io.src.model.GameAudioManager;
 import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.model.User;
 import io.src.view.GameMenus.GameView;
@@ -15,6 +18,7 @@ import io.src.view.GameMenus.ShippingBarWindow;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 public class StardewValley extends com.badlogic.gdx.Game {
     private static StardewValley stardewValley;
@@ -24,6 +28,9 @@ public class StardewValley extends com.badlogic.gdx.Game {
 
     @Override
     public void create() {
+        MusicEnum temp = MusicEnum.values()[(new Random().nextInt(MusicEnum.values().length))];
+        GameAudioManager.getInstance().playMusic(temp.getPath(), false, GameAudioManager.musicVolume);
+        System.out.println(temp.getPath());
         stardewValley = this;
         batch = new SpriteBatch();
         Gson gson = new GsonBuilder()

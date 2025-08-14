@@ -1,18 +1,23 @@
 package io.src.model.Enums;
 
 public enum TileType {
-    Deluxe_Retaining_Soil,
-    Mine,
-    Vanity,
     Water,
+
+    Stone,//SangFresh,
+    Mine,
+
     Grass,
-    Stone,//SangFresh
-    Soil,
+
+    Deluxe_Retaining_Soil,
     PlowedSoil,
     WaterPlowedSoil,
+    Soil,
     Speed_Gro,
+
     Wrapper,
-    Default;
+    Vanity,
+    Default,
+    ;
 }
 
 //TODO GREEN HOUSE

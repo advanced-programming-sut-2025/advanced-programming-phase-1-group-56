@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 public class LoginMenuController extends CommandController {
@@ -62,7 +61,7 @@ public class LoginMenuController extends CommandController {
             menu.getLoginButton().addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                     Result result = manageLoginUser(
                         menu.getUsernameField().getText(),
                         menu.getPasswordField().getText(),
@@ -76,7 +75,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getRegisterButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getLoginTable().setVisible(false);
                     menu.getRegisterTable().setVisible(true);
                 }
@@ -84,14 +83,14 @@ public class LoginMenuController extends CommandController {
 
             menu.getExitButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     Gdx.app.exit();
                 }
             });
 
             menu.getmaleCheckBox().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getmaleCheckBox().setChecked(true);
                     menu.getfemaleCheckBox().setChecked(false);
                 }
@@ -99,7 +98,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getfemaleCheckBox().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getmaleCheckBox().setChecked(false);
                     menu.getfemaleCheckBox().setChecked(true);
                 }
@@ -111,7 +110,7 @@ public class LoginMenuController extends CommandController {
         {
             menu.getForgetPassButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                     Result result = manageForgotPassword(menu.getUsernameField().getText());
                     if (!result.isSuccess()) {
                         menu.showWarningLabel(result.getMessage());
@@ -126,14 +125,14 @@ public class LoginMenuController extends CommandController {
 
             menu.getBackButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     backFromForgetPass();
                 }
             });
 
             menu.getOkButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     if (!menu.getPassField().isVisible()) {
                         if (Inner_username.isEmpty())
                             return;
@@ -160,7 +159,7 @@ public class LoginMenuController extends CommandController {
         {
             menu.getRegisterButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                     Result result = manageRegisterUser(
                         menu.getUsernameField2().getText(),
                         menu.getPasswordField2().getText(),
@@ -180,14 +179,14 @@ public class LoginMenuController extends CommandController {
 
             menu.getExitButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     Gdx.app.exit();
                 }
             });
 
             menu.getLoginButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getRegisterTable().setVisible(false);
                     menu.getLoginTable().setVisible(true);
                 }
@@ -209,7 +208,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getCancelButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getSecurityTable().setVisible(false);
                     menu.getRegisterTable().setVisible(true);
                     menu.getSecurityField().setText("");
@@ -221,7 +220,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getSignUpButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                     int questionID = 0;
                     for (int i = 0; i < menu.getSecurityQuestions().size(); i++) {
                         if (menu.getSecurityQuestions().get(i).isChecked())

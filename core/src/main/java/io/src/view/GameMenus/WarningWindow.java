@@ -16,16 +16,15 @@ public class WarningWindow extends Window implements InterruptingWindow {
     public WarningWindow(Skin skin) {
         super("", skin);
 
-        speakerLabel = new Label("", skin);
+        speakerLabel = new Label("", skin, "font-45_PINK");
         speakerLabel.setAlignment(Align.left);
 
         textLabel = new Label("", skin);
         textLabel.setWrap(true);
         textLabel.setAlignment(Align.left);
 
-        add(speakerLabel).expandX().left().padBottom(5).row();
-        add(textLabel).width(700).height(170).left().top();
-
+        add(speakerLabel).left().top().pad(50).row();
+        add(textLabel).width(700).height(170).left().top().pad(30);
 
         pack();
 

@@ -59,6 +59,7 @@ public enum ForagingGameObjectType {
     }
 
     private static final Random RANDOM = new Random();
+
     public static ForagingGameObjectType getRandomMineralGameObject() {
         double totalChance = 0;
         for (ForagingGameObjectType type : values()) {

@@ -26,7 +26,7 @@ public class InventoryBar extends Group {
 
 
     public InventoryBar() {
-        setPosition((Gdx.graphics.getWidth() - 800) / 2f, 100);
+        setPosition((Gdx.graphics.getWidth() - 800) / 2f, 20);
 
         Image background = new Image(GameAssetManager.getGameAssetManager().getInventoryBarBackground());
         background.setSize(800, 94);
@@ -42,9 +42,10 @@ public class InventoryBar extends Group {
         final float SLOT_SIZE = 64f;
         redSelection = new Image(GameAssetManager.getGameAssetManager().getRedSelection());
         redSelection.setSize(SLOT_SIZE, SLOT_SIZE);
-        redSelection.setPosition(12,15);
+        redSelection.setPosition(12, 15);
         addActor(redSelection);
     }
+
     public static InventoryBar getInstance() {
         if (instance == null) {
             instance = new InventoryBar();
@@ -116,11 +117,11 @@ public class InventoryBar extends Group {
         } else if (amountY < 0) {
             selectedIndex = (selectedIndex - 1 + VISIBLE_SLOTS) % VISIBLE_SLOTS;
         }
-        if(selectedIndex >= App.getMe().getInventory().getSlots().size()){
+        if (selectedIndex >= App.getMe().getInventory().getSlots().size()) {
             selectedIndex = 0;
         }
-        if(selectedIndex < 0 ){
-            selectedIndex = App.getMe().getInventory().getSlots().size()-1;
+        if (selectedIndex < 0) {
+            selectedIndex = App.getMe().getInventory().getSlots().size() - 1;
         }
         updateRedSelectionPosition();
         updateCurrentItem();
@@ -131,9 +132,11 @@ public class InventoryBar extends Group {
     private float getSlotX(int index) {
         return (index % VISIBLE_SLOTS) * 64f;
     }
+
     private float getSlotY(int index) {
         return 0;
     }
+
     private void updateRedSelectionPosition() {
         redSelection.setPosition(12 + getSlotX(selectedIndex),
             15 + getSlotY(selectedIndex));
@@ -141,14 +144,11 @@ public class InventoryBar extends Group {
     }
 
 
-
-
     private void updateCurrentItem() {
         Inventory inventory = App.getMe().getInventory();
         Slot slot = inventory.getSlots().get(selectedIndex);
         App.getMe().setCurrentItem(slot.getItem());
     }
-
 
 
     public void refreshInventory() {
@@ -164,7 +164,7 @@ public class InventoryBar extends Group {
 
         redSelection = new Image(GameAssetManager.getGameAssetManager().getRedSelection());
         redSelection.setSize(SLOT_SIZE, SLOT_SIZE);
-        redSelection.setPosition(12,15);
+        redSelection.setPosition(12, 15);
         addActor(redSelection);
 
     }

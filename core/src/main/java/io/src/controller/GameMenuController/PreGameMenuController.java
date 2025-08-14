@@ -91,12 +91,14 @@ public class PreGameMenuController extends CommandController {
         ArrayList<User> usersToPlay = new ArrayList<>();
         int counter = 0;
         usersToPlay.add(App.getCurrentUser());
+        System.out.println(App.getCurrentUser().getUsername());
         for (User user : App.getUsers()) {
             if (user.equals(App.getCurrentUser())) continue;
             if (user.getCurrentGame() != null) continue;
-            if (counter >= 3) break;
+            System.out.println(user.getUsername());
             usersToPlay.add(user);
             counter++;
+            if (counter >= 3) break;
         }
         if (usersToPlay.size() < 4) {
             Result result = new Result(false, "your game doesn't have at least 4 players");
@@ -127,9 +129,7 @@ public class PreGameMenuController extends CommandController {
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
 
-
         newGame.setPlayers(playersToPlay);// 3/4
-
 
         GameMap map = new GameMap();
         Town town = (Town) loadTheLocation("assets\\gameLocations\\Town4");
@@ -183,9 +183,10 @@ public class PreGameMenuController extends CommandController {
             }
         }
 
+
         StardewValley.setGame(newGame);
-        newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
-        newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
+        newGame.setCurrentPlayer(playersToPlay.get(0));
+        newGame.setStarterPlayer(playersToPlay.get(0));
         GameView gameView = new GameView(newGame);
         App.setStardewValley(StardewValley.getStardewValley());
         StardewValley.setGameView(gameView);
@@ -202,14 +203,17 @@ public class PreGameMenuController extends CommandController {
             user.setNumOfGames(user.getNumOfGames() + 1);
         }
 
-
         for (NPC npc : town.getNPCs()) {
             npc.initializePaths(town);
         }
 
-        new Result(true, "successfully added game with id:" + newGame.getGameId());
-    }
+        StardewValley.getGameView().updateMap();
 
+        new Result(true, "successfully added game with id:" + newGame.getGameId());
+
+        GameAudioManager.getInstance().pauseMusic();
+        GameAudioManager.getInstance().playPlaylist(GameAudioManager.innerPlayList, GameAudioManager.ambientVolume);
+    }
 
     public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
