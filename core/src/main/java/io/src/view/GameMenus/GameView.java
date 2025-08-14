@@ -13,9 +13,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -240,6 +242,8 @@ public class GameView implements Screen, TimeObserver {
     }
 
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
+
+//        renderCharacter(characterName, key, x, y, 0f, 1f, 1f, 0f, 0f);
         Animation<TextureRegion> animation = animationManager.get(characterName, key);
         if (animation == null) return;
 
@@ -253,10 +257,86 @@ public class GameView implements Screen, TimeObserver {
         renderer.getBatch().draw(frame, x, y);
     }
 
+    private void renderCharacter(String characterName, AnimationKey key,
+                                 float x, float y,
+                                 float rotationDegrees,
+                                 float scaleX, float scaleY,
+                                 float extraOffsetX, float extraOffsetY) {
+
+        Animation<TextureRegion> animation = animationManager.get(characterName, key);
+        if (animation == null) return;
+
+        // state time tracking (ObjectMap<String, Float> stateTimeMap داریم)
+        if (!stateTimeMap.containsKey(characterName)) {
+            stateTimeMap.put(characterName, 0f);
+        }
+        float newStateTime = stateTimeMap.get(characterName) + Gdx.graphics.getDeltaTime();
+        stateTimeMap.put(characterName, newStateTime);
+
+        TextureRegion frame = animation.getKeyFrame(newStateTime);
+        if (frame == null) return;
+
+        float w = frame.getRegionWidth();
+        float h = frame.getRegionHeight();
+
+        // origin = مرکز فریم (چرخش حول مرکز)
+        float originX = w / 2f;
+        float originY = h / 2f;
+
+        // drawX/drawY: اگر x,y همان موقعیت پیکسلی پایین-چپ کاراکتر باشد،
+        // برای اینکه مرکز تصویر روی موقعیت کاراکتر قرار بگیرد، باید نصف عرض/ارتفاع را کم کنیم.
+        // این رفتار ممکن است بسته به آرایش اسپرایت‌تت تغییر کند — در صورت لزوم extraOffsetX/Y را تنظیم کن.
+        float drawX = x - originX + extraOffsetX;
+        float drawY = y - originY + extraOffsetY;
+
+        renderer.getBatch().draw(frame,
+            drawX, drawY,
+            originX, originY,
+            w, h,
+            scaleX, scaleY,
+            rotationDegrees);
+
+        Actions.delay(2);
+    }
+
     private void renderPlayer() {
         Player player = App.getMe();
         float x = player.getPixelPosition().getX(), y = player.getPixelPosition().getY();
         AnimationKey key;
+
+        if (player.isFainted()) {
+            // از یک فریم IDLE جهت آخرین جهت استفاده کن
+            switch (player.getLastDirection()) {
+                case UP -> key = AnimationKey.IDLE_UP;
+                case DOWN -> key = AnimationKey.IDLE_DOWN;
+                case LEFT -> key = AnimationKey.IDLE_LEFT;
+                default -> key = AnimationKey.IDLE_RIGHT;
+            }
+
+            // تعیین زاویه برای "افتادن" — قابل تنظیم:
+            // پیشنهاد اولیه:
+            //   - اگر قبلاً رو به بالا بود (UP) یا پایین (DOWN) یه جهت بگیر (مثلاً 90/-90)
+            //   - اگر قبلاً سمت راست/چپ بود هم به همون صورت
+            float rotation = 0f;
+            switch (player.getLastDirection()) {
+                case UP -> rotation = 90f;    // تنظیم دلخواه: امتحان کن
+                case DOWN -> rotation = -90f;
+                case LEFT -> rotation = 90f;
+                case RIGHT -> rotation = -90f;
+            }
+
+            float scaleX = 1f;
+            float scaleY = 1f;
+
+
+            float extraOffsetX = 0f;
+            float extraOffsetY = 0f;
+
+
+            renderCharacter("player", key, x, y, rotation, scaleX, scaleY, extraOffsetX, extraOffsetY);
+            return;
+        }
+
         if (player.isMoving()) {
             switch (player.getLastDirection()) {
                 case UP:
@@ -655,6 +735,8 @@ public class GameView implements Screen, TimeObserver {
 
                 updateAndDrawToolSwings(v);
 
+                App.getMe().setFinishActing(true);
+
                 //Debug
 
                 //GREEN HIT BOX
@@ -868,11 +950,12 @@ public class GameView implements Screen, TimeObserver {
 
 
         //END OF GRAPHICAL RENDER
-        if (App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) {
+        if ((App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) && App.getMe().isFinishActing()) {
             //TODO remove this for phase three
             GameController.manageNextTurn();
             updateMap();
         }
+        App.getMe().setFinishActing(false);
     }
 
 

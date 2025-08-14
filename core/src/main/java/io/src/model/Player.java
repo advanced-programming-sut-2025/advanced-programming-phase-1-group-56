@@ -94,6 +94,9 @@ public class Player implements TimeObserver {
     private Player partner = null;
 
 
+    private boolean FinishActing = false;
+
+
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
 
@@ -568,5 +571,12 @@ public class Player implements TimeObserver {
 
     public void setShopState(ShopState shopState) {
         this.shopState = shopState;
+    }
+    public boolean isFinishActing() {
+        return FinishActing;
+    }
+
+    public void setFinishActing(boolean finishActing) {
+        FinishActing = finishActing;
     }
 }
