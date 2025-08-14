@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import io.src.StardewValley;
 import io.src.model.GameAssetManager;
 import io.src.model.GameObject.Animal;
 
@@ -82,6 +83,7 @@ public class AnimalMenu extends Window {
         closeButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 AnimalMenu.this.setVisible(false);
+                hideDialog();
             }
         });
 
@@ -132,5 +134,11 @@ public class AnimalMenu extends Window {
             hearts.get(2).setChecked(false);
             hearts.get(3).setChecked(false);
         }
+    }
+    public void hideDialog() {
+        this.setVisible(false);
+        StardewValley.getGameView().getStage().unfocus(this);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+        Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
     }
 }

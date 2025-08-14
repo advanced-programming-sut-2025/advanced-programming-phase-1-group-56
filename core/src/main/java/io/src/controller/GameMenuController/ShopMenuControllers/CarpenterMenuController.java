@@ -119,6 +119,8 @@ public class CarpenterMenuController implements ShopController {
                 App.getMe().getPlayerFarm().getBuildings().add(newCoop);
                 App.getMe().getPlayerFarm().getBuildings().add(newCoop);
                 App.getMe().getPlayerFarm().getGameObjects().add(newCoop);
+                App.getMe().getPlayerFarm().getTileByPosition(newCoop.getDoorPosition()).setWalkable(true);
+                App.getMe().getPlayerFarm().getTileByPosition(newCoop.getDoorPosition()).setTileType(TileType.Wrapper);
             }
             break;
             case BuildingType.WELL: {

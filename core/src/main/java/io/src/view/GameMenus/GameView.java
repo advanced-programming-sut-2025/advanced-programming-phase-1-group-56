@@ -711,7 +711,7 @@ public class GameView implements Screen, TimeObserver {
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
 
-            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
+            if ((go instanceof Tree tree && tree.getCurrentStage() >= 4) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
                 ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
                 worldX -= 16;
             }
@@ -772,13 +772,17 @@ public class GameView implements Screen, TimeObserver {
 //
 //            }
 //        }
-        if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town) ){
+        if ((App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy || App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town) ){
 
             renderer.getBatch().end();
 
             renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
             renderer.getBatch().begin();
-            renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow){
+                renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            } else {
+                renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            }
             renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             renderer.getBatch().setColor(Color.WHITE);
             renderer.getBatch().end();
@@ -792,7 +796,12 @@ public class GameView implements Screen, TimeObserver {
 
             // update و render rain با دادن camera
             rainSystem.update(v, camera);
-            rainSystem.render(renderer.getBatch());
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow){
+                rainSystem.render(renderer.getBatch() ,true);
+            } else {
+                rainSystem.render(renderer.getBatch() , false);
+
+            }
         }
 
 

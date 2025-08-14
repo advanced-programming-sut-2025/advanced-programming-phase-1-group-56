@@ -67,13 +67,21 @@ public class RainSystem {
         particles.add(new RainParticle(x, y, vx, vy, life));
     }
 
-    public void render(Batch batch) {
+    public void render(Batch batch , boolean snowy) {
         for (RainParticle p : particles) {
             TextureRegion t;
             if (!p.hit) {
-                t = frames.get(0);
+                if (snowy){
+                    t = frames.get(4);
+                } else {
+                    t = frames.get(0);
+                }
             } else {
-                t = frames.get(3);
+                if (snowy){
+                    t = frames.get(3);
+                } else {
+                    t = frames.get(7);
+                }
             }
             batch.setColor(1f, 1f, 1f, p.alpha);
             batch.draw(t, p.x - t.getRegionWidth() / 2f, p.y - t.getRegionHeight() / 2f);
