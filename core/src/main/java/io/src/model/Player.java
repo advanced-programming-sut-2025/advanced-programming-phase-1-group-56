@@ -29,6 +29,7 @@ import io.src.model.skills.*;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class Player implements TimeObserver {
@@ -99,6 +100,16 @@ public class Player implements TimeObserver {
 
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
+
+    private int showEmote = 0;
+    private float emoteTimer = 0f;
+
+    public float getEmoteTimer() { return emoteTimer; }
+    public void updateEmoteTimer(float delta) {
+        if (showEmote != 0) emoteTimer += delta;
+    }
+
+    private ArrayList<Integer> emotes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
 
     public void setVelocity(float vx, float vy) {
         this.vx = vx;
@@ -543,5 +554,22 @@ public class Player implements TimeObserver {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public ArrayList<Integer> getEmotes() {
+        return emotes;
+    }
+
+    public void setEmotes(ArrayList<Integer> emotes) {
+        this.emotes = emotes;
+    }
+
+    public int getShowEmote() {
+        return showEmote;
+    }
+
+    public void setShowEmote(int showEmote) {
+        this.showEmote = showEmote;
+        emoteTimer = 0f;
     }
 }

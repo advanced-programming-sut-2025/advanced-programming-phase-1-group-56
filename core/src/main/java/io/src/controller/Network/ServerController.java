@@ -15,6 +15,7 @@ import io.src.model.Network.DTO.GameMapper;
 import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
+import io.src.model.Network.Server.ClientHandler;
 import io.src.model.Network.Server.LobbyServer;
 import io.src.model.States.WeatherState;
 import io.src.model.TimeSystem.TimeSystem;
@@ -207,8 +208,8 @@ public class ServerController {
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.get(0).setCurrentGameLocation(farm1);
 
-                Farm farm2 = new Farm(GameLocationType.Farm2);
-                farm2.setFarnmapPath("assets\\gameLocations\\Farm2");
+                Farm farm2 = new Farm(GameLocationType.Farm1);
+                farm2.setFarnmapPath("assets\\gameLocations\\Farm1");
                 farm2.setPosition(FarmPosition.UP);
                 playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
@@ -260,7 +261,7 @@ public class ServerController {
             case 4: {
 //                try {
                 Farm farm1 = new Farm(GameLocationType.Farm1);
-                farm1.setFarnmapPath("assets\\gameLocations\\Farm1");
+
 
 //                Farm farm1 = loadTheFarm("assets\\gameLocations\\Farm1");
                 farm1.setPosition(FarmPosition.LEFT);
@@ -358,4 +359,30 @@ public class ServerController {
                 return user;
         return null;
     }
+
+    public static void sendCurrentGameState(String username, ClientHandler newHandler) {
+        Gson gson = new Gson();
+        String lobbyOwner = null;
+
+        for (Lobby lobby : LobbyServer.getLobbies()) {
+            if (lobby.getOwner().equals(username) || lobby.getMembers().contains(username)) {
+                lobbyOwner = lobby.getOwner();
+                break;
+            }
+        }
+
+        if (lobbyOwner != null) {
+            for (ClientHandler clientHandler : LobbyServer.getClients()) {
+                if (clientHandler.getUsername().equals(lobbyOwner)) {
+                    HashMap<String, Object> body = new HashMap<>();
+                    body.put("commandType", NetworkCommand.DCtoOWNER);
+                    body.put("username", username);
+                    Message.Type type = Message.Type.command;
+                    clientHandler.sendMessage(gson.toJson(new Message(body, type)));
+                    break;
+                }
+            }
+        }
+    }
+
 }

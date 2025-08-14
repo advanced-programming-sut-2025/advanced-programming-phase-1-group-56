@@ -21,7 +21,7 @@ public class GameMapper {
 
     public static Game fromDTO(GameDTO dto) {
         Game game = new Game(null, null, null, null);
-//        game.setGameId(dto.getGameId());
+        game.setGameId(dto.getGameId());
         game.setPlayers((java.util.ArrayList<io.src.model.Player>) dto.getPlayers().stream()
             .map(PlayerMapper::fromDTO)
             .collect(Collectors.toList()));

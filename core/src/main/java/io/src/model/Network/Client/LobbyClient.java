@@ -19,13 +19,16 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import io.src.StardewValley;
 import io.src.controller.Network.ClientController;
+import io.src.controller.Network.ServerController;
 import io.src.model.*;
 import io.src.model.Activities.Friendship;
+import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.GameMap;
 import io.src.model.Network.DTO.GameDTO;
@@ -34,6 +37,7 @@ import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
 import io.src.model.items.Tool;
+import io.src.view.GameMenus.GameMenuInputAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +48,7 @@ import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 public class LobbyClient implements Screen {
     private Stage stage;
     private SpriteBatch batch;
-    private TCPClient client;
+    private static TCPClient client;
     private Table lobbyItemsTable;
     private Lobby[] lastLobbyList;
     private ArrayList<String> onlineUser = new ArrayList<>();
@@ -55,7 +59,6 @@ public class LobbyClient implements Screen {
     private Label isSuccessfulLabel;
     private Lobby selectedLobby = null;
     private ScrollPane lobbyScrollPane;
-
 
 
     private void showSuccessMessage(String text) {
@@ -83,14 +86,36 @@ public class LobbyClient implements Screen {
         try {
             client = new TCPClient();
             client.connect("localhost", 5000);
-            ClientController.sendUserNameToServer(username,client,gson);
+            ClientController.sendUserNameToServer(username, client, gson);
 
             new Thread(() -> {
                 try {
                     while (true) {
-                        String msgStr = client.receive();
-                        Message msg1 = gson.fromJson(msgStr, Message.class);
-                        System.out.println(msgStr);
+                        String msgStr = null;
+                        Message msg1 = null;
+
+                        try {
+                            msgStr = client.receive();
+                            msg1 = gson.fromJson(msgStr, Message.class);
+                        } catch (Exception e) {
+                            System.out.println("Lost connection. Trying to reconnect...");
+                            long start = System.currentTimeMillis();
+                            boolean connected = false;
+                            while (System.currentTimeMillis() - start < 120_000 && !connected) {
+                                try {
+                                    Thread.sleep(2000);
+                                    client.connect("localhost", 5000);
+                                    ClientController.sendUserNameToServer(username, client, gson);
+                                    connected = true;
+                                    System.out.println("Reconnected successfully!");
+                                } catch (Exception ex) {
+                                    System.out.println("Reconnect failed, retrying...");
+                                }
+                            }
+                            continue;
+                        }
+
+                        if (msg1 == null) continue;
 
                         Object cmdObj = msg1.getFromBody("commandType");
                         if (cmdObj == null) continue;
@@ -104,21 +129,117 @@ public class LobbyClient implements Screen {
                         }
 
                         switch (command) {
+                            case updateEmote -> {
+                                for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+                                    if (player.getUserName().equals(msg1.getFromBody("username"))) {
+                                        ArrayList<Integer> emoteId = msg1.getFromBody2(
+                                            "allEmote",
+                                            new TypeToken<ArrayList<Integer>>() {
+                                            }.getType()
+                                        );
+                                        player.setEmotes(emoteId);
+                                    }
+                                }
+                            }
+                            case emote -> {
+                                for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+                                    if (player.getUserName().equals(msg1.getFromBody("username"))) {
+                                        double emoteId = (double)msg1.getFromBody("emoteId");
+                                        int emoteCount = (int)emoteId;
+                                        player.setShowEmote(emoteCount);
+                                    }
+                                }
+                            }
+                            case ready_for_state -> {
+                                HashMap<String, Object> body = new HashMap<>();
+                                body.put("commandType", NetworkCommand.request_game_state);
+                                body.put("username", username);
+                                Message.Type type = Message.Type.command;
+                                client.send(gson.toJson(new Message(body, type)));
+                            }
+                            case OWNERtoDC -> {
+                                GameDTO gameDTO = msg1.getFromBody1("gameDTO", GameDTO.class);
+                                Game game = GameMapper.fromDTO(gameDTO);
+                                ArrayList<User> users = new ArrayList<>();
+                                for (Player member : game.getPlayers()) {
+                                    users.add(ServerController.getUserByUsername(member.getUserName()));
+                                }
+                                setGame(game, users);
+                            }
+                            case DCtoOWNER -> {
+                                String targetUsername = msg1.getFromBody("username");
+                                System.out.println(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getTownmapPath());
+                                GameDTO gameDTO = GameMapper.toDTO(App.getCurrentUser().getCurrentGame());
+                                System.out.println(gameDTO.getGameMap().getPelikanTown().getTownmapPath() + "abc");
+                                HashMap<String, Object> body = new HashMap<>();
+                                body.put("commandType", NetworkCommand.OWNERtoDC);
+                                body.put("username", targetUsername);
+                                body.put("gameDTO", gameDTO);
+                                Message.Type type = Message.Type.command;
+                                client.send(gson.toJson(new Message(body, type)));
+                            }
+                            case load -> {
+                                String gameId = msg1.getFromBody("gameId");
+                                GameDTO gameDTO = io.src.model.Network.Utils.GameSaveManager.loadGame(gameId);
+                                Game loadedGame = null;
+                                if (gameDTO != null) {
+                                    loadedGame = GameMapper.fromDTO(gameDTO);
+                                }
+                                ArrayList<User> users = msg1.getFromBody2(
+                                    "users",
+                                    new TypeToken<ArrayList<User>>() {
+                                    }.getType()
+                                );
+                                setGame(loadedGame, users);
+                            }
+                            case updatePlayer -> {
+                                String username = msg1.getFromBody("username");
+                                float x = Float.parseFloat(msg1.getFromBody("x").toString());
+                                float y = Float.parseFloat(msg1.getFromBody("y").toString());
+                                Direction dir = Direction.valueOf(msg1.getFromBody("Dir").toString());
+                                Player targetPlayer = null;
+                                Game game = App.getCurrentUser().getCurrentGame();
+                                for (Player player : game.getPlayers()) {
+                                    if (player.getUserName().equals(username)) {
+                                        targetPlayer = player;
+                                    }
+                                }
+                                if (targetPlayer != null) {
+                                    targetPlayer.getPosition().setX(x);
+                                    targetPlayer.getPosition().setY(y);
+                                    targetPlayer.setMovingDirection(dir);
+                                }
+
+                                double locDouble = (double) msg1.getFromBody("GameLocation");
+                                int gameLocation = (int) locDouble;
+
+                                if (gameLocation == 0) {
+                                    targetPlayer.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
+                                } else if (gameLocation == 1) {
+                                    targetPlayer.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getFarm1());
+                                } else if (gameLocation == 2) {
+                                    targetPlayer.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getFarm2());
+                                } else if (gameLocation == 3) {
+                                    targetPlayer.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getFarm3());
+                                } else if (gameLocation == 4) {
+                                    targetPlayer.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getFarm4());
+                                }
+                            }
                             case Game -> {
                                 Gson gson = new Gson();
                                 GameDTO gamedto = msg1.getFromBody1("Game", GameDTO.class);
 
                                 ArrayList<User> users = msg1.getFromBody2(
                                     "users",
-                                    new TypeToken<ArrayList<User>>(){}.getType()
+                                    new TypeToken<ArrayList<User>>() {
+                                    }.getType()
                                 );
 
                                 Game game = GameMapper.fromDTO(gamedto);
+                                System.out.println(game.getGameMap().getPelikanTown().getTownmapPath() + "12151515151");
                                 setGame(game, users);
-
                             }
-                            case start ->
-                             showSuccessMessage(msg1.getFromBody("isSuccessful"));
+                            case start -> showSuccessMessage(msg1.getFromBody("isSuccessful"));
                             case list_lobbies -> {
                                 listLobby(msg1);
                             }
@@ -174,7 +295,7 @@ public class LobbyClient implements Screen {
         }
     }
 
-    private void listLobby(Message msg1){
+    private void listLobby(Message msg1) {
         ArrayList<?> rawList = (ArrayList<?>) msg1.getFromBody("Lobbies List");
         ArrayList<Lobby> lobbies = new ArrayList<>();
         for (Object obj : rawList) {
@@ -234,10 +355,9 @@ public class LobbyClient implements Screen {
                         if (lobby.getOwner().equals(username)) {
                             // Owner
                             showOwnerLobbyOptions(lobby);
+                        } else if (lobby.getMembers().contains(username)) {
+                            showMemberLobbyOptions(lobby);
                         }
-                        else if (lobby.getMembers().contains(username)) {
-                                showMemberLobbyOptions(lobby);
-                            }
 
                     }
                 });
@@ -251,24 +371,26 @@ public class LobbyClient implements Screen {
 
     private void setGame(Game newGame, ArrayList<User> usersToPlay) {
 
-        for(int i = 0; i < newGame.getPlayers().size(); i++){
-            if(i == 0){
+        for (int i = 0; i < newGame.getPlayers().size(); i++) {
+            if (i == 0) {
                 newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm1());
                 newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm1());
-            } else if(i == 1){
+
+            } else if (i == 1) {
                 newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm2());
                 newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm2());
 
-            }else if(i == 2){
+            } else if (i == 2) {
                 newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm3());
                 newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm3());
 
-            }else if(i == 3){
+            } else if (i == 3) {
                 newGame.getPlayers().get(i).setCurrentGameLocation(newGame.getGameMap().getFarm4());
                 newGame.getPlayers().get(i).setPlayerFarm(newGame.getGameMap().getFarm4());
 
             }
         }
+
 
         for (Player player1 : newGame.getPlayers()) {
             for (Player player2 : newGame.getPlayers()) {
@@ -295,6 +417,7 @@ public class LobbyClient implements Screen {
 
         Gdx.app.postRunnable(() -> {
             GameMap map = newGame.getGameMap();
+            map.getPelikanTown().setTownmapPath("assets\\gameLocations\\Town4");
 
             map.setPelikanTown((Town) loadTheLocation(map.getPelikanTown().getTownmapPath()));
             Town town = map.getPelikanTown();
@@ -304,21 +427,29 @@ public class LobbyClient implements Screen {
             }
 
             if (map.getFarm1() != null) {
+                map.getFarm1().setFarnmapPath("assets\\gameLocations\\Farm1");
+
                 map.setFarm1((Farm) loadTheLocation(map.getFarm1().getFarnmapPath()));
                 map.getFarm1().setPosition(FarmPosition.LEFT);
                 App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm1());
             }
             if (map.getFarm2() != null) {
+                map.getFarm2().setFarnmapPath("assets\\gameLocations\\Farm1");
+
                 map.setFarm2((Farm) loadTheLocation(map.getFarm2().getFarnmapPath()));
                 map.getFarm2().setPosition(FarmPosition.UP);
                 App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm2());
             }
             if (map.getFarm3() != null) {
+                map.getFarm3().setFarnmapPath("assets\\gameLocations\\Farm1");
+
                 map.setFarm3((Farm) loadTheLocation(map.getFarm3().getFarnmapPath()));
                 map.getFarm3().setPosition(FarmPosition.DOWN);
                 App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm3());
             }
             if (map.getFarm4() != null) {
+                map.getFarm4().setFarnmapPath("assets\\gameLocations\\Farm2");
+
                 map.setFarm4((Farm) loadTheLocation(map.getFarm4().getFarnmapPath()));
                 map.getFarm4().setPosition(FarmPosition.RIGHT);
                 App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm4());
@@ -338,7 +469,6 @@ public class LobbyClient implements Screen {
 
             StardewValley.startGame(newGame);
         });
-
 
 
     }
@@ -361,12 +491,11 @@ public class LobbyClient implements Screen {
     }
 
 
-
-
     private void showOwnerLobbyOptions(Lobby lobby) {
         Dialog dialog = new Dialog("", skin);
 
         TextButton removeBtn = new TextButton("Remove Player", skin);
+        TextButton loadBtn = new TextButton("Load Game", skin);
         TextButton startBtn = new TextButton("Start Game", skin);
         TextButton leaveBtn = new TextButton("Leave Lobby", skin);
         TextButton closeBtn = new TextButton("Close", skin);
@@ -386,6 +515,17 @@ public class LobbyClient implements Screen {
                 client.send(gson.toJson(new Message(body, Message.Type.command)));
                 dialog.hide();
             }
+        });
+
+        loadBtn.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                HashMap<String, Object> body = new HashMap<>();
+                body.put("commandType", NetworkCommand.load);
+                body.put("lobbyId", lobby.getId());
+                client.send(gson.toJson(new Message(body, Message.Type.command)));
+                dialog.hide();
+            }
+
         });
 
         // Leave lobby
@@ -797,9 +937,17 @@ public class LobbyClient implements Screen {
         stage.getViewport().update(width, height, true);
     }
 
-    @Override public void pause() {}
-    @Override public void resume() {}
-    @Override public void hide() {}
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
+    }
 
     @Override
     public void dispose() {
@@ -815,4 +963,7 @@ public class LobbyClient implements Screen {
         client.send(gson.toJson(new Message(body, Message.Type.command)));
     }
 
+    public static TCPClient getClient() {
+        return client;
+    }
 }

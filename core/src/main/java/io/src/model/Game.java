@@ -49,6 +49,7 @@ public class Game {
         this.gameMap = GameMap;
         this.timeSystem = timeSystem;
         this.weatherState = weatherState;
+        this.gameId = UUID.randomUUID().toString();
         //TODO HANDLE GAME ID SYSTEM
     }
     public ArrayList<Player> getPlayers() {

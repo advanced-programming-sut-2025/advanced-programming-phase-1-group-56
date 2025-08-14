@@ -3,6 +3,15 @@ package io.src.model.Network;
 import java.util.HashMap;
 
 public enum NetworkCommand {
+    updateEmote,
+    emote,
+    ready_for_state,
+    request_game_state,
+    OWNERtoDC,
+    DCtoOWNER,
+    updateObject,
+    load,
+    updatePlayer,
     Game,
     username,
     online_Users,

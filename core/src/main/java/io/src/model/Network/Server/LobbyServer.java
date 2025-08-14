@@ -7,15 +7,21 @@ import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
 
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.Timer;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static io.src.controller.Network.ServerController.sendCurrentGameState;
 
 public class LobbyServer {
     private static final int PORT = 5000;
-    private final Set<ClientHandler> clients = Collections.synchronizedSet(new HashSet<>());
-    private final List<Lobby> lobbies = Collections.synchronizedList(new ArrayList<>());
+    private static final Set<ClientHandler> clients = Collections.synchronizedSet(new HashSet<>());
+    private static final List<Lobby> lobbies = Collections.synchronizedList(new ArrayList<>());
+    private final HashMap<String, DisconnectedSession> disconnectedClients = new HashMap<>();
+    private final Map<String, Timer> disconnectTimers = new ConcurrentHashMap<>();
     private final Gson gson = new Gson();
 
     public static void main(String[] args) throws IOException {
@@ -39,6 +45,15 @@ public class LobbyServer {
 
             new Thread(handler).start();
 
+        }
+    }
+
+    public void sendToDCGame(Message message) {
+        String userName = message.getFromBody("username");
+        for (ClientHandler clientHandler : clients) {
+            if (userName.equals(clientHandler.getUsername())) {
+                clientHandler.sendMessage(gson.toJson(message));
+            }
         }
     }
 
@@ -189,7 +204,7 @@ public class LobbyServer {
         return ServerController.toggleReady(lobbyId,username, lobbies);
     }
 
-    public Collection<Lobby> getLobbies() {
+    public static Collection<Lobby> getLobbies() {
         return lobbies;
     }
 
@@ -198,7 +213,92 @@ public class LobbyServer {
         lobbies.removeIf(lobby -> lobby.getMembers().isEmpty() && lobby.isInactiveFor(5 * 60 * 1000));
     }
 
-    public Set<ClientHandler> getClients() {
+    public void sendChangePlayer(Message msg){
+        String username = msg.getFromBody("username");
+        Lobby found = null;
+        for (Lobby l : lobbies) {
+            if (l.getOwner().equals(username) || l.getMembers().contains(username)) {
+                found = l;
+                break;
+            }
+        }
+        if (found == null) return;
+
+        List<String> recipients = new ArrayList<>();
+        recipients.add(found.getOwner());
+        recipients.addAll(found.getMembers());
+
+        synchronized (clients) {
+            for (String member : recipients) {
+                if (member.equals(username)) continue;
+                for (ClientHandler clientHandler : clients) {
+                    if (member.equals(clientHandler.getUsername())) {
+                        clientHandler.sendMessage(gson.toJson(msg));
+                    }
+                }
+            }
+        }
+    }
+
+    public void markClientAsDisconnected(ClientHandler client) {
+        String username = client.getUsername();
+        disconnectedClients.put(username, new DisconnectedSession(client, System.currentTimeMillis()));
+
+        Timer timer = new Timer();
+        disconnectTimers.put(username, timer);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                DisconnectedSession session = disconnectedClients.get(username);
+                if (session != null &&
+                    System.currentTimeMillis() - session.disconnectTime >= 120_000) {
+                    removeClient(session.client);
+                    disconnectedClients.remove(username);
+                    disconnectTimers.remove(username);
+                    System.out.println("Removed client after timeout: " + username);
+                }
+            }
+        }, 120_000);
+    }
+
+    public void restoreClientSession(String username, ClientHandler newHandler) {
+        DisconnectedSession oldSession = disconnectedClients.remove(username);
+        if (oldSession != null) {
+            Timer timer = disconnectTimers.remove(username);
+            if (timer != null) {
+                timer.cancel();
+            }
+            clients.remove(oldSession.client);
+            clients.add(newHandler);
+            HashMap<String, Object> body = new HashMap<>();
+            body.put("commandType", NetworkCommand.ready_for_state);
+            Message.Type type = Message.Type.command;
+            System.out.println("love");
+            newHandler.sendMessage(new Gson().toJson(new Message(body, type)));
+
+            System.out.println("Client restored: " + username);
+        }
+    }
+
+
+
+    public static Set<ClientHandler> getClients() {
         return clients;
     }
+
+    public HashMap<String, DisconnectedSession> getDisconnectedClients() {
+        return disconnectedClients;
+    }
+
 }
+class DisconnectedSession {
+    ClientHandler client;
+    long disconnectTime;
+
+    DisconnectedSession(ClientHandler client, long disconnectTime) {
+        this.client = client;
+        this.disconnectTime = disconnectTime;
+    }
+}
+

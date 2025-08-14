@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.google.gson.Gson;
 import io.src.controller.GameMenuController.ToolsController;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -23,6 +24,11 @@ import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
+import io.src.model.Network.Client.LobbyClient;
+import io.src.model.Network.Client.TCPClient;
+import io.src.model.Network.Message;
+import io.src.model.Network.NetworkCommand;
+import io.src.model.Network.Server.LobbyServer;
 import io.src.model.Player;
 import io.src.model.items.Tool;
 
@@ -30,6 +36,7 @@ import io.src.model.items.Artesian;
 import io.src.model.items.Etc;
 import io.src.model.items.Food;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,6 +73,15 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         if(App.getMe().isMoving()){
             return false;
+        }
+
+        if(keycode == Input.Keys.Y) {
+            if(!GameView.emoteWindow().isVisible()) {
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(GameView.emoteWindow());
+                multiplexer.addProcessor(GameView.getStage());
+                Gdx.input.setInputProcessor(multiplexer);
+                GameView.emoteWindow().setVisible(!GameView.emoteWindow().isVisible());}
         }
 
         if(keycode == Input.Keys.T) {
@@ -208,6 +224,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             vx = 0;
         }
 
+
         // RIGHT
         if (vx == 1 &&
             !player.getCurrentGameLocation().getTileByPosition(pos.getX() + pw + (vx / 8), pos.getY()).isWalkable() ||
@@ -245,6 +262,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             float norm = (float) Math.sqrt(vx * vx + vy * vy);
             vx /= norm;
             vy /= norm;
+
         }
 
         float speed = player.getSpeed();
@@ -252,10 +270,36 @@ public class GameMenuInputAdapter extends InputAdapter {
         player.setVelocity(vx * speed, vy * speed);
         player.update(delta);
         applyWrapperEffect();
+        if(vx != 0 || vy != 0) {
+            Gson gson = new Gson();
+            HashMap<String, Object> body = new HashMap<>();
+            body.put("commandType", NetworkCommand.updatePlayer);
+            body.put("username", player.getUserName());
+            body.put("x", player.getPosition().getX());
+            body.put("y", player.getPosition().getY());
+            if(player.getCurrentGameLocation().equals(App.getCurrentUser().getCurrentGame().getGameMap().getFarm1())){
+                body.put("GameLocation",1 );
+            } else if(player.getCurrentGameLocation().equals(App.getCurrentUser().getCurrentGame().getGameMap().getFarm2())){
+                body.put("GameLocation",2 );
+            } else if(player.getCurrentGameLocation().equals(App.getCurrentUser().getCurrentGame().getGameMap().getFarm3())){
+                body.put("GameLocation",3 );
+            } else if(player.getCurrentGameLocation().equals(App.getCurrentUser().getCurrentGame().getGameMap().getFarm4())){
+                body.put("GameLocation",4 );
+            }  else if(player.getCurrentGameLocation().equals(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown())){
+                body.put("GameLocation",0 );
+            } else {
+                body.put("GameLocation",5 );
+            }
+            body.put("Dir",dir);
+
+            Message msg = new Message(body, Message.Type.command);
+            LobbyClient.getClient().send(gson.toJson(msg));
+        }
+
     }
 
 
-    private void applyWrapperEffect() {
+    public static void applyWrapperEffect() {
 
         Position position = App.getMe().getPosition();
 
@@ -408,6 +452,8 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
         }
     }
+
+
 
     private void performAction(int screenX, int screenY) {
 

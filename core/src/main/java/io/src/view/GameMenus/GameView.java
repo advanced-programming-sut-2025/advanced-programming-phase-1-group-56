@@ -80,6 +80,7 @@ public class GameView implements Screen {
     private Image foodBuff;
     private static ShippingBarWindow shippingBarWindow;
     private static ArtisanWindow artisanWindow;
+    private static EmoteWindow emoteWindow;
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -125,12 +126,14 @@ public class GameView implements Screen {
             foodWindow = new FoodWindow(App.getMe());
             refrigeratorWindow = new RefrigeratorWindow();
             shippingBarWindow = new ShippingBarWindow();
+            emoteWindow = new EmoteWindow();
             artisanWindow = new ArtisanWindow(new ArtesianMachine(false,new Position(10,10),ArtisanMachineItemType.BEE_HOUSE.getArtisanMachineType()));
             energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
             invWindow.setVisible(false);
             craftingWindow.setVisible(false);
             foodWindow.setVisible(false);
             artisanWindow.setVisible(false);
+            emoteWindow.setVisible(false);
 
             stage.addActor(craftingWindow);
             stage.addActor(invWindow);
@@ -139,6 +142,7 @@ public class GameView implements Screen {
             stage.addActor(itemLabel);
             stage.addActor(foodWindow);
             stage.addActor(inventoryBar);
+            stage.addActor(emoteWindow);
 
             stage.addActor(artisanWindow);
             stage.addActor(shippingBarWindow);
@@ -206,8 +210,9 @@ public class GameView implements Screen {
         renderer.getBatch().draw(frame, x, y);
     }
 
-    private void renderPlayer() {
-        Player player = App.getMe();
+
+
+    private void renderPlayer(Player player) {
         float x = player.getPixelPosition().getX(), y = player.getPixelPosition().getY();
         AnimationKey key;
         if (player.isMoving()) {
@@ -454,9 +459,17 @@ public class GameView implements Screen {
             }
 
             ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
-            Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
-            PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
-            objects.add(me);
+            ArrayList<PlayerObject> playerObjects = new ArrayList<>();
+            for(Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+                Position renderingPosition2 = new Position((player.getPixelPosition().getX() + 16) / 16, (player.getPixelPosition().getY()) / 16);
+                PlayerObject me1 = new PlayerObject(player.getUser().getName(),player, true, renderingPosition2);
+                if(App.getMe().getCurrentGameLocation().equals(player.getCurrentGameLocation())){
+                    playerObjects.add(me1);
+                    objects.add(me1);
+                }
+
+            }
+
             objects.sort(
                 Comparator
                     .comparingDouble((GameObject o) -> -o.getPosition().getY())
@@ -470,9 +483,32 @@ public class GameView implements Screen {
                 if (go instanceof PlayerObject) {
 
 
-                    renderPlayer();
+                    renderPlayer(((PlayerObject) go).getPlayer());
 
                     updateAndDrawToolSwings(v);
+                    for (PlayerObject playerObj : playerObjects) {
+                        Player player = playerObj.getPlayer();
+                        renderPlayer(player);
+                        updateAndDrawToolSwings(v);
+
+                        int showEmote = player.getShowEmote();
+                        if (showEmote != 0) {
+                            Animation<TextureRegion> emoteAnimation = GameAssetManager.getEmote(showEmote);
+                            TextureRegion frame = emoteAnimation.getKeyFrame(player.getEmoteTimer(), true);
+
+                            renderer.getBatch().draw(frame,
+                                playerObj.getPosition().getX() * TILE_SIZE - 14,
+                                playerObj.getPosition().getY() * TILE_SIZE + 10
+                            );
+
+                            player.updateEmoteTimer(v);
+
+                            if (player.getEmoteTimer() >= 5f) {
+                                player.setShowEmote(0);
+                            }
+                        }
+                    }
+
 
                     continue;
                 }
@@ -509,7 +545,6 @@ public class GameView implements Screen {
 
                 if (go instanceof ArtesianMachine) {
                     ArtesianMachine artesianMachine = (ArtesianMachine) go;
-                    artesianMachine.setArtisanGood(new ArtisanGood(ArtisanGoodType.HONEY));
                     worldX -= 25;
                     renderer.getBatch().draw(region, worldX, worldY,
                         region.getRegionWidth(), 0,
@@ -617,8 +652,7 @@ public class GameView implements Screen {
 
 
     public void onPlayerTalk(String npcName, String dialogText) {
-        dialogWindow.showDialog(npcName, dialogText);
-    }
+        dialogWindow.showDialog(npcName, dialogText);}
 
     @Override
     public void resize(int i, int i1) {
@@ -683,5 +717,9 @@ public class GameView implements Screen {
 
     public static ArtisanWindow artisanWindow() {
         return artisanWindow;
+    }
+
+    public static EmoteWindow emoteWindow() {
+        return emoteWindow;
     }
 }

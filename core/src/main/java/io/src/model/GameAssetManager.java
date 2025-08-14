@@ -2,11 +2,14 @@ package io.src.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import io.src.model.items.Inventory;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -72,6 +75,85 @@ public class GameAssetManager {
     private Texture greenBar = new Texture("assets/Inventory/greenBar.png");
     private Texture InventoryBarBackground = new Texture("assets/Inventory/InventoryBarBackground.png");
     private Texture redSelection = new Texture("assets/Inventory/redSelection.png");
+
+    private static final String EMOTE_DIR = "assets/Emotes/";
+    private static final String EMOTE_PREFIX = "Emote";
+    private static final String EMOTE_EXT = ".png";
+    private static final int EMOTE_COUNT = 9;
+    private static final float FRAME_DURATION = 0.2f;
+
+    private static Animation<TextureRegion>[] emotes;
+    private static final Array<Texture> emoteTextures = new Array<>();
+    private static boolean emotesLoaded = false;
+
+    private static void ensureEmotesLoaded() {
+        if (emotesLoaded) return;
+
+        emotes = (Animation<TextureRegion>[]) new Animation<?>[EMOTE_COUNT];
+
+        for (int i = 0; i < EMOTE_COUNT; i++) {
+            int index = i + 1;
+
+            Texture frame1 = new Texture(Gdx.files.internal(
+                EMOTE_DIR + EMOTE_PREFIX + index + EMOTE_EXT
+            ));
+            Texture frame2 = new Texture(Gdx.files.internal(
+                EMOTE_DIR + EMOTE_PREFIX + index + ".1" + EMOTE_EXT
+            ));
+
+            frame1.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            frame2.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+            emoteTextures.add(frame1);
+            emoteTextures.add(frame2);
+
+            TextureRegion[] frames = new TextureRegion[] {
+                new TextureRegion(frame1),
+                new TextureRegion(frame2)
+            };
+
+            emotes[i] = new Animation<>(FRAME_DURATION, frames);
+            emotes[i].setPlayMode(Animation.PlayMode.LOOP);
+        }
+
+        emotesLoaded = true;
+    }
+
+    public static Animation<TextureRegion> getEmote(int index1to9) {
+        ensureEmotesLoaded();
+        if (index1to9 < 1 || index1to9 > EMOTE_COUNT) {
+            throw new IllegalArgumentException("Emote index must be 1..9");
+        }
+        return emotes[index1to9 - 1];
+    }
+
+    public static Animation<TextureRegion>[] getAllEmotes() {
+        ensureEmotesLoaded();
+        return emotes;
+    }
+
+    public static void disposeEmotes() {
+        for (Texture t : emoteTextures) {
+            if (t != null) t.dispose();
+        }
+        emoteTextures.clear();
+        emotes = null;
+        emotesLoaded = false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private GameAssetManager() {
         fillTheDictionary(root_path);
     }
