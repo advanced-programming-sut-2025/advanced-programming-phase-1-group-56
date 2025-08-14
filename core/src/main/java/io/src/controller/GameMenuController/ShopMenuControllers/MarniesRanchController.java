@@ -27,15 +27,13 @@ public class MarniesRanchController implements ShopController {
     }
 
     public static Result PurchaseProduct(Matcher matcher) {
-        return ShopController.purchaseProductFromList(matcher,
+        return ShopController.purchaseProductFromList(matcher.group(1),matcher.group(2),
                 App.getCurrentUser().getCurrentGame().
                         findStoreByClass(MarniesRanch.class).getDailyProductList());
     }
 
-    public static Result buyAnimal(Matcher matcher) {
-        // Parse arguments
-        String typeName = matcher.group(1).trim().trim();   // e.g. "COW"
-        String nickName = matcher.group(2).trim().trim();                            // unique name
+    public static Result buyAnimal(String typeName,String nickName) {
+        // Parse arguments         // unique name
 
         // Validate nickname
         if (nickName.isEmpty()) {
@@ -89,9 +87,12 @@ public class MarniesRanchController implements ShopController {
         prod.setRemainingStock(prod.getRemainingStock() - 1);
 
         // Instantiate and place the animal
-        Animal newAnimal = new Animal(new Position(3, 3), nickName, animalType);
+        Animal newAnimal = new Animal(new Position(7, 3), nickName, animalType, home);
         home.getAnimals().add(newAnimal);
         me.getAnimals().add(newAnimal);
+        ((Building)home).getIndoor().getGameObjects().add(newAnimal);
+        ((Building)home).getIndoor().getTileByPosition(7 , 3).setFixedObject(newAnimal);
+        newAnimal.initializePaths(((Building)home).getIndoor());
 
         return new Result(true,
                 "Successfully purchased " + nickName +
@@ -101,8 +102,8 @@ public class MarniesRanchController implements ShopController {
 
     public static Optional<Building> findBuildingWithCapacity(AnimalType type) {
         return App.getMe().getPlayerFarm().getBuildings().stream()
-                .filter(b -> b instanceof Barn barn &&
-                        barn.getType().getCapacity() - barn.getCurrentAnimalCount() > 0).findFirst();
+                .filter(b -> b.getBuildingType() == type.getRequiredBuilding() &&
+                        b.getBuildingType().getCapacity() - ((AnimalHouse)b).getAnimals().size() > 0).findFirst();
     }
 
     public static Result ExitShop(){

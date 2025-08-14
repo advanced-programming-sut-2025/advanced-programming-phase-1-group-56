@@ -1,7 +1,9 @@
 package io.src.view;
 
+import io.src.model.Result;
+
 import java.util.Scanner;
 
 public interface AppMenu {
-    void check(Scanner scanner);
+    Result check(Scanner scanner, String cmd);
 }

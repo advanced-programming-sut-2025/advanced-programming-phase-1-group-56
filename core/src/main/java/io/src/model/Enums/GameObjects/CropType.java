@@ -90,8 +90,9 @@ public enum CropType implements initialPlant {
     }
 
     public String getStageN_AssetName(int n) {
-        if (n < 0 || n >= stages.length) return null;
-        return getAssetName() + "Stage_" + n;
+        n++;
+        if (n < -1 || n > stages.length) return null;
+        return getAssetName() + "_Stage_"  + String.format("%d", n);
     }
 
     public static CropType fromName(String name) {

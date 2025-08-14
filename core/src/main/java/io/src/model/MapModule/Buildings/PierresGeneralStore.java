@@ -23,6 +23,8 @@ public class PierresGeneralStore extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Pierres_General_Store_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(5 , 5));
+        NPCposition = new Position(6 ,14);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -33,7 +35,12 @@ public class PierresGeneralStore extends Store {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay){
+            dailyProductList.clear();
             dailyProductList = PierreGeneralStoreProducts.getProducts(PierreGeneralStoreProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("general store has been renewed");
         }
     }
 

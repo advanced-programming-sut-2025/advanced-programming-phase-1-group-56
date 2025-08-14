@@ -1,27 +1,40 @@
 package io.src.model;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.src.StardewValley;
 import io.src.model.Enums.Menu;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 
 public class App {
     private static final String FILE_PATH = "assets//users.json";
-    //TODO
+    public static final boolean DEBUG_MODE = true;
     private static ArrayList<User> users = new ArrayList<>();
     private static User currentUser = null;
-    private static Menu currentMenu = Menu.loginMenu;
+    private static Menu currentMenu = null;
     private static StardewValley stardewValley;
+    private static Scanner scanner;
+
+    public static void print(Object obj) {
+        if (DEBUG_MODE) {
+            System.out.println(obj.toString());
+        }
+    }
 
     public static void init() {
         users = getUsers();
     }
 
     public static ArrayList<User> getUsers() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         ArrayList<User> tmpUsers = new ArrayList<>();
         try (Reader reader = new FileReader(FILE_PATH)) {
             tmpUsers = gson.fromJson(reader, new TypeToken<ArrayList<User>>() {
@@ -35,7 +48,9 @@ public class App {
     }
 
     public static void addUser(User user) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         ArrayList<User> tmpUsers = new ArrayList<>();
         try (Reader reader = new FileReader(FILE_PATH)) {
             tmpUsers = gson.fromJson(reader, new TypeToken<ArrayList<User>>() {
@@ -84,7 +99,18 @@ public class App {
     }
 
     public static void saveUsers() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
+        if (new File("assets\\StayLoggedIn.json").exists()) {
+            try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
+                gson.toJson(App.getCurrentUser(), writer);
+            } catch (IOException e) {
+                System.out.println("Error while writing stayLoggedIn.json");
+            }
+        }
+        users.removeIf(user -> user.getUsername().equals(App.getCurrentUser().getUsername()));
+        users.add(App.getCurrentUser());
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(users, writer);
         } catch (IOException e) {
@@ -98,5 +124,13 @@ public class App {
 
     public static void setStardewValley(StardewValley stardewValley) {
         App.stardewValley = stardewValley;
+    }
+
+    public static void setScanner(Scanner scanner1) {
+        scanner = scanner1;
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
     }
 }

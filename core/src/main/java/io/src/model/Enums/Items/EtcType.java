@@ -44,9 +44,9 @@ public enum EtcType implements ItemType {
     SCARE_CROW("Scare_Crow", 0, EtcObjectType.SCARE_CROW,""),
     DELUXE_SCARE_CROW("Deluxe_Scarecrow", 0, EtcObjectType.DELUXE_SCARE_CROW,""),
     IRIDIUM_SPRINKLER("Iridium_Sprinkler", 0, EtcObjectType.IRIDIUM_SPRINKLER,""),
-    Money("Money", 1, null,""),
-    NPC_FRIENDSHIP_XP("npc friendship xp", 1, null,""),
-    ANY_PLANT("Any_Plant", -1, null,"");
+    Money("Money", 1, null,"Shop_Hint_Dollar"),
+    NPC_FRIENDSHIP_XP("npc friendship xp", 1, null,"Secret_Heart"),
+    ANY_PLANT("Any_Plant", -1, null,"Vanity_Narrow_Tall_Bush_Summer");
 
 
     final public String name;

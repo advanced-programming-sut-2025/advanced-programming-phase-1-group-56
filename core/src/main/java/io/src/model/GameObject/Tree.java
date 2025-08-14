@@ -15,7 +15,7 @@ public class Tree extends GameObject implements TimeObserver {
 //    private final ArrayList<Seasons> seasons;
     private int daysWithNoWater;  //
     private int countCurrentStage; //
-    private TreeType treeType;
+    private final TreeType treeType;
     private int currentStage; //
     private boolean speedGro;
     private boolean deluxeRetainingSoil;
@@ -75,9 +75,9 @@ public class Tree extends GameObject implements TimeObserver {
 
     public void setCurrentStage(int currentStage) {
         this.currentStage = currentStage;
-        if (currentStage >= 4) {
-            isComplete = true;
-        }
+//        if (currentStage >= 4) {
+//            isComplete = true;
+//        }
     }
 
     //    public HashMap<Item, Integer> getItemsGiven() {
@@ -114,6 +114,9 @@ public class Tree extends GameObject implements TimeObserver {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
+            if (this.isComplete) {
+                daysWithNoWater = 0;
+            }
             if (!(treeType == TreeType.TREE_BARK || treeType == TreeType.BURNT_TREE || treeType == TreeType.NORMAL_TREE)) {
                 if (!isWateredToday) {
                     daysWithNoWater++;
@@ -127,14 +130,14 @@ public class Tree extends GameObject implements TimeObserver {
                 if (speedGro) {
                     countCurrentStage1--;
                 }
-                if (currentStage == 4 && countCurrentStage == countCurrentStage1 && isComplete == false) {
+                if (currentStage == 4 && countCurrentStage == countCurrentStage1 && !isComplete) {
                     isComplete = true;
                     isHarvest = true;
                 }
                 if (harvestDayRegrowth == treeType.fruitHarvestCycle) {
                     isHarvest = true;
                 }
-                if (countCurrentStage == 7 && isComplete == false) {
+                if (countCurrentStage == 7 && !isComplete) {
                     this.currentStage++;
                 }
                 isWateredToday = false;
@@ -199,6 +202,6 @@ public class Tree extends GameObject implements TimeObserver {
 
     @Override
     public String getAssetName() {
-        return treeType.getAssetNameByStageAndSeason(currentStage);
+        return treeType.getAssetNameByStageAndSeason(currentStage , isHarvest);
     }
 }

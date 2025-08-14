@@ -18,7 +18,7 @@ public class StardropSaloonController implements ShopController {
     }
 
     public static Result PurchaseProduct(Matcher matcher) {
-        return ShopController.purchaseProductFromList(matcher,
+        return ShopController.purchaseProductFromList(matcher.group(1),matcher.group(2),
                 App.getCurrentUser().getCurrentGame().findStoreByClass(TheSaloonStardrop.class).getDailyProductList());
     }
 

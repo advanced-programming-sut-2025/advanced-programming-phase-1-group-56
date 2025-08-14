@@ -1,9 +1,7 @@
 package io.src.test;
 
-import io.src.controller.MenuController.LoginMenuController;
 import io.src.model.App;
 import io.src.model.Enums.Menu;
-import io.src.model.Enums.commands.LoginMenuCommands;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,15 +35,14 @@ public class LoginMenuUnitTest {
     }
 
 
-
     @Test
     public void testValidRegistrationFlow() {
         // شبیه‌سازی ورودی کاربر
         String input = "register --username ali --password Aa123! --nickname ali\n" +
-                "question pick --question 1 --answer test --confirm test";
+            "question pick --question 1 --answer test --confirm test";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
 
         String output = outputStream.toString();
@@ -58,7 +55,7 @@ public class LoginMenuUnitTest {
         String input = "login --username ali --password Aa123! --stay-logged-in";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         String output = outputStream.toString();
         assertTrue(output.contains("Logged in"));
@@ -69,7 +66,7 @@ public class LoginMenuUnitTest {
         String input = "invalid_command --wrong-option";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         String output = outputStream.toString();
         assertTrue(output.contains("invalid command bro!.."));
@@ -80,17 +77,18 @@ public class LoginMenuUnitTest {
         String input = "invalid_command --wrong-option";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         String output = outputStream.toString();
         assertTrue(output.contains("invalid command bro!.."));
     }
+
     @Test
     public void testAnswerSecurityQuestion() {
         String input = "invalid_command --wrong-option";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         String output = outputStream.toString();
         assertTrue(output.contains("invalid command bro!.."));
@@ -101,7 +99,7 @@ public class LoginMenuUnitTest {
         String input = "invalid_command --wrong-option";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         String output = outputStream.toString();
         assertTrue(output.contains("invalid command bro!.."));
@@ -112,7 +110,7 @@ public class LoginMenuUnitTest {
         String input = "invalid_command --wrong-option";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         String output = outputStream.toString();
         assertTrue(output.contains("invalid command bro!.."));
@@ -124,7 +122,7 @@ public class LoginMenuUnitTest {
         String input = "menu exit";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
-        loginMenu.check(new Scanner(System.in));
+        loginMenu.check(new Scanner(System.in), input);
 
         assertEquals(Menu.exitMenu, App.getCurrentMenu());
     }

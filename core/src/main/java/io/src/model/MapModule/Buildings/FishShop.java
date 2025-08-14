@@ -2,6 +2,7 @@ package io.src.model.MapModule.Buildings;
 
 import io.src.model.App;
 import io.src.model.Enums.Stores.FishShopProducts;
+import io.src.model.Enums.TileType;
 import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
@@ -21,6 +22,9 @@ public class FishShop extends Store {
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Fish_Shop_Indoor");
         setIndoor(indoor);
         setInitialPosition(new Position(5 , 2));
+        indoor.getTiles()[1][5].setTileType(TileType.Wrapper);
+        NPCposition = new Position(4, 5);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -31,7 +35,12 @@ public class FishShop extends Store {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if(newDay){
+            dailyProductList.clear();
             dailyProductList = FishShopProducts.getProducts(FishShopProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("fishShop has been renewed");
         }
     }
 

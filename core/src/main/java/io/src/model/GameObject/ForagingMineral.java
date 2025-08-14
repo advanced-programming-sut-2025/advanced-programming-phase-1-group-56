@@ -1,22 +1,23 @@
 package io.src.model.GameObject;
 
+import io.src.model.Enums.GameObjects.ForagingGameObjectType;
 import io.src.model.Enums.Items.MineralItemType;
 import io.src.model.MapModule.Position;
 
 public class ForagingMineral extends GameObject {
-    public MineralItemType foragingMineralType;
+    public ForagingGameObjectType foragingGameObjectType;
 
-    public ForagingMineral(boolean walkable, Position position, MineralItemType foragingMineralType) {
+    public ForagingMineral(boolean walkable, Position position, ForagingGameObjectType foragingGameObjectType) {
         super(walkable, position);
-        this.foragingMineralType = foragingMineralType;
+        this.foragingGameObjectType = foragingGameObjectType;
     }
 
-    public MineralItemType getForagingMineralType() {
-        return foragingMineralType;
+    public ForagingGameObjectType getForagingMineralType() {
+        return foragingGameObjectType;
     }
 
     @Override
     public String getAssetName() {
-        return foragingMineralType.getAssetName();
+        return foragingGameObjectType.getAssetName();
     }
 }

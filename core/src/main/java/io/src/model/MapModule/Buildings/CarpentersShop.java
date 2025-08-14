@@ -28,7 +28,9 @@ public class CarpentersShop extends Store {
         setClosingHour(20);
         GameLocation indoor = loadTheLocation("assets\\gameLocations\\Carpenter_Shop_Indoor");
         setIndoor(indoor);
-        setInitialPosition(new Position(6,2));
+        setInitialPosition(new Position(6, 2));
+        NPCposition = new Position(7, 6);
+        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 
     @Override
@@ -39,7 +41,12 @@ public class CarpentersShop extends Store {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
+            dailyProductList.clear();
             dailyProductList = CarpenterShopProducts.getProducts(CarpenterShopProducts.class);
+            for (NpcProduct npcProduct : dailyProductList) {
+                npcProduct.setRemainingStock(npcProduct.getDailyStock());
+            }
+            System.out.println("carpenterShop has been renewed");
         }
     }
 

@@ -23,7 +23,7 @@ public enum FoodRecipesList implements Saleable {
     PIZZA("Pizza", FoodType.PIZZA, new Slot[]{new Slot(new Food(FoodType.WHEAT_FLOUR), 1), new Slot(new Food(FoodType.TOMATO), 1), new Slot(new Food(FoodType.CHEESE), 1)}, 150, null, "Stardrop Saloon", 300, ""),
     TORTILLA("Tortilla", FoodType.TORTILLA, new Slot[]{new Slot(new Food(FoodType.CORN), 1)}, 50, null, "Stardrop Saloon", 50, ""),
     MAKI_ROLL("Maki Roll", FoodType.MAKI_ROLL, new Slot[]{new Slot(new Fish(FishType.ANY_FISH), 1), new Slot(new Food(FoodType.RICE), 1), new Slot(new Etc(EtcType.FIBER), 1)}, 100, null, "Stardrop Saloon", 220, ""),
-    TRIPLE_SHOT_ESPRESSO("Triple shot Espresso", FoodType.TRIPLE_SHOT_ESPRESSO, new Slot[]{new Slot(new Food(FoodType.COFFEE), 3)}, 200, BuffType.MaxEnergy100, "Stardrop Saloon", 450, ""),
+    TRIPLE_SHOT_ESPRESSO("Triple shot Espresso", FoodType.TRIPLE_SHOT_ESPRESSO, new Slot[]{new Slot(new Food(FoodType.COFFEE), 3)}, 200, BuffType.MaxEnergy100, "Stardrop Saloon", 450, "Triple_Shot_Espresso"),
     COOKIE("Cookie", FoodType.COOKIE, new Slot[]{new Slot(new Food(FoodType.WHEAT_FLOUR), 1), new Slot(new Food(FoodType.SUGAR), 1), new Slot(new Etc(EtcType.EGG), 1)}, 90, null, "Stardrop Saloon", 140, ""),
     HASH_BROWNS("Hash Browns", FoodType.HASH_BROWNS, new Slot[]{new Slot(new Food(FoodType.POTATO), 1), new Slot(new Food(FoodType.OIL), 1)}, 90, BuffType.FarmingBuff, "Stardrop Saloon", 120, "Hashbrowns"),
     PANCAKES("Pancakes", FoodType.PANCAKES, new Slot[]{new Slot(new Food(FoodType.WHEAT_FLOUR), 1), new Slot(new Etc(EtcType.EGG), 1)}, 90, BuffType.ForagingBuff11, "Stardrop Saloon", 80, ""),

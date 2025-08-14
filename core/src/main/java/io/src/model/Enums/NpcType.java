@@ -125,7 +125,7 @@ public enum NpcType {
             new NpcRequest(new Etc(EtcType.IRON_BAR), 10, new Artesian(ArtisanMachineItemType.BEE_HOUSE), 3),
             new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 25000)
         )),
-        120,
+        20,
         new ArrayList<>(Arrays.asList(
             new Food(FoodType.SPAGHETTI),
             new Etc(EtcType.WOOD),
@@ -150,7 +150,7 @@ public enum NpcType {
     private final Class<? extends NpcPrompt> promptClass;
     private final String icon;
     private final String assetName;
-    private final List<Position> pathPoints; // مسیر نقاط راه رفتن
+    private final List<Position> pathPoints;
 
     NpcType(String name,
             ArrayList<NpcRequest> requests,
@@ -229,8 +229,6 @@ public enum NpcType {
         return npcToAdd;
     }
 }
-
-
 
 
 //public enum NpcType {

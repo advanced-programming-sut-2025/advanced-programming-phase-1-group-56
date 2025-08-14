@@ -34,9 +34,9 @@ public class CommandController {
             } else if (name.equals("profile menu")) {
                 App.setCurrentMenu(Menu.profileMenu);
                 return new Result(true, "you are in the profile Menu now!");
-            } else if (name.equals("avatar menu")) {
-                App.setCurrentMenu(Menu.avatarMenu);
-                return new Result(true, "you are in the avatar Menu now!");
+//            } else if (name.equals("avatar menu")) {
+//                App.setCurrentMenu(Menu.avatarMenu);
+//                return new Result(true, "you are in the avatar Menu now!");
             } else {
                 return new Result(false, "you can't go there!");
             }

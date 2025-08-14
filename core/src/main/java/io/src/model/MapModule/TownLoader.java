@@ -335,7 +335,6 @@ public class TownLoader {
 //                    System.out.print("  "); // empty space
 //                }
 //            }
-//            System.out.println();
 //        }
 //    }
 

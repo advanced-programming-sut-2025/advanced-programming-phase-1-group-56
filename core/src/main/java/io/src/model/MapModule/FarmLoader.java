@@ -2,6 +2,7 @@ package io.src.model.MapModule;
 
 import com.google.gson.*;
 import io.src.model.Enums.GameLocationType;
+import io.src.model.Enums.GameObjects.ForagingGameObjectType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.GrassType;
 import io.src.model.Enums.Items.MineralItemType;
@@ -139,11 +140,11 @@ public class FarmLoader {
                         case "fibergrass" -> go = new Grass(true, new Position(tx, ty), GrassType.FiberGrass);
                         case "wood" -> go = new Tree(TreeType.TREE_BARK, new Position(tx, ty));//TODO
                         case "stone" ->
-                            go = new ForagingMineral(false, new Position(tx, ty), MineralItemType.STONE);//TODO
+                            go = new ForagingMineral(false, new Position(tx, ty), ForagingGameObjectType.Stone_Boulder);//TODO
                         case "tree" -> go = new Tree(TreeType.APPLE_TREE, new Position(tx, ty));
                         case "stick" -> go = new Tree(TreeType.TREE_BARK, new Position(tx, ty));
                         case "bigstone" ->
-                            go = new ForagingMineral(false, new Position(tx, ty), MineralItemType.BIG_STONE);
+                            go = new ForagingMineral(false, new Position(tx, ty), ForagingGameObjectType.Stone_Boulder);
                         default -> go = null;
                     }
 
@@ -152,8 +153,6 @@ public class FarmLoader {
                         && tx >= 0 && tx + objWidth < width) {
                         for (int i = ty; i < ty + objHeight; i++) {
                             for (int j = tx; j < tx + objWidth; j++) {
-//                                System.out.println(i);
-//                                System.out.println(j);
                                 tiles[i][j].setFixedObject(go);
                             }
                         }

@@ -3,7 +3,6 @@ package io.src.model.MapModule.Buildings;
 import io.src.model.Enums.BackPackType;
 import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.GameObject.Refrigerator;
-import io.src.model.MapModule.Buildings.Building;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
 import io.src.model.items.Inventory;

@@ -21,7 +21,7 @@ public class GeneralStoreController implements ShopController {
     }
 
     public static Result PurchaseProduct(Matcher matcher) {
-        return ShopController.purchaseProductFromList(matcher,
+        return ShopController.purchaseProductFromList(matcher.group(1),matcher.group(2),
                 App.getCurrentUser().getCurrentGame().
                         findStoreByClass(PierresGeneralStore.class).getDailyProductList());
     }

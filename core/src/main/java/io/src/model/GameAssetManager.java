@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Array;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
+import io.src.model.items.Inventory;
 
 
 import java.io.File;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -192,7 +195,9 @@ public class GameAssetManager {
     }
 
     public void saveDictionariesToJson() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         try (FileWriter assetWriter = new FileWriter(assetsJsonPath.toFile());
              FileWriter atlasWriter = new FileWriter(atlasJsonPath.toFile())) {
             gson.toJson(assetsDictionary, assetWriter);
@@ -203,7 +208,9 @@ public class GameAssetManager {
     }
 
     public void loadDictionariesFromJson() {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         Type type = new TypeToken<HashMap<String, String>>() {
         }.getType();
         try (FileReader assetReader = new FileReader(assetsJsonPath.toFile());

@@ -1,7 +1,6 @@
 package io.src.model.Enums;
 
 public enum TileType {
-    Speed_Gro,
     Deluxe_Retaining_Soil,
     Mine,
     Vanity,
@@ -11,6 +10,7 @@ public enum TileType {
     Soil,
     PlowedSoil,
     WaterPlowedSoil,
+    Speed_Gro,
     Wrapper,
     Default;
 }

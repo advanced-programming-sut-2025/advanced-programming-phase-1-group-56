@@ -7,10 +7,7 @@ public class NpcRequest {
     private final Item requestedItem;
     private final int RequestedQuantity;
     private final Saleable rewardItem;
-
-    public int getRewardQuantity() {
-        return rewardQuantity;
-    }
+    private final int rewardAmount;
 
     public Saleable getRewardItem() {
         return rewardItem;
@@ -24,20 +21,27 @@ public class NpcRequest {
         return requestedItem;
     }
 
-    private final int rewardQuantity;
 
-    public NpcRequest(Item item, int quantity, Saleable rewardItem, int rewardQuantity) {
+    public NpcRequest(Item item, int quantity, Saleable rewardItem, int rewardAmount) {
         this.requestedItem = item;
         this.RequestedQuantity = quantity;
         this.rewardItem = rewardItem;
-        this.rewardQuantity = rewardQuantity;
+        this.rewardAmount = rewardAmount;
     }
 
     @Override
     public String toString() {
-        return  "\trequested Item: " + this.getRequestedItem().getName() + "*" +
-                this.getRequestedQuantity() + "\n" + "\treward Item:" +
-                this.getRewardItem().getName() + "*" +
-                this.getRewardQuantity();
+        return "\trequested Item: " + this.getRequestedItem().getName() + "*" +
+            this.getRequestedQuantity() + "\n" + "\treward Item:" +
+            this.getRewardItem().getName() + "*" +
+            this.getRewardAmount();
+    }
+
+    public int getRewardAmount() {
+        return rewardAmount;
+    }
+
+    public int getRewardQuantity() {
+        return rewardAmount;
     }
 }

@@ -6,20 +6,21 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
-import io.src.model.App;
+import io.src.model.*;
 import io.src.model.Enums.InfoRegexes;
 import io.src.model.Enums.SecurityQuestion;
-import io.src.model.MakePasswordSHA_256;
-import io.src.model.Result;
-import io.src.model.User;
+import io.src.model.Enums.SfxEnum;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.view.LoginMenu;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,11 +44,11 @@ public class LoginMenuController extends CommandController {
 
     public void init() {
         menu = new LoginMenu();
+        App.init();
     }
 
     public void run() {
         game.setScreen(menu);
-        App.init();
         initialize();
     }
 
@@ -61,6 +62,7 @@ public class LoginMenuController extends CommandController {
             menu.getLoginButton().addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                     Result result = manageLoginUser(
                         menu.getUsernameField().getText(),
                         menu.getPasswordField().getText(),
@@ -74,6 +76,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getRegisterButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                     menu.getLoginTable().setVisible(false);
                     menu.getRegisterTable().setVisible(true);
                 }
@@ -81,12 +84,14 @@ public class LoginMenuController extends CommandController {
 
             menu.getExitButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     Gdx.app.exit();
                 }
             });
 
             menu.getmaleCheckBox().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     menu.getmaleCheckBox().setChecked(true);
                     menu.getfemaleCheckBox().setChecked(false);
                 }
@@ -94,6 +99,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getfemaleCheckBox().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     menu.getmaleCheckBox().setChecked(false);
                     menu.getfemaleCheckBox().setChecked(true);
                 }
@@ -105,6 +111,7 @@ public class LoginMenuController extends CommandController {
         {
             menu.getForgetPassButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                     Result result = manageForgotPassword(menu.getUsernameField().getText());
                     if (!result.isSuccess()) {
                         menu.showWarningLabel(result.getMessage());
@@ -119,12 +126,14 @@ public class LoginMenuController extends CommandController {
 
             menu.getBackButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     backFromForgetPass();
                 }
             });
 
             menu.getOkButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     if (!menu.getPassField().isVisible()) {
                         if (Inner_username.isEmpty())
                             return;
@@ -151,6 +160,7 @@ public class LoginMenuController extends CommandController {
         {
             menu.getRegisterButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                     Result result = manageRegisterUser(
                         menu.getUsernameField2().getText(),
                         menu.getPasswordField2().getText(),
@@ -170,12 +180,14 @@ public class LoginMenuController extends CommandController {
 
             menu.getExitButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     Gdx.app.exit();
                 }
             });
 
             menu.getLoginButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                     menu.getRegisterTable().setVisible(false);
                     menu.getLoginTable().setVisible(true);
                 }
@@ -197,6 +209,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getCancelButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
                     menu.getSecurityTable().setVisible(false);
                     menu.getRegisterTable().setVisible(true);
                     menu.getSecurityField().setText("");
@@ -208,6 +221,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getSignUpButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
                     int questionID = 0;
                     for (int i = 0; i < menu.getSecurityQuestions().size(); i++) {
                         if (menu.getSecurityQuestions().get(i).isChecked())
@@ -287,6 +301,7 @@ public class LoginMenuController extends CommandController {
             return new Result(false, "answer is empty!");
         User user = builder.salt(MakePasswordSHA_256.generateSalt()).securityQuestion(questionId).answer(answer).build();
         App.addUser(user);
+        App.setCurrentUser(user);
         return new Result(true, "welcome baby!");
     }
 
@@ -316,8 +331,9 @@ public class LoginMenuController extends CommandController {
         if (!user.getPassword().equals(hashedInputPassword)) return new Result(false, "incorrect password");
 
         if (stayLoggedIn) {
-            Gson gson = new Gson();
-            try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();            try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
                 gson.toJson(user, writer);
             } catch (IOException e) {
                 e.printStackTrace();

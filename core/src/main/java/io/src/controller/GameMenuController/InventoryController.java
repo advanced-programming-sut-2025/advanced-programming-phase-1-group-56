@@ -3,6 +3,7 @@ package io.src.controller.GameMenuController;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.*;
 import io.src.model.Enums.Items.TrashcanType;
@@ -74,10 +75,10 @@ public class InventoryController extends CommandController {
         Slot temp = slots.get(fromIndex);
         slots.set(fromIndex, slots.get(toIndex));
         slots.set(toIndex, temp);
-        GameView.getInventoryBar().refreshInventory();
-        GameView.getInvWindow().refreshInventory();
-        GameView.foodWindow().refreshInventory();
-        GameView.getCraftingWindow().refreshInventory();
+        StardewValley.getGameView().getInventoryBar().refreshInventory();
+        StardewValley.getGameView().getInvWindow().refreshInventory();
+        StardewValley.getGameView().foodWindow().refreshInventory();
+        StardewValley.getGameView().getCraftingWindow().refreshInventory();
 
     }
 
@@ -156,10 +157,10 @@ public class InventoryController extends CommandController {
             fromSlot.setItem(tempItem);
             fromSlot.setQuantity(tempQty);
         }
-        GameView.getInventoryBar().refreshInventory();
-        GameView.getInvWindow().refreshInventory();
-        GameView.foodWindow().refreshInventory();
-        GameView.getCraftingWindow().refreshInventory();
+        StardewValley.getGameView().getInventoryBar().refreshInventory();
+        StardewValley.getGameView().getInvWindow().refreshInventory();
+        StardewValley.getGameView().foodWindow().refreshInventory();
+        StardewValley.getGameView().getCraftingWindow().refreshInventory();
     }
 
 

@@ -70,7 +70,7 @@ public class TradeController extends CommandController {
                     return new Result(false, "there is no such target item");
                 }
                 int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-                        .getInventory().countItem(itemToGive);
+                    .getInventory().countItem(itemToGive);
                 if (amountThatPlayerHas < amountToGive) {
                     return new Result(false, "You do not have much item in you inventory");
                 }
@@ -78,9 +78,9 @@ public class TradeController extends CommandController {
                 Slot slotToGive = new Slot(itemToGive, amountToGive);
                 Slot slotToGet = new Slot(itemToGet, amountToGet);
                 trade = new Trade(
-                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                        counterParty.getPlayerID(),
-                        slotToGive, slotToGet
+                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                    counterParty.getPlayerID(),
+                    slotToGive, slotToGet
                 );
             } else if (targetItem == null && price != null) {
                 int amountToGive;
@@ -101,16 +101,16 @@ public class TradeController extends CommandController {
                     return new Result(false, "there is no such item to offer");
                 }
                 int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-                        .getInventory().countItem(itemToGive);
+                    .getInventory().countItem(itemToGive);
                 if (amountThatPlayerHas < amountToGive) {
                     return new Result(false, "You do not have much item in you inventory");
                 }
                 Slot slotToGive = new Slot(itemToGive, amountToGive);
 
                 trade = new Trade(
-                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                        counterParty.getPlayerID(),
-                        slotToGive, moneyToGet
+                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                    counterParty.getPlayerID(),
+                    slotToGive, moneyToGet
                 );
             } else if (targetItem == null) {
                 return new Result(false, "you cannot leave both (targetItem) and price (price) blank");
@@ -120,7 +120,7 @@ public class TradeController extends CommandController {
         } else if (type.equalsIgnoreCase("request")) {
             if (price != null || targetItem != null) {
                 return new Result(false, "invalid request format....to request money" +
-                        " type money after the flag '-i'");
+                    " type money after the flag '-i'");
             }
             if (item.equalsIgnoreCase("money")) {
                 // MONEY_REQUEST
@@ -132,9 +132,9 @@ public class TradeController extends CommandController {
                 }
 
                 trade = new Trade(
-                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                        counterParty.getPlayerID(),
-                        moneyToGet
+                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                    counterParty.getPlayerID(),
+                    moneyToGet
                 );
             } else {
                 //PRODUCT_REQUEST
@@ -150,9 +150,9 @@ public class TradeController extends CommandController {
                 }
                 Slot slotToGet = new Slot(itemToGet, amountToGet);
                 trade = new Trade(
-                        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                        counterParty.getPlayerID(),
-                        slotToGet
+                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
+                    counterParty.getPlayerID(),
+                    slotToGet
                 );
             }
         } else {
@@ -235,7 +235,7 @@ public class TradeController extends CommandController {
                             counterParty.getInventory().add(tradeSlot.getItem(), tradeSlot.getQuantity());
                         } else {
                             return new Result(false, "your counterParty Inventory is full!\n" +
-                                    "you can reject request or either wait...");
+                                "you can reject request or either wait...");
                         }
                     } else {
                         return new Result(false, "you dont have such item to give!");
@@ -260,21 +260,21 @@ public class TradeController extends CommandController {
                                 me.getInventory().add(givingSlot.getItem(), givingSlot.getQuantity());
                                 counterParty.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                                 return new Result(false, "your inventory doesn't have enough space RN!" +
-                                        "you can reject the trade or respond later...");
+                                    "you can reject the trade or respond later...");
                             } else if (!counterParty.getInventory().canAddItem(
-                                    givingSlot.getItem(), givingSlot.getQuantity())) {
+                                givingSlot.getItem(), givingSlot.getQuantity())) {
                                 //Temp remove cancellation
                                 me.getInventory().add(givingSlot.getItem(), givingSlot.getQuantity());
                                 counterParty.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                                 return new Result(false, "your counterParty inventory is full RN!!" +
-                                        "you can reject the trade or respond later...");
+                                    "you can reject the trade or respond later...");
                             } else {
                                 counterParty.getInventory().add(givingSlot.getItem(), givingSlot.getQuantity());
                                 me.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                             }
                         } else {
                             return new Result(false, "your counterParty doesn't have such" +
-                                    " item in his inventory RN!\n you can reject trade or wait for your counterParty");
+                                " item in his inventory RN!\n you can reject trade or wait for your counterParty");
                         }
                     } else {
                         return new Result(false, "you dont have such item to give!");
@@ -298,13 +298,13 @@ public class TradeController extends CommandController {
                                 me.addGold(+moneyToPay);
                                 counterParty.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                                 return new Result(false, "your inventory doesn't have enough space RN!" +
-                                        "you can reject the trade or respond later...");
+                                    "you can reject the trade or respond later...");
                             } else {//trade is done
                                 me.getInventory().add(gettingSlot.getItem(), gettingSlot.getQuantity());
                             }
                         } else {
                             return new Result(false, "your counterParty doesn't have such" +
-                                    " item in his inventory RN!\n you can reject trade or wait for your counterParty");
+                                " item in his inventory RN!\n you can reject trade or wait for your counterParty");
                         }
                     } else {
                         return new Result(false, "you dont have such money to give!");
@@ -365,6 +365,7 @@ public class TradeController extends CommandController {
     }
 
     public static Result sellProducts(String item, String quantity) {
+
         int amount;
         ShippingBar shippingBar;
         if (quantity == null) {
@@ -385,8 +386,8 @@ public class TradeController extends CommandController {
         } else if (amount > me.getInventory().countItem(itemToSell)) {
             return new Result(false, "you dont have as much you want to sell");
         }
-        shippingBar = getShippingBarNearby(me);
 
+        shippingBar = App.getMe().getPlayerFarm().getShippingBar();
         me.getInventory().remove(itemToSell, amount);
         shippingBar.getInventory().add(itemToSell, amount);
         return new Result(true, "sold the product successfully...");
@@ -395,8 +396,8 @@ public class TradeController extends CommandController {
     private static ShippingBar getShippingBarNearby(Player me) {
         ShippingBar shippingBar = null;
         if (me.getCurrentGameLocation() instanceof Farm farm) {
-            for (int i = (int)me.getPosition().getX() - 1; i <= me.getPosition().getX() + 1; i++) {
-                for (int j = (int)me.getPosition().getY() - 1; j <= me.getPosition().getY() + 1; j++) {
+            for (int i = (int) me.getPosition().getX() - 1; i <= me.getPosition().getX() + 1; i++) {
+                for (int j = (int) me.getPosition().getY() - 1; j <= me.getPosition().getY() + 1; j++) {
                     if (farm.getTiles()[i][j].getFixedObject() instanceof ShippingBar ship) {
                         shippingBar = ship;
                     }

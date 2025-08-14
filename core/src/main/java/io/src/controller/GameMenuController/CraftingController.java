@@ -224,7 +224,9 @@ public class CraftingController extends CommandController {
                     }
                 }
             }
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
+            if ((((Etc) item).getEtcType().etcObjectType) != null) {
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
+            }
         } else {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new DroppedItem(item, new Position(x, y)));
         }
@@ -234,7 +236,7 @@ public class CraftingController extends CommandController {
         return new Result(true, "you placed a item!");
     }
 
-    public static Result placeItem(String itemName,Direction dir) {
+    public static Result placeItem(String itemName, Direction dir) {
         Item item = returnInventoryItemByName(itemName);
         if (item == null) {
             return new Result(false, "this item does not exist!");
@@ -275,7 +277,7 @@ public class CraftingController extends CommandController {
                 break;
         }
 
-        if(!App.getMe().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()){
+        if (!App.getMe().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) {
             return new Result(false, "you can't place item here!");
         }
         if (item instanceof Artesian) {
@@ -304,9 +306,11 @@ public class CraftingController extends CommandController {
                     }
                 }
             }
-            EtcObject etcObject = new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType);
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(etcObject);
-            App.getMe().getCurrentGameLocation().getGameObjects().add(etcObject);
+            if (((Etc) item).getEtcType().etcObjectType != null) {
+                EtcObject etcObject = new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType);
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(etcObject);
+                App.getMe().getCurrentGameLocation().getGameObjects().add(etcObject);
+            }
         }
 
 
@@ -414,7 +418,7 @@ public class CraftingController extends CommandController {
             }
             return wrapped.toString();
         };
-        if(craftTool.description!=null){
+        if (craftTool.description != null) {
             tmpString.append("Description : ")
                 .append(wrapLine.apply(craftTool.description))
                 .append("\n");
@@ -490,7 +494,7 @@ public class CraftingController extends CommandController {
             .getInventory()
             .getSlots()) {
             Item item = slot.getItem();
-            if (item!=null && item.getName().equals(itemName)) {
+            if (item != null && item.getName().equals(itemName)) {
                 return item;
             }
         }

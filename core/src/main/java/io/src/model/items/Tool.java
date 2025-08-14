@@ -1,6 +1,5 @@
 package io.src.model.items;
 
-import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.GameObjects.TreeType;
@@ -13,7 +12,6 @@ import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.skills.Skill;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Tool extends Item {
@@ -23,6 +21,18 @@ public class Tool extends Item {
     public Tool(ToolType toolType) {
         super(toolType.getName(), 100, true, -1);
         this.toolType = toolType;
+        this.capacity = 0;
+    }
+
+    public Tool(TrashcanType trashcanType) {
+        super(trashcanType.getName(), 100, true, -1);
+        switch (trashcanType) {
+            case copperTrashcan -> toolType = ToolType.Copper_Trashcan;
+            case ironTrashcan -> toolType = ToolType.Iron_Trashcan;
+            case goldTrashcan -> toolType = ToolType.Gold_Trashcan;
+            case iridiumTrashcan -> toolType = ToolType.Iridium_Trashcan;
+            default -> toolType = ToolType.InitialTrashcan;
+        }
         this.capacity = 0;
     }
 
@@ -37,8 +47,8 @@ public class Tool extends Item {
         switch (name) {
             case "Axe": {
                 Skill playerSkill = player.getSkillByName(Skills.Foraging.toString());
-                if (tile.getFixedObject() != null && tile.getFixedObject() instanceof Tree tree) {
-                    TreeType t = tree.getTreeType();
+                if (tile.getFixedObject() != null && tile.getFixedObject().getClass() == Tree.class) {
+                    TreeType t = ((Tree) tile.getFixedObject()).getTreeType();
                     switch (t) {
                         case TreeType.BURNT_TREE ->
                             player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
@@ -48,9 +58,12 @@ public class Tool extends Item {
 //                        default -> player.getInventory().add(new Fruit((FruitType) t.fruit), 1);
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
-                        if (Math.random() > 0.5) {
-                            App.getMe().getInventory().add(new Seed((t.source)), 1);
-                        }
+
+                            System.out.println(t.toString());
+                            App.getMe().getInventory().add(new Seed(t.getSource()), 1);
+                            if (Math.random() > 0.5) {
+                                App.getMe().getInventory().add(new Seed(t.getSource()), 1);
+                            }
                     }
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
@@ -58,7 +71,7 @@ public class Tool extends Item {
                         System.out.println("Player skill is null in tool use");
                         return;
                     }
-                    playerSkill.setXp(playerSkill.getXp() + 100);
+                    playerSkill.setXp(playerSkill.getXp() + 5);
                     if (playerSkill.getLevel() == 3) {
                         player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
                         System.out.println(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool() + 1);
@@ -91,7 +104,7 @@ public class Tool extends Item {
             case "Pickaxe": {
                 Skill playerSkill = player.getSkillByName(Skills.Mining.toString());
                 if (tile.getFixedObject() instanceof ForagingMineral) {///minerals
-                    player.getInventory().add(new Mineral(((ForagingMineral) tile.getFixedObject()).getForagingMineralType()), 1);
+                    player.getInventory().add(new Mineral(((ForagingMineral) tile.getFixedObject()).getForagingMineralType().getRelatedItem()), 1);
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
                     if (playerSkill != null) {
@@ -193,10 +206,10 @@ public class Tool extends Item {
             case "Milk Pail": {
                 if (tile.getFixedObject() instanceof Animal) {
                     Animal animal = (Animal) tile.getFixedObject();
-                    if (animal.getAnimalInfo() == AnimalType.COW || animal.getAnimalInfo() == AnimalType.SHEEP) {
+                    if (animal.getType() == AnimalType.COW || animal.getType() == AnimalType.SHEEP) {
                         player.getInventory().add(new Etc(EtcType.MILK), 1);
                         animal.deleteProduct(EtcType.MILK);
-                    } else if (animal.getAnimalInfo() == AnimalType.GOAT) {
+                    } else if (animal.getType() == AnimalType.GOAT) {
                         player.getInventory().add(new Etc(EtcType.GOAT_MILK), 1);
                         animal.deleteProduct(EtcType.GOAT_MILK);
                         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);
@@ -208,7 +221,7 @@ public class Tool extends Item {
             case "Shear": {
                 if (tile.getFixedObject() instanceof Animal) {
                     Animal animal = (Animal) tile.getFixedObject();
-                    if (animal.getAnimalInfo() == AnimalType.SHEEP) {
+                    if (animal.getType() == AnimalType.SHEEP) {
                         player.getInventory().add(new Etc(EtcType.WOOL), 1);
                         animal.deleteProduct(EtcType.WOOL);
                         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);

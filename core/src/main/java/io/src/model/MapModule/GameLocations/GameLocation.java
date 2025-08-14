@@ -14,6 +14,15 @@ import java.util.Arrays;
 public class GameLocation extends Network {
     protected Tile[][] tiles;
 
+
+    public int getWidth() {
+        return tiles[0].length;
+    }
+
+    public int getHeight() {
+        return tiles.length;
+    }
+
     public GameLocationType getType() {
         return type;
     }

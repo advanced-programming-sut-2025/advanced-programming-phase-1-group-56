@@ -2,6 +2,7 @@ package io.src.controller.GameMenuController.ShopMenuControllers;
 
 import io.src.model.App;
 import io.src.model.Enums.BackPackType;
+import io.src.model.Enums.Items.QualityPole;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
@@ -12,6 +13,7 @@ import io.src.model.MapModule.Position;
 import io.src.model.Player;
 import io.src.model.Result;
 import io.src.model.items.Item;
+import io.src.model.items.Tool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,18 +34,14 @@ public interface ShopController {
         return null;
     }
 
-    static Result purchaseProductFromList(Matcher matcher, ArrayList<NpcProduct> list) {
-        String productName = matcher.group(1).trim();
-        String amountStr = matcher.group(2).trim();
+    static Result purchaseProductFromList(String productName, String amountStr, ArrayList<NpcProduct> list) {
+        productName = productName.trim();
+        amountStr = amountStr.trim();
         int amount;
-        if (amountStr == null) {
-            amount = 1;
-        } else {
-            try {
-                amount = Integer.parseInt(amountStr.trim());
-            } catch (NumberFormatException e) {
-                return new Result(false, e.getMessage());
-            }
+        try {
+            amount = Integer.parseInt(amountStr.trim());
+        } catch (NumberFormatException e) {
+            return new Result(false, e.getMessage());
         }
         NpcProduct productToBuy = ShopController.findProductByName(list, productName);
         Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
@@ -57,8 +55,8 @@ public interface ShopController {
 
         int sumPrice;
         if (productToBuy.getOutOfSeasonPrice() == -1 ||
-                Arrays.stream(productToBuy.getSeasons()).toList().contains(
-                        App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
+            Arrays.stream(productToBuy.getSeasons()).toList().contains(
+                App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
             sumPrice = amount * productToBuy.getPrice();
         } else {
             sumPrice = amount * productToBuy.getOutOfSeasonPrice();
@@ -68,20 +66,36 @@ public interface ShopController {
             return new Result(false, productName + " is ran out of stock,comeback tomorrow...");
         } else if (productToBuy.getRemainingStock() < amount) {
             return new Result(false, " only " + productToBuy.getRemainingStock() + "of " + productName
-                    + " has remained..there is not enough amount you want..");
+                + " has remained..there is not enough amount you want..");
         } else if (sumPrice > me.getGold()) {
             return new Result(false, "you can't afford buy this\n" +
-                    "you have :" + me.getGold() + " gold,but you need: " + sumPrice);
+                "you have :" + me.getGold() + " gold,but you need: " + sumPrice);
         }
 
         if (productToBuy.getSaleable() instanceof Item item) {
             //item
-            me.addGold(-sumPrice);
-            productToBuy.changeRemainingStock(-amount);
-            me.getInventory().add(item, amount);
-            return new Result(true, "purchase item successful..");
+            if (me.getInventory().canAddItem(item, amount)) {
+                me.addGold(-sumPrice);
+                productToBuy.changeRemainingStock(-amount);
+                me.getInventory().add(item, amount);
+                return new Result(true, "purchase item successful..");
+            } else {
+                return new Result(false, "your inventory doesn't have enough space");
+            }
+
+        } else if (productToBuy.getSaleable() instanceof QualityPole qualityPole) {
+            Tool rod = new Tool(qualityPole.getToolType());
+            if (me.getInventory().canAddItem(rod, amount)) {
+                me.getInventory().remove(me.getInventory().findItemByName(rod.getName()), amount);
+                me.addGold(-sumPrice);
+                productToBuy.changeRemainingStock(-amount);
+                me.getInventory().add(rod, amount);
+                return new Result(true, "purchase item successful..");
+            } else {
+                return new Result(false, "your inventory doesn't have enough space");
+            }
         } else if (productToBuy.getSaleable() instanceof CraftingRecipesList recipe ||
-                productToBuy.getSaleable() instanceof FoodRecipesList food) {
+            productToBuy.getSaleable() instanceof FoodRecipesList food) {
             //recipe
             if (amount > 1) {
                 return new Result(false, "you dont need to buy more than one crafting recipe.");
@@ -101,13 +115,13 @@ public interface ShopController {
                 return new Result(false, "you can't buy more than one back pack");
             } else if (me.getCurrentBackpack().getNext() != backPackType) {
                 return new Result(false, "you can't buy worse back pack or jump from initial backpack" +
-                        "to deluxe backpack");
+                    "to deluxe backpack");
             }
             me.addGold(-sumPrice);
             productToBuy.changeRemainingStock(-amount);
             me.setCurrentBackpack(backPackType);
             return new Result(true, "upgrade your backpack to :" + backPackType.getName() +
-                    " successfully..");
+                " successfully..");
         } else {
             return new Result(false, "you can only buy items with this command");
         }
@@ -117,10 +131,10 @@ public interface ShopController {
         StringBuilder builder = new StringBuilder();
         for (NpcProduct product : list) {
             builder.append("Name :\t'").append(product.getName())
-                    .append((product.getSaleable() instanceof Item) ? "' (item)" : "' upgrade")
-                    .append("\n\tDescription : '").append(product.getDescription())
-                    .append("'\n\tPrice: ").append(product.getPrice())
-                    .append("\n----------------------\n");
+                .append((product.getSaleable() instanceof Item) ? "' (item)" : "' upgrade")
+                .append("\n\tDescription : '").append(product.getDescription())
+                .append("'\n\tPrice: ").append(product.getPrice())
+                .append("\n----------------------\n");
         }
         return new Result(true, builder.toString());
     }
@@ -138,10 +152,10 @@ public interface ShopController {
                 String remainM = (product.getDailyStock() > 100) ? "unlimited" : Integer.toString(product.getDailyStock());
                 String remain = (product.getDailyStock() > 100) ? "unlimited" : Integer.toString(product.getRemainingStock());
                 builder.append("name :\t'").append(product.getName())
-                        .append("'\n\tprice: ").append(product.getPrice())
-                        .append("\n\tstock: ").append(remain)
-                        .append("out of ").append(remainM).append("remained.")
-                        .append("\n----------------------\n");
+                    .append("'\n\tprice: ").append(product.getPrice())
+                    .append("\n\tstock: ").append(remain)
+                    .append("out of ").append(remainM).append("remained.")
+                    .append("\n----------------------\n");
 
 
             }
@@ -157,7 +171,7 @@ public interface ShopController {
         me.setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
         me.setPosition(posToSet);
         return new Result(true, "exiting " + shop.getName() + "shop...\n" +
-                "redirecting to the town...");
+            "redirecting to the town...");
     }
 
 }

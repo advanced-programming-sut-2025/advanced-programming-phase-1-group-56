@@ -100,6 +100,9 @@ public class GameController extends CommandController {
             skipTurn();
         }
 
+        StardewValley.getGameView().getInvWindow().refreshInventory();
+        StardewValley.getGameView().getInventoryBar().refreshInventory();
+
         return new Result(true,currentPlayer.getUser().getName() +" turn ended.. its now turn of :" +
                 game.getCurrentPlayer().getUser().getName());
     }

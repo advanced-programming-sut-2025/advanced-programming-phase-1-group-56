@@ -1,11 +1,6 @@
 package io.src.model.Enums;
 
-import io.src.Main;
-import io.src.StardewValley;
-import io.src.controller.GameMenuController.GameController;
-import io.src.controller.MenuController.ProfileMenuController;
-import io.src.model.Game;
-import io.src.model.MapModule.Buildings.GreenHouse;
+import io.src.model.Result;
 import io.src.view.*;
 import io.src.view.GameMenus.GameMenu;
 import io.src.view.GameMenus.HouseMenu;
@@ -17,8 +12,7 @@ import java.util.Scanner;
 public enum Menu {
     loginMenu(new LoginMenu()),
     mainMenu(new MainMenu()),
-    profileMenu(new ProfileMenu(new ProfileMenuController())),
-    avatarMenu(new AvatarMenu()),
+    profileMenu(new ProfileMenu()),
     gameMenu(new GameMenu()),
     HouseMenu(new HouseMenu()),
     exitMenu(new ExitMenu()),
@@ -33,10 +27,16 @@ public enum Menu {
 
 
     private final AppMenu menu;
+
     Menu(AppMenu appMenu) {
         this.menu = appMenu;
     }
-    public void checkCommand(Scanner scanner) {
-        this.menu.check(scanner);
+
+    public Result checkCommand(Scanner scanner, String cmd) {
+        return this.menu.check(scanner, cmd);
+    }
+
+    public AppMenu getMenu() {
+        return menu;
     }
 }

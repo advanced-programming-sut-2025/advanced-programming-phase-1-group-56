@@ -2,6 +2,7 @@ package io.src.model.items;
 
 
 import com.badlogic.gdx.math.Interpolation;
+import io.src.StardewValley;
 import io.src.model.Enums.BackPackType;
 import io.src.model.Slot;
 import io.src.view.GameMenus.GameView;
@@ -114,19 +115,29 @@ public class Inventory {
     }
 
     private void refreshAllUI() {
-        if (GameView.getInventoryBar() != null) GameView.getInventoryBar().refreshInventory();
-        if (GameView.getInvWindow() != null) GameView.getInvWindow().refreshInventory();
-        if (GameView.foodWindow() != null) GameView.foodWindow().refreshInventory();
-        if (GameView.getCraftingWindow() != null) GameView.getCraftingWindow().refreshInventory();
+        if (StardewValley.getGameView().getInventoryBar() != null)
+            StardewValley.getGameView().getInventoryBar().refreshInventory();
+        if (StardewValley.getGameView().getInvWindow() != null)
+            StardewValley.getGameView().getInvWindow().refreshInventory();
+        if (StardewValley.getGameView().foodWindow() != null)
+            StardewValley.getGameView().foodWindow().refreshInventory();
+        if (StardewValley.getGameView().getCraftingWindow() != null)
+            StardewValley.getGameView().getCraftingWindow().refreshInventory();
     }
 
 
-
-
     public int countItem(Item item) {
+        if (item == null) return 0;
         int sum = 0;
         for (Slot slot : slots) {
-            if (slot.getItem()!=null&&slot.getItem().getName().equalsIgnoreCase(item.getName())) {
+            if (slot == null || slot.getItem() == null) continue;
+            if (slot.getItem() instanceof Tool tool1 && item instanceof Tool tool2) {
+                if (tool1.getName().equalsIgnoreCase(tool2.getName())
+                    && tool1.getToolType().getToolMaterial().getName().equalsIgnoreCase(tool2.getToolType().getToolMaterial().getName())
+                ) {
+                    sum += slot.getQuantity();
+                }
+            } else if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 sum += slot.getQuantity();
             }
         }
@@ -151,6 +162,10 @@ public class Inventory {
         int max = 0;
         max += (capacity - slots.size()) * item.getMaxStackSize();//for empty slots
         for (Slot slot : slots) {// for semi full slots of same item
+            if (slot == null || slot.getItem() == null) {
+                max += item.maxStackSize;
+                continue;
+            }
             if (slot.getItem().getName().equalsIgnoreCase(item.getName())) {
                 max += item.maxStackSize - slot.getQuantity();
             }
@@ -164,6 +179,7 @@ public class Inventory {
 
     public Item findItemByName(String itemName) {
         for (Slot slot : slots) {
+            if (slot.getItem() == null) continue;
             if (slot.getItem().getName().equalsIgnoreCase(itemName)) {
                 return slot.getItem();
             }

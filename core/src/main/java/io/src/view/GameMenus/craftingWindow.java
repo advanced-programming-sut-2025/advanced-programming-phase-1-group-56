@@ -2,6 +2,7 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.ArtisanController;
 import io.src.controller.GameMenuController.CraftingController;
 import io.src.controller.GameMenuController.InventoryController;
@@ -134,6 +136,7 @@ public class craftingWindow extends Group implements InputProcessor {
 
         return recipesTable;
     }
+
     private void updateInfoPanel(CraftingRecipesList recipe) {
         infoPanel.clear();
         Label nameLabel = new Label(recipe.name(), GameAssetManager.getGameAssetManager().getSkin());
@@ -200,7 +203,7 @@ public class craftingWindow extends Group implements InputProcessor {
             Slot slot = null;
             Item item = null;
             int quantity = 0;
-            if(i<capacity){
+            if (i < capacity) {
                 slot = slots.get(i);
                 item = slot.getItem();
                 quantity = slot.getQuantity();
@@ -277,43 +280,39 @@ public class craftingWindow extends Group implements InputProcessor {
 
                 } else if (payload.getObject() instanceof CraftingRecipesList) {
                     CraftingRecipesList recipe = (CraftingRecipesList) payload.getObject();
-                    Item crafted ;
-                    if(ArtisanController.getArtisanMachineItemType(recipe.name) != null){
-                        System.out.println("yesssss");
-                        crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
-                    } else if(recipe.name == EtcType.SCARE_CROW.name){
-                        crafted = new Etc(EtcType.SCARE_CROW);
-                    } else if(recipe.name == EtcType.IRIDIUM_SPRINKLER.name){
-                        crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
-                    } else if(recipe.name == EtcType.QUALITY_SPRINKLER.name){
-                        crafted = new Etc(EtcType.QUALITY_SPRINKLER);
-                    } else if (recipe.name == EtcType.SPRINKLER.name){
-                        crafted = new Etc(EtcType.SPRINKLER);
-                    } else if(recipe.name == EtcType.DELUXE_SCARE_CROW.name){
-                        crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
+                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
+                        showErrorLabel("it's not open for you!");
+                    } else if (CraftingController.havaIngredient(recipe)) {
+                        Item crafted;
+                        if (ArtisanController.getArtisanMachineItemType(recipe.name) != null) {
+                            System.out.println("yesssss");
+                            crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
+                        } else if (recipe.name == EtcType.SCARE_CROW.name) {
+                            crafted = new Etc(EtcType.SCARE_CROW);
+                        } else if (recipe.name == EtcType.IRIDIUM_SPRINKLER.name) {
+                            crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
+                        } else if (recipe.name == EtcType.QUALITY_SPRINKLER.name) {
+                            crafted = new Etc(EtcType.QUALITY_SPRINKLER);
+                        } else if (recipe.name == EtcType.SPRINKLER.name) {
+                            crafted = new Etc(EtcType.SPRINKLER);
+                        } else if (recipe.name == EtcType.DELUXE_SCARE_CROW.name) {
+                            crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
+                        } else {
+                            crafted = new CraftingTool(recipe);
+                        }
+                        if (inventory.add(crafted, 1)) {
+                            App.getCurrentUser().
+                                getCurrentGame()
+                                .getCurrentPlayer()
+                                .subtractEnergy(3);
+                            showErrorLabel("Crafted: " + crafted.getAssetName());
+                            refreshInventory();
+                        } else {
+                            showErrorLabel("Inventory is full!");
+                        }
                     } else {
-                        crafted = new CraftingTool(recipe);
+                        showErrorLabel("Not enough ingredients!");
                     }
-                    inventory.add(crafted, 1);
-                    refreshInventory();
-
-//                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
-//                        showErrorLabel("it's not open for you!");
-//                    } else if (CraftingController.havaIngredient(recipe)) {
-//
-//                        if (inventory.add(crafted, 1)) {
-//                            App.getCurrentUser().
-//                                getCurrentGame()
-//                                .getCurrentPlayer()
-//                                .subtractEnergy(3);
-//                            showErrorLabel("Crafted: " + crafted.getAssetName());
-//                            refreshInventory();
-//                        } else {
-//                            showErrorLabel("Inventory is full!");
-//                        }
-//                    } else {
-//                        showErrorLabel("Not enough ingredients!");
-//                    }
                 }
 
             }
@@ -371,11 +370,13 @@ public class craftingWindow extends Group implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.B) {
-            if(GameView.getCraftingWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+        if (keycode == Input.Keys.B) {
+            if (StardewValley.getGameView().getCraftingWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+
             }
-            GameView.getCraftingWindow().setVisible(!GameView.getCraftingWindow().isVisible());
+
+            StardewValley.getGameView().getCraftingWindow().setVisible(!StardewValley.getGameView().getCraftingWindow().isVisible());
         }
         return false;
     }

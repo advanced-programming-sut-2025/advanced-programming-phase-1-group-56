@@ -20,7 +20,7 @@ public class NpcFriendship implements TimeObserver {
         this.player = player;
         this.npc = npc;
         xp = 0;
-        lastDoneRequest = 0;
+        lastDoneRequest = -1;
         hasMetToday = false;
         hasGiftedToday = false;
         daysToSecondQ = npc.getType().getDaysForSecond();
@@ -49,20 +49,20 @@ public class NpcFriendship implements TimeObserver {
     }
 
     public int getLastActiveRequest() {
-        if (lastDoneRequest == 0) {
+        if (lastDoneRequest == -1) {
             return 0;
         }
-        if (lastDoneRequest == 1) {
+        if (lastDoneRequest == 0) {
             if (daysToSecondQ <= 0) {
                 return 1;
             }
-            return -1;//second request is locked because of days
-        } else if (lastDoneRequest == 2) {
+            return 0;//second request is locked because of days
+        } else if (lastDoneRequest == 1) {
             if (getLevel() >= 1) {
                 return 2;
             }
-            return -1;//third request is locked because of friendShip
-        } else return -1;//all request are done
+            return 0;//third request is locked because of friendShip
+        } else return 0;//all request are done
     }
 
     public boolean isHasMetToday() {

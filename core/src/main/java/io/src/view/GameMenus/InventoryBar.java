@@ -110,7 +110,7 @@ public class InventoryBar extends Group {
     }
 
     public boolean scrolled(float amountX, float amountY) {
-        System.out.println("amountX: " + amountX + " amountY: " + amountY);
+//        System.out.println("amountX: " + amountX + " amountY: " + amountY);
         if (amountY > 0) {
             selectedIndex = (selectedIndex + 1) % VISIBLE_SLOTS;
         } else if (amountY < 0) {

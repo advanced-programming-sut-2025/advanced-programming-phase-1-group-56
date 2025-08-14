@@ -7,15 +7,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.InventoryController;
+import io.src.controller.GameMenuController.TradeController;
 import io.src.model.App;
 import io.src.model.GameAssetManager;
+import io.src.model.SkinManager;
 import io.src.model.Slot;
 import io.src.model.items.Food;
 import io.src.model.items.Inventory;
@@ -26,11 +26,11 @@ import java.util.ArrayList;
 public class ShippingBarWindow extends Group implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.T) {
-            if(GameView.getShippingBarWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+        if (keycode == Input.Keys.T) {
+            if (StardewValley.getGameView().getShippingBarWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
             }
-            GameView.getShippingBarWindow().setVisible(!GameView.getShippingBarWindow().isVisible());
+            StardewValley.getGameView().getShippingBarWindow().setVisible(!StardewValley.getGameView().getShippingBarWindow().isVisible());
         }
         return false;
     }
@@ -80,6 +80,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
     private Label errorLabel;
     private DragAndDrop dragAndDrop = new DragAndDrop();
     private Table playerTable;
+
     ShippingBarWindow() {
         group = new Group();
         errorLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
@@ -88,23 +89,41 @@ public class ShippingBarWindow extends Group implements InputProcessor {
 
         setSize(940, 640);
         setPosition((Gdx.graphics.getWidth() - 940) / 2f, (Gdx.graphics.getHeight() - 640) / 2f);
-        background = new Image(GameAssetManager.getGameAssetManager().getShippingBar());
         Inventory playerInven = App.getMe().getInventory();
 
-        playerTable = createInventoryTable(playerInven,dragAndDrop);
-        playerTable.setPosition(410,100);
-        group.addActor(background);
+
+        playerTable = createInventoryTable(playerInven, dragAndDrop);
+        playerTable.setPosition(470, 100);
         group.addActor(playerTable);
         group.addActor(errorLabel);
         createTrash();
         addActor(group);
+
+        // Exit button
+        Button exitButton = new Button(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "closeButton");
+        exitButton.setPosition(getWidth() - 60, getHeight() - 500);
+        exitButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                setVisible(false);
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
+            }
+        });
+
+        addActor(exitButton);
     }
 
-    private void createTrash(){
-        Image trashCan = InventoryController.trashCanImage(App.getMe());
+    private void createTrash() {
+        Image trashCan = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shipping_Bin_Opened"))));
+        ;
         trashCan.setOrigin(Align.center);
         trashCan.setScale(1.2f);
-        trashCan.setPosition(750, 270);
+        trashCan.setPosition(950, 270);
         trashCan.setSize(50, 80);
         Image finalTrashCan = trashCan;
         trashCan.addListener(new InputListener() {
@@ -139,7 +158,10 @@ public class ShippingBarWindow extends Group implements InputProcessor {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 int fromIndex = (int) payload.getObject();
-                App.getMe().getInventory().remove(App.getMe().getInventory().getSlots().get(fromIndex).getItem(),1);
+                if (App.getMe().getInventory().getSlots().get(fromIndex) == null) return;
+                if (App.getMe().getInventory().getSlots().get(fromIndex).getItem() == null) return;
+                TradeController.sellProducts(App.getMe().getInventory().getSlots().get(fromIndex).getItem().getName(), String.valueOf(1));
+
                 refreshInventory();
             }
         });
@@ -169,7 +191,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
             Slot slot = null;
             Item item = null;
             int quantity = 0;
-            if(i<capacity){
+            if (i < capacity) {
                 slot = slots.get(i);
                 item = slot.getItem();
                 quantity = slot.getQuantity();
@@ -220,8 +242,8 @@ public class ShippingBarWindow extends Group implements InputProcessor {
                 System.out.println("drag started");
                 Slot slot = inventory.getSlots().get(index);
                 Item item = slot.getItem();
-                String assetName = item.getAssetName();
                 if (item == null) return null;
+                String assetName = item.getAssetName();
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(index);
                 Texture itemTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
@@ -256,11 +278,11 @@ public class ShippingBarWindow extends Group implements InputProcessor {
     }
 
 
-    public void refreshInventory(){
+    public void refreshInventory() {
         playerTable.clear();
         playerTable = createInventoryTable(App.getMe().getInventory(), dragAndDrop);
-        playerTable.setPosition(422, 120);
-        group.addActor( playerTable);
+        playerTable.setPosition(470, 120);
+        group.addActor(playerTable);
     }
 
 

@@ -1,5 +1,6 @@
 package io.src.model.GameObject;
 
+import io.src.model.Clickable;
 import io.src.model.MapModule.Position;
 import io.src.model.items.Item;
 

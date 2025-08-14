@@ -1,19 +1,18 @@
 package io.src.model;
 
+import io.src.StardewValley;
 import io.src.model.Activities.*;
-import io.src.model.Enums.BackPackType;
-import io.src.model.Enums.Direction;
-import io.src.model.Enums.FarmPosition;
+import io.src.model.Enums.*;
 
 import io.src.model.Enums.Items.TrashcanType;
 
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
-import io.src.model.Enums.Skills;
 import io.src.model.GameObject.Animal;
 import io.src.model.GameObject.NPC.NPC;
 
 import io.src.model.GameObject.NPC.NpcFriendship;
+import io.src.model.GameObject.PlayerObject;
 import io.src.model.MapModule.Buildings.Building;
 import io.src.model.MapModule.Buildings.Home;
 import io.src.model.MapModule.GameLocations.Farm;
@@ -27,6 +26,7 @@ import io.src.model.items.Inventory;
 import io.src.model.items.Item;
 import io.src.model.skills.*;
 import com.google.gson.annotations.Expose;
+import io.src.view.GameMenus.ShopMenus.ShopState;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +34,7 @@ import java.util.UUID;
 
 public class Player implements TimeObserver {
     //Identity
-//    private String name;
+    private String name;
     private final UUID userId;
     public static final int BODY_WIDTH = 16;
     public static final int BODY_HEIGHT = 32;
@@ -45,6 +45,7 @@ public class Player implements TimeObserver {
     private int movingDirection = 0;
     private Direction currentDirection = Direction.DOWN;
     private Direction lastDirection = Direction.DOWN;
+    private String characterAtlas = "sprites_player";
     //Activities
     private ArrayList<Skill> skills = new ArrayList<>();
     private final ArrayList<CraftingRecipesList> toolRecipes = new ArrayList<>();
@@ -70,11 +71,11 @@ public class Player implements TimeObserver {
     private boolean fainted = false;
     private Energy energy;
     private int gold;
-    private Position position;
+    private final Position position;
     private GameLocation currentGameLocation;
     private Buff currentBuff = null;
     private boolean interactWithPartnerToday;
-
+    private ShopState shopState = ShopState.NOT_SHOP;
     //connections
     private final ArrayList<UUID> myTrades = new ArrayList<>();
     private final ArrayList<UUID> receivedTrades = new ArrayList<>();
@@ -96,6 +97,7 @@ public class Player implements TimeObserver {
 
     @Expose(serialize = false, deserialize = false)
     private Player partner = null;
+    private final PlayerObject playerObject = new PlayerObject(this, new Position(0, 0));
 
 
     private float speed = 6.25f;
@@ -118,6 +120,9 @@ public class Player implements TimeObserver {
 
     public void update(float delta) {
         tryMove(vx * delta, vy * delta);
+        if (vx == 0 && vy == 0) {
+            return;
+        }
         subtractEnergy(delta / 3);
     }
 
@@ -164,13 +169,14 @@ public class Player implements TimeObserver {
 
         this.energy = new Energy(200);
         this.fainted = false;
-        this.gold = 0;
+        this.gold = 500;
         this.position = new Position(64, 41);
         //TODO set current GL with setter
         //status ok
         this.gender = this.user.getGender();
 //        App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
         interactWithPartnerToday = false;
+
     }
 
     //    public Direction getMovingDirection() {
@@ -369,6 +375,20 @@ public class Player implements TimeObserver {
 
     public void setCurrentGameLocation(GameLocation currentGameLocation) {
         this.currentGameLocation = currentGameLocation;
+        App.setCurrentMenu(switch (currentGameLocation.getType()) {
+            case Town -> Menu.gameMenu;
+            case Farm1 -> Menu.gameMenu;
+            case Farm2 -> Menu.gameMenu;
+            case Home_Indoor -> Menu.HouseMenu;
+            case GreenHouse_Indoor -> Menu.gameMenu;
+            case Blacksmith_Indoor -> Menu.BlackSmithMenu;
+            case CarpenterShop_Indoor -> Menu.CarpenterShopMenu;
+            case Fishshop_Indoor -> Menu.FishShopMenu;
+            case JojaMart_Indoor -> Menu.JojaMartMenu;
+            case StardropSallon_Indoor -> Menu.TheSaloonStarDropMenu;
+            case PierreGeneralStore_Indoor -> Menu.PierresGeneralStoreMenu;
+            default -> Menu.gameMenu;
+        });
     }
 
     public Position getPosition() {
@@ -461,6 +481,7 @@ public class Player implements TimeObserver {
             this.currentBuff.manageBuff(this);//enable new buff
         }
     }
+
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
@@ -571,5 +592,34 @@ public class Player implements TimeObserver {
     public void setShowEmote(int showEmote) {
         this.showEmote = showEmote;
         emoteTimer = 0f;
+    }
+
+    public String getCharacterAtlas() {
+        return characterAtlas;
+    }
+
+    public void setCharacterAtlas(String characterAtlas) {
+        this.characterAtlas = characterAtlas;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ShopState getShopState() {
+        return shopState;
+    }
+
+    public void setShopState(ShopState shopState) {
+        this.shopState = shopState;
+    }
+
+    public PlayerObject getPlayerObjectPlusPosition(Position position) {
+        playerObject.setPosition(position);
+        return playerObject;
     }
 }

@@ -1,16 +1,17 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Input;
 import io.src.model.App;
+import io.src.model.Clickable;
 import io.src.model.Enums.GameObjects.CropType;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
 import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 
-public class Crop extends GameObject implements TimeObserver {
+public class Crop extends GameObject implements TimeObserver, Clickable {
     private final CropType cropType;
     private int currentStage;
-    //    private final HashMap<Item,Integer> itemsGiven;
     private boolean isWateredToday;
     private boolean isFertilizerToday;
     private boolean speedGro;
@@ -195,5 +196,10 @@ public class Crop extends GameObject implements TimeObserver {
     @Override
     public String getAssetName() {
         return cropType.getStageN_AssetName(currentStage);
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
     }
 }

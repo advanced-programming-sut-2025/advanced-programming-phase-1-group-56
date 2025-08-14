@@ -2,7 +2,6 @@ package io.src.model;
 
 import com.google.gson.annotations.Expose;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class User {
@@ -22,6 +21,8 @@ public class User {
     private int highScore;
     //private final ArrayList<String> allGamesId = new ArrayList<>();
     private int gold = 0;
+    private int avatarIndex = 0;
+    private int avatarStyleIndex = 1;
 
     public User(String username, String name, String password, String salt, String email, int securityQuestion,
                 String answer, Boolean gender) {
@@ -143,7 +144,7 @@ public class User {
         this.gameId = gameId;
     }
 
-//    public ArrayList<String> getAllGamesId() {
+    //    public ArrayList<String> getAllGamesId() {
 //        return allGamesId;
 //    }
     public int getGold() {
@@ -152,5 +153,21 @@ public class User {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public int getAvatarIndex() {
+        return avatarIndex;
+    }
+
+    public void setAvatarIndex(int avatarIndex) {
+        this.avatarIndex = avatarIndex;
+    }
+
+    public int getAvatarStyleIndex() {
+        return avatarStyleIndex;
+    }
+
+    public void setAvatarStyleIndex(int avatarStyleIndex) {
+        this.avatarStyleIndex = avatarStyleIndex;
     }
 }

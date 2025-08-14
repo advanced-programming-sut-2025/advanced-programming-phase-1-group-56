@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.*;
 import io.src.model.Enums.Items.ToolType;
@@ -111,7 +112,8 @@ public class InventoryWindow extends Group implements InputProcessor {
         topTabs.setPosition(120, getHeight() + 10);
         return topTabs;
     }
-    private void showSettingsTab(){
+
+    private void showSettingsTab() {
         background.setDrawable(new TextureRegionDrawable(GameAssetManager.getGameAssetManager().getTmpBackground()));
         //TODO
     }
@@ -165,7 +167,7 @@ public class InventoryWindow extends Group implements InputProcessor {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 int fromIndex = (int) payload.getObject();
-                player.getInventory().remove(player.getInventory().getSlots().get(fromIndex).getItem(),1);
+                player.getInventory().remove(player.getInventory().getSlots().get(fromIndex).getItem(), 1);
 
                 contentGroup.clear();
                 showInventoryTab();
@@ -192,7 +194,7 @@ public class InventoryWindow extends Group implements InputProcessor {
             skillTable.setPosition(508, 520 + j * i);
             contentGroup.addActor(skillTable);
         }
-        Label label  = new Label("Level: "+countLevel/4, GameAssetManager.getGameAssetManager().getSkin());
+        Label label = new Label("Level: " + countLevel / 4, GameAssetManager.getGameAssetManager().getSkin());
         label.setPosition(280, 50);
         contentGroup.addActor(label);
 
@@ -357,7 +359,7 @@ public class InventoryWindow extends Group implements InputProcessor {
             Slot slot = null;
             Item item = null;
             int quantity = 0;
-            if(i<capacity){
+            if (i < capacity) {
                 slot = slots.get(i);
                 item = slot.getItem();
                 quantity = slot.getQuantity();
@@ -409,8 +411,8 @@ public class InventoryWindow extends Group implements InputProcessor {
                 System.out.println("drag started");
                 Slot slot = inventory.getSlots().get(index);
                 Item item = slot.getItem();
-                String assetName = item.getAssetName();
                 if (item == null) return null;
+                String assetName = item.getAssetName();
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(index);
                 Texture itemTexture = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)));
@@ -444,7 +446,8 @@ public class InventoryWindow extends Group implements InputProcessor {
             }
         });
     }
-    public void refreshInventory(){
+
+    public void refreshInventory() {
         contentGroup.clear();
         showInventoryTab();
     }
@@ -452,12 +455,11 @@ public class InventoryWindow extends Group implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.E) {
-            if(GameView.getInvWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
-
+        if (keycode == Input.Keys.E) {
+            if (StardewValley.getGameView().getInvWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
             }
-            GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
+            StardewValley.getGameView().getInvWindow().setVisible(!StardewValley.getGameView().getInvWindow().isVisible());
         }
         return false;
     }
@@ -500,6 +502,17 @@ public class InventoryWindow extends Group implements InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+
+    public void ShowDialogWithFocus() {
+        Gdx.app.postRunnable(() -> {
+            this.setVisible(true);
+            Gdx.input.setInputProcessor(getStage());
+            getStage().setKeyboardFocus(this);
+            getStage().setScrollFocus(this);
+        });
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }
 }
 

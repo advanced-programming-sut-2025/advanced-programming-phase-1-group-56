@@ -9,6 +9,12 @@ public class Position {
         this.y = y;
     }
 
+    public float distanceTo(Position other) {
+        float dx = this.getX() - other.getX();
+        float dy = this.getY() - other.getY();
+        return (float) Math.sqrt(dx * dx + dy * dy);
+    }
+
     public void setX(float x) {
         this.x = x;
     }
@@ -31,7 +37,7 @@ public class Position {
         this.y += deltaY;
     }
 
-    public boolean isNear(Position pos2, int range) {
+    public boolean isNear(Position pos2, float range) {
         return Math.abs(pos2.getX() - this.x) <= range && Math.abs(pos2.getY() - this.y) <= range;
     }
 

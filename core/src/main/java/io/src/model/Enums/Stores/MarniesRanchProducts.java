@@ -25,7 +25,7 @@ public enum MarniesRanchProducts implements Store {
     ),
     MILK_PAIL(
             new NpcProduct(
-                    "MILK_PAIL",
+                    "Shears",
                     new Tool(ToolType.MILK_PAIL),
                     "Gather milk from your animals.",
                     1000,

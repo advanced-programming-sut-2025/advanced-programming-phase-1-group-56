@@ -151,7 +151,7 @@ public enum PierreGeneralStoreProducts implements Store {
     APPLE_SAPLING(
             new NpcProduct(
                     "APPLE_SAPLING",
-                    TreeType.APPLE_TREE,
+                    new Seed(SeedType.APPLE_SAPLING),
                     "Takes 28 days to produce a mature Apple tree. Bears fruit in the fall. Only grows if the 8 surrounding \"tiles\" are empty.",
                     4000,
                     -1,
@@ -162,7 +162,7 @@ public enum PierreGeneralStoreProducts implements Store {
     APRICOT_SAPLING(
             new NpcProduct(
                     "APRICOT_SAPLING",
-                    TreeType.APRICOT_TREE,
+                    new Seed(SeedType.APRICOT_SAPLING),
                     "Takes 28 days to produce a mature Apricot tree. Bears fruit in the spring. Only grows if the 8 surrounding \"tiles\" are empty.",
                     2000,
                     -1,
@@ -173,7 +173,7 @@ public enum PierreGeneralStoreProducts implements Store {
     CHERRY_SAPLING(
             new NpcProduct(
                     "CHERRY_SAPLING",
-                    TreeType.CHERRY_TREE,//TODO
+                    new Seed(SeedType.CHERRY_SAPLING),
                     "Takes 28 days to produce a mature Cherry tree. Bears fruit in the spring. Only grows if the 8 surrounding \"tiles\" are empty.",
                     3400,
                     -1,
@@ -184,7 +184,7 @@ public enum PierreGeneralStoreProducts implements Store {
     ORANGE_SAPLING(
             new NpcProduct(
                     "ORANGE_SAPLING",
-                    TreeType.ORANGE_TREE,
+                    new Seed(SeedType.ORANGE_SAPLING),
                     "Takes 28 days to produce a mature Orange tree. Bears fruit in the summer. Only grows if the 8 surrounding \"tiles\" are empty.",
                     4000,
                     -1,
@@ -195,7 +195,7 @@ public enum PierreGeneralStoreProducts implements Store {
     PEACH_SAPLING(
             new NpcProduct(
                     "PEACH_SAPLING",
-                    TreeType.PEACH_TREE,
+                    new Seed(SeedType.PEACH_SAPLING),
                     "Takes 28 days to produce a mature Peach tree. Bears fruit in the summer. Only grows if the 8 surrounding \"tiles\" are empty.",
                     6000,
                     -1,
@@ -206,7 +206,7 @@ public enum PierreGeneralStoreProducts implements Store {
     POMEGRANATE_SAPLING(
             new NpcProduct(
                     "POMEGRANATE_SAPLING",
-                    TreeType.POMEGRANATE_TREE,
+                    new Seed(SeedType.POMEGRANATE_SAPLING),
                     "Takes 28 days to produce a mature Pomegranate tree. Bears fruit in the fall. Only grows if the 8 surrounding \"tiles\" are empty.",
                     6000,
                     -1,

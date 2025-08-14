@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public enum ArtisanMachineType {
-    BEE_HOUSE("Bee_House", List.of(ArtisanGoodType.HONEY), ""),
+    BEE_HOUSE("Bee_House", List.of(ArtisanGoodType.HONEY), "Bee_House"),
     CHEESE_PRESS("Cheese_Press", List.of(ArtisanGoodType.CHEESE, ArtisanGoodType.GOAT_CHEESE, ArtisanGoodType.BIG_CHEESE, ArtisanGoodType.BIG_GOAT_CHEESE), ""),
     KEG("Keg", List.of(
         ArtisanGoodType.BEER,

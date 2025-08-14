@@ -9,6 +9,7 @@ public enum ShopCommands implements Commands {
     ShowAllProducts("show all products"),
     ShowAllAvailableProducts("show all available products"),
     PurchaseProduct("purchase ([a-zA-Z0-9_]+) (?: -n (\\d+))?"),
+
     cheatMoney("cheat add ([0-9]+) dollars"),
     sell("sell (.+) -n ([0-9]+)"),
     ;
