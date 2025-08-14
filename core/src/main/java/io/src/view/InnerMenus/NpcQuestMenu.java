@@ -5,20 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import io.src.StardewValley;
-import io.src.controller.GameMenuController.NpcController;
 import io.src.model.GameAssetManager;
-import io.src.model.GameObject.NPC.NPC;
 import io.src.model.GameObject.NPC.NpcRequest;
-import io.src.model.Result;
 
 public class NpcQuestMenu extends Dialog {
+    private final TextButton acceptButton;
 
-
-    private TextButton acceptButton;
-
-    public NpcQuestMenu(Skin skin, int index, NpcRequest request, NPC npc) {
+    public NpcQuestMenu(Skin skin, String index, NpcRequest request, int mode, String text) {
         super("", skin);
+        // mode state : 0 -> NpcQuest | 1 -> ItemToItem Trade | 2 -> ItemToMoney | 3 -> Request Item | 4 -> Request Money
 
         // fields :
         Window item1Win = new Window("", skin, "default3");
@@ -27,14 +24,11 @@ public class NpcQuestMenu extends Dialog {
         acceptButton = new TextButton(" ACCEPT ", skin, "button1-2_font30GREEN");
         TextButton cancelButten = new TextButton(" CANCEL ", skin, "button1-2_font30");
         Image flashImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("flashDirection"))));
-        buttons.add(flashImage).width(120).height(80).padBottom(50).row();
+        if (mode == 1 || mode == 0 || mode == 2)
+            buttons.add(flashImage).width(120).height(80).padBottom(50).row();
         buttons.add(acceptButton).row();
         buttons.add(cancelButten);
-        System.out.println(request.getRequestedItem().getAssetName());
-        System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRequestedItem().getAssetName()));
         Texture item1Tex = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRequestedItem().getAssetName())));
-        System.out.println(request.getRewardItem().getAssetName());
-        System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRewardItem().getAssetName()));
         Texture item2Tex = new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(request.getRewardItem().getAssetName())));
         Image item1Image = new Image(item1Tex);
         Image item2Image = new Image(item2Tex);
@@ -45,46 +39,137 @@ public class NpcQuestMenu extends Dialog {
         item1NameLabel.pack();
         item2NameLabel.pack();
 
-        System.out.println(item1NameLabel.getWidth());
-        System.out.println(item2NameLabel.getWidth());
-
         float maxLabel = item1NameLabel.getWidth();
-        if (item2NameLabel.getWidth() > maxLabel)
-            maxLabel = item2NameLabel.getWidth();
-
         float maxImageWidth = item1Image.getWidth();
-        if (item2Image.getWidth() > maxImageWidth)
-            maxImageWidth = item2Image.getWidth();
-
         float maxImageHeight = item1Image.getHeight();
-        if (item2Image.getHeight() > maxImageHeight)
-            maxImageHeight = item2Image.getHeight();
-
-        System.out.println(maxLabel);
+        float xPadding = 100;
+        float yPadding = 270;
 
         // create
-        Table row1 = new Table();
-        row1.add(item1Image).width(maxImageWidth * 1.5f).height(maxImageHeight * 1.5f);
-        row1.add(item1AmountLabel).bottom();
-        item1Win.add(row1).padBottom(25).row();
-        item1Win.add(item1NameLabel).row();
+        if (mode == 0) {
+            if (item2NameLabel.getWidth() > maxLabel)
+                maxLabel = item2NameLabel.getWidth();
 
-        Table row11 = new Table();
-        row11.add(item2Image).width(maxImageWidth * 1.5f).height(maxImageHeight * 1.5f);
-        row11.add(item2AmountLabel).bottom();
-        item2Win.add(row11).padBottom(25).row();
-        item2Win.add(item2NameLabel).row();
+            if (item2Image.getWidth() > maxImageWidth)
+                maxImageWidth = item2Image.getWidth();
 
-        Table items = new Table();
-        items.add(item1Win).width(maxLabel + 100).height(maxImageHeight + item1NameLabel.getHeight() + 200).pad(50);
-        items.add(buttons).bottom().padBottom(50);
-        items.add(item2Win).width(maxLabel + 100).height(maxImageHeight + item1NameLabel.getHeight() + 200).pad(50);
+            if (item2Image.getHeight() > maxImageHeight)
+                maxImageHeight = item2Image.getHeight();
 
-        getContentTable().debug();
+            Table row1 = new Table();
+            row1.add(item1Image).width(maxImageWidth * 1.5f).height(maxImageHeight * 1.5f);
+            row1.add(item1AmountLabel).bottom();
+            item1Win.add(row1).padBottom(25).row();
+            item1Win.add(item1NameLabel).row();
+
+            Table row11 = new Table();
+            row11.add(item2Image).width(maxImageWidth * 1.5f).height(maxImageHeight * 1.5f);
+            row11.add(item2AmountLabel).bottom();
+            item2Win.add(row11).padBottom(25).row();
+            item2Win.add(item2NameLabel).row();
+        } else if (mode == 1) {
+            Table table1 = new Table();
+            TextField tf1 = new TextField("", skin);
+            TextField countTf1 = new TextField("", skin);
+            countTf1.setAlignment(Align.center);
+            countTf1.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+            tf1.setMessageText("for example : Pumpkin");
+            table1.add(new Label("First Item name : ", skin)).pad(20).row();
+            table1.add(tf1).width(250).pad(20).row();
+            table1.add(new Label("Count : ", skin)).pad(20).row();
+            table1.add(countTf1).pad(20).row();
+            item1Win.add(table1);
+
+            Table table2 = new Table();
+            TextField tf2 = new TextField("", skin);
+            TextField countTf2 = new TextField("", skin);
+            countTf2.setAlignment(Align.center);
+            countTf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+            tf2.setMessageText("for example : Pumpkin");
+            table2.add(new Label("Second Item name : ", skin)).pad(20).row();
+            table2.add(tf2).width(250).row();
+            table2.add(new Label("Count : ", skin)).pad(20).row();
+            table2.add(countTf2).row();
+            item2Win.add(table2);
+
+            maxLabel = table2.getPrefWidth();
+            maxImageHeight = table2.getPrefHeight();
+        } else if (mode == 2) {
+            Table table1 = new Table();
+            TextField tf1 = new TextField("", skin);
+            TextField countTf1 = new TextField("", skin);
+            countTf1.setAlignment(Align.center);
+            countTf1.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+            tf1.setMessageText("for example : Pumpkin");
+            table1.add(new Label("First Item name : ", skin)).pad(20).row();
+            table1.add(tf1).width(250).pad(20).row();
+            table1.add(new Label("Count : ", skin)).pad(20).row();
+            table1.add(countTf1).pad(20).row();
+            item1Win.add(table1);
+
+            Table table2 = new Table();
+            Texture tex = new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar"));
+            TextField tf2 = new TextField("", skin, "tf");
+            tf2.setMessageText("1000");
+            tf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+            table2.add(new Image(tex)).width(tex.getWidth() * 10).height(tex.getHeight() * 10);
+            table2.add(new Label("x", skin)).padLeft(10).bottom();
+            table2.add(tf2).width(100).padLeft(5).bottom();
+            item2Win.add(table2);
+
+            maxLabel = table1.getPrefWidth();
+            maxImageHeight = table1.getPrefHeight();
+            yPadding /= 2;
+        } else if (mode == 3) {
+            Table table2 = new Table();
+            Texture tex = new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar"));
+            TextField tf2 = new TextField("", skin, "tf");
+            tf2.setMessageText("1000");
+            tf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+            table2.add(new Image(tex)).width(tex.getWidth() * 10).height(tex.getHeight() * 10);
+            table2.add(new Label("x", skin)).padLeft(10).bottom();
+            table2.add(tf2).width(100).padLeft(5).bottom();
+            item2Win.add(table2);
+
+            maxLabel = table2.getPrefWidth();
+            maxImageHeight = table2.getPrefHeight();
+            yPadding /= 2;
+        } else {
+            Table table2 = new Table();
+            TextField tf2 = new TextField("", skin);
+            TextField countTf2 = new TextField("", skin);
+            countTf2.setAlignment(Align.center);
+            countTf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
+            tf2.setMessageText("for example : Pumpkin");
+            table2.add(new Label("Second Item name : ", skin)).pad(20).row();
+            table2.add(tf2).width(250).row();
+            table2.add(new Label("Count : ", skin)).pad(20).row();
+            table2.add(countTf2).row();
+            item2Win.add(table2);
+
+            maxLabel = table2.getPrefWidth();
+            maxImageHeight = table2.getPrefHeight();
+        }
 
         // add
 
-        getContentTable().add(new Label("Request No#" + index, skin, "font-90_PINK")).center().row();
+        Table items = new Table();
+        item1Win.debug();
+        item2Win.debug();
+        items.debug();
+        if (mode == 0 || mode == 1 || mode == 2) {
+            items.add(item1Win).width(maxLabel + xPadding).height(maxImageHeight + yPadding).pad(50);
+            items.add(buttons).bottom().padBottom(50);
+            items.add(item2Win).width(maxLabel + xPadding).height(maxImageHeight + yPadding).pad(50);
+        } else {
+            items.add(item2Win).width(maxLabel + xPadding).height(maxImageHeight + yPadding).pad(50).row();
+            buttons.removeActor(flashImage);
+            items.add(buttons).bottom().padBottom(50);
+        }
+
+        if (mode == 0)
+            text += index;
+        getContentTable().add(new Label(text, skin, "font-90_PINK")).pad(30).center().row();
         getContentTable().add(items);
 
         pack();
@@ -98,8 +183,6 @@ public class NpcQuestMenu extends Dialog {
                 hide();
             }
         });
-
-
     }
 
     public TextButton getAcceptButton() {

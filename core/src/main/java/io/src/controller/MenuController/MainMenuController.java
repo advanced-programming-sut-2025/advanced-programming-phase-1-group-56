@@ -11,7 +11,6 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAudioManager;
 import io.src.model.Result;
-import io.src.view.InnerMenus.AnimalMenu;
 import io.src.view.MainMenu;
 
 import java.io.File;
@@ -105,7 +104,7 @@ public class MainMenuController extends CommandController {
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
-                menu.getAnimalMenu().setVisible(true);
+                menu.getPlayerMeetingMenu().setVisible(true);
             }
         });
 

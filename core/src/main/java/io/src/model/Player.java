@@ -124,6 +124,13 @@ public class Player implements TimeObserver {
         return false;
     }
 
+    // For test :
+    public Player(String name) {
+        position = new Position(0, 0);
+        userId = UUID.randomUUID();
+        System.out.println("name = " + name);
+    }
+
     public Player(User user) {
         this.user = user;
         this.userId = user.getUserId();

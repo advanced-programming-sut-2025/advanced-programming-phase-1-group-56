@@ -25,6 +25,8 @@ import io.src.model.*;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Items.TrashcanType;
 import io.src.model.Enums.Skills;
+import io.src.model.GameObject.NPC.NPC;
+import io.src.model.GameObject.NPC.NpcFriendship;
 import io.src.model.items.Item;
 import io.src.model.items.Tool;
 import io.src.model.items.Inventory;
@@ -288,32 +290,33 @@ public class InventoryWindow extends Group implements InputProcessor {
 
         Table friendShipsTable = new Table();
 
-        float npcWidth = 0, npcHeight = 0;
-
-        for (int i = 0; i < App.getMe().getFriendShips().size(); i++) {
+        for (int i = 0; i < App.getMe().getNpcFriendShips().size(); i++) {
+            NPC npc = App.getMe().getNpcFriendShips().get(i).getNpc();
             Window npcWin = new Window("", skin, "social");
-            Image npcImage = new Image(new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Treasure_Totem")));
-            npcWin.add(npcImage);
-            npcWin.add(new Label("npc Name", skin));
+//            npcWin.align(Align.left);
+            Image npcImage = new Image(new Texture(Gdx.files.internal("AVATAR\\final\\" + npc.getType().getName() + "\\1\\avatarProfile.png")));
+            npcWin.add(npcImage).padLeft(30).padRight(30);
+            Label NpcName = new Label(npc.getType().getName(), skin);
+            npcWin.add(NpcName).bottom().padRight(30);
             Table heartTable = new Table();
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 Button heart = new Button(skin, "heart");
                 heart.setChecked(true);
                 heart.setDisabled(true);
-                heartTable.add(heart).pad(10);
+                heartTable.add(heart).width(heart.getWidth() * 2).height(heart.getHeight() * 2).pad(10);
             }
-            npcWin.add(heartTable);
+//            npcWin.add(heartTable).padLeft(400 - NpcName.getWidth());
             npcWin.pack();
-            npcWidth = npcWin.getWidth();
-            npcHeight = npcWin.getHeight();
+            friendShipsTable.add(npcWin).row();
         }
 
-//        ScrollPane socialPane = new ScrollPane();
-
         friendShipsTable.pack();
-        friendShipsTable.setSize(friendShipsTable.getWidth() - 138, friendShipsTable.getHeight());
-        friendShipsTable.setPosition(getWidth() - friendShipsTable.getWidth() - 15, getHeight() - friendShipsTable.getHeight());
-        contentGroup.addActor(friendShipsTable);
+        ScrollPane socialPane = new ScrollPane(friendShipsTable, skin, "default2");
+        socialPane.setScrollingDisabled(true, false);
+        socialPane.pack();
+        socialPane.setSize(friendShipsTable.getWidth() - 138, friendShipsTable.getHeight());
+        socialPane.setPosition(getWidth() - socialPane.getWidth() - 15, getHeight() - socialPane.getHeight());
+        contentGroup.addActor(socialPane);
     }
 
     private void showMapTab() {

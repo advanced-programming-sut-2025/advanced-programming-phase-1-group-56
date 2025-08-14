@@ -41,6 +41,9 @@
 	"BLACK": {
 		"hex": "000000ff"
 	},
+	"GRAY": {
+		"hex": "474747ff"
+	},
 	"GREEN": {
 		"hex": "065b50ff"
 	},
@@ -162,6 +165,10 @@
 	"heart": {
 		"up": "FillHeart",
 		"checked": "EmptyHeart"
+	},
+	"star": {
+		"up": "Starfruit_OnCheckedpng",
+		"checked": "Starfruit_Checked"
 	}
 },
 "CheckBoxStyle": {
@@ -288,6 +295,19 @@
 	"default-RED": {
 		"font": "baseFont2-24",
 		"fontColor": "RED"
+	},
+	"default30": {
+		"font": "font2-30",
+		"fontColor": "BLACK"
+	},
+	"gray24": {
+		"font": "baseFont2-24",
+		"fontColor": "GRAY"
+	},
+	"back45": {
+		"font": "baseFont-45",
+		"fontColor": "ZERESHK",
+		"background": "labelBackGround"
 	}
 },
 "ListStyle": {
@@ -490,6 +510,7 @@
 		"font": "baseFont2-24",
 		"fontColor": "GREEN",
 		"downFontColor": "GREEN",
+		"overFontColor": "PINK",
 		"up": "button1_UP",
 		"down": "button1_DOWN",
 		"over": "button1_OVER"
@@ -524,6 +545,16 @@
 		"focusedFontColor": "BLACK",
 		"disabledFontColor": "GREEN",
 		"background": "textfield",
+		"cursor": "cursor",
+		"selection": "selection",
+		"messageFont": "baseFont-24",
+		"messageFontColor": "PINK"
+	},
+	"tf": {
+		"font": "baseFont2-24",
+		"fontColor": "PINK",
+		"focusedFontColor": "BLACK",
+		"disabledFontColor": "GREEN",
 		"cursor": "cursor",
 		"selection": "selection",
 		"messageFont": "baseFont-24",
