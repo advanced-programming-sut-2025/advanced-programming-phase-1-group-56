@@ -117,7 +117,9 @@ public class AnimalMenu extends Window implements InterruptingWindow {
             public void clicked(InputEvent event, float x, float y) {
                 Result result = HusbandryController.feedHay(animal.getName());
                 StardewValley.getGameView().getWarningWindow().showDialog(animal.getNickName(), result.getMessage(), 300);
-                animal.setFeedHint(true);
+                if (result.isSuccess()) {
+                    animal.setFeedHint(true);
+                }
                 animal.setLastFeedingTime(LocalDateTime.now());
                 AnimalMenu.this.hideDialog();
             }

@@ -56,6 +56,8 @@ import io.src.model.items.Tool;
 import io.src.model.items.Etc;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -690,6 +692,7 @@ public class GameView implements Screen, TimeObserver {
             if (go instanceof Animal animal) {
                 renderAnimal(animal);
                 animal.update(v);
+                handleAnimalHint(animal);
                 continue;
             }
 
@@ -865,159 +868,203 @@ public class GameView implements Screen, TimeObserver {
         }
     }
 
-
-    public void handleShopHint(Batch batch) {
-        if (gameMenuInputAdapter.isShopCounterHintActive()) {
-            Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
-                (Class<? extends Store>) App.getMe().getCurrentGameLocation().getType().getRelatedClazz()
-            );
-            Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
-            ));
-            TextureRegion region = new TextureRegion(texture);
-            float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
-            float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
-            renderer.getBatch().draw(region,
-                worldX, worldY
-            );
-
-        }
-    }
-
-    public void handleNpcHint(NPC npc) {
-        if (npc.isDialogReady() && npc.isMeetHint()) {
-            Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
-            ));
-            TextureRegion region = new TextureRegion(texture);
-            float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
-            float worldX = (float) ((x + 6));
-            float worldY = (float) ((y + 31));
-            renderer.getBatch().draw(region,
-                worldX, worldY
-            );
-
-        }
-    }
-
-    private void handleMailBoxHint(MailBox mailBox) {
-        if (mailBox.getHasNewMessages()) {
-            Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
-            ));
-            TextureRegion region = new TextureRegion(texture);
-            float x = mailBox.getPixelPosition().x, y = mailBox.getPixelPosition().y;
-            float worldX = (float) ((x + 6));
-            float worldY = (float) ((y + 29));
-            renderer.getBatch().draw(region,
-                worldX, worldY
-            );
-
+    private void handleAnimalHint(Animal animal) {
+        if (animal.isPetHint()) {
+            if (animal.getLastPettingTime().until(LocalDateTime.now(), ChronoUnit.SECONDS) > 3) {
+                animal.setPetHint(false);
+            } else {
+                Texture texture = new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Secret_Heart")
+                ));
+                TextureRegion region = new TextureRegion(texture);
+                float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+                float worldX = (float) ((x + 6));
+                float worldY = (float) ((y + 20));
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                        16, // Origin Y
+                    24, 24, // اندازه اصلی
+                    1f, 1f, // scaleX, scaleY
+                    0); // rotation
+            }
+        } else if(animal.isFeedHint()) {
+            if (animal.getLastFeedingTime().until(LocalDateTime.now(), ChronoUnit.SECONDS) > 3) {
+                animal.setFeedHint(false);
+            } else {
+                Texture texture = new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Wheat1")
+                ));
+                TextureRegion region = new TextureRegion(texture);
+                float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+                float worldX = (float) ((x + 6));
+                float worldY = (float) ((y + 22));
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                    16, // Origin Y
+                    12, 12, // اندازه اصلی
+                    1f, 1f, // scaleX, scaleY
+                    0); // rotation
+            }
         }
     }
 
 
-    @Override
-    public void resize(int i, int i1) {
+public void handleShopHint(Batch batch) {
+    if (gameMenuInputAdapter.isShopCounterHintActive()) {
+        Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
+            (Class<? extends Store>) App.getMe().getCurrentGameLocation().getType().getRelatedClazz()
+        );
+        Texture texture = new Texture(Gdx.files.internal(
+            GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
+        ));
+        TextureRegion region = new TextureRegion(texture);
+        float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
+        float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
+        renderer.getBatch().draw(region,
+            worldX, worldY
+        );
 
     }
+}
 
-    @Override
-    public void pause() {
+public void handleNpcHint(NPC npc) {
+    if (npc.isDialogReady() && npc.isMeetHint()) {
+        Texture texture = new Texture(Gdx.files.internal(
+            GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+        ));
+        TextureRegion region = new TextureRegion(texture);
+        float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
+        float worldX = (float) ((x + 6));
+        float worldY = (float) ((y + 31));
+        renderer.getBatch().draw(region,
+            worldX, worldY
+        );
 
     }
+}
 
-    @Override
-    public void resume() {
+private void handleMailBoxHint(MailBox mailBox) {
+    if (mailBox.getHasNewMessages()) {
+        Texture texture = new Texture(Gdx.files.internal(
+            GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+        ));
+        TextureRegion region = new TextureRegion(texture);
+        float x = mailBox.getPixelPosition().x, y = mailBox.getPixelPosition().y;
+        float worldX = (float) ((x + 6));
+        float worldY = (float) ((y + 29));
+        renderer.getBatch().draw(region,
+            worldX, worldY
+        );
 
     }
+}
 
-    @Override
-    public void hide() {
 
+@Override
+public void resize(int i, int i1) {
+
+}
+
+@Override
+public void pause() {
+
+}
+
+@Override
+public void resume() {
+
+}
+
+@Override
+public void hide() {
+
+}
+
+@Override
+public void dispose() {
+    lighting.dispose();
+    if (whitePixel != null) whitePixel.dispose();
+}
+
+public FoodWindow foodWindow() {
+    return foodWindow;
+}
+
+public craftingWindow getCraftingWindow() {
+    return craftingWindow;
+}
+
+public InventoryWindow getInvWindow() {
+    return invWindow;
+}
+
+public void setInvWindow(InventoryWindow invWindow) {
+    this.invWindow = invWindow;
+}
+
+public DialogWindow getDialogWindow() {
+    return dialogWindow;
+}
+
+public WarningWindow getWarningWindow() {
+    return warningWindow;
+}
+
+
+public CheatWindow getCheatWindow() {
+    return cheatWindow;
+}
+
+public Stage getStage() {
+    return stage;
+}
+
+
+public ShopStateWindow getShopStateWindow() {
+    return shopStateWindow;
+}
+
+public GameMenuInputAdapter getGameMenuInputAdapter() {
+    return gameMenuInputAdapter;
+}
+
+public TimerWindow getTimerWindow() {
+    return this.timeWindow;
+}
+
+
+public FoodWindow getFoodWindow() {
+    return foodWindow;
+}
+
+public RefrigeratorWindow getRefrigeratorWindow() {
+    return refrigeratorWindow;
+}
+
+public InventoryBar getInventoryBar() {
+    return inventoryBar;
+}
+
+@Override
+public void onHourChanged(DateTime time, boolean newDay) {
+    if (newDay) {
+        updateMapWithFade(() -> {
+            for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+                player.setCurrentGameLocation(player.getPlayerFarm().getDefaultHome().getIndoor());
+            }
+            App.getMe().setPosition(new Position(8, 3));
+        });
     }
+}
 
-    @Override
-    public void dispose() {
-        lighting.dispose();
-        if (whitePixel != null) whitePixel.dispose();
-    }
-
-    public FoodWindow foodWindow() {
-        return foodWindow;
-    }
-
-    public craftingWindow getCraftingWindow() {
-        return craftingWindow;
-    }
-
-    public InventoryWindow getInvWindow() {
-        return invWindow;
-    }
-
-    public void setInvWindow(InventoryWindow invWindow) {
-        this.invWindow = invWindow;
-    }
-
-    public DialogWindow getDialogWindow() {
-        return dialogWindow;
-    }
-
-    public WarningWindow getWarningWindow() {
-        return warningWindow;
-    }
+public InputMultiplexer getMultiplexer() {
+    return multiplexer;
+}
 
 
-    public CheatWindow getCheatWindow() {
-        return cheatWindow;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-
-    public ShopStateWindow getShopStateWindow() {
-        return shopStateWindow;
-    }
-
-    public GameMenuInputAdapter getGameMenuInputAdapter() {
-        return gameMenuInputAdapter;
-    }
-
-    public TimerWindow getTimerWindow() {
-        return this.timeWindow;
-    }
-
-
-    public FoodWindow getFoodWindow() {
-        return foodWindow;
-    }
-
-    public RefrigeratorWindow getRefrigeratorWindow() {
-        return refrigeratorWindow;
-    }
-
-    public InventoryBar getInventoryBar() {
-        return inventoryBar;
-    }
-
-    @Override
-    public void onHourChanged(DateTime time, boolean newDay) {
-        if (newDay) {
-            updateMapWithFade(() -> {
-                App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
-                App.getMe().setPosition(new Position(8, 3));
-            });
-        }
-    }
-
-    public InputMultiplexer getMultiplexer() {
-        return multiplexer;
-    }
-
-
-    public ShippingBarWindow getShippingBarWindow() {
-        return shippingBarWindow;
-    }
+public ShippingBarWindow getShippingBarWindow() {
+    return shippingBarWindow;
+}
 }
