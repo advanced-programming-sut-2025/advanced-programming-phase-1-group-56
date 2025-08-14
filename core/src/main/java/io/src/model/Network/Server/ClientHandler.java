@@ -1,14 +1,17 @@
 package io.src.model.Network.Server;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import io.src.controller.Network.ServerController;
 import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,7 +22,9 @@ public class ClientHandler implements Runnable {
     private final LobbyServer server;
     private String username;
     private PrintWriter out;
-    private final Gson gson = new Gson();
+    private final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
 
     public ClientHandler(Socket socket, LobbyServer server) {
         this.socket = socket;

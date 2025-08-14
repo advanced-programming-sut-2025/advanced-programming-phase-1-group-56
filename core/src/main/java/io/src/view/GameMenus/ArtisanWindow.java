@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.ArtisanController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.InventoryController;
@@ -397,12 +398,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.U) {
-            if(GameView.artisanWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
-            }
-            GameView.artisanWindow().setVisible(!GameView.artisanWindow().isVisible());
-        }
+
         return false;
     }
 

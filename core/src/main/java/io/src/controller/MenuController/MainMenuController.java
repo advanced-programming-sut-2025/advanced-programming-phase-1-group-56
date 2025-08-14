@@ -13,6 +13,7 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
 import io.src.model.Game;
 import io.src.model.GameAudioManager;
+import io.src.model.Network.Client.LobbyClient;
 import io.src.model.Result;
 import io.src.view.MainMenu;
 
@@ -52,6 +53,7 @@ public class MainMenuController extends CommandController {
         menu.getCoopButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                game.setScreen(new LobbyClient());
             }
         });
 

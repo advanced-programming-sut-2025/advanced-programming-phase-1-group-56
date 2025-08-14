@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.GameAssetManager;
@@ -21,7 +23,9 @@ import io.src.model.Network.Client.LobbyClient;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
 import io.src.model.Player;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -75,7 +79,9 @@ public class EmoteWindow extends Group implements InputProcessor {
 
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    Gson gson = new Gson();
+                    Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
                     App.getMe().setShowEmote(selectedEmoteId);
                     EmoteWindow.this.setVisible(false);
                     System.out.println(App.getMe().getShowEmote());
@@ -85,7 +91,7 @@ public class EmoteWindow extends Group implements InputProcessor {
                     body.put("emoteId", selectedEmoteId);
                     Message msg = new Message(body, Message.Type.command);
                     LobbyClient.getClient().send(gson.toJson(msg));
-                    Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+                    Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
                     return true;
                 }
             });
@@ -104,10 +110,10 @@ public class EmoteWindow extends Group implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.Y) {
-            if(GameView.emoteWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+            if(StardewValley.getGameView().emoteWindow().isVisible()) {
+                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
             }
-            GameView.emoteWindow().setVisible(!GameView.emoteWindow().isVisible());
+            StardewValley.getGameView().emoteWindow().setVisible(!StardewValley.getGameView().emoteWindow().isVisible());
         }
         return false;
     }
@@ -194,7 +200,9 @@ public class EmoteWindow extends Group implements InputProcessor {
                     slot = -1;
                 }
                 if (slot >= 1 && slot <= 5) {
-                    Gson gson = new Gson();
+                    Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
                     all.set(slot - 1, selectedEmoteId);
                     HashMap<String, Object> body = new HashMap<>();
                     body.put("commandType", NetworkCommand.updateEmote);

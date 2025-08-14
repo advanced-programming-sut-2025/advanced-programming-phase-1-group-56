@@ -375,20 +375,23 @@ public class Player implements TimeObserver {
 
     public void setCurrentGameLocation(GameLocation currentGameLocation) {
         this.currentGameLocation = currentGameLocation;
-        App.setCurrentMenu(switch (currentGameLocation.getType()) {
-            case Town -> Menu.gameMenu;
-            case Farm1 -> Menu.gameMenu;
-            case Farm2 -> Menu.gameMenu;
-            case Home_Indoor -> Menu.HouseMenu;
-            case GreenHouse_Indoor -> Menu.gameMenu;
-            case Blacksmith_Indoor -> Menu.BlackSmithMenu;
-            case CarpenterShop_Indoor -> Menu.CarpenterShopMenu;
-            case Fishshop_Indoor -> Menu.FishShopMenu;
-            case JojaMart_Indoor -> Menu.JojaMartMenu;
-            case StardropSallon_Indoor -> Menu.TheSaloonStarDropMenu;
-            case PierreGeneralStore_Indoor -> Menu.PierresGeneralStoreMenu;
-            default -> Menu.gameMenu;
-        });
+        if(App.getCurrentUser().getCurrentGame().isStarted()){
+            App.setCurrentMenu(switch (currentGameLocation.getType()) {
+                case Town -> Menu.gameMenu;
+                case Farm1 -> Menu.gameMenu;
+                case Farm2 -> Menu.gameMenu;
+                case Home_Indoor -> Menu.HouseMenu;
+                case GreenHouse_Indoor -> Menu.gameMenu;
+                case Blacksmith_Indoor -> Menu.BlackSmithMenu;
+                case CarpenterShop_Indoor -> Menu.CarpenterShopMenu;
+                case Fishshop_Indoor -> Menu.FishShopMenu;
+                case JojaMart_Indoor -> Menu.JojaMartMenu;
+                case StardropSallon_Indoor -> Menu.TheSaloonStarDropMenu;
+                case PierreGeneralStore_Indoor -> Menu.PierresGeneralStoreMenu;
+                default -> Menu.gameMenu;
+            });
+        }
+
     }
 
     public Position getPosition() {

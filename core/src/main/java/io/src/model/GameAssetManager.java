@@ -33,7 +33,6 @@ public class GameAssetManager {
     private static final Path atlasJsonPath = Paths.get("assets\\Stardew_Valley_Images\\atlas_dictionary.json");
 
     private Texture coopBackground =  new Texture("assets/coop_background.jpg");
-    private Texture shippingBar = new Texture("assets/Inventory/shippingBar.png");
     private Texture refrigeratorBackground = new Texture("assets/Inventory/refrigeratorBackground.png");
     private Texture toolTipBackground = new Texture("assets/Inventory/tooltipCraftableItem.png");
     private Texture Charcoal_Klin = new Texture("assets/Stardew_Valley_Images/Craftable_item/Charcoal_Kiln.png");
@@ -405,9 +404,6 @@ public class GameAssetManager {
         return refrigeratorBackground;
     }
 
-    public Texture getShippingBar() {
-        return shippingBar;
-    }
 
     public Texture getCoopBackground() {
         return coopBackground;

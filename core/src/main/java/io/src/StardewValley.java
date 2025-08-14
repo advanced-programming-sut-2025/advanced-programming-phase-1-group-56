@@ -85,6 +85,7 @@ public class StardewValley extends com.badlogic.gdx.Game {
         StardewValley.batch = batch;
     }
     public static void startGame(Game newGame) {
+        System.out.println("asdasd");
         game = newGame;
         gameView = new GameView(newGame);
         App.getStardewValley().setScreen(gameView);

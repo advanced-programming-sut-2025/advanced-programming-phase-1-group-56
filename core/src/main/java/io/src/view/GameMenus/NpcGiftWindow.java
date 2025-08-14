@@ -25,12 +25,6 @@ import java.util.ArrayList;
 public class NpcGiftWindow extends Group implements InputProcessor, InterruptingWindow {
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.T) {
-            if (StardewValley.getGameView().getShippingBarWindow().isVisible()) {
-                Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
-            }
-            StardewValley.getGameView().getShippingBarWindow().setVisible(!StardewValley.getGameView().getShippingBarWindow().isVisible());
-        }
         return false;
     }
 

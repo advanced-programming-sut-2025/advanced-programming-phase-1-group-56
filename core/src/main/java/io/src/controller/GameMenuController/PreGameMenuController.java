@@ -76,7 +76,7 @@ public class PreGameMenuController extends CommandController {
         StardewValley.setGame(newGame);
         GameView gameView = new GameView(newGame);
         App.setStardewValley(StardewValley.getStardewValley());
-        StardewValley.setGameView(gameView);
+        StardewValley.getStardewValley().setGameView(gameView);
         App.getStardewValley().setScreen(gameView);
         GivePlayersInitialItem(newGame);
 
@@ -190,7 +190,7 @@ public class PreGameMenuController extends CommandController {
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         GameView gameView = new GameView(newGame);
         App.setStardewValley(StardewValley.getStardewValley());
-        StardewValley.setGameView(gameView);
+        StardewValley.getStardewValley().setGameView(gameView);
         App.getStardewValley().setScreen(gameView);
 
 

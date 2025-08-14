@@ -1,6 +1,7 @@
 package io.src.controller.Network;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.src.model.*;
 import io.src.model.Activities.Friendship;
@@ -18,12 +19,14 @@ import io.src.model.Network.NetworkCommand;
 import io.src.model.Network.Server.ClientHandler;
 import io.src.model.Network.Server.LobbyServer;
 import io.src.model.States.WeatherState;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.model.TimeSystem.TimeSystem;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -336,7 +339,9 @@ public class ServerController {
 
     private static final String FILE_PATH = "assets//users.json";
     public static ArrayList<User> getUsers() {
-        Gson gson = new Gson();
+         Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         ArrayList<User> tmpUsers = new ArrayList<>();
         try (Reader reader = new FileReader(FILE_PATH)) {
             tmpUsers = gson.fromJson(reader, new TypeToken<ArrayList<User>>() {
@@ -361,7 +366,9 @@ public class ServerController {
     }
 
     public static void sendCurrentGameState(String username, ClientHandler newHandler) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         String lobbyOwner = null;
 
         for (Lobby lobby : LobbyServer.getLobbies()) {

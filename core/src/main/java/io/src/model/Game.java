@@ -11,6 +11,7 @@ import java.util.UUID;
 
 
 public class Game {
+    private boolean started = false;
     private String gameId;
     private ArrayList<String> usersId = new ArrayList<>();
     @Expose(serialize = false, deserialize = false)
@@ -157,4 +158,11 @@ public class Game {
 
     }
 
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
 }

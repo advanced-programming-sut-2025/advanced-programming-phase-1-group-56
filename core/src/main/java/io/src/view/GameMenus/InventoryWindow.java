@@ -326,11 +326,11 @@ public class InventoryWindow extends Group implements InputProcessor {
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(GameView.getInvWindow().isVisible()) {
-                    Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
+                if(StardewValley.getGameView().getInvWindow().isVisible()) {
+                    Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
 
                 }
-                GameView.getInvWindow().setVisible(!GameView.getInvWindow().isVisible());
+                StardewValley.getGameView().getInvWindow().setVisible(!StardewValley.getGameView().getInvWindow().isVisible());
             }
         });
         addActor(closeButton);

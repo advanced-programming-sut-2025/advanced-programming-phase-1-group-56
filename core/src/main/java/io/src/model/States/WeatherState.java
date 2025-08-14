@@ -10,8 +10,7 @@ public class WeatherState implements TimeObserver {
     private WeatherType todayWeather;
     private WeatherType tomorrowWeather;
 
-    public WeatherState() {
-        Seasons season = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason();
+
     public WeatherState(){
         Seasons season = Seasons.Spring;
         todayWeather = getRandomWeather(season);

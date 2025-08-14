@@ -1,15 +1,18 @@
 package io.src.model.Network.Server;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.src.controller.Network.ServerController;
 import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 
 import java.io.IOException;
 import java.lang.reflect.Member;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,7 +25,9 @@ public class LobbyServer {
     private static final List<Lobby> lobbies = Collections.synchronizedList(new ArrayList<>());
     private final HashMap<String, DisconnectedSession> disconnectedClients = new HashMap<>();
     private final Map<String, Timer> disconnectTimers = new ConcurrentHashMap<>();
-    private final Gson gson = new Gson();
+    private final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
 
     public static void main(String[] args) throws IOException {
         new LobbyServer().start();
@@ -275,7 +280,9 @@ public class LobbyServer {
             body.put("commandType", NetworkCommand.ready_for_state);
             Message.Type type = Message.Type.command;
             System.out.println("love");
-            newHandler.sendMessage(new Gson().toJson(new Message(body, type)));
+            newHandler.sendMessage(new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create().toJson(new Message(body, type)));
 
             System.out.println("Client restored: " + username);
         }

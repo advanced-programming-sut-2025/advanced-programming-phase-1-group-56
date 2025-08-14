@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.google.gson.GsonBuilder;
 import io.src.controller.GameMenuController.*;
 import com.google.gson.Gson;
 import io.src.controller.GameMenuController.ToolsController;
@@ -43,6 +44,7 @@ import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
 import io.src.model.Network.Server.LobbyServer;
 import io.src.model.Player;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.model.items.Tool;
 
 import io.src.model.items.Artesian;
@@ -51,6 +53,7 @@ import io.src.model.items.Food;
 import io.src.model.TimeSystem.DateTime;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import io.src.model.items.*;
@@ -157,12 +160,12 @@ public class GameMenuInputAdapter extends InputAdapter {
             return false;
         }
         if(keycode == Input.Keys.Y) {
-            if(!GameView.emoteWindow().isVisible()) {
+            if(!StardewValley.getGameView().emoteWindow().isVisible()) {
                 InputMultiplexer multiplexer = new InputMultiplexer();
-                multiplexer.addProcessor(GameView.emoteWindow());
-                multiplexer.addProcessor(GameView.getStage());
+                multiplexer.addProcessor(StardewValley.getGameView().emoteWindow());
+                multiplexer.addProcessor(StardewValley.getGameView().getStage());
                 Gdx.input.setInputProcessor(multiplexer);
-                GameView.emoteWindow().setVisible(!GameView.emoteWindow().isVisible());}
+                StardewValley.getGameView().emoteWindow().setVisible(!StardewValley.getGameView().emoteWindow().isVisible());}
         }
 
         if (keycode == Input.Keys.B) {
@@ -211,14 +214,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             StardewValley.getGameView().getRefrigeratorWindow().setVisible(!StardewValley.getGameView().getRefrigeratorWindow().isVisible());
         }
         //TODO
-        if (keycode == Input.Keys.U) {
-            InputMultiplexer multiplexer = new InputMultiplexer();
-            multiplexer.addProcessor(GameView.artisanWindow());
-            multiplexer.addProcessor(GameView.getStage());
-            GameView.artisanWindow().refreshInventory();
-            Gdx.input.setInputProcessor(multiplexer);
-            GameView.artisanWindow().setVisible(!GameView.artisanWindow().isVisible());
-        }
+
 
 
 //
@@ -404,7 +400,9 @@ public class GameMenuInputAdapter extends InputAdapter {
         player.update(delta);
         applyWrapperEffect();
         if(vx != 0 || vy != 0) {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
             HashMap<String, Object> body = new HashMap<>();
             body.put("commandType", NetworkCommand.updatePlayer);
             body.put("username", player.getUserName());

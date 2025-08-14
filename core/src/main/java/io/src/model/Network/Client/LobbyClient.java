@@ -36,9 +36,12 @@ import io.src.model.Network.DTO.GameMapper;
 import io.src.model.Network.Lobby;
 import io.src.model.Network.Message;
 import io.src.model.Network.NetworkCommand;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.model.items.Tool;
 import io.src.view.GameMenus.GameMenuInputAdapter;
+import io.src.view.GameMenus.GameView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -54,7 +57,9 @@ public class LobbyClient implements Screen {
     private ArrayList<String> onlineUser = new ArrayList<>();
     private List<String> onlineListUI;
     private Skin skin;
-    private Gson gson = new Gson();
+    private Gson gson = new GsonBuilder()
+        .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+        .create();
     private String username;
     private Label isSuccessfulLabel;
     private Lobby selectedLobby = null;
@@ -226,7 +231,9 @@ public class LobbyClient implements Screen {
                                 }
                             }
                             case Game -> {
-                                Gson gson = new Gson();
+                                Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
                                 GameDTO gamedto = msg1.getFromBody1("Game", GameDTO.class);
 
                                 ArrayList<User> users = msg1.getFromBody2(
@@ -467,7 +474,13 @@ public class LobbyClient implements Screen {
                 p.setDefaultHome(p.getPlayerFarm().getDefaultHome());
             }
 
-            StardewValley.startGame(newGame);
+            System.out.println("moshefnsesfsssefsefse");
+            StardewValley.setGame(newGame);
+            GameView gameView = new GameView(newGame);
+            App.setStardewValley(StardewValley.getStardewValley());
+            StardewValley.getStardewValley().setGameView(gameView);
+            App.getStardewValley().setScreen(gameView);
+            newGame.setStarted(true);
         });
 
 
