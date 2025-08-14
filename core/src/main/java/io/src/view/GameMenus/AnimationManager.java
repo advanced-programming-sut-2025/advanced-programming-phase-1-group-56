@@ -87,6 +87,14 @@ public class AnimationManager {
         TextureAtlas WateringCan3Atlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("wateringCan3"));
         TextureAtlas WateringCan4Atlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("wateringCan4"));
         TextureAtlas WateringCan5Atlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("wateringCan5"));
+        TextureAtlas FishingPoleAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("fishingPole"));
+        TextureAtlas ChickenAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Chicken"));
+        TextureAtlas RabbitAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Rabbit"));
+        TextureAtlas DuckAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Duck"));
+        TextureAtlas SheepAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Sheep"));
+        TextureAtlas PigAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Pig"));
+        TextureAtlas CowAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Cow"));
+        TextureAtlas GoatAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Goat"));
 
 
 
@@ -117,12 +125,30 @@ public class AnimationManager {
         characterAnimations.put("WateringCanGolden" , loadToolSwingAnimations(WateringCan4Atlas , "WateringCan"));
         characterAnimations.put("WateringCanIridium" , loadToolSwingAnimations(WateringCan5Atlas , "WateringCan"));
 
+        characterAnimations.put("ScytheWooden" , loadToolSwingAnimations(WateringCan1Atlas , "Scythe"));
+        characterAnimations.put("ScytheCupric" , loadToolSwingAnimations(WateringCan2Atlas , "Scythe"));
+        characterAnimations.put("ScytheIronic" , loadToolSwingAnimations(WateringCan3Atlas , "Scythe"));
+        characterAnimations.put("ScytheGolden" , loadToolSwingAnimations(WateringCan4Atlas , "Scythe"));
+        characterAnimations.put("ScytheIridium" , loadToolSwingAnimations(WateringCan5Atlas , "Scythe"));
+
+        characterAnimations.put("FishingPoleTraining" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
+        characterAnimations.put("FishingPoleBamboo" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
+        characterAnimations.put("FishingPoleFiberGlass" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
+        characterAnimations.put("FishingPoleIridium" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
+
 
         characterAnimations.put("Alex", loadCharacterAnimationsNumeric(AlexAtlas));
         characterAnimations.put("Elliot", loadCharacterAnimationsNumeric(ElliotAtlas));
         characterAnimations.put("Haley", loadCharacterAnimationsNumeric(HaleyAtlas));
         characterAnimations.put("Sebastian", loadCharacterAnimationsNumeric(SebastianAtlas));
         characterAnimations.put("Robin", loadCharacterAnimationsNumeric(RobinAtlas));
+        characterAnimations.put("Rabbit", loadCharacterAnimationsNumeric(RabbitAtlas));
+        characterAnimations.put("Duck", loadCharacterAnimationsNumeric(DuckAtlas));
+        characterAnimations.put("Brown_Chicken", loadCharacterAnimationsNumeric(ChickenAtlas));
+        characterAnimations.put("Sheep", loadCharacterAnimationsNumeric(SheepAtlas));
+        characterAnimations.put("Pig", loadCharacterAnimationsNumeric(PigAtlas));
+        characterAnimations.put("White_Cow", loadCharacterAnimationsNumeric(CowAtlas));
+        characterAnimations.put("Goat", loadCharacterAnimationsNumeric(GoatAtlas));
 
 
 
@@ -211,11 +237,20 @@ public class AnimationManager {
                     else Gdx.app.error("AnimationManager", "Missing frame: " + regionName);
                 }
             } else if (dir.equals("Down")) {
-                for (int i = 0; i < 2; i++) {
-                    String regionName = tool + "_" + dir + "_Frame_" + i;
-                    TextureRegion fr = atlas.findRegion(regionName);
-                    if (fr != null) frames.add(fr);
-                    else Gdx.app.error("AnimationManager", "Missing frame: " + regionName);
+                if (tool.equals("FishingPole")){
+                    for (int i = 0; i < 3; i++) {
+                        String regionName = tool + "_" + dir + "_Frame_" + i;
+                        TextureRegion fr = atlas.findRegion(regionName);
+                        if (fr != null) frames.add(fr);
+                        else Gdx.app.error("AnimationManager", "Missing frame: " + regionName);
+                    }
+                } else {
+                    for (int i = 0; i < 2; i++) {
+                        String regionName = tool + "_" + dir + "_Frame_" + i;
+                        TextureRegion fr = atlas.findRegion(regionName);
+                        if (fr != null) frames.add(fr);
+                        else Gdx.app.error("AnimationManager", "Missing frame: " + regionName);
+                    }
                 }
             } else {
                 for (int i = 0; i < 3; i++) {

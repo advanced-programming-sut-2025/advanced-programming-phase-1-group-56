@@ -221,7 +221,8 @@ public class NpcController extends CommandController {
                 + npc.getType().getName() + " item to pay : " + itemToPay.getName() + "*" + payAmount);
         }
 
-        App.getMe().getInventory().remove(itemToPay, payAmount);//Temp remove
+        App.getMe().getInventory().remove(App.getMe().getInventory().findItemByName(itemToPay.getName()),payAmount)
+        ;//Temp remove
 
         System.out.println("quest Dont and going to give reward");
         Saleable reward = req.getRewardItem();

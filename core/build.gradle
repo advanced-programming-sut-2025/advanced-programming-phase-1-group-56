@@ -1,18 +1,6 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
-
-
-java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(21) // یا 11/21 هر چی لازم داری
-  }
-}
-
-
-repositories {
-  mavenCentral()
-}
 dependencies {
   api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
   api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
@@ -22,15 +10,15 @@ dependencies {
   testImplementation(platform("org.junit:junit-bom:5.10.0"))
   testImplementation("org.junit.jupiter:junit-jupiter")
   implementation("com.google.code.gson:gson:2.10.1")
-  implementation ("com.squareup.okhttp3:okhttp:4.11.0")
-  implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+
   implementation("junit:junit:4.13.2")
   implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+  implementation("com.squareup.okhttp3:okhttp:4.11.0")
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
 
-
-  if(enableGraalNative == 'true') {
+  if (enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
 }

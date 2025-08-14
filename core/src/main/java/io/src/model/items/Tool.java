@@ -1,6 +1,5 @@
 package io.src.model.items;
 
-import io.src.controller.GameMenuController.GameController;
 import io.src.model.App;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.GameObjects.TreeType;
@@ -13,7 +12,6 @@ import io.src.model.MapModule.Tile;
 import io.src.model.Player;
 import io.src.model.skills.Skill;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Tool extends Item {
@@ -60,15 +58,12 @@ public class Tool extends Item {
 //                        default -> player.getInventory().add(new Fruit((FruitType) t.fruit), 1);
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
-                        if (t.source != null) { // جلوگیری از NPE
+
                             System.out.println(t.toString());
-                            App.getMe().getInventory().add(new Seed(t.source), 1);
+                            App.getMe().getInventory().add(new Seed(t.getSource()), 1);
                             if (Math.random() > 0.5) {
-                                App.getMe().getInventory().add(new Seed(t.source), 1);
+                                App.getMe().getInventory().add(new Seed(t.getSource()), 1);
                             }
-                        } else {
-                            System.out.println("No seed source for tree type: " + t);
-                        }
                     }
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
@@ -211,10 +206,10 @@ public class Tool extends Item {
             case "Milk Pail": {
                 if (tile.getFixedObject() instanceof Animal) {
                     Animal animal = (Animal) tile.getFixedObject();
-                    if (animal.getAnimalInfo() == AnimalType.COW || animal.getAnimalInfo() == AnimalType.SHEEP) {
+                    if (animal.getType() == AnimalType.COW || animal.getType() == AnimalType.SHEEP) {
                         player.getInventory().add(new Etc(EtcType.MILK), 1);
                         animal.deleteProduct(EtcType.MILK);
-                    } else if (animal.getAnimalInfo() == AnimalType.GOAT) {
+                    } else if (animal.getType() == AnimalType.GOAT) {
                         player.getInventory().add(new Etc(EtcType.GOAT_MILK), 1);
                         animal.deleteProduct(EtcType.GOAT_MILK);
                         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);
@@ -226,7 +221,7 @@ public class Tool extends Item {
             case "Shear": {
                 if (tile.getFixedObject() instanceof Animal) {
                     Animal animal = (Animal) tile.getFixedObject();
-                    if (animal.getAnimalInfo() == AnimalType.SHEEP) {
+                    if (animal.getType() == AnimalType.SHEEP) {
                         player.getInventory().add(new Etc(EtcType.WOOL), 1);
                         animal.deleteProduct(EtcType.WOOL);
                         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);

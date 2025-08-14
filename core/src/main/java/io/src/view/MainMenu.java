@@ -10,21 +10,17 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.PreGameMenuController;
 import io.src.controller.MenuController.MainMenuController;
-import io.src.model.Activities.Gift;
 import io.src.model.App;
+import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.Menu;
-import io.src.model.Enums.NpcType;
 import io.src.model.Enums.commands.MainMenuCommands;
-import io.src.model.GameObject.NPC.NpcRequest;
-import io.src.model.Player;
+import io.src.model.GameObject.Animal;
+import io.src.model.MapModule.Position;
 import io.src.model.SkinManager;
 import io.src.model.UI_Models.Cloud;
-import io.src.model.items.Item;
 import io.src.view.InnerMenus.AnimalMenu;
 import io.src.view.InnerMenus.AvatarMenu;
 import io.src.model.Result;
-import io.src.view.InnerMenus.PlayerMeetingMenu;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -39,7 +35,7 @@ public class MainMenu implements AppMenu, Screen {
     private final Button aboutButton;
     private final Button profileButton;
     private final Button settingButton;
-    private final PlayerMeetingMenu playerMeetingMenu;
+//    private final AnimalMenu animalMenu;
     private ArrayList<Cloud> clouds;
 
     private final Button logoutButton;
@@ -144,26 +140,11 @@ public class MainMenu implements AppMenu, Screen {
         stage.addActor(profileMenu);
         profileMenu.setVisible(false);
 
-        // temp
-        playerMeetingMenu = new PlayerMeetingMenu(skin, App.getCurrentUser());
-        playerMeetingMenu.setRing(new Item("", 20, true, 20) {
-            @Override
-            public String getAssetName() {
-                return "Immunity_Band";
-            }
-        });
-        Player p = new Player("test");
-        playerMeetingMenu.setGiftItem(new Gift(p, p,
-            new Item("Bean", 20, true, 20) {
-                @Override
-                public String getAssetName() {
-                    return "Bean_Starter";
-                }
-            }
-            , 20));
-        playerMeetingMenu.setVisible(false);
-        playerMeetingMenu.setRequest(NpcType.ABIGAIL.getRequests().get(1));
-        stage.addActor(playerMeetingMenu);
+        // temp :
+//        animalMenu = new AnimalMenu(skin, new Animal(new Position(20, 20), "test", AnimalType.COW));
+//        animalMenu.setVisible(false);
+//        stage.addActor(animalMenu);
+
     }
 
     @Override
@@ -199,9 +180,10 @@ public class MainMenu implements AppMenu, Screen {
     }
 
     //
-    public PlayerMeetingMenu getPlayerMeetingMenu() {
-        return playerMeetingMenu;
-    }
+
+//    public AnimalMenu getAnimalMenu() {
+//        return animalMenu;
+//    }
 
     public ProfileMenu getProfileMenu() {
         return profileMenu;

@@ -224,7 +224,9 @@ public class CraftingController extends CommandController {
                     }
                 }
             }
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
+            if ((((Etc) item).getEtcType().etcObjectType) != null) {
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType));
+            }
         } else {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new DroppedItem(item, new Position(x, y)));
         }
@@ -304,9 +306,11 @@ public class CraftingController extends CommandController {
                     }
                 }
             }
-            EtcObject etcObject = new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType);
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(etcObject);
-            App.getMe().getCurrentGameLocation().getGameObjects().add(etcObject);
+            if (((Etc) item).getEtcType().etcObjectType != null) {
+                EtcObject etcObject = new EtcObject(false, new Position(x, y), ((Etc) item).getEtcType().etcObjectType);
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(etcObject);
+                App.getMe().getCurrentGameLocation().getGameObjects().add(etcObject);
+            }
         }
 
 

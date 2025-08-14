@@ -2,11 +2,7 @@ package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -39,11 +35,13 @@ import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.TileType;
+import io.src.model.Enums.WeatherAndTime.WeatherType;
 import io.src.model.Game;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.Buildings.Home;
 import io.src.model.MapModule.Buildings.Store;
+import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
@@ -57,10 +55,14 @@ import io.src.model.items.Fish;
 import io.src.model.items.Tool;
 import io.src.model.items.Etc;
 
+import javax.swing.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 
 public class GameView implements Screen, TimeObserver {
@@ -105,6 +107,11 @@ public class GameView implements Screen, TimeObserver {
     private RefrigeratorWindow refrigeratorWindow;
     private Image foodBuff;
     private FishingMinigame activeFishingMinigame = null;
+    private DayNightLighting lighting;
+    private ShapeRenderer sr = new ShapeRenderer();
+    private RainSystem rainSystem = new RainSystem();
+    private Texture whitePixel;
+//    private List<DayNightLighting.Light> lights = new ArrayList<>();
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -191,6 +198,17 @@ public class GameView implements Screen, TimeObserver {
         transitionManager = new ScreenTransition();
         shapeRenderer = new ShapeRenderer();
 
+
+        Pixmap pm = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pm.setColor(Color.WHITE);
+        pm.fill();
+        whitePixel = new Texture(pm);
+        pm.dispose();
+        lighting = new DayNightLighting();
+//        rainSystem.setSpawnRate(150f);      // ذرات در ثانیه
+//        rainSystem.setWind(40f, 40f);       // باد به سمت راست 40 px/s با تغییر ±40
+//        rainSystem.setGroundOffset(6f);
+
         setCustomCursor("assets/Cursor.png", 0, 0);
 
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
@@ -238,8 +256,7 @@ public class GameView implements Screen, TimeObserver {
         renderer.getBatch().draw(frame, x, y);
     }
 
-    private void renderPlayer() {
-        Player player = App.getMe();
+    private void renderPlayer(Player player) {
         float x = player.getPixelPosition().getX(), y = player.getPixelPosition().getY();
         AnimationKey key;
         if (player.isMoving()) {
@@ -319,6 +336,48 @@ public class GameView implements Screen, TimeObserver {
 
     }
 
+    private void renderAnimal(Animal animal) {
+        String name = animal.getType().getAssetName(); // مثل "grandma"
+        float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+
+        AnimationKey key;
+        if (animal.isMoving()) {
+            switch (animal.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.WALK_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.WALK_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.WALK_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.WALK_RIGHT;
+                    break;
+            }
+        } else {
+            switch (animal.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.IDLE_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.IDLE_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.IDLE_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.IDLE_RIGHT;
+                    break;
+            }
+        }
+
+        renderCharacter(name, key, x, y);
+
+    }
+
+
     private void updateCameraPosition() {
         Player player = App.getMe();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -376,6 +435,7 @@ public class GameView implements Screen, TimeObserver {
         camera.update();
     }
 
+
     public void spawnToolSwing(Tool tool, Direction dir, Runnable onComplete) {
         if (tool == null) return;
 
@@ -397,7 +457,11 @@ public class GameView implements Screen, TimeObserver {
         float dirRotation;
         switch (dir) {
             case RIGHT -> {
-                baseAngles = new float[]{10, -50, -100};
+                if (toolName.equals("FishingPole")) {
+                    baseAngles = new float[]{0, 0, 0};
+                } else {
+                    baseAngles = new float[]{10, -50, -100};
+                }
                 offsets = List.of(
                     new Vector2(8, 24),
                     new Vector2(12, 20),
@@ -413,7 +477,11 @@ public class GameView implements Screen, TimeObserver {
                 );
             }
             case LEFT -> {
-                baseAngles = new float[]{-10, 50, 100};
+                if (toolName.equals("FishingPole")) {
+                    baseAngles = new float[]{0, 0, 0};
+                } else {
+                    baseAngles = new float[]{-10, 50, 100};
+                }
                 offsets = List.of(
                     new Vector2(8, 24),
                     new Vector2(4, 20),
@@ -421,7 +489,11 @@ public class GameView implements Screen, TimeObserver {
                 );
             }
             case DOWN -> {
-                baseAngles = new float[]{0, 0};
+                if (toolName.equals("FishingPole")) {
+                    baseAngles = new float[]{0, 0, 0};
+                } else {
+                    baseAngles = new float[]{0, 0};
+                }
                 offsets = List.of(
                     new Vector2(0, 20),
                     new Vector2(8, 0),
@@ -515,41 +587,75 @@ public class GameView implements Screen, TimeObserver {
         gameMenuInputAdapter.update(v);
         renderer.render();
 
+        if (!(App.getMe().getCurrentGameLocation() instanceof Town)) {
+            for (NPC npc : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getNPCs()) {
+                npc.update(v);
+            }
+        }
+
         renderer.getBatch().begin();
+
+
+        renderWarningDialog();
         //render tile type plowed soil
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : tileLine) {
-                if (tile.getTileType() == TileType.PlowedSoil) {
-                    Texture texture = new Texture(Gdx.files.internal(
-                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
-                    ));
-                    TextureRegion region = new TextureRegion(texture);
+                if (tile.getTileType() == TileType.PlowedSoil || tile.getTileType() == TileType.WaterPlowedSoil) {
+                    String key = tile.getTileType().toString();
+                    TextureRegion region;
+                    if (!gameObjectTextureMap.containsKey(key)) {
+                        // یک بار لود و ذخیره کن
+                        String path = GameAssetManager.getGameAssetManager().getAssetsDictionary().get(key);
+                        if (path != null) {
+                            Texture texture = new Texture(Gdx.files.internal(path));
+                            region = new TextureRegion(texture);
+                            gameObjectTextureMap.put(key, region);
+                        } else {
+                            continue; // asset not found
+                        }
+                    } else {
+                        region = gameObjectTextureMap.get(key);
+                    }
+                    // draw region
                     renderer.getBatch().draw(region, tile.getPosition().getX() * TILE_SIZE, tile.getPosition().getY() * TILE_SIZE);
                 }
             }
         }
 
+        //render tile type plowed soil
+//        for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
+//            for (Tile tile : tileLine) {
+//                if (tile.getTileType() == TileType.PlowedSoil) {
+//                    Texture texture = new Texture(Gdx.files.internal(
+//                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(tile.getTileType().toString())
+//                    ));
+//                    TextureRegion region = new TextureRegion(texture);
+//                    renderer.getBatch().draw(region, tile.getPosition().getX() * TILE_SIZE, tile.getPosition().getY() * TILE_SIZE);
+//                }
+//            }
+//        }
+
         ArrayList<GameObject> objects = App.getMe().getCurrentGameLocation().getCopyOfGameObjects();
-        Position renderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
-        PlayerObject me = new PlayerObject(App.getMe().getUser().getName(), true, renderingPosition);
-        objects.add(me);
+        Position myRenderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
+        objects.add(App.getMe().getPlayerObjectPlusPosition(myRenderingPosition));
+        for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+            if (player.equals(App.getMe())) continue;
+            if (App.getMe().getCurrentGameLocation().equals(player.getCurrentGameLocation())) {
+                Position renderingPosition = new Position((player.getPixelPosition().getX() + 16) / 16, (player.getPixelPosition().getY()) / 16);
+                objects.add(player.getPlayerObjectPlusPosition(renderingPosition));
+            }
+        }
         objects.sort(
             Comparator
                 .comparingDouble((GameObject o) -> -o.getPosition().getY())
                 .thenComparingInt(o -> (int) o.getPosition().getX())
-//                .thenComparingDouble()
         );
-
 
         for (GameObject go : objects) {
             String assetName = go.getAssetName();
             TextureRegion region;
             if (go instanceof PlayerObject) {
-
-
-                renderPlayer();
-                renderWarningDialog();
-
+                renderPlayer(((PlayerObject) go).getPlayer());
                 updateAndDrawToolSwings(v);
 
                 //Debug
@@ -583,6 +689,12 @@ public class GameView implements Screen, TimeObserver {
                 handleMailBoxHint(mailBox);
                 continue;
             }
+            if (go instanceof Animal animal) {
+                renderAnimal(animal);
+                animal.update(v);
+                handleAnimalHint(animal);
+                continue;
+            }
 
             if (GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName) == null) {
                 System.out.println(assetName);
@@ -603,7 +715,7 @@ public class GameView implements Screen, TimeObserver {
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
 
-            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
+            if ((go instanceof Tree tree && tree.getCurrentStage() >= 4) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
                 ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
                 worldX -= 16;
             }
@@ -611,6 +723,12 @@ public class GameView implements Screen, TimeObserver {
             if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.PINKFU_TREE) {
                 worldX -= 24;
             }
+//
+//            if (go instanceof EtcObject && ((EtcObject) go).getEtcObjectType() == EtcObjectType.LANTERN){
+//                float wx = go.getPixelPosition().x + TILE_SIZE/2f;
+//                float wy = go.getPixelPosition().y + TILE_SIZE/2f + 8f; // ارتفاعِ کمی بالاتر
+//                lights.add(new DayNightLighting.Light(wx, wy, 120f, 1f));
+//            }
 
             if (go instanceof ArtesianMachine) {
                 worldX -= 25;
@@ -658,6 +776,30 @@ public class GameView implements Screen, TimeObserver {
 //
 //            }
 //        }
+        if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
+
+            renderer.getBatch().end();
+
+            renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
+            renderer.getBatch().begin();
+            renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            renderer.getBatch().setColor(Color.WHITE);
+            renderer.getBatch().end();
+
+            renderer.getBatch().setProjectionMatrix(camera.combined);
+            renderer.getBatch().begin();
+//            float overlayAlpha = 0.2f;
+//            renderer.getBatch().setColor(0f, 0.12f, 0.18f, overlayAlpha);
+//            renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//            renderer.getBatch().setColor(Color.WHITE);
+
+            // update و render rain با دادن camera
+            rainSystem.update(v, camera);
+            rainSystem.render(renderer.getBatch());
+        }
+
+
         renderer.getBatch().end();
 
         transitionManager.update(v);
@@ -712,6 +854,9 @@ public class GameView implements Screen, TimeObserver {
         }
 
 
+        lighting.render(((float) App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour()), (SpriteBatch) renderer.getBatch());
+
+
         camera.update();
 
 
@@ -723,159 +868,203 @@ public class GameView implements Screen, TimeObserver {
         }
     }
 
-
-    public void handleShopHint(Batch batch) {
-        if (gameMenuInputAdapter.isShopCounterHintActive()) {
-            Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
-                (Class<? extends Store>) App.getMe().getCurrentGameLocation().getType().getRelatedClazz()
-            );
-            Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
-            ));
-            TextureRegion region = new TextureRegion(texture);
-            float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
-            float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
-            renderer.getBatch().draw(region,
-                worldX, worldY
-            );
-
-        }
-    }
-
-    public void handleNpcHint(NPC npc) {
-        if (npc.isDialogReady() && npc.isMeetHint()) {
-            Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
-            ));
-            TextureRegion region = new TextureRegion(texture);
-            float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
-            float worldX = (float) ((x + 6));
-            float worldY = (float) ((y + 31));
-            renderer.getBatch().draw(region,
-                worldX, worldY
-            );
-
-        }
-    }
-
-    private void handleMailBoxHint(MailBox mailBox) {
-        mailBox.onPlayerGoesNearby(3);
-        if (mailBox.getHasNewMessages()) {
-            Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
-            ));
-            TextureRegion region = new TextureRegion(texture);
-            float x = mailBox.getPixelPosition().x, y = mailBox.getPixelPosition().y;
-            float worldX = (float) ((x + 6));
-            float worldY = (float) ((y + 29));
-            renderer.getBatch().draw(region,
-                worldX, worldY
-            );
-
+    private void handleAnimalHint(Animal animal) {
+        if (animal.isPetHint()) {
+            if (animal.getLastPettingTime().until(LocalDateTime.now(), ChronoUnit.SECONDS) > 3) {
+                animal.setPetHint(false);
+            } else {
+                Texture texture = new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Secret_Heart")
+                ));
+                TextureRegion region = new TextureRegion(texture);
+                float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+                float worldX = (float) ((x + 6));
+                float worldY = (float) ((y + 20));
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                        16, // Origin Y
+                    24, 24, // اندازه اصلی
+                    1f, 1f, // scaleX, scaleY
+                    0); // rotation
+            }
+        } else if(animal.isFeedHint()) {
+            if (animal.getLastFeedingTime().until(LocalDateTime.now(), ChronoUnit.SECONDS) > 3) {
+                animal.setFeedHint(false);
+            } else {
+                Texture texture = new Texture(Gdx.files.internal(
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Wheat1")
+                ));
+                TextureRegion region = new TextureRegion(texture);
+                float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+                float worldX = (float) ((x + 6));
+                float worldY = (float) ((y + 22));
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                    16, // Origin Y
+                    12, 12, // اندازه اصلی
+                    1f, 1f, // scaleX, scaleY
+                    0); // rotation
+            }
         }
     }
 
 
-    @Override
-    public void resize(int i, int i1) {
+public void handleShopHint(Batch batch) {
+    if (gameMenuInputAdapter.isShopCounterHintActive()) {
+        Store store = App.getCurrentUser().getCurrentGame().findStoreByClass(
+            (Class<? extends Store>) App.getMe().getCurrentGameLocation().getType().getRelatedClazz()
+        );
+        Texture texture = new Texture(Gdx.files.internal(
+            GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar")
+        ));
+        TextureRegion region = new TextureRegion(texture);
+        float worldX = (float) ((store.getNPCposition().getX() + 0.5) * TILE_SIZE);
+        float worldY = (float) ((store.getNPCposition().getY() + 0.5) * TILE_SIZE);
+        renderer.getBatch().draw(region,
+            worldX, worldY
+        );
 
     }
+}
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
+public void handleNpcHint(NPC npc) {
+    if (npc.isDialogReady() && npc.isMeetHint()) {
+        Texture texture = new Texture(Gdx.files.internal(
+            GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+        ));
+        TextureRegion region = new TextureRegion(texture);
+        float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
+        float worldX = (float) ((x + 6));
+        float worldY = (float) ((y + 31));
+        renderer.getBatch().draw(region,
+            worldX, worldY
+        );
 
     }
+}
 
-    public FoodWindow foodWindow() {
-        return foodWindow;
+private void handleMailBoxHint(MailBox mailBox) {
+    if (mailBox.getHasNewMessages()) {
+        Texture texture = new Texture(Gdx.files.internal(
+            GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+        ));
+        TextureRegion region = new TextureRegion(texture);
+        float x = mailBox.getPixelPosition().x, y = mailBox.getPixelPosition().y;
+        float worldX = (float) ((x + 6));
+        float worldY = (float) ((y + 29));
+        renderer.getBatch().draw(region,
+            worldX, worldY
+        );
+
     }
+}
 
-    public craftingWindow getCraftingWindow() {
-        return craftingWindow;
+
+@Override
+public void resize(int i, int i1) {
+
+}
+
+@Override
+public void pause() {
+
+}
+
+@Override
+public void resume() {
+
+}
+
+@Override
+public void hide() {
+
+}
+
+@Override
+public void dispose() {
+    lighting.dispose();
+    if (whitePixel != null) whitePixel.dispose();
+}
+
+public FoodWindow foodWindow() {
+    return foodWindow;
+}
+
+public craftingWindow getCraftingWindow() {
+    return craftingWindow;
+}
+
+public InventoryWindow getInvWindow() {
+    return invWindow;
+}
+
+public void setInvWindow(InventoryWindow invWindow) {
+    this.invWindow = invWindow;
+}
+
+public DialogWindow getDialogWindow() {
+    return dialogWindow;
+}
+
+public WarningWindow getWarningWindow() {
+    return warningWindow;
+}
+
+
+public CheatWindow getCheatWindow() {
+    return cheatWindow;
+}
+
+public Stage getStage() {
+    return stage;
+}
+
+
+public ShopStateWindow getShopStateWindow() {
+    return shopStateWindow;
+}
+
+public GameMenuInputAdapter getGameMenuInputAdapter() {
+    return gameMenuInputAdapter;
+}
+
+public TimerWindow getTimerWindow() {
+    return this.timeWindow;
+}
+
+
+public FoodWindow getFoodWindow() {
+    return foodWindow;
+}
+
+public RefrigeratorWindow getRefrigeratorWindow() {
+    return refrigeratorWindow;
+}
+
+public InventoryBar getInventoryBar() {
+    return inventoryBar;
+}
+
+@Override
+public void onHourChanged(DateTime time, boolean newDay) {
+    if (newDay) {
+        updateMapWithFade(() -> {
+            for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
+                player.setCurrentGameLocation(player.getPlayerFarm().getDefaultHome().getIndoor());
+            }
+            App.getMe().setPosition(new Position(8, 3));
+        });
     }
+}
 
-    public InventoryWindow getInvWindow() {
-        return invWindow;
-    }
-
-    public void setInvWindow(InventoryWindow invWindow) {
-        this.invWindow = invWindow;
-    }
-
-    public DialogWindow getDialogWindow() {
-        return dialogWindow;
-    }
-
-    public WarningWindow getWarningWindow() {
-        return warningWindow;
-    }
+public InputMultiplexer getMultiplexer() {
+    return multiplexer;
+}
 
 
-    public CheatWindow getCheatWindow() {
-        return cheatWindow;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-
-    public ShopStateWindow getShopStateWindow() {
-        return shopStateWindow;
-    }
-
-    public GameMenuInputAdapter getGameMenuInputAdapter() {
-        return gameMenuInputAdapter;
-    }
-
-    public TimerWindow getTimerWindow() {
-        return this.timeWindow;
-    }
-
-
-    public FoodWindow getFoodWindow() {
-        return foodWindow;
-    }
-
-    public RefrigeratorWindow getRefrigeratorWindow() {
-        return refrigeratorWindow;
-    }
-
-    public InventoryBar getInventoryBar() {
-        return inventoryBar;
-    }
-
-    @Override
-    public void onHourChanged(DateTime time, boolean newDay) {
-        if (newDay) {
-            updateMapWithFade(() -> {
-                App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
-                App.getMe().setPosition(new Position(8, 3));
-            });
-        }
-    }
-
-    public InputMultiplexer getMultiplexer() {
-        return multiplexer;
-    }
-
-
-    public ShippingBarWindow getShippingBarWindow() {
-        return shippingBarWindow;
-    }
+public ShippingBarWindow getShippingBarWindow() {
+    return shippingBarWindow;
+}
 }

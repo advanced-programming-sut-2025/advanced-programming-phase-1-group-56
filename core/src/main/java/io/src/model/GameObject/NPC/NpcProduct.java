@@ -4,10 +4,7 @@ import io.src.model.App;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.Enums.BackPackType;
 import io.src.model.Enums.Buildings.BuildingType;
-import io.src.model.Enums.Items.EtcType;
-import io.src.model.Enums.Items.MineralItemType;
-import io.src.model.Enums.Items.ToolType;
-import io.src.model.Enums.Items.TrashcanType;
+import io.src.model.Enums.Items.*;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.Enums.WeatherAndTime.Seasons;
@@ -104,6 +101,8 @@ public class NpcProduct {
             return toolType.getAssetName();
         } else if (this.saleable instanceof TrashcanType trashcanType) {
             return trashcanType.getAssetName();
+        } else if (this.saleable instanceof QualityPole qualityPole) {
+            return qualityPole.getAssetName();
         }
         return null;
     }
@@ -121,17 +120,17 @@ public class NpcProduct {
             }
             return slots.toArray(new Slot[0]);
         } else if (this.saleable instanceof ToolType toolType) {
-            ToolType before =toolType.findBeforeToolType();
-            if(before != null) {
-                return new Slot[]{new Slot(new Tool(before), 1),new Slot(new Etc(toolType.getToolMaterial().getOre()), 5)};
+            ToolType before = toolType.findBeforeToolType();
+            if (before != null) {
+                return new Slot[]{new Slot(new Tool(before), 1), new Slot(new Etc(toolType.getToolMaterial().getOre()), 5)};
             }
             return new Slot[]{new Slot(new Etc(toolType.getToolMaterial().getOre()), 5)};
         } else if (this.saleable instanceof TrashcanType trashcanType) {
 
             TrashcanType before = trashcanType.findBeforeTrashCanType();
-            if(before != null) {
+            if (before != null) {
                 //System.out.println("Kodam :" + trashcanType.getName() + "Beforam " + before.getName());
-                return new Slot[]{new Slot(new Tool(before), 1),new Slot(new Etc(trashcanType.getMaterial().getOre()), 5)};
+                return new Slot[]{new Slot(new Tool(before), 1), new Slot(new Etc(trashcanType.getMaterial().getOre()), 5)};
             }
             return new Slot[]{new Slot(new Etc(trashcanType.getMaterial().getOre()), 5)};
         }
@@ -155,6 +154,8 @@ public class NpcProduct {
         } else if (this.saleable instanceof CraftingRecipesList rec) {
             return true;
         } else if (this.saleable instanceof BackPackType backPackType) {
+            return true;
+        } else if (this.saleable instanceof QualityPole qualityPole) {
             return true;
         } else if (this.saleable instanceof BuildingType buildingType) {
             return false;

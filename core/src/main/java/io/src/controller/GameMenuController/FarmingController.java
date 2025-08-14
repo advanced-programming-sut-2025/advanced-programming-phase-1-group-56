@@ -37,8 +37,7 @@ public class FarmingController extends CommandController {
         }
     }
 
-    public static Result craftInfo(Matcher matcher) {
-        String name = matcher.group(1).trim();
+    public static Result craftInfo(String name) {
         FruitType fruitType = null;
         CropType cropType = null;
         TreeType treeType = null;
@@ -80,7 +79,7 @@ public class FarmingController extends CommandController {
                 treeType = TreeType.fromName(name);
                 if (treeType != null) {
                     tmpString.append("Name: ").append(treeType.name).append("\n");
-                    tmpString.append("Source: ").append(treeType.source).append("\n");
+                    tmpString.append("Source: ").append(treeType.getSource()).append("\n");
                     tmpString.append("Stages: ").append(treeType.stages).append("\n");
                     tmpString.append("Total Harvest Time: ").append(treeType.totalHarvestTime).append("\n");
                     tmpString.append("Fruit: ").append(treeType.fruit != null ? ((FruitType) treeType.fruit).getName() : "None").append("\n");
@@ -179,19 +178,17 @@ public class FarmingController extends CommandController {
         return null;
     }
 
-    public static Result managePlantSeed(Matcher matcher) {
-        String seedName = matcher.group(1).trim();
-        String direction = matcher.group(2);
-        Direction dir;
-        SeedType seed = SeedType.fromName(seedName);
-        Item seed1 = getItemFromString(seedName);
+    public static Result managePlantSeed(SeedType seedType, Direction dir) {
+        SeedType seed = SeedType.fromName(seedType.getName());
+        Item seed1 = getItemFromString(seedType.getName());
         if (seed == null || seed1 == null) {
             return new Result(false, "this seed does not exist!");
-        } else if ((dir = getDirectionFromString(direction)) == null) {
+        } else if (dir == null) {
             return new Result(false, "this direction does not exist!");
         } else if (!(App.getMe().getCurrentGameLocation() instanceof Farm || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor())) {
             return new Result(false, "you are not in Green House or Farm!");
         }
+
         Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
         int x = (int) position.getX();
         int y = (int) position.getY();
@@ -264,8 +261,11 @@ public class FarmingController extends CommandController {
 
 
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(crop);
+            App.getMe().getCurrentGameLocation().addGameObject(crop);
         } else if (seed2.cropType instanceof TreeType) {
-            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(new Tree(((TreeType) seed.cropType), new Position(x, y)));
+            Tree newTree = new Tree(((TreeType) seed.cropType), new Position(x, y));
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(newTree);
+            App.getMe().getCurrentGameLocation().addGameObject(newTree);
         }
         App.getMe().getInventory().remove(seed1, 1);
         App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);

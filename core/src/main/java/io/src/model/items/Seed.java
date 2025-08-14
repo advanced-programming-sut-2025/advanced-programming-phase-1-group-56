@@ -7,7 +7,7 @@ import io.src.model.Enums.WeatherAndTime.Seasons;
 public class Seed extends Item {
     private SeedType seedType;
 
-    public Seed( SeedType seedType) {
+    public Seed(SeedType seedType) {
         super(seedType.name, 100,true,-1);
         this.seedType = seedType;
     }
