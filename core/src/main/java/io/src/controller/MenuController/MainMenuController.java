@@ -109,7 +109,7 @@ public class MainMenuController extends CommandController {
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
-//                menu.getAnimalMenu().setVisible(true);
+                PreGameMenuController.manageFourPlayerGame();
             }
         });
 

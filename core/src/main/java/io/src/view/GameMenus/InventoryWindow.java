@@ -25,6 +25,8 @@ import io.src.model.*;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Items.TrashcanType;
 import io.src.model.Enums.Skills;
+import io.src.model.GameObject.NPC.NPC;
+import io.src.model.GameObject.NPC.NpcFriendship;
 import io.src.model.items.Item;
 import io.src.model.items.Tool;
 import io.src.model.items.Inventory;
@@ -39,11 +41,13 @@ public class InventoryWindow extends Group implements InputProcessor {
     private final Image background;
     private final Player player;
     private final DragAndDrop dragAndDrop = new DragAndDrop();
+    private Skin skin;
 
     public InventoryWindow() {
         player = App.getMe();
         setSize(750, 580);
         setPosition((Gdx.graphics.getWidth() - 750) / 2f, (Gdx.graphics.getHeight() - 580) / 2f);
+        skin = SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN);
 
         background = new Image(GameAssetManager.getGameAssetManager().getInventoryBackGround());
         background.setSize(getWidth(), getHeight() + 10);
@@ -283,6 +287,36 @@ public class InventoryWindow extends Group implements InputProcessor {
 
     private void showSocialTab() {
         background.setDrawable(new TextureRegionDrawable(GameAssetManager.getGameAssetManager().getTmpBackground()));
+
+        Table friendShipsTable = new Table();
+
+        for (int i = 0; i < App.getMe().getNpcFriendShips().size(); i++) {
+            NPC npc = App.getMe().getNpcFriendShips().get(i).getNpc();
+            Window npcWin = new Window("", skin, "social");
+//            npcWin.align(Align.left);
+            Image npcImage = new Image(new Texture(Gdx.files.internal("AVATAR\\final\\" + npc.getType().getName() + "\\1\\avatarProfile.png")));
+            npcWin.add(npcImage).padLeft(30).padRight(30);
+            Label NpcName = new Label(npc.getType().getName(), skin);
+            npcWin.add(NpcName).bottom().padRight(30);
+            Table heartTable = new Table();
+            for (int j = 0; j < 4; j++) {
+                Button heart = new Button(skin, "heart");
+                heart.setChecked(true);
+                heart.setDisabled(true);
+                heartTable.add(heart).width(heart.getWidth() * 2).height(heart.getHeight() * 2).pad(10);
+            }
+//            npcWin.add(heartTable).padLeft(400 - NpcName.getWidth());
+            npcWin.pack();
+            friendShipsTable.add(npcWin).row();
+        }
+
+        friendShipsTable.pack();
+        ScrollPane socialPane = new ScrollPane(friendShipsTable, skin, "default2");
+        socialPane.setScrollingDisabled(true, false);
+        socialPane.pack();
+        socialPane.setSize(friendShipsTable.getWidth() - 138, friendShipsTable.getHeight());
+        socialPane.setPosition(getWidth() - socialPane.getWidth() - 15, getHeight() - socialPane.getHeight());
+        contentGroup.addActor(socialPane);
     }
 
     private void showMapTab() {

@@ -22,8 +22,6 @@ public class Friendship {
         isMarried = false;
     }
 
-
-
     public int getXp() {
         return xp;
     }

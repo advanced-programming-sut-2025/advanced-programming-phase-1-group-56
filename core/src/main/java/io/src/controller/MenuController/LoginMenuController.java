@@ -6,18 +6,21 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.*;
 import io.src.model.Enums.InfoRegexes;
 import io.src.model.Enums.SecurityQuestion;
 import io.src.model.Enums.SfxEnum;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.view.LoginMenu;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -328,8 +331,9 @@ public class LoginMenuController extends CommandController {
         if (!user.getPassword().equals(hashedInputPassword)) return new Result(false, "incorrect password");
 
         if (stayLoggedIn) {
-            Gson gson = new Gson();
-            try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();            try (Writer writer = new FileWriter("assets\\StayLoggedIn.json")) {
                 gson.toJson(user, writer);
             } catch (IOException e) {
                 e.printStackTrace();

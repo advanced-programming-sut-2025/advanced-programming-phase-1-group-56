@@ -57,7 +57,7 @@ public class CommonShopMenu extends Window {
             }
             //DEBUG
             System.out.println(product.getName());
-            System.out.println(product.Find_ItemNeeded());
+            System.out.println(product.Find_AssetName());
             System.out.println(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName()));
             ProductWindow productWindow = new ProductWindow(skin, product,
                 new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(product.Find_AssetName())))),

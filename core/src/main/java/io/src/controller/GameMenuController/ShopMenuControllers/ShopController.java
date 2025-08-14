@@ -2,6 +2,7 @@ package io.src.controller.GameMenuController.ShopMenuControllers;
 
 import io.src.model.App;
 import io.src.model.Enums.BackPackType;
+import io.src.model.Enums.Items.QualityPole;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
@@ -12,6 +13,7 @@ import io.src.model.MapModule.Position;
 import io.src.model.Player;
 import io.src.model.Result;
 import io.src.model.items.Item;
+import io.src.model.items.Tool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,15 +74,26 @@ public interface ShopController {
 
         if (productToBuy.getSaleable() instanceof Item item) {
             //item
-            if(me.getInventory().canAddItem(item,amount)) {
+            if (me.getInventory().canAddItem(item, amount)) {
                 me.addGold(-sumPrice);
                 productToBuy.changeRemainingStock(-amount);
                 me.getInventory().add(item, amount);
                 return new Result(true, "purchase item successful..");
-            }else {
-                return new Result(false,"your inventory doesn't have enough space");
+            } else {
+                return new Result(false, "your inventory doesn't have enough space");
             }
 
+        } else if (productToBuy.getSaleable() instanceof QualityPole qualityPole) {
+            Tool rod = new Tool(qualityPole.getToolType());
+            if (me.getInventory().canAddItem(rod, amount)) {
+                me.getInventory().remove(me.getInventory().findItemByName(rod.getName()), amount);
+                me.addGold(-sumPrice);
+                productToBuy.changeRemainingStock(-amount);
+                me.getInventory().add(rod, amount);
+                return new Result(true, "purchase item successful..");
+            } else {
+                return new Result(false, "your inventory doesn't have enough space");
+            }
         } else if (productToBuy.getSaleable() instanceof CraftingRecipesList recipe ||
             productToBuy.getSaleable() instanceof FoodRecipesList food) {
             //recipe

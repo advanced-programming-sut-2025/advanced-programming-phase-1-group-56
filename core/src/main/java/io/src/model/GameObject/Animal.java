@@ -22,9 +22,11 @@ import io.src.model.items.AnimalProduct;
 import io.src.model.items.Saleable;
 import io.src.view.InnerMenus.AnimalMenu;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static io.src.view.GameMenus.GameView.TILE_SIZE;
 
@@ -48,6 +50,10 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver, Clic
     private Vector2 pixelPosition;
     private GameLocation gameLocation;
     private List<Position> movePoints;
+    private LocalDateTime lastPettingTime = LocalDateTime.now();
+    private boolean petHint = false;
+    private LocalDateTime lastFeedingTime = LocalDateTime.now();
+    private boolean feedHint = false;
 
     public Animal(Position position, String name, AnimalType animalInfo, AnimalHouse house) {
         super(position, true);
@@ -273,8 +279,8 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver, Clic
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer,int button){
-        if (button == Input.Buttons.RIGHT){
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (button == Input.Buttons.RIGHT) {
             AnimalMenu animalMenu = new AnimalMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), this);
             animalMenu.setVisible(true);
             StardewValley.getGameView().getStage().addActor(animalMenu);
@@ -311,5 +317,37 @@ public class Animal extends LivingEntity implements Saleable, TimeObserver, Clic
     @Override
     public float getSensitivityDistance() {
         return 4;
+    }
+
+    public LocalDateTime getLastPettingTime() {
+        return lastPettingTime;
+    }
+
+    public void setLastPettingTime(LocalDateTime lastPettingTime) {
+        this.lastPettingTime = lastPettingTime;
+    }
+
+    public boolean isPetHint() {
+        return petHint;
+    }
+
+    public void setPetHint(boolean petHint) {
+        this.petHint = petHint;
+    }
+
+    public LocalDateTime getLastFeedingTime() {
+        return lastFeedingTime;
+    }
+
+    public void setLastFeedingTime(LocalDateTime lastFeedingTime) {
+        this.lastFeedingTime = lastFeedingTime;
+    }
+
+    public boolean isFeedHint() {
+        return feedHint;
+    }
+
+    public void setFeedHint(boolean feedHint) {
+        this.feedHint = feedHint;
     }
 }

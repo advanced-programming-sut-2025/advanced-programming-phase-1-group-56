@@ -10,8 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import io.src.model.Activities.Message;
 import io.src.model.GameObject.MailBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MailBoxDialog extends Dialog {
@@ -66,7 +68,7 @@ public class MailBoxDialog extends Dialog {
         listTable.defaults().left().padTop(6).padBottom(6);
 
         // ابتدا unseen ها (آن‌ها را با متنِ پر contrast نمایش می‌دهیم)
-        List<String> unseen = mailBox.getUnseenMessages();
+        ArrayList<Message> unseen = mailBox.getUnseenMessages();
         if (!unseen.isEmpty()) {
             Label newHeader = new Label("New messages", skin);
             newHeader.setAlignment(Align.left);
@@ -74,11 +76,11 @@ public class MailBoxDialog extends Dialog {
             listTable.add(newHeader).left().row();
 
             boolean first = true;
-            for (String msg : unseen) {
+            for (Message msg : unseen) {
                 if (!first) addSeparator(listTable, skin);
                 first = false;
 
-                Actor panel = createMessageRow(skin, msg, false); // false => unseen (high contrast text)
+                Actor panel = createMessageRow(skin, msg.toString(), false); // false => unseen (high contrast text)
                 listTable.add(panel).width(PANEL_WIDTH).left().row();
             }
             // جداکننده بین گروه‌ها
@@ -86,7 +88,7 @@ public class MailBoxDialog extends Dialog {
         }
 
         // سپس history (seen -> متن ملایم‌تر)
-        List<String> history = mailBox.getHistoryMessages();
+        ArrayList<Message> history = mailBox.getHistoryMessages();
         if (!history.isEmpty()) {
             Label histHeader = new Label("History", skin);
             histHeader.setAlignment(Align.left);
@@ -94,11 +96,11 @@ public class MailBoxDialog extends Dialog {
             listTable.add(histHeader).padTop(6).row();
 
             boolean first = true;
-            for (String msg : history) {
+            for (Message msg : history) {
                 if (!first) addSeparator(listTable, skin);
                 first = false;
 
-                Actor panel = createMessageRow(skin, msg, true); // true => seen (muted text)
+                Actor panel = createMessageRow(skin, msg.toString(), true); // true => seen (muted text)
                 listTable.add(panel).width(PANEL_WIDTH).left().row();
             }
         }

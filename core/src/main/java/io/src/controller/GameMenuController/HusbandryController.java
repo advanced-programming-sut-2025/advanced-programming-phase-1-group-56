@@ -10,6 +10,7 @@ import io.src.model.Enums.Skills;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
 
 import io.src.model.GameObject.Animal;
+import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Buildings.AnimalHouse;
 import io.src.model.MapModule.Buildings.Barn;
 import io.src.model.MapModule.Buildings.Building;
@@ -27,45 +28,37 @@ import java.util.Random;
 import java.util.regex.Matcher;
 
 public class HusbandryController extends CommandController {
-    public static Result addAnimal(int x , int y, String name){
+    public static Result addAnimal(int x, int y, String name) {
         Player player = App.getMe();
         AnimalType animal = AnimalType.findAnimalTypeByName(name);
-        if(animal == null){
+        if (animal == null) {
             return new Result(false, "AnimalType not found");
         }
         for (Building building : player.getPlayerFarm().getBuildings()) {
-            if (building.getBuildingType() == animal.getRequiredBuilding()){
-                Animal animal1 = new Animal(new Position(x,y),"mn",animal, (AnimalHouse) building);///
+            if (building.getBuildingType() == animal.getRequiredBuilding()) {
+                Animal animal1 = new Animal(new Position(x, y), "mn", animal, (AnimalHouse) building);///
                 player.addAnimals(animal1);
                 building.getIndoor().addGameObject(animal1);
-                building.getIndoor().getTileByPosition(x,y).setFixedObject(animal1);
+                building.getIndoor().getTileByPosition(x, y).setFixedObject(animal1);
                 animal1.initializePaths(building.getIndoor());
-                return new Result(true,"Added Animal " + animal1.getName());
+                return new Result(true, "Added Animal " + animal1.getName());
             }
         }
-        return new Result(false,"you dont have " + animal.getName());
+        return new Result(false, "you dont have " + animal.getName());
 
 //        Animal animal1 = new Animal(new Position(x,y),"mn",animal, );
 //        App.getMe().addAnimals(animal1);
 //        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).setFixedObject(animal1);
     }
-    public static Result petting(Matcher matcher) {
-        String name = matcher.group(1).trim();
+
+    public static Result petting(String name) {
         Animal animal = returnAnimal(name);
         if (animal == null) {
             return new Result(false, "Animal not found");
         }
-        Position position = App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPosition();
-        boolean isExist = false;
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)position.getX() + i, (int)position.getY() + j).getFixedObject() instanceof Animal) {
-                    if (((Animal) (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)position.getX() + i, (int)position.getY() + j).getFixedObject())).getNickName().equals(name)) {
-                        isExist = true;
-                    }
-                }
-            }
-        }
+
+        boolean isExist = App.getMe().getPosition().isNear(animal.getPosition(), 3);
+
         if (!isExist) {
             return new Result(false, "Animal is not around u!");
         }
@@ -83,25 +76,25 @@ public class HusbandryController extends CommandController {
         StringBuilder tmpString = new StringBuilder();
         for (Animal animal : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             tmpString.append("animal's Name : ").append(animal.getNickName()).append("\n").append("your friendShip with him : ")
-                    .append(animal.getFriendship()).append("\n")
-                    .append("cuddled or not : ").append(animal.getIsCaressed())
-                    .append("\n").append("eaten or not : ").append(animal.getIsFed()).append("\n");
+                .append(animal.getFriendship()).append("\n")
+                .append("cuddled or not : ").append(animal.getIsCaressed())
+                .append("\n").append("eaten or not : ").append(animal.getIsFed()).append("\n");
 
         }
-        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals().isEmpty()){
-            return new Result(false,"there is no animal");
+        if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals().isEmpty()) {
+            return new Result(false, "there is no animal");
         }
-        return new Result(false,tmpString.toString());
+        return new Result(false, tmpString.toString());
     }
 
-    public static Result shepherdAnimals(String animalName , String strX , String strY) {
+    public static Result shepherdAnimals(String animalName, String strX, String strY) {
         int x = Integer.parseInt(strX);
         int y = Integer.parseInt(strY);
         Animal animal = returnAnimal(animalName);
         if (App.getCurrentUser()
-                .getCurrentGame()
-                .getWeatherState()
-                .getTodayWeather() != WeatherType.Sunny) {
+            .getCurrentGame()
+            .getWeatherState()
+            .getTodayWeather() != WeatherType.Sunny) {
             return new Result(true, "your animal can't go out in this weather!");
         } else if (animal == null) {
             return new Result(false, "there is no animal with that name");
@@ -150,7 +143,7 @@ public class HusbandryController extends CommandController {
         for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
             if (animal2.getNickName().equalsIgnoreCase(animalName)) {
 //                animal2.get
-                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)animal2.getPosition().getX(), (int)animal2.getPosition().getY()).setFixedObject(null);
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int) animal2.getPosition().getX(), (int) animal2.getPosition().getY()).setFixedObject(null);
 //                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getType());
                 animal.setPosition(new Position(x, y));
                 App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerFarm().getTileByPosition(x, y).setFixedObject(animal2);
@@ -161,21 +154,27 @@ public class HusbandryController extends CommandController {
 
     }
 
-    public static Result feedHay(Matcher matcher) {
-        String animalName = matcher.group(1).trim();
+    public static Result feedHay(String animalName) {
         Animal animal = returnAnimal(animalName);
 
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
         }
 
-        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getNickName().equals(animalName)) {
-                animal2.setFed(true);
+        Item hay = App.getMe().getInventory().findItemByName(new Etc(EtcType.HAY).getName());
+        if (App.getMe().getInventory().countItem(hay) >= 1) {
+            App.getMe().getInventory().remove(hay, 1);
+            for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+                if (animal2.getNickName().equals(animalName)) {
+                    animal2.setFed(true);
+                }
+                animal2.addFriendShip(20);
             }
+            return new Result(true, animal.getNickName() + " ate.");
+        } else {
+            return new Result(false, "you dont have hay in your inventory!");
         }
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(new Etc(EtcType.HAY), 1);
-        return new Result(true, animal.getNickName() + " ate.");
+
     }
 
     public static Result showProduces() {
@@ -187,7 +186,7 @@ public class HusbandryController extends CommandController {
                 tmpString.append("animal's Name : " + animal.getNickName() + "\n");
                 for (AnimalProduct animalProduct : animal.getDailyProducts()) {
                     tmpString.append("animal's Product Name : " + animalProduct.getName() + "\n")
-                            .append("animal's Product quality : " + animalProduct.getItemQuality() + "\n");
+                        .append("animal's Product quality : " + animalProduct.getItemQuality() + "\n");
                 }
                 tmpString.append("------------------------------");
             }
@@ -198,8 +197,7 @@ public class HusbandryController extends CommandController {
         return new Result(true, tmpString.toString());
     }
 
-    public static Result collectProduce(Matcher matcher) {
-        String name = matcher.group(1).trim();
+    public static Result collectProduce(String name) {
         Animal animal = returnAnimal(name);
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
@@ -211,6 +209,7 @@ public class HusbandryController extends CommandController {
             boolean isExist1 = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
                 Item item = slot.getItem();
+                if(slot.getItem() == null) continue;
                 if (item.getName().equals(ToolType.MILK_PAIL.getName())) {
                     App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentItem(item);
                     isExist1 = true;
@@ -268,26 +267,26 @@ public class HusbandryController extends CommandController {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().add(animalProduct, 1);
             animal.getDailyProducts().remove(animalProduct);
         }
-        App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp()+5);
+        App.getMe().getSkillByName(Skills.Farming.toString()).setXp(App.getMe().getSkillByName(Skills.Farming.toString()).getXp() + 5);
         return new Result(true, "you get product from animal!");
     }
 
-    public static Result sellAnimal(Matcher matcher) {
-        String userName = matcher.group(1).trim();
-        Animal animal = returnAnimal(userName);
+    public static Result sellAnimal(String animalName) {
+        Animal animal = returnAnimal(animalName);
         if (animal == null) {
             return new Result(false, "there is no animal with that name");
         }
         int sellPrice = (int) (animal.getType().getPrice() * ((double) (animal.getFriendship() / 1000) + 0.3));
-        App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getAnimals()
-                .remove(animal);
-        if(animal.getHouse() != null){
+        App.getMe()
+            .getAnimals()
+            .remove(animal);
+        if (animal.getHouse() != null) {
             animal.getHouse().getAnimals().remove(animal);
+            ((Building) animal.getHouse()).getIndoor().removeGameObject(animal);
+            System.out.println("animal has a house");
         }
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int)animal.getPosition().getX(), (int)animal.getPosition().getY()).setFixedObject(null);
+        App.getMe().getCurrentGameLocation().getGameObjects().remove(animal);
+        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int) animal.getPosition().getX(), (int) animal.getPosition().getY()).setFixedObject(null);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addGold(sellPrice);
         return new Result(true, "process for Selling animal ...");
 

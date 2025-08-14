@@ -12,6 +12,7 @@ import io.src.model.GameObject.Animal;
 import io.src.model.GameObject.NPC.NPC;
 
 import io.src.model.GameObject.NPC.NpcFriendship;
+import io.src.model.GameObject.PlayerObject;
 import io.src.model.MapModule.Buildings.Building;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
@@ -92,6 +93,7 @@ public class Player implements TimeObserver {
     private double maxEnergy = 200;
 
     private Player partner = null;
+    private final PlayerObject playerObject = new PlayerObject(this, new Position(0, 0));
 
 
     private boolean FinishActing = false;
@@ -125,6 +127,13 @@ public class Player implements TimeObserver {
 //        }
 
         return false;
+    }
+
+    // For test :
+    public Player(String name) {
+        position = new Position(0, 0);
+        userId = UUID.randomUUID();
+        System.out.println("name = " + name);
     }
 
     public Player(User user) {
@@ -571,6 +580,11 @@ public class Player implements TimeObserver {
 
     public void setShopState(ShopState shopState) {
         this.shopState = shopState;
+    }
+
+    public PlayerObject getPlayerObjectPlusPosition(Position position) {
+        playerObject.setPosition(position);
+        return playerObject;
     }
     public boolean isFinishActing() {
         return FinishActing;

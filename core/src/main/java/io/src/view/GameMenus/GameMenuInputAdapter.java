@@ -27,6 +27,7 @@ import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
 import io.src.model.GameObject.GameObject;
+import io.src.model.GameObject.MailBox;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.MapModule.Buildings.*;
@@ -238,6 +239,8 @@ public class GameMenuInputAdapter extends InputAdapter {
             } else if (App.getMe().getCurrentItem() instanceof Artesian) {
                 System.out.println(App.getMe().getCurrentItem().getAssetName());
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
+            } else if(App.getMe().getCurrentItem() instanceof Seed seed){
+                Result result = FarmingController.managePlantSeed(seed.getSeedType(),App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Etc) {
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
             }
@@ -295,10 +298,6 @@ public class GameMenuInputAdapter extends InputAdapter {
             player.setVelocity(vx * speed, vy * speed);
             player.update(delta);
             return;
-        }
-        if (keysHeld.contains(Input.Keys.N)) {
-            GameController.manageNextTurn();
-            StardewValley.getGameView().updateMap();
         }
 
 

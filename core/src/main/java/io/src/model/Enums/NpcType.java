@@ -125,7 +125,7 @@ public enum NpcType {
             new NpcRequest(new Etc(EtcType.IRON_BAR), 10, new Artesian(ArtisanMachineItemType.BEE_HOUSE), 3),
             new NpcRequest(new Etc(EtcType.WOOD), 1000, EtcType.Money, 25000)
         )),
-        120,
+        20,
         new ArrayList<>(Arrays.asList(
             new Food(FoodType.SPAGHETTI),
             new Etc(EtcType.WOOD),
