@@ -529,7 +529,8 @@ public class GameMenu implements AppMenu, Screen {
             result = FriendshipController.manageRatingGift(matcher.group(1).trim(), matcher.group(2).trim());
             return true;
         } else if ((matcher = RelationshipCommands.flower.getMatcher(input)) != null) {
-            result = FriendshipController.buyFlower(matcher.group(1).trim());
+            //result = FriendshipController.buyFlower(matcher.group(1).trim());
+            result = new Result(false,"this command it deleted from terminal");
             return true;
         } else if ((matcher = RelationshipCommands.hug.getMatcher(input)) != null) {
             result = FriendshipController.hugPlayer(matcher.group(1).trim());

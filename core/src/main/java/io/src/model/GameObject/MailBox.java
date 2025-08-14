@@ -111,7 +111,7 @@ public class MailBox extends GameObject implements Clickable, SensitiveToPlayer 
 
     @Override
     public float getSensitivityDistance() {
-        return 6;
+        return 3;
     }
 
     public Boolean getHasNewMessages() {

@@ -16,9 +16,9 @@ public class FriendshipController extends CommandController {
         builder.append("your friendships:\n");
         for (Friendship f : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getFriendShips()) {
             builder.append("\twith player:").append(f.getPlayer().getUser().getName()).append("\n")
-                    .append("\txp:").append(f.getXp()).append("\n")
-                    .append("\tlevel:").append(f.getLevel()).append("\n")
-                    .append("----------------\n");
+                .append("\txp:").append(f.getXp()).append("\n")
+                .append("\tlevel:").append(f.getLevel()).append("\n")
+                .append("----------------\n");
         }
         return new Result(true, builder.toString());
     }
@@ -77,8 +77,8 @@ public class FriendshipController extends CommandController {
         builder.append("chat Between You And: ").append(playerToTalk.getUser().getName()).append("\n");
         for (Message msg : playerToTalk.getMessages()) {
             if (
-                    (msg.getSender().equals(me) && msg.getReciever().equals(playerToTalk)) ||
-                            (msg.getSender().equals(playerToTalk) && msg.getReciever().equals(me))
+                (msg.getSender().equals(me) && msg.getReciever().equals(playerToTalk)) ||
+                    (msg.getSender().equals(playerToTalk) && msg.getReciever().equals(me))
             ) {
                 builder.append(msg.getMessage()).append("\n");
                 builder.append("---");
@@ -140,11 +140,11 @@ public class FriendshipController extends CommandController {
             if (!f.getReceiver().equals(App.getMe()))
                 continue;
             builder.append("gift id: ").append(f.getGiftID()).append("\n")
-                    .append("\tfrom player:").append(f.getSender().getUser().getName()).append("\n")
-                    .append("\titem: '").append(f.getGift().getName())
-                    .append("' * ").append(f.getAmount()).append("\n")
-                    .append("\trate: ").append((f.getRate() == -1) ? "unrated" : f.getRate()).append("\n")
-                    .append("----------------\n");
+                .append("\tfrom player:").append(f.getSender().getUser().getName()).append("\n")
+                .append("\titem: '").append(f.getGift().getName())
+                .append("' * ").append(f.getAmount()).append("\n")
+                .append("\trate: ").append((f.getRate() == -1) ? "unrated" : f.getRate()).append("\n")
+                .append("----------------\n");
         }
         return new Result(true, builder.toString());
     }
@@ -176,11 +176,11 @@ public class FriendshipController extends CommandController {
             if (!f.getSender().equals(App.getMe()))
                 continue;
             builder.append("gift id: ").append(f.getGiftID()).append("\n")
-                    .append("\tfrom player:").append(f.getSender().getUser().getName()).append("\n")
-                    .append("\titem: '").append(f.getGift().getName())
-                    .append("' * ").append(f.getAmount()).append("\n")
-                    .append("\trate: ").append((f.getRate() == -1) ? "unrated" : f.getRate()).append("\n")
-                    .append("----------------\n");
+                .append("\tfrom player:").append(f.getSender().getUser().getName()).append("\n")
+                .append("\titem: '").append(f.getGift().getName())
+                .append("' * ").append(f.getAmount()).append("\n")
+                .append("\trate: ").append((f.getRate() == -1) ? "unrated" : f.getRate()).append("\n")
+                .append("----------------\n");
         }
         return new Result(true, builder.toString());
     }
@@ -198,9 +198,9 @@ public class FriendshipController extends CommandController {
         if (!me.getPosition().isNear(player.getPosition(), 1)) {
             return new Result(false, "You are out of bounds");
         }
-        if (me.findFriendshipByPlayer(player).getLevel() < 2) {
-            return new Result(false, "atsafghorilah.Hanuz mahram nistid..");
-        }
+//        if (me.findFriendshipByPlayer(player).getLevel() < 2) {
+//            return new Result(false, "atsafghorilah.Hanuz mahram nistid..");
+//        }
 
         if (player.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
@@ -210,11 +210,17 @@ public class FriendshipController extends CommandController {
         }
 
         me.findFriendshipByPlayer(player).changeTwoWayXp(60);
+
+        Message message = new Message("Diary : I hugged " + App.getMe(), player, player);
+        player.getMessages().add(message);
+        Message message2 = new Message("Diary : I hugged " + (player.getUser().getGender() ? "him" : "her"), App.getMe(), player);
+        me.getMessages().add(message2);
+
         return new Result(true, "Hugging " + player.getUser().getName() + " now...<3<3<3");
 
     }
 
-    public static Result buyFlower(String username) {
+    public static Result buyFlower(String username, String item) {
         User user = App.getUserByUsername(username.trim());
         if (user == null) {
             return new Result(false, "User does not found");
@@ -230,16 +236,16 @@ public class FriendshipController extends CommandController {
         if (me.findFriendshipByPlayer(player).getLevel() < 2) {
             return new Result(false, "kesafat ashghal saad bar bet goftam esm babaye joloye man niar..");
         }
-
+        System.out.println(item);
         Item gol = me.getInventory().findItemByName("Bouquet");
-        if (gol == null) {
+        if (gol == null || !item.contains("Bouquet")) {
             return new Result(false, "gol nemikeshi dasdash?");
         } else if (!player.getInventory().canAddItem(gol, 1)) {
             return new Result(false, "refighet pake..");
         }
         me.getInventory().remove(gol, 1);
         player.getInventory().add(gol, 1);
-        player.findFriendshipByPlayer(player).setDeliveredFlowerBothWay(true);
+        me.findFriendshipByPlayer(player).setDeliveredFlowerBothWay(true);
 
         if (player.equals(me.getPartner()) && !me.isInteractWithPartnerToday()) {
             me.setInteractWithPartnerToday(true);
@@ -248,6 +254,11 @@ public class FriendshipController extends CommandController {
             player.addEnergy(50);
         }
 
+
+        Message message = new Message("Diary : I have received a flower..that was beautiful", player, player);
+        player.getMessages().add(message);
+        Message message2 = new Message("Diary : I send " + (player.getUser().getGender() ? "him" : "her") + " a flower...", App.getMe(), App.getMe());
+        me.getMessages().add(message2);
         return new Result(true, "gol keshide budan halat tabii nabudan(mission passed,respect...)");
     }
 
@@ -269,7 +280,7 @@ public class FriendshipController extends CommandController {
         if (player.isGender()) {
             return new Result(false, "why are you gay?? why are you gay????!");
         }
-        if (me.getPosition().isNear(player.getPosition(), 1)) {
+        if (!me.getPosition().isNear(player.getPosition(), 3)) {
             return new Result(false, "out of bounds...");
         }
         if (me.findFriendshipByPlayer(player).getLevel() < 3) {
@@ -288,7 +299,7 @@ public class FriendshipController extends CommandController {
 
         for (Gift request : player.getMarryRequests()) {
             if (request.getSender().equals(me)) {
-                return new Result(false, "don't spam marry request pls,we will peygiri it");
+                return new Result(false, "don't spam marry request pls,we will follow it up");
             }
         }
 
@@ -297,30 +308,15 @@ public class FriendshipController extends CommandController {
         return new Result(true, "KhasteGari sabt shod..ishala ke kheyre...");
     }
 
-    public static Result respondMarriage(String respond, String username) {
-        User user = App.getUserByUsername(username.trim());
-        if (user == null) {
-            return new Result(false, "User not found");
-        }
-        Player player = App.getCurrentUser().getCurrentGame().getPlayerByUser(user);
-        if (player == null) {
-            return new Result(false, "Player not found");
-        }
+    public static Result respondMarriage(String respond, Gift request) {
+        Player player = request.getSender();
         Player me = App.getMe();
-        Gift request = null;
-        for (Gift req : player.getMarryRequests()) {
-            if (req.getSender().equals(player)) {
-                request = req;
-            }
-        }
-        if (request == null) {
-            return new Result(false, "this guy doesn't send you marry request");
-        }
 
         switch (respond) {
             case "-accept": {
                 me.getInventory().add(request.getGift(), 1);//girl gets the ring
                 me.setPartner(player);
+                player.setPartner(me);
                 me.findFriendshipByPlayer(player).setMarriedBothWay(true);
                 me.getMarryRequests().clear();
                 return new Result(true, "Mobarake...You are now married to " + player.getUser().getName());

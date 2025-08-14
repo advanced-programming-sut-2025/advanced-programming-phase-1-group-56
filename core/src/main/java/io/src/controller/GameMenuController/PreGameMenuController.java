@@ -94,12 +94,14 @@ public class PreGameMenuController extends CommandController {
         ArrayList<User> usersToPlay = new ArrayList<>();
         int counter = 0;
         usersToPlay.add(App.getCurrentUser());
+        System.out.println(App.getCurrentUser().getUsername());
         for (User user : App.getUsers()) {
             if (user.equals(App.getCurrentUser())) continue;
             if (user.getCurrentGame() != null) continue;
-            if (counter >= 3) break;
+            System.out.println(user.getUsername());
             usersToPlay.add(user);
             counter++;
+            if (counter >= 3) break;
         }
         if (usersToPlay.size() < 4) {
             Result result = new Result(false, "your game doesn't have at least 4 players");
@@ -186,8 +188,8 @@ public class PreGameMenuController extends CommandController {
         }
 
         StardewValley.setGame(newGame);
-        newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
-        newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
+        newGame.setCurrentPlayer(playersToPlay.get(0));
+        newGame.setStarterPlayer(playersToPlay.get(0));
         GameView gameView = new GameView(newGame);
         App.setStardewValley(StardewValley.getStardewValley());
         StardewValley.setGameView(gameView);
@@ -208,6 +210,8 @@ public class PreGameMenuController extends CommandController {
         for (NPC npc : town.getNPCs()) {
             npc.initializePaths(town);
         }
+
+        StardewValley.getGameView().updateMap();
 
         new Result(true, "successfully added game with id:" + newGame.getGameId());
     }

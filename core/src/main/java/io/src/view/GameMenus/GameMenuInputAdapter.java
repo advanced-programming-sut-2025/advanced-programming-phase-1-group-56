@@ -26,15 +26,13 @@ import io.src.model.Enums.Buildings.BuildingType;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
-import io.src.model.GameObject.GameObject;
-import io.src.model.GameObject.MailBox;
-import io.src.model.GameObject.SensitiveToPlayer;
-import io.src.model.GameObject.ArtesianMachine;
+import io.src.model.GameObject.*;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
+import io.src.model.MapModule.Tile;
 import io.src.model.items.Artesian;
 import io.src.model.items.Etc;
 import io.src.model.items.Food;
@@ -101,9 +99,9 @@ public class GameMenuInputAdapter extends InputAdapter {
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wood -c 999");
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 999999 dollars");
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add");
-            result = CarpenterMenuController.BuildABuilding("Coop" , BuildingType.COOP ,20 , 20);
-            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN ,30 , 30);
-            result = MarniesRanchController.buyAnimal(AnimalType.COW.getName() , "mahdi");
+            result = CarpenterMenuController.BuildABuilding("Coop", BuildingType.COOP, 20, 20);
+            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN, 30, 30);
+            result = MarniesRanchController.buyAnimal(AnimalType.COW.getName(), "mahdi");
 
 //            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
 //            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
@@ -111,7 +109,6 @@ public class GameMenuInputAdapter extends InputAdapter {
 
             return true;
         }
-
 
 
         if (keysHeld.contains(Input.Keys.N)) {
@@ -239,8 +236,8 @@ public class GameMenuInputAdapter extends InputAdapter {
             } else if (App.getMe().getCurrentItem() instanceof Artesian) {
                 System.out.println(App.getMe().getCurrentItem().getAssetName());
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
-            } else if(App.getMe().getCurrentItem() instanceof Seed seed){
-                Result result = FarmingController.managePlantSeed(seed.getSeedType(),App.getMe().getLastDirection());
+            } else if (App.getMe().getCurrentItem() instanceof Seed seed) {
+                Result result = FarmingController.managePlantSeed(seed.getSeedType(), App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Etc) {
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
             }
@@ -366,15 +363,47 @@ public class GameMenuInputAdapter extends InputAdapter {
             vy /= norm;
         }
 
+
         float speed = player.getSpeed();
         player.setMovingDirection(dir);
         player.setVelocity(vx * speed, vy * speed);
         player.update(delta);
         applyWrapperEffect();
         shopCounterHintActive = isFacingCounter();
+
+        //IMPORTANT
+        ArrayList<PlayerObject> playerObjects = getPlayerObjects();
+        App.getMe().getCurrentGameLocation().getGameObjects().addAll(playerObjects);
+        ArrayList<GameObject> gameObjectsUnderPlayer = new ArrayList<>();
+        for (int i = 0; i < playerObjects.size(); i++) {
+            Tile tile = App.getMe().getCurrentGameLocation().getTileByPosition(playerObjects.get(i).getPosition());
+            gameObjectsUnderPlayer.add(tile.getFixedObject());
+            tile.setFixedObject(playerObjects.get(i));
+        }
+
         handleFocusedGameObject();
         updateNearbySensitiveObjects();
+
+        //IMPORTANT
+        App.getMe().getCurrentGameLocation().getGameObjects().removeAll(playerObjects);
+        for (int i = 0; i < playerObjects.size(); i++) {
+            Tile tile = App.getMe().getCurrentGameLocation().getTileByPosition(playerObjects.get(i).getPosition());
+            tile.setFixedObject(gameObjectsUnderPlayer.get(i));
+        }
     }
+
+    private ArrayList<PlayerObject> getPlayerObjects() {
+        ArrayList<PlayerObject> playerObjects = new ArrayList<>();
+        for (Player player2 : App.getCurrentUser().getCurrentGame().getPlayers()) {
+            if (player2.equals(App.getMe())) continue;
+            if (App.getMe().getCurrentGameLocation().equals(player2.getCurrentGameLocation())) {
+                Position renderingPosition = new Position((player2.getPixelPosition().getX() + 16) / 16, (player2.getPixelPosition().getY()) / 16);
+                playerObjects.add(player2.getPlayerObjectPlusPosition(renderingPosition));
+            }
+        }
+        return playerObjects;
+    }
+
 
     private void updateNearbySensitiveObjects() {
         Set<GameObject> newNearbyGameObjects = new HashSet<>();
