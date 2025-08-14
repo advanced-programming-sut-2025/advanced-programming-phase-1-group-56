@@ -406,7 +406,7 @@ public class GameMenu implements AppMenu, Screen {
     public boolean HusbandryCheck(String input) {
         Matcher matcher;
         if ((matcher = HusbandryCommands.pettingAnimal.getMatcher(input)) != null) {
-            result = HusbandryController.petting(matcher);
+            result = new Result (false,"this command is deleted from terminal");
             return true;
         } else if ((HusbandryCommands.showInfoAnimals.getMatcher(input)) != null) {
             result = HusbandryController.showInfoOfAnimal();
@@ -415,7 +415,7 @@ public class GameMenu implements AppMenu, Screen {
             result = HusbandryController.shepherdAnimals(matcher.group(1) , matcher.group(2), matcher.group(3));
             return true;
         } else if ((matcher = HusbandryCommands.feedHay.getMatcher(input)) != null) {
-            result = HusbandryController.feedHay(matcher);
+            result = new Result (false,"this command is deleted from terminal");
             return true;
         } else if ((HusbandryCommands.produces.getMatcher(input)) != null) {
             result = HusbandryController.showProduces();
@@ -424,13 +424,13 @@ public class GameMenu implements AppMenu, Screen {
             result = HusbandryController.cheatSetFriendship(matcher);
             return true;
         } else if ((matcher = HusbandryCommands.collectProduce.getMatcher(input)) != null) {
-            result = HusbandryController.collectProduce(matcher);
+            result = new Result (false,"this command is deleted from terminal");
             return true;
         } else if ((matcher = HusbandryCommands.fishing.getMatcher(input)) != null) {
             result = FishingController.fishing(matcher);
             return true;
         } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
-            result = HusbandryController.sellAnimal(matcher);
+            result = new Result (false,"this command is deleted from terminal");
             return true;
         } else if ((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
             result = HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), matcher.group(3));

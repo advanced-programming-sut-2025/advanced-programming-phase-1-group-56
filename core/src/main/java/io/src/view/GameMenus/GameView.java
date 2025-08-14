@@ -334,6 +334,48 @@ public class GameView implements Screen, TimeObserver {
 
     }
 
+    private void renderAnimal(Animal animal) {
+        String name = animal.getType().getAssetName(); // مثل "grandma"
+        float x = animal.getPixelPosition().x, y = animal.getPixelPosition().y;
+
+        AnimationKey key;
+        if (animal.isMoving()) {
+            switch (animal.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.WALK_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.WALK_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.WALK_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.WALK_RIGHT;
+                    break;
+            }
+        } else {
+            switch (animal.getLastDirection()) {
+                case UP:
+                    key = AnimationKey.IDLE_UP;
+                    break;
+                case DOWN:
+                    key = AnimationKey.IDLE_DOWN;
+                    break;
+                case LEFT:
+                    key = AnimationKey.IDLE_LEFT;
+                    break;
+                default:
+                    key = AnimationKey.IDLE_RIGHT;
+                    break;
+            }
+        }
+
+        renderCharacter(name, key, x, y);
+
+    }
+
+
     private void updateCameraPosition() {
         Player player = App.getMe();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
@@ -392,7 +434,6 @@ public class GameView implements Screen, TimeObserver {
     }
 
 
-
     public void spawnToolSwing(Tool tool, Direction dir, Runnable onComplete) {
         if (tool == null) return;
 
@@ -414,7 +455,7 @@ public class GameView implements Screen, TimeObserver {
         float dirRotation;
         switch (dir) {
             case RIGHT -> {
-                if (toolName.equals("FishingPole")){
+                if (toolName.equals("FishingPole")) {
                     baseAngles = new float[]{0, 0, 0};
                 } else {
                     baseAngles = new float[]{10, -50, -100};
@@ -434,7 +475,7 @@ public class GameView implements Screen, TimeObserver {
                 );
             }
             case LEFT -> {
-                if (toolName.equals("FishingPole")){
+                if (toolName.equals("FishingPole")) {
                     baseAngles = new float[]{0, 0, 0};
                 } else {
                     baseAngles = new float[]{-10, 50, 100};
@@ -446,7 +487,7 @@ public class GameView implements Screen, TimeObserver {
                 );
             }
             case DOWN -> {
-                if (toolName.equals("FishingPole")){
+                if (toolName.equals("FishingPole")) {
                     baseAngles = new float[]{0, 0, 0};
                 } else {
                     baseAngles = new float[]{0, 0};
@@ -544,7 +585,7 @@ public class GameView implements Screen, TimeObserver {
         gameMenuInputAdapter.update(v);
         renderer.render();
 
-        if (!(App.getMe().getCurrentGameLocation() instanceof Town)){
+        if (!(App.getMe().getCurrentGameLocation() instanceof Town)) {
             for (NPC npc : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getNPCs()) {
                 npc.update(v);
             }
@@ -553,12 +594,11 @@ public class GameView implements Screen, TimeObserver {
         renderer.getBatch().begin();
 
 
-
         renderWarningDialog();
         //render tile type plowed soil
         for (Tile[] tileLine : App.getMe().getCurrentGameLocation().getTiles()) {
             for (Tile tile : tileLine) {
-                if (tile.getTileType() == TileType.PlowedSoil) {
+                if (tile.getTileType() == TileType.PlowedSoil || tile.getTileType() == TileType.WaterPlowedSoil) {
                     String key = tile.getTileType().toString();
                     TextureRegion region;
                     if (!gameObjectTextureMap.containsKey(key)) {
@@ -597,9 +637,8 @@ public class GameView implements Screen, TimeObserver {
         Position myRenderingPosition = new Position((App.getMe().getPixelPosition().getX() + 16) / 16, (App.getMe().getPixelPosition().getY()) / 16);
         objects.add(App.getMe().getPlayerObjectPlusPosition(myRenderingPosition));
         for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
-            if(player.equals(App.getMe())) continue;
-            if(App.getMe().getCurrentGameLocation().equals(player.getCurrentGameLocation()))
-            {
+            if (player.equals(App.getMe())) continue;
+            if (App.getMe().getCurrentGameLocation().equals(player.getCurrentGameLocation())) {
                 Position renderingPosition = new Position((player.getPixelPosition().getX() + 16) / 16, (player.getPixelPosition().getY()) / 16);
                 objects.add(player.getPlayerObjectPlusPosition(renderingPosition));
             }
@@ -648,7 +687,7 @@ public class GameView implements Screen, TimeObserver {
                 handleMailBoxHint(mailBox);
                 continue;
             }
-            if (go instanceof Animal animal){
+            if (go instanceof Animal animal) {
                 renderAnimal(animal);
                 animal.update(v);
                 continue;
@@ -673,7 +712,7 @@ public class GameView implements Screen, TimeObserver {
             float worldX = go.getPosition().getX() * TILE_SIZE;
             float worldY = go.getPosition().getY() * TILE_SIZE;
 
-            if ((go instanceof Tree tree && tree.isComplete()) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
+            if ((go instanceof Tree tree && tree.getCurrentStage() >= 4) || go instanceof EtcObject && (((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE1 ||
                 ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE2 || ((EtcObject) go).getEtcObjectType() == EtcObjectType.VANITY_TREE3)) {
                 worldX -= 16;
             }
@@ -734,7 +773,7 @@ public class GameView implements Screen, TimeObserver {
 //
 //            }
 //        }
-        if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town) ){
+        if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
 
             renderer.getBatch().end();
 
@@ -756,8 +795,6 @@ public class GameView implements Screen, TimeObserver {
             rainSystem.update(v, camera);
             rainSystem.render(renderer.getBatch());
         }
-
-
 
 
         renderer.getBatch().end();
@@ -814,7 +851,7 @@ public class GameView implements Screen, TimeObserver {
         }
 
 
-        lighting.render(((float)App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour()), (SpriteBatch) renderer.getBatch());
+        lighting.render(((float) App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour()), (SpriteBatch) renderer.getBatch());
 
 
         camera.update();

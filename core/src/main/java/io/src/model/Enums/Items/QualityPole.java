@@ -3,19 +3,21 @@ package io.src.model.Enums.Items;
 import org.jetbrains.annotations.Nullable;
 
 public enum QualityPole implements ItemType {
-    TrainingPole(0.1, "Training_Rod"),
-    BambooPole(0.5, "Bamboo_Pole"),
-    FiberglassRod(0.9, "Fiberglass_Rod"),
-    IridiumRod(1.2, "Iridium_Rod"),
-    AdvancedIridiumRod(2.5, "Advanced_Iridium_Rod"),
+    TrainingPole(0.1, "FishingPole_Training", ToolType.POLE_TRAINING),
+    BambooPole(0.5, "FishingPole_Bamboo", ToolType.POLE_BAMBOO),
+    FiberglassRod(0.9, "FishingPole_FiberGlass", ToolType.POLE_FIBERGLASS),
+    IridiumRod(1.2, "FishingPole_Iridium", ToolType.POLE_IRIDIUM),
+    AdvancedIridiumRod(2.5, "Advanced_Iridium_Rod", ToolType.Iridium_Trashcan),
     ;
 
     private final double factor;
     private final String assetName;
+    private final ToolType toolType;
 
-    QualityPole(double factor, String assetName) {
+    QualityPole(double factor, String assetName, ToolType toolType) {
         this.factor = factor;
         this.assetName = assetName;
+        this.toolType = toolType;
     }
 
     public double getCapacity() {
@@ -37,4 +39,7 @@ public enum QualityPole implements ItemType {
     }
 
 
+    public ToolType getToolType() {
+        return toolType;
+    }
 }

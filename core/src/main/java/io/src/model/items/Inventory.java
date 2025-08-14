@@ -114,6 +114,7 @@ public class Inventory {
 
 
     public int countItem(Item item) {
+        if (item == null) return 0;
         int sum = 0;
         for (Slot slot : slots) {
             if (slot == null || slot.getItem() == null) continue;
@@ -165,7 +166,7 @@ public class Inventory {
 
     public Item findItemByName(String itemName) {
         for (Slot slot : slots) {
-            if(slot.getItem()==null) continue;
+            if (slot.getItem() == null) continue;
             if (slot.getItem().getName().equalsIgnoreCase(itemName)) {
                 return slot.getItem();
             }

@@ -3,15 +3,18 @@ package io.src;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.src.controller.MenuController.LoginMenuController;
 import io.src.controller.MenuController.MainMenuController;
 import io.src.model.App;
 import io.src.model.Game;
+import io.src.model.TimeSystem.LocalDateTimeAdapter;
 import io.src.model.User;
 import io.src.view.GameMenus.GameView;
 import io.src.view.GameMenus.ShippingBarWindow;
 
 import java.io.*;
+import java.time.LocalDateTime;
 
 public class StardewValley extends com.badlogic.gdx.Game {
     private static StardewValley stardewValley;
@@ -23,7 +26,9 @@ public class StardewValley extends com.badlogic.gdx.Game {
     public void create() {
         stardewValley = this;
         batch = new SpriteBatch();
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
         User user = null;
 
         if (new File("assets\\StayLoggedIn.json").exists()) {

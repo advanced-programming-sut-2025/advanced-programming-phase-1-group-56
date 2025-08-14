@@ -93,7 +93,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
 
 
         playerTable = createInventoryTable(playerInven, dragAndDrop);
-        playerTable.setPosition(410, 100);
+        playerTable.setPosition(470, 100);
         group.addActor(playerTable);
         group.addActor(errorLabel);
         createTrash();
@@ -101,7 +101,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
 
         // Exit button
         Button exitButton = new Button(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "closeButton");
-        exitButton.setPosition(getWidth() - 120, getHeight() - 500);
+        exitButton.setPosition(getWidth() - 60, getHeight() - 500);
         exitButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -281,7 +281,7 @@ public class ShippingBarWindow extends Group implements InputProcessor {
     public void refreshInventory() {
         playerTable.clear();
         playerTable = createInventoryTable(App.getMe().getInventory(), dragAndDrop);
-        playerTable.setPosition(422, 120);
+        playerTable.setPosition(470, 120);
         group.addActor(playerTable);
     }
 
