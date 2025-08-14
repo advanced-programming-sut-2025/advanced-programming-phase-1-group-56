@@ -1563,26 +1563,6 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/SocialWinBackGround.9.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: SocialWinBackGround
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: null
-			tvgData: null
-			type: NINE_PATCH
-			hidden: false
-		}
-		{
 			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/Starfruit_OnCheckedpng.9.png
 			bgColor: {
 				r: 1
@@ -1613,6 +1593,26 @@ atlasData: {
 			tint: null
 			tintName: null
 			name: Starfruit_Checked
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/abomo/IdeaProjects/advanced-programming-phase-1-group-56/assets/mainSkin/skin composer/SocialWinBackGround.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: SocialWinBackGround
 			tiled: false
 			minWidth: -1
 			minHeight: -1

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="352bd2a5-1d4f-42f9-86c4-4e5e92974e87" name="Changes" comment="NPC 98% completed">
+    <list default="true" id="352bd2a5-1d4f-42f9-86c4-4e5e92974e87" name="Changes" comment="PlayerMeetingMenu and TradeMenu completed.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcQuestMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/NpcStateMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/PlayerMeetingMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/PlayerMeetingMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/TradeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/InnerMenus/TradeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/mainSkin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mainSkin/skin composer/mainSkin.scmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,26 +41,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;maz&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "maz",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="game" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="io.src.lwjgl3.Lwjgl3Launcher" />
@@ -88,9 +87,22 @@
       <updated>1755080518550</updated>
       <workItem from="1755080519613" duration="2493000" />
     </task>
+    <task id="LOCAL-00001" summary="PlayerMeetingMenu and TradeMenu completed.">
+      <option name="closed" value="true" />
+      <created>1755159245542</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1755159245542</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="PlayerMeetingMenu and TradeMenu completed." />
+    <option name="LAST_COMMIT_MESSAGE" value="PlayerMeetingMenu and TradeMenu completed." />
   </component>
 </project>
