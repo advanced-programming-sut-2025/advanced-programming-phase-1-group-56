@@ -99,6 +99,9 @@ public class Player implements TimeObserver {
     private final PlayerObject playerObject = new PlayerObject(this, new Position(0, 0));
 
 
+    private boolean Acting = false;
+
+
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
 
@@ -596,6 +599,13 @@ public class Player implements TimeObserver {
     public PlayerObject getPlayerObjectPlusPosition(Position position) {
         playerObject.setPosition(position);
         return playerObject;
+    }
+    public boolean isActing() {
+        return Acting;
+    }
+
+    public void setActing(boolean finishActing) {
+        Acting = finishActing;
     }
 
     public String getAvatarAssetFullPath() {

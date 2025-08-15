@@ -10,25 +10,23 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import io.src.model.GameAssetManager;
 
-import java.util.Random;
-
-public class RainSystem {
-    private final Array<RainParticle> particles = new Array<>();
+public class ThorSystem {
+    private final Array<ThorParticle> particles = new Array<>();
     private final Array<TextureRegion> frames;
     private Texture rainSheet;
 
 
-    private float spawnRate = 40f;
+    private float spawnRate = 10f;
     private float spawnAcc = 0f;
     private float baseWind = -20f;
     private float windVar = 10f;
-    private float minVy = 100f, maxVy = 180f;
-    private float minLife = 1.2f, maxLife = 2.5f;
+    private float minVy = 180f, maxVy = 220f;
+    private float minLife = 1.2f, maxLife = 1.5f;
 
-    public RainSystem() {
-        String path = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Rain");
+    public ThorSystem() {
+        String path = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("thor");
         rainSheet = new Texture(Gdx.files.internal(path));
-        TextureRegion[][] regs = TextureRegion.split(rainSheet, 16, 16);
+        TextureRegion[][] regs = TextureRegion.split(rainSheet, 25, 25);
         frames = new Array<>();
         for (TextureRegion[] row : regs)
             for (TextureRegion r : row)
@@ -43,7 +41,7 @@ public class RainSystem {
         }
 
         for (int i = particles.size - 1; i >= 0; i--) {
-            RainParticle p = particles.get(i);
+            ThorParticle p = particles.get(i);
             p.update(delta);
             if (p.isDead()) particles.removeIndex(i);
         }
@@ -64,24 +62,16 @@ public class RainSystem {
         float vx = baseWind + MathUtils.random(-windVar, windVar);
         float life = MathUtils.random(minLife, maxLife);
 
-        particles.add(new RainParticle(x, y, vx, vy, life));
+        particles.add(new ThorParticle(x, y, vx, vy, life));
     }
 
-    public void render(Batch batch , boolean snowy) {
-        for (RainParticle p : particles) {
+    public void render(Batch batch) {
+        for (ThorParticle p : particles) {
             TextureRegion t;
             if (!p.hit) {
-                if (snowy){
-                    t = frames.get(4);
-                } else {
-                    t = frames.get(0);
-                }
+                t = frames.get(0);
             } else {
-                if (snowy){
-                    t = frames.get(3);
-                } else {
-                    t = frames.get(7);
-                }
+                t = frames.get(0);
             }
             batch.setColor(1f, 1f, 1f, p.alpha);
             batch.draw(t, p.x - t.getRegionWidth() / 2f, p.y - t.getRegionHeight() / 2f);
@@ -93,4 +83,3 @@ public class RainSystem {
         if (rainSheet != null) rainSheet.dispose();
     }
 }
-

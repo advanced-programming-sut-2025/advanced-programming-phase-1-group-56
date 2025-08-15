@@ -27,6 +27,16 @@ public class Tree extends GameObject implements TimeObserver {
     private int harvestDayRegrowth;
     private boolean isComplete;
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    private int health;
+
     public Tree(TreeType treeType, Position position) {
         super(false, position);
         this.treeType = treeType;
@@ -41,6 +51,7 @@ public class Tree extends GameObject implements TimeObserver {
         this.daysWithNoWater = 0;
         this.harvestDayRegrowth = 0;
         this.isComplete = false;
+        this.health = 4;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
     }
 

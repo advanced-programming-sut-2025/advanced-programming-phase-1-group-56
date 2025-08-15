@@ -8,9 +8,9 @@ import io.src.model.items.Saleable;
 import org.jetbrains.annotations.Nullable;
 
 public enum TreeType implements Saleable, initialPlant {
-    TREE_BARK("Tree Bark", null, -1, EtcType.WOOD, -1, -1, -1, false, -1, null, "Wood"),
-    BURNT_TREE("Burnt Tree", null, -1, MineralItemType.COAL_ORE, -1, -1, -1, false, -1, null, ""),
-    NORMAL_TREE("Normal Tree", null, -1, EtcType.WOOD, -1, 0, -1, false, -1, null, "Apple"),
+    TREE_BARK("Tree Bark", null, -1, null, -1, -1, -1, false, -1, null, "Wood"),
+    BURNT_TREE("Burnt Tree", null, -1, null, -1, -1, -1, false, -1, null, ""),
+    NORMAL_TREE("Normal Tree", null, -1, FruitType.APPLE, -1, 0, -1, false, -1, null, "Apple"),
     //TODO tree_stage_0 == burnt tree handle this fucking shit
     //TODO idk wtf is exactly the normal tree
     //source
@@ -34,7 +34,7 @@ public enum TreeType implements Saleable, initialPlant {
     private final String source;
     public final int stages;
     public final int totalHarvestTime;
-    public final ItemType fruit;
+    public final FruitType fruit;
     public final int fruitHarvestCycle;
     public final int fruitBaseSellPrice;
     public final boolean isFruitEdible;
@@ -42,7 +42,7 @@ public enum TreeType implements Saleable, initialPlant {
     public final Seasons[] season;
     private final String assetName;
 
-    TreeType(String name, String source, int stages, ItemType fruit, int totalHarvestTime, int fruitHarvestCycle,
+    TreeType(String name, String source, int stages, FruitType fruit, int totalHarvestTime, int fruitHarvestCycle,
              int fruitBaseSellPrice, boolean isFruitEdible, int fruitEnergy, Seasons[] season, String assetName) {
         this.name = name;
         this.source = source;

@@ -4,6 +4,7 @@ import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.Items.FishType;
+import io.src.model.Enums.Items.ItemQuality;
 import io.src.model.Enums.Items.ToolMaterial;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Skills;
@@ -70,15 +71,20 @@ public class FishingController extends CommandController {
         ToolType toolType = ((Tool)player.getCurrentItem()).getToolType();
         Skill playerSkill = player.getSkillByName(Skills.Fishing.toString());
         if (tile.getTileType() == TileType.Water) {
+            int rand = (int) (Math.random() * ItemQuality.values().length);
 //            int quantity = (int) (Math.random() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplier() * (playerSkill.getLevel() + 2));
             if (toolType.getToolMaterial() == ToolMaterial.Training) {
                 FishType fishType = FishType.getCheapestFishOfSeason(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
-                return new Fish(fishType);
+                Fish fish = new Fish(fishType);
+                fish.setItemQuality(ItemQuality.values()[rand]);
+                return fish;
 //                player.getInventory().add(new Fish(fishType), quantity);
             } else {
                 ArrayList<FishType> seasonFishes = FishType.getSeasonFishes(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
 //                player.getInventory().add(new Fish(seasonFishes.get((int) (Math.random() * seasonFishes.size()))), quantity);
-                return new Fish(seasonFishes.get((int) (Math.random() * seasonFishes.size())));
+                Fish fish = new Fish(seasonFishes.get((int) (Math.random() * seasonFishes.size())));
+                fish.setItemQuality(ItemQuality.values()[rand]);
+                return fish;
             }
         }
         return null;
@@ -96,7 +102,7 @@ public class FishingController extends CommandController {
         player.subtractEnergy(toolType.getUsedEnergy());
         if (successful){
             player.getInventory().add(fish, 1);
-            App.getMe().getSkillByName(Skills.Fishing.toString()).setXp(App.getMe().getSkillByName(Skills.Fishing.toString()).getXp() + 5);
+            playerSkill.setXp(playerSkill.getXp() + 5);
             if (playerSkill.getLevel() == 3) {
                 player.addEnergy(1);
             }

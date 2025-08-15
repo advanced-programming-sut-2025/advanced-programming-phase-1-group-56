@@ -10,11 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.List;
 
 public class ToolSwing {
-    private final Animation<TextureRegion> anim;   // base animation (right-facing frames)
-    private final float[] baseAngles;              // زاویه پایه برای هر فریم (مثلاً {-60,0,60})
-    private final List<Vector2> frameOffsets;     // آفست‌های هر فریم (world pixels) نسبت به anchor
-    private final Vector2 anchor;                  // موقعیت world (پیکسل) که انیمیشن حول آن قرار می‌گیرد (مثلاً موقعیت پلیر)
-//    private final float dirRotation;               // rotation offset بر حسب جهت (Right=0, Up=-90, Left=180, Down=90)
+    private final Animation<TextureRegion> anim;
+    private final float[] baseAngles;
+    private final List<Vector2> frameOffsets;
+    private final Vector2 anchor;
+//    private final float dirRotation;
     private float stateTime = 0f;
     private final float scale;
     private final Runnable onComplete;
@@ -46,7 +46,7 @@ public class ToolSwing {
         if (anim.isAnimationFinished(stateTime)) {
             if (!completed) {
                 completed = true;
-                // اجرا کردن callback (روی همان ترد رندر)
+
                 if (onComplete != null) {
                     try {
                         onComplete.run();
@@ -71,15 +71,14 @@ public class ToolSwing {
 
         float angle = baseAngles[idx];
 
-        // محاسبه موقعیت رسم: anchor (world) + offset(frame) -> پایین-چپ را بدست می‌آوریم
+
         float worldX = anchor.x + frameOffsets.get(idx).x;
         float worldY = anchor.y + frameOffsets.get(idx).y;
 
-        // origin (pivot) — انتخاب مرکز فریم یا هر نقطه‌ای که می‌خواهی (مثال: مرکز)
+
         float originX = w / 2f;
         float originY = 0;
 
-        // batch.draw expects bottom-left; بنابراین فاصله تا مرکز را کم می‌کنیم
         float drawX = worldX - originX * scale;
         float drawY = worldY - originY * scale;
 
