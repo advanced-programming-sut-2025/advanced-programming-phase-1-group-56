@@ -195,7 +195,7 @@ public class ProfileMenu extends Window implements AppMenu {
 
         cancelButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BIT.getPath(), false, GameAudioManager.sfxVolume);
                 setEditingMode(false);
                 editingMode(true);
                 oldPasswordField.setText("");
@@ -211,7 +211,7 @@ public class ProfileMenu extends Window implements AppMenu {
 
         saveButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_TAKE_RESULT1.getPath(), false, GameAudioManager.sfxVolume);
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_COW_BELL.getPath(), false, GameAudioManager.sfxVolume);
                 stage.setKeyboardFocus(editNickName);
                 Result result = null;
 
