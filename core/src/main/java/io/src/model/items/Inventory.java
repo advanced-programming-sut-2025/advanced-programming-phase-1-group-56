@@ -198,4 +198,8 @@ public class Inventory {
         }
         return null;
     }
+
+    public boolean countItemByName(String oreName, int quantity) {
+        return countItem(findItemByName(oreName)) > quantity;
+    }
 }
