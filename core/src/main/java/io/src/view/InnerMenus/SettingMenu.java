@@ -79,9 +79,23 @@ public class SettingMenu extends Window {
         scrollPane.addListener(new InputListener() {
             @Override
             public boolean scrolled(InputEvent event, float x, float y, float amountX, float amountY) {
-                float newValue = MathUtils.clamp(scrollSlider.getValue() + amountY, 0, scrollSlider.getMaxValue());
-                scrollSlider.setValue(scrollSlider.getMaxValue() - newValue);
+                float newValue = MathUtils.clamp(scrollSlider.getValue() - amountY, 0, scrollSlider.getMaxValue());
+                scrollSlider.setValue(newValue);
                 return super.scrolled(event, x, y, amountX, amountY);
+            }
+        });
+
+        scrollPane.addListener(new ChangeListener() {
+            private float lastScrollY = -1;
+
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float currentScroll = scrollPane.getScrollPercentY();
+                if (currentScroll != lastScrollY) {
+                    lastScrollY = currentScroll;
+                    System.out.println("ScrollPane moved by drag! PercentY: " + currentScroll);
+                    scrollSlider.setValue(currentScroll * scrollSlider.getMaxValue());
+                }
             }
         });
 
