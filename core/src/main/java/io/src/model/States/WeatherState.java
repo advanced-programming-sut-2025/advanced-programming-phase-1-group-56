@@ -99,7 +99,12 @@ public class WeatherState implements TimeObserver {
             todayWeather = tomorrowWeather;
             if (todayWeather == WeatherType.Rainy) {
                 System.out.println("Play rain");
-                GameAudioManager.getInstance().playSound(SfxEnum.AMBIENT_WEATHER_RAIN1.getPath(), true, GameAudioManager.ambientVolume);
+                GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+                    SfxEnum.AMBIENT_WEATHER_RAIN1.getPath()
+                    , SfxEnum.AMBIENT_WEATHER_RAIN2.getPath()
+                    , SfxEnum.AMBIENT_WEATHER_RAIN3.getPath()
+                    , SfxEnum.AMBIENT_WEATHER_RAIN4.getPath()
+                )), true, GameAudioManager.ambientVolume);
             }
         }
     }
