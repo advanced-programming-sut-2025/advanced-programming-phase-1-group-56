@@ -314,10 +314,14 @@ public class Player implements TimeObserver {
         this.farmPosition = farmPosition;
     }
 
+    public int getSelfGold(){
+        return gold;
+    }
+
     public int getGold() {
         if (partner == null)
             return gold;
-        else return gold + partner.getGold();
+        else return gold + partner.getSelfGold();
     }
 
     public void addGold(int gold) {

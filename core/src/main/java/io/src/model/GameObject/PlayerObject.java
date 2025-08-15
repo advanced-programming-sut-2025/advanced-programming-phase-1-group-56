@@ -26,7 +26,12 @@ public class PlayerObject extends GameObject implements Clickable, SensitiveToPl
     private boolean recentlyGifted = false;
     private boolean recentlyBloomed = false;
 
-    private boolean recentlyProposed;
+    public void setRecentlyProposed(boolean recentlyProposed) {
+        this.recentlyProposed = recentlyProposed;
+    }
+
+    private boolean recentlyProposed = false;
+    private boolean recentlyRejected = false;
     private LocalDateTime lastFlirt = LocalDateTime.now();
 
 
@@ -269,5 +274,13 @@ public class PlayerObject extends GameObject implements Clickable, SensitiveToPl
 
     public boolean isRecentlyProposed() {
         return recentlyProposed;
+    }
+
+    public boolean isRecentlyRejected() {
+        return recentlyRejected;
+    }
+
+    public void setRecentlyRejected(boolean recentlyRejected) {
+        this.recentlyRejected = recentlyRejected;
     }
 }

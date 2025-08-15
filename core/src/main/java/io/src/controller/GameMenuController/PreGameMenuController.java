@@ -11,6 +11,7 @@ import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.GameMap;
+import io.src.model.MapModule.Position;
 import io.src.model.States.WeatherState;
 import io.src.model.TimeSystem.TimeSystem;
 import io.src.model.items.Tool;
@@ -85,6 +86,9 @@ public class PreGameMenuController extends CommandController {
             npc.initializePaths(town);
         }
 
+        App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
+        App.getMe().setPosition(new Position(8, 3));
+        StardewValley.getGameView().updateMap();
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
@@ -211,6 +215,10 @@ public class PreGameMenuController extends CommandController {
             npc.initializePaths(town);
         }
 
+        for (Player player : newGame.getPlayers()) {
+            player.setCurrentGameLocation(player.getPlayerFarm().getDefaultHome().getIndoor());
+            player.setPosition(new Position(8, 3));
+        }
         StardewValley.getGameView().updateMap();
 
         new Result(true, "successfully added game with id:" + newGame.getGameId());
@@ -435,6 +443,8 @@ public class PreGameMenuController extends CommandController {
         for (NPC npc : town.getNPCs()) {
             npc.initializePaths(town);
         }
+
+
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }

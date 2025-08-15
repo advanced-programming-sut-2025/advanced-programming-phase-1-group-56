@@ -92,13 +92,20 @@ public class GameMenuInputAdapter extends InputAdapter {
 
 
         if (keysHeld.contains(Input.Keys.P)) {
-            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 18 18");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Stone -c 999");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wood -c 999");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 999999 dollars");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add");
+            Result result;
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 30 40");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Bouquet -c 1");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wedding_Ring -c 1");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
             result = CarpenterMenuController.BuildABuilding("Coop", BuildingType.COOP, 20, 20);
             result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN, 30, 30);
             result = MarniesRanchController.buyAnimal(AnimalType.COW.getName(), "mahdi");

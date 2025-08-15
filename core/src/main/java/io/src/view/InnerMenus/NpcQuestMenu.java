@@ -157,9 +157,6 @@ public class NpcQuestMenu extends Dialog {
         // add
 
         Table items = new Table();
-        item1Win.debug();
-        item2Win.debug();
-        items.debug();
         if (mode == 0 || mode == 1 || mode == 2) {
             items.add(item1Win).width(maxLabel + xPadding).height(maxImageHeight + yPadding).pad(50);
             items.add(buttons).bottom().padBottom(50);

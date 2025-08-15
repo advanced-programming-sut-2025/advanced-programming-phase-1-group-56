@@ -212,9 +212,12 @@ public class PlayerMeetingMenu extends Window {
                 if (result.isSuccess()) {
                     me.setLastFlirt(LocalDateTime.now());
                     me.setRecentlyFlirt(true);
+                    me.setRecentlyRejected(true);
 
                     meetingPlayer.setLastFlirt(LocalDateTime.now());
                     meetingPlayer.setRecentlyFlirt(true);
+                    meetingPlayer.setRecentlyRejected(true);
+
                     PlayerMeetingMenu.this.hideDialog();
                 }
                 dialog.hide();
