@@ -15,6 +15,9 @@ import io.src.model.GameAudioManager;
 
 public class SettingMenu extends Window {
 
+    private final ScrollPane scrollPane;
+    private final Slider scrollSlider;
+
     public SettingMenu(Skin skin) {
         super("", skin, "noWindow");
         setFillParent(true);
@@ -54,7 +57,7 @@ public class SettingMenu extends Window {
         ambientSlider.setValue(GameAudioManager.sfxVolume);
         gameAudioSettings.add(ambientSlider).padTop(20).row();
         settings.add(gameAudioSettings);
-        ScrollPane scrollPane = new ScrollPane(settings, skin, "default2");
+        scrollPane = new ScrollPane(settings, skin, "default2");
         scrollPane.setFadeScrollBars(false);
         scrollPane.setScrollingDisabled(false, false);
         scrollPane.setVariableSizeKnobs(false);
@@ -67,7 +70,7 @@ public class SettingMenu extends Window {
 
         Button upButton = new Button(skin, "upButton");
         Button downButton = new Button(skin, "downButton");
-        Slider scrollSlider = new Slider(0f, 10, 1, true, skin);
+        scrollSlider = new Slider(0f, 10, 1, true, skin);
         scrollSlider.setValue(scrollSlider.getMaxValue());
 
         scrollSlider.addListener(new ChangeListener() {
@@ -125,6 +128,20 @@ public class SettingMenu extends Window {
         setMovable(false);
         setModal(true);
         setVisible(false);
+    }
+
+    private float lastScrollPercentY = -1;
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        float currentScrollPercentY = scrollPane.getScrollPercentY();
+        if (currentScrollPercentY != lastScrollPercentY) {
+            lastScrollPercentY = currentScrollPercentY;
+            // اینجا کدی که می‌خواهید هنگام تغییر ScrollPane اجرا شود
+//            scrollSlider.setValue(currentScrollPercentY * scrollSlider.getMaxValue());
+            System.out.println("ScrollPane moved! PercentY: " + currentScrollPercentY);
+        }
     }
 
     public void show(Stage stage) {
