@@ -11,13 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import io.src.StardewValley;
 import io.src.controller.GameMenuController.ArtisanController;
 import io.src.controller.GameMenuController.CookingController;
 import io.src.controller.GameMenuController.InventoryController;
@@ -44,10 +43,11 @@ public class ArtisanWindow extends Group implements InputProcessor {
     private List<ArtisanGoodType> all;
     private ArtesianMachine artesianMachine;
     private Label label;
+    private TextButton getProductButton;
 
     public ArtisanWindow(ArtesianMachine artesianMachine) {
         this.artesianMachine = artesianMachine;
-        all =  artesianMachine.getArtisanMachineType().getProducts();
+        all = artesianMachine.getArtisanMachineType().getProducts();
         errorLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
         errorLabel.setAlignment(Align.center);
         errorLabel.setPosition(375, 30);
@@ -73,13 +73,30 @@ public class ArtisanWindow extends Group implements InputProcessor {
         group.addActor(errorLabel);
         group.addActor(label);
         addActor(group);
+
+        if (artesianMachine.getArtisanGood() != null) {
+            this.getProductButton = new TextButton("Product Ready\nClick to get!", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "button1-2_font30GREEN");
+            getProductButton.setBounds(recipesTable.getX() + recipesTable.getWidth() / 2 - 125, recipesTable.getY() - 110, 250, 100);
+            this.addActor(getProductButton);
+            getProductButton.setVisible(true);
+            getProductButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    App.getMe().getInventory().add(artesianMachine.getArtisanGood(), 1);
+                    artesianMachine.setArtisanGood(null);
+                    hideDialog();
+                }
+            });
+        }
+
+
     }
 
     private Group buildRecipesTable() {
         Group recipesTable = new Group();
         infoPanel = new Table();
         infoPanel.setBackground(new TextureRegionDrawable(new TextureRegion(
-            GameAssetManager.getGameAssetManager().getToolTipBackground()
+                GameAssetManager.getGameAssetManager().getToolTipBackground()
         )));
         infoPanel.setVisible(false);
         infoPanel.setSize(180, 220);
@@ -87,15 +104,15 @@ public class ArtisanWindow extends Group implements InputProcessor {
         group.addActor(infoPanel);
 
         float[][] positions = new float[][]{
-            {100, 450}, {120, 370}, {230, 380}, {330, 460}, {430, 330},
-            {520, 470}, {200,300}
+                {100, 450}, {120, 370}, {230, 380}, {330, 460}, {430, 330},
+                {520, 470}, {200, 300}
         };
 
         for (int i = 0; i < all.size(); i++) {
             ArtisanGoodType recipe = all.get(i);
             String assetName = recipe.getAssetName();
             Texture itemTexture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
+                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName)
             ));
 
             Image icon = new Image(itemTexture);
@@ -103,7 +120,6 @@ public class ArtisanWindow extends Group implements InputProcessor {
             stack.setSize(60, 84);
             stack.add(icon);
 
-            // Hover → نمایش infoPanel
             stack.addListener(new InputListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -148,15 +164,15 @@ public class ArtisanWindow extends Group implements InputProcessor {
         StringBuilder ingText = new StringBuilder();
 
         descriptionLabel.setColor(Color.WHITE);
-        if(recipe.getIngredients() == null){
+        if (recipe.getIngredients() == null) {
             ingText.append("No ingredients!");
-        } else{
+        } else {
             if (recipe.getIngredients() != null) {
                 for (Slot slot : recipe.getIngredients()) {
                     ingText.append(slot.getQuantity())
-                        .append("x ")
-                        .append(slot.getItem().getName())
-                        .append("\n");
+                            .append("x ")
+                            .append(slot.getItem().getName())
+                            .append("\n");
                 }
             }
         }
@@ -167,7 +183,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
 
         Texture previewTexture = new Texture(Gdx.files.internal(
-            GameAssetManager.getGameAssetManager().getAssetsDictionary().get(recipe.getAssetName())
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get(recipe.getAssetName())
         ));
         Image previewImage = new Image(previewTexture);
         previewImage.setSize(48, 48);
@@ -182,8 +198,6 @@ public class ArtisanWindow extends Group implements InputProcessor {
     }
 
 
-
-
     private void showErrorLabel(String message) {
         errorLabel.setText(message);
         errorLabel.setColor(Color.RED);
@@ -192,12 +206,12 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
         errorLabel.clearActions();
         errorLabel.addAction(Actions.sequence(
-            Actions.delay(2f),
-            Actions.fadeOut(0.5f),
-            Actions.run(() -> {
-                errorLabel.setVisible(false);
-                errorLabel.getColor().a = 1f;
-            })
+                Actions.delay(2f),
+                Actions.fadeOut(0.5f),
+                Actions.run(() -> {
+                    errorLabel.setVisible(false);
+                    errorLabel.getColor().a = 1f;
+                })
         ));
     }
 
@@ -213,8 +227,8 @@ public class ArtisanWindow extends Group implements InputProcessor {
             Stack stack = new Stack();
 
             Image slotImage = (i < capacity)
-                ? new Image(GameAssetManager.getGameAssetManager().getEmptySlot())
-                : new Image(GameAssetManager.getGameAssetManager().getLockSlot());
+                    ? new Image(GameAssetManager.getGameAssetManager().getEmptySlot())
+                    : new Image(GameAssetManager.getGameAssetManager().getLockSlot());
             stack.add(slotImage);
 
             while (slots.size() <= i && i < capacity) {
@@ -224,7 +238,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
             Slot slot = null;
             Item item = null;
             int quantity = 0;
-            if(i<capacity){
+            if (i < capacity) {
                 slot = slots.get(i);
                 item = slot.getItem();
                 quantity = slot.getQuantity();
@@ -232,7 +246,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
             if (item != null && quantity > 0) {
                 Image itemImage = new Image(new Texture(Gdx.files.internal(
-                    GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get(item.getAssetName())
                 )));
                 itemImage.setOrigin(Align.center);
                 itemImage.setScale(0.8f);
@@ -289,8 +303,8 @@ public class ArtisanWindow extends Group implements InputProcessor {
                     boolean anyFishFound = false;
                     for (Slot playerSlot : player.getInventory().getSlots()) {
                         if (playerSlot.getItem() != null
-                            && FishType.fromName(playerSlot.getItem().getName()) != null
-                            && playerSlot.getQuantity() >= ingredient.getQuantity()) {
+                                && FishType.fromName(playerSlot.getItem().getName()) != null
+                                && playerSlot.getQuantity() >= ingredient.getQuantity()) {
                             anyFishFound = true;
                             break;
                         }
@@ -303,8 +317,8 @@ public class ArtisanWindow extends Group implements InputProcessor {
                     boolean anyFruitFound = false;
                     for (Slot playerSlot : player.getInventory().getSlots()) {
                         if (playerSlot.getItem() != null
-                            && FruitType.fromName(playerSlot.getItem().getName()) != null
-                            && playerSlot.getQuantity() >= ingredient.getQuantity()) {
+                                && FruitType.fromName(playerSlot.getItem().getName()) != null
+                                && playerSlot.getQuantity() >= ingredient.getQuantity()) {
                             anyFruitFound = true;
                             break;
                         }
@@ -322,7 +336,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
                     boolean anyOreFound = false;
                     for (String oreName : ores) {
-                        if (player.getInventory().countItem(player.getInventory().findItemByName(oreName))>ingredient.getQuantity()) {
+                        if (player.getInventory().countItem(player.getInventory().findItemByName(oreName)) > ingredient.getQuantity()) {
                             anyOreFound = true;
                             break;
                         }
@@ -333,7 +347,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
                 if (!foundIngredient) {
                     // Check if player has specific item with enough quantity
-                    if (player.getInventory().countItem(player.getInventory().findItemByName(ingredient.getItem().getName()))<=ingredient.getQuantity()) {
+                    if (player.getInventory().countItem(player.getInventory().findItemByName(ingredient.getItem().getName())) <= ingredient.getQuantity()) {
                         return new Result(false, "Not enough " + ingredientName + " in inventory.");
                     }
                 }
@@ -347,8 +361,8 @@ public class ArtisanWindow extends Group implements InputProcessor {
                 if (ingredientName.equals("Any Fish")) {
                     for (Slot playerSlot : player.getInventory().getSlots()) {
                         if (playerSlot.getItem() != null
-                            && FishType.fromName(playerSlot.getItem().getName()) != null
-                            && playerSlot.getQuantity() >= ingredient.getQuantity()) {
+                                && FishType.fromName(playerSlot.getItem().getName()) != null
+                                && playerSlot.getQuantity() >= ingredient.getQuantity()) {
                             player.getInventory().remove(playerSlot.getItem(), ingredient.getQuantity());
                             break;
                         }
@@ -356,8 +370,8 @@ public class ArtisanWindow extends Group implements InputProcessor {
                 } else if (ingredientName.equals("Any Fruit")) {
                     for (Slot playerSlot : player.getInventory().getSlots()) {
                         if (playerSlot.getItem() != null
-                            && FruitType.fromName(playerSlot.getItem().getName()) != null
-                            && playerSlot.getQuantity() >= ingredient.getQuantity()) {
+                                && FruitType.fromName(playerSlot.getItem().getName()) != null
+                                && playerSlot.getQuantity() >= ingredient.getQuantity()) {
                             player.getInventory().remove(playerSlot.getItem(), ingredient.getQuantity());
                             break;
                         }
@@ -383,25 +397,22 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
 
         }
-        if(artesianMachine.getProcessTime()==0){
+
+        if (artesianMachine.getProcessTime() == 0) {
             artesianMachine.startMakeArtisanGood(product);
             player.subtractEnergy(product.getEnergy());
             return new Result(true, "Started crafting artisan product.");
-        } else{
-            return new Result(true, "we are in progress!");
+        } else {
+            return new Result(true, "we are in progress!" + artesianMachine.getProcessTime() + " has remaining to make");
         }
 
     }
 
 
-
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.U) {
-            if(GameView.artisanWindow().isVisible()) {
-                Gdx.input.setInputProcessor(GameView.getGameMenuInputAdapter());
-            }
-            GameView.artisanWindow().setVisible(!GameView.artisanWindow().isVisible());
+        if (keycode == Input.Keys.U) {
+            hideDialog();
         }
         return false;
     }
@@ -444,5 +455,17 @@ public class ArtisanWindow extends Group implements InputProcessor {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
+    }
+
+    public void showDialog() {
+        this.setVisible(true);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
+    }
+
+    public void hideDialog() {
+        this.setVisible(false);
+        StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+        StardewValley.getGameView().getStage().unfocus(this);
+        Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
     }
 }

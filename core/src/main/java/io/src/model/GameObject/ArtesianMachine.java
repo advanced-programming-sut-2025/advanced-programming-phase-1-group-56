@@ -1,6 +1,9 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.GameObjects.ArtisanMachineType;
@@ -9,8 +12,9 @@ import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.ArtisanGood;
+import io.src.view.GameMenus.ArtisanWindow;
 
-public class ArtesianMachine extends GameObject implements TimeObserver, Clickable ,SensitiveToPlayer{
+public class ArtesianMachine extends GameObject implements TimeObserver, Clickable, SensitiveToPlayer {
     private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
@@ -84,12 +88,18 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
         System.out.println("Artesian Machine Touch Down");
+        ArtisanWindow artisanWindow = new ArtisanWindow(this);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(StardewValley.getGameView().getStage());
+        multiplexer.addProcessor(artisanWindow);
+        StardewValley.getGameView().getStage().addActor(artisanWindow);
+        Gdx.input.setInputProcessor(multiplexer);
+        artisanWindow.showDialog();
         return false;
     }
 
     @Override
     public boolean onPlayerGoesNearby(float distance) {
-        System.out.println(artisanMachineType.getAssetName());
         return false;
     }
 
