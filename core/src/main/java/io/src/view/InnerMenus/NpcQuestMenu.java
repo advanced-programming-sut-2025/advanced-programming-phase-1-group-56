@@ -7,8 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import io.src.StardewValley;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAssetManager;
+import io.src.model.GameAudioManager;
 import io.src.model.GameObject.NPC.NpcRequest;
+
+import java.util.Arrays;
 
 public class NpcQuestMenu extends Dialog {
     private final TextButton acceptButton;
@@ -17,7 +21,14 @@ public class NpcQuestMenu extends Dialog {
         super("", skin);
         // mode state : 0 -> NpcQuest | 1 -> ItemToItem Trade | 2 -> ItemToMoney | 3 -> Request Item | 4 -> Request Money
 
-        // fields :
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.UI_SELECT_PATTERN1.getPath()
+            , SfxEnum.UI_SELECT_PATTERN2.getPath()
+            , SfxEnum.UI_SELECT_PATTERN3.getPath()
+            , SfxEnum.UI_SELECT_PATTERN4.getPath()
+            , SfxEnum.UI_SELECT_PATTERN5.getPath()
+        )), false, GameAudioManager.sfxVolume);
+
         Window item1Win = new Window("", skin, "default3");
         Window item2Win = new Window("", skin, "default3");
         Table buttons = new Table();

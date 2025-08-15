@@ -19,10 +19,11 @@ public class User {
     private Game currentGame;
     private int numOfGames;
     private int highScore;
-    //private final ArrayList<String> allGamesId = new ArrayList<>();
     private int gold = 0;
     private int avatarIndex = 0;
     private int avatarStyleIndex = 1;
+
+    private int farmIndex = 1;
 
     public User(String username, String name, String password, String salt, String email, int securityQuestion,
                 String answer, Boolean gender) {
@@ -169,5 +170,13 @@ public class User {
 
     public void setAvatarStyleIndex(int avatarStyleIndex) {
         this.avatarStyleIndex = avatarStyleIndex;
+    }
+
+    public int getFarmIndex() {
+        return farmIndex;
+    }
+
+    public void setFarmIndex(int farmIndex) {
+        this.farmIndex = farmIndex;
     }
 }

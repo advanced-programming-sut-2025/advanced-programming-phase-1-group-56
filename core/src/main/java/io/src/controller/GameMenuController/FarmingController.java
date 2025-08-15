@@ -35,8 +35,13 @@ public class FarmingController extends CommandController {
                 int randX = (int) (Math.random() * farm.getTiles()[0].length);
                 int randY = (int) (Math.random() * farm.getTiles().length);
                 Result result = WeatherController.cheatThor(farm, Integer.toString(randX), Integer.toString(randY));
-                if (result.isSuccess())
-                    GameAudioManager.getInstance().playSound(SfxEnum.);
+                if (result.isSuccess()) {
+                    GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+                        SfxEnum.AMBIENT_WEATHER_THUNDER1.getPath(),
+                        SfxEnum.AMBIENT_WEATHER_THUNDER2.getPath(),
+                        SfxEnum.AMBIENT_WEATHER_THUNDER3.getPath()
+                    )), false, GameAudioManager.ambientVolume);
+                }
             }
         }
     }

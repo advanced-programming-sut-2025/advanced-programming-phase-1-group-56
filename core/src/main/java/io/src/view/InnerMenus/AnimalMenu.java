@@ -8,14 +8,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.HusbandryController;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.Enums.commands.GameCommands.HusbandryCommands;
 import io.src.model.GameAssetManager;
+import io.src.model.GameAudioManager;
 import io.src.model.GameObject.Animal;
 import io.src.model.Result;
+import io.src.view.GameMenus.GameMenu;
 import io.src.view.GameMenus.InterruptingWindow;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AnimalMenu extends Window implements InterruptingWindow {
     private final TextButton freeButton;
@@ -94,6 +98,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
 
         closeButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_SNARE.getPath(), false, GameAudioManager.sfxVolume);
                 hideDialog();
             }
         });
@@ -101,6 +106,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
                 changeHomeFreeState(false);
             }
         });
@@ -108,6 +114,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         freeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
                 changeHomeFreeState(true);
             }
         });
@@ -115,6 +122,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         feedButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
                 Result result = HusbandryController.feedHay(animal.getName());
                 StardewValley.getGameView().getWarningWindow().showDialog(animal.getNickName(), result.getMessage(), 300);
                 if (result.isSuccess()) {
@@ -128,6 +136,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         petButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
                 Result result = HusbandryController.petting(animal.getName());
                 StardewValley.getGameView().getWarningWindow().showDialog(animal.getNickName(), result.getMessage(), 300);
                 animal.setPetHint(true);
@@ -139,6 +148,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         productsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
                 Result result = HusbandryController.collectProduce(animal.getName());
                 StardewValley.getGameView().getWarningWindow().showDialog(animal.getNickName(), result.getMessage(), 300);
                 AnimalMenu.this.hideDialog();
@@ -148,6 +158,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         sellButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
                 Result result = HusbandryController.sellAnimal(animal.getName());
                 StardewValley.getGameView().getWarningWindow().showDialog(animal.getNickName(), result.getMessage(), 300);
                 AnimalMenu.this.hideDialog();
@@ -183,6 +194,13 @@ public class AnimalMenu extends Window implements InterruptingWindow {
 
     @Override
     public void showDialog() {
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.UI_SELECT_PATTERN1.getPath()
+            , SfxEnum.UI_SELECT_PATTERN2.getPath()
+            , SfxEnum.UI_SELECT_PATTERN3.getPath()
+            , SfxEnum.UI_SELECT_PATTERN4.getPath()
+            , SfxEnum.UI_SELECT_PATTERN5.getPath()
+        )), false, GameAudioManager.sfxVolume);
         this.setVisible(true);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }

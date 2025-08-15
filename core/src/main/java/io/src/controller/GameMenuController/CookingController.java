@@ -6,6 +6,7 @@ import io.src.model.*;
 import io.src.model.Enums.Items.FoodType;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.items.Food;
 import io.src.model.items.Item;
 
@@ -20,6 +21,7 @@ public class CookingController extends CommandController {
         App.getMe().addFoodRecipes(foodRecipesList);
         return new Result(true, "recipe added successfully");
     }
+
     //TODO
     public static Result refrigeratorPick(Matcher matcher) {
         String input = matcher.group(1).trim().trim();
@@ -28,17 +30,17 @@ public class CookingController extends CommandController {
             return new Result(false, "there is no " + input + " in refrigerator");
         }
         App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getPlayerFarm().getDefaultHome()
-                .getMyRefrigerator()
-                .getInventory()
-                .remove(item, 1);
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getPlayerFarm().getDefaultHome()
+            .getMyRefrigerator()
+            .getInventory()
+            .remove(item, 1);
         App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getInventory()
-                .add(item, 1);
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getInventory()
+            .add(item, 1);
         return new Result(true, "you get Food!");
     }
 
@@ -51,18 +53,18 @@ public class CookingController extends CommandController {
             return new Result(false, "this item is not Food!");
         }
         App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getPlayerFarm()
-                .getDefaultHome()
-                .getMyRefrigerator()
-                .getInventory()
-                .add(item, 1);
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getPlayerFarm()
+            .getDefaultHome()
+            .getMyRefrigerator()
+            .getInventory()
+            .add(item, 1);
         App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getInventory()
-                .remove(item, 1);
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getInventory()
+            .remove(item, 1);
         return new Result(true, "you put Food in refrigerator!");
     }
 
@@ -106,29 +108,34 @@ public class CookingController extends CommandController {
             }
         }
         App.getCurrentUser().
-                getCurrentGame()
-                .getCurrentPlayer()
-                .subtractEnergy(3);
+            getCurrentGame()
+            .getCurrentPlayer()
+            .subtractEnergy(3);
         for (Slot ingredient : cookFood.ingredients) {
             Item item = returnInventoryItemByName(ingredient.getItem().getName());
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, ingredient.getQuantity());
         }
         Food food = null;
-        for(FoodType foodType : FoodType.values()){
-            if(foodType.getName().equals(cookFood.name)){
+        for (FoodType foodType : FoodType.values()) {
+            if (foodType.getName().equals(cookFood.name)) {
                 food = new Food(foodType);
             }
         }
 
         App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getInventory()
-                .add(food, 1);
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getInventory()
+            .add(food, 1);
         return new Result(true, tmpString.append("your food is ready!").toString());
     }
 
     public static Result eatFood(Matcher matcher) {
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.RANDOM_EAT1.getPath()
+            , SfxEnum.RANDOM_EAT2.getPath()
+            , SfxEnum.RANDOM_EAT3.getPath()
+        )), false, GameAudioManager.sfxVolume);
         String foodName = matcher.group(1).trim().trim();
         Item item = returnInventoryItemByName(foodName);
         if (item == null) {
@@ -144,6 +151,11 @@ public class CookingController extends CommandController {
     }
 
     public static void eatFoodUI(Item item) {
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.RANDOM_EAT1.getPath()
+            , SfxEnum.RANDOM_EAT2.getPath()
+            , SfxEnum.RANDOM_EAT3.getPath()
+        )), false, GameAudioManager.sfxVolume);
         Food food = (Food) item;
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
@@ -152,13 +164,13 @@ public class CookingController extends CommandController {
 
     private static Item returnRefrigeratorItemByName(String itemName) {
         for (Slot slot : App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getPlayerFarm()
-                .getDefaultHome()
-                .getMyRefrigerator()
-                .getInventory()
-                .getSlots()) {
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getPlayerFarm()
+            .getDefaultHome()
+            .getMyRefrigerator()
+            .getInventory()
+            .getSlots()) {
             Item item = slot.getItem();
             if (item.getName().equals(itemName)) {
                 return item;
@@ -169,10 +181,10 @@ public class CookingController extends CommandController {
 
     private static Item returnInventoryItemByName(String itemName) {
         for (Slot slot : App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getInventory()
-                .getSlots()) {
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getInventory()
+            .getSlots()) {
             Item item = slot.getItem();
             if (item.getName().equals(itemName)) {
                 return item;
@@ -183,9 +195,9 @@ public class CookingController extends CommandController {
 
     private static FoodRecipesList returnCookFoodByName(String itemName) {
         for (FoodRecipesList cookFood : App.getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getFoodRecipes()) {
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getFoodRecipes()) {
             if (cookFood.name.equals(itemName)) {
                 return cookFood;
             }
@@ -197,10 +209,10 @@ public class CookingController extends CommandController {
         StringBuilder tmpString = new StringBuilder();
         int count = 0;
         for (FoodRecipesList cookFood : App.
-                getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getFoodRecipes()) {
+            getCurrentUser()
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getFoodRecipes()) {
             count++;
             tmpString.append(count).append(". \n");
             tmpString.append("FoodName : ").append(cookFood.name).append("\n");
@@ -220,7 +232,7 @@ public class CookingController extends CommandController {
         for (Slot ingredient : cookFood.ingredients) {
             boolean isExist = false;
             for (Slot slot : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().getSlots()) {
-                if(slot.getItem()==null){
+                if (slot.getItem() == null) {
                     continue;
                 }
                 if (slot.getItem().getName().equals(ingredient.getItem().getName())) {
@@ -237,10 +249,10 @@ public class CookingController extends CommandController {
                 if (ingredient.getItem().getName().equals(slot.getItem().getName())) {
                     int sum = 0;
                     for (Slot slot1 : App.getCurrentUser()
-                            .getCurrentGame()
-                            .getCurrentPlayer()
-                            .getInventory()
-                            .getSlots()) {
+                        .getCurrentGame()
+                        .getCurrentPlayer()
+                        .getInventory()
+                        .getSlots()) {
                         if (slot1.getItem().getName().equals(ingredient.getItem().getName())) {
                             sum += slot1.getQuantity();
                         }
@@ -324,7 +336,7 @@ public class CookingController extends CommandController {
 
         tmpString.append("Sell Price : ")
             .append(foodRecipe.sellPrice).append("\n");
-        if(foodRecipe.effect!=null){
+        if (foodRecipe.effect != null) {
             tmpString.append("effect: ").append(foodRecipe.effect.getName());
 
         }
@@ -335,10 +347,10 @@ public class CookingController extends CommandController {
         StringBuilder tmpString = new StringBuilder();
         int count = 0;
         for (FoodRecipesList cookFood : App.
-                getCurrentUser()
-                .getCurrentGame()
-                .getCurrentPlayer()
-                .getFoodRecipes()) {
+            getCurrentUser()
+            .getCurrentGame()
+            .getCurrentPlayer()
+            .getFoodRecipes()) {
             count++;
             tmpString.append(count).append(". \n");
             tmpString.append("FoodName : ").append(cookFood.name).append("\n");

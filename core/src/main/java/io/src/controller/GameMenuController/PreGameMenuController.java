@@ -50,7 +50,7 @@ public class PreGameMenuController extends CommandController {
         GameMap map = new GameMap();
 
         Town town = (Town) loadTheLocation("assets\\gameLocations\\Town4");
-        Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm1");
+        Farm farm1 = (Farm) loadTheLocation("assets\\gameLocations\\Farm" + App.getCurrentUser().getFarmIndex());
 
         farm1.setPosition(FarmPosition.LEFT);
         player.setFarmPosition(FarmPosition.LEFT);

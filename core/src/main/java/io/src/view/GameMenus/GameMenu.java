@@ -6,8 +6,10 @@ import io.src.controller.GameMenuController.*;
 import io.src.model.App;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.Menu;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.commands.GameCommands.*;
+import io.src.model.GameAudioManager;
 import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
@@ -17,6 +19,7 @@ import io.src.model.Result;
 import io.src.model.States.Energy;
 import io.src.view.AppMenu;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -398,6 +401,11 @@ public class GameMenu implements AppMenu, Screen {
             return true;
         } else if ((matcher = WeatherCommands.cheatThor.getMatcher(input)) != null) {
             result = WeatherController.cheatThor(App.getMe().getCurrentGameLocation(), matcher.group(1).trim(), matcher.group(2).trim());
+            GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+                SfxEnum.AMBIENT_WEATHER_THUNDER1.getPath(),
+                SfxEnum.AMBIENT_WEATHER_THUNDER2.getPath(),
+                SfxEnum.AMBIENT_WEATHER_THUNDER3.getPath()
+            )), false, GameAudioManager.ambientVolume * 3);
             return true;
         }
         return false;
@@ -406,16 +414,16 @@ public class GameMenu implements AppMenu, Screen {
     public boolean HusbandryCheck(String input) {
         Matcher matcher;
         if ((matcher = HusbandryCommands.pettingAnimal.getMatcher(input)) != null) {
-            result = new Result (false,"this command is deleted from terminal");
+            result = new Result(false, "this command is deleted from terminal");
             return true;
         } else if ((HusbandryCommands.showInfoAnimals.getMatcher(input)) != null) {
             result = HusbandryController.showInfoOfAnimal();
             return true;
         } else if ((matcher = HusbandryCommands.shepherdAnimals.getMatcher(input)) != null) {
-            result = HusbandryController.shepherdAnimals(matcher.group(1) , matcher.group(2), matcher.group(3));
+            result = HusbandryController.shepherdAnimals(matcher.group(1), matcher.group(2), matcher.group(3));
             return true;
         } else if ((matcher = HusbandryCommands.feedHay.getMatcher(input)) != null) {
-            result = new Result (false,"this command is deleted from terminal");
+            result = new Result(false, "this command is deleted from terminal");
             return true;
         } else if ((HusbandryCommands.produces.getMatcher(input)) != null) {
             result = HusbandryController.showProduces();
@@ -424,13 +432,13 @@ public class GameMenu implements AppMenu, Screen {
             result = HusbandryController.cheatSetFriendship(matcher);
             return true;
         } else if ((matcher = HusbandryCommands.collectProduce.getMatcher(input)) != null) {
-            result = new Result (false,"this command is deleted from terminal");
+            result = new Result(false, "this command is deleted from terminal");
             return true;
         } else if ((matcher = HusbandryCommands.fishing.getMatcher(input)) != null) {
             result = FishingController.fishing(matcher);
             return true;
         } else if ((matcher = HusbandryCommands.sellAnimal.getMatcher(input)) != null) {
-            result = new Result (false,"this command is deleted from terminal");
+            result = new Result(false, "this command is deleted from terminal");
             return true;
         } else if ((matcher = HusbandryCommands.cheatADdAnimal.getMatcher(input)) != null) {
             result = HusbandryController.addAnimal(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), matcher.group(3));
@@ -530,7 +538,7 @@ public class GameMenu implements AppMenu, Screen {
             return true;
         } else if ((matcher = RelationshipCommands.flower.getMatcher(input)) != null) {
             //result = FriendshipController.buyFlower(matcher.group(1).trim());
-            result = new Result(false,"this command it deleted from terminal");
+            result = new Result(false, "this command it deleted from terminal");
             return true;
         } else if ((matcher = RelationshipCommands.hug.getMatcher(input)) != null) {
             result = FriendshipController.hugPlayer(matcher.group(1).trim());
@@ -570,7 +578,7 @@ public class GameMenu implements AppMenu, Screen {
             return true;
         } else if ((matcher = NpcCommands.FinishQuest.getMatcher(input)) != null) {
             //result = NpcController.finishingQuest(matcher.group(1).trim());
-            result = new Result(false,"this command is deleted from terminal");
+            result = new Result(false, "this command is deleted from terminal");
             return true;
         } else {
             return false;

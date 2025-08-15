@@ -245,15 +245,12 @@ public class ProfileMenu extends Window implements AppMenu {
 
         avatar.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                AvatarMenu avatarMenu = new AvatarMenu(skin, new AvatarMenu.AvatarSelectionListener() {
-                    @Override
-                    public void onAvatarSelected(String name, String farmName, String farmPosition, String avatar, int AvatarIndex, int AvatarStyleIndex) {
-                        updateAvatar();
-                        System.out.println(AvatarIndex + " : " + AvatarStyleIndex);
-                        App.getCurrentUser().setAvatarIndex(AvatarIndex);
-                        App.getCurrentUser().setAvatarStyleIndex(AvatarStyleIndex);
-                        App.saveUsers();
-                    }
+                AvatarMenu avatarMenu = new AvatarMenu(skin, (name, farmName, farmPosition, avatar, AvatarIndex, AvatarStyleIndex) -> {
+                    updateAvatar();
+                    System.out.println(AvatarIndex + " : " + AvatarStyleIndex);
+                    App.getCurrentUser().setAvatarIndex(AvatarIndex);
+                    App.getCurrentUser().setAvatarStyleIndex(AvatarStyleIndex);
+                    App.saveUsers();
                 });
                 avatarMenu.setAvatarMode();
                 avatarMenu.show(stage);

@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import io.src.StardewValley;
-import io.src.model.App;
-import io.src.model.Clickable;
+import io.src.model.*;
 import com.badlogic.gdx.math.Vector2;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.NpcType;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.MapModule.AStarPathFinding;
 import io.src.model.MapModule.GameLocations.Town;
@@ -16,14 +16,13 @@ import io.src.model.MapModule.Node;
 import io.src.model.MapModule.Position;
 import io.src.model.GameObject.LivingEntity;
 import io.src.model.MapModule.Tile;
-import io.src.model.Player;
-import io.src.model.SkinManager;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.Item;
 import io.src.view.InnerMenus.NpcStateMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static io.src.view.GameMenus.GameView.TILE_SIZE;
@@ -350,6 +349,28 @@ public class NPC extends LivingEntity implements TimeObserver, Clickable, Sensit
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.RIGHT) {
+            GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+                SfxEnum.VILLAGER_HAGGLE1.getPath()
+                , SfxEnum.VILLAGER_HAGGLE2.getPath()
+                , SfxEnum.VILLAGER_HAGGLE3.getPath()
+                , SfxEnum.VILLAGER_IDLE1.getPath()
+                , SfxEnum.VILLAGER_IDLE2.getPath()
+                , SfxEnum.VILLAGER_IDLE3.getPath()
+                , SfxEnum.VILLAGER_NO1.getPath()
+                , SfxEnum.VILLAGER_NO2.getPath()
+                , SfxEnum.VILLAGER_NO3.getPath()
+                , SfxEnum.VILLAGER_YES1.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES2.getPath()
+                , SfxEnum.VILLAGER_YES3.getPath()
+            )), false, GameAudioManager.ambientVolume);
             NpcStateMenu npcStateMenu = new NpcStateMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), this);
 //            InputMultiplexer multiplexer = new InputMultiplexer();
 //            multiplexer.addProcessor(npcStateMenu);

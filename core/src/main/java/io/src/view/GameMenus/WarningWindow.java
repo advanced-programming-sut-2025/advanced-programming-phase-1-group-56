@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
+import io.src.model.Enums.SfxEnum;
+import io.src.model.GameAudioManager;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -32,6 +34,7 @@ public class WarningWindow extends Window implements InterruptingWindow {
     }
 
     public void showDialog(String speaker, String text, int remainingTime) {
+        GameAudioManager.getInstance().playSound(SfxEnum.NOTE_ICECHIME.getPath(), false, GameAudioManager.sfxVolume);
         this.remainingTime = remainingTime;
         speakerLabel.setText(speaker);
         textLabel.setText(text);

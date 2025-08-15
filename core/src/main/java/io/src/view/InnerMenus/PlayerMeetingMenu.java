@@ -11,6 +11,7 @@ import io.src.controller.GameMenuController.FriendshipController;
 import io.src.model.*;
 import io.src.model.Activities.Gift;
 import io.src.model.Enums.NpcType;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.GameObject.NPC.NpcRequest;
 import io.src.model.GameObject.PlayerObject;
 import io.src.model.items.Item;
@@ -19,6 +20,7 @@ import io.src.view.GameMenus.WarningWindow;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class PlayerMeetingMenu extends Window {
@@ -304,7 +306,13 @@ public class PlayerMeetingMenu extends Window {
     }
 
     public void showDialog() {
-        this.setVisible(true);
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.UI_SELECT_PATTERN1.getPath()
+            , SfxEnum.UI_SELECT_PATTERN2.getPath()
+            , SfxEnum.UI_SELECT_PATTERN3.getPath()
+            , SfxEnum.UI_SELECT_PATTERN4.getPath()
+            , SfxEnum.UI_SELECT_PATTERN5.getPath()
+        )), false, GameAudioManager.sfxVolume);this.setVisible(true);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }
 

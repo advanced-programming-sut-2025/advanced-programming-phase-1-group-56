@@ -57,7 +57,6 @@ public class AvatarMenu extends Dialog {
         else
             System.out.println("AVATAR/FINAL/AVATAR NOT FOUND");
 
-
         Table row1 = new Table();
         Table avatarTable = new Table();
         Button leftDirect = new Button(skin, "leftButton");
@@ -121,14 +120,38 @@ public class AvatarMenu extends Dialog {
         farmPosition.setItems("Left", "Right", "Up", "Down");
         farmPosition.setSelected("Left");
         fields.add(farmPositionLabel).padTop(10).padLeft(50).padRight(30);
-        fields.add(farmPosition).width(300).padTop(10);
+        fields.add(farmPosition).width(300).padTop(10).row();
+
+        CheckBox farm1 = new CheckBox(" Farm1", skin, "default2");
+        CheckBox farm2 = new CheckBox(" Farm2", skin, "default2");
+
+        farm1.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BELL.getPath(), false, GameAudioManager.sfxVolume);
+                farm2.setChecked(false);
+                farm1.setChecked(true);
+            }
+        });
+
+        farm2.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BELL.getPath(), false, GameAudioManager.sfxVolume);
+                farm1.setChecked(false);
+                farm2.setChecked(true);
+            }
+        });
+
+        farm1.setChecked(true);
+
+        fields.add(farm1).padTop(24).padLeft(50).padRight(30);
+        fields.add(farm2).padTop(24).row();
 
         okButton = new Button(skin, "okButton");
         okButton.setDisabled(true);
 
         getContentTable().add(row1).padRight(50).row();
         getContentTable().add(fields).padBottom(15);
-        button(okButton).bottom().padRight(10).padBottom(15);
+        button(okButton).bottom().padRight(10).padBottom(15).padBottom(40);
 
         pack();
 
@@ -200,6 +223,9 @@ public class AvatarMenu extends Dialog {
                 App.getCurrentUser().setAvatarIndex(avatarIndex);
                 App.getCurrentUser().setAvatarStyleIndex(avatarStyleIndex);
                 App.saveUsers();
+                int farmIndex = 1;
+                if (farm2.isChecked()) farmIndex = 2;
+                App.getCurrentUser().setFarmIndex(farmIndex);
                 listener.onAvatarSelected(name, farm, position, avatars.get(avatarIndex), avatarIndex, avatarStyleIndex);
             }
         });
