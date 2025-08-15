@@ -280,39 +280,47 @@ public class craftingWindow extends Group implements InputProcessor {
 
                 } else if (payload.getObject() instanceof CraftingRecipesList) {
                     CraftingRecipesList recipe = (CraftingRecipesList) payload.getObject();
-                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
-                        showErrorLabel("it's not open for you!");
-                    } else if (CraftingController.havaIngredient(recipe)) {
-                        Item crafted;
-                        if (ArtisanController.getArtisanMachineItemType(recipe.name) != null) {
-                            System.out.println("yesssss");
-                            crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
-                        } else if (recipe.name == EtcType.SCARE_CROW.name) {
-                            crafted = new Etc(EtcType.SCARE_CROW);
-                        } else if (recipe.name == EtcType.IRIDIUM_SPRINKLER.name) {
-                            crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
-                        } else if (recipe.name == EtcType.QUALITY_SPRINKLER.name) {
-                            crafted = new Etc(EtcType.QUALITY_SPRINKLER);
-                        } else if (recipe.name == EtcType.SPRINKLER.name) {
-                            crafted = new Etc(EtcType.SPRINKLER);
-                        } else if (recipe.name == EtcType.DELUXE_SCARE_CROW.name) {
-                            crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
-                        } else {
-                            crafted = new CraftingTool(recipe);
-                        }
-                        if (inventory.add(crafted, 1)) {
-                            App.getCurrentUser().
-                                getCurrentGame()
-                                .getCurrentPlayer()
-                                .subtractEnergy(3);
-                            showErrorLabel("Crafted: " + crafted.getAssetName());
-                            refreshInventory();
-                        } else {
-                            showErrorLabel("Inventory is full!");
-                        }
+                    Item crafted;
+                    if (ArtisanController.getArtisanMachineItemType(recipe.name) != null) {
+                        System.out.println("yesssss");
+                        crafted = new Artesian(ArtisanController.getArtisanMachineItemType(recipe.name));
+                    } else if (recipe.name == EtcType.SCARE_CROW.name) {
+                        crafted = new Etc(EtcType.SCARE_CROW);
+                    } else if (recipe.name == EtcType.IRIDIUM_SPRINKLER.name) {
+                        crafted = new Etc(EtcType.IRIDIUM_SPRINKLER);
+                    } else if (recipe.name == EtcType.QUALITY_SPRINKLER.name) {
+                        crafted = new Etc(EtcType.QUALITY_SPRINKLER);
+                    } else if (recipe.name == EtcType.SPRINKLER.name) {
+                        crafted = new Etc(EtcType.SPRINKLER);
+                    } else if (recipe.name == EtcType.DELUXE_SCARE_CROW.name) {
+                        crafted = new Etc(EtcType.DELUXE_SCARE_CROW);
                     } else {
-                        showErrorLabel("Not enough ingredients!");
+                        crafted = new CraftingTool(recipe);
                     }
+                    inventory.add(crafted, 1);
+                    App.getCurrentUser().
+                        getCurrentGame()
+                        .getCurrentPlayer()
+                        .subtractEnergy(3);
+                    showErrorLabel("Crafted: " + crafted.getAssetName());
+//                    if (!unlocked.contains(recipe) || !canCraft.contains(recipe)) {
+//                        showErrorLabel("it's not open for you!");
+//                    } else if (CraftingController.havaIngredient(recipe)) {
+
+                    refreshInventory();
+//                        if (inventory.add(crafted, 1)) {
+//                            App.getCurrentUser().
+//                                getCurrentGame()
+//                                .getCurrentPlayer()
+//                                .subtractEnergy(3);
+//                            showErrorLabel("Crafted: " + crafted.getAssetName());
+//                            refreshInventory();
+//                        } else {
+//                            showErrorLabel("Inventory is full!");
+//                        }
+//                    } else {
+//                        showErrorLabel("Not enough ingredients!");
+//                    }
                 }
 
             }
@@ -375,7 +383,7 @@ public class craftingWindow extends Group implements InputProcessor {
                 Gdx.input.setInputProcessor(StardewValley.getGameView().getMultiplexer());
 
             }
-            
+
             StardewValley.getGameView().getCraftingWindow().setVisible(!StardewValley.getGameView().getCraftingWindow().isVisible());
         }
         return false;

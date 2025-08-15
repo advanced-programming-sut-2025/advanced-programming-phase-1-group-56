@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="Manage Tree + Debugg Farming">
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="empty commit before merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/CookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/controller/GameMenuController/CookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/FishShopProducts.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/Enums/Stores/FishShopProducts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/ArtesianMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/GameObject/ArtesianMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/model/items/Tool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/InventoryWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/craftingWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/craftingWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +49,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="maz" />
+        <entry key="$PROJECT_DIR$" value="nima2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,7 +98,7 @@
     &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;nima2&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;phase2&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -171,6 +175,7 @@
       <workItem from="1755175888911" duration="19857000" />
       <workItem from="1755201336023" duration="1273000" />
       <workItem from="1755242254156" duration="23102000" />
+      <workItem from="1755277718536" duration="5349000" />
     </task>
     <task id="LOCAL-00001" summary="init Game">
       <option name="closed" value="true" />
@@ -348,7 +353,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755265837851</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="empty commit before merge">
+      <option name="closed" value="true" />
+      <created>1755269413744</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1755269413744</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,7 +401,8 @@
     <MESSAGE value="freindShips and communications with players" />
     <MESSAGE value="dubuged marriage" />
     <MESSAGE value="Manage Tree + Debugg Farming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Manage Tree + Debugg Farming" />
+    <MESSAGE value="empty commit before merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="empty commit before merge" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/APproject$Lwjgl3Launcher.ic" NAME="Lwjgl3Launcher Coverage Results" MODIFIED="1755135110906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

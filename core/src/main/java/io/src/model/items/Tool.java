@@ -52,23 +52,27 @@ public class Tool extends Item {
                     switch (t) {
 //                        case TreeType.BURNT_TREE ->
 //                            player.getInventory().add(new Mineral((MineralItemType) TreeType.BURNT_TREE.fruit), 1);
-                        case TreeType.NORMAL_TREE -> {player.getInventory().add(new Fruit((t.fruit)), 1);
-                                                     tree.setHealth(tree.getHealth() -1);}
+                        case TreeType.NORMAL_TREE -> {
+                            player.getInventory().add(new Fruit((t.fruit)), 1);
+                            tree.setHealth(tree.getHealth() - 1);
+                        }
 //                        case TreeType.TREE_BARK -> player.getInventory().add(new Etc((EtcType) t.fruit), 1);
-                        default -> {player.getInventory().add(new Etc(EtcType.WOOD), 1);
-                        tree.setHealth(tree.getHealth() -1);}
+                        default -> {
+                            player.getInventory().add(new Etc(EtcType.WOOD), 1);
+                            tree.setHealth(tree.getHealth() - 1);
+                        }
 //                        default -> player.getInventory().add(new Fruit((FruitType) t.fruit), 1);
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
 
-                            tree.setHealth(tree.getHealth() -1);
-                            App.getMe().getInventory().add(new Seed(t.getSource()), 1);
+                        tree.setHealth(tree.getHealth() - 1);
+                        App.getMe().getInventory().add(new Seed(t.getSource()), 1);
 //                            if (tree.isComplete()) {
 //                            App.getMe().getInventory().add(new Fruit(t.fruit), 1);
 //                            }
 
                     }
-                    if (tree.getHealth() == 0){
+                    if (tree.getHealth() == 0) {
                         player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                         tile.setFixedObject(null);
                     }
@@ -136,19 +140,25 @@ public class Tool extends Item {
                 }
                 break;
             }
-            case "Watering Can": {
+            case "WateringCan": {
+                System.out.println("Watering Can USED");
                 Skill playerSkill = player.getSkillByName(Skills.Farming.toString());
                 if (tile.getFixedObject() instanceof Tree || tile.getFixedObject() instanceof Crop || tile.getTileType() == TileType.Water || tile.getTileType() == TileType.PlowedSoil) {
                     if (tile.getTileType() == TileType.Water) {
+                        System.out.println("Abb shodam");
                         this.capacity = toolType.getCapacity();
                     } else {
                         this.capacity--;
-                        if (tile.getFixedObject().getClass() == Tree.class) {
-                            ((Tree) tile.getFixedObject()).setWateredToday(true);
-                        } else if (tile.getFixedObject().getClass() == Crop.class) {
-                            ((Crop) tile.getFixedObject()).setWateredToday(true);
-                        } else if (tile.getTileType() == TileType.PlowedSoil) {
+                        if (tile.getFixedObject() != null) {
+                            if (tile.getFixedObject().getClass() == Tree.class) {
+                                ((Tree) tile.getFixedObject()).setWateredToday(true);
+                            } else if (tile.getFixedObject().getClass() == Crop.class) {
+                                ((Crop) tile.getFixedObject()).setWateredToday(true);
+                            }
+                        }
+                        if (tile.getTileType() == TileType.PlowedSoil) {
                             tile.setTileType(TileType.WaterPlowedSoil);
+                            System.out.println("revale");
                         }
 //
                     }
@@ -157,8 +167,8 @@ public class Tool extends Item {
                         player.addEnergy(1);
                     }
                 }
-                break;
             }
+            break;
             case "Fishing Pole": {
                 Skill playerSkill = player.getSkillByName(Skills.Fishing.toString());
                 if (tile.getTileType() == TileType.Water) {
@@ -205,7 +215,7 @@ public class Tool extends Item {
                         tree.setHarvestDayRegrowth(0);
                         tree.setHarvest(false);
                     }
-                } else if (tile.getFixedObject() instanceof Grass){
+                } else if (tile.getFixedObject() instanceof Grass) {
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
                 }

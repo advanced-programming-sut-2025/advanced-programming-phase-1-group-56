@@ -10,7 +10,7 @@ import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.ArtisanGood;
 
-public class ArtesianMachine extends GameObject implements TimeObserver, Clickable {
+public class ArtesianMachine extends GameObject implements TimeObserver, Clickable ,SensitiveToPlayer{
     private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
@@ -82,6 +82,34 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        System.out.println("Artesian Machine Touch Down");
         return false;
+    }
+
+    @Override
+    public boolean onPlayerGoesNearby(float distance) {
+        System.out.println(artisanMachineType.getAssetName());
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerGetsFar(float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerFocus() {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerDefocus() {
+        return false;
+    }
+
+    @Override
+    public float getSensitivityDistance() {
+        return 2;
     }
 }

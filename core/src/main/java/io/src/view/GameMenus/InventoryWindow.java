@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.StardewValley;
+import io.src.controller.GameMenuController.GameController;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.*;
 import io.src.model.Activities.Friendship;
@@ -374,6 +375,15 @@ public class InventoryWindow extends Group implements InputProcessor {
                 Gdx.app.exit();
             }
         });
+
+
+        imageButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                GameController.exitGame();
+                //StardewValley.getGame().setS();+
+            }
+        });
+
 
         imageButton.setPosition(230, 334);
         imageButton2.setPosition(205, 199);
