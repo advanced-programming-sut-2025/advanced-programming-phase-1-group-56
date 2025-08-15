@@ -50,6 +50,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import io.src.model.items.*;
+import io.src.view.InnerMenus.SettingMenu;
 
 
 import java.util.HashSet;
@@ -193,6 +194,12 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         if (keycode == Input.Keys.K) {
             StardewValley.getGameView().getWarningWindow().kill();
+        }
+
+        if (keycode == Input.Keys.M) {
+            SettingMenu settingMenu = StardewValley.getGameView().getSettingMenu();
+            if (!settingMenu.isVisible()) settingMenu.show(StardewValley.getGameView().getStage());
+            else settingMenu.hide();
         }
 
         if (keycode == Input.Keys.ENTER) {
@@ -512,6 +519,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                         App.getMe().setPosition(new Position(b.getDoorPosition().getX(), b.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
+                        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                         StardewValley.getGameView().updateMapWithFade(() -> {
                             GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                             App.getMe().setPosition(b.getInitialPosition());//TODO
@@ -521,6 +529,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                 }
             }
             if (!isNearADoor) {        //FROM FARM TO TOWN
+
                 StardewValley.getGameView().updateMapWithFade(() -> {
                     App.getMe().setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
                     switch (farm.getPosition()) {

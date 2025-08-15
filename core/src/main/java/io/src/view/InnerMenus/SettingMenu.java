@@ -2,6 +2,7 @@ package io.src.view.InnerMenus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,12 +12,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import io.src.StardewValley;
 import io.src.model.GameAudioManager;
 
-public class SettingMenu extends Window {
+public class SettingMenu extends Window implements InputProcessor {
 
     private final ScrollPane scrollPane;
     private final Slider scrollSlider;
+    private final Button downButton;
+    private final Button upButton;
 
     public SettingMenu(Skin skin) {
         super("", skin, "noWindow");
@@ -54,8 +58,35 @@ public class SettingMenu extends Window {
         gameAudioSettings.add(musicSlider).padTop(20).row();
         gameAudioSettings.add(new Label("Ambient Volume", skin)).pad(10).left().padTop(20);
         Slider ambientSlider = new Slider(0f, 1f, 0.1f, false, skin, "default-horizontal");
-        ambientSlider.setValue(GameAudioManager.sfxVolume);
+        ambientSlider.setValue(GameAudioManager.ambientVolume);
         gameAudioSettings.add(ambientSlider).padTop(20).row();
+
+        sfxSlider.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                GameAudioManager.sfxVolume = sfxSlider.getValue();
+            }
+        });
+
+        footStepSlider.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                GameAudioManager.footStepVolume = footStepSlider.getValue();
+            }
+        });
+
+        musicSlider.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                GameAudioManager.musicVolume = musicSlider.getValue();
+                if (GameAudioManager.getInstance().getCurrentMusic() != null)
+                    GameAudioManager.getInstance().getCurrentMusic().setVolume(GameAudioManager.musicVolume);
+            }
+        });
+
+        ambientSlider.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                GameAudioManager.ambientVolume = ambientSlider.getValue();
+            }
+        });
+
         settings.add(gameAudioSettings);
         scrollPane = new ScrollPane(settings, skin, "default2");
         scrollPane.setFadeScrollBars(false);
@@ -68,8 +99,8 @@ public class SettingMenu extends Window {
 
         Table column2 = new Table();
 
-        Button upButton = new Button(skin, "upButton");
-        Button downButton = new Button(skin, "downButton");
+        upButton = new Button(skin, "upButton");
+        downButton = new Button(skin, "downButton");
         scrollSlider = new Slider(0f, 10, 1, true, skin);
         scrollSlider.setValue(scrollSlider.getMaxValue());
 
@@ -138,21 +169,75 @@ public class SettingMenu extends Window {
         float currentScrollPercentY = scrollPane.getScrollPercentY();
         if (currentScrollPercentY != lastScrollPercentY) {
             lastScrollPercentY = currentScrollPercentY;
-            // اینجا کدی که می‌خواهید هنگام تغییر ScrollPane اجرا شود
-//            scrollSlider.setValue(currentScrollPercentY * scrollSlider.getMaxValue());
             System.out.println("ScrollPane moved! PercentY: " + currentScrollPercentY);
         }
     }
 
     public void show(Stage stage) {
-        stage.setKeyboardFocus(this);
         setVisible(true);
         setPosition((Gdx.graphics.getWidth() - getWidth()) / 2, (Gdx.graphics.getHeight() - getHeight()) / 2);
         stage.addActor(this);
+        stage.setKeyboardFocus(this);
     }
 
     public void hide() {
-        remove();
         setVisible(false);
+        remove();
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.DOWN) {
+            downButton.setChecked(true);
+            downButton.setChecked(false);
+        }
+        if (keycode == Input.Keys.UP) {
+            upButton.setChecked(true);
+            upButton.setChecked(false);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println(screenX + " " + screenY);
+        System.out.println(pointer + " " + button);
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        System.out.println(screenX + " " + screenY + " " + pointer);
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }

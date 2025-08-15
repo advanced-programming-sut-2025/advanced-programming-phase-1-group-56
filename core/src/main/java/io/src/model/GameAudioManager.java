@@ -23,7 +23,7 @@ public class GameAudioManager {
         , MusicEnum.DRAGON_FISH.getPath()));
 
     // for actions :
-    public static float sfxVolume = 1f;
+    public static float sfxVolume = 0.5f;
     // for step :
     public static float footStepVolume = 1f;
     // for music :
@@ -32,13 +32,15 @@ public class GameAudioManager {
     public static float ambientVolume = 1f;
 
     private static GameAudioManager instance;
+    private List<String> playlist;
+    private int playlistIndex;
+    private Music currentMusic;
+    private final HashMap<String, Sound> sounds = new HashMap<>();
+
 
     public Music getCurrentMusic() {
         return currentMusic;
     }
-
-    private Music currentMusic;
-    private final HashMap<String, Sound> sounds = new HashMap<>();
 
     private GameAudioManager() {
     }
@@ -51,7 +53,7 @@ public class GameAudioManager {
     }
 
     public void playMusic(String path, boolean loop, float volume) {
-        if (currentMusic != null) currentMusic.stop();
+        stopMusic();
         currentMusic = Gdx.audio.newMusic(Gdx.files.internal(path));
         System.out.println("music volume " + currentMusic.getVolume());
         currentMusic.setLooping(loop);
@@ -71,6 +73,8 @@ public class GameAudioManager {
         if (currentMusic != null) currentMusic.play();
     }
 
+    private final HashMap<String, Long> loopingSoundIds = new HashMap<>();
+
     public void playSound(String path, boolean loop, float volume) {
         Sound sfx = sounds.get(path);
         if (sfx == null) {
@@ -79,9 +83,20 @@ public class GameAudioManager {
         }
 
         if (loop) {
-            sfx.loop(volume);
+            long id = sfx.loop(volume);
+            loopingSoundIds.put(path, id);
         } else {
             sfx.play(volume);
+        }
+    }
+
+    public void stopSound(String path) {
+        Sound sfx = sounds.get(path);
+        if (sfx != null) {
+            Long id = loopingSoundIds.remove(path);
+            if (id != null) {
+                sfx.stop(id);
+            }
         }
     }
 
@@ -91,9 +106,6 @@ public class GameAudioManager {
             s.dispose();
         }
     }
-
-    private List<String> playlist;
-    private int playlistIndex;
 
     public void playPlaylist(List<String> tracks, float volume) {
         this.playlist = tracks;

@@ -223,7 +223,7 @@ public class PreGameMenuController extends CommandController {
         new Result(true, "successfully added game with id:" + newGame.getGameId());
 
         GameAudioManager.getInstance().pauseMusic();
-        GameAudioManager.getInstance().playPlaylist(GameAudioManager.innerPlayList, GameAudioManager.ambientVolume);
+        GameAudioManager.getInstance().playPlaylist(GameAudioManager.innerPlayList, GameAudioManager.musicVolume);
     }
 
     public static Result manageNewGame(String usernamesStr, Scanner scanner) {

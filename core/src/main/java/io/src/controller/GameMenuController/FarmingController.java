@@ -226,7 +226,7 @@ public class FarmingController extends CommandController {
         }
         if (containsSeason(seed.season, App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason())) {
             if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()
-                || App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor()))
+                || (App.getMe().getPartner() != null && App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPartner().getPlayerFarm().getGreenHouse().getIndoor())))
                 return new Result(false, "you can't plant in this season!");
         }
 

@@ -45,6 +45,7 @@ import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.view.AppMenu;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
+import io.src.view.InnerMenus.SettingMenu;
 import io.src.view.LoginMenu;
 import io.src.model.Player;
 import io.src.model.items.Fish;
@@ -91,7 +92,6 @@ public class GameView implements Screen, TimeObserver {
     private CheatWindow cheatWindow;
     private ShopStateWindow shopStateWindow;
 
-
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
     private final ArrayList<ToolSwing> activeToolSwings = new ArrayList<>();
@@ -112,6 +112,8 @@ public class GameView implements Screen, TimeObserver {
     private final float FOOD_ICON_X = Gdx.graphics.getWidth() - 70;
     private final float FOOD_ICON_Y = 737f;
 
+
+    private final SettingMenu settingMenu;
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -209,6 +211,7 @@ public class GameView implements Screen, TimeObserver {
 
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
 
+        settingMenu = new SettingMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
     }
 
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
@@ -746,7 +749,6 @@ public class GameView implements Screen, TimeObserver {
 //            }
 //        }
         if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
-
             renderer.getBatch().end();
 
             renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
@@ -899,13 +901,13 @@ public class GameView implements Screen, TimeObserver {
                     texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Gift_Box")
                     ));
-                } else if(player.isRecentlyRejected()) {
+                } else if (player.isRecentlyRejected()) {
                     texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Broken_Heart")
                     ));
-                    w=12f;
-                    h=12f;
-                }else {
+                    w = 12f;
+                    h = 12f;
+                } else {
                     texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Secret_Heart")
                     ));
@@ -1112,6 +1114,7 @@ public class GameView implements Screen, TimeObserver {
                 App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
                 App.getMe().setPosition(new Position(8, 3));
             });
+
         }
     }
 
@@ -1119,8 +1122,11 @@ public class GameView implements Screen, TimeObserver {
         return multiplexer;
     }
 
-
     public ShippingBarWindow getShippingBarWindow() {
         return shippingBarWindow;
+    }
+
+    public SettingMenu getSettingMenu() {
+        return settingMenu;
     }
 }
