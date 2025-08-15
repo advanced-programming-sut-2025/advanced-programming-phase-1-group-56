@@ -503,6 +503,8 @@ public class Player implements TimeObserver {
             energy.setEnergy(maxEnergy);
         }
         energy.setEnergy(energy.getEnergy() + amount);
+
+        energy.setEnergy(Math.min(energy.getEnergy(), energy.getMaxEnergy()));
     }
 
     public void subtractEnergy(double amount) {
