@@ -11,12 +11,16 @@ import io.src.StardewValley;
 import io.src.controller.GameMenuController.NpcController;
 import io.src.model.Activities.Friendship;
 import io.src.model.App;
+import io.src.model.Enums.SfxEnum;
+import io.src.model.GameAudioManager;
 import io.src.model.GameObject.NPC.NPC;
 import io.src.model.GameObject.NPC.NpcFriendship;
 import io.src.model.GameObject.NPC.NpcRequest;
 import io.src.model.Result;
 import io.src.model.SkinManager;
 import io.src.view.GameMenus.NpcGiftWindow;
+
+import java.util.Arrays;
 
 public class NpcStateMenu extends Window {
     private Stage stage;
@@ -125,7 +129,13 @@ public class NpcStateMenu extends Window {
     }
 
     public void showDialog() {
-        this.setVisible(true);
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.UI_SELECT_PATTERN1.getPath()
+            , SfxEnum.UI_SELECT_PATTERN2.getPath()
+            , SfxEnum.UI_SELECT_PATTERN3.getPath()
+            , SfxEnum.UI_SELECT_PATTERN4.getPath()
+            , SfxEnum.UI_SELECT_PATTERN5.getPath()
+        )), false, GameAudioManager.sfxVolume);    this.setVisible(true);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
     }
 

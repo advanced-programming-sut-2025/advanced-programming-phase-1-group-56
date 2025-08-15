@@ -25,6 +25,7 @@ import io.src.model.*;
 import io.src.model.Activities.Message;
 import io.src.model.Enums.Animals.FishBehavior;
 import io.src.model.Enums.Buildings.BuildingType;
+import io.src.model.Enums.Items.ToolType;
 import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.MailBox;
 import io.src.model.GameObject.SensitiveToPlayer;
@@ -47,15 +48,10 @@ import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.*;
 
 import io.src.model.items.*;
 import io.src.view.InnerMenus.SettingMenu;
-
-
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 
 public class GameMenuInputAdapter extends InputAdapter {
@@ -710,8 +706,85 @@ public class GameMenuInputAdapter extends InputAdapter {
                     // this will run on the render thread when animation finishes
                     ToolsController.useTools(dir.toString());
                     setStopMoving(false);///
+                    String path = SfxEnum.ITEM_AXE_SCRAPE1.getPath();
+                    switch (tool.getToolType()) {
+                        case ToolType.AXE_CUPRIC:
+                        case ToolType.AXE_WOODEN:
+                        case ToolType.AXE_IRONIC:
+                        case ToolType.AXE_IRIDIUM:
+                        case ToolType.AXE_GOLDEN:
+                            path = GameAudioManager.pickRandom(Arrays.asList(
+                                SfxEnum.ITEM_AXE_STRIP1.getPath()
+                                , SfxEnum.ITEM_AXE_STRIP2.getPath()
+                                , SfxEnum.ITEM_AXE_STRIP3.getPath()
+                                , SfxEnum.ITEM_AXE_STRIP4.getPath()
+                            ));
+                            break;
+                        case ToolType.HOE_CUPRIC:
+                        case ToolType.HOE_WOODEN:
+                        case ToolType.HOE_IRONIC:
+                        case ToolType.HOE_IRIDIUM:
+                        case ToolType.HOE_GOLDEN:
+                            path = GameAudioManager.pickRandom(Arrays.asList(
+                                SfxEnum.ITEM_HOE_TILL1.getPath()
+                                , SfxEnum.ITEM_HOE_TILL2.getPath()
+                                , SfxEnum.ITEM_HOE_TILL3.getPath()
+                                , SfxEnum.ITEM_HOE_TILL4.getPath()
+                            ));
+                            break;
+                        case ToolType.CAN_CUPRIC:
+                        case ToolType.CAN_WOODEN:
+                        case ToolType.CAN_IRONIC:
+                        case ToolType.CAN_IRIDIUM:
+                        case ToolType.CAN_GOLDEN:
+                        case ToolType.MILK_PAIL:
+                            path = GameAudioManager.pickRandom(Arrays.asList(
+                                SfxEnum.ITEM_BUCKET_EMPTY1.getPath()
+                                , SfxEnum.ITEM_BUCKET_EMPTY2.getPath()
+                                , SfxEnum.ITEM_BUCKET_EMPTY3.getPath()
+                            ));
+                            break;
+                        case ToolType.PICK_CUPRIC:
+                        case ToolType.PICK_WOODEN:
+                        case ToolType.PICK_IRONIC:
+                        case ToolType.PICK_IRIDIUM:
+                        case ToolType.PICK_GOLDEN:
+                            path = GameAudioManager.pickRandom(Arrays.asList(
+                                SfxEnum.ITEM_AXE_SCRAPE1.getPath()
+                                , SfxEnum.ITEM_AXE_SCRAPE2.getPath()
+                                , SfxEnum.ITEM_AXE_SCRAPE3.getPath()
+                            ));
+                            break;
+                        case ToolType.POLE_BAMBOO:
+                        case ToolType.POLE_TRAINING:
+                        case ToolType.POLE_IRIDIUM:
+                        case ToolType.POLE_FIBERGLASS:
+                            path = GameAudioManager.pickRandom(Arrays.asList(
+                                SfxEnum.ITEM_BUCKET_FILL_AXOLOTL1.getPath()
+                                , SfxEnum.ITEM_BUCKET_FILL_AXOLOTL2.getPath()
+                                , SfxEnum.ITEM_BUCKET_FILL_AXOLOTL3.getPath()
+                            ));
+                            break;
+                        case ToolType.SCYTHE_CUPRIC:
+                        case ToolType.SCYTHE_BASIC:
+                        case ToolType.SCYTHE_IRONIC:
+                        case ToolType.SCYTHE_IRIDIUM:
+                        case ToolType.SCYTHE_GOLDEN:
+                            path = GameAudioManager.pickRandom(Arrays.asList(
+                                SfxEnum.ITEM_PLANT_CROP1.getPath()
+                                , SfxEnum.ITEM_PLANT_CROP2.getPath()
+                                , SfxEnum.ITEM_PLANT_CROP3.getPath()
+                                , SfxEnum.ITEM_PLANT_CROP4.getPath()
+                                , SfxEnum.ITEM_PLANT_CROP5.getPath()
+                                , SfxEnum.ITEM_PLANT_CROP6.getPath()
+                            ));
+                            break;
+                        case SHEAR:
+                            path = SfxEnum.MOB_SHEEP_SHEAR.getPath();
+                            break;
+                    }
+                    GameAudioManager.getInstance().playSound(path, false, GameAudioManager.sfxVolume);
                 });
-
             }
 
 
@@ -744,6 +817,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 //        if (selectedItem != null) {
 //            gameController.useItem(selectedItem, new Point(tileX, tileY), game);
 //        }
+
     }
 
     public boolean isStopMoving() {

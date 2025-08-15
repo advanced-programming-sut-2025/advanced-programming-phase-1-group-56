@@ -5,10 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import io.src.model.Enums.MusicEnum;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class GameAudioManager {
@@ -23,20 +20,20 @@ public class GameAudioManager {
         , MusicEnum.DRAGON_FISH.getPath()));
 
     // for actions :
-    public static float sfxVolume = 0.5f;
+    public static float sfxVolume = 0.7f;
     // for step :
-    public static float footStepVolume = 1f;
+    public static float footStepVolume = 0.5f;
     // for music :
-    public static float musicVolume = 1f;
+    public static float musicVolume = 0.4f;
     // for ambient :
-    public static float ambientVolume = 1f;
+    public static float ambientVolume = 0.7f;
 
     private static GameAudioManager instance;
     private List<String> playlist;
     private int playlistIndex;
     private Music currentMusic;
     private final HashMap<String, Sound> sounds = new HashMap<>();
-
+    private final HashMap<String, Long> loopingSoundIds = new HashMap<>();
 
     public Music getCurrentMusic() {
         return currentMusic;
@@ -73,8 +70,6 @@ public class GameAudioManager {
         if (currentMusic != null) currentMusic.play();
     }
 
-    private final HashMap<String, Long> loopingSoundIds = new HashMap<>();
-
     public void playSound(String path, boolean loop, float volume) {
         Sound sfx = sounds.get(path);
         if (sfx == null) {
@@ -100,6 +95,17 @@ public class GameAudioManager {
         }
     }
 
+    public void stopSounds() {
+        for (String path : loopingSoundIds.keySet()) {
+            Sound sfx = sounds.get(path);
+            try {
+                sfx.stop(loopingSoundIds.remove(path));
+            } catch (Exception e) {
+                System.out.println("sound stop failed");
+            }
+        }
+    }
+
     public void dispose() {
         if (currentMusic != null) currentMusic.dispose();
         for (Sound s : sounds.values()) {
@@ -121,4 +127,14 @@ public class GameAudioManager {
         currentMusic.setOnCompletionListener(music -> playNextFromPlaylist(volume));
     }
 
+
+    private static final Random random = new Random();
+
+    public static String pickRandom(List<String> items) {
+        if (items == null || items.isEmpty()) {
+            return null; // یا می‌تونی استثنا بندازی
+        }
+        int index = random.nextInt(items.size());
+        return items.get(index);
+    }
 }

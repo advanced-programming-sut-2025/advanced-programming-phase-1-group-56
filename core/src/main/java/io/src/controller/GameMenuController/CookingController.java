@@ -6,6 +6,7 @@ import io.src.model.*;
 import io.src.model.Enums.Items.FoodType;
 import io.src.model.Enums.Recepies.CraftingRecipesList;
 import io.src.model.Enums.Recepies.FoodRecipesList;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.items.Food;
 import io.src.model.items.Item;
 
@@ -130,6 +131,11 @@ public class CookingController extends CommandController {
     }
 
     public static Result eatFood(Matcher matcher) {
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.RANDOM_EAT1.getPath()
+            , SfxEnum.RANDOM_EAT2.getPath()
+            , SfxEnum.RANDOM_EAT3.getPath()
+        )), false, GameAudioManager.sfxVolume);
         String foodName = matcher.group(1).trim().trim();
         Item item = returnInventoryItemByName(foodName);
         if (item == null) {
@@ -146,6 +152,10 @@ public class CookingController extends CommandController {
     }
 
     public static void eatFoodUI(Item item) {
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.RANDOM_EAT1.getPath()
+            , SfxEnum.RANDOM_EAT2.getPath()
+            , SfxEnum.RANDOM_EAT3.getPath()
         if (item instanceof Food food) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());

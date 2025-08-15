@@ -8,6 +8,8 @@ import io.src.model.GameAudioManager;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 
+import java.util.Arrays;
+
 public class WeatherState implements TimeObserver {
     private WeatherType todayWeather;
     private WeatherType tomorrowWeather;
@@ -91,12 +93,14 @@ public class WeatherState implements TimeObserver {
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
             if (todayWeather == WeatherType.Rainy)
-                GameAudioManager.getInstance().stopSound(SfxEnum.);
+                GameAudioManager.getInstance().stopSounds();
             tomorrowWeather = getRandomWeather(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
             System.out.println(todayWeather.getAssetName());
             todayWeather = tomorrowWeather;
-            if (todayWeather == WeatherType.Rainy)
-                GameAudioManager.getInstance().playSound(SfxEnum.);
+            if (todayWeather == WeatherType.Rainy) {
+                System.out.println("Play rain");
+                GameAudioManager.getInstance().playSound(SfxEnum.AMBIENT_WEATHER_RAIN1.getPath(), true, GameAudioManager.ambientVolume);
+            }
         }
     }
 }

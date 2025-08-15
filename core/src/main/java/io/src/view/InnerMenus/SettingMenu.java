@@ -13,7 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import io.src.StardewValley;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.GameAudioManager;
+
+import java.util.Arrays;
 
 public class SettingMenu extends Window implements InputProcessor {
 
@@ -174,7 +177,13 @@ public class SettingMenu extends Window implements InputProcessor {
     }
 
     public void show(Stage stage) {
-        setVisible(true);
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.UI_SELECT_PATTERN1.getPath()
+            , SfxEnum.UI_SELECT_PATTERN2.getPath()
+            , SfxEnum.UI_SELECT_PATTERN3.getPath()
+            , SfxEnum.UI_SELECT_PATTERN4.getPath()
+            , SfxEnum.UI_SELECT_PATTERN5.getPath()
+        )), false, GameAudioManager.sfxVolume);  setVisible(true);
         setPosition((Gdx.graphics.getWidth() - getWidth()) / 2, (Gdx.graphics.getHeight() - getHeight()) / 2);
         stage.addActor(this);
         stage.setKeyboardFocus(this);

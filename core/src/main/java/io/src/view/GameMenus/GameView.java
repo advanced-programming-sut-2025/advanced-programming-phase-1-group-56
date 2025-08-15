@@ -118,7 +118,7 @@ public class GameView implements Screen, TimeObserver {
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
             gameMenuInputAdapter.setStopMoving(true);
-            afterFadeOut.run(); // تغییرات position و location
+            afterFadeOut.run();
             updateMap();
             gameMenuInputAdapter.setStopMoving(false);
         });
