@@ -8,9 +8,11 @@ import io.src.model.Enums.GameObjects.ForagingCropType;
 import io.src.model.Enums.GameObjects.ForagingGameObjectType;
 import io.src.model.Enums.GameObjects.TreeType;
 import io.src.model.Enums.Items.*;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.Enums.Skills;
 import io.src.model.Enums.TileType;
 import io.src.model.Enums.WeatherAndTime.Seasons;
+import io.src.model.GameAudioManager;
 import io.src.model.GameObject.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.Position;
@@ -32,7 +34,9 @@ public class FarmingController extends CommandController {
             for (int i = 0; i < 5; i++) {
                 int randX = (int) (Math.random() * farm.getTiles()[0].length);
                 int randY = (int) (Math.random() * farm.getTiles().length);
-                WeatherController.cheatThor(farm, Integer.toString(randX), Integer.toString(randY));
+                Result result = WeatherController.cheatThor(farm, Integer.toString(randX), Integer.toString(randY));
+                if (result.isSuccess())
+                    GameAudioManager.getInstance().playSound(SfxEnum.);
             }
         }
     }

@@ -30,6 +30,12 @@
 		"markupEnabled": false,
 		"flip": false
 	},
+	"font-30": {
+		"file": "StardewValley(3).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
 	"font2-30": {
 		"file": "ModernDOS9x14(1).fnt",
 		"scaledSize": -1,
@@ -169,6 +175,20 @@
 	"star": {
 		"up": "Starfruit_OnCheckedpng",
 		"checked": "Starfruit_Checked"
+	},
+	"upButton": {
+		"up": "upButton_UP",
+		"down": "upButton_CHECKED",
+		"over": "upButton_OVER",
+		"checked": "upButton_CHECKED",
+		"checkedOver": "upButton_CHECKED"
+	},
+	"downButton": {
+		"up": "downButton_UP",
+		"down": "downButton_CHECKED",
+		"over": "downButton_OVER",
+		"checked": "downButton_CHECKED",
+		"checkedOver": "downButton_CHECKED"
 	}
 },
 "CheckBoxStyle": {
@@ -308,6 +328,18 @@
 		"font": "baseFont-45",
 		"fontColor": "ZERESHK",
 		"background": "labelBackGround"
+	},
+	"font-45_GREEN": {
+		"font": "baseFont-45",
+		"fontColor": "GREEN"
+	},
+	"PINK-30": {
+		"font": "font2-30",
+		"fontColor": "PINK"
+	},
+	"font-90_GREEN": {
+		"font": "baseFont-90",
+		"fontColor": "GREEN"
 	}
 },
 "ListStyle": {
@@ -348,6 +380,16 @@
 		"scrollStyle": "default2",
 		"listStyle": "selectBoxList",
 		"backgroundOpen": "selectBoxBackGround_OVER"
+	}
+},
+"SliderStyle": {
+	"default-horizontal": {
+		"background": "hScrollBackGround",
+		"knob": "hKnob"
+	},
+	"default-vertical": {
+		"background": "VScroll1_BackGround",
+		"knob": "VScroll1_Knob"
 	}
 },
 "TextButtonStyle": {

@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.InventoryController;
 import io.src.model.*;
+import io.src.model.Activities.Friendship;
 import io.src.model.Enums.Items.ToolType;
 import io.src.model.Enums.Items.TrashcanType;
 import io.src.model.Enums.Skills;
@@ -290,33 +291,54 @@ public class InventoryWindow extends Group implements InputProcessor {
 
         Table friendShipsTable = new Table();
 
+        float height = 0;
+
+        if (!App.getMe().getFriendShips().isEmpty())
+            for (int i = 0; i < App.getMe().getFriendShips().size(); i++) {
+                Friendship friendship = App.getMe().getFriendShips().get(i);
+                Window npcWin = new Window("", skin, "social");
+                npcWin.align(Align.left);
+                System.out.println(friendship.getPlayer().getAvatarAssetFullPath() + ": " + friendship.getLevel());
+                Texture tex = new Texture(Gdx.files.internal(friendship.getPlayer().getAvatarAssetFullPath()));
+                npcWin.add(new Image(tex)).width(tex.getWidth()).height(tex.getHeight()).padLeft(30).padRight(30);
+                Label NpcName = new Label(friendship.getPlayer().getName(), skin, "default30");
+                createNpcWindow(friendShipsTable, i, npcWin, NpcName);
+            }
+
+
         for (int i = 0; i < App.getMe().getNpcFriendShips().size(); i++) {
             NPC npc = App.getMe().getNpcFriendShips().get(i).getNpc();
             Window npcWin = new Window("", skin, "social");
-//            npcWin.align(Align.left);
-            Image npcImage = new Image(new Texture(Gdx.files.internal("AVATAR\\final\\" + npc.getType().getName() + "\\1\\avatarProfile.png")));
-            npcWin.add(npcImage).padLeft(30).padRight(30);
-            Label NpcName = new Label(npc.getType().getName(), skin);
-            npcWin.add(NpcName).bottom().padRight(30);
-            Table heartTable = new Table();
-            for (int j = 0; j < 4; j++) {
-                Button heart = new Button(skin, "heart");
-                heart.setChecked(true);
-                heart.setDisabled(true);
-                heartTable.add(heart).width(heart.getWidth() * 2).height(heart.getHeight() * 2).pad(10);
-            }
-//            npcWin.add(heartTable).padLeft(400 - NpcName.getWidth());
-            npcWin.pack();
-            friendShipsTable.add(npcWin).row();
+            npcWin.align(Align.left);
+            Texture tex = new Texture(Gdx.files.internal("AVATAR\\final\\" + npc.getType().getName() + "\\1\\avatarProfile.png"));
+            npcWin.add(new Image(tex)).width(tex.getWidth()).height(tex.getHeight()).padLeft(30).padRight(30);
+            Label NpcName = new Label(npc.getType().getName(), skin, "default30");
+            createNpcWindow(friendShipsTable, i, npcWin, NpcName);
+            height = npcWin.getPrefHeight();
         }
 
         friendShipsTable.pack();
         ScrollPane socialPane = new ScrollPane(friendShipsTable, skin, "default2");
         socialPane.setScrollingDisabled(true, false);
         socialPane.pack();
-        socialPane.setSize(friendShipsTable.getWidth() - 138, friendShipsTable.getHeight());
+        socialPane.setSize(friendShipsTable.getWidth() - 138, height * 5);
         socialPane.setPosition(getWidth() - socialPane.getWidth() - 15, getHeight() - socialPane.getHeight());
         contentGroup.addActor(socialPane);
+    }
+
+    private void createNpcWindow(Table friendShipsTable, int i, Window npcWin, Label npcName) {
+        npcWin.add(npcName).bottom().padRight(30);
+        Table heartTable = new Table();
+        int level = App.getMe().getNpcFriendShips().get(i).getLevel();
+        for (int j = 0; j < 4; j++) {
+            Button heart = new Button(skin, "heart");
+            heart.setChecked(j >= level);
+            heart.setDisabled(true);
+            heartTable.add(heart).width(heart.getWidth() * 2).height(heart.getHeight() * 2).pad(10);
+        }
+        npcWin.add(heartTable).padLeft(300 - npcName.getWidth());
+        npcWin.pack();
+        friendShipsTable.add(npcWin).row();
     }
 
     private void showMapTab() {
@@ -346,9 +368,15 @@ public class InventoryWindow extends Group implements InputProcessor {
         ImageButton imageButton = new ImageButton(style);
         ImageButton imageButton2 = new ImageButton(style2);
 
+        imageButton2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
         imageButton.setPosition(230, 334);
         imageButton2.setPosition(205, 199);
-
 
         contentGroup.addActor(imageButton);
         contentGroup.addActor(imageButton2);

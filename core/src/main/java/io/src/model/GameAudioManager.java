@@ -3,15 +3,44 @@ package io.src.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import io.src.model.Enums.MusicEnum;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class GameAudioManager {
-    private static GameAudioManager instance;
+    public static ArrayList<String> innerPlayList = new ArrayList<>(Arrays.asList(MusicEnum.SpringTheme.getPath()
+        , MusicEnum.PIANO1.getPath()
+        , MusicEnum.PIANO2.getPath()
+        , MusicEnum.PIANO3.getPath()
+        , MusicEnum.SHUNIJI.getPath()
+        , MusicEnum.AXOLOTL.getPath()
+        , MusicEnum.CALM1.getPath()
+        , MusicEnum.CALM2.getPath()
+        , MusicEnum.DRAGON_FISH.getPath()));
 
+    // for actions :
+    public static float sfxVolume = 0.5f;
+    // for step :
+    public static float footStepVolume = 1f;
+    // for music :
+    public static float musicVolume = 1f;
+    // for ambient :
+    public static float ambientVolume = 1f;
+
+    private static GameAudioManager instance;
+    private List<String> playlist;
+    private int playlistIndex;
     private Music currentMusic;
     private final HashMap<String, Sound> sounds = new HashMap<>();
+
+
+    public Music getCurrentMusic() {
+        return currentMusic;
+    }
 
     private GameAudioManager() {
     }
@@ -24,8 +53,9 @@ public class GameAudioManager {
     }
 
     public void playMusic(String path, boolean loop, float volume) {
-        if (currentMusic != null) currentMusic.stop();
+        stopMusic();
         currentMusic = Gdx.audio.newMusic(Gdx.files.internal(path));
+        System.out.println("music volume " + currentMusic.getVolume());
         currentMusic.setLooping(loop);
         currentMusic.setVolume(volume);
         currentMusic.play();
@@ -43,6 +73,8 @@ public class GameAudioManager {
         if (currentMusic != null) currentMusic.play();
     }
 
+    private final HashMap<String, Long> loopingSoundIds = new HashMap<>();
+
     public void playSound(String path, boolean loop, float volume) {
         Sound sfx = sounds.get(path);
         if (sfx == null) {
@@ -51,12 +83,22 @@ public class GameAudioManager {
         }
 
         if (loop) {
-            sfx.loop(volume);
+            long id = sfx.loop(volume);
+            loopingSoundIds.put(path, id);
         } else {
             sfx.play(volume);
         }
     }
 
+    public void stopSound(String path) {
+        Sound sfx = sounds.get(path);
+        if (sfx != null) {
+            Long id = loopingSoundIds.remove(path);
+            if (id != null) {
+                sfx.stop(id);
+            }
+        }
+    }
 
     public void dispose() {
         if (currentMusic != null) currentMusic.dispose();
@@ -64,4 +106,19 @@ public class GameAudioManager {
             s.dispose();
         }
     }
+
+    public void playPlaylist(List<String> tracks, float volume) {
+        this.playlist = tracks;
+        this.playlistIndex = 0;
+        playNextFromPlaylist(volume);
+    }
+
+    private void playNextFromPlaylist(float volume) {
+        if (playlist == null || playlistIndex >= playlist.size()) return;
+
+        String path = playlist.get(playlistIndex++);
+        playMusic(path, false, volume);
+        currentMusic.setOnCompletionListener(music -> playNextFromPlaylist(volume));
+    }
+
 }

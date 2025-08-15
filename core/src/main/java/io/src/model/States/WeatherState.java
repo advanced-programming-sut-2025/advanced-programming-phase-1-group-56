@@ -1,8 +1,10 @@
 package io.src.model.States;
 
 import io.src.model.App;
+import io.src.model.Enums.SfxEnum;
 import io.src.model.Enums.WeatherAndTime.Seasons;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
+import io.src.model.GameAudioManager;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 
@@ -88,9 +90,13 @@ public class WeatherState implements TimeObserver {
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
-            todayWeather = tomorrowWeather;
+            if (todayWeather == WeatherType.Rainy)
+                GameAudioManager.getInstance().stopSound(SfxEnum.);
             tomorrowWeather = getRandomWeather(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getSeason());
             System.out.println(todayWeather.getAssetName());
+            todayWeather = tomorrowWeather;
+            if (todayWeather == WeatherType.Rainy)
+                GameAudioManager.getInstance().playSound(SfxEnum.);
         }
     }
 }

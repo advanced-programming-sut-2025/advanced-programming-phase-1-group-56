@@ -1,7 +1,6 @@
 package io.src.view.GameMenus;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -12,12 +11,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -50,11 +45,12 @@ import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.view.AppMenu;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
+import io.src.view.InnerMenus.SettingMenu;
 import io.src.view.LoginMenu;
 import io.src.model.Player;
 import io.src.model.items.Fish;
 import io.src.model.items.Tool;
-import io.src.model.items.Etc;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
@@ -91,12 +87,10 @@ public class GameView implements Screen, TimeObserver {
     private Stage stage;
     private TimerWindow timeWindow;
     private InventoryWindow invWindow;
-    private DialogWindow dialogWindow;
     private WarningWindow warningWindow;
     private EnergyBar energyWindow;
     private CheatWindow cheatWindow;
     private ShopStateWindow shopStateWindow;
-
 
     private InputMultiplexer multiplexer = new InputMultiplexer();
     private GameMenuInputAdapter gameMenuInputAdapter;
@@ -118,6 +112,8 @@ public class GameView implements Screen, TimeObserver {
     private final float FOOD_ICON_X = Gdx.graphics.getWidth() - 70;
     private final float FOOD_ICON_Y = 737f;
 
+
+    private final SettingMenu settingMenu;
 
     public void updateMapWithFade(Runnable afterFadeOut) {
         transitionManager.start(() -> {
@@ -169,7 +165,7 @@ public class GameView implements Screen, TimeObserver {
         stage.addActor(invWindow);
         stage.addActor(energyWindow);
         stage.addActor(timeWindow);
-        stage.addActor(itemLabel);
+//        stage.addActor(itemLabel);
         stage.addActor(foodWindow);
         stage.addActor(inventoryBar);
         stage.addActor(refrigeratorWindow);
@@ -177,7 +173,7 @@ public class GameView implements Screen, TimeObserver {
         inventoryBar.toFront();
         itemLabel.setPosition(930, 200);
         //Warning Window
-        warningWindow = new WarningWindow(((LoginMenu) Menu.loginMenu.getMenu()).getSkin());
+        warningWindow = new WarningWindow(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
         warningWindow.setVisible(false);
         stage.addActor(warningWindow);
         //Cheat Window
@@ -213,37 +209,9 @@ public class GameView implements Screen, TimeObserver {
 //        rainSystem.setWind(40f, 40f);       // باد به سمت راست 40 px/s با تغییر ±40
 //        rainSystem.setGroundOffset(6f);
 
-        setCustomCursor("assets/Cursor.png", 0, 0);
-
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
 
-    }
-
-    private Pixmap resizeToPowerOfTwo(Pixmap src) {
-        int newWidth = MathUtils.nextPowerOfTwo(src.getWidth());
-        int newHeight = MathUtils.nextPowerOfTwo(src.getHeight());
-
-        Pixmap resized = new Pixmap(newWidth, newHeight, src.getFormat());
-        resized.drawPixmap(src, 0, 0, src.getWidth(), src.getHeight(), 0, 0, newWidth, newHeight);
-        return resized;
-    }
-
-    private void setCustomCursor(String path, int hotX, int hotY) {
-        try {
-            if (Gdx.files.internal(path).exists()) {
-                Pixmap original = new Pixmap(Gdx.files.internal(path));
-                Pixmap powerOfTwo = resizeToPowerOfTwo(original);
-                Cursor customCursor = Gdx.graphics.newCursor(powerOfTwo, hotX, hotY);
-                Gdx.graphics.setCursor(customCursor);
-                original.dispose();
-                powerOfTwo.dispose();
-            } else {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            }
-        } catch (Exception e) {
-            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            e.printStackTrace();
-        }
+        settingMenu = new SettingMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
     }
 
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {
@@ -255,7 +223,6 @@ public class GameView implements Screen, TimeObserver {
         }
         float newStateTime = stateTimeMap.get(characterName) + Gdx.graphics.getDeltaTime();
         stateTimeMap.put(characterName, newStateTime);
-
         TextureRegion frame = animation.getKeyFrame(newStateTime);
         renderer.getBatch().draw(frame, x, y);
     }
@@ -782,7 +749,6 @@ public class GameView implements Screen, TimeObserver {
 //            }
 //        }
         if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
-
             renderer.getBatch().end();
 
             renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
@@ -935,13 +901,13 @@ public class GameView implements Screen, TimeObserver {
                     texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Gift_Box")
                     ));
-                } else if(player.isRecentlyRejected()) {
+                } else if (player.isRecentlyRejected()) {
                     texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Broken_Heart")
                     ));
-                    w=12f;
-                    h=12f;
-                }else {
+                    w = 12f;
+                    h = 12f;
+                } else {
                     texture = new Texture(Gdx.files.internal(
                         GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Secret_Heart")
                     ));
@@ -991,8 +957,12 @@ public class GameView implements Screen, TimeObserver {
             float worldX = (float) ((x + 6));
             float worldY = (float) ((y + 31));
             renderer.getBatch().draw(region,
-                worldX, worldY
-            );
+                worldX, worldY,
+                16,  // Origin X (مرکز تصویر)
+                16, // Origin Y
+                16, 16, // اندازه اصلی
+                1f, 1f, // scaleX, scaleY
+                0); // rotation
 
         }
     }
@@ -1095,10 +1065,6 @@ public class GameView implements Screen, TimeObserver {
         this.invWindow = invWindow;
     }
 
-    public DialogWindow getDialogWindow() {
-        return dialogWindow;
-    }
-
     public WarningWindow getWarningWindow() {
         return warningWindow;
     }
@@ -1148,6 +1114,7 @@ public class GameView implements Screen, TimeObserver {
                 App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
                 App.getMe().setPosition(new Position(8, 3));
             });
+
         }
     }
 
@@ -1155,9 +1122,11 @@ public class GameView implements Screen, TimeObserver {
         return multiplexer;
     }
 
-
     public ShippingBarWindow getShippingBarWindow() {
         return shippingBarWindow;
     }
 
+    public SettingMenu getSettingMenu() {
+        return settingMenu;
+    }
 }

@@ -174,7 +174,7 @@ public class ProfileMenu extends Window implements AppMenu {
 
         closeButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 ProfileMenu.this.setVisible(false);
                 controller.hideMainMenu(true);
             }
@@ -195,7 +195,7 @@ public class ProfileMenu extends Window implements AppMenu {
 
         cancelButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, 0.5f);
+                GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
                 setEditingMode(false);
                 editingMode(true);
                 oldPasswordField.setText("");
@@ -211,7 +211,7 @@ public class ProfileMenu extends Window implements AppMenu {
 
         saveButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_TAKE_RESULT1.getPath(), false, 0.5f);
+                GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_TAKE_RESULT1.getPath(), false, GameAudioManager.sfxVolume);
                 stage.setKeyboardFocus(editNickName);
                 Result result = null;
 

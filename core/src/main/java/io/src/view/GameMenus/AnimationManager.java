@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import io.src.model.App;
 import io.src.model.Enums.AnimationKey;
 import io.src.model.GameAssetManager;
 
@@ -60,7 +61,7 @@ public class AnimationManager {
     public AnimationManager() {
         // Load player
 //        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("atlases/sprites_player.atlas"));
-        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("sprites_player"));
+        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get(App.getMe().getAvatarName()));
         TextureAtlas AlexAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Alex"));
         TextureAtlas ElliotAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Elliot"));
         TextureAtlas HaleyAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Haley"));
@@ -96,14 +97,11 @@ public class AnimationManager {
         TextureAtlas CowAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Cow"));
         TextureAtlas GoatAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Goat"));
 
-
-
 //        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("sprites_player"));
 //        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("sprites_player"));
 //        TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("sprites_player"));
 
-
-        characterAnimations.put("player", loadCharacterAnimations(playerAtlas, "player"));
+        characterAnimations.put("player", loadCharacterAnimationsNumeric(playerAtlas));
         characterAnimations.put("AxeWooden" , loadToolSwingAnimations(Axe1Atlas , "Axe"));
         characterAnimations.put("AxeCupric" , loadToolSwingAnimations(Axe2Atlas , "Axe"));
         characterAnimations.put("AxeIronic" , loadToolSwingAnimations(Axe3Atlas , "Axe"));

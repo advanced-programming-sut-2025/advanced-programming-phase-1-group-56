@@ -20,7 +20,6 @@ public class ScreenTransition {
         fadingIn = false;
     }
 
-
     public void update(float delta) {
         if (fadingOut) {
             alpha += delta * fadeSpeed;
@@ -52,7 +51,6 @@ public class ScreenTransition {
             Gdx.gl.glDisable(GL20.GL_BLEND);
         }
     }
-
 
     public boolean isTransitioning() {
         return fadingOut || fadingIn;

@@ -25,7 +25,7 @@ import java.util.Scanner;
 import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class PreGameMenuController extends CommandController {
-    public static Result manageSoloGame(String farmName, String playerName, String farmPosition, String avatar) {
+    public static Result manageSoloGame(String farmName, String playerName, String farmPosition) {
         FarmPosition farmPosition1 = switch (farmPosition) {
             case "left" -> FarmPosition.LEFT;
             case "right" -> FarmPosition.RIGHT;
@@ -81,11 +81,10 @@ public class PreGameMenuController extends CommandController {
         App.getStardewValley().setScreen(gameView);
         GivePlayersInitialItem(newGame);
 
-
-        for (NPC npc : town.getNPCs()) {
+        for (NPC npc : town.getNPCs())
             npc.initializePaths(town);
-        }
 
+        farm1.setName(farmName);
         App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
         App.getMe().setPosition(new Position(8, 3));
         StardewValley.getGameView().updateMap();
@@ -98,7 +97,6 @@ public class PreGameMenuController extends CommandController {
         ArrayList<User> usersToPlay = new ArrayList<>();
         int counter = 0;
         usersToPlay.add(App.getCurrentUser());
-        System.out.println(App.getCurrentUser().getUsername());
         for (User user : App.getUsers()) {
             if (user.equals(App.getCurrentUser())) continue;
             if (user.getCurrentGame() != null) continue;
@@ -128,6 +126,7 @@ public class PreGameMenuController extends CommandController {
         ArrayList<Integer> positions = new ArrayList<>(Arrays.asList(1, 2, 4, 3));
         for (int i = 0; i < 4; i++) {
             Player player = new Player(usersToPlay.get(i));
+            player.setName(usersToPlay.get(i).getName());
             playersToPlay.add(player);
             player.setFarmPosition(FarmPosition.values()[positions.get(i) - 1]);
         }
@@ -191,6 +190,7 @@ public class PreGameMenuController extends CommandController {
             }
         }
 
+
         StardewValley.setGame(newGame);
         newGame.setCurrentPlayer(playersToPlay.get(0));
         newGame.setStarterPlayer(playersToPlay.get(0));
@@ -210,7 +210,6 @@ public class PreGameMenuController extends CommandController {
             user.setNumOfGames(user.getNumOfGames() + 1);
         }
 
-
         for (NPC npc : town.getNPCs()) {
             npc.initializePaths(town);
         }
@@ -222,8 +221,10 @@ public class PreGameMenuController extends CommandController {
         StardewValley.getGameView().updateMap();
 
         new Result(true, "successfully added game with id:" + newGame.getGameId());
-    }
 
+        GameAudioManager.getInstance().pauseMusic();
+        GameAudioManager.getInstance().playPlaylist(GameAudioManager.innerPlayList, GameAudioManager.musicVolume);
+    }
 
     public static Result manageNewGame(String usernamesStr, Scanner scanner) {
         usernamesStr = usernamesStr.trim();
@@ -443,8 +444,6 @@ public class PreGameMenuController extends CommandController {
         for (NPC npc : town.getNPCs()) {
             npc.initializePaths(town);
         }
-
-
 
         return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }

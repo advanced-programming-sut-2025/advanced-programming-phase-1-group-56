@@ -8,12 +8,10 @@ import com.google.gson.Gson;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.controller.GameMenuController.PreGameMenuController;
-import io.src.model.App;
+import io.src.model.*;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
-import io.src.model.Game;
-import io.src.model.GameAudioManager;
-import io.src.model.Result;
+import io.src.view.InnerMenus.SettingMenu;
 import io.src.view.MainMenu;
 
 import java.io.File;
@@ -51,20 +49,20 @@ public class MainMenuController extends CommandController {
 
         menu.getCoopButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
             }
         });
 
         menu.getExitButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playMusic(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 Gdx.app.exit();
             }
         });
 
         menu.getLogoutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 Result result = manageUserLogout();
                 if (result.isSuccess()) {
                     LoginMenuController controller = new LoginMenuController(game);
@@ -76,14 +74,14 @@ public class MainMenuController extends CommandController {
 
         menu.getAboutButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 setAboutMenu(true);
             }
         });
 
         menu.getBack_about_Button().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 if (menu.getNewButton().isVisible()) {
                     setAboutMenu(false);
                     menu.getScrollPane().setScrollPercentY(0.0f);
@@ -98,7 +96,7 @@ public class MainMenuController extends CommandController {
 
         menu.getNewButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 menu.getAvatarMenu().setAvatarIndex(App.getCurrentUser().getAvatarIndex());
                 menu.getAvatarMenu().setAvatarStyleIndex(App.getCurrentUser().getAvatarStyleIndex());
                 menu.getAvatarMenu().updateAvatarTextures();
@@ -108,14 +106,14 @@ public class MainMenuController extends CommandController {
 
         menu.getLoadButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.5f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 PreGameMenuController.manageFourPlayerGame();
             }
         });
 
         menu.getProfileButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 menu.getProfileMenu().updateAvatar();
                 hideMainMenu(false);
                 menu.getProfileMenu().setVisible(true);
@@ -124,7 +122,9 @@ public class MainMenuController extends CommandController {
 
         menu.getSettingButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 0.1f);
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
+                SettingMenu settingMenu = new SettingMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
+                settingMenu.show(menu.getStage());
             }
         });
     }

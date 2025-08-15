@@ -234,7 +234,7 @@ public class AvatarMenu extends Dialog {
     }
 
     public void updateAvatarTextures() {
-        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, 1f);
+        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
         Texture oldTex = avatarTex;
         avatarTex = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/" + directs.get(directIndex) + ".png");
         avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));

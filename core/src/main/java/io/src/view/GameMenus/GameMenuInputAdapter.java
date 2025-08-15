@@ -3,6 +3,8 @@ package io.src.view.GameMenus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -17,12 +19,16 @@ import io.src.controller.GameMenuController.CraftingController;
 import io.src.controller.GameMenuController.ShopMenuControllers.CarpenterMenuController;
 import io.src.controller.GameMenuController.ShopMenuControllers.MarniesRanchController;
 import io.src.model.*;
+import io.src.model.Enums.*;
 import io.src.model.Enums.Animals.AnimalType;
 import io.src.model.*;
 import io.src.model.Activities.Message;
 import io.src.model.Enums.Animals.FishBehavior;
-import io.src.model.Enums.AnimationKey;
 import io.src.model.Enums.Buildings.BuildingType;
+import io.src.model.GameObject.GameObject;
+import io.src.model.GameObject.MailBox;
+import io.src.model.GameObject.SensitiveToPlayer;
+import io.src.model.GameObject.ArtesianMachine;
 import io.src.model.Enums.Direction;
 import io.src.model.Enums.FarmPosition;
 import io.src.model.Enums.TileType;
@@ -39,9 +45,12 @@ import io.src.model.items.Food;
 import io.src.model.TimeSystem.DateTime;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import io.src.model.items.*;
+import io.src.view.InnerMenus.SettingMenu;
 
 
 import java.util.HashSet;
@@ -172,6 +181,16 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
         }
 
+        if (keycode == Input.Keys.K) {
+            StardewValley.getGameView().getWarningWindow().kill();
+        }
+
+        if (keycode == Input.Keys.M) {
+            SettingMenu settingMenu = StardewValley.getGameView().getSettingMenu();
+            if (!settingMenu.isVisible()) settingMenu.show(StardewValley.getGameView().getStage());
+            else settingMenu.hide();
+        }
+
         if (keycode == Input.Keys.ENTER) {
             //StardewValley.getGameView().getWarningWindow().kill();
         }
@@ -280,6 +299,8 @@ public class GameMenuInputAdapter extends InputAdapter {
 
     private boolean zoj = true;
 
+    private LocalDateTime lastPlayed = LocalDateTime.now();
+
     public void update(float delta) {
         Player player = game.getCurrentPlayer();
         float vx = 0, vy = 0;
@@ -359,6 +380,20 @@ public class GameMenuInputAdapter extends InputAdapter {
             vy /= norm;
         }
 
+        if (vx != 0 || vy != 0) {
+            if (lastPlayed.until(LocalDateTime.now(), ChronoUnit.MILLIS) > 500) {
+                lastPlayed = LocalDateTime.now();
+                SfxEnum sound = switch (App.getMe().getCurrentGameLocation().getTileByPosition(App.getMe().getPosition()).getTileType()) {
+                    case Stone, Mine -> SfxEnum.STEP_STONE2;
+                    case Grass -> SfxEnum.STEP_WET_GRASS1;
+                    case Deluxe_Retaining_Soil, PlowedSoil, WaterPlowedSoil, Soil, Speed_Gro -> SfxEnum.STEP_SAND1;
+                    case Wrapper, Vanity -> SfxEnum.STEP_GRAVEL1;
+                    default -> SfxEnum.STEP_WOOD1;
+                };
+                System.out.println(sound.getPath());
+                GameAudioManager.getInstance().playSound(sound.getPath(), false, GameAudioManager.footStepVolume);
+            }
+        }
 
         float speed = player.getSpeed();
         player.setMovingDirection(dir);
@@ -473,7 +508,9 @@ public class GameMenuInputAdapter extends InputAdapter {
                         App.getMe().setPosition(new Position(b.getDoorPosition().getX(), b.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
+                        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                         StardewValley.getGameView().updateMapWithFade(() -> {
+                            GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                             App.getMe().setPosition(b.getInitialPosition());//TODO
                             App.getMe().setCurrentGameLocation(b.getIndoor());
                         });
@@ -481,6 +518,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                 }
             }
             if (!isNearADoor) {        //FROM FARM TO TOWN
+
                 StardewValley.getGameView().updateMapWithFade(() -> {
                     App.getMe().setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
                     switch (farm.getPosition()) {
@@ -512,6 +550,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
                         StardewValley.getGameView().updateMapWithFade(() -> {
+                            GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                             App.getMe().setCurrentGameLocation(store.getIndoor());
                             App.getMe().setPosition(store.getInitialPosition());//TODO
                         });
@@ -619,6 +658,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             for (Store store : App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown().getStores()) {
                 if (App.getMe().getCurrentGameLocation().equals(store.getIndoor())) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_CLOSE.getPath(), false, GameAudioManager.sfxVolume);
                         App.getMe().setCurrentGameLocation(App.getCurrentUser().getCurrentGame().getGameMap().getPelikanTown());
                         App.getMe().setPosition(new Position(store.getDoorPosition().getX(), store.getDoorPosition().getY() - 2));//TODO
                     });
@@ -628,6 +668,7 @@ public class GameMenuInputAdapter extends InputAdapter {
             for (Building building : App.getMe().getPlayerFarm().getBuildings()) {
                 if (App.getMe().getCurrentGameLocation().equals(building.getIndoor())) {
                     App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_CLOSE.getPath(), false, GameAudioManager.sfxVolume);
                         App.getMe().setPosition(new Position(building.getDoorPosition().getX(), building.getDoorPosition().getY() - 2));//TODO
                         App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm());
                     });
@@ -638,6 +679,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                 for (Building building : App.getMe().getPartner().getPlayerFarm().getBuildings()) {
                     if (App.getMe().getCurrentGameLocation().equals(building.getIndoor())) {
                         App.getStardewValley().getGameView().updateMapWithFade(() -> {
+                            GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_CLOSE.getPath(), false, GameAudioManager.sfxVolume);
                             App.getMe().setCurrentGameLocation(App.getMe().getPartner().getPlayerFarm());
                             App.getMe().setPosition(new Position(building.getDoorPosition().getX(), building.getDoorPosition().getY() - 2));//TODO
                         });

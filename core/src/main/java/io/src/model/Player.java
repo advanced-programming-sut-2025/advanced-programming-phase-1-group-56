@@ -27,7 +27,10 @@ import io.src.model.skills.*;
 import com.google.gson.annotations.Expose;
 import io.src.view.GameMenus.ShopMenus.ShopState;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Player implements TimeObserver {
@@ -99,6 +102,9 @@ public class Player implements TimeObserver {
     private float speed = 6.25f;
     private float vx = 0, vy = 0;
 
+
+    private String avatarName;
+
     public void setVelocity(float vx, float vy) {
         this.vx = vx;
         this.vy = vy;
@@ -136,6 +142,7 @@ public class Player implements TimeObserver {
     public Player(User user) {
         this.user = user;
         this.userId = user.getUserId();
+        updateAvatarName();
         //id ok
         currentBackpack = BackPackType.InitialBackpack;
         FarmingSkill farmingSkill = new FarmingSkill(Skills.Farming, 0);
@@ -590,4 +597,24 @@ public class Player implements TimeObserver {
         playerObject.setPosition(position);
         return playerObject;
     }
+
+    public String getAvatarAssetFullPath() {
+        updateAvatarName();
+        return "assets\\AVATAR\\final\\" + avatarName + "\\" + getUser().getAvatarStyleIndex() + "\\avatarProfile.png";
+    }
+
+    private void updateAvatarName() {
+        File[] avatarsPath = new File("assets/AVATAR/final/").listFiles(File::isDirectory);
+        avatarName = Objects.requireNonNull(avatarsPath)[getUser().getAvatarIndex()].getName();
+    }
+
+    public void setAvatarName(String avatarName) {
+        this.avatarName = avatarName;
+    }
+
+    public String getAvatarName() {
+        updateAvatarName();
+        return avatarName;
+    }
+
 }

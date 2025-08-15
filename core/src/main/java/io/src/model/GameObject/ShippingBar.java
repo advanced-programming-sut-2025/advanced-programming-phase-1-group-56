@@ -8,13 +8,14 @@ import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.Buildings.BuildingType;
+import io.src.model.Enums.SfxEnum;
+import io.src.model.GameAudioManager;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.Position;
 import io.src.model.Slot;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.Inventory;
-import io.src.view.GameMenus.GameView;
 
 public class ShippingBar extends GameObject implements TimeObserver, Clickable, SensitiveToPlayer {
     private final Inventory inventory = new Inventory(100);
@@ -38,7 +39,7 @@ public class ShippingBar extends GameObject implements TimeObserver, Clickable, 
     public void onHourChanged(DateTime time, boolean newDay) {
         if (newDay) {
             for (Slot slot : inventory.getSlots()) {
-                if(slot.getItem()==null) continue;
+                if (slot.getItem() == null) continue;
                 System.out.println(slot.getItem().getName() + " : " + slot.getQuantity() + " * " + slot.getItem().getFinalPrice());
                 int sumPrice = slot.getQuantity() * slot.getItem().getFinalPrice();
                 if (sumPrice != -1) {
@@ -86,12 +87,14 @@ public class ShippingBar extends GameObject implements TimeObserver, Clickable, 
 
     @Override
     public boolean onPlayerGoesNearby(float distance) {
+        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CHESTOPEN.getPath(), false, GameAudioManager.sfxVolume);
         open = true;
         return true;
     }
 
     @Override
     public boolean onPlayerGetsFar(float distance) {
+        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CHESTCLOSED.getPath(), false, GameAudioManager.sfxVolume);
         open = false;
         return true;
     }
