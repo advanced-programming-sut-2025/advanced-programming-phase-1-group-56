@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -28,10 +29,13 @@ import io.src.model.Enums.Direction;
 import io.src.model.Enums.GameObjects.EtcObjectType;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.TileType;
+import io.src.model.Enums.Recepies.FoodRecipesList;
+import io.src.model.Enums.TileType;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
 import io.src.model.Game;
 import io.src.model.GameObject.*;
 import io.src.model.GameObject.NPC.NPC;
+import io.src.model.MapModule.Buildings.Home;
 import io.src.model.MapModule.Buildings.Store;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
@@ -39,6 +43,7 @@ import io.src.model.MapModule.Position;
 import io.src.model.MapModule.Tile;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
+import io.src.view.AppMenu;
 import io.src.view.GameMenus.ShopMenus.ShopStateWindow;
 import io.src.view.LoginMenu;
 import io.src.model.Player;
@@ -46,12 +51,14 @@ import io.src.model.items.Fish;
 import io.src.model.items.Tool;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.*;
 
 
 public class GameView implements Screen, TimeObserver {
@@ -93,13 +100,17 @@ public class GameView implements Screen, TimeObserver {
     private Label itemLabel;
     private FoodWindow foodWindow;
     private RefrigeratorWindow refrigeratorWindow;
-    private Image foodBuff;
     private FishingMinigame activeFishingMinigame = null;
     private DayNightLighting lighting;
     private ShapeRenderer sr = new ShapeRenderer();
     private RainSystem rainSystem = new RainSystem();
     private Texture whitePixel;
 //    private List<DayNightLighting.Light> lights = new ArrayList<>();
+
+    private Image foodBuffImage = null;
+    private Texture foodBuffTexture = null;
+    private final float FOOD_ICON_X = Gdx.graphics.getWidth() - 70;
+    private final float FOOD_ICON_Y = 737f;
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -136,7 +147,6 @@ public class GameView implements Screen, TimeObserver {
 
         stage = new Stage(new ScreenViewport());
         itemLabel = new Label("", GameAssetManager.getGameAssetManager().getSkin());
-        foodBuff = null;
         invWindow = new InventoryWindow();
         energyWindow = new EnergyBar();
         timeWindow = new TimerWindow();
@@ -612,8 +622,9 @@ public class GameView implements Screen, TimeObserver {
         for (GameObject go : objects) {
             String assetName = go.getAssetName();
             TextureRegion region;
-            if (go instanceof PlayerObject) {
-                renderPlayer(((PlayerObject) go).getPlayer());
+            if (go instanceof PlayerObject playerObject) {
+                renderPlayer((playerObject).getPlayer());
+                handlePlayerHint((playerObject));
                 updateAndDrawToolSwings(v);
 
                 //Debug
@@ -758,6 +769,9 @@ public class GameView implements Screen, TimeObserver {
         }
 
 
+        updateFoodBuffIcon();
+
+
         renderer.getBatch().end();
 
         transitionManager.update(v);
@@ -803,18 +817,7 @@ public class GameView implements Screen, TimeObserver {
         } else {
             itemLabel.setText("");
         }
-
-        if (App.getMe().getCurrentBuff() != null) {
-            String assetName = App.getMe().getCurrentBuff().getBuffType().getAssetName();
-            foodBuff = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName))));
-            stage.addActor(foodBuff);
-            foodBuff.setPosition(Gdx.graphics.getWidth() - 70, 735);
-        }
-
-
         lighting.render(((float) App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime().getHour()), (SpriteBatch) renderer.getBatch());
-
-
         camera.update();
 
 
@@ -864,6 +867,61 @@ public class GameView implements Screen, TimeObserver {
                     12, 12, // اندازه اصلی
                     1f, 1f, // scaleX, scaleY
                     0); // rotation
+            }
+        }
+    }
+
+    private void handlePlayerHint(PlayerObject player) {
+        float w = 16, h = 16;
+        if (player.isRecentlyFlirt()) {
+            if (player.getLastFlirt().until(LocalDateTime.now(), ChronoUnit.SECONDS) > 3) {
+                player.setRecentlyFlirt(false);
+                player.setRecentlyGifted(false);
+                player.setRecentlyBloomed(false);
+                player.setRecentlyProposed(false);
+                player.setRecentlyProposed(false);
+                player.setRecentlyRejected(false);
+                StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
+                Gdx.input.setInputProcessor(multiplexer);
+            } else {
+                Texture texture;
+                if (player.isRecentlyProposed()) {
+                    texture = new Texture(Gdx.files.internal(
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+                    ));
+                    w = 10;
+                    h = 22;
+                } else if (player.isRecentlyBloomed()) {
+                    texture = new Texture(Gdx.files.internal(
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Bouquet")
+                    ));
+                } else if (player.isRecentlyGifted()) {
+                    texture = new Texture(Gdx.files.internal(
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Gift_Box")
+                    ));
+                } else if(player.isRecentlyRejected()) {
+                    texture = new Texture(Gdx.files.internal(
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Broken_Heart")
+                    ));
+                    w=12f;
+                    h=12f;
+                }else {
+                    texture = new Texture(Gdx.files.internal(
+                        GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Secret_Heart")
+                    ));
+                }
+                TextureRegion region = new TextureRegion(texture);
+                float x = player.getPixelPosition().x, y = player.getPixelPosition().y;
+                float worldX = (float) ((x + -16));
+                float worldY = (float) ((y + 28));
+                renderer.getBatch().draw(region,
+                    worldX, worldY,
+                    16,  // Origin X (مرکز تصویر)
+                    16, // Origin Y
+                    w, h, // اندازه اصلی
+                    1f, 1f, // scaleX, scaleY
+                    0); // rotation
+
             }
         }
     }
@@ -920,6 +978,45 @@ public class GameView implements Screen, TimeObserver {
                 worldX, worldY
             );
 
+        }
+    }
+
+    private void updateFoodBuffIcon() {
+        Buff buff = App.getMe().getCurrentBuff();
+        if (buff != null) {
+            // اگر قبلاً ساخته نشده، بساز و اضافه کن
+            if (foodBuffImage == null) {
+                String assetName = buff.getBuffType().getAssetName();
+                String path = GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName);
+                if (path != null) {
+                    foodBuffTexture = new Texture(Gdx.files.internal(path));
+                    foodBuffImage = new Image(new TextureRegionDrawable(new TextureRegion(foodBuffTexture)));
+                    foodBuffImage.setPosition(FOOD_ICON_X, FOOD_ICON_Y);
+                    // اگر می‌خواهی اندازه‌ی ثابت داشته باشه:
+                    // foodBuffImage.setSize(32, 32);
+
+                    // بهتره actor UI را به stage اضافه کنی (نه به camera/world batch)
+                    stage.addActor(foodBuffImage);
+                }
+            } else {
+                // اگر آیکون قبلاً هست، ولی ممکنه buff تغییر کرده باشه -> drawable را آپدیت کن
+                String assetName = buff.getBuffType().getAssetName();
+                String path = GameAssetManager.getGameAssetManager().getAssetsDictionary().get(assetName);
+                // در صورتی که آیکون buff متفاوت است، فقط drawable را تغییر بده (بدون اضافه کردن دوباره)
+                // نمونه ساده:
+                foodBuffImage.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(path)))));
+                // اما این باعث نشت می‌شود مگر texture قبلی را dispose کنی. بهتر: استفاده از GameAssetManager که تکسچر را مدیریت کند.
+            }
+        } else {
+            // buff ندارد: اگر آیکون موجود است، آن را پاک کن
+            if (foodBuffImage != null) {
+                foodBuffImage.remove();          // از stage حذف می‌کند
+                foodBuffImage = null;
+                if (foodBuffTexture != null) {
+                    foodBuffTexture.dispose();   // اگر تکسچر محلی ساختی پاکش کن
+                    foodBuffTexture = null;
+                }
+            }
         }
     }
 
@@ -1010,8 +1107,9 @@ public class GameView implements Screen, TimeObserver {
         if (newDay) {
             updateMapWithFade(() -> {
                 for (Player player : App.getCurrentUser().getCurrentGame().getPlayers()) {
-                    player.setCurrentGameLocation(player.getPlayerFarm().getDefaultHome().getIndoor());
+                    //player.setCurrentGameLocation(player.getPlayerFarm().getDefaultHome().getIndoor());
                 }
+                App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
                 App.getMe().setPosition(new Position(8, 3));
             });
         }

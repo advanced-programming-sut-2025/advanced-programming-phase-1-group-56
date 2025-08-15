@@ -11,6 +11,7 @@ import io.src.model.GameObject.NPC.NPC;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.GameMap;
+import io.src.model.MapModule.Position;
 import io.src.model.States.WeatherState;
 import io.src.model.TimeSystem.TimeSystem;
 import io.src.model.items.Tool;
@@ -24,7 +25,7 @@ import java.util.Scanner;
 import static io.src.model.MapModule.newFarmLoader.loadTheLocation;
 
 public class PreGameMenuController extends CommandController {
-    public static void manageSoloGame(String farmName, String playerName, String farmPosition) {
+    public static Result manageSoloGame(String farmName, String playerName, String farmPosition) {
         FarmPosition farmPosition1 = switch (farmPosition) {
             case "left" -> FarmPosition.LEFT;
             case "right" -> FarmPosition.RIGHT;
@@ -84,6 +85,11 @@ public class PreGameMenuController extends CommandController {
             npc.initializePaths(town);
 
         farm1.setName(farmName);
+        App.getMe().setCurrentGameLocation(App.getMe().getPlayerFarm().getDefaultHome().getIndoor());
+        App.getMe().setPosition(new Position(8, 3));
+        StardewValley.getGameView().updateMap();
+
+        return new Result(true, "successfully added game with id:" + newGame.getGameId());
     }
 
     public static void manageFourPlayerGame() {
@@ -91,7 +97,6 @@ public class PreGameMenuController extends CommandController {
         ArrayList<User> usersToPlay = new ArrayList<>();
         int counter = 0;
         usersToPlay.add(App.getCurrentUser());
-        System.out.println(App.getCurrentUser().getUsername());
         for (User user : App.getUsers()) {
             if (user.equals(App.getCurrentUser())) continue;
             if (user.getCurrentGame() != null) continue;
@@ -129,7 +134,9 @@ public class PreGameMenuController extends CommandController {
         WeatherState weatherState = new WeatherState();
         newGame.setWeatherState(weatherState);// 2/4 set
 
+
         newGame.setPlayers(playersToPlay);// 3/4
+
 
         GameMap map = new GameMap();
         Town town = (Town) loadTheLocation("assets\\gameLocations\\Town4");
@@ -207,6 +214,10 @@ public class PreGameMenuController extends CommandController {
             npc.initializePaths(town);
         }
 
+        for (Player player : newGame.getPlayers()) {
+            player.setCurrentGameLocation(player.getPlayerFarm().getDefaultHome().getIndoor());
+            player.setPosition(new Position(8, 3));
+        }
         StardewValley.getGameView().updateMap();
 
         new Result(true, "successfully added game with id:" + newGame.getGameId());

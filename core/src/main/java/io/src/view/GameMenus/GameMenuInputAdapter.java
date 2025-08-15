@@ -29,11 +29,16 @@ import io.src.model.GameObject.GameObject;
 import io.src.model.GameObject.MailBox;
 import io.src.model.GameObject.SensitiveToPlayer;
 import io.src.model.GameObject.ArtesianMachine;
+import io.src.model.Enums.Direction;
+import io.src.model.Enums.FarmPosition;
+import io.src.model.Enums.TileType;
+import io.src.model.GameObject.*;
 import io.src.model.MapModule.Buildings.*;
 import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.GameLocations.Town;
 import io.src.model.MapModule.Position;
+import io.src.model.MapModule.Tile;
 import io.src.model.items.Artesian;
 import io.src.model.items.Etc;
 import io.src.model.items.Food;
@@ -95,13 +100,20 @@ public class GameMenuInputAdapter extends InputAdapter {
 
 
         if (keysHeld.contains(Input.Keys.P)) {
-            Result result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 18 18");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "ef 1 1 50 50");
-//            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 76 47");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Stone -c 999");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wood -c 999");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 999999 dollars");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add");
+            Result result;
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 30 40");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Bouquet -c 1");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wedding_Ring -c 1");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
             result = CarpenterMenuController.BuildABuilding("Coop", BuildingType.COOP, 20, 20);
             result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN, 30, 30);
             result = MarniesRanchController.buyAnimal(AnimalType.COW.getName(), "mahdi");
@@ -288,6 +300,7 @@ public class GameMenuInputAdapter extends InputAdapter {
         return false;
     }
 
+
     private boolean zoj = true;
 
     private LocalDateTime lastPlayed = LocalDateTime.now();
@@ -392,9 +405,40 @@ public class GameMenuInputAdapter extends InputAdapter {
         player.update(delta);
         applyWrapperEffect();
         shopCounterHintActive = isFacingCounter();
+
+        //IMPORTANT
+        ArrayList<PlayerObject> playerObjects = getPlayerObjects();
+        App.getMe().getCurrentGameLocation().getGameObjects().addAll(playerObjects);
+        ArrayList<GameObject> gameObjectsUnderPlayer = new ArrayList<>();
+        for (int i = 0; i < playerObjects.size(); i++) {
+            Tile tile = App.getMe().getCurrentGameLocation().getTileByPosition(playerObjects.get(i).getPosition());
+            gameObjectsUnderPlayer.add(tile.getFixedObject());
+            tile.setFixedObject(playerObjects.get(i));
+        }
+
         handleFocusedGameObject();
         updateNearbySensitiveObjects();
+
+        //IMPORTANT
+        App.getMe().getCurrentGameLocation().getGameObjects().removeAll(playerObjects);
+        for (int i = 0; i < playerObjects.size(); i++) {
+            Tile tile = App.getMe().getCurrentGameLocation().getTileByPosition(playerObjects.get(i).getPosition());
+            tile.setFixedObject(gameObjectsUnderPlayer.get(i));
+        }
     }
+
+    private ArrayList<PlayerObject> getPlayerObjects() {
+        ArrayList<PlayerObject> playerObjects = new ArrayList<>();
+        for (Player player2 : App.getCurrentUser().getCurrentGame().getPlayers()) {
+            if (player2.equals(App.getMe())) continue;
+            if (App.getMe().getCurrentGameLocation().equals(player2.getCurrentGameLocation())) {
+                Position renderingPosition = new Position((player2.getPixelPosition().getX() + 16) / 16, (player2.getPixelPosition().getY()) / 16);
+                playerObjects.add(player2.getPlayerObjectPlusPosition(renderingPosition));
+            }
+        }
+        return playerObjects;
+    }
+
 
     private void updateNearbySensitiveObjects() {
         Set<GameObject> newNearbyGameObjects = new HashSet<>();

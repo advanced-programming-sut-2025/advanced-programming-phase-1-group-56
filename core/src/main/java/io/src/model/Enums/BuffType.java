@@ -10,7 +10,7 @@ public enum BuffType {
     ForagingBuff11("Foraging", 11, 1, "Foraging_Skill_Icon"),
     MaxEnergy50("Max Energy", 3, 50, "Max_Energy_Buff"),
     MaxEnergy100("Max Energy", 5, 100, "Max_Energy_Buff"),
-    Depression("Depression", 91, 2, "Depression_Buff"),
+    Depression("Depression", 91, 2, "Depressoin_Buff"),
     ;
 
 
