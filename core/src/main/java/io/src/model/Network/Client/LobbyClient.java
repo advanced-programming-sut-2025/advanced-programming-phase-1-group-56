@@ -412,7 +412,6 @@ public class LobbyClient implements Screen {
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(newGame.getGameMap().getPelikanTown());
         App.getCurrentUser().setNumOfGames(App.getCurrentUser().getNumOfGames() + 1);
 
-        GivePlayersInitialItem(newGame);
         newGame.setCurrentPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
         newGame.setStarterPlayer(newGame.getPlayerByUser(App.getCurrentUser()));
 
@@ -441,7 +440,7 @@ public class LobbyClient implements Screen {
                 App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(map.getFarm1());
             }
             if (map.getFarm2() != null) {
-                map.getFarm2().setFarnmapPath("assets\\gameLocations\\Farm1");
+                map.getFarm2().setFarnmapPath("assets\\gameLocations\\Farm2");
 
                 map.setFarm2((Farm) loadTheLocation(map.getFarm2().getFarnmapPath()));
                 map.getFarm2().setPosition(FarmPosition.UP);
@@ -481,6 +480,8 @@ public class LobbyClient implements Screen {
             StardewValley.getStardewValley().setGameView(gameView);
             App.getStardewValley().setScreen(gameView);
             newGame.setStarted(true);
+            GivePlayersInitialItem(newGame);
+
         });
 
 

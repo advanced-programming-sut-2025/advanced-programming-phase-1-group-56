@@ -375,7 +375,7 @@ public class Player implements TimeObserver {
 
     public void setCurrentGameLocation(GameLocation currentGameLocation) {
         this.currentGameLocation = currentGameLocation;
-        if(App.getCurrentUser().getCurrentGame().isStarted()){
+        if(App.getCurrentUser()!=null&&App.getCurrentUser().getCurrentGame()!=null&&App.getCurrentUser().getCurrentGame().isStarted()){
             App.setCurrentMenu(switch (currentGameLocation.getType()) {
                 case Town -> Menu.gameMenu;
                 case Farm1 -> Menu.gameMenu;

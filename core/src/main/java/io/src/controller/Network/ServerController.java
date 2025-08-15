@@ -196,7 +196,6 @@ public class ServerController {
                 playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
-                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
                 map.setFarm1(farm1).setFarm2(null).setFarm3(null).setFarm4(null).setPelikanTown(town);
@@ -209,15 +208,13 @@ public class ServerController {
                 playersToPlay.getFirst().setFarmPosition(FarmPosition.LEFT);
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
-                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
-                Farm farm2 = new Farm(GameLocationType.Farm1);
-                farm2.setFarnmapPath("assets\\gameLocations\\Farm1");
+                Farm farm2 = new Farm(GameLocationType.Farm2);
+                farm2.setFarnmapPath("assets\\gameLocations\\Farm2");
                 farm2.setPosition(FarmPosition.UP);
                 playersToPlay.get(1).setFarmPosition(FarmPosition.UP);
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
-                playersToPlay.get(1).setCurrentGameLocation(farm2);
 
 
                 map.setFarm1(farm1).setFarm2(farm2).setFarm3(null).setFarm4(null).setPelikanTown(town);
@@ -231,7 +228,6 @@ public class ServerController {
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
-                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
                 Farm farm2 = new Farm(GameLocationType.Farm2);
@@ -241,7 +237,6 @@ public class ServerController {
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
                 playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
-                playersToPlay.get(1).setCurrentGameLocation(farm2);
 
 
                 Farm farm3 = new Farm(GameLocationType.Farm1);
@@ -251,7 +246,6 @@ public class ServerController {
                 farm3.setPlayer(playersToPlay.get(2));
                 playersToPlay.get(2).setPlayerFarm(farm3);
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
-                playersToPlay.get(2).setCurrentGameLocation(farm3);
 
 
                 map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(null).setPelikanTown(town);
@@ -264,6 +258,8 @@ public class ServerController {
             case 4: {
 //                try {
                 Farm farm1 = new Farm(GameLocationType.Farm1);
+                farm1.setFarnmapPath("assets\\gameLocations\\Farm1");
+
 
 
 //                Farm farm1 = loadTheFarm("assets\\gameLocations\\Farm1");
@@ -272,7 +268,6 @@ public class ServerController {
                 farm1.setPlayer(playersToPlay.getFirst());
                 playersToPlay.getFirst().setPlayerFarm(farm1);
                 playersToPlay.getFirst().setDefaultHome(farm1.getDefaultHome());
-                playersToPlay.get(0).setCurrentGameLocation(farm1);
 
 
                 Farm farm2 = new Farm(GameLocationType.Farm2);
@@ -284,7 +279,7 @@ public class ServerController {
                 farm2.setPlayer(playersToPlay.get(1));
                 playersToPlay.get(1).setPlayerFarm(farm2);
                 playersToPlay.get(1).setDefaultHome(farm2.getDefaultHome());
-                playersToPlay.get(1).setCurrentGameLocation(farm2);
+
 
 
                 Farm farm3 = new Farm(GameLocationType.Farm1);
@@ -296,9 +291,8 @@ public class ServerController {
                 farm3.setPlayer(playersToPlay.get(2));
                 playersToPlay.get(2).setPlayerFarm(farm3);
                 playersToPlay.get(2).setDefaultHome(farm3.getDefaultHome());
-                playersToPlay.get(2).setCurrentGameLocation(farm3);
 
-                Farm farm4 = new Farm(GameLocationType.Farm1);
+                Farm farm4 = new Farm(GameLocationType.Farm2);
                 farm4.setFarnmapPath("assets\\gameLocations\\Farm2");
 //                Farm farm4 = loadTheFarm2("assets\\gameLocations\\Farm2");
                 farm4.setPosition(FarmPosition.RIGHT);
@@ -306,7 +300,6 @@ public class ServerController {
                 farm4.setPlayer(playersToPlay.get(3));
                 playersToPlay.get(3).setPlayerFarm(farm4);
                 playersToPlay.get(3).setDefaultHome(farm4.getDefaultHome());
-                playersToPlay.get(3).setCurrentGameLocation(farm4);
 
 
                 map.setFarm1(farm1).setFarm2(farm2).setFarm3(farm3).setFarm4(farm4).setPelikanTown(town);

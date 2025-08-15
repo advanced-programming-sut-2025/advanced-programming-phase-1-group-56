@@ -179,6 +179,17 @@ public class GameMenuInputAdapter extends InputAdapter {
             }
         }
 
+        if (keycode == Input.Keys.U) {
+            if (!StardewValley.getGameView().getLobbyPlayersWindow().isVisible()) {
+                StardewValley.getGameView().getLobbyPlayersWindow().refresh();
+                InputMultiplexer multiplexer = new InputMultiplexer();
+                multiplexer.addProcessor(StardewValley.getGameView().getLobbyPlayersWindow());
+                multiplexer.addProcessor(StardewValley.getGameView().getStage());
+                Gdx.input.setInputProcessor(multiplexer);
+                StardewValley.getGameView().getLobbyPlayersWindow().setVisible(!StardewValley.getGameView().getLobbyPlayersWindow().isVisible());
+            }
+        }
+
         if (keycode == Input.Keys.E) {
             if (!StardewValley.getGameView().getInvWindow().isVisible()) {
                 InputMultiplexer multiplexer = new InputMultiplexer();

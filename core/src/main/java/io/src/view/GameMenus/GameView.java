@@ -116,6 +116,8 @@ public class GameView implements Screen, TimeObserver {
 //    private List<DayNightLighting.Light> lights = new ArrayList<>();
 //    private static ArtisanWindow artisanWindow;
     private EmoteWindow emoteWindow;
+    private LobbyPlayersWindow lobbyPlayersWindow;
+
 
 
     public void updateMapWithFade(Runnable afterFadeOut) {
@@ -161,6 +163,7 @@ public class GameView implements Screen, TimeObserver {
             refrigeratorWindow = new RefrigeratorWindow();
             shippingBarWindow = new ShippingBarWindow();
             emoteWindow = new EmoteWindow();
+            lobbyPlayersWindow = new LobbyPlayersWindow(GameAssetManager.getGameAssetManager().getSkin());
 //            artisanWindow = new ArtisanWindow(new ArtesianMachine(false,new Position(10,10),ArtisanMachineItemType.BEE_HOUSE.getArtisanMachineType()));
             energyWindow.setPosition(Gdx.graphics.getWidth() - 50, 50);
             invWindow.setVisible(false);
@@ -168,6 +171,7 @@ public class GameView implements Screen, TimeObserver {
             foodWindow.setVisible(false);
 //            artisanWindow.setVisible(false);
             emoteWindow.setVisible(false);
+            lobbyPlayersWindow.setVisible(false);
 
             stage.addActor(craftingWindow);
             stage.addActor(invWindow);
@@ -178,6 +182,7 @@ public class GameView implements Screen, TimeObserver {
             stage.addActor(inventoryBar);
             stage.addActor(shippingBarWindow);
             stage.addActor(refrigeratorWindow);
+            stage.addActor(lobbyPlayersWindow);
             refrigeratorWindow.setVisible(false);
             shippingBarWindow.setVisible(false);
 
@@ -582,21 +587,25 @@ public class GameView implements Screen, TimeObserver {
     private Texture background;
     @Override
     public void show() {
-        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 0);
-        pixmap.fill();
-        background = new Texture(pixmap);
+        Gdx.app.postRunnable(()->{
+            Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
+            pixmap.setColor(0, 0, 0, 0);
+            pixmap.fill();
+            background = new Texture(pixmap);
+        });
+
     }
 
 
 
     @Override
     public void render(float v) {
-        camera.update();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//BlackBackGround
 
+//
         Gdx.app.postRunnable(() -> {
+            camera.update();
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//BlackBackGround
             renderer.setView(camera);
             gameMenuInputAdapter.update(v);
             renderer.render();
@@ -672,8 +681,10 @@ public class GameView implements Screen, TimeObserver {
                 TextureRegion region;
                 if (go instanceof PlayerObject) {
 
+                    if(((PlayerObject) go).getPlayer().getUserName().equals(App.getMe().getUserName())){
+                        renderPlayer(((PlayerObject) go).getPlayer());
 
-                    renderPlayer(((PlayerObject) go).getPlayer());
+                    }
 
                     updateAndDrawToolSwings(v);
                     for (PlayerObject playerObj : playerObjects) {
@@ -760,6 +771,9 @@ public class GameView implements Screen, TimeObserver {
                         region.getRegionWidth(), 0,
                         region.getRegionWidth(), region.getRegionHeight(),
                         0.5f, 0.5f, 0);
+                    renderer.getBatch().end();
+                    makeGreenBar((ArtesianMachine) go, worldX, worldY);
+                    renderer.getBatch().begin();
                 } else {
                     renderer.getBatch().draw(region,
                         worldX, worldY,
@@ -1084,5 +1098,9 @@ public class GameView implements Screen, TimeObserver {
 
     public ShippingBarWindow getShippingBarWindow() {
         return shippingBarWindow;
+    }
+
+    public LobbyPlayersWindow getLobbyPlayersWindow() {
+        return lobbyPlayersWindow;
     }
 }

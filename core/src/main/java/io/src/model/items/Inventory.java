@@ -115,6 +115,7 @@ public class Inventory {
     }
 
     private void refreshAllUI() {
+        if(StardewValley.getGameView()==null) return;
         if (StardewValley.getGameView().getInventoryBar() != null)
             StardewValley.getGameView().getInventoryBar().refreshInventory();
         if (StardewValley.getGameView().getInvWindow() != null)

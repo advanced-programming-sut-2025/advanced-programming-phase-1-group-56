@@ -115,7 +115,7 @@ public class InventoryWindow extends Group implements InputProcessor {
 
     private void showSettingsTab() {
         background.setDrawable(new TextureRegionDrawable(GameAssetManager.getGameAssetManager().getTmpBackground()));
-        //TODO
+
     }
 
     private void showInventoryTab() {

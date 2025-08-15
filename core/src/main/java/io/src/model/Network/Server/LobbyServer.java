@@ -126,9 +126,6 @@ public class LobbyServer {
                 return null;
             }
         }
-
-
-
         Lobby lobby = new Lobby(UUID.randomUUID().toString(), name, owner, isPrivate,isVisible, password);
         lobbies.add(lobby);
         return lobby;
