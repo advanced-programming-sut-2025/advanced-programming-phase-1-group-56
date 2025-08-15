@@ -61,7 +61,7 @@ public class LoginMenuController extends CommandController {
             menu.getLoginButton().addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_SELECT_PATTERN1.getPath(), false, GameAudioManager.sfxVolume);
                     Result result = manageLoginUser(
                         menu.getUsernameField().getText(),
                         menu.getPasswordField().getText(),
@@ -75,7 +75,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getRegisterButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_SELECT_PATTERN1.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getLoginTable().setVisible(false);
                     menu.getRegisterTable().setVisible(true);
                 }
@@ -110,7 +110,7 @@ public class LoginMenuController extends CommandController {
         {
             menu.getForgetPassButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_SELECT_PATTERN1.getPath(), false, GameAudioManager.sfxVolume);
                     Result result = manageForgotPassword(menu.getUsernameField().getText());
                     if (!result.isSuccess()) {
                         menu.showWarningLabel(result.getMessage());
@@ -159,7 +159,7 @@ public class LoginMenuController extends CommandController {
         {
             menu.getRegisterButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_SELECT_PATTERN1.getPath(), false, GameAudioManager.sfxVolume);
                     Result result = manageRegisterUser(
                         menu.getUsernameField2().getText(),
                         menu.getPasswordField2().getText(),
@@ -186,7 +186,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getLoginButton2().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_SELECT_PATTERN1.getPath(), false, GameAudioManager.sfxVolume);
                     menu.getRegisterTable().setVisible(false);
                     menu.getLoginTable().setVisible(true);
                 }
@@ -220,7 +220,7 @@ public class LoginMenuController extends CommandController {
 
             menu.getSignUpButton().addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    GameAudioManager.getInstance().playSound(SfxEnum.UI_LOOM_SELECT_PATTERN4.getPath(), false, GameAudioManager.sfxVolume);
+                    GameAudioManager.getInstance().playSound(SfxEnum.UI_SELECT_PATTERN1.getPath(), false, GameAudioManager.sfxVolume);
                     int questionID = 0;
                     for (int i = 0; i < menu.getSecurityQuestions().size(); i++) {
                         if (menu.getSecurityQuestions().get(i).isChecked())
