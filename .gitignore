@@ -154,7 +154,6 @@ Thumbs.db
 *.*#
 *#*#
 /.kotlin/
-/assets/assets.txt
 /assets
 !/assets/mainSkin/
 !/assets/SFXs/
