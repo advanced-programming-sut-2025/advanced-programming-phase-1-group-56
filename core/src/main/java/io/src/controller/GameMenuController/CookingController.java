@@ -152,10 +152,8 @@ public class CookingController extends CommandController {
     }
 
     public static void eatFoodUI(Item item) {
-        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
-            SfxEnum.RANDOM_EAT1.getPath()
-            , SfxEnum.RANDOM_EAT2.getPath()
-            , SfxEnum.RANDOM_EAT3.getPath()
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(SfxEnum.RANDOM_EAT1.getPath(), SfxEnum.RANDOM_EAT2.getPath(), SfxEnum.RANDOM_EAT3.getPath())),
+            false, GameAudioManager.sfxVolume);
         if (item instanceof Food food) {
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
             App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
