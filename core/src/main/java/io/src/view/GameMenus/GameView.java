@@ -44,6 +44,7 @@ import io.src.view.LoginMenu;
 import io.src.model.Player;
 import io.src.model.items.Fish;
 import io.src.model.items.Tool;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -196,37 +197,8 @@ public class GameView implements Screen, TimeObserver {
 //        rainSystem.setWind(40f, 40f);       // باد به سمت راست 40 px/s با تغییر ±40
 //        rainSystem.setGroundOffset(6f);
 
-        setCustomCursor("assets/Cursor.png", 0, 0);
-
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
 
-    }
-
-    private Pixmap resizeToPowerOfTwo(Pixmap src) {
-        int newWidth = MathUtils.nextPowerOfTwo(src.getWidth());
-        int newHeight = MathUtils.nextPowerOfTwo(src.getHeight());
-
-        Pixmap resized = new Pixmap(newWidth, newHeight, src.getFormat());
-        resized.drawPixmap(src, 0, 0, src.getWidth(), src.getHeight(), 0, 0, newWidth, newHeight);
-        return resized;
-    }
-
-    private void setCustomCursor(String path, int hotX, int hotY) {
-        try {
-            if (Gdx.files.internal(path).exists()) {
-                Pixmap original = new Pixmap(Gdx.files.internal(path));
-                Pixmap powerOfTwo = resizeToPowerOfTwo(original);
-                Cursor customCursor = Gdx.graphics.newCursor(powerOfTwo, hotX, hotY);
-                Gdx.graphics.setCursor(customCursor);
-                original.dispose();
-                powerOfTwo.dispose();
-            } else {
-                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            }
-        } catch (Exception e) {
-            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-            e.printStackTrace();
-        }
     }
 
     private void renderCharacter(String characterName, AnimationKey key, float x, float y) {

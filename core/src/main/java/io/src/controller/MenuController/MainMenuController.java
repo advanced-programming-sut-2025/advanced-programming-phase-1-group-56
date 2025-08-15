@@ -8,12 +8,10 @@ import com.google.gson.Gson;
 import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.controller.GameMenuController.PreGameMenuController;
-import io.src.model.App;
+import io.src.model.*;
 import io.src.model.Enums.Menu;
 import io.src.model.Enums.SfxEnum;
-import io.src.model.Game;
-import io.src.model.GameAudioManager;
-import io.src.model.Result;
+import io.src.view.InnerMenus.SettingMenu;
 import io.src.view.MainMenu;
 
 import java.io.File;
@@ -125,6 +123,8 @@ public class MainMenuController extends CommandController {
         menu.getSettingButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
+                SettingMenu settingMenu = new SettingMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
+                settingMenu.show(menu.getStage());
             }
         });
     }
