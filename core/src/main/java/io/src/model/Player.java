@@ -75,9 +75,9 @@ public class Player implements TimeObserver {
     private boolean interactWithPartnerToday;
     private ShopState shopState = ShopState.NOT_SHOP;
     //connections
-    private final ArrayList<UUID> myTrades = new ArrayList<>();
-    private final ArrayList<UUID> receivedTrades = new ArrayList<>();
-    private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
+    private final ArrayList<Trade> myTrades = new ArrayList<>();
+    private final ArrayList<Trade> receivedTrades = new ArrayList<>();
+    private final ArrayList<Trade> endedTradesHistory = new ArrayList<>();
 
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<NpcFriendship> npcFriendships = new ArrayList<>();
@@ -314,7 +314,7 @@ public class Player implements TimeObserver {
         this.farmPosition = farmPosition;
     }
 
-    public int getSelfGold(){
+    public int getSelfGold() {
         return gold;
     }
 
@@ -343,15 +343,15 @@ public class Player implements TimeObserver {
         return userId;
     }
 
-    public ArrayList<UUID> getEndedTradesHistory() {
+    public ArrayList<Trade> getEndedTradesHistory() {
         return endedTradesHistory;
     }
 
-    public ArrayList<UUID> getReceivedTrades() {
+    public ArrayList<Trade> getReceivedTrades() {
         return receivedTrades;
     }
 
-    public ArrayList<UUID> getMyTrades() {
+    public ArrayList<Trade> getMyTrades() {
         return myTrades;
     }
 
@@ -506,6 +506,7 @@ public class Player implements TimeObserver {
     }
 
     public void subtractEnergy(double amount) {
+        amount /= 3;
         energy.setEnergy(Math.max((energy.getEnergy() - amount), 0));
         if (energy.getEnergy() <= 0) {
             fainted = true;

@@ -21,147 +21,113 @@ public class TradeController extends CommandController {
         return new Result(true, "you are now in trade menu");
     }
 
-    public static Result makeNewTrade(Matcher matcher) {
-        String username = matcher.group("username");
-        String type = matcher.group("type");
-        String item = matcher.group("item");
-        String itemAmount = matcher.group("amount");
-        String price = matcher.group("price");
-        String targetItem = matcher.group("targetItem");
-        String targetAmount = matcher.group("targetAmount");
-        Player counterParty;
-        if (username == null || username.isEmpty()) {
-            return new Result(false, "Username not found");
-
-        }
-        User user = App.getUserByUsername(username);
-        if (user == null) {
-            return new Result(false, "Username not found");
-        }
-        counterParty = App.getCurrentUser().getCurrentGame().getPlayerByUser(user);
+    public static Result makeNewTrade(String itemName1, String itemCount1, String itemName2, String itemCount2, TradeType tradeType, Player counterParty) {
+        itemName1 = itemName1.isEmpty() ? "INVALID" : itemName1;
+        itemName2 = itemName2.isEmpty() ? "INVALID" : itemName2;
+        itemCount1 = itemCount1.isEmpty() ? "-1" : itemCount1;
+        itemCount2 = itemCount2.isEmpty() ? "-1" : itemCount2;
+        Trade trade = null;
         if (counterParty == null) {
-            return new Result(false, "there is no player with such username in this game");
+            return new Result(false, "player == null");
         }
-        if (counterParty.equals(App.getCurrentUser().getCurrentGame().getCurrentPlayer())) {
-            return new Result(false, "you can't make trade with yourself");
-        }
-        Trade trade;
-        if (type.equalsIgnoreCase("offer")) {
-            if (price == null && targetItem != null) {
-                //ITEM TO ITEM TRADE
-                int amountToGive;
-                int amountToGet;
+        switch (tradeType) {
+            case PRODUCT_TO_PRODUCT_OFFER: {
+                Item item1 = App.getMe().getInventory().findItemByName(itemName1);
+                if (item1 == null) {
+                    return new Result(false, "item not found in your inventory");
+                }
+                int count1 = 0;
                 try {
-                    amountToGive = Integer.parseInt(itemAmount);
-                    amountToGet = Integer.parseInt(targetAmount);
-                } catch (NumberFormatException e) {
-                    return new Result(false, "Invalid target amount or item amount");
-                }
-                //Item itemToGive = ItemRegistry.findItemByName(item);
-                Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                Item itemToGive = findItemInPlayerInventoryByName(me, targetItem);
-                //Item itemToGet = ItemRegistry.findItemByName(targetItem);
-                Item itemToGet = findItemInPlayerInventoryByName(counterParty, item);
-                //TODO
-                if (itemToGive == null) {
-                    return new Result(false, "there is no such item to offer");
-                }
-                if (itemToGet == null) {
-                    return new Result(false, "there is no such target item");
-                }
-                int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-                    .getInventory().countItem(itemToGive);
-                if (amountThatPlayerHas < amountToGive) {
-                    return new Result(false, "You do not have much item in you inventory");
+                    count1 = Integer.parseInt(itemCount1);
+                    if (count1 <= 0) {
+                        return new Result(false, "invalid count1");
+                    }
+                } catch (Exception e) {
+                    return new Result(false, "invalid count1");
                 }
 
-                Slot slotToGive = new Slot(itemToGive, amountToGive);
-                Slot slotToGet = new Slot(itemToGet, amountToGet);
-                trade = new Trade(
-                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                    counterParty.getPlayerID(),
-                    slotToGive, slotToGet
-                );
-            } else if (targetItem == null && price != null) {
-                int amountToGive;
-                int moneyToGet;
-                //ITEM TO MONEY TRADE
+                Item item2 = counterParty.getInventory().findItemByName(itemName2);
+                if (item2 == null) {
+                    return new Result(false, "item not found in counterParty inventory");
+                }
+                int count2 = 0;
                 try {
-                    amountToGive = Integer.parseInt(itemAmount);
-                    moneyToGet = Integer.parseInt(price);
-                } catch (NumberFormatException e) {
-                    return new Result(false, "Invalid target amount or item amount");
+                    count2 = Integer.parseInt(itemCount2);
+                    if (count2 <= 0) {
+                        return new Result(false, "invalid count2");
+                    }
+                } catch (Exception e) {
+                    return new Result(false, "invalid count2");
                 }
-
-                //Item itemToGive = ItemRegistry.findItemByName(item);
-                //TODO
-                Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                Item itemToGive = findItemInPlayerInventoryByName(me, item);
-                if (itemToGive == null) {
-                    return new Result(false, "there is no such item to offer");
-                }
-                int amountThatPlayerHas = App.getCurrentUser().getCurrentGame().getCurrentPlayer()
-                    .getInventory().countItem(itemToGive);
-                if (amountThatPlayerHas < amountToGive) {
-                    return new Result(false, "You do not have much item in you inventory");
-                }
-                Slot slotToGive = new Slot(itemToGive, amountToGive);
-
-                trade = new Trade(
-                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                    counterParty.getPlayerID(),
-                    slotToGive, moneyToGet
-                );
-            } else if (targetItem == null) {
-                return new Result(false, "you cannot leave both (targetItem) and price (price) blank");
-            } else {
-                return new Result(false, "you cannot get money and item at same time");
+                trade = new Trade(App.getMe(), counterParty, new Slot(item1, count1), new Slot(item2, count2));
             }
-        } else if (type.equalsIgnoreCase("request")) {
-            if (price != null || targetItem != null) {
-                return new Result(false, "invalid request format....to request money" +
-                    " type money after the flag '-i'");
-            }
-            if (item.equalsIgnoreCase("money")) {
-                // MONEY_REQUEST
-                int moneyToGet;
+            break;
+            case PRODUCT_TO_MONEY_OFFER: {
+                Item item1 = App.getMe().getInventory().findItemByName(itemName1);
+                if (item1 == null) {
+                    return new Result(false, "item not found in your inventory");
+                }
+                int count1 = 0;
                 try {
-                    moneyToGet = Integer.parseInt(targetAmount);
-                } catch (NumberFormatException e) {
-                    return new Result(false, "Invalid target amount or item amount");
+                    count1 = Integer.parseInt(itemCount1);
+                    if (count1 <= 0) {
+                        return new Result(false, "invalid count1");
+                    }
+                } catch (Exception e) {
+                    return new Result(false, "invalid count1");
                 }
 
-                trade = new Trade(
-                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                    counterParty.getPlayerID(),
-                    moneyToGet
-                );
-            } else {
-                //PRODUCT_REQUEST
-                int amountToGet;
+                int count2 = 0;
                 try {
-                    amountToGet = Integer.parseInt(targetAmount);
-                } catch (NumberFormatException e) {
-                    return new Result(false, "Invalid target amount or item amount");
+                    count2 = Integer.parseInt(itemCount2);
+                    if (count2 <= 0) {
+                        return new Result(false, "invalid count2");
+                    }
+                } catch (Exception e) {
+                    return new Result(false, "invalid count2");
                 }
-                Item itemToGet = findItemInPlayerInventoryByName(counterParty, item);
-                if (itemToGet == null) {
-                    return new Result(false, "there is no such target item");
-                }
-                Slot slotToGet = new Slot(itemToGet, amountToGet);
-                trade = new Trade(
-                    App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerID(),
-                    counterParty.getPlayerID(),
-                    slotToGet
-                );
+                trade = new Trade(App.getMe(), counterParty, new Slot(item1, count1), count2);
             }
-        } else {
-            return new Result(false, "invalid trade type");
+            break;
+            case PRODUCT_REQUEST: {
+                Item item2 = counterParty.getInventory().findItemByName(itemName2);
+                if (item2 == null) {
+                    return new Result(false, "item not found in your inventory");
+                }
+                int count2 = 0;
+                try {
+                    count2 = Integer.parseInt(itemCount2);
+                    if (count2 <= 0) {
+                        return new Result(false, "invalid count2");
+                    }
+                } catch (Exception e) {
+                    return new Result(false, "invalid count1");
+                }
+
+                trade = new Trade(App.getMe(), counterParty, new Slot(item2, count2));
+            }
+            break;
+            case MONEY_REQUEST: {
+                int count2 = 0;
+                try {
+                    count2 = Integer.parseInt(itemCount2);
+                    if (count2 <= 0) {
+                        return new Result(false, "invalid count2");
+                    }
+                } catch (Exception e) {
+                    return new Result(false, "invalid count2");
+                }
+
+                trade = new Trade(App.getMe(), counterParty, count2);
+            }
+            break;
+            default:
+                return new Result(false, "Trade type not supported");
         }
 
-        App.getMe().getMyTrades().add(trade.getTradeID());
-        counterParty.getReceivedTrades().add(trade.getTradeID());
-        App.getCurrentUser().getCurrentGame().getAllTrades().add(trade);
+        App.getMe().getMyTrades().add(trade);
+        counterParty.getReceivedTrades().add(trade);
+        System.out.println(trade.toString());
         return new Result(true, "trade added successfully");
     }
 
@@ -170,19 +136,17 @@ public class TradeController extends CommandController {
         builder.append("My Pending Trades:\n");
         builder.append("\n-------------------------------\n");
         Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        ArrayList<UUID> myTrades = me.getMyTrades();
+        ArrayList<Trade> myTrades = me.getMyTrades();
         Game thisGame = App.getCurrentUser().getCurrentGame();
-        for (UUID uuid : myTrades) {
-            Trade trade = thisGame.findTradeById(uuid);
+        for (Trade trade : myTrades) {
             if (trade == null) {
                 continue;
             }
             builder.append(trade);
             builder.append("\n-------------------------------\n");
         }
-        ArrayList<UUID> receivedTradesID = me.getReceivedTrades();
-        for (UUID uuid : receivedTradesID) {
-            Trade trade = thisGame.findTradeById(uuid);
+        ArrayList<Trade> receivedTradesID = me.getReceivedTrades();
+        for (Trade trade : receivedTradesID) {
             if (trade == null) {
                 continue;
             }
@@ -192,33 +156,24 @@ public class TradeController extends CommandController {
         return new Result(true, builder.toString());
     }
 
-    public static Result tradeResponse(Matcher matcher) {
-        String resp = matcher.group(1).trim();
-        String tradeID = matcher.group(2).trim();
-        if (resp == null) {
-            return new Result(false, "response is null");
-        }
-        if (tradeID == null) {
-            return new Result(false, "tradeID is null");
-        }
+    public static Result tradeResponse(boolean accept, Trade trade) {
 
         Game thisGame = App.getCurrentUser().getCurrentGame();
-        Trade tradeToDo = thisGame.findTradeById(UUID.fromString(tradeID));
 
-        if (tradeToDo == null) {
+        if (trade == null) {
             return new Result(false, "there is no such trade");
         }
 
 
-        if (resp.equalsIgnoreCase("-accept")) {
-            switch (tradeToDo.getType()) {
+        if (accept) {
+            switch (trade.getType()) {
                 case TradeType.MONEY_REQUEST: {
                     Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
+                    Player counterParty = trade.getPlayerID();
                     //counterParty gets the money so I loose money
-                    if (me.getGold() > tradeToDo.getMoneyGets()) {//I have such money
-                        me.addGold(-tradeToDo.getMoneyGets());
-                        counterParty.addGold(tradeToDo.getMoneyGets());
+                    if (me.getGold() > trade.getMoneyGets()) {//I have such money
+                        me.addGold(-trade.getMoneyGets());
+                        counterParty.addGold(trade.getMoneyGets());
                     } else {
                         return new Result(false, "you dont have enough money to give!");
                     }
@@ -226,9 +181,9 @@ public class TradeController extends CommandController {
                 break;
                 case TradeType.PRODUCT_REQUEST: {
                     Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
+                    Player counterParty = trade.getPlayerID();
                     //counterParty gets the item so I loose item
-                    Slot tradeSlot = tradeToDo.getItemsGets();
+                    Slot tradeSlot = trade.getItemsGets();
                     if (me.getInventory().countItem(tradeSlot.getItem()) > tradeSlot.getQuantity()) {//I have such item
                         if (counterParty.getInventory().canAddItem(tradeSlot.getItem(), tradeSlot.getQuantity())) {
                             me.getInventory().remove(tradeSlot.getItem(), tradeSlot.getQuantity());
@@ -244,9 +199,9 @@ public class TradeController extends CommandController {
                 break;
                 case TradeType.PRODUCT_TO_PRODUCT_OFFER: {
                     Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
-                    Slot givingSlot = tradeToDo.getItemsGets();
-                    Slot gettingSlot = tradeToDo.getItemsToGive();
+                    Player counterParty = trade.getPlayerID();
+                    Slot givingSlot = trade.getItemsGets();
+                    Slot gettingSlot = trade.getItemsToGive();
                     // why its reverse? because trade is made from the counterParties POV
                     if (me.getInventory().countItem(givingSlot.getItem()) > givingSlot.getQuantity()) {//I have such item
                         if (counterParty.getInventory().countItem(gettingSlot.getItem()) > gettingSlot.getQuantity()) {//cp also has such item
@@ -283,9 +238,9 @@ public class TradeController extends CommandController {
                 break;
                 case TradeType.PRODUCT_TO_MONEY_OFFER: {
                     Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-                    Player counterParty = thisGame.findPlayerById(tradeToDo.getPlayerID());
-                    int moneyToPay = tradeToDo.getMoneyGets();
-                    Slot gettingSlot = tradeToDo.getItemsToGive();
+                    Player counterParty = trade.getPlayerID();
+                    int moneyToPay = trade.getMoneyGets();
+                    Slot gettingSlot = trade.getItemsToGive();
                     // why its reverse? because trade is made from the counterParties POV
                     if (me.getGold() > moneyToPay) {//I have such money
                         if (counterParty.getInventory().countItem(gettingSlot.getItem()) > gettingSlot.getQuantity()) {//CP has such item
@@ -318,31 +273,29 @@ public class TradeController extends CommandController {
 
 
             //IF WE GET HERE MEANS SUCCESSFUL = TRUE
-            tradeToDo.setStatus(TradeStatus.ACCEPTED);
-            Player player2 = thisGame.findPlayerById(tradeToDo.getCounterPartyId());
-            Player player1 = thisGame.findPlayerById(tradeToDo.getPlayerID());
-            player1.getEndedTradesHistory().add(tradeToDo.getTradeID());
-            player1.getMyTrades().remove(tradeToDo.getTradeID());
-            player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
-            player2.getReceivedTrades().remove(tradeToDo.getTradeID());
+            trade.setStatus(TradeStatus.ACCEPTED);
+            Player player2 = trade.getCounterPartyId();
+            Player player1 = trade.getPlayerID();
+            player1.getEndedTradesHistory().add(trade);
+            player1.getMyTrades().remove(trade);
+            player2.getEndedTradesHistory().add(trade);
+            player2.getReceivedTrades().remove(trade);
             //friendship
-            player1.findFriendshipByPlayer(player2).changeTwoWayXp(+50);
+            //player1.findFriendshipByPlayer(player2).changeTwoWayXp(+50);
             return new Result(true, "trade done successfully...");
 
 
-        } else if (resp.equalsIgnoreCase("-reject")) {
-            tradeToDo.setStatus(TradeStatus.REJECTED);
-            Player player1 = thisGame.findPlayerById(tradeToDo.getPlayerID());
-            Player player2 = thisGame.findPlayerById(tradeToDo.getCounterPartyId());
-            player1.getMyTrades().remove(tradeToDo.getTradeID());
-            player1.getEndedTradesHistory().add(tradeToDo.getTradeID());
-            player2.getReceivedTrades().remove(tradeToDo.getTradeID());
-            player2.getEndedTradesHistory().add(tradeToDo.getTradeID());
-            //friendship
-            player1.findFriendshipByPlayer(player2).changeTwoWayXp(-30);
-            return new Result(true, "trade rejected successfully...");
         } else {
-            return new Result(false, "taklifet chie da?");
+            trade.setStatus(TradeStatus.REJECTED);
+            Player player1 = trade.getPlayerID();
+            Player player2 = trade.getCounterPartyId();
+            player1.getMyTrades().remove(trade);
+            player1.getEndedTradesHistory().add(trade);
+            player2.getReceivedTrades().remove(trade);
+            player2.getEndedTradesHistory().add(trade);
+            //friendship
+            //player1.findFriendshipByPlayer(player2).changeTwoWayXp(-30);
+            return new Result(true, "trade rejected successfully...");
         }
     }
 
@@ -351,10 +304,9 @@ public class TradeController extends CommandController {
         builder.append("History Trades:\n");
         builder.append("\n-------------------------------\n");
         Player me = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-        ArrayList<UUID> myTrades = me.getEndedTradesHistory();
+        ArrayList<Trade> myTrades = me.getEndedTradesHistory();
         Game thisGame = App.getCurrentUser().getCurrentGame();
-        for (UUID uuid : myTrades) {
-            Trade trade = thisGame.findTradeById(uuid);
+        for (Trade trade : myTrades) {
             if (trade == null) {
                 continue;
             }

@@ -984,7 +984,7 @@ public class GameView implements Screen, TimeObserver {
     public void handleNpcHint(NPC npc) {
         if (npc.isDialogReady() && npc.isMeetHint()) {
             Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Dialogbox_MAZ")
             ));
             TextureRegion region = new TextureRegion(texture);
             float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;

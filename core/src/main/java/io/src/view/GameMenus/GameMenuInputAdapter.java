@@ -94,21 +94,10 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.P)) {
             Result result;
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 30 40");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Bouquet -c 1");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wedding_Ring -c 1");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = CarpenterMenuController.BuildABuilding("Coop", BuildingType.COOP, 20, 20);
-            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN, 30, 30);
-            result = MarniesRanchController.buyAnimal(AnimalType.COW.getName(), "mahdi");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 100");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 100");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 1000 dollars");
+
 
 //            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
 //            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
@@ -238,13 +227,13 @@ public class GameMenuInputAdapter extends InputAdapter {
                 return true;
             } else if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
                 return clickable.touchDown(screenX, screenY, pointer, button);
+            } else if (App.getMe().getCurrentItem() instanceof Seed seed) {
+                Result result = FarmingController.managePlantSeed(seed.getSeedType(), App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Food) {
                 CookingController.eatFoodUI(App.getMe().getCurrentItem());
             } else if (App.getMe().getCurrentItem() instanceof Artesian) {
                 System.out.println(App.getMe().getCurrentItem().getAssetName());
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
-            } else if (App.getMe().getCurrentItem() instanceof Seed seed) {
-                Result result = FarmingController.managePlantSeed(seed.getSeedType(), App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Etc) {
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
             }

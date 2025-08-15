@@ -15,9 +15,9 @@ public class TradeMenu implements AppMenu {
     public Result check(Scanner scanner, String cmd) {
         Matcher matcher;
         if ((matcher = TradeCommands.tradeWithPlayer.getMatcher(cmd)) != null) {
-            return TradeController.makeNewTrade(matcher);
+            return new Result(false, "this command has been deleted from terminal");
         } else if ((matcher = TradeCommands.tradeResponse.getMatcher(cmd)) != null) {
-            return TradeController.tradeResponse(matcher);
+            return new Result(false, "this command has been deleted from terminal");
         } else if ((TradeCommands.tradeList.getMatcher(cmd)) != null) {
             return TradeController.showTradeList();
         } else if ((TradeCommands.tradeHistory.getMatcher(cmd)) != null) {

@@ -59,11 +59,11 @@ public class Tool extends Item {
                     }
                     if (t != TreeType.BURNT_TREE && t != TreeType.TREE_BARK && t != TreeType.NORMAL_TREE) {
 
-                            System.out.println(t.toString());
+                        System.out.println(t.toString());
+                        App.getMe().getInventory().add(new Seed(t.getSource()), 1);
+                        if (Math.random() > 0.5) {
                             App.getMe().getInventory().add(new Seed(t.getSource()), 1);
-                            if (Math.random() > 0.5) {
-                                App.getMe().getInventory().add(new Seed(t.getSource()), 1);
-                            }
+                        }
                     }
                     player.getCurrentGameLocation().getGameObjects().remove(tile.getFixedObject());
                     tile.setFixedObject(null);
@@ -131,20 +131,24 @@ public class Tool extends Item {
                 }
                 break;
             }
-            case "Watering Can": {
+            case "WateringCan": {
+                System.out.println("Watering Can USED");
                 Skill playerSkill = player.getSkillByName(Skills.Farming.toString());
                 if (tile.getFixedObject() instanceof Tree || tile.getFixedObject() instanceof Crop || tile.getTileType() == TileType.Water || tile.getTileType() == TileType.PlowedSoil) {
                     if (tile.getTileType() == TileType.Water) {
+                        System.out.println("Abb shodam");
                         this.capacity = toolType.getCapacity();
                     } else {
                         this.capacity--;
-                        if (tile.getFixedObject().getClass() == Tree.class) {
-                            ((Tree) tile.getFixedObject()).setWateredToday(true);
-                        } else if (tile.getFixedObject().getClass() == Crop.class) {
-                            ((Crop) tile.getFixedObject()).setWateredToday(true);
+                        if (tile.getFixedObject() != null) {
+                            if (tile.getFixedObject().getClass() == Tree.class) {
+                                ((Tree) tile.getFixedObject()).setWateredToday(true);
+                            } else if (tile.getFixedObject().getClass() == Crop.class) {
+                                ((Crop) tile.getFixedObject()).setWateredToday(true);
+                            }
                         } else if (tile.getTileType() == TileType.PlowedSoil) {
                             tile.setTileType(TileType.WaterPlowedSoil);
-
+                            System.out.println("revale");
                         }
 //
                     }
@@ -230,6 +234,8 @@ public class Tool extends Item {
                 player.subtractEnergy(toolType.getUsedEnergy() * App.getCurrentUser().getCurrentGame().getWeatherState().getEnergyMultiplierTool());
                 break;
             }
+            default:
+                System.out.println("The fucking tool == '" + name + "'");
 //            if (player.isFainted()) {
 //                GameController.skipTurn();
 //            }

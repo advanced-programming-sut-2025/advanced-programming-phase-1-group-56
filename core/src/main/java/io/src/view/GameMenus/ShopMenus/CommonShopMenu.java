@@ -129,6 +129,7 @@ public class CommonShopMenu extends Window {
                     SkinManager.getInstance().getSkin("mainSkin/mainSkin.json"),
                     name -> {
                         Result result = MarniesRanchController.buyAnimal(((AnimalType) selectedProduct.getSaleable()).getName(), name);
+
 //                        this.setVisible(false);
                         StardewValley.getGameView().getWarningWindow().showDialog(
                             App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(),
