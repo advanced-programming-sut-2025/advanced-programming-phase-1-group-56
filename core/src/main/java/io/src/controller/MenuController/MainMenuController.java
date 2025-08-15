@@ -122,7 +122,6 @@ public class MainMenuController extends CommandController {
 
         menu.getSettingButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 SettingMenu settingMenu = new SettingMenu(SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN));
                 settingMenu.show(menu.getStage());
             }

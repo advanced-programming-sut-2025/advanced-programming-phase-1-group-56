@@ -165,6 +165,7 @@ public class AvatarMenu extends Dialog {
 
         leftDirect.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BIT.getPath(), false, GameAudioManager.sfxVolume);
                 directIndex = (directIndex + 3) % 4;
                 updateAvatarTextures();
             }
@@ -172,6 +173,7 @@ public class AvatarMenu extends Dialog {
 
         rightDirect.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BIT.getPath(), false, GameAudioManager.sfxVolume);
                 directIndex = (directIndex + 1) % 4;
                 updateAvatarTextures();
             }
@@ -179,6 +181,7 @@ public class AvatarMenu extends Dialog {
 
         rightDirect1.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BIT.getPath(), false, GameAudioManager.sfxVolume);
                 avatarIndex = (avatarIndex + 1) % avatars.size();
                 directIndex = 0;
                 avatarStyleIndex = 1;
@@ -188,6 +191,7 @@ public class AvatarMenu extends Dialog {
 
         leftDirect1.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_BIT.getPath(), false, GameAudioManager.sfxVolume);
                 avatarIndex = (avatarIndex + avatars.size() - 1) % avatars.size();
                 directIndex = 0;
                 avatarStyleIndex = 1;
@@ -197,6 +201,7 @@ public class AvatarMenu extends Dialog {
 
         changeStyleButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_ICECHIME.getPath(), false, GameAudioManager.sfxVolume);
                 int maxStyles = getMaxStylesForAvatar(avatarIndex);
                 avatarStyleIndex++;
                 if (avatarStyleIndex > maxStyles) avatarStyleIndex = 1;
@@ -206,6 +211,7 @@ public class AvatarMenu extends Dialog {
 
         randomAvatar.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_GUITAR.getPath(), false, GameAudioManager.sfxVolume);
                 avatarIndex = (int) (Math.random() * avatars.size());
                 directIndex = 0;
                 int maxStyles = getMaxStylesForAvatar(avatarIndex);
@@ -216,6 +222,7 @@ public class AvatarMenu extends Dialog {
 
         okButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
                 if (okButton.isDisabled()) return;
                 String name = nameField.getText();
                 String farm = farmNameField.getText();
@@ -260,7 +267,6 @@ public class AvatarMenu extends Dialog {
     }
 
     public void updateAvatarTextures() {
-        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_CLICK.getPath(), false, GameAudioManager.sfxVolume);
         Texture oldTex = avatarTex;
         avatarTex = new Texture(avatars.get(avatarIndex) + avatarStyleIndex + "/" + directs.get(directIndex) + ".png");
         avatarImage.setDrawable(new TextureRegionDrawable(new TextureRegion(avatarTex)));

@@ -515,8 +515,8 @@ public class GameMenuInputAdapter extends InputAdapter {
                         App.getMe().setPosition(new Position(b.getDoorPosition().getX(), b.getDoorPosition().getY() - 2));
                         App.getMe().setMovingDirection(Direction.UP);
                     } else {
-                        GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                         StardewValley.getGameView().updateMapWithFade(() -> {
+                            GameAudioManager.getInstance().playSound(SfxEnum.RANDOM_DOOR_OPEN.getPath(), false, GameAudioManager.sfxVolume);
                             App.getMe().setPosition(b.getInitialPosition());//TODO
                             App.getMe().setCurrentGameLocation(b.getIndoor());
                         });

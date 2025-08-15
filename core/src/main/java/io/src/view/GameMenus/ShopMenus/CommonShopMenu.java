@@ -107,26 +107,7 @@ public class CommonShopMenu extends Window {
         switch (App.getMe().getShopState()) {
             case SHOP: {
                 Result result = ShopController.purchaseProductFromList(selectedProduct.getSaleable().getName(), "1", products);
-                if (result.isSuccess())
-                    GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
-                        SfxEnum.VILLAGER_YES1.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES2.getPath()
-                        , SfxEnum.VILLAGER_YES3.getPath()
-                    )), false, GameAudioManager.ambientVolume);
-                else
-                    GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
-                        SfxEnum.VILLAGER_NO1.getPath()
-                        , SfxEnum.VILLAGER_NO2.getPath()
-                        , SfxEnum.VILLAGER_NO3.getPath()
-                    )), false, GameAudioManager.ambientVolume);
+                GameAudioManager.getInstance().playSound(SfxEnum.NOTE_ICECHIME.getPath(), false, GameAudioManager.sfxVolume);
                 StardewValley.getGameView().getWarningWindow().showDialog(App.getMe().getCurrentGameLocation().getType().getRelatedClazz().getSimpleName(), result.getMessage(), 180);
                 updateProductsShow();
             }

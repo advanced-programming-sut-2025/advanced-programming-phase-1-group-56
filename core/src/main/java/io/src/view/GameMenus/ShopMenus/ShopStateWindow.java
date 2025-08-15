@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Align;
 import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Enums.GameLocationType;
+import io.src.model.Enums.SfxEnum;
+import io.src.model.GameAudioManager;
 import io.src.model.GameObject.NPC.NpcProduct;
 import io.src.model.MapModule.Buildings.Store;
 import io.src.model.SkinManager;
@@ -17,6 +19,7 @@ import io.src.view.GameMenus.ShopMenus.CommonShopMenu.Listener;
 import org.junit.runner.Computer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ShopStateWindow extends Window {
     private final TextButton button1;
@@ -137,6 +140,22 @@ public class ShopStateWindow extends Window {
     }
 
     public void showDialog() {
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
+            SfxEnum.VILLAGER_YES1.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES2.getPath()
+            , SfxEnum.VILLAGER_YES3.getPath()
+            , SfxEnum.VILLAGER_NO1.getPath()
+            , SfxEnum.VILLAGER_NO2.getPath()
+            , SfxEnum.VILLAGER_NO3.getPath()
+        )), false, GameAudioManager.ambientVolume);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(true);
         setVisible(true);
         GameLocationType glType = App.getMe().getCurrentGameLocation().getType();
