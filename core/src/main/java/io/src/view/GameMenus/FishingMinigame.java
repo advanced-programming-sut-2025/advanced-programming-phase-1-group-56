@@ -15,8 +15,13 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.math.Vector2;
 import io.src.model.App;
 import io.src.model.Enums.Animals.FishBehavior;
+import io.src.model.Enums.Items.FishType;
+import io.src.model.Enums.Items.ItemQuality;
+import io.src.model.Enums.Skills;
 import io.src.model.GameAssetManager;
 import io.src.model.Player;
+import io.src.model.items.Fish;
+import io.src.model.skills.Skill;
 
 import java.util.function.Consumer;
 
@@ -51,7 +56,7 @@ public class FishingMinigame extends Group {
     private final float decaySpeed;
 
     // bobber "half size" (in normalized units) - determines overlap window
-    private final float bobHalfSize = 0.15f;
+    private final float bobHalfSize = 0.3f;
 
 
     private final float panelW = 64f;
@@ -59,21 +64,32 @@ public class FishingMinigame extends Group {
     private final float panelX;
     private final float panelY;
 
+    private boolean perfectCatch = true;
+    private boolean firstHover = false;
+
+    private Fish fish;
+
     // fish speed limit in pixels/sec (مثلاً 20)
     private final float fishMaxPixelsPerSec = 20f;
 
-    public FishingMinigame(Stage stage, Player player, FishBehavior behavior,
+    public FishingMinigame(Stage stage, Player player, FishBehavior behavior, Fish fish,
                            Runnable onSuccess, Runnable onFail) {
         this.stage = stage;
         this.player = player;
         this.behavior = behavior;
         this.onSuccess = onSuccess;
         this.onFail = onFail;
+        this.fish = fish;
 
         // load textures via GameAssetManager (do not dispose them here)
         String panelPath = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Thumbnail");
         String bobPath   = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Bobber");
-        String fishPath  = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("ThumbnailFish");
+        String fishPath;
+        if (fish.isLegendary()) {
+            fishPath = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("ThumbnailLegendFish");
+        } else {
+            fishPath = GameAssetManager.getGameAssetManager().getAssetsDictionary().get("ThumbnailFish");
+        }
         panelTex  = new Texture(Gdx.files.internal(panelPath));
         bobberTex = new Texture(Gdx.files.internal(bobPath));
         fishTex   = new Texture(Gdx.files.internal(fishPath));
@@ -126,22 +142,34 @@ public class FishingMinigame extends Group {
         float dist = Math.abs(fishPos - bobPos);
         if (dist <= bobHalfSize) {
             // overlap ratio 0..1 (1 = perfectly centered)
+            firstHover = true;
             float overlap = 1f - (dist / bobHalfSize);
             catchProgress += catchSpeed * overlap * delta;
         } else {
+            if (firstHover) perfectCatch = false;
             catchProgress -= decaySpeed * delta;
         }
         catchProgress = MathUtils.clamp(catchProgress, 0f, 1f);
 
         // success early if reaches 0.6 (60%)
-        if (catchProgress >= 0.6f) {
+        if (catchProgress == 1f) {
+            if (perfectCatch && (fish.getItemQuality()== ItemQuality.Silver || fish.getItemQuality()== ItemQuality.Gold)){
+                if (fish.getItemQuality()== ItemQuality.Silver){
+                    fish.setItemQuality(ItemQuality.Gold);
+                } else {
+                    fish.setItemQuality(ItemQuality.Iridium);
+                }
+                System.out.println("perfect catch");
+                Skill playerSkill = player.getSkillByName(Skills.Fishing.toString());
+                playerSkill.setXp(playerSkill.getXp() + 7);
+            }
             finish(true);
             return;
         }
 
         // end of time: success only if catchProgress >= 0.6
         if (elapsed >= duration) {
-            finish(catchProgress >= 0.6f);
+            finish(false);
             return;
         }
     }
@@ -160,7 +188,7 @@ public class FishingMinigame extends Group {
 
         // bobber (visual)
         float bobW = trackW * 0.4f;
-        float bobH = trackH * (bobHalfSize * 2f);
+        float bobH = trackH * (bobHalfSize);
         float bobY = trackY + (bobPos + 1f)/2f * trackH - bobH/2f;
         float bobX = trackX + (trackW - bobW) / 2f;
         batch.draw(bobberTex, bobX, bobY, bobW, bobH);
@@ -210,6 +238,18 @@ public class FishingMinigame extends Group {
             if (onFail != null) onFail.run();
         }
         sr.dispose();
+    }
+
+    public boolean isPerfectCatch() {
+        return perfectCatch;
+    }
+
+    public void setPerfectCatch(boolean perfectCatch) {
+        this.perfectCatch = perfectCatch;
+    }
+
+    public Fish getFish() {
+        return fish;
     }
 }
 

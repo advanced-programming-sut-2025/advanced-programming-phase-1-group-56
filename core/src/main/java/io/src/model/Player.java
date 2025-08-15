@@ -96,7 +96,7 @@ public class Player implements TimeObserver {
     private final PlayerObject playerObject = new PlayerObject(this, new Position(0, 0));
 
 
-    private boolean FinishActing = false;
+    private boolean Acting = false;
 
 
     private float speed = 6.25f;
@@ -586,11 +586,11 @@ public class Player implements TimeObserver {
         playerObject.setPosition(position);
         return playerObject;
     }
-    public boolean isFinishActing() {
-        return FinishActing;
+    public boolean isActing() {
+        return Acting;
     }
 
-    public void setFinishActing(boolean finishActing) {
-        FinishActing = finishActing;
+    public void setActing(boolean finishActing) {
+        Acting = finishActing;
     }
 }

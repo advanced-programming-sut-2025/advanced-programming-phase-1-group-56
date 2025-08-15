@@ -128,11 +128,11 @@ public class AnimationManager {
         characterAnimations.put("WateringCanGolden" , loadToolSwingAnimations(WateringCan4Atlas , "WateringCan"));
         characterAnimations.put("WateringCanIridium" , loadToolSwingAnimations(WateringCan5Atlas , "WateringCan"));
 
-        characterAnimations.put("ScytheWooden" , loadToolSwingAnimations(Pickaxe1Atlas , "Scythe"));
-        characterAnimations.put("ScytheCupric" , loadToolSwingAnimations(Pickaxe2Atlas , "Scythe"));
-        characterAnimations.put("ScytheIronic" , loadToolSwingAnimations(Pickaxe3Atlas , "Scythe"));
-        characterAnimations.put("ScytheGolden" , loadToolSwingAnimations(Pickaxe4Atlas , "Scythe"));
-        characterAnimations.put("ScytheIridium" , loadToolSwingAnimations(Pickaxe5Atlas , "Scythe"));
+        characterAnimations.put("ScytheWooden" , loadToolSwingAnimations(Pickaxe1Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheCupric" , loadToolSwingAnimations(Pickaxe2Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheIronic" , loadToolSwingAnimations(Pickaxe3Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheGolden" , loadToolSwingAnimations(Pickaxe4Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheIridium" , loadToolSwingAnimations(Pickaxe5Atlas , "Pickaxe"));
 
         characterAnimations.put("FishingPoleTraining" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
         characterAnimations.put("FishingPoleBamboo" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));

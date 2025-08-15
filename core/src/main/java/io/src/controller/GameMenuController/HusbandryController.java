@@ -3,6 +3,7 @@ package io.src.controller.GameMenuController;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.Animals.AnimalType;
+import io.src.model.Enums.GameLocationType;
 import io.src.model.Enums.Items.EtcType;
 import io.src.model.Enums.Items.ItemQuality;
 import io.src.model.Enums.Items.ToolType;
@@ -10,12 +11,12 @@ import io.src.model.Enums.Skills;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
 
 import io.src.model.GameObject.Animal;
-import io.src.model.GameObject.GameObject;
 import io.src.model.MapModule.Buildings.AnimalHouse;
 import io.src.model.MapModule.Buildings.Barn;
 import io.src.model.MapModule.Buildings.Building;
 import io.src.model.MapModule.Buildings.Coop;
 import io.src.model.MapModule.GameLocations.Farm;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.Player;
 import io.src.model.Slot;
 import io.src.model.items.AnimalProduct;
@@ -24,6 +25,7 @@ import io.src.model.Result;
 import io.src.model.items.Etc;
 import io.src.model.items.Item;
 
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 
@@ -87,10 +89,109 @@ public class HusbandryController extends CommandController {
         return new Result(false, tmpString.toString());
     }
 
-    public static Result shepherdAnimals(String animalName, String strX, String strY) {
-        int x = Integer.parseInt(strX);
-        int y = Integer.parseInt(strY);
-        Animal animal = returnAnimal(animalName);
+    public static Result freeAnimals(Animal animal) {
+//        int x = Integer.parseInt(strX);
+//        int y = Integer.parseInt(strY);
+//        Animal animal = returnAnimal(animalName);
+        if (App.getCurrentUser()
+            .getCurrentGame()
+            .getWeatherState()
+            .getTodayWeather() != WeatherType.Sunny) {
+            return new Result(false, "your animal can't go out in this weather!");
+        }
+        if (animal == null) {
+            return new Result(false, "there is no animal with that name");
+        }
+//        if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)) {
+//            return new Result(false, "you are not in the farm!");
+//        }
+//        else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject() != null || !App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) {
+//            return new Result(true, "there is something exist in this tile!");
+//        }
+
+        Building house = (Building) animal.getHouse();
+        GameLocation indoor = house.getIndoor();
+//        Position indoorExit = house.getIndoorExitPosition(); // نقطه‌ای داخل indoor که به بیرون وصل می‌شود (مثلاً wrapper)
+        // اگر animal الان داخل خانه است، آن را باز کن تا به wrapper داخل برسد
+        if (animal.getGameLocation() != null && (animal.getGameLocation().getType() == GameLocationType.Barn_Indoor
+            || animal.getGameLocation().getType() == GameLocationType.Coop_Indoor)) {
+            animal.setMovePoints(List.of(new Position(11 , 2)));
+            animal.initializePaths(indoor);
+            return new Result(true, "animal will go to indoor exit then to farm");
+        } else {
+            // اگر بیرونه، set move to pasture point در farm
+            Position pasturePoint = new Position(((Building) house).getPosition().getX(),((Building) house).getPosition().getY() - 2 ); // جایی بیرون که می‌خواهی برود
+            animal.setMovePoints(List.of(pasturePoint));
+            animal.initializePaths(App.getMe().getPlayerFarm());
+            return new Result(true, "animal will roam outside");
+        }
+
+//        System.out.println("hooooooosha");
+//        System.out.println(animal.getHouse().toString() + " berem khana 2");
+//        if (animal.getHouse() instanceof Barn barn){
+//            animal.setMovePoints(List.of(new Position(11 , 2)));
+//            System.out.println("free animal");
+//
+//            animal.initializePaths(barn.getIndoor());
+//        } else if (animal.getHouse() instanceof Coop coop){
+//            animal.setMovePoints(List.of(new Position(2, 1)));
+//            animal.initializePaths(coop.getIndoor());
+//        }
+
+//        for (Building building : ((Farm) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation()).getBuildings()) {
+//            if (building instanceof Coop coop) {
+//                if (coop.getCapacity() < coop.getAnimals().size() + 1) {
+//                    return new Result(false, "this coop have not enough Space!");
+//                } else if (x <= coop.getWidth() + coop.getPosition().getX() && x > coop.getPosition().getX()) {
+//                    if (y <= coop.getHeight() + coop.getPosition().getY() && y > coop.getPosition().getY()) {
+//                        animal.setGoOut(false);
+//                        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+//                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+//                                animal2.setPosition(new Position(x, y));
+//                            }
+//                        }
+//                        return new Result(true, "your animal go back to their coop!");
+//                    }
+//                }
+//            } else if (building instanceof Barn) {
+//                Barn barn = (Barn) building;
+//                if (barn.getRemainingCapacity() <= 0) {
+//                    return new Result(false, "this coop have not enough Space!");
+//                } else if (x <= barn.getWidth() + barn.getPosition().getX() && x > barn.getPosition().getX()) {
+//                    if (y <= barn.getHeight() + barn.getPosition().getY() && y > barn.getPosition().getY()) {
+//                        animal.setGoOut(false);
+//                        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+//                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+//                                animal2.setPosition(new Position(x, y));
+//                            }
+//                        }
+//                        return new Result(true, "your animal go back to their barn!");
+//
+//                    }
+//                }
+//            }
+//        }
+//        animal.setGoOut(true);
+//        animal.setFed(true);
+//        animal.addFriendShip(8);
+//        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+//            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+////                animal2.get
+//                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int) animal2.getPosition().getX(), (int) animal2.getPosition().getY()).setFixedObject(null);
+////                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getType());
+//                animal.setPosition(new Position(x, y));
+//                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerFarm().getTileByPosition(x, y).setFixedObject(animal2);
+//                return new Result(true, animal2.getNickName() + " have been replaced!");
+//            }
+//        }
+//        return null;
+
+    }
+
+    public static Result sendAnimalsHome(Animal animal) {
+//        int x = Integer.parseInt(strX);
+//        int y = Integer.parseInt(strY);
+//        Animal animal = returnAnimal(animalName);
         if (App.getCurrentUser()
             .getCurrentGame()
             .getWeatherState()
@@ -100,56 +201,61 @@ public class HusbandryController extends CommandController {
             return new Result(false, "there is no animal with that name");
         } else if (!(App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() instanceof Farm)) {
             return new Result(false, "you are not in the farm!");
-        } else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject() != null || !App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) {
-            return new Result(true, "there is something exist in this tile!");
         }
+//        else if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).getFixedObject() != null || !App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition(x, y).isWalkable()) {
+//            return new Result(true, "there is something exist in this tile!");
+//        }
 
-        for (Building building : ((Farm) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation()).getBuildings()) {
-            if (building instanceof Coop coop) {
-                if (coop.getCapacity() < coop.getAnimals().size() + 1) {
-                    return new Result(false, "this coop have not enough Space!");
-                } else if (x <= coop.getWidth() + coop.getPosition().getX() && x > coop.getPosition().getX()) {
-                    if (y <= coop.getHeight() + coop.getPosition().getY() && y > coop.getPosition().getY()) {
-                        animal.setGoOut(false);
-                        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
-                                animal2.setPosition(new Position(x, y));
-                            }
-                        }
-                        return new Result(true, "your animal go back to their coop!");
-                    }
-                }
-            } else if (building instanceof Barn) {
-                Barn barn = (Barn) building;
-                if (barn.getRemainingCapacity() <= 0) {
-                    return new Result(false, "this coop have not enough Space!");
-                } else if (x <= barn.getWidth() + barn.getPosition().getX() && x > barn.getPosition().getX()) {
-                    if (y <= barn.getHeight() + barn.getPosition().getY() && y > barn.getPosition().getY()) {
-                        animal.setGoOut(false);
-                        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
-                                animal2.setPosition(new Position(x, y));
-                            }
-                        }
-                        return new Result(true, "your animal go back to their barn!");
+        animal.setMovePoints(List.of(((Building)animal.getHouse()).getDoorPosition()));
+        animal.initializePaths(App.getMe().getPlayerFarm());
 
-                    }
-                }
-            }
-        }
-        animal.setGoOut(true);
-        animal.setFed(true);
-        animal.addFriendShip(8);
-        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
-            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
-//                animal2.get
-                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int) animal2.getPosition().getX(), (int) animal2.getPosition().getY()).setFixedObject(null);
-//                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getType());
-                animal.setPosition(new Position(x, y));
-                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerFarm().getTileByPosition(x, y).setFixedObject(animal2);
-                return new Result(true, animal2.getNickName() + " have been replaced!");
-            }
-        }
+
+//        for (Building building : ((Farm) App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation()).getBuildings()) {
+//            if (building instanceof Coop coop) {
+//                if (coop.getCapacity() < coop.getAnimals().size() + 1) {
+//                    return new Result(false, "this coop have not enough Space!");
+//                } else if (x <= coop.getWidth() + coop.getPosition().getX() && x > coop.getPosition().getX()) {
+//                    if (y <= coop.getHeight() + coop.getPosition().getY() && y > coop.getPosition().getY()) {
+//                        animal.setGoOut(false);
+//                        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+//                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+//                                animal2.setPosition(new Position(x, y));
+//                            }
+//                        }
+//                        return new Result(true, "your animal go back to their coop!");
+//                    }
+//                }
+//            } else if (building instanceof Barn) {
+//                Barn barn = (Barn) building;
+//                if (barn.getRemainingCapacity() <= 0) {
+//                    return new Result(false, "this coop have not enough Space!");
+//                } else if (x <= barn.getWidth() + barn.getPosition().getX() && x > barn.getPosition().getX()) {
+//                    if (y <= barn.getHeight() + barn.getPosition().getY() && y > barn.getPosition().getY()) {
+//                        animal.setGoOut(false);
+//                        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+//                            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+//                                animal2.setPosition(new Position(x, y));
+//                            }
+//                        }
+//                        return new Result(true, "your animal go back to their barn!");
+//
+//                    }
+//                }
+//            }
+//        }
+//        animal.setGoOut(true);
+//        animal.setFed(true);
+//        animal.addFriendShip(8);
+//        for (Animal animal2 : App.getCurrentUser().getCurrentGame().getCurrentPlayer().getAnimals()) {
+//            if (animal2.getNickName().equalsIgnoreCase(animalName)) {
+////                animal2.get
+//                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation().getTileByPosition((int) animal2.getPosition().getX(), (int) animal2.getPosition().getY()).setFixedObject(null);
+////                Animal animal3 = new Animal(new Position(animal2.getPosition().getX(),animal2.getPosition().getY()),animal2.getNickName(),animal2.getType());
+//                animal.setPosition(new Position(x, y));
+//                App.getCurrentUser().getCurrentGame().getCurrentPlayer().getPlayerFarm().getTileByPosition(x, y).setFixedObject(animal2);
+//                return new Result(true, animal2.getNickName() + " have been replaced!");
+//            }
+//        }
         return null;
 
     }

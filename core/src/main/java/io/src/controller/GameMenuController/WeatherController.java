@@ -1,5 +1,6 @@
 package io.src.controller.GameMenuController;
 
+import io.src.StardewValley;
 import io.src.controller.CommandController;
 import io.src.model.App;
 import io.src.model.Enums.GameObjects.TreeType;
@@ -26,7 +27,7 @@ public class WeatherController extends CommandController {
             if (x < 0 || x > farm.getTiles()[0].length || y < 0 || y > farm.getTiles().length) {
                 return new Result(false, "X/Y out of bounds");
             }
-
+            StardewValley.getGameView().setThor(true);
             Tile tile = farm.getTiles()[y][x];
             GameObject object = tile.getFixedObject();
             if (object instanceof Crop) {

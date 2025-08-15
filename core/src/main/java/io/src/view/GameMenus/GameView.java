@@ -112,7 +112,11 @@ public class GameView implements Screen, TimeObserver {
     private DayNightLighting lighting;
     private ShapeRenderer sr = new ShapeRenderer();
     private RainSystem rainSystem = new RainSystem();
+    private ThorSystem thorSystem = new ThorSystem();
+
     private Texture whitePixel;
+    private boolean thor;
+
 //    private List<DayNightLighting.Light> lights = new ArrayList<>();
 
 
@@ -289,15 +293,13 @@ public class GameView implements Screen, TimeObserver {
         // این رفتار ممکن است بسته به آرایش اسپرایت‌تت تغییر کند — در صورت لزوم extraOffsetX/Y را تنظیم کن.
         float drawX = x - originX + extraOffsetX;
         float drawY = y - originY + extraOffsetY;
-
+        Actions.delay(2);
         renderer.getBatch().draw(frame,
             drawX, drawY,
             originX, originY,
             w, h,
             scaleX, scaleY,
             rotationDegrees);
-
-        Actions.delay(2);
     }
 
     private void renderPlayer(Player player) {
@@ -463,8 +465,13 @@ public class GameView implements Screen, TimeObserver {
         String toolName = tool.getName();
         String toolMaterial = tool.getToolType().getToolMaterial().toString();
         String toolId = toolName + toolMaterial;
+        Animation<TextureRegion> baseAnim;
+        if (toolName.equals("Scythe")){
+            baseAnim = animationManager.get(toolId, AnimationKey.valueOf("PICKAXE" + "_SWING_" + dir.toString()));
 
-        Animation<TextureRegion> baseAnim = animationManager.get(toolId, AnimationKey.valueOf(toolName.toUpperCase() + "_SWING_" + dir.toString()));
+        } else {
+            baseAnim = animationManager.get(toolId, AnimationKey.valueOf(toolName.toUpperCase() + "_SWING_" + dir.toString()));
+        }
         if (baseAnim == null) {
             Gdx.app.error("GameView", "No swing animation for tool: " + toolId);
             return;
@@ -551,7 +558,7 @@ public class GameView implements Screen, TimeObserver {
             gameMenuInputAdapter.setStopMoving(false);
             System.out.println("use fishingPole in the water");
         } else {
-            activeFishingMinigame = new FishingMinigame(stage, player, behavior,
+            activeFishingMinigame = new FishingMinigame(stage, player, behavior, fish,
                 () -> {
                     // onSuccess
                     FishingController.Fishing(fish, true); // یا تابع خودت
@@ -737,7 +744,7 @@ public class GameView implements Screen, TimeObserver {
                 renderWarningDialog();
                 updateAndDrawToolSwings(v);
 
-                App.getMe().setFinishActing(true);
+//                App.getMe().setFinishActing(true);
 
                 //Debug
 
@@ -874,10 +881,6 @@ public class GameView implements Screen, TimeObserver {
 
             renderer.getBatch().setProjectionMatrix(camera.combined);
             renderer.getBatch().begin();
-//            float overlayAlpha = 0.2f;
-//            renderer.getBatch().setColor(0f, 0.12f, 0.18f, overlayAlpha);
-//            renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//            renderer.getBatch().setColor(Color.WHITE);
 
             // update و render rain با دادن camera
             rainSystem.update(v, camera);
@@ -887,6 +890,10 @@ public class GameView implements Screen, TimeObserver {
                 rainSystem.render(renderer.getBatch() , false);
 
             }
+        }
+        if (isThor()){
+            thorSystem.update(v, camera);
+            thorSystem.render(renderer.getBatch());
         }
 
 
@@ -951,12 +958,15 @@ public class GameView implements Screen, TimeObserver {
 
 
         //END OF GRAPHICAL RENDER
-        if ((App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) && App.getMe().isFinishActing()) {
+        if ((App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) && (!App.getMe().isActing())) {
             //TODO remove this for phase three
+            renderer.getBatch().begin();
+            renderPlayer(App.getMe());
+            renderer.getBatch().end();
             GameController.manageNextTurn();
             updateMap();
         }
-        App.getMe().setFinishActing(false);
+//        App.getMe().setFinishActing(false);
     }
 
     private void handleAnimalHint(Animal animal) {
@@ -1137,6 +1147,13 @@ public RefrigeratorWindow getRefrigeratorWindow() {
 public InventoryBar getInventoryBar() {
     return inventoryBar;
 }
+
+
+public boolean isThor() {return thor;}
+public void setThor(boolean thor) {
+    this.thor = thor;
+}
+
 
 @Override
 public void onHourChanged(DateTime time, boolean newDay) {

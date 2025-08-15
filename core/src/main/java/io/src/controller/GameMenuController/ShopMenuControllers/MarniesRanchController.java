@@ -88,6 +88,7 @@ public class MarniesRanchController implements ShopController {
 
         // Instantiate and place the animal
         Animal newAnimal = new Animal(new Position(7, 3), nickName, animalType, home);
+        System.out.println(home.toString() + " berem khana");
         home.getAnimals().add(newAnimal);
         me.getAnimals().add(newAnimal);
         ((Building)home).getIndoor().getGameObjects().add(newAnimal);
