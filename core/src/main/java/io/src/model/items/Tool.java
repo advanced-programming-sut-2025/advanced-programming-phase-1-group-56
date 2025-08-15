@@ -146,7 +146,8 @@ public class Tool extends Item {
                             } else if (tile.getFixedObject().getClass() == Crop.class) {
                                 ((Crop) tile.getFixedObject()).setWateredToday(true);
                             }
-                        } else if (tile.getTileType() == TileType.PlowedSoil) {
+                        }
+                        if (tile.getTileType() == TileType.PlowedSoil) {
                             tile.setTileType(TileType.WaterPlowedSoil);
                             System.out.println("revale");
                         }
