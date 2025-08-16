@@ -79,6 +79,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
         group.addActor(label);
         addActor(group);
 
+
         this.getProductButton = new TextButton("Take Product", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "button1-2_font30GREEN");
         getProductButton.setBounds(recipesTable.getX() + recipesTable.getWidth() / 2 + 130, recipesTable.getY() - 70, 220, 60);
         this.addActor(getProductButton);
@@ -87,8 +88,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 App.getMe().getInventory().add(artesianMachine.getArtisanGood(), 1);
-                StardewValley.getGameView().getInvWindow().refreshInventory();
-                StardewValley.getGameView().getInvWindow().refreshInventory();
+                refreshTable();
                 artesianMachine.takeArtisanGood();
                 updateButtons();
                 hideDialog();
@@ -108,9 +108,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
                     for (Slot ingredient : type.getIngredients()) {
                         App.getMe().getInventory().add(ingredient.getItem(), ingredient.getQuantity());
                     }
-                    StardewValley.getGameView().getInventoryBar().refreshInventory();
-                    StardewValley.getGameView().getInvWindow().refreshInventory();
-                    StardewValley.getGameView().getInvWindow().refreshInventory();
+                    refreshTable();
                 }
                 artesianMachine.cankelProcess();
                 updateButtons();
@@ -148,6 +146,16 @@ public class ArtisanWindow extends Group implements InputProcessor {
             stopProcessButton.setVisible(true);
             skipProcessButton.setVisible(true);
         }
+    }
+
+    public void refreshTable() {
+        removeActor(table);
+        table = createInventoryTable(App.getMe().getInventory());
+        table.setPosition(375, 138);
+        group.addActor(table);
+        group.addActor(errorLabel);
+        group.addActor(label);
+        addActor(group);
     }
 
     private Group buildRecipesTable() {
@@ -196,6 +204,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
                         Result result = tryMakeArtisanGoodWithResult(recipe);
                         showErrorLabel(result.getMessage());
                         updateButtons();
+                        refreshTable();
                     }
                     return false;
                 }
