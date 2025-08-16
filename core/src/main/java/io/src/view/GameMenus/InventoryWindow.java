@@ -369,6 +369,12 @@ public class InventoryWindow extends Group implements InputProcessor {
         ImageButton imageButton = new ImageButton(style);
         ImageButton imageButton2 = new ImageButton(style2);
 
+        imageButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
         imageButton2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
