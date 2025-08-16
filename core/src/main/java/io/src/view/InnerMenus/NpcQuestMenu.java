@@ -16,6 +16,11 @@ import java.util.Arrays;
 
 public class NpcQuestMenu extends Dialog {
     private final TextButton acceptButton;
+    private final TextButton rejectButton;
+    private TextField tf1;
+    private TextField countTf1;
+    private TextField tf2;
+    private TextField countTf2;
 
     public NpcQuestMenu(Skin skin, String index, NpcRequest request, int mode, String text) {
         super("", skin);
@@ -37,6 +42,7 @@ public class NpcQuestMenu extends Dialog {
         else
             acceptButton = new TextButton(" Request ", skin, "button1-2_font30GREEN");
         TextButton cancelButten = new TextButton(" CANCEL ", skin, "button1-2_font30");
+        rejectButton = cancelButten;
         Image flashImage = new Image(new Texture(Gdx.files.internal(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("flashDirection"))));
         if (mode == 1 || mode == 0 || mode == 2)
             buttons.add(flashImage).width(120).height(80).padBottom(50).row();
@@ -83,8 +89,8 @@ public class NpcQuestMenu extends Dialog {
             item2Win.add(item2NameLabel).row();
         } else if (mode == 1) {
             Table table1 = new Table();
-            TextField tf1 = new TextField("", skin);
-            TextField countTf1 = new TextField("", skin);
+            tf1 = new TextField("", skin);
+            countTf1 = new TextField("", skin);
             countTf1.setAlignment(Align.center);
             countTf1.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
             tf1.setMessageText("for example : Pumpkin");
@@ -95,8 +101,8 @@ public class NpcQuestMenu extends Dialog {
             item1Win.add(table1);
 
             Table table2 = new Table();
-            TextField tf2 = new TextField("", skin);
-            TextField countTf2 = new TextField("", skin);
+            tf2 = new TextField("", skin);
+            countTf2 = new TextField("", skin);
             countTf2.setAlignment(Align.center);
             countTf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
             tf2.setMessageText("for example : Pumpkin");
@@ -110,8 +116,8 @@ public class NpcQuestMenu extends Dialog {
             maxImageHeight = table2.getPrefHeight();
         } else if (mode == 2) {
             Table table1 = new Table();
-            TextField tf1 = new TextField("", skin);
-            TextField countTf1 = new TextField("", skin);
+            tf1 = new TextField("", skin);
+            countTf1 = new TextField("", skin);
             countTf1.setAlignment(Align.center);
             countTf1.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
             tf1.setMessageText("for example : Pumpkin");
@@ -123,7 +129,7 @@ public class NpcQuestMenu extends Dialog {
 
             Table table2 = new Table();
             Texture tex = new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar"));
-            TextField tf2 = new TextField("", skin, "tf");
+            tf2 = new TextField("", skin, "tf");
             tf2.setMessageText("1000");
             tf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
             table2.add(new Image(tex)).width(tex.getWidth() * 10).height(tex.getHeight() * 10);
@@ -137,7 +143,7 @@ public class NpcQuestMenu extends Dialog {
         } else if (mode == 3) {
             Table table2 = new Table();
             Texture tex = new Texture(GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Shop_Hint_Dollar"));
-            TextField tf2 = new TextField("", skin, "tf");
+            tf2 = new TextField("", skin, "tf");
             tf2.setMessageText("1000");
             tf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
             table2.add(new Image(tex)).width(tex.getWidth() * 10).height(tex.getHeight() * 10);
@@ -150,8 +156,8 @@ public class NpcQuestMenu extends Dialog {
             yPadding /= 2;
         } else {
             Table table2 = new Table();
-            TextField tf2 = new TextField("", skin);
-            TextField countTf2 = new TextField("", skin);
+            tf2 = new TextField("", skin);
+            countTf2 = new TextField("", skin);
             countTf2.setAlignment(Align.center);
             countTf2.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
             tf2.setMessageText("for example : Pumpkin");
@@ -204,5 +210,42 @@ public class NpcQuestMenu extends Dialog {
         this.setVisible(false);
         StardewValley.getGameView().getGameMenuInputAdapter().setInterruptingMenuOpen(false);
         Gdx.input.setInputProcessor(StardewValley.getGameView().getGameMenuInputAdapter());
+    }
+
+
+    public TextField getCountTf2() {
+        return countTf2;
+    }
+
+    public void setCountTf2(TextField countTf2) {
+        this.countTf2 = countTf2;
+    }
+
+    public TextField getTf2() {
+        return tf2;
+    }
+
+    public void setTf2(TextField tf2) {
+        this.tf2 = tf2;
+    }
+
+    public TextField getCountTf1() {
+        return countTf1;
+    }
+
+    public void setCountTf1(TextField countTf1) {
+        this.countTf1 = countTf1;
+    }
+
+    public TextField getTf1() {
+        return tf1;
+    }
+
+    public void setTf1(TextField tf1) {
+        this.tf1 = tf1;
+    }
+
+    public TextButton getRejectButton() {
+        return rejectButton;
     }
 }

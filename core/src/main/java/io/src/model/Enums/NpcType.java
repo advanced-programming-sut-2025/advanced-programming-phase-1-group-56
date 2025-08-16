@@ -83,7 +83,7 @@ public enum NpcType {
         )),
         HarveyPrompt.class,
         "U+1F9DF",
-        "Alex",
+        "Harvey",
         Arrays.asList(
             new Position(27, 18),
             new Position(27, 28),
@@ -108,7 +108,7 @@ public enum NpcType {
         )),
         LeahPrompt.class,
         "U+1F9DD",
-        "Elliot",
+        "Leah",
         Arrays.asList(
             new Position(31, 38),
             new Position(26, 54),

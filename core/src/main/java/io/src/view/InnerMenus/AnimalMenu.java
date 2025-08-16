@@ -1,7 +1,6 @@
 package io.src.view.InnerMenus;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -13,6 +12,7 @@ import io.src.model.Enums.commands.GameCommands.HusbandryCommands;
 import io.src.model.GameAssetManager;
 import io.src.model.GameAudioManager;
 import io.src.model.GameObject.Animal;
+import io.src.model.MapModule.GameLocations.Farm;
 import io.src.model.Result;
 import io.src.view.GameMenus.GameMenu;
 import io.src.view.GameMenus.InterruptingWindow;
@@ -71,7 +71,11 @@ public class AnimalMenu extends Window implements InterruptingWindow {
         freeButton.setSize(150, 70);
         homeFreeStack.add(homeButton);
         homeFreeStack.add(freeButton);
-        freeButton.setVisible(false);
+        if (animal.getGameLocation() instanceof Farm){
+            freeButton.setVisible(false);
+        } else {
+            homeButton.setVisible(false);
+        }
 
         Table buttonTable = new Table();
         buttonTable.add(feedButton).width(150).height(70);
@@ -107,6 +111,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
+                Result result = HusbandryController.sendAnimalsHome(animal);
                 changeHomeFreeState(false);
             }
         });
@@ -115,6 +120,7 @@ public class AnimalMenu extends Window implements InterruptingWindow {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameAudioManager.getInstance().playSound(SfxEnum.NOTE_HARP.getPath(), false, GameAudioManager.sfxVolume);
+                Result result = HusbandryController.freeAnimals(animal);
                 changeHomeFreeState(true);
             }
         });

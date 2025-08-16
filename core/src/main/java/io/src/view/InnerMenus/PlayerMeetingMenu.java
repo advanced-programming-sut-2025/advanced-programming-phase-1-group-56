@@ -8,12 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import io.src.StardewValley;
 import io.src.controller.GameMenuController.FriendshipController;
+import io.src.controller.GameMenuController.TradeController;
 import io.src.model.*;
 import io.src.model.Activities.Gift;
+import io.src.model.Activities.Trade;
+import io.src.model.Enums.Items.EtcType;
 import io.src.model.Enums.NpcType;
 import io.src.model.Enums.SfxEnum;
 import io.src.model.GameObject.NPC.NpcRequest;
 import io.src.model.GameObject.PlayerObject;
+import io.src.model.items.Etc;
 import io.src.model.items.Item;
 import io.src.view.GameMenus.WarningWindow;
 
@@ -38,6 +42,7 @@ public class PlayerMeetingMenu extends Window {
     private TextButton recentTradeButton;
     private Skin skin;
     private User user;
+    private Player player;
 
     public PlayerMeetingMenu(Skin skin, User user) {
         super("", skin, "noWindow");
@@ -45,6 +50,7 @@ public class PlayerMeetingMenu extends Window {
         setFillParent(true);
         int buttonHeight = 70;
         this.user = user;
+        this.player = App.getCurrentUser().getCurrentGame().getPlayerByUser(user);
 
         Button closeButton = new Button(skin, "closeButton");
         add(closeButton).right().row();
@@ -118,7 +124,6 @@ public class PlayerMeetingMenu extends Window {
                 for (Gift marryRequest : App.getMe().getMarryRequests()) {
                     if (marryRequest.getSender().getUser().equals(user)) {
                         lastMarryRequest = marryRequest;
-                        break;
                     }
                 }
                 if (lastMarryRequest == null) {
@@ -135,8 +140,40 @@ public class PlayerMeetingMenu extends Window {
 
         recentTradeButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "", request, 0, "Do you accept the Trade?");
+                Trade trade = null;
+                for (Trade receivedTrade : App.getMe().getReceivedTrades()) {
+                    if (receivedTrade.getPlayerID().getUser().equals(user)) {
+                        trade = receivedTrade;
+                    }
+                }
+                if (trade == null) {
+                    WarningWindow warningWindow = StardewValley.getGameView().getWarningWindow();
+                    warningWindow.showDialog(user.getName(), "there is no last trade offer from  that user", 300);
+                    return;
+                }
+
+                NpcRequest request1 = makeNpcRequestFromTrade(trade);
+                NpcQuestMenu npcQuestMenu = new NpcQuestMenu(skin, "", request1, 0, "Do you accept the Trade?");
                 npcQuestMenu.show(PlayerMeetingMenu.this.getStage());
+                Trade finalTrade = trade;
+                npcQuestMenu.getAcceptButton().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Result result = TradeController.tradeResponse(true, finalTrade);
+                        StardewValley.getGameView().getWarningWindow().showDialog("Trade Response", result.getMessage(), 300);
+                        npcQuestMenu.hideDialog();
+                        hideDialog();
+                    }
+                });
+                npcQuestMenu.getRejectButton().addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        Result result = TradeController.tradeResponse(false, finalTrade);
+                        StardewValley.getGameView().getWarningWindow().showDialog("Trade Response", result.getMessage(), 300);
+                        npcQuestMenu.hideDialog();
+                        hideDialog();
+                    }
+                });
             }
         });
 
@@ -171,6 +208,19 @@ public class PlayerMeetingMenu extends Window {
                 tradeMenu.setVisible(true);
             }
         });
+    }
+
+    private NpcRequest makeNpcRequestFromTrade(Trade trade) {
+        return switch (trade.getType()) {
+            case PRODUCT_TO_PRODUCT_OFFER ->
+                new NpcRequest(trade.getItemsGets().getItem(), trade.getItemsGets().getQuantity(), trade.getItemsToGive().getItem(), trade.getItemsToGive().getQuantity());
+            case PRODUCT_TO_MONEY_OFFER ->
+                new NpcRequest(new Etc(EtcType.Money), trade.getMoneyGets(), trade.getItemsToGive().getItem(), trade.getItemsToGive().getQuantity());
+            case PRODUCT_REQUEST ->
+                new NpcRequest(trade.getItemsGets().getItem(), trade.getItemsGets().getQuantity(), EtcType.Money, 0);
+            case MONEY_REQUEST -> new NpcRequest(new Etc(EtcType.Money), trade.getMoneyGets(), EtcType.Money, 0);
+            default -> null;
+        };
     }
 
     private void makeAskMarriageDialog(Gift req) {
@@ -357,4 +407,11 @@ public class PlayerMeetingMenu extends Window {
         return bloomButton;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

@@ -254,7 +254,7 @@ public class FarmingController extends CommandController {
             seed2 = manageMixedSeed();
         }
         if (seed2.cropType instanceof CropType) {
-            Crop crop = new Crop(true, new Position(x, y), (CropType) seed.cropType);
+            Crop crop = new Crop(true, new Position(x, y), (CropType) seed.cropType, App.getMe().getCurrentGameLocation());
             if (App.getMe().getPartner() == null) {
                 if (App.getCurrentUser().getCurrentGame().getCurrentPlayer().getCurrentGameLocation() == App.getMe().getPlayerFarm().getGreenHouse().getIndoor()) {
                     crop.setInGreenHouse(true);
@@ -446,7 +446,7 @@ public class FarmingController extends CommandController {
 
                     if (cropType instanceof CropType) {
                         if (!isSuitableForCropPlanting(tt)) continue;
-                        Crop crop = new Crop(true, pos, (CropType) cropType);
+                        Crop crop = new Crop(true, pos, (CropType) cropType, farm);
                         tile.setFixedObject(crop);
                         farm.getGameObjects().add(crop);
                     } else if (cropType instanceof TreeType) {

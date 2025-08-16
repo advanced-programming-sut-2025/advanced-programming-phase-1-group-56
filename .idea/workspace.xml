@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="add window for dialog and inventory">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ArtisanWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/src/view/GameMenus/ArtisanWindow.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/gradleSetup">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="network" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Nnima2&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:advanced-programming-sut-2025/advanced-programming-phase-1-group-56.git&quot;,
+    &quot;accountId&quot;: &quot;bee11d60-58a2-482f-aaac-3d56730ac7ed&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2zJNeujxvnyLnHmIO9c8pOah9aJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortKey" value="BY_TIME_DESCENDING" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Lwjgl3Launcher.executor&quot;: &quot;Coverage&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Application.game.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.APproject:core [:core:io.src.model.GameObject.NPC.OpenRouterChat.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.APproject:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build APproject.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build advanced-programming-phase-1-group-56.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.advanced-programming-phase-1-group-56:lwjgl3 [:lwjgl3:io.src.lwjgl3.Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.gradleSetup [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.stradew valley project:lwjgl3 [:lwjgl3:Lwjgl3Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;phase2&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="io.src.view.GameMenus.ShopMenus" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="418" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="game" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="io.src.lwjgl3.Lwjgl3Launcher" />
+      <module name="APproject.lwjgl3.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c71d3090-dc67-493d-84d0-5d0b9ef27476" name="Changes" comment="" />
+      <created>1751445315527</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751445315527</updated>
+      <workItem from="1751445316868" duration="1459000" />
+      <workItem from="1753426192019" duration="100000" />
+      <workItem from="1753552738408" duration="2561000" />
+      <workItem from="1753561469023" duration="8802000" />
+      <workItem from="1753682647361" duration="4586000" />
+      <workItem from="1753802716669" duration="6891000" />
+      <workItem from="1754059521069" duration="7767000" />
+      <workItem from="1754214353734" duration="29429000" />
+      <workItem from="1754307156281" duration="2252000" />
+      <workItem from="1754317958222" duration="3860000" />
+      <workItem from="1754351686651" duration="821000" />
+      <workItem from="1754389158582" duration="4380000" />
+      <workItem from="1754398998326" duration="19071000" />
+      <workItem from="1754428003088" duration="1913000" />
+      <workItem from="1754473761626" duration="7820000" />
+      <workItem from="1754487972780" duration="18056000" />
+      <workItem from="1754731782673" duration="442000" />
+      <workItem from="1754756458828" duration="6762000" />
+      <workItem from="1754763680217" duration="4011000" />
+      <workItem from="1754820454164" duration="19012000" />
+      <workItem from="1754857260724" duration="11692000" />
+      <workItem from="1754906780449" duration="11997000" />
+      <workItem from="1754980424256" duration="16873000" />
+      <workItem from="1755005838255" duration="11954000" />
+      <workItem from="1755093679753" duration="4642000" />
+      <workItem from="1755099111196" duration="3477000" />
+      <workItem from="1755157168054" duration="1327000" />
+      <workItem from="1755175888911" duration="19857000" />
+      <workItem from="1755201336023" duration="1273000" />
+      <workItem from="1755242254156" duration="23102000" />
+      <workItem from="1755277718536" duration="5349000" />
+    </task>
+    <task id="LOCAL-00001" summary="init Game">
+      <option name="closed" value="true" />
+      <created>1753117595716</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753117595716</updated>
+    </task>
+    <task id="LOCAL-00002" summary="start create main skin">
+      <option name="closed" value="true" />
+      <created>1753549876338</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1753549876338</updated>
+    </task>
+    <task id="LOCAL-00003" summary="start create main skin">
+      <option name="closed" value="true" />
+      <created>1753556212356</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1753556212356</updated>
+    </task>
+    <task id="LOCAL-00004" summary="town isn't scaled">
+      <option name="closed" value="true" />
+      <created>1754061700947</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754061700947</updated>
+    </task>
+    <task id="LOCAL-00005" summary="some assets have been changed">
+      <option name="closed" value="true" />
+      <created>1754216016447</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1754216016447</updated>
+    </task>
+    <task id="LOCAL-00006" summary="wrapper debugging">
+      <option name="closed" value="true" />
+      <created>1754307249909</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1754307249909</updated>
+    </task>
+    <task id="LOCAL-00007" summary="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht">
+      <option name="closed" value="true" />
+      <created>1754321610759</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1754321610759</updated>
+    </task>
+    <task id="LOCAL-00008" summary="v0.4.1: initial commit after merge">
+      <option name="closed" value="true" />
+      <created>1754550895861</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1754550895861</updated>
+    </task>
+    <task id="LOCAL-00009" summary="v0.5.0: shop menu">
+      <option name="closed" value="true" />
+      <created>1754669835896</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1754669835896</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Shop UI Is Working">
+      <option name="closed" value="true" />
+      <created>1754756759110</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1754756759110</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Shop UI Is Working (70%) + Shop Mantegh Working(30%)">
+      <option name="closed" value="true" />
+      <created>1754763085782</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1754763085782</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Shop UI Is Working (95%) + Shop Mantegh Working(80%)">
+      <option name="closed" value="true" />
+      <created>1754861214220</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754861214220</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Merged with mehdi">
+      <option name="closed" value="true" />
+      <created>1754906881125</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1754906881125</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Merged with mehdi And Debug Some Shits">
+      <option name="closed" value="true" />
+      <created>1754920293874</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1754920293874</updated>
+    </task>
+    <task id="LOCAL-00015" summary="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
+      <option name="closed" value="true" />
+      <created>1754950454967</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1754950454967</updated>
+    </task>
+    <task id="LOCAL-00016" summary="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)">
+      <option name="closed" value="true" />
+      <created>1754951360654</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1754951360654</updated>
+    </task>
+    <task id="LOCAL-00017" summary="finish npcMenuState and NpcQuestMenu">
+      <option name="closed" value="true" />
+      <created>1755018126090</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1755018126090</updated>
+    </task>
+    <task id="LOCAL-00018" summary="finish NpcQuestMenu.">
+      <option name="closed" value="true" />
+      <created>1755032314143</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1755032314143</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Damdary Fixed 80%  shephered ro nazad">
+      <option name="closed" value="true" />
+      <created>1755130398649</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1755130398649</updated>
+    </task>
+    <task id="LOCAL-00020" summary="freindShips and communications with players">
+      <option name="closed" value="true" />
+      <created>1755209316831</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1755209316831</updated>
+    </task>
+    <task id="LOCAL-00021" summary="dubuged marriage">
+      <option name="closed" value="true" />
+      <created>1755247537542</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1755247537542</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Manage Tree + Debugg Farming">
+      <option name="closed" value="true" />
+      <created>1755265837851</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1755265837851</updated>
+    </task>
+    <task id="LOCAL-00023" summary="empty commit before merge">
+      <option name="closed" value="true" />
+      <created>1755269413744</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1755269413744</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add window for dialog and inventory">
+      <option name="closed" value="true" />
+      <created>1755304979234</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1755304979234</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init Game" />
+    <MESSAGE value="start create main skin" />
+    <MESSAGE value="town isn't scaled" />
+    <MESSAGE value="some assets have been changed" />
+    <MESSAGE value="wrapper debugging" />
+    <MESSAGE value="handle Town.getGameObjects bug and loading town vanity game objects dar dast sakht" />
+    <MESSAGE value="v0.4.1: initial commit after merge" />
+    <MESSAGE value="v0.5.0: shop menu" />
+    <MESSAGE value="Shop UI Is Working" />
+    <MESSAGE value="Shop UI Is Working (70%) + Shop Mantegh Working(30%)" />
+    <MESSAGE value="Shop UI Is Working (95%) + Shop Mantegh Working(80%)" />
+    <MESSAGE value="Merged with mehdi" />
+    <MESSAGE value="Merged with mehdi And Debug Some Shits" />
+    <MESSAGE value="profile menu: you can change nickname username email.todo : change avatar and change password (aks old password)" />
+    <MESSAGE value="finish npcMenuState and NpcQuestMenu" />
+    <MESSAGE value="finish NpcQuestMenu." />
+    <MESSAGE value="Damdary Fixed 80%  shephered ro nazad" />
+    <MESSAGE value="Animal hint added(small commit)" />
+    <MESSAGE value="freindShips and communications with players" />
+    <MESSAGE value="dubuged marriage" />
+    <MESSAGE value="Manage Tree + Debugg Farming" />
+    <MESSAGE value="empty commit before merge" />
+    <MESSAGE value="add window for dialog and inventory" />
+    <option name="LAST_COMMIT_MESSAGE" value="add window for dialog and inventory" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/APproject$Lwjgl3Launcher.ic" NAME="Lwjgl3Launcher Coverage Results" MODIFIED="1755135110906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>io.src.lwjgl3.*</FILTER>
+    </SUITE>
+  </component>
+</project>

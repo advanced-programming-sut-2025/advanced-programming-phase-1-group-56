@@ -78,9 +78,9 @@ public class Player implements TimeObserver {
     private boolean interactWithPartnerToday;
     private ShopState shopState = ShopState.NOT_SHOP;
     //connections
-    private final ArrayList<UUID> myTrades = new ArrayList<>();
-    private final ArrayList<UUID> receivedTrades = new ArrayList<>();
-    private final ArrayList<UUID> endedTradesHistory = new ArrayList<>();
+    private final ArrayList<Trade> myTrades = new ArrayList<>();
+    private final ArrayList<Trade> receivedTrades = new ArrayList<>();
+    private final ArrayList<Trade> endedTradesHistory = new ArrayList<>();
 
     @Expose(serialize = false, deserialize = false)
     private final ArrayList<NpcFriendship> npcFriendships = new ArrayList<>();
@@ -97,6 +97,9 @@ public class Player implements TimeObserver {
 
     private Player partner = null;
     private final PlayerObject playerObject = new PlayerObject(this, new Position(0, 0));
+
+
+    private boolean Acting = false;
 
 
     private float speed = 6.25f;
@@ -321,7 +324,7 @@ public class Player implements TimeObserver {
         this.farmPosition = farmPosition;
     }
 
-    public int getSelfGold(){
+    public int getSelfGold() {
         return gold;
     }
 
@@ -350,15 +353,15 @@ public class Player implements TimeObserver {
         return userId;
     }
 
-    public ArrayList<UUID> getEndedTradesHistory() {
+    public ArrayList<Trade> getEndedTradesHistory() {
         return endedTradesHistory;
     }
 
-    public ArrayList<UUID> getReceivedTrades() {
+    public ArrayList<Trade> getReceivedTrades() {
         return receivedTrades;
     }
 
-    public ArrayList<UUID> getMyTrades() {
+    public ArrayList<Trade> getMyTrades() {
         return myTrades;
     }
 
@@ -510,6 +513,8 @@ public class Player implements TimeObserver {
             energy.setEnergy(maxEnergy);
         }
         energy.setEnergy(energy.getEnergy() + amount);
+
+        energy.setEnergy(Math.min(energy.getEnergy(), energy.getMaxEnergy()));
     }
 
     public void subtractEnergy(double amount) {
@@ -594,6 +599,13 @@ public class Player implements TimeObserver {
     public PlayerObject getPlayerObjectPlusPosition(Position position) {
         playerObject.setPosition(position);
         return playerObject;
+    }
+    public boolean isActing() {
+        return Acting;
+    }
+
+    public void setActing(boolean finishActing) {
+        Acting = finishActing;
     }
 
     public String getAvatarAssetFullPath() {

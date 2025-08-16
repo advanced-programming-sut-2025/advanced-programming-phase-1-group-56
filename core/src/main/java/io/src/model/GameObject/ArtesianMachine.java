@@ -1,6 +1,9 @@
 package io.src.model.GameObject;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import io.src.StardewValley;
 import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.GameObjects.ArtisanMachineType;
@@ -9,8 +12,9 @@ import io.src.model.MapModule.Position;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 import io.src.model.items.ArtisanGood;
+import io.src.view.GameMenus.ArtisanWindow;
 
-public class ArtesianMachine extends GameObject implements TimeObserver, Clickable {
+public class ArtesianMachine extends GameObject implements TimeObserver, Clickable, SensitiveToPlayer {
     private ArtisanMachineType artisanMachineType;
     private ArtisanGoodType artisanGoodType;
     private ArtisanGood artisanGood;
@@ -20,8 +24,14 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
         super(walkable, position);
         this.artisanMachineType = artisanMachineType;
         this.artisanGood = null;
-//        this.processTime = artisanGoodType.getProcessingTime();
+        this.artisanGoodType = null;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+    }
+
+    public void cankelProcess() {
+        artisanGoodType = null;
+        artisanGood = null;
+        processTime = 0;
     }
 
     public void startMakeArtisanGood(ArtisanGoodType artisanGoodType) {
@@ -37,6 +47,12 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
     }
 
     public ArtisanGood getArtisanGood() {
+        return artisanGood;
+    }
+
+    public ArtisanGood takeArtisanGood() {
+        this.artisanGoodType = null;
+        this.artisanGood = null;
         return artisanGood;
     }
 
@@ -71,7 +87,6 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
 
         if (processTime <= 0) {
             finishMakeArtisanGood(new ArtisanGood(artisanGoodType));
-            artisanGoodType = null;
         }
     }
 
@@ -82,6 +97,53 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        System.out.println("Artesian Machine Touch Down");
+        ArtisanWindow artisanWindow = new ArtisanWindow(this);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(StardewValley.getGameView().getStage());
+        multiplexer.addProcessor(artisanWindow);
+        StardewValley.getGameView().getStage().addActor(artisanWindow);
+        Gdx.input.setInputProcessor(multiplexer);
+        artisanWindow.showDialog();
         return false;
     }
+
+    @Override
+    public boolean onPlayerGoesNearby(float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerGetsFar(float distance) {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerFocus() {
+        return false;
+    }
+
+    @Override
+    public boolean onPlayerDefocus() {
+        return false;
+    }
+
+    @Override
+    public float getSensitivityDistance() {
+        return 2;
+    }
+
+    public ArtisanGoodType getArtisanGoodType() {
+        return artisanGoodType;
+    }
+
+    public void setArtisanGoodType(ArtisanGoodType artisanGoodType) {
+        this.artisanGoodType = artisanGoodType;
+    }
+
+    public void setArtisanMachineType(ArtisanMachineType artisanMachineType) {
+        this.artisanMachineType = artisanMachineType;
+    }
+
 }

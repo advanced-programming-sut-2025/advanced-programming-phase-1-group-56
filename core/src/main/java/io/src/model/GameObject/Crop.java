@@ -4,8 +4,11 @@ import com.badlogic.gdx.Input;
 import io.src.model.App;
 import io.src.model.Clickable;
 import io.src.model.Enums.GameObjects.CropType;
+import io.src.model.Enums.TileType;
 import io.src.model.Enums.WeatherAndTime.WeatherType;
+import io.src.model.MapModule.GameLocations.GameLocation;
 import io.src.model.MapModule.Position;
+import io.src.model.MapModule.Tile;
 import io.src.model.TimeSystem.DateTime;
 import io.src.model.TimeSystem.TimeObserver;
 
@@ -19,16 +22,17 @@ public class Crop extends GameObject implements TimeObserver, Clickable {
     private boolean isInGreenHouse;
     private boolean isProtected;
     private int daysWithNoWater;
-    private int countCurrentStage ;
+    private int countCurrentStage;
     private int harvestDayRegrowth;
     private boolean isHarvest;
     private boolean isComplete;
     private boolean is1time;
+    private GameLocation location;
 
 
-
-    public Crop(boolean walkable, Position position,  CropType cropType) {
+    public Crop(boolean walkable, Position position, CropType cropType, GameLocation location) {
         super(walkable, position);
+        this.location = location;
         this.cropType = cropType;
         this.currentStage = 0;
         this.isWateredToday = false;
@@ -37,7 +41,7 @@ public class Crop extends GameObject implements TimeObserver, Clickable {
         this.isProtected = false;
         this.speedGro = false;
         this.deluxeRetainingSoil = false;
-        this.countCurrentStage =0;
+        this.countCurrentStage = 0;
         this.daysWithNoWater = 0;
         this.harvestDayRegrowth = 0;
         this.isHarvest = false;
@@ -93,36 +97,43 @@ public class Crop extends GameObject implements TimeObserver, Clickable {
 
     @Override
     public void onHourChanged(DateTime time, boolean newDay) {
-        if(newDay) {
-            if(!isWateredToday) {
+        if (newDay) {
+            Tile tile = location.getTileByPosition(this.position);
+            if (tile.getTileType() == TileType.WaterPlowedSoil) {
+                isWateredToday = true;
+                tile.setTileType(TileType.PlowedSoil);
+            }
+            if (isWateredToday) {
+                daysWithNoWater = 0;
+            } else {
                 daysWithNoWater++;
             }
-            if(deluxeRetainingSoil){
-                daysWithNoWater --;
+            if (deluxeRetainingSoil) {
+                daysWithNoWater = 0;
             }
             countCurrentStage++;
-            int countCurrentStage1 = cropType.stages[cropType.stages.length-1];
-            if(speedGro){
+            int countCurrentStage1 = cropType.stages[cropType.stages.length - 1];
+            if (speedGro) {
                 countCurrentStage1--;
             }
             isWateredToday = false;
-            if(cropType.regrowthTime != -1){
-                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && !isComplete) {
+            if (cropType.regrowthTime != -1) {
+                if (currentStage == cropType.stages.length - 1 && countCurrentStage == countCurrentStage1 && !isComplete) {
                     isComplete = true;
                     isHarvest = true;
                 }
                 if (countCurrentStage == cropType.stages[currentStage] && !isComplete) {
                     this.currentStage++;
                 }
-                if (isComplete){
+                if (isComplete) {
                     harvestDayRegrowth++;
                 }
-                if(harvestDayRegrowth == cropType.regrowthTime){
+                if (harvestDayRegrowth == cropType.regrowthTime) {
                     isHarvest = true;
                     harvestDayRegrowth = 0;
                 }
-            }else {
-                if (currentStage == cropType.stages.length-1 && countCurrentStage == countCurrentStage1 && !isComplete) {
+            } else {
+                if (currentStage == cropType.stages.length - 1 && countCurrentStage == countCurrentStage1 && !isComplete) {
                     isComplete = true;
                     isHarvest = true;
                     is1time = true;
@@ -131,11 +142,11 @@ public class Crop extends GameObject implements TimeObserver, Clickable {
                     this.currentStage++;
                 }
             }
-        }else{
-            if(isWateredToday) {
+        } else {
+            if (isWateredToday) {
                 daysWithNoWater = 0;
             }
-            if(App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() != WeatherType.Sunny && !isInGreenHouse){
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() != WeatherType.Sunny && !isInGreenHouse) {
                 this.isWateredToday = true;
             }
         }

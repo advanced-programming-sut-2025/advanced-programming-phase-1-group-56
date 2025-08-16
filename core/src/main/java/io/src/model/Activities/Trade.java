@@ -3,15 +3,17 @@ package io.src.model.Activities;
 import io.src.model.App;
 import io.src.model.Enums.Activity.TradeStatus;
 import io.src.model.Enums.Activity.TradeType;
+import io.src.model.Player;
 import io.src.model.Slot;
 import io.src.model.TimeSystem.DateTime;
+
 import java.util.UUID;
 
 public class Trade {
     private final UUID tradeID;
     private final DateTime timeStamp;
-    private final UUID playerID;
-    private final UUID counterPartyId;
+    private final Player playerID;
+    private final Player counterPartyId;
     private final Slot itemsToGive;
     private final TradeType type; // REQUEST or OFFER  *  MONEY or PRODUCT (4 case)
     private final Slot itemsGets;
@@ -21,8 +23,7 @@ public class Trade {
     private boolean seenByReceiver;
 
     //1.....Requests PRODUCT
-    public Trade(UUID playerID, UUID counterPartyID,Slot itemsGets)
-    {
+    public Trade(Player playerID, Player counterPartyID, Slot itemsGets) {
         this.tradeID = UUID.randomUUID();
         this.timeStamp = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
         this.playerID = playerID;
@@ -36,8 +37,7 @@ public class Trade {
     }
 
     //2....Requests Money
-    public Trade(UUID playerID, UUID counterPartyID,int moneyGets)
-    {
+    public Trade(Player playerID, Player counterPartyID, int moneyGets) {
         this.tradeID = UUID.randomUUID();
         this.timeStamp = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
         this.playerID = playerID;
@@ -51,8 +51,7 @@ public class Trade {
     }
 
     //3...Trade Product To Product
-    public Trade(UUID playerID, UUID counterPartyID,Slot itemsToGive,Slot itemsGets)
-    {
+    public Trade(Player playerID, Player counterPartyID, Slot itemsToGive, Slot itemsGets) {
         this.tradeID = UUID.randomUUID();
         this.timeStamp = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
         this.playerID = playerID;
@@ -66,8 +65,7 @@ public class Trade {
     }
 
     //4...Trade Product To Money
-    public Trade(UUID playerID, UUID counterPartyID,Slot itemsToGive,int moneyGets)
-    {
+    public Trade(Player playerID, Player counterPartyID, Slot itemsToGive, int moneyGets) {
         this.tradeID = UUID.randomUUID();
         this.timeStamp = App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime();
         this.playerID = playerID;
@@ -118,25 +116,25 @@ public class Trade {
         this.seenByReceiver = seenByReceiver;
     }
 
-    public UUID getCounterPartyId() {
+    public Player getCounterPartyId() {
         return counterPartyId;
     }
 
-    public UUID getPlayerID() {
+    public Player getPlayerID() {
         return playerID;
     }
 
     @Override
     public String toString() {
         return "\nTrade [tradeID=" + tradeID + ", timeStamp=" + timeStamp
-                + "]\n[ playerID=" + playerID + ", counterPartyId=" + counterPartyId + "]" +
-                "\nTrade Type=" + type + "\n--------------" +
-                "\nitemsToGive=" + ((itemsToGive==null)?"null":itemsToGive.getItem().getName()) +
-                "\ncount : " + ((itemsToGive==null)?"null":itemsToGive.getQuantity()) +
-                "\nitemsToGet=" + ((itemsGets==null)?"null":itemsGets.getItem().getName()) +
-                "\ncount : " + ((itemsGets==null)?"null":itemsGets.getQuantity()) +
-                "\nmoneyGets : " + moneyGets +
-                "status" + status +
-                "\nseenByReceiver : " + seenByReceiver + "\n";
+            + "]\n[ playerID=" + playerID.getUser().getName() + ", counterPartyId=" + counterPartyId.getUser().getName() + "]" +
+            "\nTrade Type=" + type + "\n--------------" +
+            "\nitemsToGive=" + ((itemsToGive == null) ? "null" : itemsToGive.getItem().getName()) +
+            "\ncount : " + ((itemsToGive == null) ? "null" : itemsToGive.getQuantity()) +
+            "\nitemsToGet=" + ((itemsGets == null) ? "null" : itemsGets.getItem().getName()) +
+            "\ncount : " + ((itemsGets == null) ? "null" : itemsGets.getQuantity()) +
+            "\nmoneyGets : " + moneyGets +
+            "\nstatus" + status +
+            "\nseenByReceiver : " + seenByReceiver + "\n";
     }
 }

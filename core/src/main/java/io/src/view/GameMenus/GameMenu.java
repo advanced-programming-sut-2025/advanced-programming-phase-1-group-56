@@ -414,13 +414,14 @@ public class GameMenu implements AppMenu, Screen {
     public boolean HusbandryCheck(String input) {
         Matcher matcher;
         if ((matcher = HusbandryCommands.pettingAnimal.getMatcher(input)) != null) {
-            result = new Result(false, "this command is deleted from terminal");
+            result = new Result (false,"this command is deleted from terminal");
             return true;
         } else if ((HusbandryCommands.showInfoAnimals.getMatcher(input)) != null) {
             result = HusbandryController.showInfoOfAnimal();
             return true;
         } else if ((matcher = HusbandryCommands.shepherdAnimals.getMatcher(input)) != null) {
-            result = HusbandryController.shepherdAnimals(matcher.group(1), matcher.group(2), matcher.group(3));
+//            result = HusbandryController.shepherdAnimals(matcher.group(1) , matcher.group(2), matcher.group(3));
+            result = new Result(true,"this command is deleted");
             return true;
         } else if ((matcher = HusbandryCommands.feedHay.getMatcher(input)) != null) {
             result = new Result(false, "this command is deleted from terminal");

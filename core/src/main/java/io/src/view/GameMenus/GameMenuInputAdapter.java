@@ -99,21 +99,10 @@ public class GameMenuInputAdapter extends InputAdapter {
         if (keysHeld.contains(Input.Keys.P)) {
             Result result;
             result = App.getCurrentMenu().checkCommand(App.getScanner(), "sp 30 40");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Bouquet -c 1");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n Wedding_Ring -c 1");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = App.getCurrentMenu().checkCommand(App.getScanner(), "hug -u Fateme2");
-            result = CarpenterMenuController.BuildABuilding("Coop", BuildingType.COOP, 20, 20);
-            result = CarpenterMenuController.BuildABuilding(BuildingType.BARN.getName(), BuildingType.BARN, 30, 30);
-            result = MarniesRanchController.buyAnimal(AnimalType.COW.getName(), "mahdi");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n wood -c 100");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add item -n stone -c 100");
+            result = App.getCurrentMenu().checkCommand(App.getScanner(), "cheat add 1000 dollars");
+
 
 //            App.getMe().getMessages().add(new Message("Salam", App.getMe(), App.getMe()));
 //            App.getMe().getMessages().add(new Message("Khobi", App.getMe(), App.getMe()));
@@ -253,13 +242,13 @@ public class GameMenuInputAdapter extends InputAdapter {
                 return true;
             } else if (focusedGameObject != null && focusedGameObject instanceof Clickable clickable) {
                 return clickable.touchDown(screenX, screenY, pointer, button);
+            } else if (App.getMe().getCurrentItem() instanceof Seed seed) {
+                Result result = FarmingController.managePlantSeed(seed.getSeedType(), App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Food) {
                 CookingController.eatFoodUI(App.getMe().getCurrentItem());
             } else if (App.getMe().getCurrentItem() instanceof Artesian) {
                 System.out.println(App.getMe().getCurrentItem().getAssetName());
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
-            } else if (App.getMe().getCurrentItem() instanceof Seed seed) {
-                Result result = FarmingController.managePlantSeed(seed.getSeedType(), App.getMe().getLastDirection());
             } else if (App.getMe().getCurrentItem() instanceof Etc) {
                 CraftingController.placeItem(App.getMe().getCurrentItem().getName(), App.getMe().getLastDirection());
             }
@@ -341,7 +330,7 @@ public class GameMenuInputAdapter extends InputAdapter {
 
         float ph = 0.8f;
         float pw = 0.8f;
-        Position pos = App.getMe().getPosition();
+        Position pos = player.getPosition();
 
         if (stopMoving) {
             vy = 0;
@@ -701,10 +690,17 @@ public class GameMenuInputAdapter extends InputAdapter {
         Direction dir = player.getLastDirection();
         if (player.getCurrentItem() instanceof Tool tool) {
             setStopMoving(true);
+            player.setActing(true);
             if (tool.getName().equals("FishingPole")) {
                 App.getStardewValley().getGameView().spawnToolSwing(tool, dir, () -> {
                     // this will run on the render thread when animation finishes
                     setStopMoving(false);///
+                    player.setActing(false);
+//                    if ((App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) && !App.getMe().isActing()) {
+//                        //TODO remove this for phase three
+//                        GameController.manageNextTurn();
+//                        StardewValley.getGameView().updateMap();
+//                    }
                 });
                 FishBehavior beh = FishBehavior.values()[MathUtils.random(FishBehavior.values().length - 1)];
                 App.getStardewValley().getGameView().startFishing(beh);
@@ -716,6 +712,8 @@ public class GameMenuInputAdapter extends InputAdapter {
                     // this will run on the render thread when animation finishes
                     ToolsController.useTools(dir.toString());
                     setStopMoving(false);///
+                    player.setActing(false);
+
                     String path = SfxEnum.ITEM_AXE_SCRAPE1.getPath();
                     switch (tool.getToolType()) {
                         case ToolType.AXE_CUPRIC:
@@ -796,38 +794,7 @@ public class GameMenuInputAdapter extends InputAdapter {
                     GameAudioManager.getInstance().playSound(path, false, GameAudioManager.sfxVolume);
                 });
             }
-
-
-//            String dir = player.getLastDirection().toString().toLowerCase();
-//            // کلید انیمیشن مطابق AnimationKey
-////            AnimationKey key = AnimationKey.valueOf(tool.getName().toUpperCase() + "_SWING_" + dir.toUpperCase());
-////            Animation<TextureRegion> anim = App.getStardewValley().getGameView().getAnimationManager().get("Axe", key);
-//            App.getStardewValley().getGameView().spawnToolSwing(tool , player.getLastDirection());
-////            App.getStardewValley().getGameView().getStage().addActor(new AxeSwingActor(anim));
-//            ToolsController.useTools(player.getLastDirection().toString());
         }
-
-
-//        OrthographicCamera camera = game.getCamera();
-//        camera.update();
-//        Vector3 worldCoordinates = camera.unproject(new Vector3(screenX, screenY, 0));
-
-
-//        int tileX = (int) (worldCoordinates.x / 16);
-//        int tileY = (int) (worldCoordinates.y / 16);
-
-//        int dx = tileX - Math.round(game.getCurrentPlayer().getPosition().getX());
-//        int dy = tileY - Math.round(game.getCurrentPlayer().getPosition().getY());
-//
-//        if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
-//            return;
-//        }
-
-//        ItemDescriptionId selectedItem = game.getPlayer().getSelectedItem();
-//        if (selectedItem != null) {
-//            gameController.useItem(selectedItem, new Point(tileX, tileY), game);
-//        }
-
     }
 
     public boolean isStopMoving() {

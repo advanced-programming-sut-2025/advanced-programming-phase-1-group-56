@@ -146,20 +146,20 @@ public class CookingController extends CommandController {
         Food food = (Food) item;
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
         App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
+        if (food.getBuff() != null)
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
         return new Result(true, "you eat " + item.getName());
     }
 
     public static void eatFoodUI(Item item) {
-        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(
-            SfxEnum.RANDOM_EAT1.getPath()
-            , SfxEnum.RANDOM_EAT2.getPath()
-            , SfxEnum.RANDOM_EAT3.getPath()
-        )), false, GameAudioManager.sfxVolume);
-        Food food = (Food) item;
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
-        App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
+        GameAudioManager.getInstance().playSound(GameAudioManager.pickRandom(Arrays.asList(SfxEnum.RANDOM_EAT1.getPath(), SfxEnum.RANDOM_EAT2.getPath(), SfxEnum.RANDOM_EAT3.getPath())),
+            false, GameAudioManager.sfxVolume);
+        if (item instanceof Food food) {
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().getInventory().remove(item, 1);
+            App.getCurrentUser().getCurrentGame().getCurrentPlayer().addEnergy(food.getEnergy());
+            if (food.getBuff() != null)
+                App.getCurrentUser().getCurrentGame().getCurrentPlayer().setCurrentBuff(new Buff(food.getBuff()));
+        }
     }
 
     private static Item returnRefrigeratorItemByName(String itemName) {

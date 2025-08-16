@@ -63,6 +63,9 @@ public class AnimationManager {
 //        TextureAtlas playerAtlas = new TextureAtlas(Gdx.files.internal("atlases/sprites_player.atlas"));
         TextureAtlas playerAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get(App.getMe().getAvatarName()));
         TextureAtlas AlexAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Alex"));
+        TextureAtlas LeahAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Leah"));
+        TextureAtlas HarveyAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Harvey"));
+
         TextureAtlas ElliotAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Elliot"));
         TextureAtlas HaleyAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Haley"));
         TextureAtlas SebastianAtlas = new TextureAtlas(GameAssetManager.getGameAssetManager().getAtlasDictionary().get("Sebastian"));
@@ -123,11 +126,11 @@ public class AnimationManager {
         characterAnimations.put("WateringCanGolden" , loadToolSwingAnimations(WateringCan4Atlas , "WateringCan"));
         characterAnimations.put("WateringCanIridium" , loadToolSwingAnimations(WateringCan5Atlas , "WateringCan"));
 
-        characterAnimations.put("ScytheWooden" , loadToolSwingAnimations(WateringCan1Atlas , "Scythe"));
-        characterAnimations.put("ScytheCupric" , loadToolSwingAnimations(WateringCan2Atlas , "Scythe"));
-        characterAnimations.put("ScytheIronic" , loadToolSwingAnimations(WateringCan3Atlas , "Scythe"));
-        characterAnimations.put("ScytheGolden" , loadToolSwingAnimations(WateringCan4Atlas , "Scythe"));
-        characterAnimations.put("ScytheIridium" , loadToolSwingAnimations(WateringCan5Atlas , "Scythe"));
+        characterAnimations.put("ScytheWooden" , loadToolSwingAnimations(Pickaxe1Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheCupric" , loadToolSwingAnimations(Pickaxe2Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheIronic" , loadToolSwingAnimations(Pickaxe3Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheGolden" , loadToolSwingAnimations(Pickaxe4Atlas , "Pickaxe"));
+        characterAnimations.put("ScytheIridium" , loadToolSwingAnimations(Pickaxe5Atlas , "Pickaxe"));
 
         characterAnimations.put("FishingPoleTraining" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
         characterAnimations.put("FishingPoleBamboo" , loadToolSwingAnimations(FishingPoleAtlas , "FishingPole"));
@@ -136,6 +139,8 @@ public class AnimationManager {
 
 
         characterAnimations.put("Alex", loadCharacterAnimationsNumeric(AlexAtlas));
+        characterAnimations.put("Harvey", loadCharacterAnimationsNumeric(HarveyAtlas));
+        characterAnimations.put("Leah", loadCharacterAnimationsNumeric(LeahAtlas));
         characterAnimations.put("Elliot", loadCharacterAnimationsNumeric(ElliotAtlas));
         characterAnimations.put("Haley", loadCharacterAnimationsNumeric(HaleyAtlas));
         characterAnimations.put("Sebastian", loadCharacterAnimationsNumeric(SebastianAtlas));
@@ -177,12 +182,10 @@ public class AnimationManager {
     private ObjectMap<AnimationKey, Animation<TextureRegion>> loadCharacterAnimationsNumeric(TextureAtlas atlas) {
         ObjectMap<AnimationKey, Animation<TextureRegion>> map = new ObjectMap<>();
 
-        // ۱۶ فریم را از داخل atlas بگیریم
         Array<TextureAtlas.AtlasRegion> allRegions = atlas.getRegions();
-        // مرتب‌سازی بر اساس فیلد index (باید از قبل در .atlas تنظیم شده باشد)
+
         allRegions.sort((a, b) -> Integer.compare(a.index, b.index));
 
-        // بررسی تضمینی: اگر کمتر از 16 فریم داریم، ارور بده
         if (allRegions.size < 16) {
             Gdx.app.error("AnimationManager", "Expected ≥16 regions but found " + allRegions.size);
             return map;
@@ -205,6 +208,8 @@ public class AnimationManager {
             else if (i < 12)    up.add(r);
             else                left.add(r);
         }
+
+//        map.put(AnimationKey.FAINTED , new Animation<>(1f, new Array<>(new TextureRegion[]{allRegions.get()}), Animation.PlayMode.NORMAL));
 
         // بسازیم AnimationKey و Animation ها را
         map.put(AnimationKey.WALK_DOWN,  new Animation<>(0.15f, down,  Animation.PlayMode.LOOP));

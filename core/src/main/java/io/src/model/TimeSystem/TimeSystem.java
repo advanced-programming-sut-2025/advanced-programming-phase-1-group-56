@@ -46,6 +46,6 @@ public class TimeSystem {
     }
 
     public DateTime getDateTime() {
-        return time;
+        return new DateTime(time);
     }
 }

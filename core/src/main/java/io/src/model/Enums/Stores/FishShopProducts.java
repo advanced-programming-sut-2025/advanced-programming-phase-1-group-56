@@ -56,17 +56,6 @@ public enum FishShopProducts implements Store {
             1
         )
     ),
-    FIBERGLASS_ROD(
-        new NpcProduct(
-            "Fiberglass Rod",
-            QualityPole.FiberglassRod,
-            "Use in the water to catch fish.",
-            1800,
-            2,
-            new Seasons[]{Seasons.Spring, Seasons.Summer, Seasons.Fall, Seasons.Winter},
-            1
-        )
-    ),
     IRIDIUM_ROD(
         new NpcProduct(
             "Iridium Rod",

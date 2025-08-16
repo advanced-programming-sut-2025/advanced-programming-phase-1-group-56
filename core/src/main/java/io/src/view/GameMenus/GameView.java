@@ -11,7 +11,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -104,7 +109,11 @@ public class GameView implements Screen, TimeObserver {
     private DayNightLighting lighting;
     private ShapeRenderer sr = new ShapeRenderer();
     private RainSystem rainSystem = new RainSystem();
+    private ThorSystem thorSystem = new ThorSystem();
+
     private Texture whitePixel;
+    private boolean thor;
+
 //    private List<DayNightLighting.Light> lights = new ArrayList<>();
 
     private Image foodBuffImage = null;
@@ -227,9 +236,83 @@ public class GameView implements Screen, TimeObserver {
         renderer.getBatch().draw(frame, x, y);
     }
 
+    private void renderCharacter(String characterName, AnimationKey key,
+                                 float x, float y,
+                                 float rotationDegrees,
+                                 float scaleX, float scaleY,
+                                 float extraOffsetX, float extraOffsetY) {
+
+        Animation<TextureRegion> animation = animationManager.get(characterName, key);
+        if (animation == null) return;
+
+        // state time tracking (ObjectMap<String, Float> stateTimeMap داریم)
+        if (!stateTimeMap.containsKey(characterName)) {
+            stateTimeMap.put(characterName, 0f);
+        }
+        float newStateTime = stateTimeMap.get(characterName) + Gdx.graphics.getDeltaTime();
+        stateTimeMap.put(characterName, newStateTime);
+
+        TextureRegion frame = animation.getKeyFrame(newStateTime);
+        if (frame == null) return;
+
+        float w = frame.getRegionWidth();
+        float h = frame.getRegionHeight();
+
+        // origin = مرکز فریم (چرخش حول مرکز)
+        float originX = w / 2f;
+        float originY = h / 2f;
+
+        // drawX/drawY: اگر x,y همان موقعیت پیکسلی پایین-چپ کاراکتر باشد،
+        // برای اینکه مرکز تصویر روی موقعیت کاراکتر قرار بگیرد، باید نصف عرض/ارتفاع را کم کنیم.
+        // این رفتار ممکن است بسته به آرایش اسپرایت‌تت تغییر کند — در صورت لزوم extraOffsetX/Y را تنظیم کن.
+        float drawX = x - originX + extraOffsetX;
+        float drawY = y - originY + extraOffsetY;
+        Actions.delay(2);
+        renderer.getBatch().draw(frame,
+            drawX, drawY,
+            originX, originY,
+            w, h,
+            scaleX, scaleY,
+            rotationDegrees);
+    }
+
     private void renderPlayer(Player player) {
         float x = player.getPixelPosition().getX(), y = player.getPixelPosition().getY();
         AnimationKey key;
+
+        if (player.isFainted()) {
+            // از یک فریم IDLE جهت آخرین جهت استفاده کن
+            switch (player.getLastDirection()) {
+                case UP -> key = AnimationKey.IDLE_UP;
+                case DOWN -> key = AnimationKey.IDLE_DOWN;
+                case LEFT -> key = AnimationKey.IDLE_LEFT;
+                default -> key = AnimationKey.IDLE_RIGHT;
+            }
+
+            // تعیین زاویه برای "افتادن" — قابل تنظیم:
+            // پیشنهاد اولیه:
+            //   - اگر قبلاً رو به بالا بود (UP) یا پایین (DOWN) یه جهت بگیر (مثلاً 90/-90)
+            //   - اگر قبلاً سمت راست/چپ بود هم به همون صورت
+            float rotation = 0f;
+            switch (player.getLastDirection()) {
+                case UP -> rotation = 90f;    // تنظیم دلخواه: امتحان کن
+                case DOWN -> rotation = -90f;
+                case LEFT -> rotation = 90f;
+                case RIGHT -> rotation = -90f;
+            }
+
+            float scaleX = 1f;
+            float scaleY = 1f;
+
+
+            float extraOffsetX = 0f;
+            float extraOffsetY = 0f;
+
+
+            renderCharacter("player", key, x, y, rotation, scaleX, scaleY, extraOffsetX, extraOffsetY);
+            return;
+        }
+
         if (player.isMoving()) {
             switch (player.getLastDirection()) {
                 case UP:
@@ -413,8 +496,13 @@ public class GameView implements Screen, TimeObserver {
         String toolName = tool.getName();
         String toolMaterial = tool.getToolType().getToolMaterial().toString();
         String toolId = toolName + toolMaterial;
+        Animation<TextureRegion> baseAnim;
+        if (toolName.equals("Scythe")) {
+            baseAnim = animationManager.get(toolId, AnimationKey.valueOf("PICKAXE" + "_SWING_" + dir.toString()));
 
-        Animation<TextureRegion> baseAnim = animationManager.get(toolId, AnimationKey.valueOf(toolName.toUpperCase() + "_SWING_" + dir.toString()));
+        } else {
+            baseAnim = animationManager.get(toolId, AnimationKey.valueOf(toolName.toUpperCase() + "_SWING_" + dir.toString()));
+        }
         if (baseAnim == null) {
             Gdx.app.error("GameView", "No swing animation for tool: " + toolId);
             return;
@@ -501,7 +589,7 @@ public class GameView implements Screen, TimeObserver {
             gameMenuInputAdapter.setStopMoving(false);
             System.out.println("use fishingPole in the water");
         } else {
-            activeFishingMinigame = new FishingMinigame(stage, player, behavior,
+            activeFishingMinigame = new FishingMinigame(stage, player, behavior, fish,
                 () -> {
                     // onSuccess
                     FishingController.Fishing(fish, true); // یا تابع خودت
@@ -630,6 +718,8 @@ public class GameView implements Screen, TimeObserver {
                 handlePlayerHint((playerObject));
                 updateAndDrawToolSwings(v);
 
+//                App.getMe().setFinishActing(true);
+
                 //Debug
 
                 //GREEN HIT BOX
@@ -702,13 +792,16 @@ public class GameView implements Screen, TimeObserver {
 //                lights.add(new DayNightLighting.Light(wx, wy, 120f, 1f));
 //            }
 
-            if (go instanceof ArtesianMachine) {
+            if (go instanceof ArtesianMachine artesianMachine) {
                 worldX -= 25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
                     region.getRegionWidth(), 0,
                     region.getRegionWidth(), region.getRegionHeight(),
                     0.5f, 0.5f, 0);
+                renderer.getBatch().end();
+                makeGreenBar((ArtesianMachine) go, worldX, worldY);
+                renderer.getBatch().begin();
             } else {
                 renderer.getBatch().draw(region,
                     worldX, worldY,
@@ -748,26 +841,36 @@ public class GameView implements Screen, TimeObserver {
 //
 //            }
 //        }
-        if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
+        if ((App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy || App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
+
             renderer.getBatch().end();
 
             renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
             renderer.getBatch().begin();
-            renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) {
+                renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            } else {
+                renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
+            }
             renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             renderer.getBatch().setColor(Color.WHITE);
             renderer.getBatch().end();
 
             renderer.getBatch().setProjectionMatrix(camera.combined);
             renderer.getBatch().begin();
-//            float overlayAlpha = 0.2f;
-//            renderer.getBatch().setColor(0f, 0.12f, 0.18f, overlayAlpha);
-//            renderer.getBatch().draw(whitePixel, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//            renderer.getBatch().setColor(Color.WHITE);
 
             // update و render rain با دادن camera
             rainSystem.update(v, camera);
-            rainSystem.render(renderer.getBatch());
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) {
+                rainSystem.render(renderer.getBatch(), true);
+            } else {
+                rainSystem.render(renderer.getBatch(), false);
+
+            }
+        }
+        if (isThor()) {
+            thorSystem.update(v, camera);
+            thorSystem.render(renderer.getBatch());
         }
 
 
@@ -824,10 +927,47 @@ public class GameView implements Screen, TimeObserver {
 
 
         //END OF GRAPHICAL RENDER
-        if (App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) {
+        if ((App.getMe().isFainted() || App.getMe().getEnergyUsage() > 50) && (!App.getMe().isActing())) {
             //TODO remove this for phase three
+            renderer.getBatch().begin();
+            renderPlayer(App.getMe());
+            renderer.getBatch().end();
             GameController.manageNextTurn();
             updateMap();
+        }
+//        App.getMe().setFinishActing(false);
+    }
+
+    private void makeGreenBar(ArtesianMachine artesianMachine, float worldX, float worldY) {
+        if (artesianMachine.getArtisanGoodType() != null) {
+            float totalTime = artesianMachine.getArtisanGoodType().getProcessingTime();
+            float elapsedTime = artesianMachine.getArtisanGoodType().getProcessingTime() - artesianMachine.getProcessTime();
+
+            if (totalTime <= 0) return;
+
+            float progress = Math.min(1f, Math.max(0f, elapsedTime / totalTime));
+            float barMaxWidth = 30f;
+            float barHeight = 6f;
+
+            float barX = artesianMachine.getPosition().getX() * TILE_SIZE - barMaxWidth / 2f + 10;
+            float barY = artesianMachine.getPosition().getY() * TILE_SIZE + 50f;
+
+            shapeRenderer.setProjectionMatrix(camera.combined);
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.DARK_GRAY);
+            shapeRenderer.rect(barX, barY, barMaxWidth, barHeight);
+
+            shapeRenderer.setColor(Color.GREEN);
+            shapeRenderer.rect(barX, barY, barMaxWidth * progress, barHeight);
+            shapeRenderer.end();
+            renderer.getBatch().begin();
+            int percent = (int) (progress * 100);
+            BitmapFont font = GameAssetManager.getGameAssetManager().getSkin().getFont("StardewValley");
+            font.getData().setScale(0.24f);
+            font.setColor(Color.WHITE);
+            font.draw(renderer.getBatch(), percent + "%", barX + barMaxWidth + 1, barY + barHeight);
+            renderer.getBatch().end();
         }
     }
 
@@ -950,7 +1090,7 @@ public class GameView implements Screen, TimeObserver {
     public void handleNpcHint(NPC npc) {
         if (npc.isDialogReady() && npc.isMeetHint()) {
             Texture texture = new Texture(Gdx.files.internal(
-                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("exclamation_mark")
+                GameAssetManager.getGameAssetManager().getAssetsDictionary().get("Dialogbox_MAZ")
             ));
             TextureRegion region = new TextureRegion(texture);
             float x = npc.getPixelPosition().x, y = npc.getPixelPosition().y;
@@ -1102,6 +1242,14 @@ public class GameView implements Screen, TimeObserver {
 
     public InventoryBar getInventoryBar() {
         return inventoryBar;
+    }
+
+    public boolean isThor() {
+        return thor;
+    }
+
+    public void setThor(boolean thor) {
+        this.thor = thor;
     }
 
     @Override
