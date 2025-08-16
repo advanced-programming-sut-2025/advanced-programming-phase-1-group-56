@@ -24,6 +24,7 @@ import io.src.model.*;
 import io.src.model.Enums.Items.*;
 import io.src.model.Enums.Recepies.FoodRecipesList;
 import io.src.model.GameObject.ArtesianMachine;
+import io.src.model.items.ArtisanGood;
 import io.src.model.items.Food;
 import io.src.model.items.Inventory;
 import io.src.model.items.Item;
@@ -44,6 +45,10 @@ public class ArtisanWindow extends Group implements InputProcessor {
     private ArtesianMachine artesianMachine;
     private Label label;
     private TextButton getProductButton;
+    private TextButton stopProcessButton;
+    private TextButton skipProcessButton;
+    private Group recipesTable;
+
 
     public ArtisanWindow(ArtesianMachine artesianMachine) {
         this.artesianMachine = artesianMachine;
@@ -62,7 +67,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
         background.setSize(getWidth(), getHeight());
         group.addActor(background);
 
-        Group recipesTable = buildRecipesTable();
+        recipesTable = buildRecipesTable();
         recipesTable.setPosition(0, 0);
         recipesTable.setSize(750, 580);
         group.addActor(recipesTable);
@@ -74,22 +79,75 @@ public class ArtisanWindow extends Group implements InputProcessor {
         group.addActor(label);
         addActor(group);
 
-        if (artesianMachine.getArtisanGood() != null) {
-            this.getProductButton = new TextButton("Product Ready\nClick to get!", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "button1-2_font30GREEN");
-            getProductButton.setBounds(recipesTable.getX() + recipesTable.getWidth() / 2 - 125, recipesTable.getY() - 110, 250, 100);
-            this.addActor(getProductButton);
-            getProductButton.setVisible(true);
-            getProductButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    App.getMe().getInventory().add(artesianMachine.getArtisanGood(), 1);
-                    artesianMachine.setArtisanGood(null);
-                    hideDialog();
+        this.getProductButton = new TextButton("Take Product", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "button1-2_font30GREEN");
+        getProductButton.setBounds(recipesTable.getX() + recipesTable.getWidth() / 2 + 130, recipesTable.getY() - 70, 220, 60);
+        this.addActor(getProductButton);
+        getProductButton.setVisible(true);
+        getProductButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                App.getMe().getInventory().add(artesianMachine.getArtisanGood(), 1);
+                StardewValley.getGameView().getInvWindow().refreshInventory();
+                StardewValley.getGameView().getInvWindow().refreshInventory();
+                artesianMachine.takeArtisanGood();
+                updateButtons();
+                hideDialog();
+            }
+        });
+
+
+        this.stopProcessButton = new TextButton("Stop Process", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "button1-2_font30");
+        stopProcessButton.setBounds(recipesTable.getX() + recipesTable.getWidth() / 2 - 350, recipesTable.getY() - 70, 220, 60);
+        this.addActor(stopProcessButton);
+        stopProcessButton.setVisible(true);
+        stopProcessButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ArtisanGoodType type = artesianMachine.getArtisanGoodType();
+                if (type.getIngredients() != null) {
+                    for (Slot ingredient : type.getIngredients()) {
+                        App.getMe().getInventory().add(ingredient.getItem(), ingredient.getQuantity());
+                    }
+                    StardewValley.getGameView().getInventoryBar().refreshInventory();
+                    StardewValley.getGameView().getInvWindow().refreshInventory();
+                    StardewValley.getGameView().getInvWindow().refreshInventory();
                 }
-            });
+                artesianMachine.cankelProcess();
+                updateButtons();
+                showErrorLabel("Process Cankeled Successfully...");
+            }
+        });
+
+        this.skipProcessButton = new TextButton("Skip Process", SkinManager.getInstance().getSkin(SkinManager.MAIN_SKIN), "button1-2_font30GREEN");
+        skipProcessButton.setBounds(recipesTable.getX() + recipesTable.getWidth() / 2 - 110, recipesTable.getY() - 70, 220, 60);
+        this.addActor(skipProcessButton);
+        skipProcessButton.setVisible(true);
+        skipProcessButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                artesianMachine.finishMakeArtisanGood(new ArtisanGood(artesianMachine.getArtisanGoodType()));
+                artesianMachine.setProcessTime(0);
+                artesianMachine.setArtisanGoodType(null);
+                artesianMachine.onHourChanged(App.getCurrentUser().getCurrentGame().getTimeSystem().getDateTime(), true);
+                updateButtons();
+                showErrorLabel("Process Skipped Successfully...");
+            }
+        });
+
+
+        updateButtons();
+    }
+
+    private void updateButtons() {
+        getProductButton.setVisible(false);
+        stopProcessButton.setVisible(false);
+        skipProcessButton.setVisible(false);
+        if (artesianMachine.getArtisanGood() != null) {
+            getProductButton.setVisible(true);
+        } else if (artesianMachine.getArtisanGoodType() != null && artesianMachine.getProcessTime() > 0) {
+            stopProcessButton.setVisible(true);
+            skipProcessButton.setVisible(true);
         }
-
-
     }
 
     private Group buildRecipesTable() {
@@ -137,6 +195,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
                         System.out.println("yes");
                         Result result = tryMakeArtisanGoodWithResult(recipe);
                         showErrorLabel(result.getMessage());
+                        updateButtons();
                     }
                     return false;
                 }
@@ -291,7 +350,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
     private Result tryMakeArtisanGoodWithResult(ArtisanGoodType product) {
         Player player = App.getCurrentUser().getCurrentGame().getCurrentPlayer();
-
+        Result result = new Result(false, "bug in ArtisanWindow/tryMakeArtisanGoodWithResult");
         // Check if all required ingredients exist in player's inventory
         if (product.getIngredients() != null) {
             for (Slot ingredient : product.getIngredients()) {
@@ -336,7 +395,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
                     boolean anyOreFound = false;
                     for (String oreName : ores) {
-                        if (player.getInventory().countItem(player.getInventory().findItemByName(oreName)) > ingredient.getQuantity()) {
+                        if (player.getInventory().countItem(player.getInventory().findItemByName(oreName)) >= ingredient.getQuantity()) {
                             anyOreFound = true;
                             break;
                         }
@@ -347,7 +406,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
 
                 if (!foundIngredient) {
                     // Check if player has specific item with enough quantity
-                    if (player.getInventory().countItem(player.getInventory().findItemByName(ingredient.getItem().getName())) <= ingredient.getQuantity()) {
+                    if (player.getInventory().countItem(player.getInventory().findItemByName(ingredient.getItem().getName())) < ingredient.getQuantity()) {
                         return new Result(false, "Not enough " + ingredientName + " in inventory.");
                     }
                 }
@@ -357,7 +416,6 @@ public class ArtisanWindow extends Group implements InputProcessor {
             // All ingredients exist, remove them now
             for (Slot ingredient : product.getIngredients()) {
                 String ingredientName = ingredient.getItem().getName();
-
                 if (ingredientName.equals("Any Fish")) {
                     for (Slot playerSlot : player.getInventory().getSlots()) {
                         if (playerSlot.getItem() != null
@@ -391,7 +449,7 @@ public class ArtisanWindow extends Group implements InputProcessor {
                         }
                     }
                 } else {
-                    player.getInventory().remove(ingredient.getItem(), ingredient.getQuantity());
+                    player.getInventory().remove(App.getMe().getInventory().findItemByName(ingredient.getItem().getName()), ingredient.getQuantity());
                 }
             }
 

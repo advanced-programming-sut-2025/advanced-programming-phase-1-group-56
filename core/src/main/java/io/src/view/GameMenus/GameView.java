@@ -497,7 +497,7 @@ public class GameView implements Screen, TimeObserver {
         String toolMaterial = tool.getToolType().getToolMaterial().toString();
         String toolId = toolName + toolMaterial;
         Animation<TextureRegion> baseAnim;
-        if (toolName.equals("Scythe")){
+        if (toolName.equals("Scythe")) {
             baseAnim = animationManager.get(toolId, AnimationKey.valueOf("PICKAXE" + "_SWING_" + dir.toString()));
 
         } else {
@@ -792,13 +792,16 @@ public class GameView implements Screen, TimeObserver {
 //                lights.add(new DayNightLighting.Light(wx, wy, 120f, 1f));
 //            }
 
-            if (go instanceof ArtesianMachine) {
+            if (go instanceof ArtesianMachine artesianMachine) {
                 worldX -= 25;
                 renderer.getBatch().draw(region,
                     worldX, worldY,
                     region.getRegionWidth(), 0,
                     region.getRegionWidth(), region.getRegionHeight(),
                     0.5f, 0.5f, 0);
+                renderer.getBatch().end();
+                makeGreenBar((ArtesianMachine) go, worldX, worldY);
+                renderer.getBatch().begin();
             } else {
                 renderer.getBatch().draw(region,
                     worldX, worldY,
@@ -838,13 +841,13 @@ public class GameView implements Screen, TimeObserver {
 //
 //            }
 //        }
-        if ((App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy || App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town) ){
+        if ((App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Rainy || App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) && (App.getMe().getCurrentGameLocation() instanceof Farm || App.getMe().getCurrentGameLocation() instanceof Town)) {
 
             renderer.getBatch().end();
 
             renderer.getBatch().setProjectionMatrix(stage.getViewport().getCamera().combined);
             renderer.getBatch().begin();
-            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow){
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) {
                 renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
             } else {
                 renderer.getBatch().setColor(0f, 0.12f, 0.18f, 0.7f);
@@ -858,14 +861,14 @@ public class GameView implements Screen, TimeObserver {
 
             // update و render rain با دادن camera
             rainSystem.update(v, camera);
-            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow){
-                rainSystem.render(renderer.getBatch() ,true);
+            if (App.getCurrentUser().getCurrentGame().getWeatherState().getTodayWeather() == WeatherType.Snow) {
+                rainSystem.render(renderer.getBatch(), true);
             } else {
-                rainSystem.render(renderer.getBatch() , false);
+                rainSystem.render(renderer.getBatch(), false);
 
             }
         }
-        if (isThor()){
+        if (isThor()) {
             thorSystem.update(v, camera);
             thorSystem.render(renderer.getBatch());
         }
@@ -933,6 +936,39 @@ public class GameView implements Screen, TimeObserver {
             updateMap();
         }
 //        App.getMe().setFinishActing(false);
+    }
+
+    private void makeGreenBar(ArtesianMachine artesianMachine, float worldX, float worldY) {
+        if (artesianMachine.getArtisanGoodType() != null) {
+            float totalTime = artesianMachine.getArtisanGoodType().getProcessingTime();
+            float elapsedTime = artesianMachine.getArtisanGoodType().getProcessingTime() - artesianMachine.getProcessTime();
+
+            if (totalTime <= 0) return;
+
+            float progress = Math.min(1f, Math.max(0f, elapsedTime / totalTime));
+            float barMaxWidth = 30f;
+            float barHeight = 6f;
+
+            float barX = artesianMachine.getPosition().getX() * TILE_SIZE - barMaxWidth / 2f + 10;
+            float barY = artesianMachine.getPosition().getY() * TILE_SIZE + 50f;
+
+            shapeRenderer.setProjectionMatrix(camera.combined);
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.DARK_GRAY);
+            shapeRenderer.rect(barX, barY, barMaxWidth, barHeight);
+
+            shapeRenderer.setColor(Color.GREEN);
+            shapeRenderer.rect(barX, barY, barMaxWidth * progress, barHeight);
+            shapeRenderer.end();
+            renderer.getBatch().begin();
+            int percent = (int) (progress * 100);
+            BitmapFont font = GameAssetManager.getGameAssetManager().getSkin().getFont("StardewValley");
+            font.getData().setScale(0.24f);
+            font.setColor(Color.WHITE);
+            font.draw(renderer.getBatch(), percent + "%", barX + barMaxWidth + 1, barY + barHeight);
+            renderer.getBatch().end();
+        }
     }
 
     private void handleAnimalHint(Animal animal) {
@@ -1208,7 +1244,10 @@ public class GameView implements Screen, TimeObserver {
         return inventoryBar;
     }
 
-    public boolean isThor() {return thor;}
+    public boolean isThor() {
+        return thor;
+    }
+
     public void setThor(boolean thor) {
         this.thor = thor;
     }

@@ -24,8 +24,14 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
         super(walkable, position);
         this.artisanMachineType = artisanMachineType;
         this.artisanGood = null;
-//        this.processTime = artisanGoodType.getProcessingTime();
+        this.artisanGoodType = null;
         App.getCurrentUser().getCurrentGame().getTimeSystem().addObserver(this);
+    }
+
+    public void cankelProcess() {
+        artisanGoodType = null;
+        artisanGood = null;
+        processTime = 0;
     }
 
     public void startMakeArtisanGood(ArtisanGoodType artisanGoodType) {
@@ -41,6 +47,12 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
     }
 
     public ArtisanGood getArtisanGood() {
+        return artisanGood;
+    }
+
+    public ArtisanGood takeArtisanGood() {
+        this.artisanGoodType = null;
+        this.artisanGood = null;
         return artisanGood;
     }
 
@@ -75,7 +87,6 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
 
         if (processTime <= 0) {
             finishMakeArtisanGood(new ArtisanGood(artisanGoodType));
-            artisanGoodType = null;
         }
     }
 
@@ -122,4 +133,17 @@ public class ArtesianMachine extends GameObject implements TimeObserver, Clickab
     public float getSensitivityDistance() {
         return 2;
     }
+
+    public ArtisanGoodType getArtisanGoodType() {
+        return artisanGoodType;
+    }
+
+    public void setArtisanGoodType(ArtisanGoodType artisanGoodType) {
+        this.artisanGoodType = artisanGoodType;
+    }
+
+    public void setArtisanMachineType(ArtisanMachineType artisanMachineType) {
+        this.artisanMachineType = artisanMachineType;
+    }
+
 }
